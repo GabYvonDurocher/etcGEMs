@@ -43,6 +43,9 @@ COG_SECTOR_MAP: Dict[str, str] = {
 }
 SECTORS = ["f_metab", "f_bio", "f_chaperone", "f_other"]
 LB_TEMPS = [16, 25, 30, 37, 43]
+# per-medium temperature series present in the DeyuWang proteomics columns
+MEDIUM_TEMPS = {"LB": [16, 25, 30, 37, 43],
+                "Glucose": [25, 30, 37], "Glycerol": [25, 30, 37]}
 _MW_PER_RESIDUE = 110.0   # Da; mean residue mass for a length-based MW estimate
 
 
@@ -96,6 +99,29 @@ def load_temperature_proteome(path: str, b_to_uniprot: Optional[Dict[str, str]] 
     return df
 
 
+def sector_fractions_by_medium(df: pd.DataFrame, media_temps=None) -> pd.DataFrame:
+    """MASS-weighted sector fractions computed SEPARATELY for each growth medium
+    series in the proteomics (LB / Glucose / Glycerol at their measured
+    temperatures). Returns a long DataFrame with columns medium, temp_C and the
+    four sector fractions. Requires sector + MW columns (from
+    ``load_temperature_proteome``)."""
+    media_temps = media_temps or MEDIUM_TEMPS
+    rows = []
+    for medium, temps in media_temps.items():
+        for T in temps:
+            cols = [c for c in (f"{medium}{T}_1_norm", f"{medium}{T}_2_norm",
+                                f"{medium}{T}_1", f"{medium}{T}_2") if c in df.columns]
+            if not cols:
+                continue
+            mass = df[cols].mean(axis=1) * df["MW"]
+            by = mass.groupby(df["sector"]).sum()
+            tot = by.sum()
+            row = {"medium": medium, "temp_C": T}
+            row.update({s: float(by.get(s, 0.0) / tot) if tot > 0 else np.nan for s in SECTORS})
+            rows.append(row)
+    return pd.DataFrame(rows)
+
+
 def sector_fractions_vs_T(df: pd.DataFrame, temps=LB_TEMPS) -> pd.DataFrame:
     """MASS-weighted sector mass fractions at each temperature (rows: temperature;
     columns: the four sectors, summing to 1)."""
@@ -113,49 +139,55 @@ def sector_fractions_vs_T(df: pd.DataFrame, temps=LB_TEMPS) -> pd.DataFrame:
 # ---------------------------------------------------------------------------
 # temperature-dependent allocation for the sector model
 # ---------------------------------------------------------------------------
+_SETMEDIUM_TO_PROTEOME = {"LB": "LB", "glucose_minimal": "Glucose",
+                          "glycerol_minimal": "Glycerol", "glycerol": "Glycerol"}
+
+
 @dataclass
 class TemperatureAllocation:
-    """Maps a temperature (C) to model sector fractions (f_metab, f_maint) from
-    measured proteomics. The model's three sectors (metabolic / biosynthesis /
-    maintenance) map onto the four measured sectors as
-
-        f_metab(model)  <- f_metab(measured)
-        f_maint(model)  <- f_chaperone + f_other (measured)
-        f_bio(model)    <- f_bio(measured)   (= 1 - f_metab - f_maint)
-
-    To preserve the nominal calibration, the model fractions are scaled by the
-    *relative* change of the measured fractions about a reference temperature
-    (default 30 C, the model T0): at the reference the allocation equals the
-    strain's nominal sectors, and its temperature dependence follows the data.
-    Outside [min, max] measured temperature the fractions are clamped."""
-    temps: np.ndarray                # measured temperatures (C)
-    emp_metab: np.ndarray            # measured f_metab(T)
-    emp_maint: np.ndarray            # measured f_chaperone + f_other (T)
-    ref_C: float = 30.0
-    f_metab_nom: float = 0.5
-    f_maint_nom: float = 0.15
+    """Maps (medium, temperature) to model sector fractions (f_metab, f_maint) from
+    the measured, MEDIUM-matched proteome. The three model sectors map onto the four
+    measured sectors as f_metab<-f_metab, f_maint<-f_chaperone+f_other, f_bio<-f_bio
+    (= 1 - f_metab - f_maint). The measured fractions are used as ABSOLUTE
+    allocations: a run under LB uses the LB proteome fractions (high ribosome/f_bio ->
+    high translation cap), a run under glucose-minimal uses the Glucose fractions
+    (high metabolic pool, low f_bio) — the growth-law effect, straight from data, not
+    fitted. ``active_medium`` (set by set_medium) selects the curve; temperature is
+    interpolated within each medium's measured range and clamped outside it."""
+    per_medium: Dict[str, tuple]     # medium -> (temps, f_metab, f_maint) arrays
+    default_medium: str = "Glucose"
+    active_medium: str = "Glucose"
 
     @classmethod
-    def from_fractions(cls, sf: pd.DataFrame, ref_C: float = 30.0,
-                       f_metab_nom: float = 0.5, f_maint_nom: float = 0.15):
-        temps = sf.index.to_numpy(float)
-        return cls(temps=temps,
-                   emp_metab=sf["f_metab"].to_numpy(float),
-                   emp_maint=(sf["f_chaperone"] + sf["f_other"]).to_numpy(float),
-                   ref_C=ref_C, f_metab_nom=f_metab_nom, f_maint_nom=f_maint_nom)
+    def from_medium_fractions(cls, sf_long: pd.DataFrame, default_medium: str = "Glucose"):
+        per = {}
+        for med, g in sf_long.groupby("medium"):
+            g = g.sort_values("temp_C")
+            per[med] = (g["temp_C"].to_numpy(float), g["f_metab"].to_numpy(float),
+                        (g["f_chaperone"] + g["f_other"]).to_numpy(float))
+        dm = default_medium if default_medium in per else next(iter(per))
+        return cls(per_medium=per, default_medium=dm, active_medium=dm)
 
-    def _interp(self, arr, T_C):
-        lo, hi = float(self.temps.min()), float(self.temps.max())
-        return float(np.interp(np.clip(T_C, lo, hi), self.temps, arr))
+    def set_active_medium(self, medium: str):
+        m = _SETMEDIUM_TO_PROTEOME.get(medium, medium)
+        self.active_medium = m if m in self.per_medium else self.default_medium
+
+    def nominal(self, ref_C: float = 30.0):
+        """Nominal (default-medium) (f_metab, f_maint) at the reference temperature."""
+        temps, fm, fmaint = self.per_medium[self.default_medium]
+        lo, hi = float(temps.min()), float(temps.max())
+        Tc = np.clip(ref_C, lo, hi)
+        return float(np.interp(Tc, temps, fm)), float(np.interp(Tc, temps, fmaint))
 
     def model_alloc(self, T_C: float):
-        """Return (f_metab, f_maint) for the sector model at temperature T_C."""
-        m_ref = self._interp(self.emp_metab, self.ref_C)
-        mt_ref = self._interp(self.emp_maint, self.ref_C)
-        f_metab = self.f_metab_nom * (self._interp(self.emp_metab, T_C) / m_ref) if m_ref > 0 else self.f_metab_nom
-        f_maint = self.f_maint_nom * (self._interp(self.emp_maint, T_C) / mt_ref) if mt_ref > 0 else self.f_maint_nom
-        # keep the simplex valid (f_bio = 1 - f_metab - f_maint > 0)
-        if f_metab + f_maint > 0.95:
+        """(f_metab, f_maint) for the active medium at temperature T_C."""
+        temps, fm, fmaint = self.per_medium.get(self.active_medium,
+                                                self.per_medium[self.default_medium])
+        lo, hi = float(temps.min()), float(temps.max())
+        Tc = float(np.clip(T_C, lo, hi))
+        f_metab = float(np.interp(Tc, temps, fm))
+        f_maint = float(np.interp(Tc, temps, fmaint))
+        if f_metab + f_maint > 0.95:            # keep the simplex valid (f_bio > 0)
             s = 0.95 / (f_metab + f_maint)
             f_metab, f_maint = f_metab * s, f_maint * s
         return f_metab, f_maint
