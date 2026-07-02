@@ -1,0 +1,13 @@
+# Variance-decomposition experiment (H1.3): partition TPC-descriptor variance
+# into proteome-allocation vs thermal-envelope contributions (Shapley).
+# NOTE: consumed by a decomposition module that is not implemented yet; running
+# `etcgem decompose` will report that and exit until it is added.
+kind: decompose
+decomposition:
+  method: shapley           # Shapley variance attribution
+  factors:                  # groups of inputs whose contributions are compared
+    allocation: [budget_scale]                 # proteome allocation
+    envelope:   [dTopt, topt_scale, dCp_scale]  # thermal envelope shape
+  descriptors: [Topt_C, rmax, CTmax_C, niche_width_C]  # targets to decompose
+  n_samples: 256
+  seed: 1
