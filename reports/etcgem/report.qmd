@@ -143,17 +143,24 @@ print(c[cols].head(10).round(4).to_markdown(index=False))
 
 ```{python}
 #| label: tbl-ident
-#| tbl-cap: "Identifiability summary of per-enzyme thermal parameters from the growth TPC."
+#| tbl-cap: "Identifiability of per-enzyme thermal/catalytic parameters from the growth TPC, computed proteome-wide (all enzymes × {Topt_i, dCp_i, kcat_i}) as a first-order control-magnitude proxy. The proteome-wide identifiable fraction is small, whereas among the top-K finite-difference control enzymes (`refined`) most parameters are identifiable — few enzymes dominate control (H1.1) while most parameters need omics constraints (H1.2)."
 #| output: asis
 import pandas as pd
 
 idf = pd.read_csv("assets/tables/identifiability.csv")
 n = len(idf)
-n_ident = int(idf["identifiable_from_growth"].sum()) if "identifiable_from_growth" in idf else 0
-mean_ident = idf["ident"].mean() if "ident" in idf else float("nan")
+n_ident = int(idf["identifiable_from_growth"].sum())
+ref = idf[idf["refined"]] if "refined" in idf.columns else idf.iloc[0:0]
+n_ref = len(ref)
+n_ident_ref = int(ref["identifiable_from_growth"].sum()) if n_ref else 0
+frac = f"{n_ident}/{n} ({n_ident/n:.1%})" if n else "n/a"
+frac_topk = f"{n_ident_ref}/{n_ref} ({n_ident_ref/n_ref:.1%})" if n_ref else "n/a"
 summ = pd.DataFrame({
-    "quantity": ["parameters", "identifiable from growth", "mean identifiability"],
-    "value": [n, f"{n_ident} / {n}", round(mean_ident, 3)],
+    "quantity": ["parameters (enzymes × 3)",
+                 "identifiable from growth (proteome-wide)",
+                 "identifiable among top-K control enzymes",
+                 "mean identifiability score"],
+    "value": [n, frac, frac_topk, round(idf["ident"].mean(), 3)],
 })
 print(summ.to_markdown(index=False))
 ```

@@ -238,17 +238,21 @@ def run_control(pm, tpc_temps_C, perturb=None, screen_top_k=100,
     sum_thermal = float(thermal_df[topt_cc_col].sum()) \
         if len(thermal_df) and topt_cc_col in thermal_df else np.nan
 
-    # -- identifiability map --
-    ident_df = _identifiability(thermal_df, rate_df, temp_descs, opt_lab,
+    # -- identifiability map (PROTEOME-WIDE: one row per enzyme x parameter) --
+    ident_df = _identifiability(ents, ids, enz, thermal_screen, rate_screen,
+                                thermal_df, rate_df, temp_descs, opt_lab,
                                 identifiable_threshold)
 
-    # Aggregate identifiability over the FULL parameter space (3 params per enzyme:
-    # Topt_i, dCp_i, kcat_i). Enzymes not reached by the screen never limit at any
-    # analysed T -> ~0 control -> non-identifiable from growth alone (the etc-GEM
-    # under-determination that motivates omics). Counting only analysed enzymes
-    # would bias the fraction high, since those are the high-control ones.
-    n_ident = int((ident_df["identifiable_from_growth"]).sum()) if len(ident_df) else 0
-    n_params_total = 3 * len(ents)
+    # Report BOTH the proteome-wide identifiable fraction (over all 3 params per
+    # enzyme -- expected small: most parameters cannot be inferred from growth
+    # alone, the etc-GEM under-determination that motivates omics) and, separately,
+    # the fraction among the top-K finite-difference control enzymes (the
+    # `refined` rows -- expected high, since those are selected as high-control).
+    n_total = int(len(ident_df))                       # == 3 * n_enzymes
+    n_ident = int(ident_df["identifiable_from_growth"].sum()) if n_total else 0
+    refined = ident_df[ident_df["refined"]] if n_total else ident_df
+    n_topk = int(len(refined))
+    n_ident_topk = int(refined["identifiable_from_growth"].sum()) if n_topk else 0
     summary = {
         "analysis_temps_C": temps,
         "nominal": {k: nom.get(k) for k in ("Topt_C", "CT_max_C", "rmax", "niche_width_C")},
@@ -263,56 +267,105 @@ def run_control(pm, tpc_temps_C, perturb=None, screen_top_k=100,
             .head(10)[["rxn_id", "enzyme_id", fcc_opt_col[0]]].to_dict("records")
             if fcc_opt_col and len(rate_df) else []),
         "identifiability": {
-            "n_params_total": n_params_total,
-            "n_params_analysed": int(len(ident_df)),
+            "method": "first-order control-magnitude proxy (screen), refined by "
+                      "finite difference on top-K; NOT Fisher information",
+            "n_params_total": n_total,
+            # proteome-wide (headline: small)
             "n_identifiable_from_growth": n_ident,
-            "frac_identifiable": (n_ident / n_params_total) if n_params_total else float("nan"),
-            "frac_requires_omics": (1 - n_ident / n_params_total) if n_params_total else float("nan"),
+            "frac_identifiable": (n_ident / n_total) if n_total else float("nan"),
+            "frac_requires_omics": (1 - n_ident / n_total) if n_total else float("nan"),
+            # among top-K finite-difference control enzymes (refined rows: high)
+            "n_refined_topk": n_topk,
+            "n_identifiable_topk": n_ident_topk,
+            "frac_identifiable_topk": (n_ident_topk / n_topk) if n_topk else float("nan"),
             "threshold": identifiable_threshold,
         },
     }
     return ControlResult(temps, usage_df, thermal_df, rate_df, ident_df, summary)
 
 
-def _identifiability(thermal_df, rate_df, temp_descs, opt_lab, threshold):
-    """Per (enzyme, parameter) normalised control magnitude + identifiable flag.
+def _norm_abs(series):
+    m = series.abs().max()
+    return series.abs() / m if m and np.isfinite(m) and m > 0 else series.abs() * 0.0
 
-    Each descriptor's CC is normalised by its max |CC| across the analysed
-    enzymes (so descriptors are comparable); ident = max_D |CC_norm|.
+
+def _fd_ident_lookup(thermal_df, rate_df, temp_descs, opt_lab):
+    """Finite-difference identifiability, keyed by (rxn_id, parameter).
+
+    Reproduces the previous (top-K only) metric: each descriptor's CC is
+    normalised by its max |CC| across the analysed enzymes (so descriptors are
+    comparable) and ident = max_D |CC_norm|; for kcat_i the FCC at the optimum.
+    Returns {(rxn_id, param): (ident, top_descriptor)}.
     """
-    rows = []
-
-    def _norm(series):
-        m = series.abs().max()
-        return series.abs() / m if m and np.isfinite(m) and m > 0 else series.abs() * 0.0
-
-    # Topt_i and dCp_i from thermal_df
+    out = {}
     if len(thermal_df):
-        for pname, suffix in (("Topt_i", "Topt_i"), ("dCp_i", "dCp_i")):
-            cols = [f"CC[{D},{suffix}]" for D in temp_descs if f"CC[{D},{suffix}]" in thermal_df]
+        for pname in ("Topt_i", "dCp_i"):
+            cols = [f"CC[{D},{pname}]" for D in temp_descs if f"CC[{D},{pname}]" in thermal_df]
             if not cols:
                 continue
-            norm = pd.DataFrame({c: _norm(thermal_df[c]) for c in cols})
+            norm = pd.DataFrame({c: _norm_abs(thermal_df[c]) for c in cols})
             for k in range(len(thermal_df)):
                 vals = norm.iloc[k]
                 ident = float(vals.max()) if len(vals) else 0.0
                 top = temp_descs[int(np.argmax(vals.values))] if len(vals) else None
-                rows.append({"rxn_id": thermal_df.iloc[k]["rxn_id"],
-                             "enzyme_id": thermal_df.iloc[k]["enzyme_id"],
-                             "parameter": pname, "ident": ident,
-                             "top_descriptor": top,
-                             "identifiable_from_growth": ident > threshold})
-    # kcat_i from FCC at opt (control on rmax/B0)
+                out[(thermal_df.iloc[k]["rxn_id"], pname)] = (ident, top)
     fcc_col = [c for c in rate_df.columns if c.startswith(f"FCC_{opt_lab}_")]
     if fcc_col and len(rate_df):
-        norm = _norm(rate_df[fcc_col[0]])
+        norm = _norm_abs(rate_df[fcc_col[0]])
         for k in range(len(rate_df)):
             ident = float(norm.iloc[k]) if np.isfinite(norm.iloc[k]) else 0.0
-            rows.append({"rxn_id": rate_df.iloc[k]["rxn_id"],
-                         "enzyme_id": rate_df.iloc[k]["enzyme_id"],
-                         "parameter": "kcat_i", "ident": ident,
-                         "top_descriptor": "rmax",
-                         "identifiable_from_growth": ident > threshold})
+            out[(rate_df.iloc[k]["rxn_id"], "kcat_i")] = (ident, "rmax")
+    return out
+
+
+def _identifiability(ents, ids, enz, thermal_screen, rate_screen,
+                     thermal_df, rate_df, temp_descs, opt_lab, threshold):
+    """PROTEOME-WIDE per (enzyme, parameter) identifiability proxy + flag.
+
+    A first-order control-magnitude proxy (NOT a Fisher-information / profile-
+    likelihood analysis): for every enzyme and each of its thermal/rate
+    parameters, the identifiability score is the cheap Stage-A screen quantity
+    (usage share x analytic parameter sensitivity), max-normalised across the
+    proteome so it is comparable to the finite-difference metric. Where a top-K
+    finite-difference control coefficient exists it replaces the proxy (more
+    accurate) and the row is marked ``refined = True``.
+
+    Parameters
+    ----------
+    thermal_screen : array over ALL enzymes -- usage x thermal sensitivity
+        (shared first-order proxy for the thermal-envelope params Topt_i, dCp_i).
+    rate_screen : array over ALL enzymes -- max usage share (proxy for kcat_i).
+    """
+    ts = np.asarray(thermal_screen, float)
+    rs = np.asarray(rate_screen, float)
+    ts_max = ts.max() if ts.size and ts.max() > 0 else 1.0
+    rs_max = rs.max() if rs.size and rs.max() > 0 else 1.0
+    t_norm = ts / ts_max
+    r_norm = rs / rs_max
+    fd = _fd_ident_lookup(thermal_df, rate_df, temp_descs, opt_lab)
+
+    rows = []
+    # thermal-envelope parameters: shared usage x thermal-sensitivity proxy
+    for pname in ("Topt_i", "dCp_i"):
+        for i, e in enumerate(ents):
+            ident, top, refined = float(t_norm[i]), "CT_max_C", False
+            if (ids[i], pname) in fd:
+                ident, top = fd[(ids[i], pname)]
+                refined = True
+            rows.append({"rxn_id": ids[i], "enzyme_id": enz[i], "parameter": pname,
+                         "ident": ident, "top_descriptor": top,
+                         "identifiable_from_growth": ident > threshold,
+                         "refined": refined})
+    # catalytic capacity: usage-share proxy, refined by FCC where available
+    for i, e in enumerate(ents):
+        ident, top, refined = float(r_norm[i]), "rmax", False
+        if (ids[i], "kcat_i") in fd:
+            ident, top = fd[(ids[i], "kcat_i")]
+            refined = True
+        rows.append({"rxn_id": ids[i], "enzyme_id": enz[i], "parameter": "kcat_i",
+                     "ident": ident, "top_descriptor": top,
+                     "identifiable_from_growth": ident > threshold,
+                     "refined": refined})
     return pd.DataFrame(rows)
 
 
@@ -424,8 +477,10 @@ def run(cfg, out_dir, no_plots=False):
     idf = res.summary["identifiability"]
     print(f"[control] summation: sum_FCC(opt)={sc['sum_FCC_at_opt']:.3g} "
           f"sum_CC_Topt={sc['sum_CC_Topt_org_wrt_Topt_i']:.3g}")
-    print(f"[control] identifiable-from-growth {idf['n_identifiable_from_growth']}/"
-          f"{idf['n_params_total']} params ({idf['frac_identifiable']:.1%}); "
-          f"{idf['n_params_analysed']} analysed")
+    print(f"[control] identifiable-from-growth (proteome-wide) "
+          f"{idf['n_identifiable_from_growth']}/{idf['n_params_total']} params "
+          f"({idf['frac_identifiable']:.1%}); among top-K control "
+          f"{idf['n_identifiable_topk']}/{idf['n_refined_topk']} "
+          f"({idf['frac_identifiable_topk']:.1%})")
     print(f"[control] wrote {out_dir}")
     return out_dir
