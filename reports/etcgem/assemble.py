@@ -40,6 +40,7 @@ RUNS = {
     "proteome":   os.path.join(STRAIN, "proteome_sectors"),      # temperature proteomics
     "validation": os.path.join(STRAIN, "validation"),            # empirical TPC fit
     "ablation":   os.path.join(STRAIN),                          # ablation_* live in outputs/
+    "percurve":   os.path.join(STRAIN, "percurve_validation"),   # emergent per-curve validation
 }
 
 FIG_DIR = os.path.join(HERE, "assets", "figures")
@@ -64,6 +65,8 @@ FIGURES = [
     ("proteome",   "sector_pred_vs_meas.png",      "proteome_sector_pred_vs_meas.png"),
     ("validation", "complete_vs_empirical_tpc.png", "complete_vs_empirical_tpc.png"),
     ("ablation",   "ablation_comparison.png",      "ablation_comparison.png"),
+    ("percurve",   "percurve_smallmultiples.png",  "percurve_smallmultiples.png"),
+    ("percurve",   "percurve_R2_distribution.png", "percurve_R2_distribution.png"),
 ]
 
 TABLES = [
@@ -81,6 +84,8 @@ TABLES = [
     ("proteome",   "validation_correlations.csv","proteome_validation_correlations.csv"),
     ("validation", "validation_summary.json",   "validation_summary.json"),
     ("ablation",   "ablation_summary.csv",      "ablation_summary.csv"),
+    ("percurve",   "percurve_table.csv",        "percurve_table.csv"),
+    ("percurve",   "percurve_summary.json",     "percurve_summary.json"),
 ]
 
 # resolved_config.yaml for supplementary provenance: first available wins.

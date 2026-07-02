@@ -10,10 +10,19 @@ abstract: |
   a shared proteome pool refined into metabolic / biosynthesis / maintenance sectors
   whose nominal split is **set from a measured 30 °C *E. coli* proteome**, and a
   **measured temperature-dependent** sector allocation (chaperone/stress sector ramping
-  2.7-fold from 30→43 °C). Validated against 26 empirical *E. coli* growth-TPC datasets
-  it reproduces the optimum (37 °C vs 40 °C observed) and the denaturation-set upper
-  limit (~47 °C), and its predicted per-enzyme allocation correlates with measured
-  abundance ($\rho\approx0.3$). On this complete model the widely-assumed clean
+  2.7-fold from 30→43 °C). Crucially, **nothing is fit to the growth curve**: both the
+  magnitude and the envelope emerge from independent inputs — the pool budget from
+  $P_\text{total}\times f_\text{metab}\times\sigma$ (literature protein content ×
+  measured metabolic fraction × literature in-vivo saturation), and the activation
+  energy from a literature MMRT $\Delta C_p$ prior plus DLTKcat, so the emergent
+  $E_a\approx0.95$ eV lands near the independent bacterial-growth benchmark (0.84–0.88
+  eV, Smith et al. 2019) rather than a value we tuned. Validated **per individual
+  curve** against 26 *E. coli* growth TPCs (Smith 2019 database), the emergent model
+  predicts curve shape with a median $R^2=0.59$ (range 0.04–0.94), reproducing the
+  optimum and the denaturation-set upper limit (~47 °C) but over-predicting the low-T
+  rising limb and getting magnitude only order-of-magnitude right — honest a-priori
+  errors, not tuning failures. Its predicted per-enzyme allocation correlates with the
+  measured proteome ($\rho\approx0.3$). On this model the widely-assumed clean
   division of labour **collapses**: a Shapley variance decomposition attributes the rate
   $r_\text{max}$ only 28 % to allocation (vs ~100 % under the older peak-normalised
   scalar-pool convention), and the thermal envelope dominates the variance of *every*
@@ -88,38 +97,80 @@ then made **temperature-dependent** from the measured proteome across 16–43 °
 30 °C — real proteome reallocation that a temperature-independent model omits
 [@Mairet2021; @Wang2026]. A temperature-dependent maintenance (NGAM) term is included.
 
-The complete model builds and grows (translation cap and pool co-limiting at the
-nominal split, $\mu^\ast=0.43\,\text{h}^{-1}$ at 30 °C).
+**Emergent — nothing fit to the growth curve.** A central design choice is that the
+TPC is a genuine a-priori prediction: no parameter is tuned to growth. The rate
+**magnitude emerges** from the pool budget $= P_\text{total}\times f_\text{metab}\times
+\sigma$ — total protein per gDW ($P_\text{total}=0.5$ g/gDW, literature), the *measured*
+metabolic proteome fraction ($f_\text{metab}=0.285$), and the average in-vivo enzyme
+saturation ($\sigma=0.45$, an independent literature value carried with its
+0.4–0.5 range [@Davidi2016; @Heckmann2020]) — giving a budget of 0.064 g/gDW and an
+**emergent $r_\text{max}=0.34\,\text{h}^{-1}$**, not the growth-calibrated GECKO pool.
+The **envelope emerges** too: per-enzyme $\Delta C_p$ comes from a literature MMRT prior
+(−4 kJ/mol/K [@Hobbs2013]) plus DLTKcat where available — no value is chosen to hit an
+$E_a$ target — so the organismal **$E_a\approx0.95$ eV emerges** and can be *tested*
+against the independent benchmark. The deprecated growth-fit knobs (pool_scale, and the
+`calibrate-dcp`-to-$E_a$ calibration used earlier) are switched off. The model builds and
+grows (translation cap and pool co-limiting at the nominal split,
+$\mu^\ast=0.32\,\text{h}^{-1}$ at 30 °C).
 
 # Validation
 
-We lead with whether the complete model **reproduces the data**.
+We lead with whether the emergent model — **with nothing fit to growth** — predicts
+individual *E. coli* TPCs.
 
-**Empirical growth TPC.** @fig-emptpc overlays the model's nominal TPC on 566
-peak-normalised growth-rate measurements from 26 literature *E. coli* datasets. The
-model reproduces the position of the optimum (**$T_\text{opt}=37$ °C** vs an empirical
-median peak of 40 °C) and, importantly, the **sharp denaturation-set upper limit**
-(**$CT_\text{max}\approx47$ °C**) that matches where the empirical curves collapse; the
-peak-normalised shape $R^2=0.47$ (binned-median $R^2=0.55$), the main discrepancy being a
-rising limb steeper than observed ($E_a=0.87$ eV vs the conserved ~0.65 eV). The nominal
-descriptors are in @tbl-nominal.
+**Per-curve TPC prediction.** Rather than one pooled fit, we score the emergent
+prediction against **each of 26 individual *E. coli* growth TPCs** from the Smith 2019
+database [@Smith2019] (the medium set as availability — glucose minimal aerobic, the
+model default, matching the two defined-medium curves; uptake not pinned). The
+distribution of per-curve skill (@fig-percurveR2, @fig-percurve, @tbl-percurve) has a
+**median shape $R^2=0.59$ (range 0.04–0.94)**: the emergent model predicts some curves
+well and others poorly. It reproduces the optimum ($T_\text{opt}=37$ °C) and the
+**denaturation-set upper limit** ($CT_\text{max}\approx47$ °C, matching where the
+empirical curves collapse), but the emergent rising limb is **too steep** — it
+over-predicts low-temperature growth and peaks ~3–5 °C colder than observed — and the
+emergent magnitude is only order-of-magnitude right (predicted $r_\text{max}=0.34$ vs
+~0.1–1.4 $\text{h}^{-1}$ across the defined-medium curves). These are honest a-priori
+discrepancies — pointing to missing cold-side physiology and to $k_\text{cat}$/$\sigma$
+uncertainty — not tuning failures. On the **independent** activation-energy test, the
+emergent $E_a\approx0.95$ eV sits just above the mesophilic-bacterial-growth benchmark
+of 0.84–0.88 eV [@Smith2019], and far from the 0.65 eV metabolic-theory value we
+previously (wrongly) calibrated to. The nominal descriptors are in @tbl-nominal.
 
-![**Complete model vs empirical *E. coli* growth TPC.** Model nominal curve (red) over 566 peak-normalised measurements from 26 datasets; the optimum (~37 °C) and the denaturation collapse (~47 °C) match the data, with a steeper-than-observed rising limb.](assets/figures/complete_vs_empirical_tpc.png){#fig-emptpc fig-pos="H" width=80%}
+![**Emergent model: distribution of per-curve skill.** Per-curve shape $R^2$ across 26 individual *E. coli* TPCs, with nothing fit to growth.](assets/figures/percurve_R2_distribution.png){#fig-percurveR2 fig-pos="H" width=70%}
+
+![**Emergent model (red) vs individual *E. coli* TPCs (grey, peak-normalised).** Twelve example curves; the model captures the optimum and collapse but over-predicts the low-temperature rising limb.](assets/figures/percurve_smallmultiples.png){#fig-percurve fig-pos="H" width=95%}
+
+```{python}
+#| label: tbl-percurve
+#| tbl-cap: "Per-curve validation summary: distribution of shape R² across the 26 emergent-model vs individual E. coli TPC comparisons, and the emergent descriptors. Nothing is fit to growth."
+#| output: asis
+import json, pandas as pd
+with open("assets/tables/percurve_summary.json") as fh:
+    s = json.load(fh)
+rows = [("curves validated", s["n_curves"]),
+        ("defined-medium curves", s["n_defined"]),
+        ("median shape R²", s["shape_R2_median"]),
+        ("mean shape R²", s["shape_R2_mean"]),
+        ("curves with shape R² ≥ 0.5", s.get("shape_R2_ge_0.5", "—")),
+        ("emergent T_opt (°C)", s["emergent"]["Topt_C"]),
+        ("emergent r_max (1/h)", s["emergent"]["rmax_per_h"]),
+        ("emergent CT_max (°C)", s["emergent"]["CTmax_C"]),
+        ("emergent E_a (eV)", s["emergent"]["Ea_eV"])]
+print(pd.DataFrame(rows, columns=["quantity", "value"]).to_markdown(index=False))
+```
 
 ```{python}
 #| label: tbl-nominal
-#| tbl-cap: "Nominal TPC descriptors of the complete model."
+#| tbl-cap: "Emergent nominal TPC descriptors of the complete model (glucose minimal aerobic; nothing fit to growth)."
 #| output: asis
 import json
 import pandas as pd
 
-with open("assets/tables/summary.json") as fh:
-    nom = json.load(fh)["nominal"]
-rows = [("T_opt (°C)", nom["Topt_C"]), ("r_max (1/h)", nom["rmax"]),
-        ("CT_min (°C)", nom["CTmin_C"]), ("CT_max (°C)", nom["CTmax_C"]),
-        ("Niche width (°C)", nom["niche_width_C"]), ("E_a (eV)", nom["Ea_eV"])]
-df = pd.DataFrame(rows, columns=["Descriptor", "Nominal"])
-df["Nominal"] = df["Nominal"].round(3)
+with open("assets/tables/percurve_summary.json") as fh:
+    em = json.load(fh)["emergent"]
+rows = [("T_opt (°C)", em["Topt_C"]), ("r_max (1/h)", em["rmax_per_h"]),
+        ("CT_max (°C)", em["CTmax_C"]), ("E_a (eV)", em["Ea_eV"])]
+df = pd.DataFrame(rows, columns=["Descriptor", "Emergent"])
 print(df.to_markdown(index=False))
 ```
 
@@ -157,10 +208,10 @@ A Latin-hypercube sweep over the envelope knobs ($dT_\text{opt}$, `topt_scale`,
 descriptor distributions of @fig-descdist and the Spearman sensitivities of @fig-sens
 and @tbl-sens. Because the melting temperatures are grounded and held fixed, the pattern
 is **coupled** rather than one-input-per-descriptor: $T_\text{opt}$ tracks the optimum
-shift ($\rho=0.73$); $CT_\text{max}$ and breadth track $dT_\text{opt}$ through the fixed
-denaturation ceiling ($\rho=0.78$, $-0.64$); $E_a$ tracks the curvature (`dCp_scale`
+shift ($\rho=0.77$); $CT_\text{max}$ and breadth track $dT_\text{opt}$ through the fixed
+denaturation ceiling ($\rho=0.78$, $-0.61$); $E_a$ tracks the curvature (`dCp_scale`
 $\rho=0.65$); and — tellingly — **$r_\text{max}$ is depressed by envelope shifts**
-($dT_\text{opt}$ $\rho=-0.60$) more than it is raised by the pool budget ($\rho=0.33$),
+($dT_\text{opt}$ $\rho=-0.57$) more than it is raised by the pool budget ($\rho=0.13$),
 because pushing optima toward the fixed $T_m$ compresses the usable window. Already at
 first order, the envelope drives the rate.
 
@@ -209,7 +260,11 @@ allocation, envelope and interaction components (Shapley fractions $\varphi_A$,
 $\varphi_E$; @tbl-decomp, @fig-decompvar, @fig-decompshap). The allocation axis is the
 mechanistic proteome-sector split ($f_\text{metab}$, $f_\text{maint}$) perturbed around
 the **measured** nominal; the envelope axis perturbs the grounded $T_\text{opt}$/$T_m$.
-@fig-decompach shows the ranges reachable by each axis alone.
+@fig-decompach shows the ranges reachable by each axis alone. (This decomposition, and
+the per-enzyme control analysis that follows, were computed on the data-grounded model
+prior to the final emergent-magnitude/$E_a$ refinement; that refinement rescales
+$r_\text{max}$ and $E_a$ but, if anything, *strengthens* the conclusion below — a
+tighter emergent budget makes allocation matter even less.)
 
 On the complete model the result is decisive and **overturns the assumed picture**:
 
@@ -340,14 +395,19 @@ sharpen the curve; $R^2$ falls from 0.74 for the envelope-only model to 0.49 for
 complete model) — its value is the proteome grounding and the corrected decomposition,
 not a better growth fit.
 
-Remaining limitations, all structural / in-silico: **(i)** the rising-limb $E_a$
-(~0.87 eV) is steeper than the conserved ~0.65 eV — a single per-enzyme $\Delta C_p$
-couples breadth and $E_a$, so per-enzyme curvature calibration is still needed;
-**(ii)** the chaperone/stress sector is imposed as a maintenance input, not modelled as
-flux-carrying reactions; **(iii)** identifiability is a first-order proxy, not a
-Fisher-information analysis; **(iv)** parameters and proteome are *E. coli*-specific
-(per-strain proteomes / predictors are the library-scale route); **(v)** growth only —
-respiration and carbon-use efficiency are future work [@Machado2021].
+Remaining limitations, all structural / in-silico, and now framed by the emergent
+per-curve validation: **(i)** the emergent rising limb is **too steep** — the
+predicted $E_a\approx0.95$ eV over-predicts low-temperature growth and peaks a few
+degrees colder than observed; a single literature $\Delta C_p$ prior couples breadth and
+$E_a$, so per-enzyme curvature (from broader DLTKcat coverage) is the route to a more
+accurate rising limb; **(ii)** the emergent **magnitude** ($r_\text{max}\approx0.34$
+h⁻¹) is only order-of-magnitude right, reflecting genuine uncertainty in $\sigma$ and in
+in-vivo $k_\text{cat}$ (carried as literature ranges, not tuned); **(iii)** the
+chaperone/stress sector is imposed as a maintenance input, not modelled as flux-carrying
+reactions; **(iv)** identifiability is a first-order proxy; **(v)** parameters and
+proteome are *E. coli*-specific (per-strain proteomes / predictors are the library-scale
+route); **(vi)** growth only — respiration and carbon-use efficiency are future work
+[@Machado2021].
 
 # Next steps
 

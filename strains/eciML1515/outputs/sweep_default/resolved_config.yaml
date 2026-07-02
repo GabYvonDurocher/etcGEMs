@@ -11,14 +11,18 @@ provider:
   pool_id: prot_pool
   biomass_rxn: null
   default_Topt_offset: 7.0
-  default_dCp: -3.398
+  default_dCp: -4.0
   target_fraction: null
-  pool_scale: 0.9
+  pool_scale: 1.0
   thermal_model: unfolding
   ngam_temperature: true
   ngam_reaction: ATPM
   enzyme_params: thermal/BestParamsTopt.csv
+  dcp_from: prior
+  dcp_prior_kJ: -4.0
   dltkcat_fits: dltkcat/fits_ext.csv
+  p_total: 0.5
+  sigma: 0.45
   model_path: /Users/g.yvon-durocher/Library/CloudStorage/OneDrive-UniversityofExeter/Documents/work/MICROADAPT/etcGEMs/strains/eciML1515/model/eciML1515_batch.xml
 T0_C: 30
 proteome_sectors:

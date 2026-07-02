@@ -1,0 +1,20 @@
+{
+  "emergent": {
+    "Topt_C": 37.0,
+    "rmax_per_h": 0.341,
+    "CTmax_C": 46.7,
+    "Ea_eV": 0.95
+  },
+  "medium": "glucose minimal aerobic (model default = the defined-medium curves)",
+  "n_curves": 26,
+  "n_defined": 2,
+  "shape_R2_median": 0.589,
+  "shape_R2_mean": 0.542,
+  "shape_R2_ge_0.5": 18,
+  "defined_obs_rmax": [
+    0.1,
+    1.44
+  ],
+  "emergent_rmax": 0.341,
+  "note": "emergent magnitude under-predicts defined-medium rmax ~3x; shape validated per-curve"
+}
