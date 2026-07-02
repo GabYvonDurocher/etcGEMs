@@ -8,27 +8,30 @@ abstract: |
   macromolecular-rate-theory (MMRT) temperature response and total enzyme demand is
   bounded by a shared proteome pool, so that growth thermal performance curves (TPCs)
   emerge from the interaction of a thermal catalytic *envelope* and proteome
-  *allocation*. The nominal model reproduces a realistic *E. coli* optimum
-  ($T_\text{opt} = 37\,°\text{C}$, $r_\text{max} = 0.57\,\text{h}^{-1}$) with the MMRT
-  curvature calibrated so the rising-limb activation energy matches the conserved
-  metabolic-theory value ($E_a = 0.66\,\text{eV}$). A global sensitivity sweep and a
-  Shapley variance decomposition show a clear division of labour: proteome allocation
-  sets the rate magnitude (the variance of $r_\text{max}$ is essentially 100 %
-  allocation) while the thermal envelope sets curve position and shape ($CT_\text{max}$,
-  breadth and $E_a$ are 63–98 % envelope), with $T_\text{opt}$ intermediate (61 %
-  allocation once a mechanistic proteome-sector allocation axis is used, with a 21 %
-  interaction term). A proteome-wide per-enzyme control analysis finds thermal control
-  concentrated in very few enzymes (led by glyceraldehyde-3-phosphate dehydrogenase)
-  and only ~1 % of per-enzyme parameters identifiable from growth alone, motivating
-  omics constraints. Replacing hand-set parameter ranges with correlated,
-  DLTKcat-informed per-enzyme sampling tightens the calibrated descriptor uncertainty
-  (e.g. $r_\text{max}$ IQR 0.03 vs 0.11 $\text{h}^{-1}$), and a coarse-grained sector
-  model yields an interior growth optimum at an intermediate metabolic allocation. We
-  emphasise that this apparent division of labour is partly a consequence of model
-  structure (peak-normalised $k_\text{cat}$ and a temperature-independent allocation
-  budget) and is not resolvable from growth data alone: distinguishing a genome-set
-  envelope from an allocation-set magnitude will require temperature-resolved proteome
-  and flux calibration together with a temperature-dependent allocation model. All
+  *allocation*. Following Li et al. and the MRes of Madkaikar, the high-temperature
+  collapse is set by a **data-grounded two-state unfolding model**: each enzyme's
+  native fraction is keyed on its melting temperature $T_m$ (from the *E. coli* melting
+  proteome and sequence-based optima; grounded for 90 % of enzymes), so the falling
+  limb and $CT_\text{max}$ arise from denaturation, mechanistically decoupled from the
+  rising-limb activation energy. The nominal model reproduces a realistic *E. coli*
+  curve ($T_\text{opt} = 40\,°\text{C}$, $r_\text{max} = 0.56\,\text{h}^{-1}$,
+  $E_a = 0.72\,\text{eV}$, and a now-realistic $CT_\text{max} = 47\,°\text{C}$ set by
+  $T_m$), fitting empirical *E. coli* growth data with $R^2 \approx 0.86$. A global
+  sensitivity sweep and a Shapley variance decomposition reveal that, once the envelope
+  is grounded per enzyme, **the thermal envelope dominates the variance of every TPC
+  descriptor — including the rate** ($r_\text{max}$ is 78 % envelope, not the ~100 %
+  allocation seen under the older peak-normalised convention); allocation contributes a
+  secondary ~20 % to the rate and optimum. A proteome-wide per-enzyme control analysis
+  finds thermal control concentrated in very few enzymes (led by
+  argininosuccinate synthase) and only ~2 % of per-enzyme parameters
+  identifiable from growth alone, motivating omics constraints; correlated,
+  DLTKcat-informed sampling sharpens the physically pinned descriptors (e.g.
+  $CT_\text{max}$ IQR 0.2 vs 1.2 °C); and a coarse-grained sector model yields an
+  interior growth optimum at intermediate metabolic allocation. The apparent
+  "allocation sets magnitude, envelope sets shape" division of labour is thus shown to
+  be **largely a structural artifact of peak-normalisation**; distinguishing a
+  genome-set envelope from an allocation-set magnitude is not resolvable from growth
+  data alone and will require temperature-resolved proteome and flux calibration. All
   results are structural in-silico predictions pending phenotype/omics calibration.
 ---
 
@@ -90,21 +93,39 @@ model is taken from the SysBioChalmers ecModels container
 first-class, limiting resource: at the growth optimum the pool binds, so faster flux
 through one pathway must come at the expense of another.
 
-**Temperature layer (MMRT).** Each enzyme's turnover number is made
-temperature-dependent through macromolecular rate theory (MMRT), in which a negative
-change in the heat capacity of activation, $\Delta C_p^\ddagger$, curves the
-Arrhenius plot and produces a single-peaked $k_\text{cat}(T)$ [@Hobbs2013]. We adopt
-a **peak-normalisation** convention: each enzyme's reference $k_\text{cat}$ is its
-own maximum over temperature, so warming or cooling away from that enzyme's optimum
-only ever *raises* its cost. This choice (i) prevents any enzyme from becoming
-"super-efficient" relative to its tabulated $k_\text{cat}$, (ii) keeps the proteome
-pool binding across the temperature range, and (iii) yields a single-peaked
-organismal TPC rather than a monotonic Arrhenius rise. The MMRT curvature
-$\Delta C_p^\ddagger$ jointly sets thermal breadth and the rising-limb apparent
-activation energy $E_a$; because its default value is a modelling choice, we
-calibrate it (by bisection) so the nominal $E_a$ matches a target (here 0.65 eV, the
-conserved metabolic-theory value [@Davidi2016]), extending the temperature grid so
-$CT_\text{max}$ stays resolved.
+**Temperature layer.** Each enzyme's turnover number is made temperature-dependent
+through macromolecular rate theory (MMRT), in which a change in the heat capacity of
+activation, $\Delta C_p^\ddagger$, curves the Arrhenius plot so that $k_\text{cat}(T)$
+rises to an optimum $T_\text{opt}$ and sets the rising-limb apparent activation energy
+$E_a$ [@Hobbs2013]. The etc-GEM supports two thermal modes for how the
+high-temperature *collapse* of usable activity arises.
+
+*Two-state unfolding mode (default).* Following Li et al. [@Li2021] and the MRes of
+Madkaikar [@Madkaikar2023], the effective per-flux enzyme cost is
+$\text{cost}_i(T) = \text{base}_i / [\,\text{rel-}k_{\text{cat},i}(T)\cdot f_{N,i}(T)\,]$,
+where $\text{rel-}k_{\text{cat},i}(T)$ is the MMRT turnover factor anchored at
+$T_\text{opt}$ and $f_{N,i}(T)\in[0,1]$ is the **native (folded) fraction** from a
+two-state native$\leftrightarrow$unfolded equilibrium keyed on the per-enzyme melting
+temperature $T_m$. As $T\to T_m$, $f_N\to 0$, enzyme cost diverges and growth
+collapses, so the **falling limb and $CT_\text{max}$ are set by denaturation ($T_m$),
+mechanistically decoupled from the rising-limb $E_a$** (set by $k_\text{cat}(T)$ and
+$T_\text{opt}$). This is the data-grounded model: per-enzyme $T_m$ comes from the
+*E. coli* melting proteome [@Leuenberger2017] and per-enzyme $T_\text{opt}$ from
+sequence-based catalytic-optimum predictions [@LiEngqvist2019] (assembled by the MRes
+for iML1515-family models; coverage for eciML1515 is reported below). This mode also
+adds a temperature-dependent non-growth-associated maintenance (NGAM) term that rises
+with $T$ above a basal floor, as in the reference model. For other library strains
+without measured values, sequence predictors (DeepET/TOMER-type for $T_\text{opt}$/$T_m$)
+are the route to per-enzyme parameters; they are not needed for *E. coli* here.
+
+*Peak-normalised MMRT mode (alternative).* Here each enzyme's reference $k_\text{cat}$
+is treated as its own maximum (peak-normalisation), so any temperature deviation only
+raises cost and the MMRT curvature alone sets both breadth and $E_a$; the curvature
+$\Delta C_p^\ddagger$ can be calibrated by bisection so the nominal $E_a$ matches a
+target (e.g. 0.65 eV, the conserved metabolic-theory value [@Davidi2016]). This mode
+couples breadth to $E_a$ and lets the fitted curvature push $CT_\text{max}$ to
+unrealistically high values; it is retained as a backward-compatible baseline, and the
+unfolding mode is preferred precisely because it grounds the collapse in $T_m$.
 
 **Proteome allocation and sectors.** In the baseline model the shared pool is a
 single scalar. Following the bacterial growth laws [@Basan2015; @Scott2010], it can
@@ -156,13 +177,17 @@ We run five complementary analyses, each targeting specific objectives:
 
 **Key assumptions**, stated plainly so results can be read appropriately:
 
-1. **Peak-normalised reference $k_\text{cat}$** ($k_{\text{cat,ref}}$ = each enzyme's
-   maximum over $T$): warming away from an enzyme's optimum only raises its cost.
+1. **Two-state unfolding thermal model (default).** The high-$T$ collapse is set by
+   per-enzyme denaturation ($T_m$), which is held at its grounded value rather than
+   swept; the reference $k_\text{cat}$ is anchored at $T_\text{opt}$. (The alternative
+   peak-normalised MMRT mode instead treats $k_{\text{cat,ref}}$ as each enzyme's
+   maximum, coupling breadth to $E_a$.)
 2. The proteome **pool operates in the binding regime**, so allocation is limiting at
    the optimum.
-3. **MMRT curvature governs breadth and $E_a$**; its default is a modelling choice,
-   here calibrated to a target $E_a$. A single curvature cannot independently set
-   breadth and $E_a$, so matching a low $E_a$ produces a broad curve (see caveats).
+3. **Whole-cell $CT_\text{max}$ tracks the enzyme melting temperatures**: growth
+   requires the whole proteome folded, so the organism collapses below the median
+   enzyme $T_m$; $T_m$ values are grounded (melting proteome / sequence predictors),
+   not fitted to the growth curve.
 4. The **one-factor $\rho$** used in calibrated sampling is a simple stand-in for the
    true (unknown) covariance of thermostability across enzymes.
 5. **Variance fractions are defined relative to the swept input ranges** — they
@@ -182,20 +207,26 @@ We run five complementary analyses, each targeting specific objectives:
 ## Nominal TPC on eciML1515 (O1)
 
 The nominal (unperturbed) TPC and its sampled ensemble are shown in @fig-tpc; the
-descriptors are in @tbl-nominal. The model reproduces a realistic mesophilic *E.
-coli* growth response: **optimum $T_\text{opt} = 37\,°\text{C}$** and **maximum rate
-$r_\text{max} = 0.57\,\text{h}^{-1}$** (a ~1.2 h doubling time, in the right range for
+descriptors are in @tbl-nominal. In the data-grounded two-state unfolding model
+(grounded per-enzyme $T_m$/$T_\text{opt}$ for 2308/2560 = 90 % of enzymes, the rest at
+dataset means), the model reproduces a realistic mesophilic *E. coli* growth curve:
+**optimum $T_\text{opt} = 40\,°\text{C}$** and **maximum rate
+$r_\text{max} = 0.56\,\text{h}^{-1}$** (a ~1.2 h doubling time, in the right range for
 aerobic growth on a defined medium), built from 2560 enzyme constraints under a pool
-budget of 0.082. With the MMRT curvature calibrated to the metabolic-theory value,
-the rising-limb **$E_a = 0.66\,\text{eV}$** (63.5 kJ mol⁻¹), close to the target
-0.65 eV. The high-temperature critical point ($CT_\text{max} = 75.6\,°\text{C}$) and
-the resulting breadth ($67.6\,°\text{C}$) are, however, biologically too high for *E.
-coli*: this is a direct and expected consequence of forcing a single MMRT curvature
-to hit a low $E_a$, which over-broadens the falling limb (see Interpretation). The
-cold critical point sits at the grid floor ($CT_\text{min} = 8\,°\text{C}$), so
-$CT_\text{min}$ and the niche width are lower bounds set partly by the temperature
-grid. Objective O1 is met for the ecologically central descriptors ($T_\text{opt}$,
-$r_\text{max}$, $E_a$).
+budget of 0.082, with a rising-limb **$E_a = 0.72\,\text{eV}$** (69 kJ mol⁻¹). Now that
+the high-temperature collapse is set by denaturation rather than by a fitted MMRT
+curvature, the critical temperature **$CT_\text{max} = 46.8\,°\text{C}$** and breadth
+($37.8\,°\text{C}$) are biologically realistic for *E. coli* — the falling limb is a
+sharp denaturation collapse near the enzyme melting temperatures (median $T_m
+\approx 56\,°\text{C}$; whole-cell $CT_\text{max}$ lower because growth needs the
+*whole* proteome folded and functional). Against the MRes empirical *E. coli* growth
+data the nominal curve reproduces the TPC shape with $R^2 \approx 0.86$ (cf. 0.94 for
+the MRes model on its own iJO1366 reconstruction). The cold critical point sits near
+the grid floor ($CT_\text{min} \approx 9\,°\text{C}$), so $CT_\text{min}$ and the
+niche width remain lower bounds set partly by the temperature grid. Objective O1 is
+met — and, relative to the peak-normalised MMRT baseline (which gave an unrealistic
+$CT_\text{max} \approx 76\,°\text{C}$), the unfolding model also fixes the upper
+thermal limit.
 
 ![**Nominal TPC ensemble for eciML1515.** Grey lines are individual sampled curves across proteome allocation and $k_\text{cat}(T)$ perturbations; the blue band is the interquartile range and the solid line the ensemble median, with the nominal curve dashed.](assets/figures/tpc_ensemble.png){#fig-tpc fig-pos="H" width=80%}
 
@@ -223,27 +254,34 @@ print(df.to_markdown(index=False))
 
 ## Global sensitivity: what generates TPC variation (O2, O3)
 
-A Latin-hypercube sweep over the envelope and allocation inputs yields the descriptor
-distributions of @fig-descdist and the Spearman sensitivity matrix of @fig-sens and
-@tbl-sens. The pattern is a clean **division of labour between envelope and
-allocation**:
+A Latin-hypercube sweep over the envelope knobs ($dT_\text{opt}$, `topt_scale`,
+`dCp_scale`) and allocation (`budget_scale`) yields the descriptor distributions of
+@fig-descdist and the Spearman sensitivity matrix of @fig-sens and @tbl-sens. Because
+the denaturation temperatures $T_m$ are held at their grounded values (not swept), the
+sensitivity pattern differs instructively from the peak-normalised baseline:
 
 - **Position ($T_\text{opt}$) tracks the envelope shift.** $T_\text{opt}$ correlates
-  almost perfectly with the uniform optimum shift $dT_\text{opt}$ ($\rho = 0.92$) and
-  weakly with the spread (`topt_scale`, $\rho = 0.36$); allocation (`budget_scale`)
-  has essentially no effect ($\rho \approx 0$). This is the envelope setting curve
-  position — the basis of sequence-predictability (O2).
-- **Magnitude ($r_\text{max}$) is purely allocation.** $r_\text{max}$ correlates
-  perfectly with `budget_scale` ($\rho = 1.00$) and negligibly with any envelope knob
-  ($|\rho| \le 0.06$): the pool budget sets the height and nothing else does (O3).
-- **Shape ($CT_\text{max}$, breadth, $E_a$) tracks the curvature.** The curvature
-  scaling `dCp_scale` dominates $CT_\text{max}$ ($\rho = -0.83$), niche width
-  ($\rho = -0.96$) and $E_a$ ($\rho = 0.97$), and also $CT_\text{min}$
-  ($\rho = 0.78$): steeper curvature (more negative $\Delta C_p^\ddagger$) narrows the
-  curve and raises $E_a$ (O2).
+  strongly with the uniform optimum shift $dT_\text{opt}$ ($\rho = 0.83$) and the
+  spread (`topt_scale`, $\rho = 0.54$); allocation has essentially no effect
+  ($\rho = -0.08$). This is the envelope setting curve position — the basis of
+  sequence-predictability (O2).
+- **Magnitude ($r_\text{max}$) is allocation-set but envelope-coupled.**
+  $r_\text{max}$ rises with the pool budget (`budget_scale`, $\rho = 0.58$; O3) but
+  is also *depressed* by envelope shifts ($dT_\text{opt}$ $\rho = -0.53$,
+  `topt_scale` $\rho = -0.34$): pushing enzyme optima up toward the fixed $T_m$
+  compresses the usable window between $T_\text{opt}$ and the denaturation collapse,
+  lowering peak rate. Unlike the peak-normalised model — where $r_\text{max}$ was a
+  pure function of the budget — grounding $T_m$ couples magnitude to the envelope.
+- **The upper limit and breadth track the optimum shift, not the curvature.** With
+  $T_m$ fixed, $CT_\text{max}$ is governed by $dT_\text{opt}$ ($\rho = 0.84$) rather
+  than by `dCp_scale` ($\rho = -0.06$), and niche width falls with $dT_\text{opt}$
+  ($\rho = -0.63$) as the peak approaches the (fixed) denaturation point. The
+  rising-limb $E_a$ is still set by the MMRT curvature (`dCp_scale` $\rho = 0.72$).
 
-So each descriptor is governed by a distinct input, and the envelope/allocation split
-is already visible at the level of first-order sensitivities.
+So the tidy one-input-per-descriptor picture of the peak-normalised model gives way to
+a more coupled — and more physical — pattern once the collapse is pinned to $T_m$: the
+thermal limits move with the optimum through a fixed denaturation ceiling, and only
+$E_a$ remains a clean function of the curvature.
 
 ![**Global sensitivity of TPC descriptors.** Spearman rank-correlation between each swept input (rows) and each TPC descriptor (columns); red is positive, blue negative.](assets/figures/sensitivity_heatmap.png){#fig-sens fig-pos="H" width=90%}
 
@@ -273,24 +311,34 @@ $T_\text{opt}$ or $CT_\text{max}$, which would inflate the apparent separability
 @fig-decompach shows the descriptor ranges reachable by allocation alone versus
 envelope alone.
 
-The decomposition confirms a strong but **imperfect** separation:
+In the grounded unfolding model the decomposition tells a **strikingly different — and
+more honest — story than the peak-normalised baseline**: the thermal **envelope
+dominates the variance of every descriptor**, including the rate.
 
-- **$r_\text{max}$ is essentially pure allocation** ($\varphi_A = 1.00$,
-  $\varphi_E \approx 0$).
-- **$CT_\text{max}$, $CT_\text{min}$ and niche width are essentially pure envelope**
-  ($\varphi_E = 0.98,\ 0.96,\ 0.97$), as is skewness ($\varphi_E = 0.79$);
-  $E_a$ is envelope-leaning ($\varphi_E = 0.63$).
-- **$T_\text{opt}$ is mixed** ($\varphi_A = 0.61$, $\varphi_E = 0.39$) with a sizeable
-  **interaction** ($S_{AE} = 0.21$), and the 80 %-breadth descriptor $B_{80}$ is
-  allocation-leaning ($\varphi_A = 0.69$).
+- **The thermal limits and shape are almost pure envelope**: $CT_\text{max}$,
+  $CT_\text{min}$ and niche width have $\varphi_E = 0.997,\ 0.997,\ 0.996$, with
+  $E_a$ at $\varphi_E = 0.97$ and skewness at $0.90$.
+- **$T_\text{opt}$ is envelope-dominated** ($\varphi_E = 0.79$, $\varphi_A = 0.21$,
+  interaction $S_{AE} = 0.16$), as is the 80 %-breadth descriptor $B_{80}$
+  ($\varphi_E = 0.90$).
+- **Most importantly, $r_\text{max}$ is now envelope-dominated too**
+  ($\varphi_E = 0.78$, $\varphi_A = 0.22$) — not the ~100 % allocation of the
+  peak-normalised model.
 
-In other words, the height/shape separation (allocation ↔ $r_\text{max}$; envelope ↔
-$CT_\text{max}$/breadth) is robust and largely additive, but once allocation is
-represented mechanistically (reallocating between sectors can change *which* enzymes
-limit) $T_\text{opt}$ acquires a real allocation component and an interaction term.
-This is the honest, mechanistic version of O4: the genome-set envelope and
-allocation-set magnitude are separable for the rate and the thermal limits, but not
-perfectly for the optimum temperature.
+The clean "allocation sets magnitude, envelope sets shape" separation therefore **does
+not survive** once the envelope is grounded per enzyme. The reason is mechanistic and
+was hidden by the earlier convention: with peak-normalised $k_\text{cat}$ the enzyme
+cost at the optimum is independent of the envelope, so $r_\text{max}$ could only track
+the pool budget; once the melting temperatures are fixed and the reference $k_\text{cat}$
+is anchored at $T_\text{opt}$, shifting the optima toward the (fixed) denaturation
+ceiling depresses the peak rate, so the envelope drives $r_\text{max}$ as well. This is
+the honest, mechanistic reading of O4: **the apparent genome-set-envelope / allocation-
+set-magnitude split was largely a structural artifact of peak-normalisation; under the
+data-grounded model the two axes are not separable, and the envelope is the dominant
+control on the whole TPC** — with allocation contributing a real but secondary
+~20 % to the rate and optimum. The informative quantities going forward are these
+allocation shares and the interaction terms, measured across genomes, rather than a
+claim of fixed separability (see Interpretation).
 
 ![**Achievable descriptor ranges.** Ranges of each TPC descriptor reachable by varying allocation alone versus the thermal envelope alone.](assets/figures/decomp_achievable.png){#fig-decompach fig-pos="H" width=85%}
 
@@ -317,27 +365,27 @@ by a thermal-screen control score; @fig-ctrlbottle shows how the rate-limiting e
 shifts with temperature; @fig-ctrlident and @tbl-ident summarise identifiability.
 
 **Thermal control is concentrated in very few enzymes (O2).** The top thermal
-determinant is **glyceraldehyde-3-phosphate dehydrogenase** (`GAPDNo1`, enzyme
-`P0A9B2`), with a control coefficient $\mathrm{CC}[CT_\text{max}, T_{\text{opt},i}]
-= 0.16$; the screen score then falls ~40-fold to the next enzyme. (The control of the
-*optimum* $T_\text{opt}$ on any single enzyme is ≈ 0 because $T_\text{opt}$ is an
-argmax descriptor — a discrete jump — so single-enzyme envelope control instead
-registers on the interpolated $CT_\text{max}$.) A handful of central-carbon enzymes
-therefore set the organism's thermal envelope, which is precisely the property that
-makes the envelope potentially predictable from sequence (O2).
+determinant is **argininosuccinate synthase** (`ARGSSNo1`, enzyme `P0A6E4`), with a
+control coefficient $\mathrm{CC}[CT_\text{max}, T_{\text{opt},i}] = 0.015$; the screen
+score then falls essentially to zero for the next enzyme. (The control of the *optimum*
+$T_\text{opt}$ on any single enzyme is ≈ 0 because $T_\text{opt}$ is an argmax
+descriptor — a discrete jump — so single-enzyme envelope control instead registers on
+the interpolated $CT_\text{max}$; in the unfolding model the per-enzyme control is
+computed on $T_\text{opt}$, while the falling limb is governed by the fixed $T_m$
+values.) A handful of enzymes therefore dominate the organism's thermal envelope,
+which is precisely the property that makes the envelope potentially predictable from
+sequence (O2).
 
 **Most per-enzyme parameters are not identifiable from growth alone (O5).**
 Computed **proteome-wide** — over all 2560 enzymes × three parameters ($T_{\text{opt},i}$,
-$\Delta C_{p,i}$, $k_{\text{cat},i}$) = 7680 parameters — only **92 (1.2 %)** clear the
+$\Delta C_{p,i}$, $k_{\text{cat},i}$) = 7680 parameters — only **172 (2.2 %)** clear the
 identifiability threshold, and essentially all of them lie within the 300
-finite-difference-refined high-control enzymes (**92/300 = 30.7 %** among that
-top-K subset; @tbl-ident). The identifiable fraction is uniformly small across
-parameter types (1.0 % of $T_{\text{opt},i}$, 1.1 % of $\Delta C_{p,i}$, 1.5 % of
-$k_{\text{cat},i}$). The previous top-K-only reporting (which conditioned on the
-high-control enzymes) badly overstated identifiability; the proteome-wide view shows
-that growth alone constrains only a small, high-control subset and that the remaining
-~99 % of parameters require proteome/flux (omics) data to pin down — the central
-motivation for the omics arm of the programme (O5).
+finite-difference-refined high-control enzymes (**172/300 = 57 %** among that
+top-K subset; @tbl-ident). Reporting only the top-K subset would therefore overstate
+identifiability more than twenty-fold; the proteome-wide view shows that growth alone
+constrains only a small, high-control subset and that the remaining ~98 % of parameters
+require proteome/flux (omics) data to pin down — the central motivation for the omics
+arm of the programme (O5).
 
 ![**Per-enzyme thermal control.** Top enzymes ranked by their thermal-screen control score over the TPC.](assets/figures/control_thermal.png){#fig-ctrlthermal fig-pos="H" width=85%}
 
@@ -382,14 +430,14 @@ print(summ.to_markdown(index=False))
 
 ## DLTKcat-calibrated envelope (O6)
 
-Replacing the hand-set thermal envelope with per-enzyme MMRT parameters fitted from
-DLTKcat $k_\text{cat}(T)$ predictions [@Qiu2024] gives the ensemble in @fig-dltkcat.
-This is the first step toward a sequence/temperature-aware envelope (O6). In the
+Overlaying per-enzyme $T_\text{opt}$ fitted from DLTKcat $k_\text{cat}(T)$ predictions
+[@Qiu2024] onto the grounded unfolding envelope gives the ensemble in @fig-dltkcat —
+a second, orthogonal data-driven source for the rising-limb parameters (O6). In the
 current fit, usable DLTKcat parameters were available for only **13 of 2560 enzymes**,
-and those enzymes are not pool-limiting at the optimum, so the DLTKcat-calibrated
-nominal TPC coincides with the default ($T_\text{opt} = 37\,°\text{C}$,
-$r_\text{max} = 0.57\,\text{h}^{-1}$, $CT_\text{max} = 75.6\,°\text{C}$,
-$E_a = 0.66\,\text{eV}$). The run therefore demonstrates that the DLTKcat → MMRT →
+and those enzymes are not pool-limiting at the optimum, so the DLTKcat-overlaid nominal
+TPC coincides with the grounded default ($T_\text{opt} = 40\,°\text{C}$,
+$r_\text{max} = 0.56\,\text{h}^{-1}$, $CT_\text{max} = 46.8\,°\text{C}$,
+$E_a = 0.72\,\text{eV}$). The run therefore demonstrates that the DLTKcat → MMRT →
 etc-GEM pipeline is wired end-to-end, but a materially different data-driven envelope
 will require DLTKcat fits for a much larger, and rate-limiting, set of enzymes.
 
@@ -407,17 +455,19 @@ hand-set-range spread against the calibrated spread; @tbl-calibrated gives the
 calibrated medians and IQRs.
 
 The calibrated ensemble is centred on the nominal descriptors (median $T_\text{opt} =
-37\,°\text{C}$, $r_\text{max} = 0.57\,\text{h}^{-1}$, $CT_\text{max} = 75.7\,°\text{C}$,
-$E_a = 0.66\,\text{eV}$) but is **markedly tighter** than the hand-set-range scan: the
-inter-quartile ranges shrink for every descriptor — $T_\text{opt}$ 4.0 vs 6.3 °C,
-$r_\text{max}$ **0.03 vs 0.11 $\text{h}^{-1}$**, $CT_\text{max}$ 8.4 vs 11.3 °C, niche
-width 8.2 vs 14.9 °C, and $E_a$ 0.17 vs 0.30 eV (calibrated vs default). Structured,
-correlated per-enzyme sampling thus yields substantially sharper predictions than
-arbitrary uniform ranges, which is the point of O6. (Part of the $r_\text{max}$
-tightening also reflects that the calibrated experiment sweeps only a narrow
-allocation band, $\pm 10\%$, alongside the envelope, whereas the default scan sweeps
-the budget over $-30/+10\%$; the qualitative sharpening nonetheless holds across the
-envelope-controlled descriptors.)
+41\,°\text{C}$, $r_\text{max} = 0.53\,\text{h}^{-1}$, $CT_\text{max} = 46.8\,°\text{C}$,
+$E_a = 0.75\,\text{eV}$) and sharpens the descriptors that the grounding pins down: the
+inter-quartile range of $r_\text{max}$ shrinks to **0.09 vs 0.15 $\text{h}^{-1}$**, of
+$E_a$ to 0.26 vs 0.31 eV, and — most strikingly — of $CT_\text{max}$ to **0.22 vs
+1.16 °C** (calibrated vs default), because with the melting temperatures held fixed the
+upper limit barely moves under correlated envelope sampling. By contrast, the
+descriptors that depend directly on the sampled optima are *not* tightened —
+$T_\text{opt}$ IQR is 6.0 vs 5.3 °C and niche width 30 vs 21 °C — since the per-enzyme
+$T_\text{opt}$ draws ($\rho = 0.7$, sd 4 K) shift the peak (and thus the peak-to-$T_m$
+window) more than the hand-set $dT_\text{opt}$ band did. So structured sampling sharpens
+the physically pinned descriptors (rate, upper limit, $E_a$) while faithfully
+propagating genuine per-enzyme optimum uncertainty into $T_\text{opt}$ and breadth,
+which is the intended behaviour for O6.
 
 ![**Calibrated thermal-envelope uncertainty.** TPC ensemble under per-enzyme correlated (one-factor $\rho$) thermal sampling — the calibrated-uncertainty fan.](assets/figures/calibrated_ensemble.png){#fig-calens fig-pos="H" width=80%}
 
@@ -450,16 +500,16 @@ the metabolic fraction $f_\text{metab}$, coloured by the maintenance fraction
 $f_\text{maint}$; @fig-secsens gives the sector-sweep sensitivities.
 
 Across the swept range $f_\text{metab} \in [0.35, 0.65]$, the mean $r_\text{max}$
-rises from 0.43 to a **peak of 0.52 $\text{h}^{-1}$ at $f_\text{metab} \approx 0.45$–0.50**
-and then falls to 0.33 — a clear interior growth optimum (O3). The sector-sweep
+rises from 0.39 to a **peak of 0.43 $\text{h}^{-1}$ at $f_\text{metab} \approx 0.45$–0.50**
+and then falls to 0.27 — a clear interior growth optimum (O3). The sector-sweep
 sensitivities are consistent with the whole picture: $r_\text{max}$ is set by
-allocation (Spearman $-0.34$ vs $f_\text{metab}$, $-0.54$ vs $f_\text{maint}$: more
-maintenance means less rate), while the shape descriptors are set by the envelope
-($CT_\text{max}$ and niche width vs `dCp_scale` are $-0.84$ and $-0.92$;
-$CT_\text{max}$ vs $dT_\text{opt}$ is $0.52$). The sector model thus supplies the
-mechanistic allocation axis — in the maintenance→biosynthesis language of the growth
-laws — that produces the magnitude trade-off underpinning O3 and the allocation side
-of O4.
+allocation (Spearman $-0.44$ vs $f_\text{metab}$, $-0.47$ vs $f_\text{maint}$: more
+maintenance means less rate), while the thermal limits track the optimum shift through
+the fixed denaturation ceiling ($CT_\text{max}$ vs $dT_\text{opt}$ $= 0.80$, niche
+width vs $dT_\text{opt}$ $= -0.76$) and $E_a$ tracks the curvature (`dCp_scale`
+$= 0.52$). The sector model thus supplies the mechanistic allocation axis — in the
+maintenance→biosynthesis language of the growth laws — that produces the magnitude
+trade-off underpinning O3 and the allocation side of O4.
 
 ![**Proteome-sector trade-off.** $r_\text{max}$ and $CT_\text{max}$ versus the metabolic sector fraction $f_\text{metab}$, coloured by maintenance fraction $f_\text{maint}$; the interior $r_\text{max}$ optimum reflects metabolic vs biosynthesis/maintenance co-limitation.](assets/figures/sector_tradeoff.png){#fig-sectrade fig-pos="H" width=90%}
 
@@ -468,62 +518,67 @@ of O4.
 # Interpretation and caveats
 
 Taken together, the analyses support a coherent, mechanistic picture that maps onto
-the objectives. The thermal **envelope** sets curve position and shape —
-$T_\text{opt}$ tracks the enzyme optima ($\rho = 0.92$), and $CT_\text{max}$, breadth
-and $E_a$ track the MMRT curvature ($\varphi_E = 0.63$–0.98) — while proteome
-**allocation** sets the rate magnitude ($r_\text{max}$ variance is ~100 % allocation,
-with an interior sector optimum). This is the separability hypothesis (O4), and it
-holds strongly for the rate and thermal limits but only partially for $T_\text{opt}$,
-which acquires a 61 % allocation share and a 21 % interaction once allocation is
-represented mechanistically rather than as a scalar budget. Thermal control is
-concentrated in a few central-carbon enzymes (led by GAPDH; O2), yet only ~1 % of
+the objectives. In the data-grounded unfolding model the thermal **envelope dominates
+the whole TPC**: $T_\text{opt}$ tracks the enzyme optima ($\rho = 0.83$); the thermal
+limits and breadth are set almost entirely by the per-enzyme melting temperatures
+($CT_\text{max}$, $CT_\text{min}$, niche width all $\varphi_E \approx 0.99$); the
+rising-limb $E_a$ by the MMRT curvature ($\varphi_E = 0.97$); and even the rate
+magnitude is envelope-dominated ($r_\text{max}$ $\varphi_E = 0.78$), with proteome
+**allocation** contributing a real but secondary ~20 % to $r_\text{max}$ and
+$T_\text{opt}$ and producing the interior sector optimum (O3, O4). Thermal control is
+concentrated in a few enzymes (led by argininosuccinate synthase; O2), yet only ~2 % of
 per-enzyme parameters are identifiable from growth alone (O5) — the envelope may be
 predictable from a small number of sequences, but calibrating the full parameter set
 needs omics.
 
-Importantly, this clean division of labour is **partly structural** — a property of
-the modelling framework — and not a purely emergent biological result. That
-$r_\text{max}$ is ~100 % allocation is largely *by construction*: peak-normalisation
-fixes each enzyme's reference $k_\text{cat}$ to its own maximum, so at the organismal
-optimum enzyme cost is, to first order, independent of the thermal envelope and simply
-scales with the proteome budget; and the allocation axis is temperature-*independent*,
-so it cannot by itself reshape the temperature response. The "envelope sets shape,
-allocation sets magnitude" split is therefore in part a consequence of these two
-modelling choices. Fitting the model to an empirical growth TPC would calibrate the
-emergent curve but would **not** resolve the envelope-versus-allocation partition,
-which is under-determined from growth data alone [@Pettersen2023]; resolving it
-requires data that observe the internal state — temperature-resolved proteomics (for
-allocation) and $^{13}$C fluxomics (for in-vivo $k_\text{cat}$) across multiple
-temperatures. Moreover, real proteome allocation is itself temperature-dependent:
-coarse-grained proteome-allocation models of temperature-dependent growth show
-reallocation toward chaperone / stress-response proteins at temperature extremes
-[@Mairet2021; @Wang2026], so a temperature-dependent chaperone/stress sector,
-calibrated to proteomics, would let allocation contribute to curve *shape* and make
-the partition identifiable. The decomposition should thus be read as operationalising
-the *measurement* of the genome-set (envelope) versus allocation-set (magnitude) split
-— the informative quantities being the interaction terms and the across-genome
-variation in the split — rather than as evidence that the separation is a fixed
-biological law.
+Comparing the two thermal modes makes an important methodological point. Under the
+peak-normalised MMRT convention the decomposition showed a clean "allocation sets
+magnitude, envelope sets shape" split ($r_\text{max}$ ~100 % allocation); under the
+data-grounded unfolding model that split **collapses** and the envelope dominates
+$r_\text{max}$ too. This is direct evidence that the tidy separation was **largely a
+structural artifact**: peak-normalisation fixes each enzyme's reference $k_\text{cat}$
+to its own maximum, so at the optimum enzyme cost is independent of the envelope and
+$r_\text{max}$ can only track the pool budget; anchoring $k_\text{cat}$ at $T_\text{opt}$
+and fixing the melting temperatures instead lets envelope shifts move the rate. Either
+way, the envelope-versus-allocation partition is **under-determined from growth data
+alone** [@Pettersen2023]; resolving it requires data that observe the internal state —
+temperature-resolved proteomics (for allocation) and $^{13}$C fluxomics (for in-vivo
+$k_\text{cat}$) across multiple temperatures. Moreover, real proteome allocation is
+itself temperature-dependent: coarse-grained proteome-allocation models of
+temperature-dependent growth show reallocation toward chaperone / stress-response
+proteins at temperature extremes [@Mairet2021; @Wang2026], so a temperature-dependent
+chaperone/stress sector, calibrated to proteomics, would let allocation contribute to
+curve *shape*. The decomposition should thus be read as operationalising the
+*measurement* of the genome-set (envelope) versus allocation-set (magnitude) split —
+the informative quantities being the allocation shares, the interaction terms and the
+across-genome variation in the split — rather than as evidence of a fixed biological
+law.
 
 Several caveats bound these conclusions, all structural / in-silico:
 
-- **Curvature couples breadth and $E_a$.** Because one MMRT $\Delta C_p^\ddagger$ sets
-  both, calibrating to the conserved $E_a = 0.65$ eV over-broadens the falling limb,
-  giving a biologically implausible $CT_\text{max}$ (75.6 °C) and niche width even
-  though $T_\text{opt}$ and $r_\text{max}$ are realistic. Independent control of
-  breadth and $E_a$ (e.g. per-enzyme $\Delta C_p$ from DLTKcat) is needed.
-- **Grid-edge descriptors.** $CT_\text{min}$ sits at the grid floor (8 °C), so it and
+- **Whole-cell $CT_\text{max}$ vs enzyme $T_m$.** The organism collapses (~47 °C) well
+  below the median enzyme melting temperature (~56 °C) because growth needs the *whole*
+  proteome folded and functional; the collapse is thus grounded in $T_m$, but the exact
+  $CT_\text{max}$ depends on the (few) least-stable rate-limiting enzymes.
+- **Transferred thermal parameters.** Per-enzyme $T_m$/$T_\text{opt}$ are joined by
+  UniProt id from assembled melting-proteome [@Leuenberger2017] and
+  sequence-predictor [@LiEngqvist2019] tables (iML1515-family; 90 % coverage, the rest
+  at dataset means), not measured for this exact model; the MMRT (`mmrt`) mode with a
+  fitted, breadth-$E_a$-coupled curvature is retained only as a backward-compatible
+  baseline (and there gives an unrealistic $CT_\text{max} \approx 76$ °C).
+- **Control diagnostic in unfolding mode.** The per-enzyme control coefficients are
+  computed on $T_\text{opt}$ (and, in `mmrt` mode, $\Delta C_p$); in unfolding mode the
+  falling limb is governed by $T_m$, so a per-enzyme $T_m$ control axis is the natural
+  extension (future work), and the $\Delta C_p$ control column is inactive here.
+- **Grid-edge descriptors.** $CT_\text{min}$ sits near the grid floor (~9 °C), so it and
   the niche width are lower bounds set partly by the temperature grid.
 - **Ranges, not populations.** Variance fractions are defined relative to the swept
   input ranges, not a measured population.
 - **First-order identifiability.** The identifiability score is a control-magnitude
-  proxy, not a Fisher-information / profile-likelihood analysis; it should be read as a
-  screening quantity.
+  proxy, not a Fisher-information / profile-likelihood analysis.
 - **Limited $k_\text{cat}(T)$ data.** DLTKcat has modest skill (log-scale
-  $R^2 \approx 0.6$) and currently covers only 13 model enzymes, so the data-driven
-  envelope is not yet distinct from the default.
-- **Simple covariance model.** The one-factor $\rho$ is a placeholder for the true
-  thermostability covariance across enzymes.
+  $R^2 \approx 0.6$) and currently overlays only 13 model enzymes, so its envelope is
+  not yet distinct from the grounded default.
 - **Growth only.** Respiration and carbon-use efficiency — the currencies that matter
   for community carbon cycling — are not yet modelled [@Machado2021].
 
@@ -531,10 +586,13 @@ Several caveats bound these conclusions, all structural / in-silico:
 
 Prioritised, and flagged as already scaffolded in the pipeline (✓) or future work (○):
 
-1. **Calibrate MMRT curvature to the measured conserved $E_a$** and, critically, break
-   the breadth–$E_a$ coupling by using **per-enzyme $\Delta C_p$** (so the falling
-   limb and $CT_\text{max}$ become realistic). ✓ scalar $E_a$ calibration is
-   implemented (`calibrate-dcp`); ○ per-enzyme curvature calibration is future work.
+1. **Ground the falling limb in denaturation ($T_m$), decoupling breadth from $E_a$.**
+   ✓ done here: the two-state unfolding model sets $CT_\text{max}$ from per-enzyme
+   $T_m$, giving a realistic upper limit independent of the rising-limb $E_a$; the
+   `mmrt` scalar-$E_a$ calibration (`calibrate-dcp`) is retained as a fallback. ○ Next:
+   add a **per-enzyme $T_m$ control/identifiability axis** (the current control
+   diagnostic perturbs $T_\text{opt}$ only) and broaden measured $T_m$ coverage beyond
+   90 % of enzymes.
 2. **Run the allocation-vs-envelope decomposition on the mechanistic sector axis** —
    done here (✓); extend to report interaction structure across strains.
 3. **Constrain the proteome-sector allocation with measured sector fractions** (○).

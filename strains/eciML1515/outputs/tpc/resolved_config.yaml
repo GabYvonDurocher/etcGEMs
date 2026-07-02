@@ -1,9 +1,9 @@
 solver_timeout: 10
 crit_frac: 0.05
 temperature_grid:
-  start_C: 8
+  start_C: 5
   stop_C: 60
-  n: 53
+  n: 56
 provider:
   type: gecko
   model_file: eciML1515_batch.xml
@@ -11,9 +11,13 @@ provider:
   pool_id: prot_pool
   biomass_rxn: null
   default_Topt_offset: 7.0
-  default_dCp: -12.0
+  default_dCp: -3.398
   target_fraction: null
   pool_scale: 0.9
+  thermal_model: unfolding
+  ngam_temperature: true
+  ngam_reaction: ATPM
+  enzyme_params: thermal/BestParamsTopt.csv
   model_path: /Users/g.yvon-durocher/Library/CloudStorage/OneDrive-UniversityofExeter/Documents/work/MICROADAPT/etcGEMs/strains/eciML1515/model/eciML1515_batch.xml
 T0_C: 30
 proteome_sectors:

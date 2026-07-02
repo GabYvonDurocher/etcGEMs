@@ -35,6 +35,27 @@ at their nominal values, and every sweep is a controlled deformation around it.
 (See `mmrt.py`; the relative response `kcat(T)/kcat_ref` is invariant to the
 absolute kcat_ref, which is what makes the GECKO extractor robust.)
 
+**Thermal model — MMRT vs two-state unfolding** (`provider.thermal_model`). The
+falling limb of the TPC can be produced two ways:
+
+- `mmrt` (default in code) — *peak-normalised* MMRT: the reference kcat is treated
+  as each enzyme's maximum, so any deviation only raises cost and the MMRT curvature
+  `dCp` sets both breadth and Ea (`enzyme_cost._costs` divides the shape by its own
+  peak). Simple, but couples breadth to Ea and can push CTmax unrealistically high.
+- `unfolding` — two-state native↔denatured model after Li et al. 2021 and the MRes
+  (Madkaikar 2023): `cost_i(T) = base_i / (rel_kcat_i(T)·f_N_i(T))`, where `f_N(T)`
+  is the **native fraction** keyed on a per-enzyme melting temperature `Tm`
+  (`unfolding.py`). Denaturation (`Tm`) sets CTmax and the falling limb, decoupled
+  from the rising-limb Ea (kcat(T)/Topt). Grounded per-enzyme `Tm` (melting proteome,
+  Leuenberger 2017) and `Topt` (Li–Engqvist 2019) are joined by UniProt id from a
+  parameter table (`provider.enzyme_params`); unmatched enzymes fall back to dataset
+  means. Adds an optional temperature-dependent maintenance term
+  (`provider.ngam_temperature`). For **other library strains** without measured
+  values, sequence predictors (DeepET/TOMER-type for Topt/Tm) supply per-enzyme
+  parameters; not needed for the *E. coli* eciML1515 worked example, which ships with
+  a grounded table under `strains/eciML1515/thermal/`. The `mmrt` path is byte-for-
+  byte unchanged when selected.
+
 **Proteome constraint — sMOMENT pool.** A single total-protein budget
 
 ```
