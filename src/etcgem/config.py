@@ -120,6 +120,11 @@ def build_provider(cfg: Dict[str, Any]):
             target_fraction=p.get("target_fraction", 0.6),
         )
     elif kind == "gecko":
+        enzyme_params = p.get("enzyme_params")
+        if enzyme_params and not os.path.isabs(enzyme_params) and cfg.get("_strain"):
+            cand = os.path.join(strain_dir(cfg["_strain"]), enzyme_params)
+            if os.path.exists(cand):
+                enzyme_params = cand
         pm = providers.from_gecko(
             model_path=p["model_path"], T0=T0,
             default_Topt_offset=p.get("default_Topt_offset", 7.0),
@@ -129,6 +134,10 @@ def build_provider(cfg: Dict[str, Any]):
             biomass_rxn=p.get("biomass_rxn"),
             target_fraction=p.get("target_fraction"),
             pool_scale=p.get("pool_scale", 1.0),
+            thermal_model=p.get("thermal_model", "mmrt"),
+            ngam_temperature=p.get("ngam_temperature", False),
+            ngam_rxn=p.get("ngam_reaction"),
+            enzyme_params=enzyme_params,
         )
     elif kind == "csv":
         pm = providers.from_kcat_csv(

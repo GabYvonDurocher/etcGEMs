@@ -8,17 +8,24 @@ provider:
   prot_prefix: prot_
   pool_id: prot_pool          # auto-detects prot_pool[c]
   biomass_rxn: null           # auto-detect from objective
-  default_Topt_offset: 7.0    # enzyme Topt above T0 (K) -> organism optimum ~37 C
-  default_dCp: -3.398          # MMRT curvature (more negative = narrower TPC)
+  default_Topt_offset: 7.0    # enzyme Topt above T0 (K) -> organism optimum ~37 C (mmrt fallback)
+  default_dCp: -3.398          # MMRT curvature (mmrt mode only; unused in unfolding mode)
   target_fraction: null       # null -> reuse the model's own pool bound
   pool_scale: 0.9             # <1 makes the pool bind at the optimum (peak rate responds)
+  # Thermal model. `unfolding` = two-state native<->denatured (Li 2021 / MRes):
+  # per-enzyme Tm sets the high-T collapse (falling limb) so breadth/CTmax decouple
+  # from the rising-limb Ea. `mmrt` = the peak-normalised MMRT-only path (default).
+  thermal_model: unfolding
+  ngam_temperature: true      # temperature-dependent maintenance (unfolding only)
+  ngam_reaction: ATPM
+  enzyme_params: thermal/BestParamsTopt.csv   # grounded per-enzyme Topt/Tm/dCpt (UniProt-keyed)
 
 T0_C: 30
 
 temperature_grid:
-  start_C: 8
-  stop_C: 81
-  n: 74
+  start_C: 5                  # unfolding CTmax ~47C (Tm-set); grid need not extend high
+  stop_C: 60
+  n: 56
 
 # Coarse-grained proteome partition (Basan/Scott). Disabled -> scalar pool as before.
 proteome_sectors:

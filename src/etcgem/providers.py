@@ -139,12 +139,55 @@ def _find_biomass(model) -> str:
 # ---------------------------------------------------------------------------
 # GECKO ecModel extractor
 # ---------------------------------------------------------------------------
+def load_enzyme_thermal_params(path: str):
+    """Read a per-enzyme thermal parameter table (MRes / Li 2021 format) indexed
+    by UniProt id, with columns Topt, Tm (K), Length, T90, dCpt (J/mol/K).
+
+    Returns a DataFrame indexed by UniProt id. The first (unnamed) column is the
+    UniProt id in the MRes tables."""
+    import pandas as pd
+    df = pd.read_csv(path)
+    idcol = df.columns[0]
+    df = df.set_index(df[idcol].astype(str))
+    return df
+
+
+def apply_thermal_params(table, params_df, key: str = "enzyme_id"):
+    """Set each entry's grounded Topt/Tm/T90/length/dCpt from a params table,
+    joined by UniProt id. Topt/Tm are converted to K assumption already met (the
+    MRes tables store K). Returns (n_matched, n_total) coverage."""
+    import numpy as np
+    n_matched = 0
+    for e in table.entries:
+        uid = getattr(e, key, None)
+        if uid is None or uid not in params_df.index:
+            continue
+        row = params_df.loc[uid]
+        if hasattr(row, "iloc") and getattr(row, "ndim", 1) > 1:
+            row = row.iloc[0]   # duplicate ids -> take first
+        def _get(col):
+            v = row.get(col) if hasattr(row, "get") else None
+            return float(v) if v is not None and np.isfinite(v) else None
+        topt = _get("Topt")
+        if topt is not None:
+            e.Topt = topt
+        e.Tm = _get("Tm")
+        e.T90 = _get("T90")
+        e.length = _get("Length")
+        e.dCpt = _get("dCpt")
+        n_matched += 1
+    return n_matched, len(table.entries)
+
+
 def from_gecko(model_path: str, T0: float = 303.15,
                default_Topt_offset: float = 7.0, default_dCp: float = -12.0,
                prot_prefix: str = "prot_", pool_id: str = "prot_pool",
                biomass_rxn: Optional[str] = None,
                target_fraction: Optional[float] = None,
-               pool_scale: float = 1.0) -> ProvidedModel:
+               pool_scale: float = 1.0,
+               thermal_model: str = "mmrt", ngam_temperature: bool = False,
+               ngam_rxn: Optional[str] = None,
+               enzyme_params: Optional[str] = None) -> ProvidedModel:
     """Extract an enzyme cost table from a GECKO-style ecModel.
 
     Handles two encodings:
@@ -227,8 +270,20 @@ def from_gecko(model_path: str, T0: float = 303.15,
     # growth responds to temperature/allocation, not just the flanks).
     budget *= pool_scale
     group_budgets = _group_budgets_from_reference(table, T0, budget)
+
+    # Unfolding mode: overlay grounded per-enzyme Topt/Tm/dCpt/length before the
+    # model precomputes its unfolding thermodynamics; report coverage.
+    if thermal_model == "unfolding" and enzyme_params:
+        params_df = load_enzyme_thermal_params(enzyme_params)
+        n_match, n_tot = apply_thermal_params(table, params_df, key="enzyme_id")
+        print(f"[from_gecko] unfolding mode: matched grounded Topt/Tm for "
+              f"{n_match}/{n_tot} enzymes ({100*n_match/max(1,n_tot):.1f}%); "
+              f"the rest use dataset-mean fallbacks")
+
     ec = EnzymeConstrainedModel(model, table, default_budget=budget,
-                                group_budgets=group_budgets)
+                                group_budgets=group_budgets,
+                                thermal_model=thermal_model,
+                                ngam_temperature=ngam_temperature, ngam_rxn=ngam_rxn)
     ec.model.objective = biomass_rxn
     return ProvidedModel(ec=ec, T0=T0, biomass_rxn=biomass_rxn,
                          name=f"gecko:{model.id}")
