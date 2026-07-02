@@ -47,6 +47,13 @@ class EnzymeEntry:
     group: str = "default"
     enzyme_id: Optional[str] = None     # UniProt id (for keying DLTKcat fits)
     base_cost: Optional[float] = None   # override g/(mmol gDW^-1 h^-1); for GECKO short models
+    # Two-state unfolding parameters (only used when thermal_model="unfolding";
+    # None -> fall back to dataset means). Tm/T90 in K, length in residues, dCpt
+    # (transition-state heat capacity) in J/mol/K -- see unfolding.py.
+    Tm: Optional[float] = None
+    T90: Optional[float] = None
+    length: Optional[float] = None
+    dCpt: Optional[float] = None
 
     def __post_init__(self):
         # Per-flux protein cost at T0. relative_kcat(T) is invariant to kcat_ref,
@@ -136,7 +143,10 @@ class EnzymeConstrainedModel:
     POOL = "enzyme_pool"
 
     def __init__(self, model, table: EnzymeCostTable, default_budget: float,
-                 group_budgets: Optional[Dict[str, float]] = None):
+                 group_budgets: Optional[Dict[str, float]] = None,
+                 thermal_model: str = "mmrt", ngam_temperature: bool = False,
+                 ngam_rxn: Optional[str] = None,
+                 unfold_means: Optional[Dict[str, float]] = None):
         self.model = model
         self.table = EnzymeCostTable(
             [e for e in table.entries if e.rxn_id in model.reactions]
@@ -149,6 +159,16 @@ class EnzymeConstrainedModel:
         self._pool = None
         self._group_cons: Dict[str, object] = {}
         self._sectors = None   # populated by sectors.add_proteome_sectors (opt-in)
+        # Thermal model: "mmrt" (default, peak-normalised MMRT -- unchanged) or
+        # "unfolding" (two-state denaturation keyed on per-enzyme Tm, after
+        # Li 2021 / the MRes; see unfolding.py). ngam_temperature adds the
+        # temperature-dependent maintenance term (unfolding only).
+        self.thermal_model = thermal_model
+        self.ngam_temperature = bool(ngam_temperature)
+        um = unfold_means or {}
+        self._unfold_mean_Tm = float(um.get("Tm", 273.15 + 55.6))   # thesis mean 55.6 C
+        self._unfold_mean_len = float(um.get("length", 300.0))
+        self._unfold_mean_dCpt = float(um.get("dCpt", -4000.0))     # J/mol/K
         # Precompute parameter arrays and variable handles for a vectorised
         # temperature update (the hot path in a sweep).
         ents = self.table.entries
@@ -162,7 +182,35 @@ class EnzymeConstrainedModel:
         self._group_pos: Dict[str, np.ndarray] = {}
         for g in {e.group for e in ents}:
             self._group_pos[g] = np.array([i for i, e in enumerate(ents) if e.group == g])
+        self._ngam_rxn = self._detect_ngam(ngam_rxn) if self.ngam_temperature else None
+        if self.thermal_model == "unfolding":
+            self._build_unfolding()
         self._build()
+
+    def _detect_ngam(self, ngam_rxn):
+        cands = [ngam_rxn] if ngam_rxn else ["ATPM", "NGAM"]
+        for c in cands:
+            if c and c in self.model.reactions:
+                return self.model.reactions.get_by_id(c)
+        return None
+
+    def _build_unfolding(self):
+        """Precompute per-enzyme two-state unfolding thermodynamics (dHTH, dSTS,
+        dCpu in J) from Tm/T90/length, plus the transition-state dCpt, applying
+        dataset-mean fallbacks for enzymes without measured values."""
+        from . import unfolding as U
+        ents = self.table.entries
+        hth, sts, cpu, cpt = [], [], [], []
+        for e in ents:
+            Tm = e.Tm if e.Tm is not None and np.isfinite(e.Tm) else self._unfold_mean_Tm
+            length = e.length if e.length is not None and np.isfinite(e.length) else self._unfold_mean_len
+            dHTH, dSTS, dCpu = U.unfolding_params(Tm, e.T90, length)
+            hth.append(dHTH); sts.append(dSTS); cpu.append(dCpu)
+            cpt.append(e.dCpt if e.dCpt is not None and np.isfinite(e.dCpt) else self._unfold_mean_dCpt)
+        self._uHTH = np.array(hth, float)
+        self._uSTS = np.array(sts, float)
+        self._uCpu = np.array(cpu, float)
+        self._uCpt = np.array(cpt, float)
 
     # -- construction -------------------------------------------------------
     def _build(self):
@@ -190,6 +238,8 @@ class EnzymeConstrainedModel:
         self._T0 = np.array([e.T0 for e in ents], float)
         self._Topt = np.array([e.Topt for e in ents], float)
         self._dCp = np.array([e.dCp for e in ents], float)
+        if self.thermal_model == "unfolding":
+            self._build_unfolding()
         self.set_temperature(self._ref_T())
 
     # -- drivers ------------------------------------------------------------
@@ -202,6 +252,8 @@ class EnzymeConstrainedModel:
         the whole curve (no super-efficiency plateau) while preserving T0 as the
         pivot for the topt_scale perturbation.
         """
+        if self.thermal_model == "unfolding":
+            return self._costs_unfolding(T, pert)
         from .mmrt import relative_kcat_vec
         Topt_eff = self._T0 + pert.topt_scale * (self._Topt - self._T0) + pert.dTopt
         dCp_eff = self._dCp * pert.dCp_scale
@@ -209,6 +261,25 @@ class EnzymeConstrainedModel:
         peak = relative_kcat_vec(Topt_eff, self._T0, Topt_eff, dCp_eff)  # value at each Topt
         s = np.clip(rel / peak, 1e-6, None)   # normalised shape, <=1, =1 at Topt
         return self._base / s
+
+    def _costs_unfolding(self, T: float, pert: Perturbation) -> np.ndarray:
+        """Two-state-unfolding per-flux cost (Li 2021 / MRes):
+
+            cost_i(T) = base_cost_i / ( rel_kcat_i(T) * f_N_i(T) )
+
+        where rel_kcat_i is the transition-state turnover factor anchored at Topt
+        (NOT peak-normalised) and f_N_i is the native fraction (-> 0 above Tm), so
+        denaturation sets the falling limb. The envelope knobs still apply:
+        dTopt/topt_scale shift the enzyme optima, dCp_scale scales the
+        transition-state heat capacity; Tm (denaturation) is held at its grounded
+        value. base_cost is the cost at Topt, as in the reference model."""
+        from . import unfolding as U
+        Topt_eff = self._T0 + pert.topt_scale * (self._Topt - self._T0) + pert.dTopt
+        dCpt_eff = self._uCpt * pert.dCp_scale
+        rk = U.rel_kcat(T, self._uHTH, self._uSTS, self._uCpu, dCpt_eff, Topt_eff)
+        fN = U.native_fraction(T, self._uHTH, self._uSTS, self._uCpu)
+        denom = np.clip(rk * fN, 1e-6, None)
+        return self._base / denom
 
     def set_temperature(self, T: float, pert: Optional[Perturbation] = None):
         """Recompute all pool coefficients for temperature T (K)."""
@@ -228,6 +299,14 @@ class EnzymeConstrainedModel:
                 gc[self._fwd[i]] = ci
                 gc[self._rev[i]] = ci
             con.set_linear_coefficients(gc)
+        # Temperature-dependent maintenance (unfolding mode only). Skipped when
+        # sectors are wired, since the sector model owns the ATPM lower bound.
+        if (self.thermal_model == "unfolding" and self.ngam_temperature
+                and self._ngam_rxn is not None and self._sectors is None):
+            from . import unfolding as U
+            val = U.ngam_T(T)
+            self._ngam_rxn.lower_bound = val
+            self._ngam_rxn.upper_bound = max(val, self._ngam_rxn.upper_bound)
         if pert.budget is not None or pert.group_alloc:
             self.set_budget(pert.budget, pert.group_alloc)
 
