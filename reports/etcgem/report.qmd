@@ -8,26 +8,29 @@ abstract: |
   a two-state protein-unfolding thermal envelope keyed on grounded per-enzyme melting
   temperatures $T_m$ and optima $T_\text{opt}$ (90 % coverage; DLTKcat where available),
   a shared proteome pool refined into metabolic / biosynthesis / maintenance sectors
-  whose nominal split is **set from a measured 30 °C *E. coli* proteome**, and a
-  **measured temperature-dependent** sector allocation (chaperone/stress sector ramping
-  2.7-fold from 30→43 °C). Crucially, **nothing is fit to the growth curve**: both the
-  magnitude and the envelope emerge from independent inputs — the pool budget from
+  whose split is **set from the measured *E. coli* proteome, matched to both growth
+  medium and temperature** (per-medium LB / Glucose / Glycerol series, incl. a 2.7-fold
+  heat-stress chaperone ramp). Crucially, **nothing is fit to the growth curve**: both
+  the magnitude and the envelope emerge from independent inputs — the pool budget from
   $P_\text{total}\times f_\text{metab}\times\sigma$ (literature protein content ×
   measured metabolic fraction × literature in-vivo saturation), and the activation
   energy from a literature MMRT $\Delta C_p$ prior plus DLTKcat, so the emergent
-  $E_a\approx0.95$ eV lands near the independent bacterial-growth benchmark (0.84–0.88
-  eV, Smith et al. 2019) rather than a value we tuned. Validated **per individual
+  $E_a$ (0.83–0.96 eV, medium-dependent) lands near the independent bacterial-growth
+  benchmark (0.84–0.88 eV, Smith et al. 2019) rather than a value we tuned. Validated
+  **per individual
   curve** on **raw absolute growth rate** against 26 *E. coli* TPCs (Smith 2019
-  database), each predicted under *its* medium (glucose-minimal or a rich LB medium, set
-  as availability, uptake unpinned), the emergent model reproduces the optimum and the
-  denaturation-set upper limit (~47 °C) but **systematically under-predicts magnitude**
-  (predicted $r_\text{max}=0.34$ h⁻¹ vs observed medians 0.8/2.5 h⁻¹ on
-  minimal/rich media) — and, tellingly, an LB medium does **not** close the gap because
-  growth is *translation-cap-limited* by the measured proteome allocation. These are
-  honest a-priori errors — pointing to the translation-cap calibration and $\sigma$/
-  $k_\text{cat}$/medium uncertainty — not tuning failures. Its predicted per-enzyme
-  allocation correlates with the measured proteome ($\rho\approx0.3$). On this model the
-  widely-assumed clean
+  database), each predicted under *its* medium with **medium- and temperature-matched
+  proteome-sector allocation** (glucose-minimal or a rich LB medium, set as availability,
+  uptake unpinned), the emergent model reproduces the optimum, the denaturation-set upper
+  limit (~47 °C) **and the growth-law magnitude difference between media** — predicting
+  $r_\text{max}=1.0$ h⁻¹ on LB vs 0.55 h⁻¹ on minimal (a 1.9-fold boost straight from the
+  measured LB ribosome fraction), closing much of the rich-curve magnitude gap (median
+  absolute $R^2$ $-0.8\!\to\!+0.2$) with a residual under-prediction of the fastest
+  curves. The emergent activation energy is medium-dependent (0.83 eV on LB, on the
+  0.84–0.88 eV benchmark). These are honest a-priori results — remaining errors point to
+  $\sigma$/$k_\text{cat}$/medium uncertainty — not tuning failures. Its predicted
+  per-enzyme allocation correlates with the measured proteome ($\rho\approx0.3$). On this
+  model the widely-assumed clean
   division of labour **collapses**: a Shapley variance decomposition attributes the rate
   $r_\text{max}$ only 28 % to allocation (vs ~100 % under the older peak-normalised
   scalar-pool convention), and the thermal envelope dominates the variance of *every*
@@ -91,32 +94,119 @@ at dataset means), with **DLTKcat** temperature-dependent $k_\text{cat}$ predict
 in protein stability and decouples it from the rising-limb $E_a$; the in-vitro/in-vivo
 $k_\text{cat}$ gap motivates data-driven turnover [@Davidi2016; @Heckmann2020].
 
-**Proteome allocation — measured sectors, temperature-dependent.** The pool is refined
-into three growth-law sectors [@Basan2015; @Scott2010] — metabolic, biosynthesis
-(a translation cap) and maintenance. Their **nominal split is set from a measured 30 °C
-*E. coli* proteome** (Wang et al. [@Wang2026]; COG-mapped, mass-weighted:
-$f_\text{metab}=0.285$, $f_\text{bio}=0.341$, and maintenance $f_\text{maint}=0.374$
-folding the measured chaperone + other sectors together), not hand-set. The split is
-then made **temperature-dependent** from the measured proteome across 16–43 °C
-(chaperone/stress sector ramping 2.7-fold), interpolated per temperature and anchored at
-30 °C — real proteome reallocation that a temperature-independent model omits
-[@Mairet2021; @Wang2026]. A temperature-dependent maintenance (NGAM) term is included.
+**Proteome allocation — measured, medium- *and* temperature-matched sectors.** The pool
+is refined into three growth-law sectors [@Basan2015; @Scott2010] — metabolic
+($f_\text{metab}$, the enzyme pool), biosynthesis ($f_\text{bio}$, a translation cap on
+growth) and maintenance ($f_\text{maint}$). The sector fractions are **set from the
+measured *E. coli* proteome, matched to both growth medium and temperature** (Wang et
+al. [@Wang2026]; COG-mapped, mass-weighted; per-medium series LB / Glucose / Glycerol at
+their measured temperatures), never hand-set or fit. This captures the **growth law**:
+the measured biosynthesis (ribosome) fraction at 37 °C is $f_\text{bio}=0.36$ on LB but
+only $0.18$ on glucose-minimal, so a run under LB gets a higher translation cap and
+predicts faster growth than one under minimal medium — straight from data. The default
+(glucose-minimal) nominal split is $f_\text{metab}=0.483$, $f_\text{bio}=0.191$,
+$f_\text{maint}=0.326$ (folding the measured chaperone + other sectors, incl. the
+2.7-fold heat-stress chaperone ramp, into maintenance); `set_medium` switches the active
+per-medium curve. A temperature-dependent maintenance (NGAM) term is included.
 
 **Emergent — nothing fit to the growth curve.** A central design choice is that the
 TPC is a genuine a-priori prediction: no parameter is tuned to growth. The rate
 **magnitude emerges** from the pool budget $= P_\text{total}\times f_\text{metab}\times
 \sigma$ — total protein per gDW ($P_\text{total}=0.5$ g/gDW, literature), the *measured*
-metabolic proteome fraction ($f_\text{metab}=0.285$), and the average in-vivo enzyme
-saturation ($\sigma=0.45$, an independent literature value carried with its
-0.4–0.5 range [@Davidi2016; @Heckmann2020]) — giving a budget of 0.064 g/gDW and an
-**emergent $r_\text{max}=0.34\,\text{h}^{-1}$**, not the growth-calibrated GECKO pool.
-The **envelope emerges** too: per-enzyme $\Delta C_p$ comes from a literature MMRT prior
-(−4 kJ/mol/K [@Hobbs2013]) plus DLTKcat where available — no value is chosen to hit an
-$E_a$ target — so the organismal **$E_a\approx0.95$ eV emerges** and can be *tested*
-against the independent benchmark. The deprecated growth-fit knobs (pool_scale, and the
-`calibrate-dcp`-to-$E_a$ calibration used earlier) are switched off. The model builds and
-grows (translation cap and pool co-limiting at the nominal split,
-$\mu^\ast=0.32\,\text{h}^{-1}$ at 30 °C).
+metabolic proteome fraction ($f_\text{metab}$, medium-matched: 0.48 on glucose-minimal,
+0.28 on LB), and the average in-vivo enzyme saturation ($\sigma=0.45$, an independent
+literature value carried with its 0.4–0.5 range [@Davidi2016; @Heckmann2020]) — giving
+**emergent $r_\text{max}=0.55\,\text{h}^{-1}$ on glucose-minimal (1.04 on LB)**, not the
+growth-calibrated GECKO pool. The **envelope emerges** too: per-enzyme $\Delta C_p$ comes
+from a literature MMRT prior (−4 kJ/mol/K [@Hobbs2013]) plus DLTKcat where available — no
+value is chosen to hit an $E_a$ target — so the organismal **$E_a$ (0.83–0.96 eV) emerges**
+and can be *tested* against the independent benchmark. The deprecated growth-fit knobs
+(pool_scale, and the `calibrate-dcp`-to-$E_a$ calibration used earlier) are switched off.
+The model builds and grows (translation cap and pool co-limiting at the nominal split,
+$\mu^\ast\approx0.55\,\text{h}^{-1}$ at 30 °C).
+
+# Model equations, parameters and methods
+
+**Governing equations.** Each enzyme $i$'s turnover follows macromolecular rate theory
+(MMRT), with activation enthalpy/entropy $\Delta H_0,\Delta S_0$ (at reference $T_0$) and
+a heat-capacity term $\Delta C_p$:
+
+$$\ln k_i(T) = \ln\!\frac{k_B T}{h} + \frac{-\Delta H_{0} - \Delta C_p (T-T_0)}{R\,T} + \frac{\Delta S_{0} + \Delta C_p\,\ln(T/T_0)}{R}. $$ {#eq-mmrt}
+
+The fraction of enzyme in the native (folded) state follows a two-state
+native$\leftrightarrow$unfolded equilibrium keyed on the melting temperature $T_m$
+(convergence temperatures $T_H,T_S$; unfolding enthalpy/entropy/heat-capacity
+$\Delta H_{TH},\Delta S_{TS},\Delta C_{p,u}$):
+
+$$f_{N,i}(T) = \frac{1}{1+\exp\!\big(-\Delta G_{u,i}(T)/(R T)\big)},\qquad \Delta G_{u,i}(T) = \Delta H_{TH} + \Delta C_{p,u}(T-T_H) - T\,\Delta S_{TS} - T\,\Delta C_{p,u}\ln(T/T_S). $$ {#eq-fn}
+
+The effective per-flux enzyme cost combines the (Topt-anchored) turnover factor
+$\widehat{k}_{i}(T)=k_i(T)/k_i(T_{\text{opt}})$ and the native fraction, so denaturation
+above $T_m$ inflates cost and drives the falling limb:
+
+$$c_i(T) = \frac{\text{base}_i}{\widehat{k}_{i}(T)\,f_{N,i}(T)},\qquad \text{base}_i = \frac{\text{MW}_i}{k_{\text{cat,ref},i}\cdot 3600}. $$ {#eq-cost}
+
+Growth (biomass flux $v_\text{bio}$) maximises subject to the metabolic pool, the
+translation (biosynthesis) cap and a temperature-dependent maintenance demand:
+
+$$\sum_i c_i(T)\,|v_i| \le f_\text{metab}\,P_\text{total},\qquad \kappa\,v_\text{bio} \le f_\text{bio}\,P_\text{total},\qquad v_\text{ATPM} \ge \text{NGAM}(T), $$ {#eq-constraints}
+
+with the emergent metabolic budget and the medium-/temperature-matched sector fractions
+
+$$P_\text{metab} = f_\text{metab}(m,T)\,P_\text{total},\quad P_\text{total}=\sigma\,P^{\text{lit}},\quad \big(f_\text{metab},f_\text{bio},f_\text{maint}\big)(m,T)\ \text{from the measured medium-}m\text{ proteome}, $$ {#eq-alloc}
+
+where $\kappa$ (`translation_coeff`) is auto-calibrated once so the cap and pool
+co-limit at the nominal split, and $\text{NGAM}(T)$ rises with $T$ above a basal floor.
+TPC descriptors are read from the emergent curve $\mu(T)$: $T_\text{opt}=\arg\max_T\mu$,
+$r_\text{max}=\max_T\mu$, $CT_\text{min}/CT_\text{max}$ the crossings of $\mu=0.05\,r_\text{max}$
+below/above the peak, thermal breadth $=CT_\text{max}-CT_\text{min}$, and the
+Boltzmann–Arrhenius activation energy $E_a=-\text{slope of }\ln\mu\text{ vs }1/(k_B T)$
+on the rising limb ($0.1$–$0.95\,r_\text{max}$). The allocation-vs-envelope decomposition
+uses a crossed two-group functional ANOVA with an exact Shapley split
+$\varphi_A=S_A+\tfrac12 S_{AE}$, $\varphi_E=S_E+\tfrac12 S_{AE}$; per-enzyme thermal
+control coefficients are central finite differences of each descriptor to each enzyme's
+$T_{\text{opt},i}$/$\Delta C_{p,i}$, and identifiability is the max-normalised
+control magnitude (a first-order proxy, not Fisher information).
+
+**Parameter provenance.** Every input is grounded in independent data or a stated
+literature value — none is fit to the growth curve (@tbl-provenance).
+
+| Symbol | Quantity | Source | Coverage / value |
+|---|---|---|---|
+| $\text{MW}_i, k_{\text{cat,ref},i}$ | enzyme mass, reference turnover | GECKO ecModel of iML1515 [@Sanchez2017; @Domenzain2022; @Monk2017] | 2560 enzymes |
+| $T_{\text{opt},i}$ | catalytic optimum | Li–Engqvist sequence predictor [@LiEngqvist2019]; DLTKcat overlay [@Qiu2024] | 90 % grounded; 13 DLTKcat |
+| $T_{m,i}$ | melting temperature | *E. coli* melting proteome [@Leuenberger2017] | 90 % grounded, rest at mean 55.6 °C |
+| $\Delta C_{p,i}$ | MMRT curvature | literature MMRT prior −4 kJ/mol/K [@Hobbs2013] + DLTKcat | prior for all; 13 DLTKcat |
+| $f_\text{metab},f_\text{bio},f_\text{maint}$ | sector fractions | measured proteome, per medium & $T$ [@Wang2026] | LB/Glucose/Glycerol, 16–43 °C |
+| $P^{\text{lit}}$ | total protein per gDW | literature | 0.5 g/gDW |
+| $\sigma$ | in-vivo enzyme saturation | Davidi 2016 / Heckmann 2020 [@Davidi2016; @Heckmann2020] | 0.45 (range 0.4–0.5) |
+| medium | growth condition | Smith 2019 metadata [@Smith2019]; LB from MRes/Machado [@Madkaikar2023; @Machado2021] | per curve |
+
+: Parameter provenance — every value grounded in independent data or a stated literature value, never fit to growth. {#tbl-provenance}
+
+**In-silico experiments.** (O1) The nominal TPC over an 8–60 °C grid gives the
+descriptors. (O2/O3) A **global sensitivity** sweep draws a Latin-hypercube sample
+($n=120$) over envelope knobs ($dT_\text{opt}\in[-6,6]$ K, `topt_scale`$\in[0.7,1.4]$,
+`dCp_scale`$\in[0.5,2]$) and a pool knob (`budget_scale`$\in[0.7,1.1]$), reducing each
+TPC to descriptors and Spearman indices. (O4) The **decomposition** evaluates a crossed
+$16\times16$ allocation$\times$envelope design (allocation = sector split around the
+measured nominal; envelope = grounded $T_\text{opt}/T_m$ perturbations) and applies the
+Shapley split of @eq-alloc. (O2/O5) The **control/identifiability** analysis screens all
+2560 enzymes (usage × thermal sensitivity), then computes finite-difference control
+coefficients on the top-100, reporting proteome-wide identifiability over all
+$2560\times3$ parameters. (O6) A **calibrated-uncertainty** ensemble samples the envelope
+per enzyme with a one-factor correlation ($\rho=0.7$). All analyses reuse the same
+`compute_tpc`/`descriptors` engine.
+
+**Validation.** The model is validated **per individual curve** against 26 *E. coli*
+growth TPCs compiled by Smith et al. [@Smith2019] (8 source studies; per-study medium:
+2 defined glucose-minimal, 24 rich broth $\to$ LB). Each curve is predicted under *its*
+medium (set as availability, uptake unpinned) with its medium-matched sector fractions.
+The **primary metric is absolute** $R^2$/RMSE on raw specific growth rate ($\text{h}^{-1}$;
+all curves in $\text{h}^{-1}$, none dropped for units); peak-normalised shape $R^2$ and
+the rising-limb $E_a$ (tested against the independent 0.84–0.88 eV benchmark) are
+secondary diagnostics. The proteome is validated separately (predicted vs measured
+per-enzyme mass, §Validation).
 
 # Validation
 
@@ -135,23 +225,22 @@ empirical rates are in specific-growth-rate units (h⁻¹; **0 dropped** for uni
 Because the magnitude is now emergent, the **primary metric is absolute** $R^2$/RMSE on
 raw $\mu(T)$ in h⁻¹; peak-normalised shape $R^2$ is a secondary diagnostic.
 
-**Per-curve result.** The emergent model **systematically under-predicts the rate
-magnitude** (@fig-percurve, @fig-percurveR2, @tbl-percurve): its predicted
-$r_\text{max}=0.34\,\text{h}^{-1}$ is far below the observed medians (0.77 h⁻¹ on the
-defined-minimal curves, **2.5 h⁻¹ on the rich curves**), giving strongly negative
-median absolute $R^2$ (−23 minimal, −0.8 LB). Critically, **the LB medium does *not*
-close the gap** — the model's growth is **translation-cap-limited** (the biosynthesis
-sector cap, set from the *measured* proteome, binds at $\mu^\ast\!\approx\!0.34$ h⁻¹),
-so $r_\text{max}$ is the same on LB and minimal; richer carbon/amino-acid availability
-cannot raise it. The medium instead shifts the *envelope* (LB: $CT_\text{max}$
-$46.7\!\to\!50$ °C, $E_a$ $0.95\!\to\!0.64$ eV, as different enzymes limit). The
-emergent $E_a$ (0.64–0.95 eV across media) brackets the observed rising-limb values
-(~0.64–0.73 eV) and is near the mesophilic-bacterial-growth benchmark (0.84–0.88 eV,
-[@Smith2019]), far from the 0.65 eV metabolic-theory value earlier (wrongly) calibrated
-to. These are honest a-priori findings, not tuning failures: the magnitude shortfall
-points to the translation-cap calibration and to genuine uncertainty in $\sigma$,
-in-vivo $k_\text{cat}$ and rich-medium composition. The emergent nominal descriptors
-are in @tbl-nominal.
+**Per-curve result.** With the **medium-matched** allocation the model captures the
+growth-law magnitude difference between media (@fig-percurve, @fig-percurveR2,
+@tbl-percurve): predicted $r_\text{max}$ is **1.04 h⁻¹ on LB vs 0.55 h⁻¹ on
+glucose-minimal — a 1.9-fold boost that emerges directly from the higher measured
+ribosome fraction on LB** (not fitted). This **closes much of the absolute-magnitude
+gap** for the 24 rich curves: their median absolute $R^2$ rises from $-0.8$ (fixed
+allocation) to **$+0.21$** and their shape $R^2$ from $-0.67$ to $+0.70$, with predicted
+$r_\text{max}$ (1.04) now within ~2× of the observed 2.5 h⁻¹ rather than ~7×. The
+emergent activation energy is **medium-dependent and near-benchmark**: $E_a=0.83$ eV on
+LB (right on the mesophilic-bacterial-growth benchmark 0.84–0.88 eV, [@Smith2019]) and
+0.96 eV on minimal, versus observed rising-limb values ~0.64–0.73 eV — and far from the
+0.65 eV metabolic-theory value earlier (wrongly) calibrated to. A residual gap remains
+(the model still under-predicts the fastest rich curves, and the two defined
+glucose-minimal curves stay noisy — one is anomalously low at 0.10 h⁻¹): honest a-priori
+errors pointing to $\sigma$ / in-vivo $k_\text{cat}$ / medium-composition uncertainty,
+not tuning failures. The emergent nominal descriptors are in @tbl-nominal.
 
 ![**Emergent model vs individual *E. coli* TPCs — RAW absolute growth rate (h⁻¹).** Twelve curves on their own $y$-scale; green = glucose-minimal medium, orange = rich (LB); the model line sits far below the rich-medium data (per-panel absolute $R^2$ shown).](assets/figures/percurve_smallmultiples.png){#fig-percurve fig-pos="H" width=95%}
 
@@ -159,7 +248,7 @@ are in @tbl-nominal.
 
 ```{python}
 #| label: tbl-percurve
-#| tbl-cap: "Per-curve absolute-rate validation, split by medium (nothing fit to growth). Primary metric: median absolute R² on raw growth rate (h⁻¹); shape R² secondary. The emergent rmax is translation-cap-limited (identical on LB and minimal)."
+#| tbl-cap: "Per-curve absolute-rate validation, split by medium (nothing fit to growth). Primary metric: median absolute R² on raw growth rate (h⁻¹); shape R² secondary. The emergent rmax is medium-matched (LB > minimal via the measured ribosome fraction)."
 #| output: asis
 import json, pandas as pd
 with open("assets/tables/percurve_summary.json") as fh:
@@ -178,7 +267,7 @@ print(pd.DataFrame(rows, columns=["quantity", "glucose-minimal", "rich (LB)"]).t
 
 ```{python}
 #| label: tbl-nominal
-#| tbl-cap: "Emergent nominal TPC descriptors on the two media (glucose minimal aerobic vs LB; nothing fit to growth). rmax is translation-cap-limited and identical across media."
+#| tbl-cap: "Emergent nominal TPC descriptors on the two media (glucose minimal aerobic vs LB; nothing fit to growth). rmax is medium-matched (LB higher than minimal via the measured ribosome/biosynthesis fraction)."
 #| output: asis
 import json
 import pandas as pd
@@ -417,12 +506,11 @@ per-curve validation: **(i)** the emergent rising limb is **too steep** — the
 predicted $E_a\approx0.95$ eV over-predicts low-temperature growth and peaks a few
 degrees colder than observed; a single literature $\Delta C_p$ prior couples breadth and
 $E_a$, so per-enzyme curvature (from broader DLTKcat coverage) is the route to a more
-accurate rising limb; **(ii)** the emergent **magnitude** ($r_\text{max}\approx0.34$
-h⁻¹) systematically under-predicts observed rates (especially the ~2.5 h⁻¹ rich-medium
-curves) and is **translation-cap-limited** — the biosynthesis-sector cap from the
-measured proteome binds, so richer media do not raise it; this reflects the cap
-calibration and genuine uncertainty in $\sigma$ and in-vivo $k_\text{cat}$ (carried as
-literature ranges, not tuned); **(iii)** the
+accurate rising limb; **(ii)** the emergent **magnitude** is now medium-matched
+($r_\text{max}=1.0$ h⁻¹ LB vs 0.55 minimal, the growth-law direction) but still
+**under-predicts the fastest rich curves** (~2.5 h⁻¹), reflecting residual uncertainty
+in $\sigma$, in-vivo $k_\text{cat}$ and exact rich-medium composition (all carried as
+literature values/availability, not tuned); **(iii)** the
 chaperone/stress sector is imposed as a maintenance input, not modelled as flux-carrying
 reactions; **(iv)** identifiability is a first-order proxy; **(v)** parameters and
 proteome are *E. coli*-specific (per-strain proteomes / predictors are the library-scale
