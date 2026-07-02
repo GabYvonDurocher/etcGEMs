@@ -29,5 +29,5 @@ sensitivity:
     budget_scale: [0.7, 1.1]
   groups: []
 
-solver_timeout: 2
+solver_timeout: 10
 crit_frac: 0.05
