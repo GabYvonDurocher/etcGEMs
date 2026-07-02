@@ -1,0 +1,132 @@
+{
+  "analysis_temps_C": [
+    27.0,
+    37.0,
+    45.0
+  ],
+  "nominal": {
+    "Topt_C": 37.0,
+    "CT_max_C": 75.58094364346536,
+    "rmax": 0.5712803343801105,
+    "niche_width_C": 67.58094364346536
+  },
+  "summation_check": {
+    "sum_FCC_at_opt": 0.6850012585866122,
+    "sum_CC_Topt_org_wrt_Topt_i": 0.0
+  },
+  "top_thermal_determinants": [
+    {
+      "rxn_id": "GAPDNo1",
+      "enzyme_id": "P0A9B2",
+      "CC[Topt_C,Topt_i]": 0.0
+    },
+    {
+      "rxn_id": "ACOAD3f_REVNo1",
+      "enzyme_id": "Q47146",
+      "CC[Topt_C,Topt_i]": 0.0
+    },
+    {
+      "rxn_id": "CSNo1",
+      "enzyme_id": "P0ABH7",
+      "CC[Topt_C,Topt_i]": 0.0
+    },
+    {
+      "rxn_id": "MTHFD_REVNo1",
+      "enzyme_id": "P24186",
+      "CC[Topt_C,Topt_i]": 0.0
+    },
+    {
+      "rxn_id": "MTHFC_REVNo1",
+      "enzyme_id": "P24186",
+      "CC[Topt_C,Topt_i]": 0.0
+    },
+    {
+      "rxn_id": "CTPS2No1",
+      "enzyme_id": "P0A7E5",
+      "CC[Topt_C,Topt_i]": 0.0
+    },
+    {
+      "rxn_id": "ACOAD6f_REVNo1",
+      "enzyme_id": "Q47146",
+      "CC[Topt_C,Topt_i]": 0.0
+    },
+    {
+      "rxn_id": "AACPS4No1",
+      "enzyme_id": "P0A6A8",
+      "CC[Topt_C,Topt_i]": 0.0
+    },
+    {
+      "rxn_id": "ANPRTNo1",
+      "enzyme_id": "P00904",
+      "CC[Topt_C,Topt_i]": 0.0
+    },
+    {
+      "rxn_id": "UAMAGSNo1",
+      "enzyme_id": "P14900",
+      "CC[Topt_C,Topt_i]": 0.0
+    }
+  ],
+  "top_rate_limiting_at_opt": [
+    {
+      "rxn_id": "GAPDNo1",
+      "enzyme_id": "P0A9B2",
+      "FCC_opt_37C": 0.08363101526007166
+    },
+    {
+      "rxn_id": "3OAS140No1",
+      "enzyme_id": "P0A953",
+      "FCC_opt_37C": 0.057725458687885034
+    },
+    {
+      "rxn_id": "GLNSNo1",
+      "enzyme_id": "P0A9C5",
+      "FCC_opt_37C": 0.03772848763974601
+    },
+    {
+      "rxn_id": "THRSNo1",
+      "enzyme_id": "P00934",
+      "FCC_opt_37C": 0.036196085920123244
+    },
+    {
+      "rxn_id": "ARGSSNo1",
+      "enzyme_id": "P0A6E4",
+      "FCC_opt_37C": 0.029907999655248707
+    },
+    {
+      "rxn_id": "ACONTbNo1",
+      "enzyme_id": "P36683",
+      "FCC_opt_37C": 0.026919412753856342
+    },
+    {
+      "rxn_id": "ACONTaNo1",
+      "enzyme_id": "P36683",
+      "FCC_opt_37C": 0.0264114570352858
+    },
+    {
+      "rxn_id": "ACGSNo1",
+      "enzyme_id": "P0A6C5",
+      "FCC_opt_37C": 0.02597694920534188
+    },
+    {
+      "rxn_id": "ENONo1",
+      "enzyme_id": "P0A6P9",
+      "FCC_opt_37C": 0.01886791840026436
+    },
+    {
+      "rxn_id": "PRFGSNo1",
+      "enzyme_id": "P15254",
+      "FCC_opt_37C": 0.017400089016123
+    }
+  ],
+  "identifiability": {
+    "method": "first-order control-magnitude proxy (screen), refined by finite difference on top-K; NOT Fisher information",
+    "n_params_total": 7680,
+    "n_identifiable_from_growth": 92,
+    "frac_identifiable": 0.011979166666666667,
+    "frac_requires_omics": 0.9880208333333333,
+    "n_refined_topk": 300,
+    "n_identifiable_topk": 92,
+    "frac_identifiable_topk": 0.30666666666666664,
+    "threshold": 0.05
+  }
+}

@@ -1,6 +1,10 @@
 \usepackage{lineno}
 \linenumbers
 \usepackage{float}
+% Keep each section's figures/tables within that section (prevents floats from
+% piling up across sections, which with lineno can stop the layout converging and
+% drop surrounding text). A FloatBarrier is inserted at every section boundary.
+\usepackage[section]{placeins}
 
 % Encourage figure placement near reference point, reduce white space
 \renewcommand{\topfraction}{0.9}

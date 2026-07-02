@@ -48,7 +48,7 @@ descriptor definitions.)*
 The nominal (unperturbed) TPC is shown in @fig-tpc, with the sampled ensemble fan
 around it. The nominal descriptors are summarised in @tbl-nominal.
 
-![**Nominal TPC ensemble for eciML1515.** Grey lines are individual sampled curves across proteome allocation and $k_\text{cat}(T)$ perturbations; the blue band is the interquartile range and the solid line the ensemble median, with the nominal curve dashed.](assets/figures/tpc_ensemble.png){#fig-tpc fig-pos="htbp" width=80%}
+![**Nominal TPC ensemble for eciML1515.** Grey lines are individual sampled curves across proteome allocation and $k_\text{cat}(T)$ perturbations; the blue band is the interquartile range and the solid line the ensemble median, with the nominal curve dashed.](assets/figures/tpc_ensemble.png){#fig-tpc fig-pos="H" width=80%}
 
 ```{python}
 #| label: tbl-nominal
@@ -82,9 +82,9 @@ descriptor distributions (@fig-descdist) and Spearman sensitivity indices
 temperatures track the thermal envelope, whereas $r_\text{max}$ tracks the proteome
 budget.
 
-![**Global sensitivity of TPC descriptors.** Spearman rank-correlation between each swept input (rows) and each TPC descriptor (columns); red is positive, blue negative.](assets/figures/sensitivity_heatmap.png){#fig-sens fig-pos="htbp" width=90%}
+![**Global sensitivity of TPC descriptors.** Spearman rank-correlation between each swept input (rows) and each TPC descriptor (columns); red is positive, blue negative.](assets/figures/sensitivity_heatmap.png){#fig-sens fig-pos="H" width=90%}
 
-![**Descriptor distributions across the sweep.** Marginal distribution of each TPC descriptor over the Latin-hypercube ensemble.](assets/figures/descriptor_distributions.png){#fig-descdist fig-pos="htbp" width=90%}
+![**Descriptor distributions across the sweep.** Marginal distribution of each TPC descriptor over the Latin-hypercube ensemble.](assets/figures/descriptor_distributions.png){#fig-descdist fig-pos="H" width=90%}
 
 ```{python}
 #| label: tbl-sens
@@ -108,11 +108,11 @@ mechanistic proteome-sector split** ($f_\text{metab}$, $f_\text{maint}$; Basan/S
 separability rests on real allocation degrees of freedom rather than a
 by-construction scalar axis.
 
-![**Achievable descriptor ranges.** Ranges of each TPC descriptor reachable by varying allocation alone versus the thermal envelope alone.](assets/figures/decomp_achievable.png){#fig-decompach fig-pos="htbp" width=85%}
+![**Achievable descriptor ranges.** Ranges of each TPC descriptor reachable by varying allocation alone versus the thermal envelope alone.](assets/figures/decomp_achievable.png){#fig-decompach fig-pos="H" width=85%}
 
-![**Variance partition.** Variance of each descriptor attributed to allocation, envelope and their interaction.](assets/figures/decomp_variance.png){#fig-decompvar fig-pos="htbp" width=85%}
+![**Variance partition.** Variance of each descriptor attributed to allocation, envelope and their interaction.](assets/figures/decomp_variance.png){#fig-decompvar fig-pos="H" width=85%}
 
-![**Shapley effects.** Shapley-normalised allocation and envelope contributions to descriptor variance.](assets/figures/decomp_shapley.png){#fig-decompshap fig-pos="htbp" width=85%}
+![**Shapley effects.** Shapley-normalised allocation and envelope contributions to descriptor variance.](assets/figures/decomp_shapley.png){#fig-decompshap fig-pos="H" width=85%}
 
 ```{python}
 #| label: tbl-decomp
@@ -135,11 +135,11 @@ per-enzyme parameter is from the growth TPC alone. Few enzymes dominate thermal
 control (H1.1); many thermal parameters are only weakly identifiable from growth,
 motivating omics constraints (H1.2).
 
-![**Per-enzyme thermal control.** Top enzymes ranked by their thermal-screen control score over the TPC.](assets/figures/control_thermal.png){#fig-ctrlthermal fig-pos="htbp" width=85%}
+![**Per-enzyme thermal control.** Top enzymes ranked by their thermal-screen control score over the TPC.](assets/figures/control_thermal.png){#fig-ctrlthermal fig-pos="H" width=85%}
 
-![**Bottleneck enzyme vs temperature.** Identity/strength of the rate-limiting enzyme as a function of temperature.](assets/figures/control_bottleneck.png){#fig-ctrlbottle fig-pos="htbp" width=85%}
+![**Bottleneck enzyme vs temperature.** Identity/strength of the rate-limiting enzyme as a function of temperature.](assets/figures/control_bottleneck.png){#fig-ctrlbottle fig-pos="H" width=85%}
 
-![**Identifiability of per-enzyme thermal parameters.** Distribution of identifiability of per-enzyme parameters from the growth TPC alone.](assets/figures/control_identifiability.png){#fig-ctrlident fig-pos="htbp" width=75%}
+![**Identifiability of per-enzyme thermal parameters.** Distribution of identifiability of per-enzyme parameters from the growth TPC alone.](assets/figures/control_identifiability.png){#fig-ctrlident fig-pos="H" width=75%}
 
 ```{python}
 #| label: tbl-control
@@ -154,7 +154,7 @@ print(c[cols].head(10).round(4).to_markdown(index=False))
 
 ```{python}
 #| label: tbl-ident
-#| tbl-cap: "Identifiability of per-enzyme thermal/catalytic parameters from the growth TPC, computed proteome-wide (all enzymes × {Topt_i, dCp_i, kcat_i}) as a first-order control-magnitude proxy. The proteome-wide identifiable fraction is small, whereas among the top-K finite-difference control enzymes (`refined`) most parameters are identifiable — few enzymes dominate control (H1.1) while most parameters need omics constraints (H1.2)."
+#| tbl-cap: "Identifiability of per-enzyme thermal/catalytic parameters from the growth TPC, computed proteome-wide (all enzymes × {Topt_i, dCp_i, kcat_i}) as a first-order control-magnitude proxy. The proteome-wide identifiable fraction is small, whereas among the top-K finite-difference control enzymes (`refined`) a much larger fraction is identifiable — few enzymes dominate control (H1.1) while most parameters need omics constraints (H1.2)."
 #| output: asis
 import pandas as pd
 
@@ -183,7 +183,7 @@ DLTKcat $k_\text{cat}(T)$ predictions [@Qiu2024] gives the ensemble in
 @fig-dltkcat. This is a data-driven envelope built from sequence/temperature-aware
 turnover predictions, to be compared against the default-parameter run of §2.
 
-![**DLTKcat-calibrated TPC ensemble.** TPC ensemble using per-enzyme MMRT parameters fitted from DLTKcat temperature-dependent $k_\text{cat}$ predictions.](assets/figures/dltkcat_ensemble.png){#fig-dltkcat fig-pos="htbp" width=80%}
+![**DLTKcat-calibrated TPC ensemble.** TPC ensemble using per-enzyme MMRT parameters fitted from DLTKcat temperature-dependent $k_\text{cat}$ predictions.](assets/figures/dltkcat_ensemble.png){#fig-dltkcat fig-pos="H" width=80%}
 
 ## 7. Calibrated thermal-envelope uncertainty (M1.2)
 
@@ -195,9 +195,9 @@ optionally drawing each enzyme's mean and standard deviation from the DLTKcat fi
 uncertainty for the key descriptors; @tbl-calibrated gives the calibrated descriptor
 medians and interquartile ranges.
 
-![**Calibrated thermal-envelope uncertainty.** TPC ensemble under per-enzyme correlated (one-factor $\rho$) thermal sampling — the calibrated-uncertainty fan.](assets/figures/calibrated_ensemble.png){#fig-calens fig-pos="htbp" width=80%}
+![**Calibrated thermal-envelope uncertainty.** TPC ensemble under per-enzyme correlated (one-factor $\rho$) thermal sampling — the calibrated-uncertainty fan.](assets/figures/calibrated_ensemble.png){#fig-calens fig-pos="H" width=80%}
 
-![**Nominal vs calibrated descriptor uncertainty.** For each key descriptor, the default hand-set-range distribution (grey) is overlaid with the calibrated per-enzyme correlated distribution (orange).](assets/figures/calibrated_vs_default.png){#fig-calvsdef fig-pos="htbp" width=85%}
+![**Nominal vs calibrated descriptor uncertainty.** For each key descriptor, the default hand-set-range distribution (grey) is overlaid with the calibrated per-enzyme correlated distribution (orange).](assets/figures/calibrated_vs_default.png){#fig-calvsdef fig-pos="H" width=85%}
 
 ```{python}
 #| label: tbl-calibrated
@@ -231,9 +231,9 @@ fraction $f_\text{metab}$, coloured by the maintenance fraction $f_\text{maint}$
 @fig-secsens gives the Spearman indices over the sector inputs. This is the
 mechanistic allocation axis that speaks WP2's maintenance→biosynthesis language.
 
-![**Proteome-sector trade-off.** $r_\text{max}$ and $CT_\text{max}$ versus the metabolic sector fraction $f_\text{metab}$, coloured by maintenance fraction $f_\text{maint}$; the interior $r_\text{max}$ optimum reflects metabolic vs biosynthesis co-limitation.](assets/figures/sector_tradeoff.png){#fig-sectrade fig-pos="htbp" width=90%}
+![**Proteome-sector trade-off.** $r_\text{max}$ and $CT_\text{max}$ versus the metabolic sector fraction $f_\text{metab}$, coloured by maintenance fraction $f_\text{maint}$; the interior $r_\text{max}$ optimum reflects metabolic vs biosynthesis co-limitation.](assets/figures/sector_tradeoff.png){#fig-sectrade fig-pos="H" width=90%}
 
-![**Sector-sweep sensitivity.** Spearman indices of TPC descriptors against the sector inputs ($f_\text{metab}$, $f_\text{maint}$, $dT_\text{opt}$, $\Delta C_p$ scale).](assets/figures/sectors_sensitivity.png){#fig-secsens fig-pos="htbp" width=90%}
+![**Sector-sweep sensitivity.** Spearman indices of TPC descriptors against the sector inputs ($f_\text{metab}$, $f_\text{maint}$, $dT_\text{opt}$, $\Delta C_p$ scale).](assets/figures/sectors_sensitivity.png){#fig-secsens fig-pos="H" width=90%}
 
 ## 9. Interpretation and caveats
 
