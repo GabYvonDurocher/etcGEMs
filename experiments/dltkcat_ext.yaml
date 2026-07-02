@@ -14,3 +14,7 @@ sensitivity:
     dCp_scale:    [0.5, 2.0]
     budget_scale: [0.7, 1.1]
   groups: []
+
+# Perturb the sector-allocation axis directly (hold the measured T-dependent
+# curve off during the sweep so the allocation perturbation registers).
+allocation_from_data: null

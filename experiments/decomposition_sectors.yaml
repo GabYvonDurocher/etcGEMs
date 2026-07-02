@@ -15,10 +15,14 @@ decomposition:
   n_allocation: 16
   n_envelope: 16
   seed: 1
-  allocation_params:
-    f_metab: [0.4, 0.6]          # metabolic-enzyme sector (mechanistic allocation)
-    f_maint: [0.05, 0.25]        # maintenance sector (f_bio = 1 - f_metab - f_maint)
+  allocation_params:                # brackets the measured 30 C nominal (0.285/0.374)
+    f_metab: [0.20, 0.40]          # metabolic-enzyme sector (mechanistic allocation)
+    f_maint: [0.28, 0.48]          # maintenance sector (f_bio = 1 - f_metab - f_maint)
   envelope_params:
     dTopt:      [-6.0, 6.0]      # per-enzyme thermal envelope (genome-set)
     topt_scale: [0.7, 1.4]
     dCp_scale:  [0.5, 2.0]
+
+# Perturb the sector-allocation axis directly (hold the measured T-dependent
+# curve off during the sweep so the allocation perturbation registers).
+allocation_from_data: null

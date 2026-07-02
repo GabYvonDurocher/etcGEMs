@@ -15,8 +15,12 @@ sensitivity:
   n_samples: 120
   seed: 1
   parameters:
-    f_metab: [0.35, 0.65]     # metabolic-enzyme fraction
-    f_maint: [0.05, 0.25]     # maintenance fraction (f_bio = 1 - f_metab - f_maint)
+    f_metab: [0.18, 0.45]     # metabolic-enzyme fraction (brackets measured 0.285)
+    f_maint: [0.28, 0.48]     # maintenance fraction (brackets measured 0.374; f_bio = 1 - f_metab - f_maint)
     dTopt:   [-6.0, 6.0]      # envelope knobs still available alongside
     dCp_scale: [0.5, 2.0]
   groups: []
+
+# Perturb the sector-allocation axis directly (hold the measured T-dependent
+# curve off during the sweep so the allocation perturbation registers).
+allocation_from_data: null
