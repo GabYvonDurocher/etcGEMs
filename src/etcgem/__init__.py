@@ -20,6 +20,8 @@ from . import decomposition
 from .decomposition import run_decomposition, decompose_grid, DecompositionResult
 from . import control
 from .control import run_control, ControlResult
+from . import sectors
+from .sectors import add_proteome_sectors
 
 __all__ = [
     "MMRTParams", "kcat_curve", "solve_dH_dS",
@@ -30,5 +32,6 @@ __all__ = [
     "apply_fits_to_provider", "write_csv_table",
     "decomposition", "run_decomposition", "decompose_grid", "DecompositionResult",
     "control", "run_control", "ControlResult",
+    "sectors", "add_proteome_sectors",
 ]
 __version__ = "0.1.0"

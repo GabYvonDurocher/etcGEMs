@@ -49,6 +49,13 @@ def _make_perturbation(sample: Dict[str, float], default_budget: float,
         key = f"alloc_{g}"
         if key in sample:
             p.group_alloc[g] = sample[key]
+    # proteome-sector allocation (opt-in; only used when sectors are wired)
+    if "f_metab" in sample:
+        p.f_metab = sample["f_metab"]
+    if "f_maint" in sample:
+        p.f_maint = sample["f_maint"]
+    if "maint_to_bio" in sample:
+        p.maint_to_bio = sample["maint_to_bio"]
     return p
 
 

@@ -32,12 +32,20 @@ def compute_tpc(pm, temps_C: Sequence[float], pert: Optional[Perturbation] = Non
     pert = pert or Perturbation()
     ecm = pm.ec
     budget = pert.budget if pert.budget is not None else ecm.default_budget
+    use_alloc = pert.uses_allocation()
     temps_C = np.asarray(temps_C, dtype=float)
     growth = np.zeros_like(temps_C)
     for i, Tc in enumerate(temps_C):
         Tk = Tc + 273.15
         ecm.set_temperature(Tk, pert)
-        ecm.set_budget(budget, pert.group_alloc)
+        if use_alloc:
+            # proteome-sector allocation path (opt-in; needs sectors wired)
+            f_maint = pert.f_maint
+            if pert.maint_to_bio is not None and ecm._sectors is not None:
+                f_maint = ecm._sectors["f_maint_nom"] * (1.0 - pert.maint_to_bio)
+            ecm.set_allocation(pert.f_metab, f_maint)
+        else:
+            ecm.set_budget(budget, pert.group_alloc)
         g = ecm.model.slim_optimize()
         if g is None or not np.isfinite(g) or g < min_growth:
             g = 0.0

@@ -16,3 +16,11 @@ temperature_grid:
   start_C: 5
   stop_C: 53
   n: 49
+
+proteome_sectors:
+  enabled: false
+  P_total: null
+  f_metab: 0.5
+  f_maint: 0.15
+  atpm_reaction: ATPM        # e_coli_core has a maintenance-ATP reaction
+  translation_coeff: auto

@@ -112,15 +112,15 @@ def build_provider(cfg: Dict[str, Any]):
     T0 = (cfg.get("T0_C", 30.0)) + 273.15
     kind = p["type"]
     if kind == "toy":
-        return providers.toy_ecoli_core(
+        pm = providers.toy_ecoli_core(
             T0=T0, seed=p.get("seed", 0),
             topt_mean_offset=p.get("topt_mean_offset", 8.0),
             topt_sd=p.get("topt_sd", 6.0),
             dCp_mean=p.get("dCp_mean", -8.0),
             target_fraction=p.get("target_fraction", 0.6),
         )
-    if kind == "gecko":
-        return providers.from_gecko(
+    elif kind == "gecko":
+        pm = providers.from_gecko(
             model_path=p["model_path"], T0=T0,
             default_Topt_offset=p.get("default_Topt_offset", 7.0),
             default_dCp=p.get("default_dCp", -12.0),
@@ -130,15 +130,23 @@ def build_provider(cfg: Dict[str, Any]):
             target_fraction=p.get("target_fraction"),
             pool_scale=p.get("pool_scale", 1.0),
         )
-    if kind == "csv":
-        return providers.from_kcat_csv(
+    elif kind == "csv":
+        pm = providers.from_kcat_csv(
             model_path=p["model_path"], csv_path=p["csv_path"], T0=T0,
             default_Topt_offset=p.get("default_Topt_offset", 8.0),
             default_dCp=p.get("default_dCp", -8.0),
             biomass_rxn=p.get("biomass_rxn"),
             target_fraction=p.get("target_fraction", 0.6),
         )
-    raise ValueError(f"Unknown provider type: {kind}")
+    else:
+        raise ValueError(f"Unknown provider type: {kind}")
+
+    # Opt-in proteome sectors (Basan/Scott). Absent or disabled -> untouched.
+    ps = cfg.get("proteome_sectors")
+    if ps and ps.get("enabled"):
+        from .sectors import add_proteome_sectors
+        add_proteome_sectors(pm, ps)
+    return pm
 
 
 def temperature_grid(cfg: Dict[str, Any]) -> np.ndarray:

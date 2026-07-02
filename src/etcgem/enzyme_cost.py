@@ -112,6 +112,16 @@ class Perturbation:
     dCp_scale: float = 1.0
     budget: Optional[float] = None
     group_alloc: Dict[str, float] = field(default_factory=dict)
+    # Proteome-sector allocation (opt-in; None -> use the scalar pool / set_budget
+    # path, i.e. exactly the pre-sector behaviour). Only meaningful when the model
+    # has sectors wired (see sectors.add_proteome_sectors).
+    f_metab: Optional[float] = None
+    f_maint: Optional[float] = None
+    maint_to_bio: Optional[float] = None   # shift maintenance->biosynthesis at fixed f_metab
+
+    def uses_allocation(self) -> bool:
+        return (self.f_metab is not None or self.f_maint is not None
+                or self.maint_to_bio is not None)
 
     def topt_of(self, e: EnzymeEntry) -> float:
         return e.T0 + self.topt_scale * (e.Topt - e.T0) + self.dTopt
@@ -138,6 +148,7 @@ class EnzymeConstrainedModel:
         self.group_budgets = dict(group_budgets or {})
         self._pool = None
         self._group_cons: Dict[str, object] = {}
+        self._sectors = None   # populated by sectors.add_proteome_sectors (opt-in)
         # Precompute parameter arrays and variable handles for a vectorised
         # temperature update (the hot path in a sweep).
         ents = self.table.entries
@@ -229,6 +240,32 @@ class EnzymeConstrainedModel:
                 if g in self._group_cons:
                     base = self.group_budgets[g]
                     self._group_cons[g].ub = base * mult
+
+    def set_allocation(self, f_metab: Optional[float] = None,
+                       f_maint: Optional[float] = None):
+        """Set the three-sector proteome partition (Basan/Scott) in place.
+
+        f_bio = 1 - f_metab - f_maint. Updates the metabolic pool bound
+        (f_metab*P_total), the biosynthesis cap (f_bio*P_total) and, if present,
+        the maintenance-ATP lower bound (scaled by f_maint / f_maint_nominal).
+        Requires sectors wired via sectors.add_proteome_sectors."""
+        s = self._sectors
+        if s is None:
+            raise RuntimeError("proteome sectors not enabled; call "
+                               "sectors.add_proteome_sectors(pm, cfg) first")
+        fm = s["f_metab_nom"] if f_metab is None else float(f_metab)
+        fmaint = s["f_maint_nom"] if f_maint is None else float(f_maint)
+        fbio = 1.0 - fm - fmaint
+        eps = 1e-9
+        if min(fm, fmaint, fbio) < -eps or fm + fmaint > 1.0 + eps:
+            raise ValueError(f"invalid sector simplex: f_metab={fm}, "
+                             f"f_maint={fmaint}, f_bio={fbio}")
+        P = s["P_total"]
+        self._pool.ub = fm * P
+        s["bio_constraint"].ub = fbio * P
+        atpm = s["atpm_rxn"]
+        if atpm is not None and s["f_maint_nom"] > 0:
+            atpm.lower_bound = s["atpm_nom_lb"] * (fmaint / s["f_maint_nom"])
 
     # -- diagnostics --------------------------------------------------------
     def enzyme_mass(self, solution, T: float, pert: Optional[Perturbation] = None) -> float:
