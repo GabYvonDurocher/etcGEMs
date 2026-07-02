@@ -264,6 +264,54 @@ rejects; `_read_sbml_safe` strips these on load.
 
 ---
 
+## Allocation vs envelope decomposition (H1.3)
+
+`decomposition.py` partitions the TPC variation a single genome can generate into
+an **allocation** part, an **envelope** part, and their **interaction** — testing
+hypothesis H1.3 (a TPC has a genome-set envelope shape and an allocation-set
+magnitude, and they separate).
+
+**Two parameter groups** (both fields of `Perturbation`):
+- **envelope** (genome-set thermal shape): `dTopt`, `topt_scale`, `dCp_scale`
+- **allocation** (proteome): `budget_scale` (and any per-group `alloc_<grp>`)
+
+**Crossed design** (so the ANOVA is exact and balanced): draw M allocation samples
+(envelope at nominal) and N envelope samples (allocation at nominal) by Latin
+hypercube, then evaluate every crossed pair (allocation_i, envelope_j) to a TPC
+and its descriptors, giving an M×N matrix `f_ij` per descriptor. For each
+descriptor:
+
+```
+mu = mean(f_ij);  a_i = mean_j f_ij - mu;  e_j = mean_i f_ij - mu;  g_ij = f_ij - mu - a_i - e_j
+V_A = mean(a_i^2);  V_E = mean(e_j^2);  V_AE = mean(g_ij^2);  V = V_A + V_E + V_AE
+S_A,S_E,S_AE = V_A/V, V_E/V, V_AE/V        # grouped Sobol fractions (sum to 1)
+phi_A = S_A + S_AE/2;  phi_E = S_E + S_AE/2 # Shapley effects, exact for two groups
+```
+
+```bash
+etcgem decompose --strain eciML1515 --experiment decomposition        # M=N=24
+etcgem decompose --strain eciML1515 --experiment decomposition_quick  # M=N=12 smoke
+```
+
+Writes into `strains/NAME/outputs/decompose_EXP/`: `decomposition_table.csv`,
+`grids.npz`, the two marginal curve ensembles + `temps_C.npy`, `summary.json`,
+and figures `achievable_ranges.png` (allocation-only | envelope-only fans),
+`variance_partition.png` (stacked S_A/S_E/S_AE), `shapley_effects.png` (φ_A vs φ_E).
+
+On eciML1515 the split is clean and matches H1.3: **rmax** (magnitude) is ~99%
+**allocation**, while **Topt_C, CTmax_C, niche_width_C, Ea_eV** (temperature/shape)
+are ~98–100% **envelope**.
+
+**Caveat.** The variance fractions are defined relative to the chosen input
+distributions (uniform over the configured ranges), so quote the ranges with any
+result — this is a structural, in-silico decomposition of what the model *can*
+generate, not a claim about real cells. Keep `budget_scale` in the pool-binding
+regime (≲1.1) or the allocation axis looks artificially inert. The descriptor
+table is the generic input to the ANOVA, so this can later target
+respiration/CUE curves, not only growth.
+
+---
+
 ## Library use
 
 ```python
@@ -299,6 +347,7 @@ src/etcgem/
   plotting.py     ensemble fan, descriptor histograms, sensitivity heatmap
   config.py       defaults/strain/experiment loading, resolve, dump + provider dispatch
   dltkcat.py      DLTKcat kcat(T) -> MMRT (Topt, dCp) fitting + apply
+  decomposition.py allocation vs envelope Shapley/ANOVA variance decomposition (H1.3)
   cli.py          two-tier CLI: build/tpc/fba (strain) + sweep/decompose (strain+experiment) + dltkcat
   __main__.py     `python -m etcgem` -> cli.main
 defaults.yaml     universal method defaults (solver_timeout, crit_frac, fallback grid)

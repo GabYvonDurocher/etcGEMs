@@ -16,6 +16,8 @@ from .dltkcat import (
     fit_mmrt, fit_predictions, export_targets, apply_fits_to_provider,
     write_csv_table, build_dltkcat_input, parse_dltkcat_output, select_substrate,
 )
+from . import decomposition
+from .decomposition import run_decomposition, decompose_grid, DecompositionResult
 
 __all__ = [
     "MMRTParams", "kcat_curve", "solve_dH_dS",
@@ -24,5 +26,6 @@ __all__ = [
     "run_sensitivity", "SensitivityResult", "providers",
     "dltkcat", "fit_mmrt", "fit_predictions", "export_targets",
     "apply_fits_to_provider", "write_csv_table",
+    "decomposition", "run_decomposition", "decompose_grid", "DecompositionResult",
 ]
 __version__ = "0.1.0"
