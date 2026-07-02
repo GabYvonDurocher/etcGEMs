@@ -85,7 +85,16 @@ def run_sensitivity(pm, temps_C: Sequence[float],
                     n_samples: int = 200, seed: int = 1,
                     group_names: Sequence[str] = (),
                     crit_frac: float = 0.05,
+                    envelope_samples=None,
                     progress: bool = True) -> SensitivityResult:
+    """LHS sweep over param_ranges.
+
+    ``envelope_samples`` (optional): a list of n_samples per-enzyme thermal draws
+    (thermal_sampling.sample_thermal). When given, each sample's per-enzyme
+    Topt/dCp is applied (mutating entries) before its TPC instead of the
+    dTopt/topt_scale/dCp_scale knobs; the shared latent Z is recorded as a
+    sensitivity input. When None, behaviour is exactly as before.
+    """
     temps_C = np.asarray(temps_C, float)
     default_budget = pm.ec.default_budget
     names = list(param_ranges.keys())
@@ -98,16 +107,28 @@ def run_sensitivity(pm, temps_C: Sequence[float],
         sampled[name] = lo + U[:, j] * (hi - lo)
     samples_df = pd.DataFrame(sampled)
 
+    use_env = envelope_samples is not None
+    if use_env:
+        from .thermal_sampling import (nominal_thermal, apply_thermal_sample,
+                                        restore_thermal)
+        nomT, nomC = nominal_thermal(pm)
+        samples_df = samples_df.copy()
+        samples_df["thermal_Z"] = [envelope_samples[i]["Z"] for i in range(n_samples)]
+
     curves = np.zeros((n_samples, len(temps_C)))
     desc_rows: List[dict] = []
     for i in range(n_samples):
         row = {k: float(samples_df.iloc[i][k]) for k in names}
         pert = _make_perturbation(row, default_budget, group_names)
+        if use_env:
+            apply_thermal_sample(pm, envelope_samples[i])
         tpc = compute_tpc(pm, temps_C, pert)
         curves[i] = tpc.growth
         desc_rows.append(tpc.descriptors(crit_frac).as_dict())
         if progress and (i + 1) % max(1, n_samples // 10) == 0:
             print(f"[sensitivity] {i + 1}/{n_samples}")
+    if use_env:
+        restore_thermal(pm, nomT, nomC)
     desc_df = pd.DataFrame(desc_rows)
 
     nominal = compute_tpc(pm, temps_C, Perturbation())

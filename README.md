@@ -361,6 +361,78 @@ target respiration/CUE curves too.
 
 ---
 
+## Allocation sectors (Basan/Scott)
+
+Optionally refine the single scalar proteome pool into three sectors of the total
+proteome mass fraction `P_total` that sum to 1 (`sectors.py`):
+
+- **f_metab** — metabolic enzymes → the existing pool bound = `f_metab · P_total`
+- **f_bio** — biosynthesis/ribosomes → a translation cap `translation_coeff · v_biomass ≤ f_bio · P_total`
+- **f_maint** — maintenance/housekeeping → proteome overhead + maintenance ATP (ATPM/NGAM lb scaled)
+
+`translation_coeff` is auto-calibrated so the translation cap and the metabolic
+pool are co-limiting at the nominal split and T0 — so B0 becomes an explicit
+allocation trade-off with an **interior optimum** (too little metabolic pool
+starves enzymes; too little biosynthesis caps translation). Opt-in per strain:
+
+```yaml
+# strains/NAME/strain.yaml
+proteome_sectors: {enabled: true, P_total: null, f_metab: 0.5, f_maint: 0.15,
+                   atpm_reaction: null, translation_coeff: auto}
+```
+
+```bash
+etcgem sweep --strain eciML1515 --experiment sectors   # sweeps f_metab / f_maint
+```
+
+`Perturbation.f_metab/f_maint` (and `maint_to_bio`) drive `set_allocation` instead
+of `set_budget`; sensitivity/decomposition accept `f_metab`/`f_maint` as allocation
+params with the ANOVA untouched. **Disabled by default → identical to the scalar
+pool.** Growth-law couplings (`translation_coeff`, maintenance ATP, `P_total`) are
+calibratable against growth-rate proteomics; the defaults are order-of-magnitude
+and auto-calibration co-limits only at the nominal point.
+
+## Calibrated thermal sampling (M1.2)
+
+Instead of the two global envelope knobs, sample each enzyme's `(Topt_i, dCp_i)`
+from a one-factor model (`thermal_sampling.py`):
+
+```
+Topt_i = mean_i + sd_i · ( sqrt(rho)·Z + sqrt(1-rho)·eps_i )   # rho = shared_fraction
+```
+
+with a shared organism regime `Z` per ensemble member and per-enzyme `eps_i`.
+**rho=1** → coherent whole-proteome shift (like a global `dTopt`); **rho=0** →
+independent per-enzyme optima. Modes: `knobs` (default, current behaviour),
+`correlated` (mean = nominal, sd from config), `posterior` (mean + sd per enzyme
+from DLTKcat `fits.csv`). Add to any sweep/decompose experiment:
+
+```yaml
+envelope_sampling: {mode: correlated, shared_fraction: 0.7, topt_sd_K: 4.0,
+                    dcp_sd_frac: 0.3, posterior_from: dltkcat}
+```
+
+```bash
+etcgem sweep --strain eciML1515 --experiment calibrated   # correlated envelope ensemble
+```
+
+**Posterior uncertainty.** `dltkcat.fit_mmrt` is linear least squares in
+`(dH, dS, dCp)`, so it has covariance `Cov = sigma^2 (XᵀX)⁻¹`; `Topt_sd`/`dCp_sd`
+come from sampling `(dH,dS,dCp) ~ N(coef, Cov)` and computing `Topt` per draw
+(Topt is nonlinear, so sampled not linearised), with `sigma` **floored by
+DLTKcat's global skill** (log10 RMSE ≈ 0.9) so optimistic residuals don't
+understate uncertainty. `fit_predictions` writes `Topt_sd`/`dCp_sd` into
+`fits.csv`; `posterior` mode reads them. **No `envelope_sampling` block →
+identical to the knobs path.**
+
+Caveats: the one-factor correlation is a deliberately simple stand-in for the true
+(phylogenetic/structural) covariance of thermostability — rho is the single knob;
+the posterior sd is a floored local-Gaussian approximation, not a full Bayesian
+posterior (the floor makes the DLTKcat-derived sds large, honestly reflecting its
+noise).
+
+---
+
 ## Library use
 
 ```python
@@ -398,6 +470,8 @@ src/etcgem/
   dltkcat.py      DLTKcat kcat(T) -> MMRT (Topt, dCp) fitting + apply
   decomposition.py allocation vs envelope Shapley/ANOVA variance decomposition (H1.3)
   control.py      per-enzyme thermal control coefficients + identifiability (H1.1/H1.2)
+  sectors.py      optional proteome-sector allocation (Basan/Scott)
+  thermal_sampling.py correlated / DLTKcat-posterior per-enzyme thermal sampling (M1.2)
   cli.py          two-tier CLI: build/tpc/fba/control (strain) + sweep/decompose (strain+experiment) + dltkcat
   __main__.py     `python -m etcgem` -> cli.main
 defaults.yaml     universal method defaults (solver_timeout, crit_frac, fallback grid)

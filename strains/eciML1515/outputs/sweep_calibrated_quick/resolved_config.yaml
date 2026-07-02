@@ -3,7 +3,7 @@ crit_frac: 0.05
 temperature_grid:
   start_C: 8
   stop_C: 60
-  n: 53
+  n: 21
 provider:
   type: gecko
   model_file: eciML1515_batch.xml
@@ -23,4 +23,20 @@ proteome_sectors:
   f_maint: 0.15
   atpm_reaction: null
   translation_coeff: auto
+kind: sweep
+sensitivity:
+  n_samples: 6
+  seed: 1
+  parameters:
+    budget_scale:
+    - 0.9
+    - 1.1
+  groups: []
+envelope_sampling:
+  mode: posterior
+  shared_fraction: 0.7
+  topt_sd_K: 4.0
+  dcp_sd_frac: 0.3
+  posterior_from: dltkcat
 _strain: eciML1515
+_experiment: calibrated_quick

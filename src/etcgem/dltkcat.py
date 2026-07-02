@@ -41,11 +41,33 @@ from .mmrt import R, _ln_prefactor
 # ---------------------------------------------------------------------------
 # Core fit
 # ---------------------------------------------------------------------------
+# DLTKcat global skill: log10(kcat) RMSE ~0.9 -> a floor on the fit residual
+# sigma (in ln units) so optimistic per-enzyme residuals don't understate the
+# parameter uncertainty. ln = log10 * ln(10).
+import math as _math
+_SIGMA_FLOOR_LN = 0.9 * _math.log(10.0)
+
+
+def _topt_of_grid(g, T0, dH, dCp, dS):
+    """Argmax-Topt of an MMRT curve on grid g (vectorised over draws if dH/... are
+    columns)."""
+    lnk = (_ln_prefactor(g) + (-dH - dCp * (g - T0)) / (R * g)
+           + (dS + dCp * np.log(g / T0)) / R)
+    return g[np.argmax(lnk, axis=-1)]
+
+
 def fit_mmrt(temps_C, kcats, T0_C: float = 30.0,
-             grid=(273.15, 353.15, 4001)) -> Dict[str, float]:
+             grid=(273.15, 353.15, 4001), with_uncertainty: bool = True,
+             n_draws: int = 64, sigma_floor_ln: float = _SIGMA_FLOOR_LN,
+             seed: int = 0) -> Dict[str, float]:
     """Fit MMRT to kcat-vs-temperature points by linear least squares.
 
-    Returns dict with Topt_C, dCp, kcat_T0, dH, dS, r2, n, ok.
+    Returns dict with Topt_C, dCp, kcat_T0, dH, dS, r2, n, ok, and (if
+    with_uncertainty) Topt_sd, dCp_sd. The fit is linear in (dH, dS, dCp), so it
+    has covariance Cov = sigma^2 (X^T X)^-1; sd_Topt/sd_dCp come from sampling
+    (dH,dS,dCp) ~ N(coef, Cov) and computing Topt/dCp per draw (Topt is nonlinear
+    in the coefficients, so we sample rather than linearise). sigma is floored by
+    DLTKcat's global skill.
     ``ok`` is False if there are too few points, non-positive kcats, a
     non-negative dCp (no thermal peak), or a poor fit.
     """
@@ -54,7 +76,7 @@ def fit_mmrt(temps_C, kcats, T0_C: float = 30.0,
     m = np.isfinite(T) & np.isfinite(k) & (k > 0)
     T, k = T[m], k[m]
     out = dict(Topt_C=np.nan, dCp=np.nan, kcat_T0=np.nan, dH=np.nan, dS=np.nan,
-               r2=np.nan, n=int(T.size), ok=False)
+               r2=np.nan, n=int(T.size), ok=False, Topt_sd=np.nan, dCp_sd=np.nan)
     if T.size < 4 or np.unique(np.round(T, 3)).size < 4:
         return out
     T0 = T0_C + 273.15
@@ -82,6 +104,22 @@ def fit_mmrt(temps_C, kcats, T0_C: float = 30.0,
     peaked = dCp < 0 and grid[0] + 1 < Topt < grid[1] - 1
     out.update(Topt_C=Topt - 273.15, dCp=dCp, kcat_T0=kcat_T0, dH=dH, dS=dS,
                r2=r2, ok=bool(peaked and (np.isnan(r2) or r2 > 0.8)))
+
+    if with_uncertainty:
+        try:
+            dof = max(T.size - 3, 1)
+            sigma2 = max(ss_res / dof, sigma_floor_ln ** 2)
+            cov = sigma2 * np.linalg.inv(X.T @ X)
+            draws = np.random.default_rng(seed).multivariate_normal(coef, cov, size=n_draws)
+            dH_d, dS_d, dCp_d = draws[:, 0], draws[:, 1], draws[:, 2]
+            lnk = (_ln_prefactor(g)[None, :]
+                   + (-dH_d[:, None] - dCp_d[:, None] * (g[None, :] - T0)) / (R * g[None, :])
+                   + (dS_d[:, None] + dCp_d[:, None] * np.log(g / T0)[None, :]) / R)
+            Topt_draws = g[np.argmax(lnk, axis=1)]
+            out["Topt_sd"] = float(np.std(Topt_draws))
+            out["dCp_sd"] = float(np.std(dCp_d))
+        except np.linalg.LinAlgError:
+            pass
     return out
 
 
@@ -96,7 +134,8 @@ def fit_predictions(df: pd.DataFrame, key: str = "rxn_id", T0_C: float = 30.0,
         fit = fit_mmrt(sub[temp_col].values, sub[kcat_col].values, T0_C)
         fit[key] = kval
         rows.append(fit)
-    cols = [key, "Topt_C", "dCp", "kcat_T0", "r2", "n", "ok", "dH", "dS"]
+    cols = [key, "Topt_C", "dCp", "kcat_T0", "r2", "n", "ok", "dH", "dS",
+            "Topt_sd", "dCp_sd"]
     return pd.DataFrame(rows)[cols]
 
 

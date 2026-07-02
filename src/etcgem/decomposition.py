@@ -178,45 +178,79 @@ def run_decomposition(pm, temps_C, allocation_ranges, envelope_ranges,
                       n_alloc: int, n_env: int, seed: int = 1,
                       crit_frac: float = 0.05,
                       descriptors: Sequence[str] = DESCRIPTORS,
-                      progress: bool = True) -> DecompositionResult:
+                      envelope_samples=None, progress: bool = True) -> DecompositionResult:
     """Crossed allocation x envelope evaluation + per-descriptor decomposition.
 
     Reuses Perturbation / compute_tpc / TPC.descriptors unchanged; the descriptor
     table it feeds the ANOVA is generic, so it can later target respiration/CUE
     curves instead of growth without touching the math.
+
+    ``envelope_samples`` (optional): a list of per-enzyme thermal samples
+    (from thermal_sampling.sample_thermal). When given, the ENVELOPE axis is those
+    per-enzyme draws (applied by mutating entries) instead of the dTopt/topt_scale/
+    dCp_scale knobs; the crossed design and the ANOVA/Shapley math are unchanged.
+    When None, behaviour is exactly the knobs path.
     """
     temps_C = np.asarray(temps_C, float)
     default_budget = pm.ec.default_budget
     group_names = _group_names(allocation_ranges)
 
     alloc = _lhs_table(allocation_ranges, n_alloc, seed)
-    env = _lhs_table(envelope_ranges, n_env, seed + 1)
-    a_names, e_names = list(alloc.columns), list(env.columns)
+    a_names = list(alloc.columns)
 
-    grids = {d: np.full((n_alloc, n_env), np.nan) for d in descriptors}
-    total = n_alloc * n_env
-    for i in range(n_alloc):
-        ai = {k: float(alloc.iloc[i][k]) for k in a_names}
-        for j in range(n_env):
-            ej = {k: float(env.iloc[j][k]) for k in e_names}
-            pert = _make_perturbation({**ai, **ej}, default_budget, group_names)
-            desc = compute_tpc(pm, temps_C, pert).descriptors(crit_frac).as_dict()
-            for d in descriptors:
-                grids[d][i, j] = desc.get(d, np.nan)
-        if progress and (i + 1) % max(1, n_alloc // 8) == 0:
-            print(f"[decompose] crossed grid {(i + 1) * n_env}/{total}")
-
-    # marginal ensembles (envelope nominal / allocation nominal)
-    alloc_only = np.vstack([
-        compute_tpc(pm, temps_C,
-                    _make_perturbation({k: float(alloc.iloc[i][k]) for k in a_names},
-                                       default_budget, group_names)).growth
-        for i in range(n_alloc)])
-    env_only = np.vstack([
-        compute_tpc(pm, temps_C,
-                    _make_perturbation({k: float(env.iloc[j][k]) for k in e_names},
-                                       default_budget, group_names)).growth
-        for j in range(n_env)])
+    if envelope_samples is not None:
+        from .thermal_sampling import (nominal_thermal, apply_thermal_sample,
+                                        restore_thermal)
+        n_env = len(envelope_samples)
+        env = pd.DataFrame({"Z": [s["Z"] for s in envelope_samples],
+                            "Z2": [s["Z2"] for s in envelope_samples]})
+        nomT, nomC = nominal_thermal(pm)
+        grids = {d: np.full((n_alloc, n_env), np.nan) for d in descriptors}
+        total = n_alloc * n_env
+        env_only = np.full((n_env, len(temps_C)), np.nan)
+        for j, s in enumerate(envelope_samples):          # apply each draw once
+            apply_thermal_sample(pm, s)
+            env_only[j] = compute_tpc(pm, temps_C, Perturbation()).growth
+            for i in range(n_alloc):
+                ai = {k: float(alloc.iloc[i][k]) for k in a_names}
+                pert = _make_perturbation(ai, default_budget, group_names)
+                desc = compute_tpc(pm, temps_C, pert).descriptors(crit_frac).as_dict()
+                for d in descriptors:
+                    grids[d][i, j] = desc.get(d, np.nan)
+            if progress and (j + 1) % max(1, n_env // 8) == 0:
+                print(f"[decompose] crossed grid {(j + 1) * n_alloc}/{total}")
+        restore_thermal(pm, nomT, nomC)
+        alloc_only = np.vstack([
+            compute_tpc(pm, temps_C,
+                        _make_perturbation({k: float(alloc.iloc[i][k]) for k in a_names},
+                                           default_budget, group_names)).growth
+            for i in range(n_alloc)])
+    else:
+        env = _lhs_table(envelope_ranges, n_env, seed + 1)
+        e_names = list(env.columns)
+        grids = {d: np.full((n_alloc, n_env), np.nan) for d in descriptors}
+        total = n_alloc * n_env
+        for i in range(n_alloc):
+            ai = {k: float(alloc.iloc[i][k]) for k in a_names}
+            for j in range(n_env):
+                ej = {k: float(env.iloc[j][k]) for k in e_names}
+                pert = _make_perturbation({**ai, **ej}, default_budget, group_names)
+                desc = compute_tpc(pm, temps_C, pert).descriptors(crit_frac).as_dict()
+                for d in descriptors:
+                    grids[d][i, j] = desc.get(d, np.nan)
+            if progress and (i + 1) % max(1, n_alloc // 8) == 0:
+                print(f"[decompose] crossed grid {(i + 1) * n_env}/{total}")
+        # marginal ensembles (envelope nominal / allocation nominal)
+        alloc_only = np.vstack([
+            compute_tpc(pm, temps_C,
+                        _make_perturbation({k: float(alloc.iloc[i][k]) for k in a_names},
+                                           default_budget, group_names)).growth
+            for i in range(n_alloc)])
+        env_only = np.vstack([
+            compute_tpc(pm, temps_C,
+                        _make_perturbation({k: float(env.iloc[j][k]) for k in e_names},
+                                           default_budget, group_names)).growth
+            for j in range(n_env)])
     nominal = compute_tpc(pm, temps_C, Perturbation()).growth
 
     table = pd.DataFrame({d: decompose_grid(grids[d]) for d in descriptors}).T
@@ -314,6 +348,41 @@ def plot_all(res, out_dir):
 
 
 # ---------------------------------------------------------------------------
+# envelope-sampling helper (shared with sensitivity)
+# ---------------------------------------------------------------------------
+def build_envelope_samples(pm, cfg, n, seed):
+    """Build per-enzyme thermal samples from an `envelope_sampling` config block,
+    or return None (knobs mode / no block -> unchanged behaviour)."""
+    es = cfg.get("envelope_sampling")
+    if not es or es.get("mode", "knobs") == "knobs":
+        return None
+    from . import thermal_sampling as ts
+    mode = es["mode"]
+    posterior_df = None
+    key = "rxn_id"
+    if mode == "posterior":
+        import os
+        import pandas as _pd
+        strain = cfg.get("_strain")
+        src = es.get("posterior_from", "dltkcat")
+        path = os.path.join("strains", str(strain), src, "fits.csv")
+        if not os.path.exists(path):
+            raise SystemExit(f"posterior envelope sampling needs {path} "
+                             "(run `etcgem dltkcat parse` first)")
+        posterior_df = _pd.read_csv(path)
+        key = "rxn_id" if "rxn_id" in posterior_df.columns else "enzyme_id"
+    return ts.sample_thermal(
+        pm, n, mode=mode, rho=float(es.get("shared_fraction", 0.7)),
+        topt_sd_K=float(es.get("topt_sd_K", 4.0)),
+        dcp_sd_frac=float(es.get("dcp_sd_frac", 0.3)),
+        posterior_df=posterior_df, key=key, seed=seed)
+
+
+# keep a private alias used above
+_build_envelope_samples = build_envelope_samples
+
+
+# ---------------------------------------------------------------------------
 # CLI entry (called by cli.cmd_decompose)
 # ---------------------------------------------------------------------------
 def run(cfg: Dict, out_dir: str, no_plots: bool = False):
@@ -329,12 +398,17 @@ def run(cfg: Dict, out_dir: str, no_plots: bool = False):
     except Exception:
         pass
     temps = temperature_grid(cfg)
+    n_alloc, n_env = int(d.get("n_allocation", 24)), int(d.get("n_envelope", 24))
+    # Optional per-enzyme envelope sampling (M1.2) replaces the 3-knob envelope axis.
+    env_samples = _build_envelope_samples(pm, cfg, n_env, int(d.get("seed", 1)))
+    mode = (cfg.get("envelope_sampling") or {}).get("mode", "knobs")
     print(f"[decompose] model={pm.name} grid={temps[0]:.0f}-{temps[-1]:.0f}°C "
-          f"M={d.get('n_allocation', 24)} N={d.get('n_envelope', 24)}")
+          f"M={n_alloc} N={n_env} envelope={mode}")
     res = run_decomposition(
         pm, temps, d["allocation_params"], d["envelope_params"],
-        n_alloc=int(d.get("n_allocation", 24)), n_env=int(d.get("n_envelope", 24)),
-        seed=int(d.get("seed", 1)), crit_frac=cfg.get("crit_frac", 0.05))
+        n_alloc=n_alloc, n_env=n_env,
+        seed=int(d.get("seed", 1)), crit_frac=cfg.get("crit_frac", 0.05),
+        envelope_samples=env_samples)
     res.save(out_dir, no_plots=no_plots)
     for desc, info in res.summary().items():
         if desc in KEY_DESCRIPTORS:

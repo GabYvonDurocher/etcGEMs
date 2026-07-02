@@ -209,10 +209,16 @@ def _run_oneshot(cfg, out_dir, fits_path, key, no_plots):
     print(f"[run] model={pm.name}  enzymes={len(pm.ec.table)}  "
           f"budget={pm.ec.default_budget:.4g}  T grid={temps[0]:.0f}-{temps[-1]:.0f}°C")
     s = cfg["sensitivity"]
+    from .decomposition import build_envelope_samples
+    env_samples = build_envelope_samples(pm, cfg, s.get("n_samples", 200), s.get("seed", 1))
+    if env_samples is not None:
+        print(f"[run] envelope sampling: {cfg['envelope_sampling'].get('mode')} "
+              f"(rho={cfg['envelope_sampling'].get('shared_fraction', 0.7)})")
     result = run_sensitivity(
         pm, temps, {k: tuple(v) for k, v in s["parameters"].items()},
         n_samples=s.get("n_samples", 200), seed=s.get("seed", 1),
         group_names=s.get("groups", []), crit_frac=cfg.get("crit_frac", 0.05),
+        envelope_samples=env_samples,
     )
     _finalize_sweep(cfg, out_dir, pm, result, no_plots, "run")
     return out_dir
