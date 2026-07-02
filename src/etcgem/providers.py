@@ -303,19 +303,56 @@ def from_gecko(model_path: str, T0: float = 303.15,
                          name=f"gecko:{model.id}")
 
 
-def set_medium(pm, carbon="glc__D", aerobic=True, uptake_ub=1000.0):
-    """Set the growth medium as AVAILABILITY, not pinned uptake rates. Opens the
-    named carbon source (and O2 if aerobic) uptake and closes all other carbon-
-    source uptakes; the enzyme-constrained model then determines actual uptake.
+# A GEM-compatible LB (rich) medium: amino acids, nucleosides/bases, vitamins,
+# ions and glucose. Component EX_ ids from the MResProject data/media.csv definition
+# (reused; consistent with the Machado et al. 2018 LB composition).
+_CARBON_BASES = ["glc__D", "ac", "glyc", "succ", "lac__D", "lac__L", "xyl__D",
+                 "gal", "fru", "man", "malt", "sucr", "pyr", "etoh", "cit"]
+LB_COMPONENTS = [
+    "adn", "ala__L", "amp", "arg__L", "aso3", "asp__L", "ca2", "cbl1", "cd2", "cl",
+    "cmp", "cobalt2", "cro4", "cu2", "cys__L", "dad_2", "dcyt", "fe2", "fe3", "fol",
+    "glc__D", "glu__L", "gly", "gmp", "gsn", "h2o", "h2s", "h", "hg2", "his__L",
+    "hxan", "ile__L", "ins", "k", "leu__L", "lipoate", "lys__L", "met__L", "mg2",
+    "mn2", "mobd", "na1", "nac", "nh4", "ni2", "o2", "phe__L", "pheme", "pi",
+    "pnto__R", "pro__L", "pydx", "ribflv", "ser__L", "so4", "thm", "thr__L",
+    "thymd", "trp__L", "tyr__L", "ump", "ura", "uri", "val__L", "zn2"]
 
-    GECKO splits exchanges into forward/`_REV`; uptake is the `_REV` direction.
-    Only the carbon uptakes are toggled — minimal salts/ions stay at the model's
-    (minimal-medium) defaults. Returns the list of open carbon uptakes."""
+
+def set_medium(pm, medium="glucose_minimal", carbon="glc__D", aerobic=True,
+               uptake_ub=1000.0, lb_media_csv=None):
+    """Set the growth medium as AVAILABILITY, not pinned uptake rates: open the
+    `EX_<met>_e_REV` uptakes for the medium's components and close other carbon
+    sources; the enzyme-constrained model then determines actual uptake.
+
+    medium="glucose_minimal" (default): a single carbon source (+ O2 if aerobic)
+    on top of the model's minimal-salt defaults. medium="LB": a rich medium opening
+    the amino-acid / nucleoside / vitamin / ion component uptakes (:data:`LB_COMPONENTS`,
+    or ``lb_media_csv`` if given). Returns (n_opened, n_missing)."""
     model = pm.ec.model if hasattr(pm, "ec") else pm
-    # candidate carbon-source exchange bases present in the model
-    carbon_bases = ["glc__D", "ac", "glyc", "succ", "lac__D", "lac__L", "xyl__D",
-                    "gal", "fru", "man", "malt", "sucr", "pyr", "etoh", "cit"]
-    for base in carbon_bases:
+    if medium == "LB":
+        comps = LB_COMPONENTS
+        if lb_media_csv:
+            import pandas as pd
+            df = pd.read_csv(lb_media_csv)
+            comps = [str(n)[3:-2] for n in df["Name"] if str(n).startswith("EX_")]
+        # close non-LB carbon sources, then open every LB component uptake present
+        lb_set = set(comps)
+        for base in _CARBON_BASES:
+            rev = f"EX_{base}_e_REV"
+            if rev in model.reactions and base not in lb_set:
+                model.reactions.get_by_id(rev).upper_bound = 0.0
+        opened, missing = 0, 0
+        for base in comps:
+            rev = f"EX_{base}_e_REV"
+            if rev in model.reactions:
+                model.reactions.get_by_id(rev).upper_bound = uptake_ub
+                opened += 1
+            else:
+                missing += 1
+        model.solver.update()
+        return opened, missing
+    # glucose_minimal (single carbon source)
+    for base in _CARBON_BASES:
         rev = f"EX_{base}_e_REV"
         if rev in model.reactions:
             model.reactions.get_by_id(rev).upper_bound = uptake_ub if base == carbon else 0.0
@@ -323,7 +360,7 @@ def set_medium(pm, carbon="glc__D", aerobic=True, uptake_ub=1000.0):
     if o2 in model.reactions:
         model.reactions.get_by_id(o2).upper_bound = uptake_ub if aerobic else 0.0
     model.solver.update()
-    return [f"EX_{carbon}_e_REV"] + (["EX_o2_e_REV"] if aerobic else [])
+    return 1 + int(aerobic), 0
 
 
 def _existing_pool_bound(model, pool_id):
