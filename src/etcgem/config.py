@@ -150,6 +150,20 @@ def build_provider(cfg: Dict[str, Any]):
     else:
         raise ValueError(f"Unknown provider type: {kind}")
 
+    # Opt-in DLTKcat per-enzyme Topt/dCp overlay (baked into the strain). Applied
+    # before sectors so the sector auto-calibration sees the final envelope. In
+    # unfolding mode only Topt is used; enzymes without a fit keep their grounded
+    # (or default) parameters.
+    dl = p.get("dltkcat_fits")
+    if dl:
+        if not os.path.isabs(dl) and cfg.get("_strain"):
+            cand = os.path.join(strain_dir(cfg["_strain"]), dl)
+            if os.path.exists(cand):
+                dl = cand
+        import pandas as pd
+        from .dltkcat import apply_fits_to_provider
+        apply_fits_to_provider(pm, pd.read_csv(dl), key=p.get("dltkcat_key", "rxn_id"))
+
     # Opt-in proteome sectors (Basan/Scott). Absent or disabled -> untouched.
     ps = cfg.get("proteome_sectors")
     if ps and ps.get("enabled"):

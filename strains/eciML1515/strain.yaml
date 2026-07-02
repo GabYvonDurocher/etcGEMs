@@ -19,6 +19,7 @@ provider:
   ngam_temperature: true      # temperature-dependent maintenance (unfolding only)
   ngam_reaction: ATPM
   enzyme_params: thermal/BestParamsTopt.csv   # grounded per-enzyme Topt/Tm/dCpt (UniProt-keyed)
+  dltkcat_fits: dltkcat/fits_ext.csv          # DLTKcat per-enzyme Topt overlay where fits exist
 
 T0_C: 30
 
@@ -27,11 +28,19 @@ temperature_grid:
   stop_C: 60
   n: 56
 
-# Coarse-grained proteome partition (Basan/Scott). Disabled -> scalar pool as before.
+# COMPLETE MODEL: coarse-grained proteome sectors (Basan/Scott) ENABLED, with the
+# nominal split SET FROM the measured 30 C E. coli proteome (Wang 2026):
+#   f_metab 0.285, f_bio 0.341, f_chaperone 0.077, f_other 0.298
+# reconciled onto the model's three sectors as f_metab=0.285 (metabolic pool),
+# f_maint=chaperone+other=0.374 (maintenance/housekeeping), f_bio=1-both=0.341.
 proteome_sectors:
-  enabled: false
+  enabled: true
   P_total: null              # null -> backed out from the pool bound given f_metab
-  f_metab: 0.5               # metabolic-enzyme sector (nominal)
-  f_maint: 0.15              # maintenance/housekeeping sector (nominal)
+  f_metab: 0.285             # metabolic-enzyme sector (measured 30 C)
+  f_maint: 0.374             # maintenance = chaperone + other (measured 30 C)
   atpm_reaction: null        # null -> auto-detect ATPM / NGAM
   translation_coeff: auto    # auto -> co-limit translation cap + pool at nominal, T0
+
+# Measured temperature-dependent sector allocation: the sector split follows the
+# measured f_sector(T) curve, interpolated per temperature, anchored at T0 (30 C).
+allocation_from_data: proteomics/tem_proteomic.csv
