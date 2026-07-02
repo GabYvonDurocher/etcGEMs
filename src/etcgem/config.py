@@ -155,6 +155,27 @@ def build_provider(cfg: Dict[str, Any]):
     if ps and ps.get("enabled"):
         from .sectors import add_proteome_sectors
         add_proteome_sectors(pm, ps)
+
+        # Opt-in temperature-dependent allocation from measured proteomics. Only
+        # active when sectors are enabled AND a data file is configured; otherwise
+        # sectors stay temperature-independent (unchanged behaviour).
+        alloc_data = cfg.get("allocation_from_data")
+        if alloc_data:
+            if not os.path.isabs(alloc_data) and cfg.get("_strain"):
+                cand = os.path.join(strain_dir(cfg["_strain"]), alloc_data)
+                if os.path.exists(cand):
+                    alloc_data = cand
+            from . import proteome_alloc as pa
+            b2u = pa.build_b_to_uniprot(pm.ec.model, p.get("prot_prefix", "prot_"))
+            df = pa.load_temperature_proteome(alloc_data, b2u)
+            sf = pa.sector_fractions_vs_T(df)
+            s = pm.ec._sectors
+            pm.ec._alloc_from_data = pa.TemperatureAllocation.from_fractions(
+                sf, ref_C=cfg.get("T0_C", 30.0),
+                f_metab_nom=s["f_metab_nom"], f_maint_nom=s["f_maint_nom"])
+            print(f"[alloc] temperature-dependent allocation from {os.path.basename(str(alloc_data))} "
+                  f"(measured chaperone fraction {sf['f_chaperone'].iloc[0]:.3f}@{int(sf.index[0])}C "
+                  f"-> {sf['f_chaperone'].iloc[-1]:.3f}@{int(sf.index[-1])}C)")
     return pm
 
 

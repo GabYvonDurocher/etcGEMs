@@ -38,7 +38,12 @@ def compute_tpc(pm, temps_C: Sequence[float], pert: Optional[Perturbation] = Non
     for i, Tc in enumerate(temps_C):
         Tk = Tc + 273.15
         ecm.set_temperature(Tk, pert)
-        if use_alloc:
+        if getattr(ecm, "_alloc_from_data", None) is not None and ecm._sectors is not None:
+            # temperature-dependent allocation from measured proteomics (opt-in):
+            # the measured f_sector(T) drives the sector split at each temperature.
+            fm, fmaint = ecm._alloc_from_data.model_alloc(float(Tc))
+            ecm.set_allocation(fm, fmaint)
+        elif use_alloc:
             # proteome-sector allocation path (opt-in; needs sectors wired)
             f_maint = pert.f_maint
             if pert.maint_to_bio is not None and ecm._sectors is not None:

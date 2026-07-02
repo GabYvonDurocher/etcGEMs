@@ -159,6 +159,7 @@ class EnzymeConstrainedModel:
         self._pool = None
         self._group_cons: Dict[str, object] = {}
         self._sectors = None   # populated by sectors.add_proteome_sectors (opt-in)
+        self._alloc_from_data = None   # proteome_alloc.TemperatureAllocation (opt-in)
         # Thermal model: "mmrt" (default, peak-normalised MMRT -- unchanged) or
         # "unfolding" (two-state denaturation keyed on per-enzyme Tm, after
         # Li 2021 / the MRes; see unfolding.py). ngam_temperature adds the

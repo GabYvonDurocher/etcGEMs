@@ -402,6 +402,60 @@ def cmd_control(args):
 
 
 # ---------------------------------------------------------------------------
+# proteome-sectors: empirical temperature-dependent allocation + validation
+# ---------------------------------------------------------------------------
+def cmd_proteome_sectors(args):
+    from . import proteome_alloc as pa
+    cfg = resolve(args.strain, args.experiment)
+    data = args.data or os.path.join(strain_dir(args.strain), "proteomics", "tem_proteomic.csv")
+    if not os.path.exists(data):
+        raise SystemExit(f"proteomics file not found: {data}")
+    out_dir = _out_dir(args.strain, "proteome_sectors")
+    os.makedirs(out_dir, exist_ok=True)
+
+    # Force sectors on + temperature-dependent allocation for this diagnostic run.
+    cfg.setdefault("proteome_sectors", {})
+    cfg["proteome_sectors"]["enabled"] = True
+    cfg["allocation_from_data"] = data
+    pm = _build_pm(cfg)
+
+    # -- PART 1: measured sector fractions vs temperature --
+    b2u = pa.build_b_to_uniprot(pm.ec.model, cfg["provider"].get("prot_prefix", "prot_"))
+    df = pa.load_temperature_proteome(data, b2u)
+    sf = pa.sector_fractions_vs_T(df)
+    sf.to_csv(os.path.join(out_dir, "sector_fractions_vs_T.csv"))
+    if not args.no_plots:
+        pa.plot_sector_fractions(sf, os.path.join(out_dir, "sector_fractions_vs_T.png"))
+    ch = sf["f_chaperone"]
+    print(f"[proteome] measured sector fractions vs T -> {out_dir}/sector_fractions_vs_T.csv")
+    print(f"[proteome] chaperone fraction: {ch.loc[30]:.3f}@30°C -> {ch.loc[43]:.3f}@43°C "
+          f"({ch.loc[43]/ch.loc[30]:.1f}x ramp)")
+
+    # -- PART 2: mapping coverage --
+    model_enz = set(e.enzyme_id for e in pm.ec.table.entries if e.enzyme_id)
+    measured = set(df.dropna(subset=["UniProt"])["UniProt"])
+    cov = model_enz & measured
+    print(f"[proteome] mapping coverage: {len(cov)}/{len(model_enz)} model enzymes "
+          f"({100*len(cov)/max(1,len(model_enz)):.1f}%) have a measured temperature profile")
+
+    # -- PART 4: predicted vs measured usage + sector fractions --
+    per_df, corr_df, pred_sec, meas_sec = pa.validate(pm, df)
+    per_df.to_csv(os.path.join(out_dir, "validation_enzyme_usage.csv"), index=False)
+    corr_df.to_csv(os.path.join(out_dir, "validation_correlations.csv"), index=False)
+    pred_sec.to_csv(os.path.join(out_dir, "sector_fractions_predicted.csv"))
+    meas_sec.to_csv(os.path.join(out_dir, "sector_fractions_measured_matched.csv"))
+    if not args.no_plots:
+        pa.plot_usage_pred_vs_meas(per_df, corr_df, os.path.join(out_dir, "usage_pred_vs_meas.png"))
+        pa.plot_sector_pred_vs_meas(pred_sec, meas_sec, os.path.join(out_dir, "sector_pred_vs_meas.png"))
+    print("[proteome] predicted-vs-measured per-enzyme usage:")
+    for _, r in corr_df.iterrows():
+        print(f"    {int(r.temp_C):>2}°C  n={int(r.n)}  Spearman ρ={r.spearman:.2f}  log-Pearson R²={r.log_pearson_r2:.2f}")
+    dump_resolved(cfg, out_dir)
+    print(f"[proteome] wrote {out_dir}")
+    return out_dir
+
+
+# ---------------------------------------------------------------------------
 # dltkcat tooling
 # ---------------------------------------------------------------------------
 def cmd_dltkcat(args):
@@ -505,6 +559,16 @@ def build_parser():
     ct.add_argument("--experiment", help="experiment carrying the control: block (optional)")
     ct.add_argument("--no-plots", action="store_true")
     ct.set_defaults(func=cmd_control)
+
+    pspar = sub.add_parser("proteome-sectors",
+                           help="empirical temperature-dependent proteome allocation + "
+                                "predicted-vs-measured validation")
+    pspar.add_argument("--strain", required=True)
+    pspar.add_argument("--experiment")
+    pspar.add_argument("--data", help="temperature proteomics CSV "
+                       "(default strains/NAME/proteomics/tem_proteomic.csv)")
+    pspar.add_argument("--no-plots", action="store_true")
+    pspar.set_defaults(func=cmd_proteome_sectors)
 
     # --- dltkcat tooling ---
     dl = sub.add_parser("dltkcat", help="DLTKcat -> MMRT (Topt, dCp) tooling")
