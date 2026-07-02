@@ -1,0 +1,241 @@
+"""Enzyme-constraint layer: a temperature-dependent proteome pool budget.
+
+We represent enzyme demand abstractly as a *cost table* -- one entry per
+catalysed reaction giving molecular weight, a reference kcat and its MMRT
+temperature-response knobs (Topt, dCp) plus an allocation group. This keeps the
+engine organism-agnostic: the same code drives a toy E. coli core model, a
+GECKO ecYeastGEM, or a table of DLKcat/DLTKcat predictions.
+
+The constraint is the sMOMENT total-protein pool:
+
+    sum_i  c_i(T) * (v_i_fwd + v_i_rev)   <=  P_budget
+
+with per-flux protein cost
+
+    c_i(T) = MW_i / ( kcat_i(T) * 3600 )        [ g protein / (mmol gDW^-1 h^-1) ]
+
+Units: MW in kDa == g/mmol, kcat in 1/s (x3600 -> 1/h), flux in mmol/gDW/h, so
+c_i*v_i is g enzyme / gDW and P_budget is the g protein / gDW allocated to the
+modelled enzymes (the classic phi * sigma * f mass fraction). Optional per-group
+sub-budgets let you probe proteome *allocation* between pathways, not just the
+total.
+
+Temperature enters only through kcat_i(T); raising T past an enzyme's Topt
+lowers its kcat, inflating c_i, tightening the budget and eventually starving
+growth -- the mechanistic origin of the organismal thermal performance curve.
+"""
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from typing import Dict, Iterable, List, Optional
+
+import numpy as np
+
+from .mmrt import MMRTParams
+
+KCAT_S_TO_H = 3600.0
+
+
+@dataclass
+class EnzymeEntry:
+    rxn_id: str
+    mw: float          # kDa (== g/mmol)
+    kcat_ref: float    # 1/s at T0
+    Topt: float        # K
+    dCp: float         # kJ/mol/K (negative)
+    T0: float          # K, reference temperature of kcat_ref
+    group: str = "default"
+    enzyme_id: Optional[str] = None     # UniProt id (for keying DLTKcat fits)
+    base_cost: Optional[float] = None   # override g/(mmol gDW^-1 h^-1); for GECKO short models
+
+    def __post_init__(self):
+        # Per-flux protein cost at T0. relative_kcat(T) is invariant to kcat_ref,
+        # so base_cost fully determines the temperature-scaled cost.
+        if self.base_cost is None:
+            self.base_cost = self.mw / (self.kcat_ref * KCAT_S_TO_H)
+
+    def mmrt(self, Topt: Optional[float] = None, dCp: Optional[float] = None) -> MMRTParams:
+        return MMRTParams(
+            kcat_ref=self.kcat_ref,
+            T0=self.T0,
+            Topt=self.Topt if Topt is None else Topt,
+            dCp=self.dCp if dCp is None else dCp,
+        )
+
+    def cost(self, T: float, Topt: Optional[float] = None, dCp: Optional[float] = None) -> float:
+        """Per-flux protein cost c_i(T) = base_cost / relative_kcat(T)."""
+        rel = float(self.mmrt(Topt, dCp).relative_kcat(T))
+        rel = max(rel, 1e-6)  # guard against numerical zero at extreme T
+        return self.base_cost / rel
+
+
+@dataclass
+class EnzymeCostTable:
+    """Container of EnzymeEntry with convenience accessors."""
+    entries: List[EnzymeEntry] = field(default_factory=list)
+
+    def __len__(self):
+        return len(self.entries)
+
+    def __iter__(self):
+        return iter(self.entries)
+
+    @property
+    def groups(self) -> List[str]:
+        return sorted({e.group for e in self.entries})
+
+    def by_group(self) -> Dict[str, List[EnzymeEntry]]:
+        out: Dict[str, List[EnzymeEntry]] = {}
+        for e in self.entries:
+            out.setdefault(e.group, []).append(e)
+        return out
+
+
+# ---------------------------------------------------------------------------
+# Perturbation spec applied to the whole table during a sweep.
+# ---------------------------------------------------------------------------
+@dataclass
+class Perturbation:
+    """A single point in sensitivity space.
+
+    Attributes
+    ----------
+    dTopt        : uniform shift (K) added to every enzyme's Topt
+    topt_scale   : multiplies each enzyme's (Topt - T0) spread about T0 -> widens
+                   or compresses the *heterogeneity* of optima across enzymes
+    dCp_scale    : multiplies every enzyme's dCp (curvature / thermal breadth)
+    budget       : total proteome pool P (g/gDW); None keeps model default
+    group_alloc  : per-group multiplier on that group's sub-budget (allocation)
+    """
+    dTopt: float = 0.0
+    topt_scale: float = 1.0
+    dCp_scale: float = 1.0
+    budget: Optional[float] = None
+    group_alloc: Dict[str, float] = field(default_factory=dict)
+
+    def topt_of(self, e: EnzymeEntry) -> float:
+        return e.T0 + self.topt_scale * (e.Topt - e.T0) + self.dTopt
+
+    def dCp_of(self, e: EnzymeEntry) -> float:
+        return e.dCp * self.dCp_scale
+
+
+class EnzymeConstrainedModel:
+    """Attach and drive a temperature-dependent pool constraint on a cobra model."""
+
+    POOL = "enzyme_pool"
+
+    def __init__(self, model, table: EnzymeCostTable, default_budget: float,
+                 group_budgets: Optional[Dict[str, float]] = None):
+        self.model = model
+        self.table = EnzymeCostTable(
+            [e for e in table.entries if e.rxn_id in model.reactions]
+        )
+        dropped = len(table) - len(self.table)
+        if dropped:
+            print(f"[enzyme_cost] {dropped} table entries had no matching reaction; skipped.")
+        self.default_budget = default_budget
+        self.group_budgets = dict(group_budgets or {})
+        self._pool = None
+        self._group_cons: Dict[str, object] = {}
+        # Precompute parameter arrays and variable handles for a vectorised
+        # temperature update (the hot path in a sweep).
+        ents = self.table.entries
+        self._base = np.array([e.base_cost for e in ents], float)
+        self._T0 = np.array([e.T0 for e in ents], float)
+        self._Topt = np.array([e.Topt for e in ents], float)
+        self._dCp = np.array([e.dCp for e in ents], float)
+        rxns = [model.reactions.get_by_id(e.rxn_id) for e in ents]
+        self._fwd = [r.forward_variable for r in rxns]
+        self._rev = [r.reverse_variable for r in rxns]
+        self._group_pos: Dict[str, np.ndarray] = {}
+        for g in {e.group for e in ents}:
+            self._group_pos[g] = np.array([i for i, e in enumerate(ents) if e.group == g])
+        self._build()
+
+    # -- construction -------------------------------------------------------
+    def _build(self):
+        m = self.model
+        self._pool = m.problem.Constraint(0, lb=0, ub=self.default_budget, name=self.POOL)
+        cons = [self._pool]
+        for g, b in self.group_budgets.items():
+            c = m.problem.Constraint(0, lb=0, ub=b, name=f"enzyme_pool_{g}")
+            self._group_cons[g] = c
+            cons.append(c)
+        m.add_cons_vars(cons)
+        m.solver.update()
+        self.set_temperature(self._ref_T())  # initialise coefficients
+
+    def _ref_T(self) -> float:
+        return float(np.median([e.T0 for e in self.table])) if len(self.table) else 303.15
+
+    def refresh_params(self):
+        """Rebuild the vectorised parameter arrays from the table entries.
+
+        Call after mutating entry Topt/dCp/base_cost in place (e.g. applying
+        DLTKcat fits), then set_temperature to push new coefficients."""
+        ents = self.table.entries
+        self._base = np.array([e.base_cost for e in ents], float)
+        self._T0 = np.array([e.T0 for e in ents], float)
+        self._Topt = np.array([e.Topt for e in ents], float)
+        self._dCp = np.array([e.dCp for e in ents], float)
+        self.set_temperature(self._ref_T())
+
+    # -- drivers ------------------------------------------------------------
+    def _costs(self, T: float, pert: Perturbation) -> np.ndarray:
+        """Vectorised per-flux cost array c_i(T) over all enzymes.
+
+        The MMRT shape is normalised to its own peak, so the reference kcat is
+        treated as each enzyme's *maximum* turnover (at Topt) and any temperature
+        deviation only raises cost. This keeps the proteome pool binding across
+        the whole curve (no super-efficiency plateau) while preserving T0 as the
+        pivot for the topt_scale perturbation.
+        """
+        from .mmrt import relative_kcat_vec
+        Topt_eff = self._T0 + pert.topt_scale * (self._Topt - self._T0) + pert.dTopt
+        dCp_eff = self._dCp * pert.dCp_scale
+        rel = relative_kcat_vec(T, self._T0, Topt_eff, dCp_eff)
+        peak = relative_kcat_vec(Topt_eff, self._T0, Topt_eff, dCp_eff)  # value at each Topt
+        s = np.clip(rel / peak, 1e-6, None)   # normalised shape, <=1, =1 at Topt
+        return self._base / s
+
+    def set_temperature(self, T: float, pert: Optional[Perturbation] = None):
+        """Recompute all pool coefficients for temperature T (K)."""
+        pert = pert or Perturbation()
+        c = self._costs(T, pert)
+        pool_coef = {}
+        for v_f, v_r, ci in zip(self._fwd, self._rev, c):
+            ci = float(ci)
+            pool_coef[v_f] = ci
+            pool_coef[v_r] = ci
+        self._pool.set_linear_coefficients(pool_coef)
+        for g, con in self._group_cons.items():
+            pos = self._group_pos[g]
+            gc = {}
+            for i in pos:
+                ci = float(c[i])
+                gc[self._fwd[i]] = ci
+                gc[self._rev[i]] = ci
+            con.set_linear_coefficients(gc)
+        if pert.budget is not None or pert.group_alloc:
+            self.set_budget(pert.budget, pert.group_alloc)
+
+    def set_budget(self, budget: Optional[float] = None,
+                   group_alloc: Optional[Dict[str, float]] = None):
+        if budget is not None:
+            self._pool.ub = budget
+        if group_alloc:
+            for g, mult in group_alloc.items():
+                if g in self._group_cons:
+                    base = self.group_budgets[g]
+                    self._group_cons[g].ub = base * mult
+
+    # -- diagnostics --------------------------------------------------------
+    def enzyme_mass(self, solution, T: float, pert: Optional[Perturbation] = None) -> float:
+        """Total enzyme mass used (g/gDW) in a solution at temperature T."""
+        pert = pert or Perturbation()
+        total = 0.0
+        for e in self.table:
+            v = abs(solution.fluxes.get(e.rxn_id, 0.0))
+            total += e.cost(T, Topt=pert.topt_of(e), dCp=pert.dCp_of(e)) * v
+        return total

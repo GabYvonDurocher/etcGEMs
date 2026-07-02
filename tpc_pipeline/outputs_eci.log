@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/sessions/dazzling-stoic-bell/mnt/etcGEMs/tpc_pipeline/tpc_pipeline/__main__.py", line 71, in <module>
+    main()
+  File "/sessions/dazzling-stoic-bell/mnt/etcGEMs/tpc_pipeline/tpc_pipeline/__main__.py", line 25, in main
+    pm = build_provider(cfg)
+  File "/sessions/dazzling-stoic-bell/mnt/etcGEMs/tpc_pipeline/tpc_pipeline/config.py", line 38, in build_provider
+    return providers.from_gecko(
+  File "/sessions/dazzling-stoic-bell/mnt/etcGEMs/tpc_pipeline/tpc_pipeline/providers.py", line 162, in from_gecko
+    model = _load_any(model_path)
+  File "/sessions/dazzling-stoic-bell/mnt/etcGEMs/tpc_pipeline/tpc_pipeline/providers.py", line 309, in _load_any
+    return _read_sbml_safe(path)
+  File "/sessions/dazzling-stoic-bell/mnt/etcGEMs/tpc_pipeline/tpc_pipeline/providers.py", line 302, in _read_sbml_safe
+    return cobra.io.read_sbml_model(path, f_replace=fr)
+  File "/sessions/dazzling-stoic-bell/.local/lib/python3.10/site-packages/cobra/io/sbml.py", line 460, in read_sbml_model
+    raise e
+  File "/sessions/dazzling-stoic-bell/.local/lib/python3.10/site-packages/cobra/io/sbml.py", line 457, in read_sbml_model
+    doc = _get_doc_from_filename(filename)
+  File "/sessions/dazzling-stoic-bell/.local/lib/python3.10/site-packages/cobra/io/sbml.py", line 504, in _get_doc_from_filename
+    raise IOError(
+OSError: The file with '/Users/g.yvon-durocher/Library/CloudStorage/OneDrive-UniversityofExeter/Documents/work/MICROADAPT/etcGEMs/eciML1515_batch.xml' does not exist, or is not an SBML string. Provide the path to an existing SBML file or a valid SBML string representation:
+
+[run] building provider: gecko

@@ -1,0 +1,32 @@
+# Real run: enzyme-constrained E. coli iML1515 (GECKO batch).
+provider:
+  type: gecko
+  model_path: /Users/g.yvon-durocher/Library/CloudStorage/OneDrive-UniversityofExeter/Documents/work/MICROADAPT/etcGEMs/eciML1515_batch.xml
+  prot_prefix: prot_
+  pool_id: prot_pool          # auto-detects prot_pool[c]
+  biomass_rxn: null           # auto-detect from objective
+  default_Topt_offset: 7.0    # enzyme Topt above T0 (K) -> organism optimum ~37 C
+  default_dCp: -12.0          # MMRT curvature (more negative = narrower TPC)
+  target_fraction: null       # null -> reuse the model's own pool bound
+  pool_scale: 0.9             # <1 makes the pool bind at the optimum (peak rate responds)
+
+T0_C: 30
+
+temperature_grid:
+  start_C: 8
+  stop_C: 60
+  n: 53
+
+sensitivity:
+  n_samples: 120
+  seed: 1
+  parameters:
+    dTopt:        [-6.0, 6.0]
+    topt_scale:   [0.7, 1.4]
+    dCp_scale:    [0.5, 2.0]
+    budget_scale: [0.7, 1.1]
+  groups: []
+
+solver_timeout: 2
+crit_frac: 0.05
+output_dir: outputs/eciML1515_run

@@ -1,0 +1,329 @@
+"""Model providers: turn a genome-scale model into (cobra model, cost table).
+
+Three routes, all returning a ``ProvidedModel``:
+
+* ``toy_ecoli_core``  -- self-contained, no downloads. e_coli_core (ships with
+  cobrapy) plus synthetic MW / kcat / Topt / dCp per reaction. Use it to smoke-
+  test the whole pipeline and to develop new analyses offline.
+
+* ``from_gecko``      -- read a real GECKO enzyme-constrained model (SBML/.mat/
+  .json) and extract per-reaction kcats from its protein-usage stoichiometry.
+  Assigns MMRT knobs (Topt, dCp) from defaults you can override per enzyme.
+
+* ``from_kcat_csv``   -- attach a table of kcats (e.g. DLKcat / DLTKcat output)
+  to any base GEM. Columns: rxn_id, mw, kcat[, Topt, dCp, group, T0].
+
+The GECKO and CSV routes are the ones you point at ecYeastGEM on your machine;
+the toy route is what the sandbox tests run on.
+"""
+from __future__ import annotations
+
+import csv
+from dataclasses import dataclass
+from typing import Dict, Optional
+
+import numpy as np
+
+from .enzyme_cost import EnzymeConstrainedModel, EnzymeCostTable, EnzymeEntry
+
+
+@dataclass
+class ProvidedModel:
+    ec: EnzymeConstrainedModel
+    T0: float                     # reference temperature (K) of the kcats
+    biomass_rxn: str
+    name: str
+
+
+# ---------------------------------------------------------------------------
+# Budget calibration
+# ---------------------------------------------------------------------------
+def calibrate_budget(model, table: EnzymeCostTable, T0: float, biomass_rxn: str,
+                     target_fraction: float = 0.6) -> float:
+    """Pick a pool budget so constrained growth at T0 is ~target_fraction of the
+    unconstrained optimum (guarantees the enzyme constraint actually binds).
+
+    Bisection on the budget; cheap because each step is one LP.
+    """
+    with model:
+        model.objective = biomass_rxn
+        uncon = model.slim_optimize()
+    if not uncon or uncon <= 0 or not np.isfinite(uncon):
+        raise RuntimeError("Unconstrained model does not grow; check biomass reaction.")
+    target = target_fraction * uncon
+
+    # An upper bound on useful budget: cost if every enzyme ran at unit flux.
+    hi = sum(e.cost(T0) for e in table) or 1.0
+    lo = 0.0
+    # Calibrate on a disposable copy so we don't leave a pool constraint behind.
+    ecm = EnzymeConstrainedModel(model.copy(), table, default_budget=hi)
+    ecm.model.objective = biomass_rxn
+    for _ in range(40):
+        mid = 0.5 * (lo + hi)
+        ecm.set_budget(mid)
+        ecm.set_temperature(T0)
+        g = ecm.model.slim_optimize()
+        g = 0.0 if (g is None or not np.isfinite(g)) else g
+        if g < target:
+            lo = mid
+        else:
+            hi = mid
+    return hi
+
+
+# ---------------------------------------------------------------------------
+# Toy provider (offline)
+# ---------------------------------------------------------------------------
+def toy_ecoli_core(T0: float = 303.15, seed: int = 0,
+                   topt_mean_offset: float = 8.0, topt_sd: float = 6.0,
+                   dCp_mean: float = -8.0, dCp_sd: float = 2.0,
+                   n_groups: int = 4, target_fraction: float = 0.6) -> ProvidedModel:
+    """E. coli core with synthetic enzyme kinetics. Deterministic given seed.
+
+    Enzyme optima are drawn a little above T0 with spread ``topt_sd`` so the
+    organismal TPC (which folds in the proteome budget) peaks below the mean
+    enzyme Topt -- the usual empirical pattern.
+    """
+    from cobra.io import load_model
+    rng = np.random.default_rng(seed)
+    model = load_model("textbook")
+    biomass = str(model.objective.expression).split()[0]  # fallback below
+    biomass = _find_biomass(model)
+
+    entries = []
+    for rxn in model.reactions:
+        if rxn.id.startswith("EX_") or rxn.id == biomass:
+            continue
+        if rxn.id in ("ATPM",):
+            continue
+        if not rxn.metabolites:
+            continue
+        mw = float(np.clip(rng.lognormal(mean=np.log(40), sigma=0.5), 10, 150))     # kDa
+        kcat = float(np.clip(rng.lognormal(mean=np.log(50), sigma=1.0), 1, 800))    # 1/s
+        Topt = T0 + topt_mean_offset + rng.normal(0, topt_sd)
+        dCp = float(np.clip(rng.normal(dCp_mean, dCp_sd), -20, -2))
+        group = f"grp{rng.integers(0, n_groups)}"
+        entries.append(EnzymeEntry(rxn.id, mw, kcat, Topt, dCp, T0, group))
+    table = EnzymeCostTable(entries)
+
+    budget = calibrate_budget(model, table, T0, biomass, target_fraction)
+    group_budgets = _group_budgets_from_reference(table, T0, budget)
+    ec = EnzymeConstrainedModel(model, table, default_budget=budget,
+                                group_budgets=group_budgets)
+    ec.model.objective = biomass
+    return ProvidedModel(ec=ec, T0=T0, biomass_rxn=biomass, name="toy_ecoli_core")
+
+
+def _group_budgets_from_reference(table, T0, total_budget, slack=1.5):
+    """Per-group sub-budgets, set generous (slack x each group's proportional
+    share) so group caps only bind when a sweep tightens allocation."""
+    per_group = {}
+    for g, ents in table.by_group().items():
+        share = sum(e.cost(T0) for e in ents)
+        per_group[g] = share
+    tot = sum(per_group.values()) or 1.0
+    return {g: slack * total_budget * v / tot for g, v in per_group.items()}
+
+
+def _find_biomass(model) -> str:
+    # objective reaction name is most reliable
+    for r in model.reactions:
+        if r.objective_coefficient != 0:
+            return r.id
+    for r in model.reactions:
+        if "biomass" in r.id.lower():
+            return r.id
+    raise RuntimeError("Could not identify biomass reaction.")
+
+
+# ---------------------------------------------------------------------------
+# GECKO ecModel extractor
+# ---------------------------------------------------------------------------
+def from_gecko(model_path: str, T0: float = 303.15,
+               default_Topt_offset: float = 7.0, default_dCp: float = -12.0,
+               prot_prefix: str = "prot_", pool_id: str = "prot_pool",
+               biomass_rxn: Optional[str] = None,
+               target_fraction: Optional[float] = None,
+               pool_scale: float = 1.0) -> ProvidedModel:
+    """Extract an enzyme cost table from a GECKO-style ecModel.
+
+    Handles two encodings:
+      (A) 'full' GECKO: draw reactions convert `prot_pool` -> `prot_<id>` with
+          coefficient = MW; metabolic reactions consume `prot_<id>` with
+          coefficient = 1/kcat. We recover MW and kcat per reaction.
+      (B) 'short'/sMOMENT: reactions consume `prot_pool` directly with
+          coefficient MW/kcat. We keep that as base_cost (temperature scaling is
+          invariant to the MW/kcat split).
+
+    Topt/dCp are not stored in GECKO models, so we assign defaults; override them
+    afterwards via the returned table (e.g. from DLTKcat predictions).
+    """
+    import cobra
+
+    model = _load_any(model_path)
+    if biomass_rxn is None:
+        biomass_rxn = _find_biomass(model)
+
+    # Auto-detect the pool metabolite id (GECKO adds a compartment suffix, e.g.
+    # 'prot_pool[c]', so the bare 'prot_pool' won't match get_by_id).
+    all_met_ids = {m.id for m in model.metabolites}
+    if pool_id not in all_met_ids:
+        cand = [i for i in all_met_ids if "prot_pool" in i or i.startswith(pool_id)]
+        if cand:
+            pool_id = sorted(cand, key=len)[0]
+    # Enzyme pseudo-metabolites = prot_ prefix, excluding the pool itself.
+    prot_mets = {m.id for m in model.metabolites
+                 if m.id.startswith(prot_prefix) and m.id != pool_id}
+
+    # MW per enzyme from draw reactions (route A: pool -> single enzyme).
+    mw_of: Dict[str, float] = {}
+    draw_rxns = set()
+    for rxn in model.reactions:
+        prods = [m for m in rxn.metabolites if m.id in prot_mets and rxn.metabolites[m] > 0]
+        cons_pool = any(m.id == pool_id and rxn.metabolites[m] < 0 for m in rxn.metabolites)
+        if cons_pool and len(prods) == 1:
+            draw_rxns.add(rxn.id)
+            enz = prods[0].id
+            for m, c in rxn.metabolites.items():
+                if m.id == pool_id:
+                    mw_of[enz] = abs(c)   # |pool coeff| == MW (kDa)
+
+    pool_met = model.metabolites.get_by_id(pool_id) if pool_id in all_met_ids else None
+    entries = []
+    for rxn in model.reactions:
+        if rxn.id == biomass_rxn or rxn.id.startswith("EX_") or rxn.id in draw_rxns:
+            continue
+        enz_consumed = {m.id: -rxn.metabolites[m] for m in rxn.metabolites
+                        if m.id in prot_mets and rxn.metabolites[m] < 0}
+        pool_consumed = rxn.metabolites.get(pool_met, 0.0) if pool_met is not None else 0.0
+
+        if enz_consumed:  # route A: coefficient == 1/kcat[1/h]
+            # if a complex, use the limiting (largest coefficient == smallest kcat)
+            enz_id, inv_kcat_h = max(enz_consumed.items(), key=lambda kv: kv[1])
+            kcat_s = 1.0 / (inv_kcat_h * 3600.0) if inv_kcat_h > 0 else 50.0
+            mw = mw_of.get(enz_id, 40.0)
+            entries.append(EnzymeEntry(rxn.id, mw, kcat_s,
+                                       T0 + default_Topt_offset, default_dCp, T0,
+                                       group=_subsystem(rxn),
+                                       enzyme_id=_clean_uniprot(enz_id, prot_prefix)))
+        elif pool_consumed < 0:  # route B: base_cost = MW/kcat directly
+            entries.append(EnzymeEntry(rxn.id, mw=40.0, kcat_ref=50.0,
+                                       Topt=T0 + default_Topt_offset, dCp=default_dCp,
+                                       T0=T0, group=_subsystem(rxn),
+                                       base_cost=abs(pool_consumed)))
+    if not entries:
+        raise RuntimeError(
+            "No enzyme-linked reactions found. Check prot_prefix/pool_id match "
+            "this model's naming (inspect metabolite ids).")
+
+    table = EnzymeCostTable(entries)
+    # Budget: reuse the model's existing pool bound if present, else calibrate.
+    budget = _existing_pool_bound(model, pool_id)
+    if budget is None:
+        if target_fraction is None:
+            target_fraction = 0.6
+        budget = calibrate_budget(model, table, T0, biomass_rxn, target_fraction)
+    # pool_scale < 1 makes the proteome pool bind at the optimum too (so peak
+    # growth responds to temperature/allocation, not just the flanks).
+    budget *= pool_scale
+    group_budgets = _group_budgets_from_reference(table, T0, budget)
+    ec = EnzymeConstrainedModel(model, table, default_budget=budget,
+                                group_budgets=group_budgets)
+    ec.model.objective = biomass_rxn
+    return ProvidedModel(ec=ec, T0=T0, biomass_rxn=biomass_rxn,
+                         name=f"gecko:{model.id}")
+
+
+def _existing_pool_bound(model, pool_id):
+    for rxn in model.reactions:
+        # the pool exchange/supply reaction produces prot_pool
+        prod = [m for m in rxn.metabolites if m.id == pool_id and rxn.metabolites[m] > 0]
+        if prod and rxn.upper_bound < 1e6:
+            return float(rxn.upper_bound)
+    return None
+
+
+def _subsystem(rxn) -> str:
+    s = getattr(rxn, "subsystem", None)
+    return s if s else "default"
+
+
+def _clean_uniprot(prot_met_id: str, prot_prefix: str) -> str:
+    """'prot_P0A8F4[c]' -> 'P0A8F4'."""
+    s = prot_met_id
+    if s.startswith(prot_prefix):
+        s = s[len(prot_prefix):]
+    return s.split("[")[0].strip()
+
+
+# ---------------------------------------------------------------------------
+# CSV kcat loader (DLKcat / DLTKcat)
+# ---------------------------------------------------------------------------
+def from_kcat_csv(model_path: str, csv_path: str, T0: float = 303.15,
+                  default_Topt_offset: float = 8.0, default_dCp: float = -8.0,
+                  biomass_rxn: Optional[str] = None,
+                  target_fraction: float = 0.6) -> ProvidedModel:
+    """Attach a kcat table to a plain GEM.
+
+    CSV columns (header required): rxn_id, mw, kcat  and optionally
+    Topt, dCp, group, T0. Missing optional columns fall back to defaults.
+    """
+    model = _load_any(model_path)
+    if biomass_rxn is None:
+        biomass_rxn = _find_biomass(model)
+    entries = []
+    with open(csv_path, newline="") as fh:
+        for row in csv.DictReader(fh):
+            rid = row["rxn_id"].strip()
+            if rid not in model.reactions:
+                continue
+            t0 = float(row.get("T0") or T0)
+            entries.append(EnzymeEntry(
+                rxn_id=rid,
+                mw=float(row.get("mw") or 40.0),
+                kcat_ref=float(row["kcat"]),
+                Topt=float(row.get("Topt") or (t0 + default_Topt_offset)),
+                dCp=float(row.get("dCp") or default_dCp),
+                T0=t0,
+                group=(row.get("group") or "default").strip() or "default",
+            ))
+    if not entries:
+        raise RuntimeError("No CSV rows matched reactions in the model.")
+    table = EnzymeCostTable(entries)
+    budget = calibrate_budget(model, table, T0, biomass_rxn, target_fraction)
+    group_budgets = _group_budgets_from_reference(table, T0, budget)
+    ec = EnzymeConstrainedModel(model, table, default_budget=budget,
+                                group_budgets=group_budgets)
+    ec.model.objective = biomass_rxn
+    return ProvidedModel(ec=ec, T0=T0, biomass_rxn=biomass_rxn,
+                         name=f"csv:{model.id}")
+
+
+def _read_sbml_safe(path: str):
+    """Read an SBML model, sanitising COBRA id-encodings that break the LP
+    backend. GECKO SBML encodes spaces as ``__32__`` which cobra decodes to a
+    literal space in the id (e.g. 'protein pseudoreaction'); optlang/GLPK reject
+    whitespace in variable names. We decode normally then replace spaces."""
+    import cobra
+    from cobra.io.sbml import F_REPLACE, F_REACTION, F_SPECIE, F_GENE
+    base = dict(F_REPLACE)
+    _wrap = lambda f: (lambda s: f(s).replace(" ", "_"))
+    fr = dict(base)
+    for key in (F_REACTION, F_SPECIE, F_GENE):
+        if key in fr:
+            fr[key] = _wrap(base[key])
+    return cobra.io.read_sbml_model(path, f_replace=fr)
+
+
+def _load_any(path: str):
+    import cobra
+    p = path.lower()
+    if p.endswith((".xml", ".sbml", ".xml.gz")):
+        return _read_sbml_safe(path)
+    if p.endswith(".json"):
+        return cobra.io.load_json_model(path)
+    if p.endswith(".mat"):
+        return cobra.io.load_matlab_model(path)
+    if p.endswith(".yml") or p.endswith(".yaml"):
+        return cobra.io.load_yaml_model(path)
+    raise ValueError(f"Unsupported model format: {path}")

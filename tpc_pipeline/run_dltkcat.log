@@ -1,0 +1,13 @@
+[dltkcat] applied fits to 30/2560 enzymes (key=rxn_id)
+[sensitivity] 12/120
+[sensitivity] 24/120
+[sensitivity] 36/120
+[sensitivity] 48/120
+[sensitivity] 60/120
+[sensitivity] 72/120
+[sensitivity] 84/120
+[sensitivity] 96/120
+[sensitivity] 108/120
+[sensitivity] 120/120
+[run_with_fits] nominal Topt=37.0C rmax=0.571 CTmax=56.8C -> outputs/eciML1515_run_dltkcat
+[run_with_fits] figures written

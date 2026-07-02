@@ -1,0 +1,32 @@
+# (Scratch duplicate used during sandbox testing — safe to delete.
+#  Use eciML1515.yaml for real runs.)
+provider:
+  type: gecko
+  model_path: /Users/g.yvon-durocher/Library/CloudStorage/OneDrive-UniversityofExeter/Documents/work/MICROADAPT/etcGEMs/eciML1515_batch.xml
+  prot_prefix: prot_
+  pool_id: prot_pool
+  biomass_rxn: null
+  default_Topt_offset: 8.0
+  default_dCp: -8.0
+  target_fraction: null
+
+T0_C: 30
+
+temperature_grid:
+  start_C: 8
+  stop_C: 58
+  n: 46
+
+sensitivity:
+  n_samples: 120
+  seed: 1
+  parameters:
+    dTopt:        [-6.0, 6.0]
+    topt_scale:   [0.7, 1.4]
+    dCp_scale:    [0.5, 2.0]
+    budget_scale: [0.8, 1.2]
+  groups: []
+
+solver_timeout: 2
+crit_frac: 0.05
+output_dir: outputs/eciML1515_run
