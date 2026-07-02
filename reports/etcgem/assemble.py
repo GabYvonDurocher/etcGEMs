@@ -31,10 +31,10 @@ ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))          # project root
 STRAIN = os.path.join(ROOT, "strains", "eciML1515", "outputs")
 
 RUNS = {
-    "sweep":      os.path.join(STRAIN, "default"),
-    "dltkcat":    os.path.join(STRAIN, "dltkcat_ext"),
-    "decompose":  os.path.join(STRAIN, "decompose_decomposition_quick"),
-    "control":    os.path.join(STRAIN, "control_control_quick"),
+    "sweep":      os.path.join(STRAIN, "sweep_default"),
+    "dltkcat":    os.path.join(STRAIN, "sweep_dltkcat_ext"),     # DLTKcat fits applied
+    "decompose":  os.path.join(STRAIN, "decompose_decomposition_sectors"),  # sector allocation axis
+    "control":    os.path.join(STRAIN, "control_control"),       # full control run
     "calibrated": os.path.join(STRAIN, "sweep_calibrated"),      # M1.2
     "sectors":    os.path.join(STRAIN, "sweep_sectors"),         # optional
 }

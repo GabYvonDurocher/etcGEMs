@@ -33,6 +33,13 @@ curve. This mechanistic decomposition of a TPC into an enzyme thermal envelope a
 a proteome-allocation budget follows the temperature-constrained GEM programme
 [@Li2021; @Pettersen2023].
 
+The MMRT curvature parameter $\Delta C_p^\ddagger$ sets both the thermal breadth and
+the apparent activation energy of the rising limb; here it is **calibrated** so the
+nominal rising-limb $E_a$ matches a target value (0.65 eV, the conserved
+metabolic-theory value; configurable to a measured bacterial growth-TPC $E_a$) via
+bisection on $\Delta C_p^\ddagger$, rather than being hand-set for curve width. The
+temperature grid is extended accordingly so $CT_\text{max}$ stays resolved.
+
 *(Placeholder — expand with the specific pool calibration, peak-normalisation, and
 descriptor definitions.)*
 
@@ -95,7 +102,11 @@ print(s[keep].round(2).to_markdown())
 We partition the variance of each descriptor into an allocation contribution, an
 envelope contribution and their interaction, using a Shapley split (@fig-decompvar,
 @fig-decompshap, @tbl-decomp). @fig-decompach shows the achievable descriptor ranges
-spanned by allocation alone versus envelope alone.
+spanned by allocation alone versus envelope alone. Here the **allocation axis is the
+mechanistic proteome-sector split** ($f_\text{metab}$, $f_\text{maint}$; Basan/Scott
+[@Basan2015; @Scott2010]) rather than a single scalar budget, so the H1.3
+separability rests on real allocation degrees of freedom rather than a
+by-construction scalar axis.
 
 ![**Achievable descriptor ranges.** Ranges of each TPC descriptor reachable by varying allocation alone versus the thermal envelope alone.](assets/figures/decomp_achievable.png){#fig-decompach fig-pos="htbp" width=85%}
 
@@ -234,11 +245,13 @@ enzymes (H1.1), yet many per-enzyme thermal parameters are only weakly identifia
 from growth alone, motivating omics constraints (H1.2).
 
 These results are structural / in-silico predictions and carry several caveats: the
-variance fractions depend on the input ranges swept; the DLTKcat envelope inherits
-its predictor's accuracy (log-scale $R^2 \approx 0.6$); the one-factor correlation
-$\rho$ is a simple stand-in for the true thermostability covariance across enzymes;
-and the proteome-sector couplings are order-of-magnitude, auto-calibrated
-relationships rather than measured parameters [@Machado2021; @Heckmann2020;
-@Davidi2016].
+nominal $E_a$ is calibrated to a target by choosing $\Delta C_p^\ddagger$, which
+simultaneously sets thermal breadth, so a low target $E_a$ implies a broad TPC (and
+a high $CT_\text{max}$); the variance fractions depend on the input ranges swept; the
+DLTKcat envelope inherits its predictor's accuracy (log-scale $R^2 \approx 0.6$); the
+one-factor correlation $\rho$ is a simple stand-in for the true thermostability
+covariance across enzymes; and the proteome-sector couplings are order-of-magnitude,
+auto-calibrated relationships rather than measured parameters [@Machado2021;
+@Heckmann2020; @Davidi2016].
 
 *(Placeholder — expand interpretation and caveats.)*
