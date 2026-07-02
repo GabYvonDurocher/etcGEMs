@@ -303,6 +303,29 @@ def from_gecko(model_path: str, T0: float = 303.15,
                          name=f"gecko:{model.id}")
 
 
+def set_medium(pm, carbon="glc__D", aerobic=True, uptake_ub=1000.0):
+    """Set the growth medium as AVAILABILITY, not pinned uptake rates. Opens the
+    named carbon source (and O2 if aerobic) uptake and closes all other carbon-
+    source uptakes; the enzyme-constrained model then determines actual uptake.
+
+    GECKO splits exchanges into forward/`_REV`; uptake is the `_REV` direction.
+    Only the carbon uptakes are toggled — minimal salts/ions stay at the model's
+    (minimal-medium) defaults. Returns the list of open carbon uptakes."""
+    model = pm.ec.model if hasattr(pm, "ec") else pm
+    # candidate carbon-source exchange bases present in the model
+    carbon_bases = ["glc__D", "ac", "glyc", "succ", "lac__D", "lac__L", "xyl__D",
+                    "gal", "fru", "man", "malt", "sucr", "pyr", "etoh", "cit"]
+    for base in carbon_bases:
+        rev = f"EX_{base}_e_REV"
+        if rev in model.reactions:
+            model.reactions.get_by_id(rev).upper_bound = uptake_ub if base == carbon else 0.0
+    o2 = "EX_o2_e_REV"
+    if o2 in model.reactions:
+        model.reactions.get_by_id(o2).upper_bound = uptake_ub if aerobic else 0.0
+    model.solver.update()
+    return [f"EX_{carbon}_e_REV"] + (["EX_o2_e_REV"] if aerobic else [])
+
+
 def _existing_pool_bound(model, pool_id):
     for rxn in model.reactions:
         # the pool exchange/supply reaction produces prot_pool
