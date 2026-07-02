@@ -1,0 +1,237 @@
+---
+title: "Enzyme- and temperature-constrained modelling of thermal performance curves in *E. coli* (eciML1515): sensitivity and identifiability"
+date: today
+abstract: |
+  We use an enzyme- and temperature-constrained genome-scale model of
+  *Escherichia coli* (eciML1515) to predict thermal performance curves (TPCs) of
+  growth and to ask what generates their shape and variation. Each enzyme's
+  turnover is given a macromolecular-rate-theory (MMRT) temperature dependence and
+  the proteome is bounded by a shared allocation pool, so the emergent TPC is a
+  balance between the thermal envelope of catalysis and the allocation of a finite
+  proteome. Through a global sensitivity sweep, a variance decomposition into
+  allocation and envelope contributions, a per-enzyme thermal-control and
+  identifiability analysis, a DLTKcat-calibrated envelope, and a coarse-grained
+  proteome-sector allocation model, we characterise the determinants of TPC shape
+  and move from a nominal parameter scan to calibrated uncertainty. *(Placeholder
+  abstract — to be expanded by the author.)*
+---
+
+## 1. Objective and model summary
+
+We model the growth thermal performance curve (TPC) of *E. coli* with an
+enzyme-constrained genome-scale model (eciML1515, a GECKO formulation
+[@Sanchez2017]). Each enzyme carries a temperature-dependent turnover number
+$k_\text{cat}(T)$ following macromolecular rate theory (MMRT), in which a negative
+change in heat capacity of activation $\Delta C_p^\ddagger$ produces a curved,
+optimum-bearing Arrhenius plot and hence a unimodal rate response [@Hobbs2013].
+Enzyme demand is bounded by a shared proteome pool, so the predicted growth rate at
+each temperature is a proteome-allocation optimum given the thermal envelope of
+catalysis. TPC descriptors (optimum temperature $T_\text{opt}$, maximum rate
+$r_\text{max}$, critical temperatures $CT_\text{min}/CT_\text{max}$, thermal
+breadth, and an apparent activation energy $E_a$) are read from the peak-normalised
+curve. This mechanistic decomposition of a TPC into an enzyme thermal envelope and
+a proteome-allocation budget follows the temperature-constrained GEM programme
+[@Li2021; @Pettersen2023].
+
+*(Placeholder — expand with the specific pool calibration, peak-normalisation, and
+descriptor definitions.)*
+
+## 2. Nominal TPC on eciML1515
+
+The nominal (unperturbed) TPC is shown in @fig-tpc, with the sampled ensemble fan
+around it. The nominal descriptors are summarised in @tbl-nominal.
+
+![**Nominal TPC ensemble for eciML1515.** Grey lines are individual sampled curves across proteome allocation and $k_\text{cat}(T)$ perturbations; the blue band is the interquartile range and the solid line the ensemble median, with the nominal curve dashed.](assets/figures/tpc_ensemble.png){#fig-tpc fig-pos="htbp" width=80%}
+
+```{python}
+#| label: tbl-nominal
+#| tbl-cap: "Nominal TPC descriptors for eciML1515 read from the sweep summary (optimum temperature, maximum growth rate, critical temperatures, thermal breadth and apparent activation energy)."
+#| output: asis
+import json
+import pandas as pd
+
+with open("assets/tables/summary.json") as fh:
+    nom = json.load(fh)["nominal"]
+rows = [
+    ("T_opt (°C)",         nom["Topt_C"]),
+    ("r_max (1/h)",        nom["rmax"]),
+    ("CT_min (°C)",        nom["CTmin_C"]),
+    ("CT_max (°C)",        nom["CTmax_C"]),
+    ("Niche width (°C)",   nom["niche_width_C"]),
+    ("E_a (eV)",           nom["Ea_eV"]),
+]
+df = pd.DataFrame(rows, columns=["Descriptor", "Nominal"])
+df["Nominal"] = df["Nominal"].round(3)
+print(df.to_markdown(index=False))
+```
+
+## 3. What generates TPC variation (global sensitivity)
+
+A Latin-hypercube sweep over the perturbation inputs (envelope shifts $dT_\text{opt}$
+and spread, curvature $\Delta C_p$ scaling, and proteome-allocation knobs) yields
+descriptor distributions (@fig-descdist) and Spearman sensitivity indices
+(@fig-sens, @tbl-sens). The pattern distinguishes envelope-dominated descriptors
+(H1.1) from allocation-dominated descriptors (H1.2): $T_\text{opt}$ and the critical
+temperatures track the thermal envelope, whereas $r_\text{max}$ tracks the proteome
+budget.
+
+![**Global sensitivity of TPC descriptors.** Spearman rank-correlation between each swept input (rows) and each TPC descriptor (columns); red is positive, blue negative.](assets/figures/sensitivity_heatmap.png){#fig-sens fig-pos="htbp" width=90%}
+
+![**Descriptor distributions across the sweep.** Marginal distribution of each TPC descriptor over the Latin-hypercube ensemble.](assets/figures/descriptor_distributions.png){#fig-descdist fig-pos="htbp" width=90%}
+
+```{python}
+#| label: tbl-sens
+#| tbl-cap: "Spearman sensitivity indices (input × TPC descriptor) for the headline descriptors from the global sweep."
+#| output: asis
+import pandas as pd
+
+s = pd.read_csv("assets/tables/sensitivity_spearman.csv", index_col=0)
+keep = [c for c in ["Topt_C", "rmax", "CTmax_C", "niche_width_C", "Ea_eV"] if c in s.columns]
+print(s[keep].round(2).to_markdown())
+```
+
+## 4. Allocation vs envelope decomposition (H1.3)
+
+We partition the variance of each descriptor into an allocation contribution, an
+envelope contribution and their interaction, using a Shapley split (@fig-decompvar,
+@fig-decompshap, @tbl-decomp). @fig-decompach shows the achievable descriptor ranges
+spanned by allocation alone versus envelope alone.
+
+![**Achievable descriptor ranges.** Ranges of each TPC descriptor reachable by varying allocation alone versus the thermal envelope alone.](assets/figures/decomp_achievable.png){#fig-decompach fig-pos="htbp" width=85%}
+
+![**Variance partition.** Variance of each descriptor attributed to allocation, envelope and their interaction.](assets/figures/decomp_variance.png){#fig-decompvar fig-pos="htbp" width=85%}
+
+![**Shapley effects.** Shapley-normalised allocation and envelope contributions to descriptor variance.](assets/figures/decomp_shapley.png){#fig-decompshap fig-pos="htbp" width=85%}
+
+```{python}
+#| label: tbl-decomp
+#| tbl-cap: "Variance of each TPC descriptor partitioned into allocation (A), envelope (E) and interaction (AE) components, with Shapley-normalised allocation/envelope fractions (φ_A, φ_E), from the H1.3 decomposition."
+#| output: asis
+import pandas as pd
+
+d = pd.read_csv("assets/tables/decomposition_table.csv")
+cols = [c for c in ["descriptor", "V_A", "V_E", "V_AE", "phi_A", "phi_E"] if c in d.columns]
+print(d[cols].round(3).to_markdown(index=False))
+```
+
+## 5. Per-enzyme thermal control and identifiability
+
+We compute per-enzyme thermal-control coefficients (how strongly each enzyme's
+thermal parameters move each TPC descriptor) and rank enzymes by a thermal-screen
+score (@fig-ctrlthermal, @tbl-control). @fig-ctrlbottle shows how the rate-limiting
+enzyme changes with temperature, and @fig-ctrlident and @tbl-ident summarise how identifiable each
+per-enzyme parameter is from the growth TPC alone. Few enzymes dominate thermal
+control (H1.1); many thermal parameters are only weakly identifiable from growth,
+motivating omics constraints (H1.2).
+
+![**Per-enzyme thermal control.** Top enzymes ranked by their thermal-screen control score over the TPC.](assets/figures/control_thermal.png){#fig-ctrlthermal fig-pos="htbp" width=85%}
+
+![**Bottleneck enzyme vs temperature.** Identity/strength of the rate-limiting enzyme as a function of temperature.](assets/figures/control_bottleneck.png){#fig-ctrlbottle fig-pos="htbp" width=85%}
+
+![**Identifiability of per-enzyme thermal parameters.** Distribution of identifiability of per-enzyme parameters from the growth TPC alone.](assets/figures/control_identifiability.png){#fig-ctrlident fig-pos="htbp" width=75%}
+
+```{python}
+#| label: tbl-control
+#| tbl-cap: "Top enzymes by thermal-screen control score, with their reaction and enzyme identifiers."
+#| output: asis
+import pandas as pd
+
+c = pd.read_csv("assets/tables/thermal_control.csv")
+cols = [x for x in ["rank", "rxn_id", "enzyme_id", "thermal_screen"] if x in c.columns]
+print(c[cols].head(10).round(4).to_markdown(index=False))
+```
+
+```{python}
+#| label: tbl-ident
+#| tbl-cap: "Identifiability summary of per-enzyme thermal parameters from the growth TPC."
+#| output: asis
+import pandas as pd
+
+idf = pd.read_csv("assets/tables/identifiability.csv")
+n = len(idf)
+n_ident = int(idf["identifiable_from_growth"].sum()) if "identifiable_from_growth" in idf else 0
+mean_ident = idf["ident"].mean() if "ident" in idf else float("nan")
+summ = pd.DataFrame({
+    "quantity": ["parameters", "identifiable from growth", "mean identifiability"],
+    "value": [n, f"{n_ident} / {n}", round(mean_ident, 3)],
+})
+print(summ.to_markdown(index=False))
+```
+
+## 6. DLTKcat-calibrated envelope
+
+Replacing the hand-set thermal envelope with per-enzyme MMRT parameters fitted from
+DLTKcat $k_\text{cat}(T)$ predictions [@Qiu2024] gives the ensemble in
+@fig-dltkcat. This is a data-driven envelope built from sequence/temperature-aware
+turnover predictions, to be compared against the default-parameter run of §2.
+
+![**DLTKcat-calibrated TPC ensemble.** TPC ensemble using per-enzyme MMRT parameters fitted from DLTKcat temperature-dependent $k_\text{cat}$ predictions.](assets/figures/dltkcat_ensemble.png){#fig-dltkcat fig-pos="htbp" width=80%}
+
+## 7. Calibrated thermal-envelope uncertainty (M1.2)
+
+We move from a nominal scan to calibrated uncertainty by sampling the thermal
+envelope per enzyme with a one-factor correlation structure (shared fraction $\rho$),
+optionally drawing each enzyme's mean and standard deviation from the DLTKcat fits
+(`mode: posterior`). @fig-calens shows the calibrated-uncertainty fan;
+@fig-calvsdef overlays the nominal hand-set ranges against this calibrated
+uncertainty for the key descriptors; @tbl-calibrated gives the calibrated descriptor
+medians and interquartile ranges.
+
+![**Calibrated thermal-envelope uncertainty.** TPC ensemble under per-enzyme correlated (one-factor $\rho$) thermal sampling — the calibrated-uncertainty fan.](assets/figures/calibrated_ensemble.png){#fig-calens fig-pos="htbp" width=80%}
+
+![**Nominal vs calibrated descriptor uncertainty.** For each key descriptor, the default hand-set-range distribution (grey) is overlaid with the calibrated per-enzyme correlated distribution (orange).](assets/figures/calibrated_vs_default.png){#fig-calvsdef fig-pos="htbp" width=85%}
+
+```{python}
+#| label: tbl-calibrated
+#| tbl-cap: "Calibrated-run descriptor median and interquartile range (per-enzyme correlated envelope sampling)."
+#| output: asis
+import pandas as pd
+
+cal = pd.read_csv("assets/tables/calibrated_descriptors.csv")
+keep = [c for c in ["Topt_C", "rmax", "CTmax_C", "niche_width_C", "Ea_eV"] if c in cal.columns]
+q = cal[keep].quantile([0.25, 0.5, 0.75])
+out = pd.DataFrame({
+    "Descriptor": keep,
+    "Median": q.loc[0.5].values,
+    "IQR": (q.loc[0.75] - q.loc[0.25]).values,
+}).round(3)
+print(out.to_markdown(index=False))
+```
+
+The envelope is sampled with shared fraction $\rho = 0.7$ (a one-factor
+whole-proteome correlation); under `mode: posterior` the per-enzyme mean and
+standard deviation are drawn from the DLTKcat fits (`strains/eciML1515/dltkcat/fits.csv`).
+
+## 8. Proteome-sector allocation trade-off
+
+Refining the single proteome pool into coarse-grained metabolic, biosynthesis and
+maintenance sectors (a Basan/Scott growth-law partition [@Basan2015; @Scott2010])
+makes the baseline rate an explicit allocation trade-off with an interior optimum:
+too little metabolic pool starves enzymes, too little biosynthesis caps translation.
+@fig-sectrade shows $r_\text{max}$ (and $CT_\text{max}$) against the metabolic
+fraction $f_\text{metab}$, coloured by the maintenance fraction $f_\text{maint}$;
+@fig-secsens gives the Spearman indices over the sector inputs. This is the
+mechanistic allocation axis that speaks WP2's maintenance→biosynthesis language.
+
+![**Proteome-sector trade-off.** $r_\text{max}$ and $CT_\text{max}$ versus the metabolic sector fraction $f_\text{metab}$, coloured by maintenance fraction $f_\text{maint}$; the interior $r_\text{max}$ optimum reflects metabolic vs biosynthesis co-limitation.](assets/figures/sector_tradeoff.png){#fig-sectrade fig-pos="htbp" width=90%}
+
+![**Sector-sweep sensitivity.** Spearman indices of TPC descriptors against the sector inputs ($f_\text{metab}$, $f_\text{maint}$, $dT_\text{opt}$, $\Delta C_p$ scale).](assets/figures/sectors_sensitivity.png){#fig-secsens fig-pos="htbp" width=90%}
+
+## 9. Interpretation and caveats
+
+Across the analyses, the thermal envelope sets the position-related descriptors
+($T_\text{opt}$, $CT_\text{max}$, breadth; H1.1) while proteome allocation sets the
+height ($r_\text{max}$; H1.2), and the H1.3 decomposition quantifies their relative
+contributions and interaction. Thermal control is concentrated in a small set of
+enzymes (H1.1), yet many per-enzyme thermal parameters are only weakly identifiable
+from growth alone, motivating omics constraints (H1.2).
+
+These results are structural / in-silico predictions and carry several caveats: the
+variance fractions depend on the input ranges swept; the DLTKcat envelope inherits
+its predictor's accuracy (log-scale $R^2 \approx 0.6$); the one-factor correlation
+$\rho$ is a simple stand-in for the true thermostability covariance across enzymes;
+and the proteome-sector couplings are order-of-magnitude, auto-calibrated
+relationships rather than measured parameters [@Machado2021; @Heckmann2020;
+@Davidi2016].
+
+*(Placeholder — expand interpretation and caveats.)*

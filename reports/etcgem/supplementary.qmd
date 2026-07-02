@@ -1,0 +1,64 @@
+---
+title: "Supplementary information — Enzyme- and temperature-constrained modelling of thermal performance curves in *E. coli* (eciML1515)"
+date: today
+---
+
+## S1. Full global-sensitivity table
+
+Spearman rank-correlation between every swept input and every TPC descriptor
+(@tbl-sens-full).
+
+```{python}
+#| label: tbl-sens-full
+#| tbl-cap: "Full Spearman sensitivity matrix (all inputs × all TPC descriptors)."
+#| output: asis
+import pandas as pd
+
+s = pd.read_csv("assets/tables/sensitivity_spearman.csv", index_col=0)
+print(s.round(3).to_markdown())
+```
+
+## S2. Full per-enzyme thermal-control table
+
+Per-enzyme thermal-screen control scores and descriptor-specific control
+coefficients (@tbl-control-full).
+
+```{python}
+#| label: tbl-control-full
+#| tbl-cap: "Full per-enzyme thermal-control table ranked by thermal-screen score."
+#| output: asis
+import pandas as pd
+
+c = pd.read_csv("assets/tables/thermal_control.csv")
+print(c.round(4).to_markdown(index=False))
+```
+
+## S3. Full identifiability table
+
+Identifiability of each per-enzyme thermal parameter from the growth TPC alone
+(@tbl-ident-full).
+
+```{python}
+#| label: tbl-ident-full
+#| tbl-cap: "Full identifiability table of per-enzyme thermal parameters."
+#| output: asis
+import pandas as pd
+
+idf = pd.read_csv("assets/tables/identifiability.csv")
+print(idf.round(3).to_markdown(index=False))
+```
+
+## S4. Run provenance (resolved configuration)
+
+The exact merged configuration used for the calibrated run, echoed for provenance.
+
+```{python}
+#| label: resolved-config
+#| echo: false
+#| output: asis
+with open("assets/tables/resolved_config.yaml") as fh:
+    cfg = fh.read()
+print("```yaml")
+print(cfg.rstrip())
+print("```")
+```
