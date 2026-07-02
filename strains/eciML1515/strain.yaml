@@ -33,19 +33,22 @@ temperature_grid:
   stop_C: 60
   n: 56
 
-# COMPLETE MODEL: coarse-grained proteome sectors (Basan/Scott) ENABLED, with the
-# nominal split SET FROM the measured 30 C E. coli proteome (Wang 2026):
-#   f_metab 0.285, f_bio 0.341, f_chaperone 0.077, f_other 0.298
-# reconciled onto the model's three sectors as f_metab=0.285 (metabolic pool),
-# f_maint=chaperone+other=0.374 (maintenance/housekeeping), f_bio=1-both=0.341.
+# COMPLETE MODEL: coarse-grained proteome sectors (Basan/Scott) ENABLED. The nominal
+# split is SET FROM the measured Glucose-minimal 30 C E. coli proteome (Wang 2026;
+# the model's default medium): f_metab 0.483, f_bio 0.191, f_chaperone 0.057,
+# f_other 0.269 -> model sectors f_metab=0.483, f_maint=chaperone+other=0.326,
+# f_bio=1-both=0.191. The MEASURED, MEDIUM-MATCHED per-medium curve (below) then sets
+# the T- and medium-dependent split (LB has higher f_bio -> higher ribosome cap).
 proteome_sectors:
   enabled: true
   P_total: null              # null -> backed out from the pool bound given f_metab
-  f_metab: 0.285             # metabolic-enzyme sector (measured 30 C)
-  f_maint: 0.374             # maintenance = chaperone + other (measured 30 C)
+  f_metab: 0.483             # metabolic-enzyme sector (measured Glucose 30 C)
+  f_maint: 0.326             # maintenance = chaperone + other (measured Glucose 30 C)
   atpm_reaction: null        # null -> auto-detect ATPM / NGAM
   translation_coeff: auto    # auto -> co-limit translation cap + pool at nominal, T0
 
-# Measured temperature-dependent sector allocation: the sector split follows the
-# measured f_sector(T) curve, interpolated per temperature, anchored at T0 (30 C).
+# Measured MEDIUM-MATCHED temperature-dependent sector allocation: the sector split
+# follows the measured per-medium f_sector(T) curve (LB / Glucose / Glycerol),
+# selected by set_medium; interpolated per temperature within each medium's range.
 allocation_from_data: proteomics/tem_proteomic.csv
+default_medium_proteome: Glucose   # default medium's sector fractions (glucose minimal)

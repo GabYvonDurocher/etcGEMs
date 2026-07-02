@@ -329,6 +329,10 @@ def set_medium(pm, medium="glucose_minimal", carbon="glc__D", aerobic=True,
     the amino-acid / nucleoside / vitamin / ion component uptakes (:data:`LB_COMPONENTS`,
     or ``lb_media_csv`` if given). Returns (n_opened, n_missing)."""
     model = pm.ec.model if hasattr(pm, "ec") else pm
+    # switch the medium-matched sector allocation, if wired
+    alloc = getattr(getattr(pm, "ec", None), "_alloc_from_data", None)
+    if alloc is not None and hasattr(alloc, "set_active_medium"):
+        alloc.set_active_medium(medium)
     if medium == "LB":
         comps = LB_COMPONENTS
         if lb_media_csv:

@@ -197,14 +197,18 @@ def build_provider(cfg: Dict[str, Any]):
             from . import proteome_alloc as pa
             b2u = pa.build_b_to_uniprot(pm.ec.model, p.get("prot_prefix", "prot_"))
             df = pa.load_temperature_proteome(alloc_data, b2u)
-            sf = pa.sector_fractions_vs_T(df)
-            s = pm.ec._sectors
-            pm.ec._alloc_from_data = pa.TemperatureAllocation.from_fractions(
-                sf, ref_C=cfg.get("T0_C", 30.0),
-                f_metab_nom=s["f_metab_nom"], f_maint_nom=s["f_maint_nom"])
-            print(f"[alloc] temperature-dependent allocation from {os.path.basename(str(alloc_data))} "
-                  f"(measured chaperone fraction {sf['f_chaperone'].iloc[0]:.3f}@{int(sf.index[0])}C "
-                  f"-> {sf['f_chaperone'].iloc[-1]:.3f}@{int(sf.index[-1])}C)")
+            # MEDIUM-matched, temperature-dependent sector fractions (per LB/Glucose/
+            # Glycerol series). The default (Glucose) drives the nominal; set_medium
+            # switches the active medium so LB uses the LB fractions (growth-law).
+            sfm = pa.sector_fractions_by_medium(df)
+            default_med = cfg.get("default_medium_proteome", "Glucose")
+            alloc = pa.TemperatureAllocation.from_medium_fractions(sfm, default_medium=default_med)
+            alloc.set_active_medium("glucose_minimal")
+            pm.ec._alloc_from_data = alloc
+            fb = {m: round(float(sfm[(sfm.medium == m) & (sfm.temp_C == 37)]["f_bio"].mean()), 3)
+                  for m in sfm.medium.unique() if ((sfm.medium == m) & (sfm.temp_C == 37)).any()}
+            print(f"[alloc] MEDIUM-matched sector allocation from {os.path.basename(str(alloc_data))} "
+                  f"(f_bio@37C by medium: {fb})")
     return pm
 
 
