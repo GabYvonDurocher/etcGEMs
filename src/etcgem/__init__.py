@@ -18,6 +18,8 @@ from .dltkcat import (
 )
 from . import decomposition
 from .decomposition import run_decomposition, decompose_grid, DecompositionResult
+from . import control
+from .control import run_control, ControlResult
 
 __all__ = [
     "MMRTParams", "kcat_curve", "solve_dH_dS",
@@ -27,5 +29,6 @@ __all__ = [
     "dltkcat", "fit_mmrt", "fit_predictions", "export_targets",
     "apply_fits_to_provider", "write_csv_table",
     "decomposition", "run_decomposition", "decompose_grid", "DecompositionResult",
+    "control", "run_control", "ControlResult",
 ]
 __version__ = "0.1.0"

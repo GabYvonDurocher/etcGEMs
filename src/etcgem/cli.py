@@ -305,6 +305,21 @@ def cmd_decompose(args):
 
 
 # ---------------------------------------------------------------------------
+# control (strain-level diagnostic; experiment optional for the control block)
+# ---------------------------------------------------------------------------
+def cmd_control(args):
+    if not args.strain:
+        raise SystemExit("control needs --strain NAME")
+    cfg = resolve(args.strain, args.experiment)
+    tag = f"control_{args.experiment}" if args.experiment else "control"
+    out_dir = _out_dir(args.strain, tag)
+    os.makedirs(out_dir, exist_ok=True)
+    dump_resolved(cfg, out_dir)
+    from . import control
+    return control.run(cfg, out_dir, no_plots=args.no_plots)
+
+
+# ---------------------------------------------------------------------------
 # dltkcat tooling
 # ---------------------------------------------------------------------------
 def cmd_dltkcat(args):
@@ -391,6 +406,12 @@ def build_parser():
     dc.add_argument("--experiment")
     dc.add_argument("--no-plots", action="store_true")
     dc.set_defaults(func=cmd_decompose)
+
+    ct = sub.add_parser("control", help="per-enzyme thermal control + identifiability (strain)")
+    ct.add_argument("--strain")
+    ct.add_argument("--experiment", help="experiment carrying the control: block (optional)")
+    ct.add_argument("--no-plots", action="store_true")
+    ct.set_defaults(func=cmd_control)
 
     # --- dltkcat tooling ---
     dl = sub.add_parser("dltkcat", help="DLTKcat -> MMRT (Topt, dCp) tooling")

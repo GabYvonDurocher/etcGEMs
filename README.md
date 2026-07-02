@@ -312,6 +312,55 @@ respiration/CUE curves, not only growth.
 
 ---
 
+## Per-enzyme control & identifiability (H1.1 / H1.2)
+
+`control.py` asks, per individual enzyme: which enzymes' thermal parameters set
+the organismal TPC **envelope** (Topt, CT_max), which enzymes' capacity sets the
+**rate** (rmax/B0), and — the identifiability flip side — which parameters the
+growth TPC is *insensitive* to and therefore cannot be inferred from growth data
+alone (they need proteome/flux data). Strain-level; no experiment sweep.
+
+**Two control-coefficient families** (central finite differences, reusing the
+mutate-entry → `refresh_params` pattern):
+- **Thermal control** `CC[D, Topt_i] = (D(Topt_i+dT) − D(Topt_i−dT))/(2dT)` (and a
+  fractional step for `dCp_i`) for envelope descriptors `D` — how much one enzyme's
+  optimum moves the organismal Topt / CT_max / niche width.
+- **Rate control** `FCC_i(T) = d ln µ / d ln kcat_i` (via `base_cost`) — flux
+  control of growth at temperature T; only used enzymes can be nonzero.
+
+**Two-stage** (tractable on ~2500 enzymes): Stage A screens *all* enzymes from the
+nominal solution using usage share `u_i(T)=cost_i(T)|v_i(T)|/budget` and analytic
+cost sensitivity `s_i(T)=−d ln(relative_kcat_i)/dT`; the top `screen_top_k` go to
+Stage B finite differences. Analysis temperatures default to sub/opt/supra
+(Topt−10, Topt, min(CT_max−2, Topt+8)).
+
+```bash
+etcgem control --strain eciML1515 --experiment control          # full (fine grid)
+etcgem control --strain eciML1515 --experiment control_quick    # fast smoke
+```
+
+Writes into `strains/NAME/outputs/control_EXP/`: `thermal_control.csv`,
+`rate_control.csv`, `usage_by_temperature.csv`, `identifiability.csv`,
+`summary.json`, and figures `thermal_control_bar.png`,
+`bottleneck_vs_temperature.png`, `identifiability_hist.png`.
+
+**Identifiability** proxy: `ident_i = max_D |CC_norm[D, p_i]|` (each descriptor's
+CC normalised by its spread across enzymes); `p_i` is flagged identifiable from
+the growth TPC if `ident_i > threshold`, else "requires omics". On the toy strain
+the two **summation checks are O(1)** (Σ FCC(opt) ≈ 1–2, Σ CC[Topt_org, Topt_i] ≈ 1
+on a refined grid), thermal control is **concentrated in a few enzymes** (H1.1),
+and only a **minority of parameters are identifiable from growth** (~15% of all
+enzyme params; the rest never limit → require omics, H1.2).
+
+**Notes.** `Topt_C` is an argmax descriptor, so single-enzyme thermal CCs need a
+fine TPC grid to register (set by `control.grid_refine`, default ×4); `CT_max_C`
+and `niche_width_C` are interpolated and behave smoothly. This is a first-order,
+control-magnitude proxy for identifiability — not a full Fisher-information /
+profile-likelihood analysis. Descriptor extraction is generic, so it can later
+target respiration/CUE curves too.
+
+---
+
 ## Library use
 
 ```python
@@ -348,7 +397,8 @@ src/etcgem/
   config.py       defaults/strain/experiment loading, resolve, dump + provider dispatch
   dltkcat.py      DLTKcat kcat(T) -> MMRT (Topt, dCp) fitting + apply
   decomposition.py allocation vs envelope Shapley/ANOVA variance decomposition (H1.3)
-  cli.py          two-tier CLI: build/tpc/fba (strain) + sweep/decompose (strain+experiment) + dltkcat
+  control.py      per-enzyme thermal control coefficients + identifiability (H1.1/H1.2)
+  cli.py          two-tier CLI: build/tpc/fba/control (strain) + sweep/decompose (strain+experiment) + dltkcat
   __main__.py     `python -m etcgem` -> cli.main
 defaults.yaml     universal method defaults (solver_timeout, crit_frac, fallback grid)
 experiments/      default.yaml, quick.yaml, decomposition.yaml (method overlays)
