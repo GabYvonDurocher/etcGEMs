@@ -38,6 +38,8 @@ RUNS = {
     "calibrated": os.path.join(STRAIN, "sweep_calibrated"),      # M1.2
     "sectors":    os.path.join(STRAIN, "sweep_sectors"),         # optional
     "proteome":   os.path.join(STRAIN, "proteome_sectors"),      # temperature proteomics
+    "validation": os.path.join(STRAIN, "validation"),            # empirical TPC fit
+    "ablation":   os.path.join(STRAIN),                          # ablation_* live in outputs/
 }
 
 FIG_DIR = os.path.join(HERE, "assets", "figures")
@@ -60,6 +62,8 @@ FIGURES = [
     ("proteome",   "sector_fractions_vs_T.png",    "proteome_sector_fractions.png"),
     ("proteome",   "usage_pred_vs_meas.png",       "proteome_usage_pred_vs_meas.png"),
     ("proteome",   "sector_pred_vs_meas.png",      "proteome_sector_pred_vs_meas.png"),
+    ("validation", "complete_vs_empirical_tpc.png", "complete_vs_empirical_tpc.png"),
+    ("ablation",   "ablation_comparison.png",      "ablation_comparison.png"),
 ]
 
 TABLES = [
@@ -75,6 +79,8 @@ TABLES = [
     ("sectors",    "descriptors.csv",           "sectors_descriptors.csv"),
     ("proteome",   "sector_fractions_vs_T.csv", "proteome_sector_fractions.csv"),
     ("proteome",   "validation_correlations.csv","proteome_validation_correlations.csv"),
+    ("validation", "validation_summary.json",   "validation_summary.json"),
+    ("ablation",   "ablation_summary.csv",      "ablation_summary.csv"),
 ]
 
 # resolved_config.yaml for supplementary provenance: first available wins.

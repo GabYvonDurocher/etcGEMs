@@ -1,0 +1,27 @@
+{
+  "model": {
+    "Topt_C": 37.0,
+    "rmax_per_h": 0.454,
+    "CTmax_C": 46.7,
+    "Ea_eV": 0.886
+  },
+  "empirical_TPC_fit": {
+    "n_points": 566,
+    "n_datasets": 26,
+    "R2_shape": 0.474,
+    "RMSE_norm": 0.234,
+    "empirical_median_peak_C": 40.0,
+    "R2_binned_median": 0.546
+  },
+  "proteome_validation": {
+    "mapping_coverage": "592/960 (61.7%)",
+    "chaperone_ramp": "0.077@30C -> 0.204@43C (2.7x)",
+    "per_enzyme_spearman_by_T": {
+      "16": 0.33,
+      "25": 0.24,
+      "30": 0.28,
+      "37": 0.29,
+      "43": 0.31
+    }
+  }
+}
