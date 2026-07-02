@@ -23,7 +23,12 @@ abstract: |
   omics constraints. Replacing hand-set parameter ranges with correlated,
   DLTKcat-informed per-enzyme sampling tightens the calibrated descriptor uncertainty
   (e.g. $r_\text{max}$ IQR 0.03 vs 0.11 $\text{h}^{-1}$), and a coarse-grained sector
-  model yields an interior growth optimum at an intermediate metabolic allocation. All
+  model yields an interior growth optimum at an intermediate metabolic allocation. We
+  emphasise that this apparent division of labour is partly a consequence of model
+  structure (peak-normalised $k_\text{cat}$ and a temperature-independent allocation
+  budget) and is not resolvable from growth data alone: distinguishing a genome-set
+  envelope from an allocation-set magnitude will require temperature-resolved proteome
+  and flux calibration together with a temperature-dependent allocation model. All
   results are structural in-silico predictions pending phenotype/omics calibration.
 ---
 
@@ -476,6 +481,30 @@ per-enzyme parameters are identifiable from growth alone (O5) — the envelope m
 predictable from a small number of sequences, but calibrating the full parameter set
 needs omics.
 
+Importantly, this clean division of labour is **partly structural** — a property of
+the modelling framework — and not a purely emergent biological result. That
+$r_\text{max}$ is ~100 % allocation is largely *by construction*: peak-normalisation
+fixes each enzyme's reference $k_\text{cat}$ to its own maximum, so at the organismal
+optimum enzyme cost is, to first order, independent of the thermal envelope and simply
+scales with the proteome budget; and the allocation axis is temperature-*independent*,
+so it cannot by itself reshape the temperature response. The "envelope sets shape,
+allocation sets magnitude" split is therefore in part a consequence of these two
+modelling choices. Fitting the model to an empirical growth TPC would calibrate the
+emergent curve but would **not** resolve the envelope-versus-allocation partition,
+which is under-determined from growth data alone [@Pettersen2023]; resolving it
+requires data that observe the internal state — temperature-resolved proteomics (for
+allocation) and $^{13}$C fluxomics (for in-vivo $k_\text{cat}$) across multiple
+temperatures. Moreover, real proteome allocation is itself temperature-dependent:
+coarse-grained proteome-allocation models of temperature-dependent growth show
+reallocation toward chaperone / stress-response proteins at temperature extremes
+[@Mairet2021; @Wang2026], so a temperature-dependent chaperone/stress sector,
+calibrated to proteomics, would let allocation contribute to curve *shape* and make
+the partition identifiable. The decomposition should thus be read as operationalising
+the *measurement* of the genome-set (envelope) versus allocation-set (magnitude) split
+— the informative quantities being the interaction terms and the across-genome
+variation in the split — rather than as evidence that the separation is a fixed
+biological law.
+
 Several caveats bound these conclusions, all structural / in-silico:
 
 - **Curvature couples breadth and $E_a$.** Because one MMRT $\Delta C_p^\ddagger$ sets
@@ -508,7 +537,17 @@ Prioritised, and flagged as already scaffolded in the pipeline (✓) or future w
    implemented (`calibrate-dcp`); ○ per-enzyme curvature calibration is future work.
 2. **Run the allocation-vs-envelope decomposition on the mechanistic sector axis** —
    done here (✓); extend to report interaction structure across strains.
-3. **Extend identifiability proteome-wide** — done here (✓, 7680 parameters); next,
+3. **Constrain the proteome-sector allocation with measured sector fractions** (○).
+   Coarse-grained proteome-allocation models of temperature-dependent growth
+   [@Mairet2021; @Wang2026] provide *E. coli* sector fractions (metabolic / ribosome /
+   chaperone) and their temperature dependence, which can calibrate the sector budgets
+   ($P_\text{total}$, $f_\text{metab}$, $f_\text{bio}$) and add a temperature-dependent
+   chaperone/stress sector — partially lifting the temperature-independent-allocation
+   limitation. Per-enzyme allocation *within* the metabolic sector (hence the full
+   envelope/allocation split) still requires temperature-resolved per-protein
+   proteomics (the WP1 proteome tier), because coarse sector fractions cannot pin
+   ~2500 individual enzymes.
+4. **Extend identifiability proteome-wide** — done here (✓, 7680 parameters); next,
    replace the first-order proxy with a profile-likelihood / Fisher analysis (○).
 4. **Add respiration and carbon-use-efficiency TPCs** (○), the community-relevant
    currencies, reusing the same generic descriptor machinery.
