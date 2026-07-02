@@ -31,7 +31,7 @@ import pandas as pd
 
 from . import config
 from .config import (build_provider, temperature_grid, resolve, dump_resolved,
-                     load_config, strain_dir)
+                     load_config, strain_dir, calibrate_dCp_to_Ea)
 from .enzyme_cost import Perturbation
 from .sensitivity import (SensitivityResult, run_sensitivity, _lhs,
                           _make_perturbation, _spearman_matrix)
@@ -156,6 +156,82 @@ def cmd_fba(args):
     print(f"[fba] strain={args.strain} T={args.temp}°C -> growth={growth:.5f} /h")
     print(f"[fba] wrote {out_dir}/fba_result.json")
     return out_dir
+
+
+# ---------------------------------------------------------------------------
+# calibrate-dcp (strain-only): choose provider.default_dCp for a target Ea
+# ---------------------------------------------------------------------------
+def _set_yaml_scalar(text, key, value):
+    """Replace the first `  key: <number>` line's value, preserving indentation
+    and any trailing comment. Returns (new_text, n_replaced)."""
+    import re
+    pat = re.compile(rf"(?m)^(\s*{re.escape(key)}:\s*)(-?\d+(?:\.\d+)?)(.*)$")
+    n = [0]
+    def _sub(m):
+        n[0] += 1
+        return f"{m.group(1)}{value}{m.group(3)}"
+    return pat.sub(_sub, text, count=1), n[0]
+
+
+def cmd_calibrate_dcp(args):
+    import copy
+    cfg = resolve(args.strain)
+    if cfg["provider"].get("type") == "toy":
+        print("[calibrate] note: toy provider uses dCp_mean, not default_dCp; "
+              "calibration/write-back will not affect the toy TPC")
+    print(f"[calibrate] strain={args.strain} target Ea={args.target_ea} eV "
+          f"(configurable; set to your measured bacterial growth-TPC Ea)")
+
+    g = cfg["temperature_grid"]
+    start_C, stop_C, n_grid = float(g["start_C"]), float(g["stop_C"]), int(g["n"])
+    spacing = (stop_C - start_C) / (n_grid - 1)
+
+    # A shallow dCp broadens the TPC so CT_max can run well past the configured
+    # grid stop. Calibrate on an EXTENDED (moderately coarse) grid so Ea and CT_max
+    # are resolved throughout the bisection instead of clipping at the grid edge.
+    cal_cfg = copy.deepcopy(cfg)
+    cal_stop = max(stop_C, 100.0)
+    cal_cfg["temperature_grid"] = {"start_C": start_C, "stop_C": cal_stop,
+                                   "n": int(round((cal_stop - start_C) / 1.5)) + 1}
+    res = calibrate_dCp_to_Ea(cal_cfg, args.target_ea, lo=args.lo, hi=args.hi, tol=args.tol)
+    print(f"[calibrate] calibrated default_dCp={res['dCp']:.3f}  "
+          f"achieved Ea={res['Ea']:.3f} eV  resolved CTmax={res['CTmax']:.1f}°C"
+          + ("" if res["bracketed"] else "  (target not bracketed; clamped)"))
+
+    yaml_path = os.path.join(strain_dir(args.strain), "strain.yaml")
+    with open(yaml_path) as fh:
+        text = fh.read()
+    new_dcp = round(res["dCp"], 3)
+    text, n = _set_yaml_scalar(text, "default_dCp", new_dcp)
+    if n != 1:
+        raise SystemExit(f"[calibrate] could not update default_dCp in {yaml_path} "
+                         f"(matched {n} lines); aborting write")
+
+    # Extend the strain's own grid if the resolved CT_max is near/past its stop.
+    grid_changed = False
+    if res["CTmax"] > stop_C - 2.0:
+        new_stop = float(np.ceil(res["CTmax"] + 5.0))
+        new_n = int(round((new_stop - start_C) / spacing)) + 1     # keep spacing
+        text, ns = _set_yaml_scalar(text, "stop_C", int(new_stop))
+        text, nn = _set_yaml_scalar(text, "n", int(new_n))
+        if ns == 1 and nn == 1:
+            grid_changed = True
+            print(f"[calibrate] CTmax {res['CTmax']:.1f}°C exceeds grid stop {stop_C:.0f}-2°C -> "
+                  f"raised temperature_grid to stop_C={int(new_stop)}, n={int(new_n)}")
+        else:
+            print(f"[calibrate] WARNING: wanted to extend grid but matched "
+                  f"stop_C={ns}, n={nn} lines; leaving grid unchanged")
+
+    with open(yaml_path, "w") as fh:
+        fh.write(text)
+    print(f"[calibrate] wrote provider.default_dCp={new_dcp} to {yaml_path}")
+
+    if grid_changed:
+        cfg2 = resolve(args.strain)
+        from .config import _nominal_ea_ctmax
+        ea2, ctmax2 = _nominal_ea_ctmax(cfg2, new_dcp)
+        print(f"[calibrate] on the new strain grid: Ea={ea2:.3f} eV  CTmax={ctmax2:.1f}°C")
+    return yaml_path
 
 
 # ---------------------------------------------------------------------------
@@ -394,6 +470,17 @@ def build_parser():
     fb.add_argument("--fits", nargs="?", const=_FITS_DEFAULT, default=None)
     fb.add_argument("--key", default="rxn_id", choices=["rxn_id", "enzyme_id"])
     fb.set_defaults(func=cmd_fba)
+
+    cd = sub.add_parser("calibrate-dcp",
+                        help="choose provider.default_dCp so nominal Ea hits a target "
+                             "(default 0.65 eV; set to your measured bacterial growth-TPC Ea)")
+    cd.add_argument("--strain", required=True)
+    cd.add_argument("--target-ea", dest="target_ea", type=float, default=0.65,
+                    help="target rising-limb Ea in eV (default 0.65, metabolic-theory value)")
+    cd.add_argument("--lo", type=float, default=-20.0, help="dCp bisection lower bound")
+    cd.add_argument("--hi", type=float, default=-3.0, help="dCp bisection upper bound")
+    cd.add_argument("--tol", type=float, default=0.02, help="Ea tolerance (eV)")
+    cd.set_defaults(func=cmd_calibrate_dcp)
 
     # --- strain + experiment ---
     sw = sub.add_parser("sweep", help="TPC sensitivity sweep (strain + experiment)")

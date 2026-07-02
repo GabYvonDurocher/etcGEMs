@@ -152,3 +152,71 @@ def build_provider(cfg: Dict[str, Any]):
 def temperature_grid(cfg: Dict[str, Any]) -> np.ndarray:
     g = cfg["temperature_grid"]
     return np.linspace(g["start_C"], g["stop_C"], int(g["n"]))
+
+
+# ---------------------------------------------------------------------------
+# dCp -> Ea calibration
+# ---------------------------------------------------------------------------
+def _nominal_ea_ctmax(cfg: Dict[str, Any], dCp: float):
+    """Rebuild the provider with provider.default_dCp = dCp and return the
+    nominal (unperturbed) rising-limb Ea (eV) and CT_max (°C)."""
+    from .tpc import compute_tpc
+    from .enzyme_cost import Perturbation
+    c = copy.deepcopy(cfg)
+    c["provider"]["default_dCp"] = float(dCp)
+    pm = build_provider(c)
+    try:
+        pm.ec.model.solver.configuration.timeout = int(c.get("solver_timeout", 10))
+    except Exception:
+        pass
+    d = compute_tpc(pm, temperature_grid(c), Perturbation()).descriptors(
+        c.get("crit_frac", 0.05))
+    return float(d.Ea_eV), float(d.CTmax_C)
+
+
+def calibrate_dCp_to_Ea(cfg: Dict[str, Any], target_Ea_eV: float,
+                        lo: float = -20.0, hi: float = -3.0, tol: float = 0.02,
+                        max_iter: int = 40, verbose: bool = True) -> Dict[str, Any]:
+    """Choose provider.default_dCp so the nominal rising-limb Ea hits a target.
+
+    The nominal Ea increases monotonically with |dCp| (a more negative dCp gives
+    a steeper, narrower TPC), so this bisects dCp in ``[lo, hi]``, rebuilding the
+    provider and recomputing the nominal TPC each step. Returns a dict with the
+    calibrated ``dCp``, achieved ``Ea`` and ``CTmax`` (on the config's grid),
+    ``iters`` and whether the target was ``bracketed``.
+    """
+    ea_lo, _ = _nominal_ea_ctmax(cfg, lo)    # steepest -> highest Ea
+    ea_hi, _ = _nominal_ea_ctmax(cfg, hi)    # shallowest -> lowest Ea
+    if verbose:
+        print(f"[calibrate] Ea(dCp={lo})={ea_lo:.3f}eV  Ea(dCp={hi})={ea_hi:.3f}eV  "
+              f"target={target_Ea_eV:.3f}eV")
+    bracketed = min(ea_lo, ea_hi) <= target_Ea_eV <= max(ea_lo, ea_hi)
+    if not bracketed:
+        # clamp to the nearest endpoint
+        pick = lo if abs(ea_lo - target_Ea_eV) < abs(ea_hi - target_Ea_eV) else hi
+        ea, ctmax = _nominal_ea_ctmax(cfg, pick)
+        if verbose:
+            print(f"[calibrate] WARNING: target {target_Ea_eV:.3f}eV not bracketed "
+                  f"by [{min(ea_lo, ea_hi):.3f}, {max(ea_lo, ea_hi):.3f}]; "
+                  f"clamping to dCp={pick}")
+        return {"dCp": float(pick), "Ea": ea, "CTmax": ctmax,
+                "iters": 0, "bracketed": False}
+
+    a, b = lo, hi
+    best_dcp, best_ea, best_ctmax = hi, ea_hi, None
+    it = 0
+    for it in range(1, max_iter + 1):
+        mid = 0.5 * (a + b)
+        ea, ctmax = _nominal_ea_ctmax(cfg, mid)
+        best_dcp, best_ea, best_ctmax = mid, ea, ctmax
+        if verbose:
+            print(f"[calibrate] iter {it:2d}  dCp={mid:7.3f}  Ea={ea:.3f}eV  CTmax={ctmax:.1f}°C")
+        if abs(ea - target_Ea_eV) <= tol:
+            break
+        # Ea decreasing in dCp: too-high Ea -> need shallower (larger) dCp
+        if ea > target_Ea_eV:
+            a = mid
+        else:
+            b = mid
+    return {"dCp": float(best_dcp), "Ea": float(best_ea), "CTmax": float(best_ctmax),
+            "iters": it, "bracketed": True}

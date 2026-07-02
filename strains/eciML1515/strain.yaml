@@ -9,7 +9,7 @@ provider:
   pool_id: prot_pool          # auto-detects prot_pool[c]
   biomass_rxn: null           # auto-detect from objective
   default_Topt_offset: 7.0    # enzyme Topt above T0 (K) -> organism optimum ~37 C
-  default_dCp: -12.0          # MMRT curvature (more negative = narrower TPC)
+  default_dCp: -3.398          # MMRT curvature (more negative = narrower TPC)
   target_fraction: null       # null -> reuse the model's own pool bound
   pool_scale: 0.9             # <1 makes the pool bind at the optimum (peak rate responds)
 
@@ -17,8 +17,8 @@ T0_C: 30
 
 temperature_grid:
   start_C: 8
-  stop_C: 60
-  n: 53
+  stop_C: 81
+  n: 74
 
 # Coarse-grained proteome partition (Basan/Scott). Disabled -> scalar pool as before.
 proteome_sectors:

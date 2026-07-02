@@ -135,7 +135,17 @@ Shipped experiments: `default` (120-sample sweep), `quick` (tiny smoke sweep),
 etcgem build --strain eciML1515                 # build provider; print+save model summary
 etcgem tpc   --strain eciML1515 [--fits]        # nominal TPC + descriptors + plot
 etcgem fba   --strain eciML1515 --temp 37       # single enzyme-constrained solve at 37 °C
+etcgem calibrate-dcp --strain eciML1515 --target-ea 0.65   # set provider.default_dCp for a target Ea
 ```
+
+`calibrate-dcp` bisects `provider.default_dCp` (nominal Ea rises monotonically with
+`|dCp|`) so the nominal rising-limb Ea matches `--target-ea`, then writes the
+calibrated `default_dCp` back into `strain.yaml` (and, since a shallower dCp
+broadens the TPC, extends `temperature_grid.stop_C`/`n` if CT_max would run past the
+grid). **The target is configurable** and defaults to 0.65 eV (the metabolic-theory
+value); set it to your measured bacterial growth-TPC Ea. Note the resulting dCp is
+chosen purely to hit the Ea target — it also sets curve width, so a low Ea implies a
+broad TPC.
 
 **Strain + experiment:**
 
@@ -344,13 +354,20 @@ Writes into `strains/NAME/outputs/control_EXP/`: `thermal_control.csv`,
 `summary.json`, and figures `thermal_control_bar.png`,
 `bottleneck_vs_temperature.png`, `identifiability_hist.png`.
 
-**Identifiability** proxy: `ident_i = max_D |CC_norm[D, p_i]|` (each descriptor's
-CC normalised by its spread across enzymes); `p_i` is flagged identifiable from
-the growth TPC if `ident_i > threshold`, else "requires omics". On the toy strain
-the two **summation checks are O(1)** (Σ FCC(opt) ≈ 1–2, Σ CC[Topt_org, Topt_i] ≈ 1
-on a refined grid), thermal control is **concentrated in a few enzymes** (H1.1),
-and only a **minority of parameters are identifiable from growth** (~15% of all
-enzyme params; the rest never limit → require omics, H1.2).
+**Identifiability** is computed **proteome-wide** — one row per enzyme × parameter
+(`Topt_i`, `dCp_i`, `kcat_i`) in `identifiability.csv`, not just the top-K screened
+enzymes. For every enzyme the score is the cheap Stage-A screen (usage share ×
+analytic thermal/rate sensitivity), max-normalised across the proteome; where a
+top-K finite-difference control coefficient exists it replaces the proxy (more
+accurate) and the row is marked `refined = True`. `p_i` is flagged identifiable
+from the growth TPC if `ident_i > threshold`, else "requires omics".
+`summary.json` reports **both** the proteome-wide identifiable fraction (small —
+most parameters cannot be inferred from growth alone, H1.2) and the fraction among
+the top-K control enzymes (high — a few enzymes dominate control, H1.1). On the toy
+strain the two **summation checks are O(1)** (Σ FCC(opt) ≈ 1–2, Σ CC[Topt_org,
+Topt_i] ≈ 1 on a refined grid), thermal control is **concentrated in a few enzymes**
+(H1.1), and only a **minority of parameters are identifiable from growth** (~15–17%
+proteome-wide; the rest never limit → require omics, H1.2).
 
 **Notes.** `Topt_C` is an argmax descriptor, so single-enzyme thermal CCs need a
 fine TPC grid to register (set by `control.grid_refine`, default ×4); `CT_max_C`
