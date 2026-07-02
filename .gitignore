@@ -25,3 +25,4 @@ dist/
 reports/etcgem/_output/
 .quarto/
 **/.quarto/
+refs/

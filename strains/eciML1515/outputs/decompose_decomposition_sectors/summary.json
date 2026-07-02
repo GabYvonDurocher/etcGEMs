@@ -1,0 +1,74 @@
+{
+  "Topt_C": {
+    "dominant_axis": "allocation",
+    "S_allocation": 0.5023988035117707,
+    "S_envelope": 0.2837386372465232,
+    "S_interaction": 0.21386255924170616,
+    "phi_allocation": 0.6093300831326238,
+    "phi_envelope": 0.3906699168673763,
+    "n_valid": 256
+  },
+  "rmax": {
+    "dominant_axis": "allocation",
+    "S_allocation": 0.999998691270402,
+    "S_envelope": 5.79230816756987e-07,
+    "S_interaction": 7.294987812527793e-07,
+    "phi_allocation": 0.9999990560197926,
+    "phi_envelope": 9.439802073833766e-07,
+    "n_valid": 256
+  },
+  "CTmin_C": {
+    "dominant_axis": "envelope",
+    "S_allocation": 0.023276442338079874,
+    "S_envelope": 0.9439622130554258,
+    "S_interaction": 0.03276134460649433,
+    "phi_allocation": 0.03965711464132704,
+    "phi_envelope": 0.960342885358673,
+    "n_valid": 256
+  },
+  "CTmax_C": {
+    "dominant_axis": "envelope",
+    "S_allocation": 0.019514633250266936,
+    "S_envelope": 0.9740565544605495,
+    "S_interaction": 0.006428812289183584,
+    "phi_allocation": 0.02272903939485873,
+    "phi_envelope": 0.9772709606051413,
+    "n_valid": 256
+  },
+  "niche_width_C": {
+    "dominant_axis": "envelope",
+    "S_allocation": 0.030024278383791982,
+    "S_envelope": 0.9594964109843884,
+    "S_interaction": 0.010479310631819495,
+    "phi_allocation": 0.03526393369970173,
+    "phi_envelope": 0.9647360663002982,
+    "n_valid": 256
+  },
+  "B80_C": {
+    "dominant_axis": "allocation",
+    "S_allocation": 0.6761490968662178,
+    "S_envelope": 0.29964508551066726,
+    "S_interaction": 0.024205817623114884,
+    "phi_allocation": 0.6882520056777752,
+    "phi_envelope": 0.3117479943222247,
+    "n_valid": 256
+  },
+  "Ea_eV": {
+    "dominant_axis": "envelope",
+    "S_allocation": 0.3568961032141262,
+    "S_envelope": 0.6105743065925855,
+    "S_interaction": 0.03252959019328828,
+    "phi_allocation": 0.3731608983107703,
+    "phi_envelope": 0.6268391016892296,
+    "n_valid": 253
+  },
+  "skewness": {
+    "dominant_axis": "envelope",
+    "S_allocation": 0.17623898324426615,
+    "S_envelope": 0.7649345654977016,
+    "S_interaction": 0.05882645125803229,
+    "phi_allocation": 0.20565220887328228,
+    "phi_envelope": 0.7943477911267177,
+    "n_valid": 256
+  }
+}
