@@ -37,6 +37,7 @@ RUNS = {
     "control":    os.path.join(STRAIN, "control_control"),       # full control run
     "calibrated": os.path.join(STRAIN, "sweep_calibrated"),      # M1.2
     "sectors":    os.path.join(STRAIN, "sweep_sectors"),         # optional
+    "proteome":   os.path.join(STRAIN, "proteome_sectors"),      # temperature proteomics
 }
 
 FIG_DIR = os.path.join(HERE, "assets", "figures")
@@ -56,6 +57,9 @@ FIGURES = [
     ("dltkcat",    "tpc_ensemble.png",             "dltkcat_ensemble.png"),
     ("calibrated", "tpc_ensemble.png",             "calibrated_ensemble.png"),
     ("sectors",    "sensitivity_heatmap.png",      "sectors_sensitivity.png"),
+    ("proteome",   "sector_fractions_vs_T.png",    "proteome_sector_fractions.png"),
+    ("proteome",   "usage_pred_vs_meas.png",       "proteome_usage_pred_vs_meas.png"),
+    ("proteome",   "sector_pred_vs_meas.png",      "proteome_sector_pred_vs_meas.png"),
 ]
 
 TABLES = [
@@ -69,6 +73,8 @@ TABLES = [
     ("calibrated", "summary.json",              "calibrated_summary.json"),
     ("sectors",    "samples.csv",               "sectors_samples.csv"),
     ("sectors",    "descriptors.csv",           "sectors_descriptors.csv"),
+    ("proteome",   "sector_fractions_vs_T.csv", "proteome_sector_fractions.csv"),
+    ("proteome",   "validation_correlations.csv","proteome_validation_correlations.csv"),
 ]
 
 # resolved_config.yaml for supplementary provenance: first available wins.

@@ -515,6 +515,53 @@ trade-off underpinning O3 and the allocation side of O4.
 
 ![**Sector-sweep sensitivity.** Spearman indices of TPC descriptors against the sector inputs ($f_\text{metab}$, $f_\text{maint}$, $dT_\text{opt}$, $\Delta C_p$ scale).](assets/figures/sectors_sensitivity.png){#fig-secsens fig-pos="H" width=90%}
 
+## Temperature-dependent proteome allocation from measured proteomics (O3)
+
+The sector model above is temperature-*independent* — a limitation, because real
+proteome allocation shifts with temperature. We ground that dependence in a measured,
+temperature-resolved *E. coli* proteome [@Wang2026] (LB medium, 16–43 °C), mapping each
+protein to a coarse sector by its COG category and computing mass-weighted sector
+fractions per temperature (@fig-protsec). The data show the expected heat-stress
+signature: the **chaperone/stress sector ramps 2.7-fold** (mass fraction 0.077 → 0.204)
+between 30 °C and 43 °C, while the ribosome/biosynthesis sector peaks near 37 °C and
+then *falls* at 43 °C — proteome mass reallocated from growth machinery to
+protein-folding defence. Feeding these measured fractions into the sector model
+(interpolated per temperature, anchored to the nominal split at 30 °C) replaces the
+fixed allocation with the measured temperature dependence — the missing ingredient in
+the temperature-independent sectors (O3).
+
+We can then test the model's *predicted* enzyme allocation against the measurement.
+Mapping the proteome to model enzymes by UniProt id covers **592/960 enzymes (62 %)**;
+for the mapped, flux-carrying enzymes, predicted per-enzyme proteome mass
+($\text{cost}_i(T)\cdot|v_i|$) correlates positively but modestly with measured
+abundance × molecular weight at every temperature (Spearman $\rho \approx 0.25$–0.33;
+@fig-protpred, @tbl-proteome). This is a genuine, data-grounded test of the allocation
+axis rather than an in-silico assertion; the modest agreement is expected, since FBA
+enzyme *demand* is only one determinant of measured abundance (regulation, isozyme
+redundancy and abundance buffering are unmodelled), and — importantly — the metabolic
+model carries no chaperone reactions, so it consumes the chaperone ramp as a
+maintenance-sector *input* rather than predicting it (@fig-protsecpred). Grounding the
+allocation is therefore *E. coli*-specific here; per-strain proteomes, or
+sequence-based predictors, are the route to library scale.
+
+![**Measured temperature-dependent proteome-sector fractions.** Mass-weighted fractions of the measured *E. coli* proteome by sector across LB temperature; the chaperone/stress sector (red) ramps sharply above 37 °C.](assets/figures/proteome_sector_fractions.png){#fig-protsec fig-pos="H" width=80%}
+
+![**Predicted vs measured per-enzyme proteome mass.** Per temperature, model-predicted enzyme mass ($\text{cost}_i(T)\cdot|v_i|$) against measured abundance × MW, for mapped flux-carrying enzymes (log–log), with Spearman $\rho$ and log-Pearson $R^2$.](assets/figures/proteome_usage_pred_vs_meas.png){#fig-protpred fig-pos="H" width=90%}
+
+![**Predicted vs measured sector fractions across temperature.** Sector mass fractions over the matched enzyme set (solid = measured, dashed = predicted); the matched, flux-carrying set is metabolic, so the chaperone ramp appears only in the full-proteome input of @fig-protsec.](assets/figures/proteome_sector_pred_vs_meas.png){#fig-protsecpred fig-pos="H" width=80%}
+
+```{python}
+#| label: tbl-proteome
+#| tbl-cap: "Predicted vs measured per-enzyme proteome mass across temperature: number of mapped flux-carrying enzymes, Spearman rank correlation, and log-scale Pearson R²."
+#| output: asis
+import pandas as pd
+
+c = pd.read_csv("assets/tables/proteome_validation_correlations.csv")
+c = c.rename(columns={"temp_C": "T (°C)", "n": "n enzymes",
+                      "spearman": "Spearman ρ", "log_pearson_r2": "log-Pearson R²"})
+print(c.round(3).to_markdown(index=False))
+```
+
 # Interpretation and caveats
 
 Taken together, the analyses support a coherent, mechanistic picture that maps onto
@@ -595,16 +642,16 @@ Prioritised, and flagged as already scaffolded in the pipeline (✓) or future w
    90 % of enzymes.
 2. **Run the allocation-vs-envelope decomposition on the mechanistic sector axis** —
    done here (✓); extend to report interaction structure across strains.
-3. **Constrain the proteome-sector allocation with measured sector fractions** (○).
-   Coarse-grained proteome-allocation models of temperature-dependent growth
-   [@Mairet2021; @Wang2026] provide *E. coli* sector fractions (metabolic / ribosome /
-   chaperone) and their temperature dependence, which can calibrate the sector budgets
-   ($P_\text{total}$, $f_\text{metab}$, $f_\text{bio}$) and add a temperature-dependent
-   chaperone/stress sector — partially lifting the temperature-independent-allocation
-   limitation. Per-enzyme allocation *within* the metabolic sector (hence the full
-   envelope/allocation split) still requires temperature-resolved per-protein
-   proteomics (the WP1 proteome tier), because coarse sector fractions cannot pin
-   ~2500 individual enzymes.
+3. **Constrain the proteome-sector allocation with measured sector fractions.**
+   ✓ done here: the sectors are now driven by a measured temperature-resolved *E. coli*
+   proteome [@Wang2026] (chaperone ramp above 37 °C), lifting the
+   temperature-independent-allocation limitation, and the predicted enzyme usage is
+   validated against measurement ($\rho \approx 0.3$). ○ Next: extend beyond the
+   metabolic sectors to an explicit temperature-dependent chaperone/stress sector, and
+   resolve **per-enzyme** allocation *within* the metabolic sector via
+   temperature-resolved per-protein proteomics (the WP1 proteome tier), since coarse
+   sector fractions cannot pin ~2500 individual enzymes; per-strain proteomes or
+   sequence predictors are the route to library scale.
 4. **Extend identifiability proteome-wide** — done here (✓, 7680 parameters); next,
    replace the first-order proxy with a profile-likelihood / Fisher analysis (○).
 4. **Add respiration and carbon-use-efficiency TPCs** (○), the community-relevant

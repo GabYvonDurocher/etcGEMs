@@ -430,6 +430,26 @@ pool.** Growth-law couplings (`translation_coeff`, maintenance ATP, `P_total`) a
 calibratable against growth-rate proteomics; the defaults are order-of-magnitude
 and auto-calibration co-limits only at the nominal point.
 
+### Temperature-dependent allocation from proteomics (`proteome_alloc.py`)
+
+The sector split can be made **temperature-dependent** from a measured, temperature-
+resolved *E. coli* proteome (Wang 2026), rather than fixed. Set
+`allocation_from_data: proteomics/tem_proteomic.csv` (with `proteome_sectors.enabled:
+true`): proteins are mapped to coarse sectors by COG category, mass-weighted sector
+fractions are computed per temperature, and `compute_tpc` sets the sector allocation
+at each T from the measured `f_sector(T)` (anchored to the nominal split at T0). The
+CLI runs the data product + a predicted-vs-measured validation:
+
+```bash
+etcgem proteome-sectors --strain eciML1515   # -> outputs/proteome_sectors/
+```
+
+It writes `sector_fractions_vs_T.csv/.png` (the measured chaperone ramp above 37 °C),
+reports mapping coverage (b-number → UniProt, ~62 % of enzymes), and compares
+predicted per-enzyme mass (`cost_i(T)·|v_i|`) to measured abundance × MW
+(`validation_*.csv`, `usage_pred_vs_meas.png`). **Disabled by default → identical to
+the fixed sectors.**
+
 ## Calibrated thermal sampling (M1.2)
 
 Instead of the two global envelope knobs, sample each enzyme's `(Topt_i, dCp_i)`
