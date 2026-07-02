@@ -332,6 +332,10 @@ def apply_fits_to_provider(pm, fits: pd.DataFrame, key: str = "rxn_id",
             row = lut[k]
             e.Topt = float(row["Topt_C"]) + 273.15
             e.dCp = float(row["dCp"])
+            # also feed the two-state/unfolding transition-state heat capacity
+            # (dCpt, J/mol/K) so DLTKcat grounds the envelope curvature in
+            # unfolding mode (harmless in mmrt mode, which ignores dCpt).
+            e.dCpt = float(row["dCp"]) * 1000.0
             n += 1
     pm.ec.refresh_params()
     print(f"[dltkcat] applied fits to {n}/{len(pm.ec.table)} enzymes (key={key})")

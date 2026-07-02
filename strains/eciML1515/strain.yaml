@@ -9,17 +9,22 @@ provider:
   pool_id: prot_pool          # auto-detects prot_pool[c]
   biomass_rxn: null           # auto-detect from objective
   default_Topt_offset: 7.0    # enzyme Topt above T0 (K) -> organism optimum ~37 C (mmrt fallback)
-  default_dCp: -3.398          # MMRT curvature (mmrt mode only; unused in unfolding mode)
+  default_dCp: -4.0           # mmrt-mode fallback only (unused in unfolding); literature MMRT value, NOT an Ea target
   target_fraction: null       # null -> reuse the model's own pool bound
-  pool_scale: 0.9             # <1 makes the pool bind at the optimum (peak rate responds)
+  pool_scale: 1.0             # DEPRECATED tuning knob; 1.0 = nothing tuned to the growth curve
   # Thermal model. `unfolding` = two-state native<->denatured (Li 2021 / MRes):
   # per-enzyme Tm sets the high-T collapse (falling limb) so breadth/CTmax decouple
   # from the rising-limb Ea. `mmrt` = the peak-normalised MMRT-only path (default).
   thermal_model: unfolding
   ngam_temperature: true      # temperature-dependent maintenance (unfolding only)
   ngam_reaction: ATPM
-  enzyme_params: thermal/BestParamsTopt.csv   # grounded per-enzyme Topt/Tm/dCpt (UniProt-keyed)
-  dltkcat_fits: dltkcat/fits_ext.csv          # DLTKcat per-enzyme Topt overlay where fits exist
+  enzyme_params: thermal/BestParamsTopt.csv   # grounded per-enzyme Topt/Tm (Li-Engqvist/Leuenberger)
+  dcp_from: prior             # per-enzyme dCp from an independent literature MMRT prior (+DLTKcat), NOT the tuned table
+  dcp_prior_kJ: -4.0          # literature MMRT dCp prior (Hobbs 2013 range); Ea EMERGES, not fitted
+  dltkcat_fits: dltkcat/fits_ext.csv          # DLTKcat per-enzyme Topt/dCp where fits exist
+  # EMERGENT magnitude: pool budget = P_total x f_metab x sigma (all independent):
+  p_total: 0.5               # total protein per gDW (g/gDW), E. coli literature
+  sigma: 0.45                # average in-vivo enzyme saturation (Davidi 2016 / Heckmann 2020; ~0.4-0.5)
 
 T0_C: 30
 

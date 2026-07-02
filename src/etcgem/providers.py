@@ -152,10 +152,13 @@ def load_enzyme_thermal_params(path: str):
     return df
 
 
-def apply_thermal_params(table, params_df, key: str = "enzyme_id"):
+def apply_thermal_params(table, params_df, key: str = "enzyme_id",
+                         use_dCpt: bool = True):
     """Set each entry's grounded Topt/Tm/T90/length/dCpt from a params table,
     joined by UniProt id. Topt/Tm are converted to K assumption already met (the
-    MRes tables store K). Returns (n_matched, n_total) coverage."""
+    MRes tables store K). ``use_dCpt=False`` leaves dCpt unset (the emergent model
+    uses an independent literature MMRT dCp prior instead of the table's tuned
+    per-enzyme values). Returns (n_matched, n_total) coverage."""
     import numpy as np
     n_matched = 0
     for e in table.entries:
@@ -174,7 +177,8 @@ def apply_thermal_params(table, params_df, key: str = "enzyme_id"):
         e.Tm = _get("Tm")
         e.T90 = _get("T90")
         e.length = _get("Length")
-        e.dCpt = _get("dCpt")
+        if use_dCpt:
+            e.dCpt = _get("dCpt")
         n_matched += 1
     return n_matched, len(table.entries)
 
@@ -187,7 +191,10 @@ def from_gecko(model_path: str, T0: float = 303.15,
                pool_scale: float = 1.0,
                thermal_model: str = "mmrt", ngam_temperature: bool = False,
                ngam_rxn: Optional[str] = None,
-               enzyme_params: Optional[str] = None) -> ProvidedModel:
+               enzyme_params: Optional[str] = None,
+               budget_override: Optional[float] = None,
+               enzyme_params_use_dCpt: bool = True,
+               dcp_prior_kJ: float = -4.0) -> ProvidedModel:
     """Extract an enzyme cost table from a GECKO-style ecModel.
 
     Handles two encodings:
@@ -261,21 +268,27 @@ def from_gecko(model_path: str, T0: float = 303.15,
 
     table = EnzymeCostTable(entries)
     # Budget: reuse the model's existing pool bound if present, else calibrate.
-    budget = _existing_pool_bound(model, pool_id)
-    if budget is None:
-        if target_fraction is None:
-            target_fraction = 0.6
-        budget = calibrate_budget(model, table, T0, biomass_rxn, target_fraction)
-    # pool_scale < 1 makes the proteome pool bind at the optimum too (so peak
-    # growth responds to temperature/allocation, not just the flanks).
-    budget *= pool_scale
+    if budget_override is not None:
+        # EMERGENT magnitude: the pool budget is derived from independent data
+        # (P_total x f_metab x sigma), NOT the growth-calibrated GECKO bound.
+        budget = float(budget_override)
+    else:
+        budget = _existing_pool_bound(model, pool_id)
+        if budget is None:
+            if target_fraction is None:
+                target_fraction = 0.6
+            budget = calibrate_budget(model, table, T0, biomass_rxn, target_fraction)
+        # DEPRECATED knob: pool_scale<1 tuned the pool to make peak growth respond.
+        # For the emergent model pool_scale=1.0 (nothing tuned to the growth curve).
+        budget *= pool_scale
     group_budgets = _group_budgets_from_reference(table, T0, budget)
 
     # Unfolding mode: overlay grounded per-enzyme Topt/Tm/dCpt/length before the
     # model precomputes its unfolding thermodynamics; report coverage.
     if thermal_model == "unfolding" and enzyme_params:
         params_df = load_enzyme_thermal_params(enzyme_params)
-        n_match, n_tot = apply_thermal_params(table, params_df, key="enzyme_id")
+        n_match, n_tot = apply_thermal_params(table, params_df, key="enzyme_id",
+                                              use_dCpt=enzyme_params_use_dCpt)
         print(f"[from_gecko] unfolding mode: matched grounded Topt/Tm for "
               f"{n_match}/{n_tot} enzymes ({100*n_match/max(1,n_tot):.1f}%); "
               f"the rest use dataset-mean fallbacks")
@@ -283,7 +296,8 @@ def from_gecko(model_path: str, T0: float = 303.15,
     ec = EnzymeConstrainedModel(model, table, default_budget=budget,
                                 group_budgets=group_budgets,
                                 thermal_model=thermal_model,
-                                ngam_temperature=ngam_temperature, ngam_rxn=ngam_rxn)
+                                ngam_temperature=ngam_temperature, ngam_rxn=ngam_rxn,
+                                unfold_means={"dCpt": dcp_prior_kJ * 1000.0})
     ec.model.objective = biomass_rxn
     return ProvidedModel(ec=ec, T0=T0, biomass_rxn=biomass_rxn,
                          name=f"gecko:{model.id}")

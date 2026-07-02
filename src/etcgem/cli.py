@@ -526,8 +526,11 @@ def build_parser():
     fb.set_defaults(func=cmd_fba)
 
     cd = sub.add_parser("calibrate-dcp",
-                        help="choose provider.default_dCp so nominal Ea hits a target "
-                             "(default 0.65 eV; set to your measured bacterial growth-TPC Ea)")
+                        help="[DEPRECATED — not used by the emergent model] choose "
+                             "provider.default_dCp so nominal Ea hits a target. The "
+                             "emergent model does NOT fit dCp/Ea to the growth curve; "
+                             "it grounds per-enzyme dCp in a literature prior + DLTKcat "
+                             "and lets Ea emerge.")
     cd.add_argument("--strain", required=True)
     cd.add_argument("--target-ea", dest="target_ea", type=float, default=0.65,
                     help="target rising-limb Ea in eV (default 0.65, metabolic-theory value)")

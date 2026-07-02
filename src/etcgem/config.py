@@ -125,6 +125,15 @@ def build_provider(cfg: Dict[str, Any]):
             cand = os.path.join(strain_dir(cfg["_strain"]), enzyme_params)
             if os.path.exists(cand):
                 enzyme_params = cand
+        # EMERGENT magnitude: budget = P_total x f_metab x sigma from independent
+        # data/literature (not the growth-calibrated GECKO bound). Active when
+        # provider.p_total is set; f_metab from the (measured) sector nominal.
+        p_total = p.get("p_total")
+        sigma = p.get("sigma", 0.45)
+        budget_override = None
+        if p_total is not None:
+            f_metab = (cfg.get("proteome_sectors") or {}).get("f_metab", 0.285)
+            budget_override = float(p_total) * float(sigma) * float(f_metab)
         pm = providers.from_gecko(
             model_path=p["model_path"], T0=T0,
             default_Topt_offset=p.get("default_Topt_offset", 7.0),
@@ -138,7 +147,13 @@ def build_provider(cfg: Dict[str, Any]):
             ngam_temperature=p.get("ngam_temperature", False),
             ngam_rxn=p.get("ngam_reaction"),
             enzyme_params=enzyme_params,
+            budget_override=budget_override,
+            enzyme_params_use_dCpt=(p.get("dcp_from", "table") != "prior"),
+            dcp_prior_kJ=p.get("dcp_prior_kJ", -4.0),
         )
+        if budget_override is not None:
+            print(f"[emergent] pool budget = P_total({p_total}) x f_metab({f_metab}) "
+                  f"x sigma({sigma}) = {budget_override:.4g} g/gDW (not growth-calibrated)")
     elif kind == "csv":
         pm = providers.from_kcat_csv(
             model_path=p["model_path"], csv_path=p["csv_path"], T0=T0,
