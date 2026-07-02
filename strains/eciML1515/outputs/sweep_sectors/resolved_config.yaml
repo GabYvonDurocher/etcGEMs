@@ -1,0 +1,45 @@
+solver_timeout: 10
+crit_frac: 0.05
+temperature_grid:
+  start_C: 8
+  stop_C: 60
+  n: 53
+provider:
+  type: gecko
+  model_file: eciML1515_batch.xml
+  prot_prefix: prot_
+  pool_id: prot_pool
+  biomass_rxn: null
+  default_Topt_offset: 7.0
+  default_dCp: -12.0
+  target_fraction: null
+  pool_scale: 0.9
+  model_path: /Users/g.yvon-durocher/Library/CloudStorage/OneDrive-UniversityofExeter/Documents/work/MICROADAPT/etcGEMs/strains/eciML1515/model/eciML1515_batch.xml
+T0_C: 30
+proteome_sectors:
+  enabled: true
+  P_total: null
+  f_metab: 0.5
+  f_maint: 0.15
+  atpm_reaction: null
+  translation_coeff: auto
+kind: sweep
+sensitivity:
+  n_samples: 120
+  seed: 1
+  parameters:
+    f_metab:
+    - 0.35
+    - 0.65
+    f_maint:
+    - 0.05
+    - 0.25
+    dTopt:
+    - -6.0
+    - 6.0
+    dCp_scale:
+    - 0.5
+    - 2.0
+  groups: []
+_strain: eciML1515
+_experiment: sectors

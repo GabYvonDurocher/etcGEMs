@@ -4,6 +4,13 @@
 # with an interior optimum. NOTE: enable sectors in the strain first, e.g.
 #   proteome_sectors: {enabled: true, ...}
 kind: sweep
+# Activate sectors for THIS run only (merges onto the strain's proteome_sectors,
+# which stays disabled at baseline). The CLI reads the merged config in
+# build_provider, so this experiment-level override turns sectors on here without
+# touching strain.yaml.
+proteome_sectors:
+  enabled: true
+  atpm_reaction: null
 sensitivity:
   n_samples: 120
   seed: 1
