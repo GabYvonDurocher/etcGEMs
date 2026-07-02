@@ -17,12 +17,17 @@ abstract: |
   energy from a literature MMRT $\Delta C_p$ prior plus DLTKcat, so the emergent
   $E_a\approx0.95$ eV lands near the independent bacterial-growth benchmark (0.84–0.88
   eV, Smith et al. 2019) rather than a value we tuned. Validated **per individual
-  curve** against 26 *E. coli* growth TPCs (Smith 2019 database), the emergent model
-  predicts curve shape with a median $R^2=0.59$ (range 0.04–0.94), reproducing the
-  optimum and the denaturation-set upper limit (~47 °C) but over-predicting the low-T
-  rising limb and getting magnitude only order-of-magnitude right — honest a-priori
-  errors, not tuning failures. Its predicted per-enzyme allocation correlates with the
-  measured proteome ($\rho\approx0.3$). On this model the widely-assumed clean
+  curve** on **raw absolute growth rate** against 26 *E. coli* TPCs (Smith 2019
+  database), each predicted under *its* medium (glucose-minimal or a rich LB medium, set
+  as availability, uptake unpinned), the emergent model reproduces the optimum and the
+  denaturation-set upper limit (~47 °C) but **systematically under-predicts magnitude**
+  (predicted $r_\text{max}=0.34$ h⁻¹ vs observed medians 0.8/2.5 h⁻¹ on
+  minimal/rich media) — and, tellingly, an LB medium does **not** close the gap because
+  growth is *translation-cap-limited* by the measured proteome allocation. These are
+  honest a-priori errors — pointing to the translation-cap calibration and $\sigma$/
+  $k_\text{cat}$/medium uncertainty — not tuning failures. Its predicted per-enzyme
+  allocation correlates with the measured proteome ($\rho\approx0.3$). On this model the
+  widely-assumed clean
   division of labour **collapses**: a Shapley variance decomposition attributes the rate
   $r_\text{max}$ only 28 % to allocation (vs ~100 % under the older peak-normalised
   scalar-pool convention), and the thermal envelope dominates the variance of *every*
@@ -118,60 +123,72 @@ $\mu^\ast=0.32\,\text{h}^{-1}$ at 30 °C).
 We lead with whether the emergent model — **with nothing fit to growth** — predicts
 individual *E. coli* TPCs.
 
-**Per-curve TPC prediction.** Rather than one pooled fit, we score the emergent
-prediction against **each of 26 individual *E. coli* growth TPCs** from the Smith 2019
-database [@Smith2019] (the medium set as availability — glucose minimal aerobic, the
-model default, matching the two defined-medium curves; uptake not pinned). The
-distribution of per-curve skill (@fig-percurveR2, @fig-percurve, @tbl-percurve) has a
-**median shape $R^2=0.59$ (range 0.04–0.94)**: the emergent model predicts some curves
-well and others poorly. It reproduces the optimum ($T_\text{opt}=37$ °C) and the
-**denaturation-set upper limit** ($CT_\text{max}\approx47$ °C, matching where the
-empirical curves collapse), but the emergent rising limb is **too steep** — it
-over-predicts low-temperature growth and peaks ~3–5 °C colder than observed — and the
-emergent magnitude is only order-of-magnitude right (predicted $r_\text{max}=0.34$ vs
-~0.1–1.4 $\text{h}^{-1}$ across the defined-medium curves). These are honest a-priori
-discrepancies — pointing to missing cold-side physiology and to $k_\text{cat}$/$\sigma$
-uncertainty — not tuning failures. On the **independent** activation-energy test, the
-emergent $E_a\approx0.95$ eV sits just above the mesophilic-bacterial-growth benchmark
-of 0.84–0.88 eV [@Smith2019], and far from the 0.65 eV metabolic-theory value we
-previously (wrongly) calibrated to. The nominal descriptors are in @tbl-nominal.
+**Medium as an input, per curve.** The medium is an experimental input encoded as
+*availability* — we open the uptake (`EX_*_REV`) of each medium component and let the
+enzyme-constrained model determine actual uptake; **no uptake rate is pinned and
+nothing is fit to growth**. Of the 26 curves, **2 have a documented defined medium**
+(glucose minimal aerobic; Bennett–Lenski, Mohr–Krawiec) and **24 are rich-broth**
+studies, which we predict under an **LB medium** (a GEM-compatible LB definition of
+62/65 amino-acid / nucleoside / vitamin / ion components, from the MRes `media.csv`
+reused from Machado et al.); each curve is predicted under *its* medium. All 26
+empirical rates are in specific-growth-rate units (h⁻¹; **0 dropped** for units).
+Because the magnitude is now emergent, the **primary metric is absolute** $R^2$/RMSE on
+raw $\mu(T)$ in h⁻¹; peak-normalised shape $R^2$ is a secondary diagnostic.
 
-![**Emergent model: distribution of per-curve skill.** Per-curve shape $R^2$ across 26 individual *E. coli* TPCs, with nothing fit to growth.](assets/figures/percurve_R2_distribution.png){#fig-percurveR2 fig-pos="H" width=70%}
+**Per-curve result.** The emergent model **systematically under-predicts the rate
+magnitude** (@fig-percurve, @fig-percurveR2, @tbl-percurve): its predicted
+$r_\text{max}=0.34\,\text{h}^{-1}$ is far below the observed medians (0.77 h⁻¹ on the
+defined-minimal curves, **2.5 h⁻¹ on the rich curves**), giving strongly negative
+median absolute $R^2$ (−23 minimal, −0.8 LB). Critically, **the LB medium does *not*
+close the gap** — the model's growth is **translation-cap-limited** (the biosynthesis
+sector cap, set from the *measured* proteome, binds at $\mu^\ast\!\approx\!0.34$ h⁻¹),
+so $r_\text{max}$ is the same on LB and minimal; richer carbon/amino-acid availability
+cannot raise it. The medium instead shifts the *envelope* (LB: $CT_\text{max}$
+$46.7\!\to\!50$ °C, $E_a$ $0.95\!\to\!0.64$ eV, as different enzymes limit). The
+emergent $E_a$ (0.64–0.95 eV across media) brackets the observed rising-limb values
+(~0.64–0.73 eV) and is near the mesophilic-bacterial-growth benchmark (0.84–0.88 eV,
+[@Smith2019]), far from the 0.65 eV metabolic-theory value earlier (wrongly) calibrated
+to. These are honest a-priori findings, not tuning failures: the magnitude shortfall
+points to the translation-cap calibration and to genuine uncertainty in $\sigma$,
+in-vivo $k_\text{cat}$ and rich-medium composition. The emergent nominal descriptors
+are in @tbl-nominal.
 
-![**Emergent model (red) vs individual *E. coli* TPCs (grey, peak-normalised).** Twelve example curves; the model captures the optimum and collapse but over-predicts the low-temperature rising limb.](assets/figures/percurve_smallmultiples.png){#fig-percurve fig-pos="H" width=95%}
+![**Emergent model vs individual *E. coli* TPCs — RAW absolute growth rate (h⁻¹).** Twelve curves on their own $y$-scale; green = glucose-minimal medium, orange = rich (LB); the model line sits far below the rich-medium data (per-panel absolute $R^2$ shown).](assets/figures/percurve_smallmultiples.png){#fig-percurve fig-pos="H" width=95%}
+
+![**Per-curve skill split by medium.** Primary = absolute $R^2$ on raw h⁻¹ (clipped ≥ −8); secondary = peak-normalised shape $R^2$. Green = glucose-minimal, orange = rich (LB).](assets/figures/percurve_R2_distribution.png){#fig-percurveR2 fig-pos="H" width=85%}
 
 ```{python}
 #| label: tbl-percurve
-#| tbl-cap: "Per-curve validation summary: distribution of shape R² across the 26 emergent-model vs individual E. coli TPC comparisons, and the emergent descriptors. Nothing is fit to growth."
+#| tbl-cap: "Per-curve absolute-rate validation, split by medium (nothing fit to growth). Primary metric: median absolute R² on raw growth rate (h⁻¹); shape R² secondary. The emergent rmax is translation-cap-limited (identical on LB and minimal)."
 #| output: asis
 import json, pandas as pd
 with open("assets/tables/percurve_summary.json") as fh:
     s = json.load(fh)
-rows = [("curves validated", s["n_curves"]),
-        ("defined-medium curves", s["n_defined"]),
-        ("median shape R²", s["shape_R2_median"]),
-        ("mean shape R²", s["shape_R2_mean"]),
-        ("curves with shape R² ≥ 0.5", s.get("shape_R2_ge_0.5", "—")),
-        ("emergent T_opt (°C)", s["emergent"]["Topt_C"]),
-        ("emergent r_max (1/h)", s["emergent"]["rmax_per_h"]),
-        ("emergent CT_max (°C)", s["emergent"]["CTmax_C"]),
-        ("emergent E_a (eV)", s["emergent"]["Ea_eV"])]
-print(pd.DataFrame(rows, columns=["quantity", "value"]).to_markdown(index=False))
+gm, lb = s["glucose_minimal"], s["rich_broth_LB"]
+rows = [("curves (n)", gm["n"], lb["n"]),
+        ("median absolute R² (h⁻¹)", gm["median_abs_R2"], lb["median_abs_R2"]),
+        ("median shape R²", gm["median_shape_R2"], lb["median_shape_R2"]),
+        ("observed median rmax (h⁻¹)", gm["obs_rmax_median"], lb["obs_rmax_median"]),
+        ("emergent rmax (h⁻¹)", s["emergent_rmax_minimal"], s["emergent_rmax_LB"]),
+        ("emergent CT_max (°C)", s["emergent_CTmax_minimal"], s["emergent_CTmax_LB"]),
+        ("emergent E_a (eV)", s["emergent_Ea_minimal"], s["emergent_Ea_LB"]),
+        ("observed median E_a (eV)", gm["obs_Ea_median"], lb["obs_Ea_median"])]
+print(pd.DataFrame(rows, columns=["quantity", "glucose-minimal", "rich (LB)"]).to_markdown(index=False))
 ```
 
 ```{python}
 #| label: tbl-nominal
-#| tbl-cap: "Emergent nominal TPC descriptors of the complete model (glucose minimal aerobic; nothing fit to growth)."
+#| tbl-cap: "Emergent nominal TPC descriptors on the two media (glucose minimal aerobic vs LB; nothing fit to growth). rmax is translation-cap-limited and identical across media."
 #| output: asis
 import json
 import pandas as pd
 
 with open("assets/tables/percurve_summary.json") as fh:
-    em = json.load(fh)["emergent"]
-rows = [("T_opt (°C)", em["Topt_C"]), ("r_max (1/h)", em["rmax_per_h"]),
-        ("CT_max (°C)", em["CTmax_C"]), ("E_a (eV)", em["Ea_eV"])]
-df = pd.DataFrame(rows, columns=["Descriptor", "Emergent"])
-print(df.to_markdown(index=False))
+    s = json.load(fh)
+rows = [("r_max (1/h)", s["emergent_rmax_minimal"], s["emergent_rmax_LB"]),
+        ("CT_max (°C)", s["emergent_CTmax_minimal"], s["emergent_CTmax_LB"]),
+        ("E_a (eV)", s["emergent_Ea_minimal"], s["emergent_Ea_LB"])]
+print(pd.DataFrame(rows, columns=["Descriptor", "glucose-minimal", "LB"]).to_markdown(index=False))
 ```
 
 **Measured proteome.** The temperature proteome shows the expected heat-stress
@@ -401,8 +418,11 @@ predicted $E_a\approx0.95$ eV over-predicts low-temperature growth and peaks a f
 degrees colder than observed; a single literature $\Delta C_p$ prior couples breadth and
 $E_a$, so per-enzyme curvature (from broader DLTKcat coverage) is the route to a more
 accurate rising limb; **(ii)** the emergent **magnitude** ($r_\text{max}\approx0.34$
-h⁻¹) is only order-of-magnitude right, reflecting genuine uncertainty in $\sigma$ and in
-in-vivo $k_\text{cat}$ (carried as literature ranges, not tuned); **(iii)** the
+h⁻¹) systematically under-predicts observed rates (especially the ~2.5 h⁻¹ rich-medium
+curves) and is **translation-cap-limited** — the biosynthesis-sector cap from the
+measured proteome binds, so richer media do not raise it; this reflects the cap
+calibration and genuine uncertainty in $\sigma$ and in-vivo $k_\text{cat}$ (carried as
+literature ranges, not tuned); **(iii)** the
 chaperone/stress sector is imposed as a maintenance input, not modelled as flux-carrying
 reactions; **(iv)** identifiability is a first-order proxy; **(v)** parameters and
 proteome are *E. coli*-specific (per-strain proteomes / predictors are the library-scale
@@ -444,7 +464,7 @@ growth-fit. The DLTKcat $k_\text{cat}(T)$ overlay (@fig-dltkcat) currently touch
 is future work. Parameter provenance and coverage: grounded $T_\text{opt}$/$T_m$ for
 90 % of enzymes (rest at dataset means), proteome-to-enzyme mapping 62 %.
 
-![**Model-construction ablations.** Nominal TPC of each layer combination over the empirical cloud; unfolding ($T_m$) is the decisive layer.](assets/figures/ablation_comparison.png){#fig-ablation fig-pos="H" width=80%}
+![**Model-construction ablations — raw absolute growth rate (h⁻¹).** Nominal TPC of each layer combination against the defined glucose-minimal empirical curves; unfolding ($T_m$) is the decisive layer for curve shape/limit.](assets/figures/ablation_comparison.png){#fig-ablation fig-pos="H" width=80%}
 
 ```{python}
 #| label: tbl-ablation
