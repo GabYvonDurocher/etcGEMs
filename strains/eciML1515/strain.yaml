@@ -1,6 +1,7 @@
-# Strain: enzyme-constrained E. coli iML1515 (GECKO batch).
-# Paths are injected by the CLI: provider.model_path = strains/eciML1515/model/<model_file>
-# and output_dir = strains/eciML1515/outputs/{default,dltkcat}. Do not hard-code them here.
+# Strain: enzyme-constrained E. coli iML1515 (GECKO batch). ORGANISM ONLY.
+# The CLI injects provider.model_path (strains/eciML1515/model/<model_file>) and
+# output_dir at run time. Method settings (sensitivity, solver_timeout, crit_frac)
+# live in defaults.yaml + experiments/, not here.
 provider:
   type: gecko
   model_file: eciML1515_batch.xml   # file under strains/eciML1515/model/
@@ -18,16 +19,3 @@ temperature_grid:
   start_C: 8
   stop_C: 60
   n: 53
-
-sensitivity:
-  n_samples: 120
-  seed: 1
-  parameters:
-    dTopt:        [-6.0, 6.0]
-    topt_scale:   [0.7, 1.4]
-    dCp_scale:    [0.5, 2.0]
-    budget_scale: [0.7, 1.1]
-  groups: []
-
-solver_timeout: 10
-crit_frac: 0.05

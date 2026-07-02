@@ -72,11 +72,13 @@ The package uses a `src/` layout (`src/etcgem`) and exposes one console command,
 ## Quickstart (offline, no model download)
 
 ```bash
-etcgem sweep --config configs/toy.yaml
+etcgem tpc   --strain _toy                       # nominal curve, no experiment needed
+etcgem sweep --strain _toy --experiment quick    # a small sensitivity sweep
 ```
 
-Runs on `e_coli_core` (ships with cobrapy) with synthetic enzyme kinetics, so it
-works with no network access. Writes to `outputs/toy_run/`:
+`_toy` runs on `e_coli_core` (ships with cobrapy) with synthetic enzyme kinetics,
+so it works with no network access. The sweep writes to
+`strains/_toy/outputs/sweep_quick/`:
 
 | file                          | contents                                        |
 |-------------------------------|-------------------------------------------------|
@@ -95,44 +97,69 @@ and curve skewness.
 
 ---
 
-## Strains (per-organism folders)
+## Config model: defaults / strain / experiment
 
-Real models live under `strains/NAME/`:
+Configuration is split into three tiers, merged as **defaults ← strain ←
+experiment** (organism keys come from the strain; method keys from defaults,
+overridden by the experiment):
+
+| file | holds |
+|------|-------|
+| `defaults.yaml` (root) | universal **method** defaults: `solver_timeout`, `crit_frac`, a fallback `temperature_grid` |
+| `strains/NAME/strain.yaml` | **organism only**: `provider` block, `T0_C`, `temperature_grid` — enough to build and run the model |
+| `experiments/EXP.yaml` | optional **method overlay**: `kind` + a `sensitivity` (sweep) or `decomposition` block |
+
+`config.resolve(strain, experiment)` returns the merged dict with
+`provider.model_path` injected from the strain folder; every run also writes the
+exact merged config as `resolved_config.yaml` in its output folder.
 
 ```
 strains/eciML1515/
-  config.yaml            # provider knobs + temperature grid + sensitivity block
+  strain.yaml            # organism biophysics only
   model/eciML1515_batch.xml
   dltkcat/               # input.csv, output.csv, fits.csv (DLTKcat workflow)
-  outputs/default/       # sweep with default thermal params
-  outputs/dltkcat/       # sweep with DLTKcat-derived Topt/dCp (--fits)
+  outputs/{build,tpc,fba,sweep_EXP,decompose_EXP}/
+strains/_toy/            # offline synthetic strain (no model file)
 strains/_template/       # copy this to start a new strain
+experiments/             # default.yaml, quick.yaml, decomposition.yaml
 ```
 
-`config.yaml` names the model with `provider.model_file`; the CLI injects the
-absolute `provider.model_path` and `output_dir` at run time, so the config stays
-path-free and portable. Run the worked E. coli sweep with:
+Shipped experiments: `default` (120-sample sweep), `quick` (tiny smoke sweep),
+`decomposition` (variance decomposition — see the `decompose` command).
+
+## Commands: two tiers
+
+**Strain-only** (a strain runs with no experiment):
 
 ```bash
-etcgem sweep --strain eciML1515                 # -> strains/eciML1515/outputs/default
-etcgem sweep --strain eciML1515 --fits          # + DLTKcat fits -> outputs/dltkcat
-etcgem sweep --strain eciML1515 --resume --seconds 60   # checkpointed, call repeatedly
+etcgem build --strain eciML1515                 # build provider; print+save model summary
+etcgem tpc   --strain eciML1515 [--fits]        # nominal TPC + descriptors + plot
+etcgem fba   --strain eciML1515 --temp 37       # single enzyme-constrained solve at 37 °C
 ```
 
+**Strain + experiment:**
+
+```bash
+etcgem sweep     --strain eciML1515 --experiment default          # -> outputs/sweep_default
+etcgem sweep     --strain eciML1515 --experiment default --fits   # + DLTKcat fits
+etcgem sweep     --strain eciML1515 --experiment quick --resume --seconds 60   # checkpointed
+etcgem decompose --strain eciML1515 --experiment decomposition    # -> outputs/decompose_decomposition
+```
+
+`--fits` (optionally with a path; default `strains/NAME/dltkcat/fits.csv`) applies
+DLTKcat-derived Topt/dCp before the run. `sweep` also accepts `--config PATH` as
+an escape hatch for an ad-hoc self-contained config.
+
 To add a strain: `cp -r strains/_template strains/NAME`, drop the model in
-`strains/NAME/model/`, set `model_file`, then `etcgem sweep --strain NAME`.
+`strains/NAME/model/`, set `provider.model_file` in `strain.yaml`, then
+`etcgem build --strain NAME` and `etcgem sweep --strain NAME --experiment default`.
 
 ## Using another model (ecYeastGEM etc.)
 
-1. Get an enzyme-constrained model. For yeast, the GECKO ecYeastGEM lives at
-   `github.com/SysBioChalmers/ecModels` (or build one with GECKO 3). Any
-   GECKO-style SBML/`.mat`/`.json` works.
-2. Make it a strain (recommended, as above), or point a standalone config at it
-   (`configs/example_gecko.yaml`, which still carries an explicit `model_path`):
-
-```bash
-etcgem sweep --config configs/example_gecko.yaml
-```
+Get an enzyme-constrained model (for yeast, the GECKO ecYeastGEM lives at
+`github.com/SysBioChalmers/ecModels`, or build one with GECKO 3; any GECKO-style
+SBML/`.mat`/`.json` works) and make it a strain as above — put the file under
+`strains/NAME/model/` and set `provider.model_file`.
 
 The `gecko` provider (`providers.from_gecko`) auto-detects both encodings:
 "full" GECKO (`prot_pool → prot_<id>` draw reactions carrying MW, metabolic
@@ -203,9 +230,10 @@ knobs. `etcgem dltkcat csv` instead writes a full `from_kcat_csv` provider table
 
 ### Worked example: eciML1515 (included)
 
-`strains/eciML1515/config.yaml` runs a 120-sample sweep on the GECKO *E. coli*
-model, output in `strains/eciML1515/outputs/default/`. The extractor finds
-2560 enzyme-linked reactions and reuses the model's own 0.091 g/gDW pool bound.
+`etcgem sweep --strain eciML1515 --experiment default` runs a 120-sample sweep on
+the GECKO *E. coli* model, output in `strains/eciML1515/outputs/sweep_default/`.
+The extractor finds 2560 enzyme-linked reactions and reuses the model's own
+0.091 g/gDW pool bound.
 The nominal curve is single-peaked at ~37 C (rmax 0.57 /h, CTmax ~57 C), and the
 sweep generates optima from ~30-45 C with varying peak rate and breadth.
 
@@ -269,12 +297,13 @@ src/etcgem/
   tpc.py          compute_tpc + TPC descriptors
   sensitivity.py  Latin-hypercube sweep, ensemble, Spearman sensitivity
   plotting.py     ensemble fan, descriptor histograms, sensitivity heatmap
-  config.py       YAML/JSON config + provider dispatch
+  config.py       defaults/strain/experiment loading, resolve, dump + provider dispatch
   dltkcat.py      DLTKcat kcat(T) -> MMRT (Topt, dCp) fitting + apply
-  cli.py          unified CLI: sweep (one-shot/resume/+fits) + dltkcat tools
+  cli.py          two-tier CLI: build/tpc/fba (strain) + sweep/decompose (strain+experiment) + dltkcat
   __main__.py     `python -m etcgem` -> cli.main
-configs/          toy.yaml (offline), example_gecko.yaml (standalone model)
-strains/NAME/     config.yaml, model/, dltkcat/, outputs/{default,dltkcat}
+defaults.yaml     universal method defaults (solver_timeout, crit_frac, fallback grid)
+experiments/      default.yaml, quick.yaml, decomposition.yaml (method overlays)
+strains/NAME/     strain.yaml (organism), model/, dltkcat/, outputs/<tag>/
 docs/RUNBOOK.md   step-by-step run guide
 ```
 

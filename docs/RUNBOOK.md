@@ -28,38 +28,53 @@ solver ships with cobrapy — nothing else to install. (Re-activate later with
 ### 2. Smoke-test offline (no model file needed)
 
 ```bash
-etcgem sweep --config configs/toy.yaml
+etcgem tpc   --strain _toy                       # nominal curve (no experiment)
+etcgem sweep --strain _toy --experiment quick    # a small sweep
 ```
 
-Writes `outputs/toy_run/` with `tpc_ensemble.png`, `sensitivity_heatmap.png`,
-`descriptors.csv`, etc. If those appear, the install works.
+`_toy` is a synthetic strain (cobrapy's `e_coli_core`, no model file). The sweep
+writes `strains/_toy/outputs/sweep_quick/` with `tpc_ensemble.png`,
+`sensitivity_heatmap.png`, `descriptors.csv`, etc. If those appear, the install
+works.
 
 ### 3. Run the real E. coli sweep (eciML1515 strain)
 
-The strain already ships with its model at
-`strains/eciML1515/model/eciML1515_batch.xml` and its `config.yaml`. Just run:
+Config is layered as **defaults ← strain ← experiment**: method settings live in
+`defaults.yaml` + `experiments/`, organism biophysics in
+`strains/eciML1515/strain.yaml`. The strain ships with its model at
+`strains/eciML1515/model/eciML1515_batch.xml`. Inspect or solve it first:
 
 ```bash
-etcgem sweep --strain eciML1515
+etcgem build --strain eciML1515            # model summary -> outputs/build
+etcgem tpc   --strain eciML1515            # nominal TPC   -> outputs/tpc
+etcgem fba   --strain eciML1515 --temp 37  # single solve  -> outputs/fba
+```
+
+Then the full sweep:
+
+```bash
+etcgem sweep --strain eciML1515 --experiment default
 ```
 
 Takes a few minutes (120 samples x 53 temperatures). Outputs land in
-`strains/eciML1515/outputs/default/`: the TPC ensemble, sensitivity heatmap,
-descriptor distributions, and `summary.json`. Edit
-`strains/eciML1515/config.yaml` to change the temperature grid, sample count,
-parameter ranges, `pool_scale`, or `default_dCp`.
+`strains/eciML1515/outputs/sweep_default/`: the TPC ensemble, sensitivity heatmap,
+descriptor distributions, `summary.json`, and the exact merged `resolved_config.yaml`.
+Edit `strains/eciML1515/strain.yaml` for organism knobs (temperature grid,
+`pool_scale`, `default_dCp`) or `experiments/default.yaml` for method knobs
+(sample count, parameter ranges).
 
 For long runs on a time-limited machine, checkpoint instead:
 
 ```bash
-etcgem sweep --strain eciML1515 --resume --seconds 60   # call repeatedly until "ALL DONE"
+etcgem sweep --strain eciML1515 --experiment default --resume --seconds 60   # call repeatedly until "ALL DONE"
 ```
 
 That is the whole forward pipeline. Part B adds real per-enzyme thermal data.
 
 **Adding another strain:** `cp -r strains/_template strains/NAME`, drop the
 enzyme-constrained model into `strains/NAME/model/`, set `provider.model_file`
-in `strains/NAME/config.yaml`, then `etcgem sweep --strain NAME`.
+in `strains/NAME/strain.yaml`, then `etcgem build --strain NAME` and
+`etcgem sweep --strain NAME --experiment default`.
 
 ---
 
@@ -105,14 +120,16 @@ Back in the project root with `.venv` active:
 
 ```bash
 etcgem dltkcat parse --strain eciML1515 --temp-col Temp_C --kcat-col pred_log10kcat
-etcgem sweep --strain eciML1515 --fits
+etcgem sweep --strain eciML1515 --experiment default --fits
 ```
 
 `parse` reads `strains/eciML1515/dltkcat/output.csv`, fits Topt/dCp per reaction
 (log10 input by default; add `--no-log10` if your output is raw kcat) and writes
-`strains/eciML1515/dltkcat/fits.csv`. `sweep --fits` applies those parameters —
-keeping the model's calibrated enzyme costs — and runs the sweep into
-`strains/eciML1515/outputs/dltkcat/`.
+`strains/eciML1515/dltkcat/fits.csv`. `sweep … --fits` (default path
+`strains/eciML1515/dltkcat/fits.csv`) applies those parameters — keeping the
+model's calibrated enzyme costs — and runs the sweep into
+`strains/eciML1515/outputs/sweep_default/`. You can also apply fits to a single
+nominal curve without a sweep: `etcgem tpc --strain eciML1515 --fits`.
 
 Check the `ok`/`r2` columns in `fits.csv`: DLTKcat is noisy (R²≈0.6), so
 reactions with a poor or non-peaked fit are flagged and fall back to the default
