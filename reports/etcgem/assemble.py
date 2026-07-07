@@ -33,7 +33,8 @@ STRAIN = os.path.join(ROOT, "strains", "eciML1515", "outputs")
 RUNS = {
     "sweep":      os.path.join(STRAIN, "sweep_default"),
     "dltkcat":    os.path.join(STRAIN, "sweep_dltkcat_ext"),     # DLTKcat fits applied
-    "decompose":  os.path.join(STRAIN, "decompose_decomposition_sectors"),  # sector allocation axis
+    "decompose":  os.path.join(STRAIN, "decompose_decomposition_sectors"),  # sector allocation axis (SUPERSEDED)
+    "recast":     os.path.join(STRAIN, "decompose_decomposition_recast"),   # range-fair nominal-centred +Tm
     "control":    os.path.join(STRAIN, "control_control"),       # full control run
     "calibrated": os.path.join(STRAIN, "sweep_calibrated"),      # M1.2
     "sectors":    os.path.join(STRAIN, "sweep_sectors"),         # optional
@@ -55,6 +56,8 @@ FIGURES = [
     ("decompose",  "achievable_ranges.png",        "decomp_achievable.png"),
     ("decompose",  "variance_partition.png",       "decomp_variance.png"),
     ("decompose",  "shapley_effects.png",          "decomp_shapley.png"),
+    ("recast",     "recast_iqr_bands.png",         "decomp_iqr_bands.png"),
+    ("recast",     "recast_variance.png",          "decomp_recast_variance.png"),
     ("control",    "thermal_control_bar.png",      "control_thermal.png"),
     ("control",    "bottleneck_vs_temperature.png","control_bottleneck.png"),
     ("control",    "identifiability_hist.png",     "control_identifiability.png"),
@@ -77,6 +80,9 @@ TABLES = [
     ("sweep",      "sensitivity_spearman.csv",  "sensitivity_spearman.csv"),
     ("sweep",      "summary.json",              "summary.json"),
     ("decompose",  "decomposition_table.csv",   "decomposition_table.csv"),
+    ("recast",     "decomposition_recast_table.csv",     "decomposition_recast_table.csv"),
+    ("recast",     "decomposition_recast_magnitude.csv", "decomposition_recast_magnitude.csv"),
+    ("recast",     "recast_summary.json",                "recast_summary.json"),
     ("control",    "thermal_control.csv",       "thermal_control.csv"),
     ("control",    "identifiability.csv",       "identifiability.csv"),
     ("calibrated", "descriptors.csv",           "calibrated_descriptors.csv"),

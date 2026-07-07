@@ -29,17 +29,19 @@ abstract: |
   curves. The emergent activation energy is medium-dependent (0.83 eV on LB, on the
   0.84–0.88 eV benchmark). These are honest a-priori results — remaining errors point to
   $\sigma$/$k_\text{cat}$/medium uncertainty — not tuning failures. Its predicted
-  per-enzyme allocation correlates with the measured proteome ($\rho\approx0.3$). On this
-  model the widely-assumed clean
-  division of labour **collapses**: a Shapley variance decomposition attributes the rate
-  $r_\text{max}$ only 28 % to allocation (vs ~100 % under the older peak-normalised
-  scalar-pool convention), and the thermal envelope dominates the variance of *every*
-  descriptor (72–99 %). We show by ablation that this clean split was largely a
-  structural artifact — the envelope (protein stability) is the decisive control on the
-  TPC, allocation a real but secondary contributor — and that thermal control is
-  concentrated in a few enzymes while ~98 % of per-enzyme parameters are unidentifiable
-  from growth alone. All results are structural in-silico predictions pending further
-  phenotype/omics calibration.
+  per-enzyme allocation correlates with the measured proteome ($\rho\approx0.3$). A
+  range-fair, nominal-centred Shapley decomposition (every axis moved by the same
+  standardised width about the measured operating point, with a melting-temperature $T_m$
+  axis added) and a matched local elasticity agree on a **measure-dependent** division of
+  labour: the rate $r_\text{max}$ is allocation-controlled ($\varphi_A=1.0$), the upper
+  limit $CT_\text{max}$ is $T_m$/stability-controlled ($\varphi_\text{stab}=0.93$, IQR
+  1.3 °C), the cold side is kinetic-envelope-led, and $T_\text{opt}$/$E_a$ are genuinely
+  coupled. This **corrects** an earlier decomposition that, using unequal envelope-favouring
+  ranges, off-nominal sampling, no $T_m$ axis and variance shares without magnitude, wrongly
+  reported the rate as envelope-dominated ($\varphi_E=0.72$). Thermal control is concentrated
+  in a few enzymes while ~98 % of per-enzyme parameters are unidentifiable from growth alone.
+  All results are structural in-silico predictions pending further phenotype/omics
+  calibration.
 ---
 
 # Background and objectives
@@ -162,10 +164,13 @@ $r_\text{max}=\max_T\mu$, $CT_\text{min}/CT_\text{max}$ the crossings of $\mu=0.
 below/above the peak, thermal breadth $=CT_\text{max}-CT_\text{min}$, and the
 Boltzmann–Arrhenius activation energy $E_a=-\text{slope of }\ln\mu\text{ vs }1/(k_B T)$
 on the rising limb ($0.1$–$0.95\,r_\text{max}$). The allocation-vs-envelope decomposition
-uses a crossed two-group functional ANOVA with an exact Shapley split
-$\varphi_A=S_A+\tfrac12 S_{AE}$, $\varphi_E=S_E+\tfrac12 S_{AE}$; per-enzyme thermal
-control coefficients are central finite differences of each descriptor to each enzyme's
-$T_{\text{opt},i}$/$\Delta C_{p,i}$, and identifiability is the max-normalised
+uses a range-fair, nominal-centred, fully-crossed **three-way** (allocation × kinetic ×
+stability) functional ANOVA — every parameter moved by the same standardised half-width
+$H$ about the measured nominal — giving both the exact two-group Shapley split
+$\varphi_A=S_A+\tfrac12 S_{AE}$, $\varphi_E=S_E+\tfrac12 S_{AE}$ and the three-group
+allocation/kinetic/stability shares, reported alongside an achievable-IQR magnitude per axis;
+per-enzyme thermal control coefficients are central finite differences of each descriptor to
+each enzyme's $T_{\text{opt},i}$/$\Delta C_{p,i}$, and identifiability is the max-normalised
 control magnitude (a first-order proxy, not Fisher information).
 
 **Parameter provenance.** Every input is grounded in independent data or a stated
@@ -188,10 +193,12 @@ literature value — none is fit to the growth curve (@tbl-provenance).
 descriptors. (O2/O3) A **global sensitivity** sweep draws a Latin-hypercube sample
 ($n=120$) over envelope knobs ($dT_\text{opt}\in[-6,6]$ K, `topt_scale`$\in[0.7,1.4]$,
 `dCp_scale`$\in[0.5,2]$) and a pool knob (`budget_scale`$\in[0.7,1.1]$), reducing each
-TPC to descriptors and Spearman indices. (O4) The **decomposition** evaluates a crossed
-$16\times16$ allocation$\times$envelope design (allocation = sector split around the
-measured nominal; envelope = grounded $T_\text{opt}/T_m$ perturbations) and applies the
-Shapley split of @eq-alloc. (O2/O5) The **control/identifiability** analysis screens all
+TPC to descriptors and Spearman indices. (O4) The **decomposition** evaluates a fully-crossed
+three-way allocation$\times$kinetic$\times$stability design, every parameter moved by the same
+standardised half-width $H=0.2$ about the measured nominal (allocation $=$ sector split;
+kinetic $=$ $dT_\text{opt}$/spread/curvature; stability $=$ $dT_m$), and applies the Shapley
+split of @eq-alloc plus an achievable-IQR magnitude per axis. (O2/O5) The
+**control/identifiability** analysis screens all
 2560 enzymes (usage × thermal sensitivity), then computes finite-difference control
 coefficients on the top-100, reporting proteome-wide identifiability over all
 $2560\times3$ parameters. (O6) A **calibrated-uncertainty** ensemble samples the envelope
@@ -324,44 +331,51 @@ $$E[D,p] = \frac{D(p+)-D(p-)}{2\,h\,D_\text{nominal}}, $$ {#eq-elasticity}
 
 the fractional change in $D$ per standardised step of input $p$. Multiplicative inputs
 (`topt_scale`, `dCp_scale`, `budget_scale`, the sector fractions) move to $1\pm h$; the
-additive optimum shift $dT_\text{opt}$ (nominal 0) moves by $\pm h\,\Delta_\text{ref}$
-with $\Delta_\text{ref}=4.25$ K, the standard deviation of the per-enzyme $T_\text{opt}$
-distribution, so it is "$h$ of a natural temperature scale"; sector fractions move by
-$\text{nominal}\times(1\pm h)$ with the biosynthesis sector renormalised. Because every
-input uses the same $h$, the elasticities are directly comparable in magnitude
-(@fig-elast-tornado, @fig-elast-heat, @tbl-elasticity).
+additive shifts $dT_\text{opt}$ and $dT_m$ (nominal 0) move by $\pm h\,\Delta_\text{ref}$
+with $\Delta_\text{ref}=$ the standard deviation of the per-enzyme $T_\text{opt}$ / $T_m$
+distribution (4.25 K / 6.13 K), so each is "$h$ of a natural temperature scale"; sector
+fractions move by $\text{nominal}\times(1\pm h)$ with the biosynthesis sector renormalised.
+Because every input uses the same $h$, the elasticities are directly comparable in magnitude
+(@fig-elast-tornado, @fig-elast-heat, @tbl-elasticity). We include $dT_m$ (a uniform shift of
+every enzyme's melting temperature) as an input so the denaturation-limited hot side has an
+explicit lever.
 
-**Result — allocation drives the rate, the envelope drives the shape, the limit is
-frozen.** The ranking is clear and, in places, sharper than the rank-correlation view:
+**Result — allocation drives the rate, kinetics drive the cold side, $T_m$ sets the hot
+limit.** The ranking is clear and, in places, sharper than the rank-correlation view:
 
 - **$r_\text{max}$ is driven by the allocation split** ($E=-1.5$ for $f_\text{metab}$,
   $-1.1$ for $f_\text{maint}$) and, locally, *not* by the pool budget or the envelope
   ($|E|\lesssim0.01$): reallocating proteome mass out of the biosynthesis sector lowers
   the translation cap and the rate.
-- **$E_a$ is driven by the curvature and the allocation** (`dCp_scale` $E=+0.53$,
-  $f_\text{metab}$ $+1.3$, `budget_scale` $+0.51$).
-- **$CT_\text{max}$ is essentially insensitive to *every* swept input** ($|E|\le0.01$):
-  it is pinned to the *fixed, grounded* melting temperatures, so nothing we perturb here
-  moves it — the only lever on $CT_\text{max}$ is $T_m$ itself.
-- **Thermal breadth** is envelope-driven (`dCp_scale` $E=-0.41$, `topt_scale` $-0.39$),
-  acting through the cold limit $CT_\text{min}$ rather than the frozen $CT_\text{max}$.
+- **$E_a$ is driven by the allocation and the curvature** ($f_\text{metab}$ $E=+1.3$,
+  `dCp_scale` $+0.53$, `budget_scale` $+0.51$).
+- **$CT_\text{max}$ has exactly one lever — $T_m$.** It is essentially insensitive to
+  allocation, budget and kinetics ($|E|\le0.01$), and its top (and only meaningful) input is
+  $dT_m$ ($E=+0.14$): the hot limit is set by protein stability alone. This is why adding the
+  $dT_m$ knob matters — without it $CT_\text{max}$ looked inert; with it, its single control
+  is explicit.
+- **$T_\text{opt}$ is coupled** — allocation ($f_\text{metab}$ $E=-1.1$), enzyme-optimum
+  spread (`topt_scale` $+0.9$), curvature (`dCp_scale` $+0.7$) and, weakly, $dT_m$ ($-0.4$)
+  all move it, foreshadowing the large interaction the decomposition finds.
+- **Thermal breadth** is kinetic-envelope-driven (`dCp_scale`, `topt_scale`), acting through
+  the cold limit $CT_\text{min}$ rather than the $T_m$-pinned $CT_\text{max}$.
 
 This differs from the rank-correlation ranking (@fig-sens) mainly because that view swept
-inputs over *unequal* ranges and scored monotonic consistency, so a wide `dCp_scale`
-swing and the peak's drift toward $T_m$ over a wide $dT_\text{opt}$ range register there,
-whereas the equal-step *local* elasticities isolate the structural leverage — chiefly the
-allocation split for the rate and the (unperturbable) $T_m$ for the upper limit. These
-elasticities answer the **structural** question ("which parts of the model drive the
-TPC"); a complementary **uncertainty-weighted** analysis — varying each input across its
-real measurement uncertainty to prioritise *what to measure* — is a planned follow-up.
+inputs over *unequal* ranges and scored monotonic consistency, whereas the equal-step *local*
+elasticities isolate the structural leverage — the allocation split for the rate, kinetics for
+the cold side, and $T_m$ for the upper limit. The next section shows the *global*, grouped
+decomposition tells the **same** story with the interaction made explicit. These elasticities
+answer the **structural** question ("which parts of the model drive the TPC"); a complementary
+**uncertainty-weighted** analysis — varying each input across its real measurement uncertainty
+to prioritise *what to measure* — is a planned follow-up.
 
-![**Equal-perturbation elasticities per descriptor.** Inputs ranked by $|E|$ for each TPC descriptor (red $+$, blue $-$); note $CT_\text{max}$ is near-zero for every input (frozen at the grounded $T_m$).](assets/figures/elasticity_tornado.png){#fig-elast-tornado fig-pos="H" width=95%}
+![**Equal-perturbation elasticities per descriptor.** Inputs ranked by $|E|$ for each TPC descriptor (red $+$, blue $-$); $r_\text{max}$ is allocation-led, the cold side kinetic-led, and $CT_\text{max}$ responds only to $dT_m$.](assets/figures/elasticity_tornado.png){#fig-elast-tornado fig-pos="H" width=95%}
 
 ![**Elasticity heatmap** (inputs × descriptors, standardised step $h=0.10$).](assets/figures/elasticity_heatmap.png){#fig-elast-heat fig-pos="H" width=85%}
 
 ```{python}
 #| label: tbl-elasticity
-#| tbl-cap: "Standardised elasticities E[D,p] on the complete model (equal step h=0.10; additive dTopt by ±h·Δref, Δref=4.25 K = sd of enzyme Topt). Directly comparable in magnitude across inputs."
+#| tbl-cap: "Standardised elasticities E[D,p] on the complete model (equal step h=0.10; additive dTopt/dTm by ±h·Δref, Δref = sd of enzyme Topt/Tm = 4.25/6.13 K). Directly comparable in magnitude across inputs."
 #| output: asis
 import pandas as pd
 
@@ -413,63 +427,122 @@ print(out.to_markdown(index=False))
 
 # Allocation vs envelope decomposition — is the division of labour forced or emergent?
 
-We partition each descriptor's variance over a crossed allocation × envelope design into
-allocation, envelope and interaction components (Shapley fractions $\varphi_A$,
-$\varphi_E$; @tbl-decomp, @fig-decompvar, @fig-decompshap). The allocation axis is the
-mechanistic proteome-sector split ($f_\text{metab}$, $f_\text{maint}$) perturbed around
-the **measured** nominal; the envelope axis perturbs the grounded $T_\text{opt}$/$T_m$.
-@fig-decompach shows the ranges reachable by each axis alone. (This decomposition, and
-the per-enzyme control analysis that follows, were computed on the data-grounded model
-prior to the final emergent-magnitude/$E_a$ refinement; that refinement rescales
-$r_\text{max}$ and $E_a$ but, if anything, *strengthens* the conclusion below — a
-tighter emergent budget makes allocation matter even less.)
+The elasticity above is the *local* view — nudge each dial at the operating point, read
+magnitude and direction. The decomposition is its *global*, grouped companion: with every
+axis varied together, how much of each descriptor's **variance** does each axis own, and how
+much lives in their interaction? The key methodological point is that we make the two
+analyses **commensurate** — the same equal, nominal-centred perturbations, the same
+parameter set (now including $T_m$) — so they are two views of one result rather than two
+procedures that can diverge for bookkeeping reasons. (An earlier version of this section did
+diverge from the elasticity; that was an artefact of the analysis, corrected below.)
 
-On the complete model the result is decisive and **overturns the assumed picture**:
+**Method — range-fair, nominal-centred, magnitude-aware.** Every parameter, allocation
+*and* envelope, is moved by the **same** standardised relative half-width $H=0.2$ about the
+**measured** nominal: multiplicative dials over $\text{nominal}\times(1\pm H)$; the additive
+shifts $dT_\text{opt}$/$dT_m$ over $\pm H\,\Delta_\text{ref}$ with
+$\Delta_\text{ref}=\text{sd}$ of the per-enzyme $T_\text{opt}$/$T_m$ distribution
+(4.25 / 6.13 K); the sector fractions over $\text{nominal}\times(1\pm H)$ with biosynthesis
+renormalised. A fully-crossed three-way (allocation × kinetic-envelope × stability)
+functional ANOVA then yields, in one design, **both** the two-group allocation-vs-envelope
+Shapley split ($\varphi_A,\varphi_E$; envelope $=$ kinetic $\cup$ stability) **and** the
+three-group allocation / kinetic / stability split — so kinetics (cold side, $E_a$) is
+separated from $T_m$ (hot side, $CT_\text{max}$). Alongside the shares we report a
+**magnitude**: the achievable interquartile range of each descriptor when each axis alone is
+perturbed over $\pm H$, so a large *share* on a negligible *movement* cannot masquerade as
+importance.
 
-- **The thermal envelope dominates every descriptor.** $CT_\text{max}$, $CT_\text{min}$
-  and niche width are $\varphi_E\approx0.99$; $E_a$ 0.97; $T_\text{opt}$ 0.77 (with a
-  sizeable interaction $S_{AE}=0.20$).
-- **The rate is now envelope-dominated too.** $r_\text{max}$ has $\varphi_E=0.72$,
-  $\varphi_A=0.28$ — a far cry from the ~100 % allocation share it carried under the
-  older peak-normalised, scalar-pool convention (@tbl-decomp-compare).
+@fig-decompiqr is the centrepiece. Per axis it shows the family of absolute TPCs reachable
+over $\pm H$, drawn as a median $+$ shaded IQR band with the nominal overlaid. The mapping is
+immediate and is exactly what the elasticity predicted: **allocation moves the plateau
+height, the kinetic envelope moves the cold-side rising limb, and $T_m$ moves the hot edge
+alone**.
 
-So the clean "allocation sets magnitude, envelope sets shape" division of labour **was
-largely a structural artifact** (see Supplementary ablations): peak-normalisation made
-enzyme cost at the optimum independent of the envelope, so $r_\text{max}$ could only
-track the budget; grounding the envelope in $T_m$ and anchoring $k_\text{cat}$ at
-$T_\text{opt}$ lets envelope shifts move the rate. On the complete, data-grounded model
-the answer to O4 is that the envelope (protein stability + turnover) is the **dominant**
-control on the whole TPC, with allocation a real but **secondary ~28 %** contributor to
-the rate and optimum, plus non-negligible interaction.
+![**Achievable TPC bands per axis (centrepiece).** Absolute growth-rate TPCs (1/h, not peak-normalised) reachable by perturbing one axis alone over the standardised $\pm H$ range: median (solid) + interquartile band, nominal dashed. Allocation ($f_\text{metab},f_\text{maint}$) moves the plateau height; the kinetic envelope ($T_\text{opt}$, spread, curvature) moves the cold-side limb; $T_m$/stability moves only the hot falling edge; the full envelope combines the latter two.](assets/figures/decomp_iqr_bands.png){#fig-decompiqr fig-pos="H" width=100%}
 
-![**Achievable descriptor ranges.**](assets/figures/decomp_achievable.png){#fig-decompach fig-pos="H" width=85%}
+**Result — the clean part of H1.3 holds; the earlier "envelope dominates everything" was an
+artefact of the analysis, not the model.** With range-fair, nominal-centred perturbations
+(@tbl-decomp, @fig-decomprecast):
 
-![**Variance partition.**](assets/figures/decomp_variance.png){#fig-decompvar fig-pos="H" width=85%}
+- **The rate is allocation-controlled.** $r_\text{max}$ has $\varphi_A=1.00$; the envelope
+  moves it by $<10^{-13}$ 1/h (achievable IQR $\approx0$ vs $0.13$ 1/h for allocation). This
+  matches the elasticity exactly (envelope elasticity $\approx0$ on $r_\text{max}$) and
+  **overturns** the superseded run's $\varphi_E=0.72$ (@tbl-decomp-compare).
+- **The upper thermal limit is $T_m$/stability-controlled — now with a real magnitude.**
+  $CT_\text{max}$ is $\varphi_E=0.93$, essentially *all* stability
+  ($\varphi_\text{stab}=0.93$, kinetic $0.00$), with an achievable IQR of $1.3$ °C under
+  $T_m$ vs $0.02$ (kinetic) and $0.09$ (allocation). Adding the $dT_m$ knob is what turns the
+  old "insensitive to everything" verdict into a clean, sizeable stability lever.
+- **The cold side and breadth are kinetic-envelope-led.** $CT_\text{min}$ is
+  $\varphi_\text{kin}=0.83$ (IQR 3.5 °C) and niche width $\varphi_\text{kin}=0.73$ — the
+  rising-limb shape is set by $T_\text{opt}$/curvature, matching the elasticity's cold-side
+  ranking.
+- **$T_\text{opt}$ and $E_a$ are coupled, not cleanly split.** $T_\text{opt}$ divides
+  $\varphi_A=0.67$ / $\varphi_E=0.33$ with a **large interaction** $S_{AE}=0.44$ (allocation
+  and envelope shift the optimum *together*); $E_a$ is allocation-led ($\varphi_A=0.85$) with
+  a kinetic remainder ($\varphi_\text{kin}=0.15$). This coupling is precisely why a purely
+  *local* elasticity and a *global* decomposition can appear to disagree on these two
+  descriptors — the interaction is real, and only the crossed design sees it.
 
-![**Shapley effects.**](assets/figures/decomp_shapley.png){#fig-decompshap fig-pos="H" width=85%}
+**Why the earlier decomposition said the opposite.** The superseded run (Supplementary)
+reported "the envelope dominates every descriptor" and "$r_\text{max}$ $\varphi_E=0.72$".
+That conclusion was inflated by four analysis choices, all corrected here: (i) **unequal
+ranges** — the envelope was swept wide ($dT_\text{opt}\pm6$ K, $dC_p\times0.5$–2) while
+allocation was swept narrow, and a wider box buys a larger variance share for free;
+(ii) **off-nominal sampling** — $f_\text{metab}$ was drawn 0.20–0.40 although the measured
+nominal is $\approx0.48$, displacing the allocation axis off the operating point;
+(iii) **shares without magnitude** — reporting only variance fractions let a 93–99 % share on
+a sub-degree $CT_\text{max}$ movement read as "dominant"; and (iv) **no $T_m$ axis** — the one
+dial that actually moves $CT_\text{max}$ was never perturbed. Under equal, nominal-centred,
+magnitude-aware perturbations with $T_m$ included, the rate and optimum are allocation-led,
+the cold-side shape is kinetic-envelope-led, and the upper limit is $T_m$/stability-controlled.
+
+**The honest answer to H1.3.** The division of labour is *partly* clean and *measure-
+dependent*, and that is itself the finding. $r_\text{max}\!\to\!$ allocation and
+$CT_\text{max}\!\to\!T_m$ are clean and sit in opposite corners; the cold side is kinetic;
+but $T_\text{opt}$ and $E_a$ are genuinely coupled (large $S_{AE}$). No single axis "sets
+shape" or "sets magnitude" for the *whole* curve — which is exactly why both classes of
+measurement, proteome allocation **and** the melting proteome ($T_m$), are needed to pin a
+TPC.
+
+![**Recast variance decomposition.** Left: three-group Shapley shares (allocation / kinetic envelope / $T_m$-stability) per descriptor, range-fair and nominal-centred, summing to 1. Right: the achievable IQR magnitude per axis — so a large share on a negligible movement (e.g. $CT_\text{max}$ under kinetics) cannot masquerade as importance.](assets/figures/decomp_recast_variance.png){#fig-decomprecast fig-pos="H" width=95%}
 
 ```{python}
 #| label: tbl-decomp
-#| tbl-cap: "Variance of each descriptor partitioned into allocation (A), envelope (E) and interaction (AE), with Shapley fractions (φ_A, φ_E), on the complete model (sector allocation axis, unfolding envelope)."
+#| tbl-cap: "Recast decomposition (complete model, range-fair H=0.2, nominal-centred, +Tm). Two-group allocation (φ_A) vs envelope (φ_E) Shapley with interaction S_AE, the three-group kinetic/stability split (φ_kin, φ_stab), and the achievable IQR magnitude of the descriptor under each axis alone."
 #| output: asis
-import pandas as pd
+import pandas as pd, json
 
-d = pd.read_csv("assets/tables/decomposition_table.csv")
-cols = [c for c in ["descriptor", "V_A", "V_E", "V_AE", "phi_A", "phi_E"] if c in d.columns]
-print(d[cols].round(3).to_markdown(index=False))
+d = pd.read_csv("assets/tables/decomposition_recast_table.csv").set_index("descriptor")
+m = pd.read_csv("assets/tables/decomposition_recast_magnitude.csv").set_index("descriptor")
+keep = ["Topt_C", "rmax", "CTmin_C", "CTmax_C", "niche_width_C", "Ea_eV"]
+keep = [k for k in keep if k in d.index]
+tab = pd.DataFrame({
+    "descriptor": keep,
+    "φ_A": d.loc[keep, "phi_A"].values,
+    "φ_E": d.loc[keep, "phi_E"].values,
+    "S_AE": d.loc[keep, "S_AE"].values,
+    "φ_kin": d.loc[keep, "phi_kin"].values,
+    "φ_stab": d.loc[keep, "phi_stab"].values,
+    "IQR alloc": m.loc[keep, "IQR_allocation"].values,
+    "IQR kin": m.loc[keep, "IQR_kinetic"].values,
+    "IQR stab": m.loc[keep, "IQR_stability"].values,
+}).round(3)
+print(tab.to_markdown(index=False))
 ```
 
 ```{python}
 #| label: tbl-decomp-compare
-#| tbl-cap: "Allocation Shapley share φ_A of the rate and optimum: the old assumed model (peak-normalised MMRT + scalar pool) vs this complete data-grounded model. The clean allocation=magnitude split does not survive."
+#| tbl-cap: "Allocation Shapley share φ_A per descriptor: the superseded decomposition (unequal envelope-favouring ranges, off-nominal f_metab, shares without magnitude, no Tm) vs the recast (range-fair, nominal-centred, magnitude-aware, +Tm). The rate flips from envelope- to allocation-controlled; CTmax stays envelope but now carries a real magnitude."
 #| output: asis
 import pandas as pd
 
-d = pd.read_csv("assets/tables/decomposition_table.csv").set_index("descriptor")
-rows = [("r_max", "~1.00 (pure allocation)", f"{d.loc['rmax','phi_A']:.2f}"),
-        ("T_opt", "0.61", f"{d.loc['Topt_C','phi_A']:.2f}"),
-        ("CT_max", "0.02", f"{d.loc['CTmax_C','phi_A']:.2f}")]
-print(pd.DataFrame(rows, columns=["descriptor", "φ_A old assumed model", "φ_A complete model"]).to_markdown(index=False))
+old = pd.read_csv("assets/tables/decomposition_table.csv").set_index("descriptor")
+new = pd.read_csv("assets/tables/decomposition_recast_table.csv").set_index("descriptor")
+rows = []
+for lab, k in [("r_max", "rmax"), ("T_opt", "Topt_C"), ("CT_min", "CTmin_C"),
+               ("CT_max", "CTmax_C"), ("E_a", "Ea_eV")]:
+    rows.append((lab, f"{old.loc[k,'phi_A']:.2f}", f"{new.loc[k,'phi_A']:.2f}"))
+print(pd.DataFrame(rows, columns=["descriptor", "φ_A superseded", "φ_A recast"]).to_markdown(index=False))
 ```
 
 **Sector trade-off.** Sweeping the sector split (@fig-sectrade, @fig-secsens) confirms an
@@ -531,27 +604,32 @@ print(summ.to_markdown(index=False))
 
 # Interpretation and caveats
 
-On the complete, data-grounded model the picture is clear and, in one respect, opposite
-to the assumed-model intuition. The **thermal envelope — protein stability ($T_m$) and
-turnover ($T_\text{opt}$, MMRT) — is the dominant control on the entire TPC**: it sets
-the optimum, the denaturation-limited $CT_\text{max}$ and breadth, the activation energy,
-*and*, once grounded, the rate magnitude (72 % of $r_\text{max}$ variance). Proteome
-allocation is a real but **secondary** contributor (~28 % of the rate and optimum, an
-interior sector optimum at the measured allocation) rather than the sole determinant of
-magnitude. Thermal control is concentrated in a few enzymes, yet ~98 % of per-enzyme
-parameters are unidentifiable from growth alone, which is why we ground them in
-independent data (melting proteome, sequence predictors, DLTKcat, temperature
-proteomics) rather than fitting them to the growth curve.
+On the complete, data-grounded model — analysed with equal, nominal-centred perturbations
+and a matched local elasticity — the control of the TPC is **partitioned and measure-
+dependent**, not owned by one axis. **Proteome allocation controls the rate** ($r_\text{max}$
+$\varphi_A=1.0$; an interior sector optimum at the measured allocation); **protein stability
+($T_m$) controls the upper limit** ($CT_\text{max}$ $\varphi_\text{stab}=0.93$, a real
+$\approx1.3$ °C IQR); **the kinetic envelope ($T_\text{opt}$, MMRT curvature) controls the
+cold side and breadth**; and **$T_\text{opt}$ and $E_a$ are genuinely coupled** across
+allocation and envelope (large interaction). So H1.3's "allocation sets magnitude, envelope
+sets shape" is *half right and instructive*: the rate→allocation and $CT_\text{max}\to T_m$
+corners are clean and opposite, but the optimum and activation energy are shared. Thermal
+control is concentrated in a few enzymes, yet ~98 % of per-enzyme parameters are
+unidentifiable from growth alone, which is why we ground them in independent data (melting
+proteome, sequence predictors, DLTKcat, temperature proteomics) rather than fitting them to
+the growth curve.
 
-The earlier concern that the clean division of labour might be *forced by model
-structure* is now **largely addressed and confirmed**: the peak-normalisation /
-temperature-independent-scalar-allocation convention did make $r_\text{max}$ ~100 %
-allocation by construction, and replacing it with grounded stability and measured,
-temperature-dependent allocation collapses that split (Supplementary ablations). Honestly,
-grounding the allocation layer *costs* empirical growth-TPC fit (the sector constraints
-sharpen the curve; $R^2$ falls from 0.74 for the envelope-only model to 0.49 for the
-complete model) — its value is the proteome grounding and the corrected decomposition,
-not a better growth fit.
+This **corrects an earlier version** of the decomposition that reported the envelope as the
+dominant control of *every* descriptor, including 72 % of the rate. That result did not
+survive a range-fair check: it came from sweeping the envelope over wider ranges than
+allocation, sampling allocation off its measured nominal, reporting variance shares without a
+magnitude, and never perturbing $T_m$. Once every axis is moved by the same standardised
+width about the measured operating point and $T_m$ is included, the local elasticity and the
+global decomposition agree (they are two views of one result), and the rate is allocation-,
+not envelope-, controlled. Separately, grounding the allocation layer *costs* empirical
+growth-TPC fit (the sector constraints sharpen the curve; $R^2$ falls from 0.74 for the
+envelope-only model to 0.49 for the complete model) — its value is the proteome grounding and
+the range-fair decomposition, not a better growth fit.
 
 Remaining limitations, all structural / in-silico, and now framed by the emergent
 per-curve validation: **(i)** the emergent rising limb is **too steep** — the
