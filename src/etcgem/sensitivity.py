@@ -148,3 +148,108 @@ def _spearman_matrix(inputs: pd.DataFrame, outputs: pd.DataFrame) -> pd.DataFram
             else:
                 out.loc[a, b] = spearmanr(inputs[a].values[m], y[m]).correlation
     return out
+
+
+# ---------------------------------------------------------------------------
+# equal-perturbation (standardised elasticity) sensitivity
+# ---------------------------------------------------------------------------
+# The LHS/Spearman sweep above scores influence with a RANK correlation over
+# HAND-SET, UNEQUAL per-input ranges: a dial swept over a wider range can rank
+# higher for that reason alone, and rank correlation measures monotonic
+# *consistency*, not *magnitude*. The elasticity analysis instead moves EVERY
+# input by the SAME standardised step h and reports a dimensionless, directly
+# comparable magnitude (a local elasticity) per descriptor, so the ranking
+# reflects the model's structural leverage rather than our range choices.
+
+
+@dataclass
+class ElasticityResult:
+    inputs: List[str]
+    descriptors: List[str]
+    elasticity: pd.DataFrame   # inputs x descriptors: E[D,p] (dimensionless, signed)
+    raw_delta: pd.DataFrame    # inputs x descriptors: raw D(p+) - D(p-)
+    nominal: Dict[str, float]  # descriptor -> nominal value
+    reference_scales: Dict     # h, dTopt reference scale, sector nominal, input list
+
+    def save(self, out_dir: str):
+        os.makedirs(out_dir, exist_ok=True)
+        self.elasticity.to_csv(os.path.join(out_dir, "elasticity_table.csv"))
+        self.raw_delta.to_csv(os.path.join(out_dir, "elasticity_raw_delta.csv"))
+        np.sign(self.raw_delta).to_csv(os.path.join(out_dir, "elasticity_signs.csv"))
+        import json
+        with open(os.path.join(out_dir, "reference_scales.json"), "w") as fh:
+            json.dump(self.reference_scales, fh, indent=2)
+        with open(os.path.join(out_dir, "elasticity_nominal.json"), "w") as fh:
+            json.dump(self.nominal, fh, indent=2)
+
+
+def _elasticity_pert(inp: str, signed_h: float, default_budget: float,
+                     dtopt_ref: float, f_metab_nom, f_maint_nom, group_names):
+    """Build the Perturbation for one input at a standardised signed step.
+
+    Multiplicative inputs (nominal 1) move to 1+signed_h. The additive dTopt shift
+    (nominal 0) moves by signed_h * dtopt_ref, where dtopt_ref is the sd of the
+    per-enzyme Topt distribution (so it is 'h of a natural temperature scale',
+    comparable to an h fractional move of a multiplicative dial). Sector fractions
+    move to nominal*(1+signed_h); set_allocation renormalises the complementary
+    biosynthesis sector (f_bio = 1 - f_metab - f_maint) so the budget still sums."""
+    if inp == "dTopt":
+        return Perturbation(dTopt=signed_h * dtopt_ref)
+    if inp == "topt_scale":
+        return Perturbation(topt_scale=1.0 + signed_h)
+    if inp == "dCp_scale":
+        return Perturbation(dCp_scale=1.0 + signed_h)
+    if inp == "budget_scale":
+        return Perturbation(budget=default_budget * (1.0 + signed_h))
+    if inp == "f_metab":
+        return Perturbation(f_metab=f_metab_nom * (1.0 + signed_h), f_maint=f_maint_nom)
+    if inp == "f_maint":
+        return Perturbation(f_metab=f_metab_nom, f_maint=f_maint_nom * (1.0 + signed_h))
+    if inp.startswith("alloc_"):
+        return Perturbation(group_alloc={inp[len("alloc_"):]: 1.0 + signed_h})
+    raise ValueError(f"unknown elasticity input: {inp}")
+
+
+def run_elasticity(pm, temps_C: Sequence[float], inputs: Sequence[str],
+                   h: float = 0.10, crit_frac: float = 0.05,
+                   group_names: Sequence[str] = (),
+                   descriptors=("Topt_C", "rmax", "CTmax_C", "CTmin_C",
+                                "niche_width_C", "Ea_eV")) -> ElasticityResult:
+    """Central-finite-difference elasticities at the nominal point: every input is
+    perturbed by the SAME standardised step +/- h and each TPC descriptor D gets
+
+        E[D,p] = ( D(p+) - D(p-) ) / ( 2 * h * D_nominal )
+
+    a dimensionless, comparable sensitivity magnitude. Local (around the nominal)."""
+    temps_C = np.asarray(temps_C, float)
+    ec = pm.ec
+    default_budget = ec.default_budget
+    dtopt_ref = float(np.std(np.asarray(ec._Topt, float))) if getattr(ec, "_Topt", None) is not None \
+        and len(ec._Topt) else 5.0
+    sec = getattr(ec, "_sectors", None)
+    f_metab_nom = sec["f_metab_nom"] if sec else None
+    f_maint_nom = sec["f_maint_nom"] if sec else None
+
+    nom = compute_tpc(pm, temps_C, Perturbation()).descriptors(crit_frac).as_dict()
+    descs = [d for d in descriptors if d in nom]
+    E = pd.DataFrame(index=list(inputs), columns=descs, dtype=float)
+    R = pd.DataFrame(index=list(inputs), columns=descs, dtype=float)
+    for inp in inputs:
+        dp = compute_tpc(pm, temps_C, _elasticity_pert(inp, +h, default_budget, dtopt_ref,
+                         f_metab_nom, f_maint_nom, group_names)).descriptors(crit_frac).as_dict()
+        dm = compute_tpc(pm, temps_C, _elasticity_pert(inp, -h, default_budget, dtopt_ref,
+                         f_metab_nom, f_maint_nom, group_names)).descriptors(crit_frac).as_dict()
+        for D in descs:
+            delta = dp.get(D, np.nan) - dm.get(D, np.nan)
+            R.loc[inp, D] = delta
+            Dn = nom.get(D, np.nan)
+            E.loc[inp, D] = delta / (2.0 * h * Dn) if (Dn is not None and np.isfinite(Dn)
+                                                       and abs(Dn) > 1e-9) else np.nan
+    refs = {"h": h, "dTopt_reference_scale_K": round(dtopt_ref, 3),
+            "sector_f_metab_nom": f_metab_nom, "sector_f_maint_nom": f_maint_nom,
+            "inputs": list(inputs),
+            "note": "additive dTopt perturbed by +/- h*dTopt_reference_scale_K; "
+                    "multiplicative inputs by 1 +/- h; sector fractions by nominal*(1 +/- h) "
+                    "with f_bio renormalised."}
+    return ElasticityResult(list(inputs), descs, E, R,
+                            {k: round(float(nom[k]), 4) for k in descs}, refs)
