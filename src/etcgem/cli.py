@@ -383,6 +383,9 @@ def cmd_decompose(args):
         return sys.exit(1)
     os.makedirs(out_dir, exist_ok=True)
     dump_resolved(cfg, out_dir)
+    # recast mode: range-fair, nominal-centred, magnitude-aware, +Tm (H1.3)
+    if cfg.get("recast") or (cfg.get("decomposition", {}) or {}).get("mode") == "recast":
+        return decomposition.run_recast(cfg, out_dir, no_plots=args.no_plots)
     return decomposition.run(cfg, out_dir, no_plots=args.no_plots)
 
 
