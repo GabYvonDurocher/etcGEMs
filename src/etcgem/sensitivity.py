@@ -42,6 +42,7 @@ def _make_perturbation(sample: Dict[str, float], default_budget: float,
         dTopt=sample.get("dTopt", 0.0),
         topt_scale=sample.get("topt_scale", 1.0),
         dCp_scale=sample.get("dCp_scale", 1.0),
+        dTm=sample.get("dTm", 0.0),
     )
     if "budget_scale" in sample:
         p.budget = default_budget * sample["budget_scale"]
@@ -184,17 +185,21 @@ class ElasticityResult:
 
 
 def _elasticity_pert(inp: str, signed_h: float, default_budget: float,
-                     dtopt_ref: float, f_metab_nom, f_maint_nom, group_names):
+                     dtopt_ref: float, f_metab_nom, f_maint_nom, group_names,
+                     dtm_ref: float = 0.0):
     """Build the Perturbation for one input at a standardised signed step.
 
-    Multiplicative inputs (nominal 1) move to 1+signed_h. The additive dTopt shift
-    (nominal 0) moves by signed_h * dtopt_ref, where dtopt_ref is the sd of the
-    per-enzyme Topt distribution (so it is 'h of a natural temperature scale',
-    comparable to an h fractional move of a multiplicative dial). Sector fractions
-    move to nominal*(1+signed_h); set_allocation renormalises the complementary
-    biosynthesis sector (f_bio = 1 - f_metab - f_maint) so the budget still sums."""
+    Multiplicative inputs (nominal 1) move to 1+signed_h. The additive dTopt and
+    dTm shifts (nominal 0) move by signed_h * (their reference scale) -- the sd of
+    the per-enzyme Topt / Tm distribution respectively (so it is 'h of a natural
+    temperature scale', comparable to an h fractional move of a multiplicative
+    dial). Sector fractions move to nominal*(1+signed_h); set_allocation
+    renormalises the complementary biosynthesis sector (f_bio = 1 - f_metab -
+    f_maint) so the budget still sums."""
     if inp == "dTopt":
         return Perturbation(dTopt=signed_h * dtopt_ref)
+    if inp == "dTm":
+        return Perturbation(dTm=signed_h * dtm_ref)
     if inp == "topt_scale":
         return Perturbation(topt_scale=1.0 + signed_h)
     if inp == "dCp_scale":
@@ -226,6 +231,8 @@ def run_elasticity(pm, temps_C: Sequence[float], inputs: Sequence[str],
     default_budget = ec.default_budget
     dtopt_ref = float(np.std(np.asarray(ec._Topt, float))) if getattr(ec, "_Topt", None) is not None \
         and len(ec._Topt) else 5.0
+    dtm_ref = float(np.std(np.asarray(ec._Tm, float))) if getattr(ec, "_Tm", None) is not None \
+        and len(ec._Tm) else 5.0
     sec = getattr(ec, "_sectors", None)
     f_metab_nom = sec["f_metab_nom"] if sec else None
     f_maint_nom = sec["f_maint_nom"] if sec else None
@@ -236,9 +243,9 @@ def run_elasticity(pm, temps_C: Sequence[float], inputs: Sequence[str],
     R = pd.DataFrame(index=list(inputs), columns=descs, dtype=float)
     for inp in inputs:
         dp = compute_tpc(pm, temps_C, _elasticity_pert(inp, +h, default_budget, dtopt_ref,
-                         f_metab_nom, f_maint_nom, group_names)).descriptors(crit_frac).as_dict()
+                         f_metab_nom, f_maint_nom, group_names, dtm_ref)).descriptors(crit_frac).as_dict()
         dm = compute_tpc(pm, temps_C, _elasticity_pert(inp, -h, default_budget, dtopt_ref,
-                         f_metab_nom, f_maint_nom, group_names)).descriptors(crit_frac).as_dict()
+                         f_metab_nom, f_maint_nom, group_names, dtm_ref)).descriptors(crit_frac).as_dict()
         for D in descs:
             delta = dp.get(D, np.nan) - dm.get(D, np.nan)
             R.loc[inp, D] = delta
@@ -246,10 +253,11 @@ def run_elasticity(pm, temps_C: Sequence[float], inputs: Sequence[str],
             E.loc[inp, D] = delta / (2.0 * h * Dn) if (Dn is not None and np.isfinite(Dn)
                                                        and abs(Dn) > 1e-9) else np.nan
     refs = {"h": h, "dTopt_reference_scale_K": round(dtopt_ref, 3),
+            "dTm_reference_scale_K": round(dtm_ref, 3),
             "sector_f_metab_nom": f_metab_nom, "sector_f_maint_nom": f_maint_nom,
             "inputs": list(inputs),
-            "note": "additive dTopt perturbed by +/- h*dTopt_reference_scale_K; "
-                    "multiplicative inputs by 1 +/- h; sector fractions by nominal*(1 +/- h) "
-                    "with f_bio renormalised."}
+            "note": "additive dTopt/dTm perturbed by +/- h*(their reference scale = sd of "
+                    "per-enzyme Topt/Tm); multiplicative inputs by 1 +/- h; sector fractions "
+                    "by nominal*(1 +/- h) with f_bio renormalised."}
     return ElasticityResult(list(inputs), descs, E, R,
                             {k: round(float(nom[k]), 4) for k in descs}, refs)

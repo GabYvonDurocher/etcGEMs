@@ -16,6 +16,7 @@ sensitivity:
   h: 0.10                         # standardised relative step
   inputs:                        # envelope + pool + sector-allocation axes
     - dTopt                      # additive shift of every enzyme optimum (K); step = h * sd(Topt)
+    - dTm                        # additive shift of every enzyme Tm (K); step = h * sd(Tm) -> hot side/CTmax
     - topt_scale                 # spread of enzyme optima about T0
     - dCp_scale                  # MMRT curvature / thermal breadth
     - budget_scale               # total metabolic proteome pool
