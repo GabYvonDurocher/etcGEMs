@@ -402,6 +402,44 @@ def cmd_control(args):
 
 
 # ---------------------------------------------------------------------------
+# elasticity: equal-perturbation (standardised) sensitivity
+# ---------------------------------------------------------------------------
+def cmd_elasticity(args):
+    if not (args.strain and args.experiment):
+        raise SystemExit("elasticity needs --strain NAME --experiment EXP")
+    cfg = resolve(args.strain, args.experiment)
+    out_dir = _out_dir(args.strain, f"elasticity_{args.experiment}")
+    os.makedirs(out_dir, exist_ok=True)
+    pm = _build_pm(cfg)
+    temps = temperature_grid(cfg)
+    s = cfg.get("sensitivity", {}) or {}
+    h = float(args.h if args.h is not None else s.get("h", 0.10))
+    inputs = s.get("inputs") or list(s.get("parameters", {}).keys()) or \
+        ["dTopt", "topt_scale", "dCp_scale", "budget_scale"]
+    from .sensitivity import run_elasticity
+    print(f"[elasticity] model={pm.name} h={h} inputs={inputs}")
+    res = run_elasticity(pm, temps, inputs, h=h, crit_frac=cfg.get("crit_frac", 0.05),
+                         group_names=s.get("groups", []))
+    res.save(out_dir)
+    dump_resolved(cfg, out_dir)
+    if not args.no_plots:
+        try:
+            from .plotting import plot_elasticity_heatmap, plot_elasticity_tornado
+            plot_elasticity_heatmap(res, out_dir)
+            plot_elasticity_tornado(res, out_dir)
+        except Exception as e:
+            print(f"[elasticity] plotting skipped ({e})")
+    print(f"[elasticity] h={h}  dTopt reference scale Δref={res.reference_scales['dTopt_reference_scale_K']} K")
+    for D in [d for d in ("rmax", "Ea_eV", "CTmax_C", "Topt_C") if d in res.elasticity.columns]:
+        rank = res.elasticity[D].astype(float).abs().sort_values(ascending=False)
+        top = rank.index[0]
+        print(f"[elasticity] {D:12s} top input = {top} (E={res.elasticity.loc[top, D]:+.2f}); "
+              f"ranking: " + ", ".join(f"{i}={res.elasticity.loc[i, D]:+.2f}" for i in rank.index))
+    print(f"[elasticity] wrote {out_dir}")
+    return out_dir
+
+
+# ---------------------------------------------------------------------------
 # proteome-sectors: empirical temperature-dependent allocation + validation
 # ---------------------------------------------------------------------------
 def cmd_proteome_sectors(args):
@@ -562,6 +600,15 @@ def build_parser():
     ct.add_argument("--experiment", help="experiment carrying the control: block (optional)")
     ct.add_argument("--no-plots", action="store_true")
     ct.set_defaults(func=cmd_control)
+
+    el = sub.add_parser("elasticity",
+                        help="equal-perturbation (standardised) sensitivity: elasticities "
+                             "E[D,p] moving every input by the same step h")
+    el.add_argument("--strain")
+    el.add_argument("--experiment")
+    el.add_argument("--h", type=float, default=None, help="standardised step (default from experiment / 0.10)")
+    el.add_argument("--no-plots", action="store_true")
+    el.set_defaults(func=cmd_elasticity)
 
     pspar = sub.add_parser("proteome-sectors",
                            help="empirical temperature-dependent proteome allocation + "

@@ -147,6 +147,51 @@ def plot_sector_tradeoff(result, out_dir: str, fname: str = "sector_tradeoff.png
     return p
 
 
+def plot_elasticity_heatmap(result, out_dir: str, fname: str = "elasticity_heatmap.png"):
+    """Heatmap of standardised elasticities E[D,p] (inputs × descriptors), signed."""
+    plt = _mpl()
+    E = result.elasticity.astype(float)
+    vmax = float(np.nanmax(np.abs(E.values))) or 1.0
+    fig, ax = plt.subplots(figsize=(1.2 * E.shape[1] + 3, 0.7 * E.shape[0] + 2))
+    im = ax.imshow(E.values, cmap="RdBu_r", vmin=-vmax, vmax=vmax, aspect="auto")
+    ax.set_xticks(range(E.shape[1])); ax.set_xticklabels(E.columns, rotation=45, ha="right")
+    ax.set_yticks(range(E.shape[0])); ax.set_yticklabels(E.index)
+    for i in range(E.shape[0]):
+        for j in range(E.shape[1]):
+            v = E.values[i, j]
+            if np.isfinite(v):
+                ax.text(j, i, f"{v:.2f}", ha="center", va="center",
+                        color="white" if abs(v) > 0.5 * vmax else "black", fontsize=8)
+    ax.set_title(f"Standardised elasticity E[D,p]  (equal step h={result.reference_scales['h']})")
+    fig.colorbar(im, ax=ax, label="elasticity")
+    fig.tight_layout()
+    p = os.path.join(out_dir, fname); fig.savefig(p, dpi=150); plt.close(fig)
+    return p
+
+
+def plot_elasticity_tornado(result, out_dir: str,
+                            descriptors=("rmax", "Ea_eV", "CTmax_C", "Topt_C", "niche_width_C"),
+                            fname: str = "elasticity_tornado.png"):
+    """Per-descriptor tornado bars: inputs ranked by |elasticity|, signed colour."""
+    plt = _mpl()
+    descs = [d for d in descriptors if d in result.elasticity.columns]
+    n = len(descs)
+    fig, axes = plt.subplots(1, n, figsize=(3.1 * n, 4.4))
+    axes = np.atleast_1d(axes).ravel()
+    for ax, D in zip(axes, descs):
+        s = result.elasticity[D].astype(float).dropna()
+        s = s.reindex(s.abs().sort_values().index)
+        colors = ["tab:red" if v > 0 else "tab:blue" for v in s.values]
+        ax.barh(range(len(s)), s.values, color=colors)
+        ax.set_yticks(range(len(s))); ax.set_yticklabels(s.index, fontsize=8)
+        ax.axvline(0, color="0.5", lw=0.8)
+        ax.set_title(D, fontsize=10); ax.set_xlabel("elasticity")
+    fig.suptitle("Which inputs drive each TPC descriptor (equal-perturbation elasticity; red +, blue −)")
+    fig.tight_layout()
+    p = os.path.join(out_dir, fname); fig.savefig(p, dpi=150); plt.close(fig)
+    return p
+
+
 def plot_all(result, out_dir: str):
     os.makedirs(out_dir, exist_ok=True)
     figs = [
