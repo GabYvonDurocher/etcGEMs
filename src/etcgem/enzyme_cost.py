@@ -111,12 +111,15 @@ class Perturbation:
     topt_scale   : multiplies each enzyme's (Topt - T0) spread about T0 -> widens
                    or compresses the *heterogeneity* of optima across enzymes
     dCp_scale    : multiplies every enzyme's dCp (curvature / thermal breadth)
+    dTm          : uniform shift (K) added to every enzyme's melting temperature Tm
+                   (unfolding mode only) -> moves the denaturation collapse / CTmax
     budget       : total proteome pool P (g/gDW); None keeps model default
     group_alloc  : per-group multiplier on that group's sub-budget (allocation)
     """
     dTopt: float = 0.0
     topt_scale: float = 1.0
     dCp_scale: float = 1.0
+    dTm: float = 0.0
     budget: Optional[float] = None
     group_alloc: Dict[str, float] = field(default_factory=dict)
     # Proteome-sector allocation (opt-in; None -> use the scalar pool / set_budget
@@ -201,17 +204,18 @@ class EnzymeConstrainedModel:
         dataset-mean fallbacks for enzymes without measured values."""
         from . import unfolding as U
         ents = self.table.entries
-        hth, sts, cpu, cpt = [], [], [], []
+        hth, sts, cpu, cpt, tms = [], [], [], [], []
         for e in ents:
             Tm = e.Tm if e.Tm is not None and np.isfinite(e.Tm) else self._unfold_mean_Tm
             length = e.length if e.length is not None and np.isfinite(e.length) else self._unfold_mean_len
             dHTH, dSTS, dCpu = U.unfolding_params(Tm, e.T90, length)
-            hth.append(dHTH); sts.append(dSTS); cpu.append(dCpu)
+            hth.append(dHTH); sts.append(dSTS); cpu.append(dCpu); tms.append(Tm)
             cpt.append(e.dCpt if e.dCpt is not None and np.isfinite(e.dCpt) else self._unfold_mean_dCpt)
         self._uHTH = np.array(hth, float)
         self._uSTS = np.array(sts, float)
         self._uCpu = np.array(cpu, float)
         self._uCpt = np.array(cpt, float)
+        self._Tm = np.array(tms, float)   # per-enzyme Tm (K), for the dTm reference scale
 
     # -- construction -------------------------------------------------------
     def _build(self):
@@ -272,13 +276,15 @@ class EnzymeConstrainedModel:
         (NOT peak-normalised) and f_N_i is the native fraction (-> 0 above Tm), so
         denaturation sets the falling limb. The envelope knobs still apply:
         dTopt/topt_scale shift the enzyme optima, dCp_scale scales the
-        transition-state heat capacity; Tm (denaturation) is held at its grounded
-        value. base_cost is the cost at Topt, as in the reference model."""
+        transition-state heat capacity, and dTm shifts the denaturation temperature
+        Tm (a +dTm shift of every Tm is applied by evaluating the native fraction at
+        T - dTm, following the reference etc.py ``Tadj``; so +dTm pushes CTmax up).
+        base_cost is the cost at Topt, as in the reference model."""
         from . import unfolding as U
         Topt_eff = self._T0 + pert.topt_scale * (self._Topt - self._T0) + pert.dTopt
         dCpt_eff = self._uCpt * pert.dCp_scale
         rk = U.rel_kcat(T, self._uHTH, self._uSTS, self._uCpu, dCpt_eff, Topt_eff)
-        fN = U.native_fraction(T, self._uHTH, self._uSTS, self._uCpu)
+        fN = U.native_fraction(T - pert.dTm, self._uHTH, self._uSTS, self._uCpu)
         denom = np.clip(rk * fN, 1e-6, None)
         return self._base / denom
 
