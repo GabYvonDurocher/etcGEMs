@@ -309,25 +309,77 @@ print(c.round(3).to_markdown(index=False))
 
 # What generates TPC variation (global sensitivity)
 
-A Latin-hypercube sweep over the envelope knobs ($dT_\text{opt}$, `topt_scale`,
-`dCp_scale`) and a proteome-pool knob (`budget_scale`) on the complete model gives the
-descriptor distributions of @fig-descdist and the Spearman sensitivities of @fig-sens
-and @tbl-sens. Because the melting temperatures are grounded and held fixed, the pattern
-is **coupled** rather than one-input-per-descriptor: $T_\text{opt}$ tracks the optimum
-shift ($\rho=0.77$); $CT_\text{max}$ and breadth track $dT_\text{opt}$ through the fixed
-denaturation ceiling ($\rho=0.78$, $-0.61$); $E_a$ tracks the curvature (`dCp_scale`
-$\rho=0.65$); and — tellingly — **$r_\text{max}$ is depressed by envelope shifts**
-($dT_\text{opt}$ $\rho=-0.57$) more than it is raised by the pool budget ($\rho=0.13$),
-because pushing optima toward the fixed $T_m$ compresses the usable window. Already at
-first order, the envelope drives the rate.
+To ask **which parts of the model most drive the shape of the TPC**, we move every
+input by an *equal, standardised* amount and report a dimensionless magnitude. This
+avoids two problems with a hand-set Latin-hypercube + rank-correlation sweep (kept below
+as a rank-consistency view): a dial given a wider range can rank higher for that reason
+alone, and a rank correlation measures monotonic *consistency*, not the *magnitude* of
+the effect.
 
-![**Global sensitivity of TPC descriptors (complete model).** Spearman rank-correlation between each swept input and each descriptor; red positive, blue negative.](assets/figures/sensitivity_heatmap.png){#fig-sens fig-pos="H" width=90%}
+**Method (elasticities).** Around the nominal complete model we perturb each input by
+the same standardised step $\pm h$ (here $h=0.10$) by central finite difference and
+compute, for each descriptor $D$, a local **elasticity**
 
-![**Descriptor distributions across the sweep.**](assets/figures/descriptor_distributions.png){#fig-descdist fig-pos="H" width=90%}
+$$E[D,p] = \frac{D(p+)-D(p-)}{2\,h\,D_\text{nominal}}, $$ {#eq-elasticity}
+
+the fractional change in $D$ per standardised step of input $p$. Multiplicative inputs
+(`topt_scale`, `dCp_scale`, `budget_scale`, the sector fractions) move to $1\pm h$; the
+additive optimum shift $dT_\text{opt}$ (nominal 0) moves by $\pm h\,\Delta_\text{ref}$
+with $\Delta_\text{ref}=4.25$ K, the standard deviation of the per-enzyme $T_\text{opt}$
+distribution, so it is "$h$ of a natural temperature scale"; sector fractions move by
+$\text{nominal}\times(1\pm h)$ with the biosynthesis sector renormalised. Because every
+input uses the same $h$, the elasticities are directly comparable in magnitude
+(@fig-elast-tornado, @fig-elast-heat, @tbl-elasticity).
+
+**Result — allocation drives the rate, the envelope drives the shape, the limit is
+frozen.** The ranking is clear and, in places, sharper than the rank-correlation view:
+
+- **$r_\text{max}$ is driven by the allocation split** ($E=-1.5$ for $f_\text{metab}$,
+  $-1.1$ for $f_\text{maint}$) and, locally, *not* by the pool budget or the envelope
+  ($|E|\lesssim0.01$): reallocating proteome mass out of the biosynthesis sector lowers
+  the translation cap and the rate.
+- **$E_a$ is driven by the curvature and the allocation** (`dCp_scale` $E=+0.53$,
+  $f_\text{metab}$ $+1.3$, `budget_scale` $+0.51$).
+- **$CT_\text{max}$ is essentially insensitive to *every* swept input** ($|E|\le0.01$):
+  it is pinned to the *fixed, grounded* melting temperatures, so nothing we perturb here
+  moves it — the only lever on $CT_\text{max}$ is $T_m$ itself.
+- **Thermal breadth** is envelope-driven (`dCp_scale` $E=-0.41$, `topt_scale` $-0.39$),
+  acting through the cold limit $CT_\text{min}$ rather than the frozen $CT_\text{max}$.
+
+This differs from the rank-correlation ranking (@fig-sens) mainly because that view swept
+inputs over *unequal* ranges and scored monotonic consistency, so a wide `dCp_scale`
+swing and the peak's drift toward $T_m$ over a wide $dT_\text{opt}$ range register there,
+whereas the equal-step *local* elasticities isolate the structural leverage — chiefly the
+allocation split for the rate and the (unperturbable) $T_m$ for the upper limit. These
+elasticities answer the **structural** question ("which parts of the model drive the
+TPC"); a complementary **uncertainty-weighted** analysis — varying each input across its
+real measurement uncertainty to prioritise *what to measure* — is a planned follow-up.
+
+![**Equal-perturbation elasticities per descriptor.** Inputs ranked by $|E|$ for each TPC descriptor (red $+$, blue $-$); note $CT_\text{max}$ is near-zero for every input (frozen at the grounded $T_m$).](assets/figures/elasticity_tornado.png){#fig-elast-tornado fig-pos="H" width=95%}
+
+![**Elasticity heatmap** (inputs × descriptors, standardised step $h=0.10$).](assets/figures/elasticity_heatmap.png){#fig-elast-heat fig-pos="H" width=85%}
+
+```{python}
+#| label: tbl-elasticity
+#| tbl-cap: "Standardised elasticities E[D,p] on the complete model (equal step h=0.10; additive dTopt by ±h·Δref, Δref=4.25 K = sd of enzyme Topt). Directly comparable in magnitude across inputs."
+#| output: asis
+import pandas as pd
+
+e = pd.read_csv("assets/tables/elasticity_table.csv", index_col=0)
+keep = [c for c in ["Topt_C", "rmax", "CTmax_C", "niche_width_C", "Ea_eV"] if c in e.columns]
+print(e[keep].round(2).to_markdown())
+```
+
+**Rank-consistency view (Spearman).** For comparison, a Latin-hypercube sweep with
+hand-set ranges and Spearman rank correlations (@fig-sens, @tbl-sens) gives the monotonic
+*consistency* of each input–descriptor relationship over those ranges — useful but
+range-dependent and magnitude-blind.
+
+![**Rank-consistency (Spearman) sensitivities (complete model).** Spearman rank-correlation between each swept input and each descriptor over hand-set ranges; red positive, blue negative.](assets/figures/sensitivity_heatmap.png){#fig-sens fig-pos="H" width=90%}
 
 ```{python}
 #| label: tbl-sens
-#| tbl-cap: "Spearman sensitivity indices (input × TPC descriptor) on the complete model."
+#| tbl-cap: "Spearman rank-consistency indices (input × TPC descriptor) over the hand-set LHS ranges — the range-dependent, magnitude-blind view."
 #| output: asis
 import pandas as pd
 

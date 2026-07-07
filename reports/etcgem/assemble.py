@@ -41,6 +41,7 @@ RUNS = {
     "validation": os.path.join(STRAIN, "validation"),            # empirical TPC fit
     "ablation":   os.path.join(STRAIN),                          # ablation_* live in outputs/
     "percurve":   os.path.join(STRAIN, "percurve_validation"),   # emergent per-curve validation
+    "elasticity": os.path.join(STRAIN, "elasticity_elasticity"), # equal-perturbation sensitivity
 }
 
 FIG_DIR = os.path.join(HERE, "assets", "figures")
@@ -67,6 +68,8 @@ FIGURES = [
     ("ablation",   "ablation_comparison.png",      "ablation_comparison.png"),
     ("percurve",   "percurve_smallmultiples.png",  "percurve_smallmultiples.png"),
     ("percurve",   "percurve_R2_distribution.png", "percurve_R2_distribution.png"),
+    ("elasticity", "elasticity_tornado.png",       "elasticity_tornado.png"),
+    ("elasticity", "elasticity_heatmap.png",       "elasticity_heatmap.png"),
 ]
 
 TABLES = [
@@ -86,6 +89,8 @@ TABLES = [
     ("ablation",   "ablation_summary.csv",      "ablation_summary.csv"),
     ("percurve",   "percurve_table.csv",        "percurve_table.csv"),
     ("percurve",   "percurve_summary.json",     "percurve_summary.json"),
+    ("elasticity", "elasticity_table.csv",      "elasticity_table.csv"),
+    ("elasticity", "reference_scales.json",     "elasticity_reference_scales.json"),
 ]
 
 # resolved_config.yaml for supplementary provenance: first available wins.

@@ -1,0 +1,15 @@
+{
+  "h": 0.1,
+  "dTopt_reference_scale_K": 4.249,
+  "sector_f_metab_nom": 0.483,
+  "sector_f_maint_nom": 0.326,
+  "inputs": [
+    "dTopt",
+    "topt_scale",
+    "dCp_scale",
+    "budget_scale",
+    "f_metab",
+    "f_maint"
+  ],
+  "note": "additive dTopt perturbed by +/- h*dTopt_reference_scale_K; multiplicative inputs by 1 +/- h; sector fractions by nominal*(1 +/- h) with f_bio renormalised."
+}
