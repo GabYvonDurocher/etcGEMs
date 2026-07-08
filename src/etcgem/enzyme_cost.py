@@ -118,6 +118,13 @@ class Perturbation:
                    f_bio * P_total, so kappa_scale > 1 relaxes the translation cap and
                    raises the achievable r_max (sectors mode only). The honest
                    magnitude lever -- a genuinely uncertain/borrowed quantity.
+    kcat_scale   : global multiplier on metabolic enzyme turnover kcat -- scales the
+                   *level* of kcat(T) (equivalently divides every per-flux cost), so a
+                   value > 1 lowers enzyme demand and raises the pool-limited flux
+                   ceiling / r_max. It scales the level, NOT the shape, so it leaves
+                   E_a / T_opt / CT_max unchanged. The in-vitro->in-vivo kcat gap is the
+                   physical prior; a single global scalar (per-enzyme kcat corrections
+                   are unidentifiable from one growth curve).
     budget       : total proteome pool P (g/gDW); None keeps model default
     group_alloc  : per-group multiplier on that group's sub-budget (allocation)
     """
@@ -126,6 +133,7 @@ class Perturbation:
     dCp_scale: float = 1.0
     dTm: float = 0.0
     kappa_scale: float = 1.0
+    kcat_scale: float = 1.0
     budget: Optional[float] = None
     group_alloc: Dict[str, float] = field(default_factory=dict)
     # Proteome-sector allocation (opt-in; None -> use the scalar pool / set_budget
@@ -272,7 +280,7 @@ class EnzymeConstrainedModel:
         peak = relative_kcat_vec(Topt_eff, self._T0, Topt_eff, dCp_eff)  # value at each Topt
         s = np.nan_to_num(rel / peak, nan=1e-6, posinf=1e6, neginf=1e-6)
         s = np.clip(s, 1e-6, 1e6)             # normalised shape, <=1 at Topt; finite guard
-        return self._base / s
+        return self._base / (s * pert.kcat_scale)
 
     def _costs_unfolding(self, T: float, pert: Perturbation) -> np.ndarray:
         """Two-state-unfolding per-flux cost (Li 2021 / MRes):
@@ -298,7 +306,7 @@ class EnzymeConstrainedModel:
         # solver. A no-op in the physical regime (rk*fN in [1e-6, 1]).
         prod = np.nan_to_num(rk * fN, nan=1e-6, posinf=1e6, neginf=1e-6)
         denom = np.clip(prod, 1e-6, 1e6)
-        return self._base / denom
+        return self._base / (denom * pert.kcat_scale)
 
     def set_temperature(self, T: float, pert: Optional[Perturbation] = None):
         """Recompute all pool coefficients for temperature T (K)."""
