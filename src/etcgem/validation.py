@@ -54,14 +54,9 @@ CURVES = [
               "Van Derlinden 2012 — K-12 MG1655, BHI (rich)", "tab:blue", digitized=True),
 ]
 
-# Optional secondary rich cross-checks (not exact-strain / lower confidence), kept
-# for reference but not the main validation. Noll (NCM3722, wrong strain) is dropped.
-SECONDARY = [
-    CurveSpec("erdos_LB",
-              "erdos2026_unpubl/erdos2026_mg1655_wt_nokan_tpc.csv",
-              "LB",
-              "Erdos 2026 — MG1655 wt, LB (rich; unpublished)", "tab:orange", digitized=True),
-]
+# The validation is Van Derlinden only (exact strain). Noll (NCM3722, wrong strain)
+# and Erdos (unpublished LB cross-check) are dropped from the pipeline.
+SECONDARY = []
 
 
 # ---------------------------------------------------------------------------

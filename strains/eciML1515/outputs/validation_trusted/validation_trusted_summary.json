@@ -20,27 +20,5 @@
     "obs_Ea_eV": 0.643,
     "pred_Ea_eV": 0.819,
     "role": "primary"
-  },
-  "erdos_LB": {
-    "study": "Erdos et al. 2026 (unpublished)",
-    "strain": "E. coli K-12 MG1655 (wt)",
-    "medium": "LB",
-    "digitized": true,
-    "n": 11,
-    "T_range_C": [
-      16.0,
-      45.0
-    ],
-    "abs_R2": -0.348,
-    "RMSE_per_h": 0.826,
-    "obs_rmax": 2.35,
-    "pred_rmax": 1.036,
-    "obs_Topt_C": 40.0,
-    "pred_Topt_C": 37.0,
-    "obs_CTmax_C": 45.0,
-    "pred_CTmax_C": 50.0,
-    "obs_Ea_eV": 0.761,
-    "pred_Ea_eV": 0.828,
-    "role": "secondary_crosscheck"
   }
 }
