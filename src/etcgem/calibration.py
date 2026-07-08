@@ -107,10 +107,12 @@ def build_priors(obs_rates: np.ndarray, cfg: Optional[dict] = None) -> Dict:
         "sigma_noise": {"dist": "halfnormal", "scale": sigma_scale,
                         "note": "Gaussian residual sd on absolute rate (1/h); "
                                 "weakly-informative from data scatter"},
-        # hard support bounds (keep the sampler in a physical region)
-        "bounds": {"dTopt": [-20.0, 20.0], "dTm": [-25.0, 25.0],
-                   "dCp_scale": [0.1, 6.0], "kappa_scale": [0.02, 30.0],
-                   "sigma_noise": [1e-4, 5.0]},
+        # hard support bounds: keep the sampler in a physical, numerically
+        # well-behaved region (GLPK can stall on the degenerate LPs that extreme
+        # cost distributions produce). These comfortably contain the posterior.
+        "bounds": {"dTopt": [-12.0, 12.0], "dTm": [-15.0, 15.0],
+                   "dCp_scale": [0.25, 4.0], "kappa_scale": [0.05, 20.0],
+                   "sigma_noise": [1e-4, 2.0]},
     }
     return pri
 
@@ -185,15 +187,21 @@ _OBS: Optional[np.ndarray] = None
 _PRI: Optional[Dict] = None
 
 
+def _set_solver_timeout(pm, seconds):
+    """Cap each LP solve so a slow/degenerate perturbation cannot stall the run
+    (a timed-out solve returns no growth, which compute_tpc reads as rate 0)."""
+    try:
+        pm.ec.model.solver.configuration.timeout = int(seconds)
+    except Exception:
+        pass
+
+
 def _worker_init(strain, curve_id, medium, priors):
     global _SIM, _OBS, _PRI
     from .config import resolve, build_provider
     from .providers import set_medium
     pm = build_provider(resolve(strain))
-    try:
-        pm.ec.model.solver.configuration.timeout = 10
-    except Exception:
-        pass
+    _set_solver_timeout(pm, 2)   # cap slow/degenerate LP solves so no eval stalls
     set_medium(pm, medium, "glc__D", True)
     temps, rates, _ = load_curve(strain, curve_id)
     _SIM = Simulator(pm, temps)
@@ -235,24 +243,22 @@ def run_emcee(strain: str, curve_id: str, out_dir: str, *, medium="glucose_minim
     from .config import resolve, build_provider
     from .providers import set_medium
     pm = build_provider(resolve(strain))
-    try:
-        pm.ec.model.solver.configuration.timeout = 10
-    except Exception:
-        pass
+    _set_solver_timeout(pm, 2)
     set_medium(pm, medium, "glc__D", True)
     temps, obs, meta = load_curve(strain, curve_id)
     sim = Simulator(pm, temps)
     pri = build_priors(obs, priors_cfg)
 
-    # initialise walkers by sampling the prior (centred on the emergent point but
-    # spread over the prior widths, so the ensemble covers the parameter space and
-    # mixes robustly toward the posterior mode rather than a tiny ball at theta=0)
+    # initialise walkers around the emergent point, spread over a fraction of the
+    # prior widths so the ensemble covers the space but no walker starts in an
+    # extreme, numerically degenerate region (keeps GLPK well-behaved at burn-in).
     rng0 = np.random.default_rng(seed)
+    b = pri["bounds"]
     p0 = np.column_stack([
-        rng0.normal(0.0, pri["dTopt"]["scale"], n_walkers),
-        rng0.normal(0.0, pri["dTm"]["scale"], n_walkers),
-        rng0.normal(0.0, pri["dCp_scale"]["log_scale"], n_walkers),
-        rng0.normal(0.0, pri["kappa_scale"]["log_scale"], n_walkers),
+        np.clip(rng0.normal(0.0, 0.6 * pri["dTopt"]["scale"], n_walkers), *b["dTopt"]),
+        np.clip(rng0.normal(0.0, 0.6 * pri["dTm"]["scale"], n_walkers), *b["dTm"]),
+        rng0.normal(0.0, 0.6 * pri["dCp_scale"]["log_scale"], n_walkers),
+        rng0.normal(0.0, 0.6 * pri["kappa_scale"]["log_scale"], n_walkers),
         np.log(pri["sigma_noise"]["scale"]) + 0.2 * rng0.standard_normal(n_walkers),
     ])
 
@@ -360,7 +366,9 @@ def _finalise_outputs(out_dir, flat, sim, obs, pri, meta, result, pm):
     # ~1 C grid (coarse enough to be fast for the predictive band, fine enough for descriptors)
     t_lo = min(float(sim.temps_C.min()), 5.0)
     t_hi = max(float(sim.temps_C.max()), 55.0)
-    dense = np.linspace(t_lo, t_hi, int(round(t_hi - t_lo)) + 1)
+    # ~1.7 C grid: fine enough to read Topt/CTmax, coarse enough to keep the
+    # posterior-predictive band (many curves) affordable
+    dense = np.linspace(t_lo, t_hi, int(round((t_hi - t_lo) / 1.7)) + 1)
     prior_curve = compute_tpc(pm, dense, Perturbation()).growth
     med_theta = [np.median(flat[:, j]) for j in range(NDIM)]
     post_med_curve = compute_tpc(pm, dense, theta_to_pert(med_theta)).growth
@@ -378,7 +386,7 @@ def _finalise_outputs(out_dir, flat, sim, obs, pri, meta, result, pm):
 
     # --- posterior-predictive band (subsample the chain) ---
     rng = np.random.default_rng(0)
-    n_pp = min(150, flat.shape[0])
+    n_pp = min(120, flat.shape[0])
     pick = rng.choice(flat.shape[0], size=n_pp, replace=False)
     pp = np.vstack([compute_tpc(pm, dense, theta_to_pert(flat[i])).growth for i in pick])
     pp_lo, pp_med, pp_hi = np.percentile(pp, [5, 50, 95], axis=0)

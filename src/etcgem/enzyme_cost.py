@@ -270,7 +270,8 @@ class EnzymeConstrainedModel:
         dCp_eff = self._dCp * pert.dCp_scale
         rel = relative_kcat_vec(T, self._T0, Topt_eff, dCp_eff)
         peak = relative_kcat_vec(Topt_eff, self._T0, Topt_eff, dCp_eff)  # value at each Topt
-        s = np.clip(rel / peak, 1e-6, None)   # normalised shape, <=1, =1 at Topt
+        s = np.nan_to_num(rel / peak, nan=1e-6, posinf=1e6, neginf=1e-6)
+        s = np.clip(s, 1e-6, 1e6)             # normalised shape, <=1 at Topt; finite guard
         return self._base / s
 
     def _costs_unfolding(self, T: float, pert: Perturbation) -> np.ndarray:
@@ -291,7 +292,12 @@ class EnzymeConstrainedModel:
         dCpt_eff = self._uCpt * pert.dCp_scale
         rk = U.rel_kcat(T, self._uHTH, self._uSTS, self._uCpu, dCpt_eff, Topt_eff)
         fN = U.native_fraction(T - pert.dTm, self._uHTH, self._uSTS, self._uCpu)
-        denom = np.clip(rk * fN, 1e-6, None)
+        # numerical guard: clamp the turnover*fold product to a finite, strictly
+        # positive band so no enzyme becomes free (denom=inf -> cost=0) or NaN under
+        # extreme perturbations, which would leave the LP degenerate and hang the
+        # solver. A no-op in the physical regime (rk*fN in [1e-6, 1]).
+        prod = np.nan_to_num(rk * fN, nan=1e-6, posinf=1e6, neginf=1e-6)
+        denom = np.clip(prod, 1e-6, 1e6)
         return self._base / denom
 
     def set_temperature(self, T: float, pert: Optional[Perturbation] = None):
