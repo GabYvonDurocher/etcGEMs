@@ -42,15 +42,19 @@ def compute_tpc(pm, temps_C: Sequence[float], pert: Optional[Perturbation] = Non
             # temperature-dependent allocation from measured proteomics (opt-in):
             # the measured f_sector(T) drives the sector split at each temperature.
             fm, fmaint = ecm._alloc_from_data.model_alloc(float(Tc))
-            ecm.set_allocation(fm, fmaint)
+            ecm.set_allocation(fm, fmaint, kappa_scale=pert.kappa_scale)
         elif use_alloc:
             # proteome-sector allocation path (opt-in; needs sectors wired)
             f_maint = pert.f_maint
             if pert.maint_to_bio is not None and ecm._sectors is not None:
                 f_maint = ecm._sectors["f_maint_nom"] * (1.0 - pert.maint_to_bio)
-            ecm.set_allocation(pert.f_metab, f_maint)
+            ecm.set_allocation(pert.f_metab, f_maint, kappa_scale=pert.kappa_scale)
         else:
             ecm.set_budget(budget, pert.group_alloc)
+            # translation-efficiency lever on the biosynthesis cap (sectors mode)
+            if ecm._sectors is not None and pert.kappa_scale != 1.0:
+                s = ecm._sectors
+                s["bio_constraint"].ub = s["f_bio_nom"] * s["P_total"] * float(pert.kappa_scale)
         g = ecm.model.slim_optimize()
         if g is None or not np.isfinite(g) or g < min_growth:
             g = 0.0

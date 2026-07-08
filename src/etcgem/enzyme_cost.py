@@ -113,6 +113,11 @@ class Perturbation:
     dCp_scale    : multiplies every enzyme's dCp (curvature / thermal breadth)
     dTm          : uniform shift (K) added to every enzyme's melting temperature Tm
                    (unfolding mode only) -> moves the denaturation collapse / CTmax
+    kappa_scale  : multiplier on the effective in-vivo translation efficiency in the
+                   biosynthesis cap: (translation_coeff / kappa_scale) * v_bio <=
+                   f_bio * P_total, so kappa_scale > 1 relaxes the translation cap and
+                   raises the achievable r_max (sectors mode only). The honest
+                   magnitude lever -- a genuinely uncertain/borrowed quantity.
     budget       : total proteome pool P (g/gDW); None keeps model default
     group_alloc  : per-group multiplier on that group's sub-budget (allocation)
     """
@@ -120,6 +125,7 @@ class Perturbation:
     topt_scale: float = 1.0
     dCp_scale: float = 1.0
     dTm: float = 0.0
+    kappa_scale: float = 1.0
     budget: Optional[float] = None
     group_alloc: Dict[str, float] = field(default_factory=dict)
     # Proteome-sector allocation (opt-in; None -> use the scalar pool / set_budget
@@ -328,13 +334,17 @@ class EnzymeConstrainedModel:
                     self._group_cons[g].ub = base * mult
 
     def set_allocation(self, f_metab: Optional[float] = None,
-                       f_maint: Optional[float] = None):
+                       f_maint: Optional[float] = None,
+                       kappa_scale: float = 1.0):
         """Set the three-sector proteome partition (Basan/Scott) in place.
 
         f_bio = 1 - f_metab - f_maint. Updates the metabolic pool bound
         (f_metab*P_total), the biosynthesis cap (f_bio*P_total) and, if present,
         the maintenance-ATP lower bound (scaled by f_maint / f_maint_nominal).
-        Requires sectors wired via sectors.add_proteome_sectors."""
+        ``kappa_scale`` (>0) multiplies the biosynthesis cap bound, equivalent to
+        dividing the translation coefficient by kappa_scale -- the in-vivo
+        translation-efficiency lever on r_max. Requires sectors wired via
+        sectors.add_proteome_sectors."""
         s = self._sectors
         if s is None:
             raise RuntimeError("proteome sectors not enabled; call "
@@ -348,7 +358,7 @@ class EnzymeConstrainedModel:
                              f"f_maint={fmaint}, f_bio={fbio}")
         P = s["P_total"]
         self._pool.ub = fm * P
-        s["bio_constraint"].ub = fbio * P
+        s["bio_constraint"].ub = fbio * P * float(kappa_scale)
         atpm = s["atpm_rxn"]
         if atpm is not None and s["f_maint_nom"] > 0:
             atpm.lower_bound = s["atpm_nom_lb"] * (fmaint / s["f_maint_nom"])
