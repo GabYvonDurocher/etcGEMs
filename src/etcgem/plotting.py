@@ -314,8 +314,12 @@ def plot_example_kcatT(ec, temps_C, out_dir: str, n_examples: int = 10,
     tm = np.asarray(ec._Tm, float)
     hth, sts, cpu, cpt = ec._uHTH, ec._uSTS, ec._uCpu, ec._uCpt
     finite = np.where(np.isfinite(topt) & np.isfinite(tm))[0]
-    order = finite[np.argsort(topt[finite])]
-    # ~n_examples enzymes evenly spaced across the Topt range
+    # exclude extreme outliers (they distort the panel and the colour gradient):
+    # keep the central 2nd-98th percentile of Topt before spreading examples across it
+    lo, hi = np.percentile(topt[finite], [2, 98])
+    core = finite[(topt[finite] >= lo) & (topt[finite] <= hi)]
+    order = core[np.argsort(topt[core])]
+    # ~n_examples enzymes evenly spaced across the (clipped) Topt range
     qs = np.linspace(0, len(order) - 1, n_examples).round().astype(int)
     idx = list(dict.fromkeys(order[qs].tolist()))
     # add highlighted control enzymes if present
