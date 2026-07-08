@@ -173,18 +173,3 @@ print("```yaml")
 print(cfg.rstrip())
 print("```")
 ```
-
-## S7. Full global-sensitivity table
-
-Spearman rank-correlation between every swept input and every TPC descriptor
-(@tbl-sens-full).
-
-```{python}
-#| label: tbl-sens-full
-#| tbl-cap: "Full Spearman sensitivity matrix (all inputs × all TPC descriptors)."
-#| output: asis
-import pandas as pd
-
-s = pd.read_csv("assets/tables/sensitivity_spearman.csv", index_col=0)
-print(s.round(3).to_markdown())
-```
