@@ -1,0 +1,53 @@
+{
+  "noll_minimal": {
+    "study": "Katipoglu-Yazan et al. 2023 (Data in Brief 48:109037)",
+    "strain": "E. coli K-12 NCM3722 (delta motA, non-motile)",
+    "medium": "glucose_minimal",
+    "digitized": false,
+    "n": 18,
+    "T_range_C": [
+      28.0,
+      45.0
+    ],
+    "abs_R2": -7.555,
+    "RMSE_per_h": 0.428,
+    "obs_rmax": 1.13,
+    "pred_rmax": 0.55,
+    "obs_Topt_C": 42.0,
+    "pred_Topt_C": 30.0,
+    "obs_CTmax_C": 45.0,
+    "pred_CTmax_C": 46.8,
+    "obs_Ea_eV": 0.317,
+    "pred_Ea_eV": 0.963
+  },
+  "erdos_LB": {
+    "study": "Erdos et al. 2026 (unpublished)",
+    "strain": "E. coli K-12 MG1655 (wt)",
+    "medium": "LB",
+    "digitized": true,
+    "n": 11,
+    "T_range_C": [
+      16.0,
+      45.0
+    ],
+    "abs_R2": -0.348,
+    "RMSE_per_h": 0.826,
+    "obs_rmax": 2.35,
+    "pred_rmax": 1.036,
+    "obs_Topt_C": 40.0,
+    "pred_Topt_C": 37.0,
+    "obs_CTmax_C": 45.0,
+    "pred_CTmax_C": 50.0,
+    "obs_Ea_eV": 0.761,
+    "pred_Ea_eV": 0.828
+  },
+  "magnitude_contrast": {
+    "observed_rich_over_minimal": 2.08,
+    "model_rich_over_minimal": 1.88,
+    "obs_rmax_minimal": 1.13,
+    "obs_rmax_rich": 2.35,
+    "model_rmax_minimal": 0.55,
+    "model_rmax_rich": 1.036,
+    "note": "model reproduces the rich>minimal direction/ratio; both absolute rates under-predicted (kcat scale / sigma / medium composition)"
+  }
+}
