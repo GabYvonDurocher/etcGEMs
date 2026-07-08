@@ -1,0 +1,162 @@
+{
+  "strain": "eciML1515",
+  "curve": {
+    "curve_id": "Noll2023_NCM3722",
+    "study": "Katipoglu-Yazan et al. 2023 (Data in Brief 48:109037)",
+    "strain": "E. coli K-12 NCM3722 (delta motA, non-motile)",
+    "medium_class": "glucose_minimal",
+    "medium_detail": "Modified MOPS + 0.5 g/L glucose (sole C/energy source) + 5 ug/ml each of L-Met, L-His, L-Arg, L-Pro, L-Thr, L-Trp; aerobic microplate; growth-rate = semi-log OD slope (umax); rates/yields are mean +/- SD over n_wells",
+    "n": 18,
+    "temp_min_C": 28.0,
+    "temp_max_C": 45.0,
+    "obs_rmax": 1.13,
+    "obs_Topt_C": 42.0,
+    "units": "1/h",
+    "has_sd": true
+  },
+  "medium": "glucose_minimal",
+  "sampler": {
+    "n_walkers": 32,
+    "n_steps": 2000,
+    "burn": 500,
+    "thin": 31,
+    "acceptance_fraction": 0.499,
+    "autocorr_time": [
+      45.9,
+      62.9,
+      50.2,
+      56.2,
+      55.2
+    ],
+    "autocorr_time_max": 62.9,
+    "n_eff": 763.5,
+    "wall_time_s": 7862.5,
+    "n_proc": 8,
+    "seed": 1
+  },
+  "priors": {
+    "dTopt": {
+      "dist": "normal",
+      "loc": 0.0,
+      "scale": 4.25,
+      "note": "per-enzyme Topt SD (4.25 K); optimum-prediction spread"
+    },
+    "dTm": {
+      "dist": "normal",
+      "loc": 0.0,
+      "scale": 6.13,
+      "note": "per-enzyme Tm SD (6.13 K); melting-proteome prediction error"
+    },
+    "dCp_scale": {
+      "dist": "lognormal",
+      "log_loc": 0.0,
+      "log_scale": 0.3,
+      "note": "MMRT curvature multiplier ~ LogNormal about 1 (sd 0.30 on log)"
+    },
+    "kappa_scale": {
+      "dist": "lognormal",
+      "log_loc": 0.0,
+      "log_scale": 0.7,
+      "note": "in-vivo translation efficiency ~ LogNormal about 1 (sd 0.70 on log ~ up to ~4x either way); broad/uncertain"
+    },
+    "sigma_noise": {
+      "dist": "halfnormal",
+      "scale": 0.3,
+      "note": "Gaussian residual sd on absolute rate (1/h); weakly-informative from data scatter"
+    },
+    "bounds": {
+      "dTopt": [
+        -12.0,
+        12.0
+      ],
+      "dTm": [
+        -15.0,
+        15.0
+      ],
+      "dCp_scale": [
+        0.25,
+        4.0
+      ],
+      "kappa_scale": [
+        0.05,
+        20.0
+      ],
+      "sigma_noise": [
+        0.0001,
+        2.0
+      ]
+    }
+  },
+  "posterior": {
+    "dTopt": {
+      "prior_center": 0.0,
+      "posterior_median": -1.8779,
+      "posterior_90CI": [
+        -7.1198,
+        1.6499
+      ],
+      "constrained_by_curve": false,
+      "demanded_correction": "-1.9 K"
+    },
+    "dTm": {
+      "prior_center": 0.0,
+      "posterior_median": 3.8464,
+      "posterior_90CI": [
+        -0.2638,
+        10.9983
+      ],
+      "constrained_by_curve": false,
+      "demanded_correction": "+3.8 K"
+    },
+    "dCp_scale": {
+      "prior_center": 1.0,
+      "posterior_median": 0.9507,
+      "posterior_90CI": [
+        0.5976,
+        1.5445
+      ],
+      "constrained_by_curve": false,
+      "demanded_correction": "x0.95"
+    },
+    "kappa_scale": {
+      "prior_center": 1.0,
+      "posterior_median": 1.607,
+      "posterior_90CI": [
+        1.0783,
+        3.9376
+      ],
+      "constrained_by_curve": true,
+      "demanded_correction": "x1.61"
+    },
+    "sigma_disc": {
+      "prior_center": null,
+      "posterior_median": 0.3801,
+      "posterior_90CI": [
+        0.2992,
+        0.5076
+      ],
+      "constrained_by_curve": null,
+      "demanded_correction": "0.380 1/h"
+    }
+  },
+  "descriptors": {
+    "observed": {
+      "rmax": 1.13,
+      "Topt_C": 42.0,
+      "Ea_eV": 0.317,
+      "CTmax_C": 45.0
+    },
+    "prior": {
+      "rmax": 0.547,
+      "Topt_C": 30.9,
+      "Ea_eV": 1.002,
+      "CTmax_C": 47.3
+    },
+    "posterior_median": {
+      "rmax": 0.579,
+      "Topt_C": 29.1,
+      "Ea_eV": 0.923,
+      "CTmax_C": 51.1
+    }
+  }
+}
