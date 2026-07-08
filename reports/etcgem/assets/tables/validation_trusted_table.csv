@@ -1,0 +1,3 @@
+curve,study,strain,medium,digitized,n,T_range_C,abs_R2,RMSE_per_h,obs_rmax,pred_rmax,obs_Topt_C,pred_Topt_C,obs_CTmax_C,pred_CTmax_C,obs_Ea_eV,pred_Ea_eV
+noll_minimal,Katipoglu-Yazan et al. 2023 (Data in Brief 48:109037),"E. coli K-12 NCM3722 (delta motA, non-motile)",glucose_minimal,False,18,"[28.0, 45.0]",-7.555,0.428,1.13,0.55,42.0,30.0,45.0,46.8,0.317,0.963
+erdos_LB,Erdos et al. 2026 (unpublished),E. coli K-12 MG1655 (wt),LB,True,11,"[16.0, 45.0]",-0.348,0.826,2.35,1.036,40.0,37.0,45.0,50.0,0.761,0.828

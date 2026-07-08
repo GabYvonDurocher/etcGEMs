@@ -16,19 +16,18 @@ abstract: |
   measured metabolic fraction × literature in-vivo saturation), and the activation
   energy from a literature MMRT $\Delta C_p$ prior plus DLTKcat, so the emergent
   $E_a$ (0.83–0.96 eV, medium-dependent) lands near the independent bacterial-growth
-  benchmark (0.84–0.88 eV, Smith et al. 2019) rather than a value we tuned. Validated
-  **per individual
-  curve** on **raw absolute growth rate** against 26 *E. coli* TPCs (Smith 2019
-  database), each predicted under *its* medium with **medium- and temperature-matched
-  proteome-sector allocation** (glucose-minimal or a rich LB medium, set as availability,
-  uptake unpinned), the emergent model reproduces the optimum, the denaturation-set upper
-  limit (~47 °C) **and the growth-law magnitude difference between media** — predicting
-  $r_\text{max}=1.0$ h⁻¹ on LB vs 0.55 h⁻¹ on minimal (a 1.9-fold boost straight from the
-  measured LB ribosome fraction), closing much of the rich-curve magnitude gap (median
-  absolute $R^2$ $-0.8\!\to\!+0.2$) with a residual under-prediction of the fastest
-  curves. The emergent activation energy is medium-dependent (0.83 eV on LB, on the
-  0.84–0.88 eV benchmark). These are honest a-priori results — remaining errors point to
-  $\sigma$/$k_\text{cat}$/medium uncertainty — not tuning failures. Its predicted
+  benchmark (~0.85 eV) rather than a value we tuned. Validated on **raw absolute growth rate**
+  against two high-quality, **strain-matched** curves — a defined glucose-minimal curve (K-12
+  NCM3722, Noll 2023, with per-temperature SD) and a rich LB curve (MG1655 wild-type, Erdos
+  2026) — each predicted a priori under its medium (availability, uptake unpinned), the emergent
+  model **reproduces the growth-law magnitude jump between media**: a predicted rich/minimal
+  $r_\text{max}$ ratio of 1.9× (1.04 h⁻¹ LB vs 0.55 h⁻¹ minimal, straight from the measured LB
+  ribosome fraction) against an observed ~2.1×. It does *not* reproduce the absolute level —
+  both peaks are under-predicted about two-fold (minimal 0.55 vs 1.13; rich 1.04 vs 2.35 h⁻¹) —
+  and on minimal the optimum is ~12 °C too cold; on rich the optimum and activation energy are
+  close ($E_a$ 0.83 eV vs observed 0.76, near the ~0.85 eV benchmark). These are honest a-priori
+  results — the magnitude shortfall points to $\sigma$/$k_\text{cat}$/medium uncertainty — not
+  tuning failures. Its predicted
   per-enzyme allocation correlates with the measured proteome ($\rho\approx0.3$). Two
   complementary sensitivity analyses — a local elasticity (how much each parameter moves
   each curve feature at the operating point) and a global variance decomposition (how much
@@ -231,7 +230,7 @@ literature value — none is fit to the growth curve (@tbl-provenance).
 | $f_\text{metab},f_\text{bio},f_\text{maint}$ | sector fractions | measured proteome, per medium & $T$ [@Wang2026] | LB/Glucose/Glycerol, 16–43 °C |
 | $P^{\text{lit}}$ | total protein per gDW | literature | 0.5 g/gDW |
 | $\sigma$ | in-vivo enzyme saturation | Davidi 2016 / Heckmann 2020 [@Davidi2016; @Heckmann2020] | 0.45 (range 0.4–0.5) |
-| medium | growth condition | Smith 2019 metadata [@Smith2019]; LB from MRes/Machado [@Madkaikar2023; @Machado2021] | per curve |
+| validation curves | strain-matched TPCs | glucose-minimal K-12 NCM3722 [@Noll2023]; LB MG1655 wt [@Erdos2026]; LB medium def. from MRes/Machado [@Madkaikar2023; @Machado2021] | 2 curves |
 
 : Parameter provenance — every value grounded in independent data or a stated literature value, never fit to growth. {#tbl-provenance}
 
@@ -252,15 +251,14 @@ $2560\times3$ parameters. (O6) A **calibrated-uncertainty** ensemble samples the
 per enzyme with a one-factor correlation ($\rho=0.7$). All analyses reuse the same
 `compute_tpc`/`descriptors` engine.
 
-**Validation.** The model is validated **per individual curve** against 26 *E. coli*
-growth TPCs compiled by Smith et al. [@Smith2019] (8 source studies; per-study medium:
-2 defined glucose-minimal, 24 rich broth $\to$ LB). Each curve is predicted under *its*
-medium (set as availability, uptake unpinned) with its medium-matched sector fractions.
-The **primary metric is absolute** $R^2$/RMSE on raw specific growth rate ($\text{h}^{-1}$;
-all curves in $\text{h}^{-1}$, none dropped for units); peak-normalised shape $R^2$ and
-the rising-limb $E_a$ (tested against the independent 0.84–0.88 eV benchmark) are
-secondary diagnostics. The proteome is validated separately (predicted vs measured
-per-enzyme mass, §Validation).
+**Validation.** The model is validated against two trusted, strain-matched *E. coli* growth
+curves — a defined glucose-minimal curve (K-12 NCM3722; Noll 2023 [@Noll2023], with a
+per-temperature SD) and a rich LB curve (K-12 MG1655 wild-type; Erdos 2026 [@Erdos2026],
+figure-digitized) — each predicted a priori under its medium (availability, uptake unpinned)
+with its medium-matched sector fractions. The **primary metric is absolute** $R^2$/RMSE on raw
+specific growth rate ($\text{h}^{-1}$); the rising-limb $E_a$ (tested against the ~0.85 eV
+mesophilic-growth benchmark) is a secondary diagnostic. The proteome is validated separately
+(predicted vs measured per-enzyme mass, §Validation).
 
 # How the model works: the reference operating point and its enzyme-level parameters
 
@@ -280,8 +278,8 @@ $f_\text{bio}=0.191$ (biosynthesis/ribosomes) and $f_\text{maint}=0.326$ (mainte
 read off directly: the optimum is $T_\text{opt}=30$ °C, the maximum growth rate
 $r_\text{max}=0.55\,\text{h}^{-1}$, the cold and hot limits $CT_\text{min}=9$ °C and
 $CT_\text{max}=47$ °C, and the rising-limb activation energy $E_a\approx0.98$ eV. This is the
-predicted reference curve that the validation section then compares against measured *E. coli*
-curves.
+predicted reference curve that the validation section then compares against the measured
+strain-matched glucose-minimal curve (Noll 2023, K-12 NCM3722).
 
 ![**Reference growth thermal performance curve.** The model's predicted growth rate versus temperature at the reference operating point (glucose-minimal strain nominal; sector fractions shown), on raw absolute rate (h⁻¹). The optimum $T_\text{opt}$, maximum rate $r_\text{max}$, cold and hot limits $CT_\text{min}$/$CT_\text{max}$ (where growth falls to 5 % of peak) and the rising-limb activation energy $E_a$ are marked.](assets/figures/reference_tpc.png){#fig-reftpc fig-pos="H" width=85%}
 
@@ -318,80 +316,76 @@ individually; instead they move the whole distributions in @fig-enzdens with a f
 (described in @sec-sensitivity), while keeping each enzyme's grounded value relative to the
 rest.
 
-# Validation
+# Validation against two trusted, strain-matched curves
 
 **What this section does.** The strongest test of a forward model is whether it reproduces
-real data it never saw. We compare the model's predicted growth curves — **with nothing fit
-to growth** — against 26 measured *E. coli* growth curves, one prediction per curve under that
-experiment's medium, and separately check whether the model's predicted enzyme demands track a
-measured proteome.
+real data it never saw. We validate the model — **with nothing fit to growth** — against two
+high-quality, strain-matched *E. coli* growth curves: a **defined glucose-minimal** curve
+(K-12 NCM3722; Noll / Katipoglu-Yazan et al. 2023 [@Noll2023], with a per-temperature standard
+deviation) and a **rich LB** curve (K-12 MG1655 wild-type; Erdos et al. 2026 [@Erdos2026]).
+Each is predicted a priori under its own medium, and we compare on **raw absolute growth rate
+(h⁻¹)**. The headline is the minimal-vs-rich magnitude contrast: does the measured, medium-matched
+proteome allocation reproduce the observed jump from minimal to rich growth?
 
-**Medium as an input, per curve.** The medium is an experimental input encoded as
-*availability* — we open the uptake (`EX_*_REV`) of each medium component and let the
-enzyme-constrained model determine actual uptake; **no uptake rate is pinned and
-nothing is fit to growth**. Of the 26 curves, **2 have a documented defined medium**
-(glucose minimal aerobic; Bennett–Lenski, Mohr–Krawiec) and **24 are rich-broth**
-studies, which we predict under an **LB medium** (a GEM-compatible LB definition of
-62/65 amino-acid / nucleoside / vitamin / ion components, from the MRes `media.csv`
-reused from Machado et al.); each curve is predicted under *its* medium. All 26
-empirical rates are in specific-growth-rate units (h⁻¹; **0 dropped** for units).
-Because the magnitude is now emergent, the **primary metric is absolute** $R^2$/RMSE on
-raw $\mu(T)$ in h⁻¹; peak-normalised shape $R^2$ is a secondary diagnostic.
+**Data provenance — why the validation set changed.** Earlier drafts validated against a
+larger compilation of literature *E. coli* curves (Smith et al. 2019). That compilation is no
+longer trusted: one curve was found to be mis-scaled by roughly 8-fold, and for most curves the
+exact strain, medium and data robustness are uncertain. We therefore moved to two strain-matched
+primary sources where the organism, the medium and the measurement are documented. Their
+limitations are stated honestly: the Noll minimal curve is transcribed from the paper's table
+with a per-temperature SD over 28–40 replicate wells (the quantitative anchor); the Erdos rich
+curve was **digitized by eye** from a published figure (unpublished data, precision ≈ ±0.1 h⁻¹)
+and is treated as the lower-precision rich-medium comparator. An independent rich-broth curve
+(Van Derlinden et al. 2012, BHI) is available as an optional cross-check.
 
-**Per-curve result.** With the **medium-matched** allocation the model captures the
-growth-law magnitude difference between media (@fig-percurve, @fig-percurveR2,
-@tbl-percurve): predicted $r_\text{max}$ is **1.04 h⁻¹ on LB vs 0.55 h⁻¹ on
-glucose-minimal — a 1.9-fold boost that emerges directly from the higher measured
-ribosome fraction on LB** (not fitted). This **closes much of the absolute-magnitude
-gap** for the 24 rich curves: their median absolute $R^2$ rises from $-0.8$ (fixed
-allocation) to **$+0.21$** and their shape $R^2$ from $-0.67$ to $+0.70$, with predicted
-$r_\text{max}$ (1.04) now within ~2× of the observed 2.5 h⁻¹ rather than ~7×. The
-emergent activation energy is **medium-dependent and near-benchmark**: $E_a=0.83$ eV on
-LB (right on the mesophilic-bacterial-growth benchmark 0.84–0.88 eV, [@Smith2019]) and
-0.96 eV on minimal, versus observed rising-limb values ~0.64–0.73 eV. Because $E_a$ here is
-an emergent output of the literature MMRT curvature prior rather than a fitted target, this
-agreement is a genuine test rather than a calibration. A residual gap remains
-(the model still under-predicts the fastest rich curves, and the two defined
-glucose-minimal curves stay noisy — one is anomalously low at 0.10 h⁻¹): honest a-priori
-errors pointing to $\sigma$ / in-vivo $k_\text{cat}$ / medium-composition uncertainty,
-not tuning failures. The emergent nominal descriptors are in @tbl-nominal.
+**Medium as an input.** The medium enters as *availability*, not as a pinned uptake rate: we
+open the exchange uptakes (`EX_*_REV`) of the medium's components and let the enzyme-constrained
+model determine actual uptake. Noll is predicted under **glucose-minimal**, Erdos under an
+**LB** medium (a GEM-compatible definition of 62 amino-acid / nucleoside / vitamin / ion
+components). The minimal medium also carries six trace amino acids; opening those uptakes as a
+sensitivity check leaves the predicted minimal $r_\text{max}$ essentially unchanged.
 
-![**Emergent model vs individual *E. coli* TPCs — RAW absolute growth rate (h⁻¹).** Twelve curves on their own $y$-scale; green = glucose-minimal medium, orange = rich (LB); the model line sits far below the rich-medium data (per-panel absolute $R^2$ shown).](assets/figures/percurve_smallmultiples.png){#fig-percurve fig-pos="H" width=95%}
+**Result — the model reproduces the medium contrast but under-predicts both absolute rates.**
+The central finding (@fig-valcurves, @fig-valcontrast, @tbl-val) is that the **medium-matched
+sector allocation reproduces the observed rich-over-minimal magnitude jump**: the model
+predicts $r_\text{max}$ = 1.04 h⁻¹ on LB versus 0.55 h⁻¹ on glucose-minimal, a **1.9-fold
+ratio that emerges directly from the higher measured ribosome fraction on LB** — matching the
+observed 2.1-fold ratio (Erdos 2.35 vs Noll 1.13 h⁻¹). What the model does *not* get is the
+absolute level: it under-predicts both peaks by roughly two-fold (minimal 0.55 vs 1.13; rich
+1.04 vs 2.35 h⁻¹), so the absolute-rate $R^2$ is negative. On the rich curve the optimum and
+activation energy are close (predicted $T_\text{opt}$ 37 °C vs observed 40 °C; $E_a$ 0.83 eV vs
+observed 0.76 eV, both near the ~0.85 eV mesophilic-bacterial-growth benchmark); on the minimal
+curve the predicted optimum is ~12 °C too cold (30 vs 42 °C) and the rising limb too steep.
+These are honest a-priori residuals — the two-fold magnitude shortfall points to the in-vivo
+$k_\text{cat}$ scale, the saturation $\sigma$, or the exact medium composition — none of which
+is tuned here. The per-curve numbers are in @tbl-val.
 
-![**Per-curve skill split by medium.** Primary = absolute $R^2$ on raw h⁻¹ (clipped ≥ −8); secondary = peak-normalised shape $R^2$. Green = glucose-minimal, orange = rich (LB).](assets/figures/percurve_R2_distribution.png){#fig-percurveR2 fig-pos="H" width=85%}
+![**Emergent model vs the two trusted strain-matched curves (raw absolute rate, nothing fit).** Left: defined glucose-minimal (Noll 2023, K-12 NCM3722) with per-temperature mean ± SD error bars. Right: rich LB (Erdos 2026, MG1655 wt, figure-digitized). The model line (coloured) sits about two-fold below both peaks; absolute $R^2$/RMSE and observed-vs-predicted $r_\text{max}$ are annotated.](assets/figures/validation_trusted_curves.png){#fig-valcurves fig-pos="H" width=100%}
+
+![**Minimal-vs-rich magnitude contrast.** Both curves on one axis: the minimal data (Noll, green, ±SD) sit near the *rich* model line, illustrating the ~2× absolute under-prediction, while the rich data (Erdos, orange) sit far above. The model reproduces the observed rich/minimal $r_\text{max}$ ratio (model 1.9× vs observed 2.1×) but not the absolute level.](assets/figures/validation_minimal_vs_rich.png){#fig-valcontrast fig-pos="H" width=80%}
 
 ```{python}
-#| label: tbl-percurve
-#| tbl-cap: "Per-curve absolute-rate validation, split by medium (nothing fit to growth). Primary metric: median absolute R² on raw growth rate (h⁻¹); shape R² secondary. The emergent rmax is medium-matched (LB > minimal via the measured ribosome fraction)."
+#| label: tbl-val
+#| tbl-cap: "Validation against the two trusted strain-matched curves (nothing fit to growth). Absolute-rate fit and observed-vs-predicted descriptors per curve; the model's rich/minimal rmax ratio matches the observed contrast while both absolute rates are under-predicted ~2×."
 #| output: asis
 import json, pandas as pd
-with open("assets/tables/percurve_summary.json") as fh:
+with open("assets/tables/validation_trusted_summary.json") as fh:
     s = json.load(fh)
-gm, lb = s["glucose_minimal"], s["rich_broth_LB"]
-rows = [("curves (n)", gm["n"], lb["n"]),
-        ("median absolute R² (h⁻¹)", gm["median_abs_R2"], lb["median_abs_R2"]),
-        ("median shape R²", gm["median_shape_R2"], lb["median_shape_R2"]),
-        ("observed median rmax (h⁻¹)", gm["obs_rmax_median"], lb["obs_rmax_median"]),
-        ("emergent rmax (h⁻¹)", s["emergent_rmax_minimal"], s["emergent_rmax_LB"]),
-        ("emergent CT_max (°C)", s["emergent_CTmax_minimal"], s["emergent_CTmax_LB"]),
-        ("emergent E_a (eV)", s["emergent_Ea_minimal"], s["emergent_Ea_LB"]),
-        ("observed median E_a (eV)", gm["obs_Ea_median"], lb["obs_Ea_median"])]
-print(pd.DataFrame(rows, columns=["quantity", "glucose-minimal", "rich (LB)"]).to_markdown(index=False))
-```
-
-```{python}
-#| label: tbl-nominal
-#| tbl-cap: "Emergent nominal TPC descriptors on the two media (glucose minimal aerobic vs LB; nothing fit to growth). rmax is medium-matched (LB higher than minimal via the measured ribosome/biosynthesis fraction)."
-#| output: asis
-import json
-import pandas as pd
-
-with open("assets/tables/percurve_summary.json") as fh:
-    s = json.load(fh)
-rows = [("r_max (1/h)", s["emergent_rmax_minimal"], s["emergent_rmax_LB"]),
-        ("CT_max (°C)", s["emergent_CTmax_minimal"], s["emergent_CTmax_LB"]),
-        ("E_a (eV)", s["emergent_Ea_minimal"], s["emergent_Ea_LB"])]
-print(pd.DataFrame(rows, columns=["Descriptor", "glucose-minimal", "LB"]).to_markdown(index=False))
+mn, rh, mc = s["noll_minimal"], s["erdos_LB"], s["magnitude_contrast"]
+def row(lab, k):
+    return (lab, mn[k], rh[k])
+rows = [("medium", "glucose-minimal", "LB (rich)"),
+        ("strain", "K-12 NCM3722", "K-12 MG1655 wt"),
+        ("n temperatures", mn["n"], rh["n"]),
+        ("absolute R²", mn["abs_R2"], rh["abs_R2"]),
+        ("RMSE (h⁻¹)", mn["RMSE_per_h"], rh["RMSE_per_h"]),
+        ("observed r_max (h⁻¹)", mn["obs_rmax"], rh["obs_rmax"]),
+        ("predicted r_max (h⁻¹)", mn["pred_rmax"], rh["pred_rmax"]),
+        ("observed T_opt (°C)", mn["obs_Topt_C"], rh["obs_Topt_C"]),
+        ("predicted T_opt (°C)", mn["pred_Topt_C"], rh["pred_Topt_C"]),
+        ("observed E_a (eV)", mn["obs_Ea_eV"], rh["obs_Ea_eV"]),
+        ("predicted E_a (eV)", mn["pred_Ea_eV"], rh["pred_Ea_eV"])]
+print(pd.DataFrame(rows, columns=["quantity", "minimal (Noll)", "rich (Erdos)"]).to_markdown(index=False))
 ```
 
 **Measured proteome.** The temperature proteome shows the expected heat-stress
@@ -469,7 +463,7 @@ fine-grained view.)
 **Everything here is computed on the single reference curve.** These elasticities — and the
 decomposition in the next section — are computed on **one** model growth curve at the reference
 operating point (the glucose-minimal strain nominal of @fig-reftpc), evaluated over the
-temperature grid. They are *not* an average over the 26 empirical curves; those enter only in
+temperature grid. They are *not* an average over the empirical curves; those enter only in
 the validation section, each predicted under its own medium. So "what moves the curve" here
 means "what moves this one reference curve at its operating point".
 
@@ -768,16 +762,15 @@ from 0.74 (enzyme-envelope only) to 0.49 (complete model) — so its value is th
 realism and the ability to attribute control to measurable quantities, not a better growth
 fit.
 
-Remaining limitations, all structural / in-silico, and now framed by the emergent
-per-curve validation: **(i)** the emergent rising limb is **too steep** — the
-predicted $E_a\approx0.95$ eV over-predicts low-temperature growth and peaks a few
-degrees colder than observed; a single literature $\Delta C_p$ prior couples breadth and
-$E_a$, so per-enzyme curvature (from broader DLTKcat coverage) is the route to a more
-accurate rising limb; **(ii)** the emergent **magnitude** is now medium-matched
-($r_\text{max}=1.0$ h⁻¹ LB vs 0.55 minimal, the growth-law direction) but still
-**under-predicts the fastest rich curves** (~2.5 h⁻¹), reflecting residual uncertainty
-in $\sigma$, in-vivo $k_\text{cat}$ and exact rich-medium composition (all carried as
-literature values/availability, not tuned); **(iii)** the
+Remaining limitations, all structural / in-silico, and now framed by the trusted-curve
+validation: **(i)** on the minimal curve the emergent rising limb is **too steep** and the
+optimum **~12 °C too cold** (predicted 30 °C vs observed 42 °C); a single literature $\Delta
+C_p$ prior couples breadth and $E_a$, so per-enzyme curvature (from broader DLTKcat coverage)
+is the route to a more accurate rising limb and optimum; **(ii)** the **magnitude** captures
+the medium contrast (predicted rich/minimal ratio 1.9× vs observed ~2.1×) but **under-predicts
+both absolute rates about two-fold** (minimal 0.55 vs 1.13; rich 1.04 vs 2.35 h⁻¹), reflecting
+residual uncertainty in $\sigma$, in-vivo $k_\text{cat}$ and exact medium composition (all
+carried as literature values/availability, not tuned); **(iii)** the
 chaperone/stress sector is imposed as a maintenance input, not modelled as flux-carrying
 reactions; **(iv)** identifiability is a first-order proxy; **(v)** parameters and
 proteome are *E. coli*-specific (per-strain proteomes / predictors are the library-scale

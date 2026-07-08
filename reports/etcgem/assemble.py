@@ -39,11 +39,12 @@ RUNS = {
     "calibrated": os.path.join(STRAIN, "sweep_calibrated"),      # M1.2
     "sectors":    os.path.join(STRAIN, "sweep_sectors"),         # optional
     "proteome":   os.path.join(STRAIN, "proteome_sectors"),      # temperature proteomics
-    "validation": os.path.join(STRAIN, "validation"),            # empirical TPC fit
+    "validation": os.path.join(STRAIN, "validation"),            # empirical TPC fit (legacy)
     "ablation":   os.path.join(STRAIN),                          # ablation_* live in outputs/
-    "percurve":   os.path.join(STRAIN, "percurve_validation"),   # emergent per-curve validation
+    "percurve":   os.path.join(STRAIN, "percurve_validation"),   # legacy 26-curve compilation (RETIRED)
     "elasticity": os.path.join(STRAIN, "elasticity_elasticity"), # equal-perturbation sensitivity
     "anatomy":    os.path.join(STRAIN, "anatomy"),               # reference-point model anatomy
+    "valid_trust": os.path.join(STRAIN, "validation_trusted"),   # trusted strain-matched curves (Noll + Erdos)
 }
 
 FIG_DIR = os.path.join(HERE, "assets", "figures")
@@ -70,8 +71,8 @@ FIGURES = [
     ("proteome",   "sector_pred_vs_meas.png",      "proteome_sector_pred_vs_meas.png"),
     ("validation", "complete_vs_empirical_tpc.png", "complete_vs_empirical_tpc.png"),
     ("ablation",   "ablation_comparison.png",      "ablation_comparison.png"),
-    ("percurve",   "percurve_smallmultiples.png",  "percurve_smallmultiples.png"),
-    ("percurve",   "percurve_R2_distribution.png", "percurve_R2_distribution.png"),
+    ("valid_trust", "validation_trusted_curves.png",  "validation_trusted_curves.png"),
+    ("valid_trust", "validation_minimal_vs_rich.png", "validation_minimal_vs_rich.png"),
     ("elasticity", "elasticity_tornado.png",       "elasticity_tornado.png"),
     ("elasticity", "elasticity_heatmap.png",       "elasticity_heatmap.png"),
     ("anatomy",    "reference_tpc.png",            "reference_tpc.png"),
@@ -97,8 +98,8 @@ TABLES = [
     ("proteome",   "validation_correlations.csv","proteome_validation_correlations.csv"),
     ("validation", "validation_summary.json",   "validation_summary.json"),
     ("ablation",   "ablation_summary.csv",      "ablation_summary.csv"),
-    ("percurve",   "percurve_table.csv",        "percurve_table.csv"),
-    ("percurve",   "percurve_summary.json",     "percurve_summary.json"),
+    ("valid_trust", "validation_trusted_table.csv",   "validation_trusted_table.csv"),
+    ("valid_trust", "validation_trusted_summary.json", "validation_trusted_summary.json"),
     ("elasticity", "elasticity_table.csv",      "elasticity_table.csv"),
     ("elasticity", "reference_scales.json",     "elasticity_reference_scales.json"),
 ]
