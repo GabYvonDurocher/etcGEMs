@@ -319,31 +319,38 @@ LB_COMPONENTS = [
 
 
 def set_medium(pm, medium="glucose_minimal", carbon="glc__D", aerobic=True,
-               uptake_ub=1000.0, lb_media_csv=None):
+               uptake_ub=1000.0, lb_media_csv=None, bhi_media_csv=None):
     """Set the growth medium as AVAILABILITY, not pinned uptake rates: open the
     `EX_<met>_e_REV` uptakes for the medium's components and close other carbon
     sources; the enzyme-constrained model then determines actual uptake.
 
     medium="glucose_minimal" (default): a single carbon source (+ O2 if aerobic)
-    on top of the model's minimal-salt defaults. medium="LB": a rich medium opening
-    the amino-acid / nucleoside / vitamin / ion component uptakes (:data:`LB_COMPONENTS`,
-    or ``lb_media_csv`` if given). Returns (n_opened, n_missing)."""
+    on top of the model's minimal-salt defaults. medium="LB"/"BHI": a rich medium
+    opening the amino-acid / nucleoside / vitamin / ion component uptakes
+    (:data:`LB_COMPONENTS`, or the given ``lb_media_csv`` / ``bhi_media_csv``).
+    BHI is not encoded in silico in the literature (even the Rothia GEM used
+    LB/TSB as defined rich stand-ins), so it is approximated by a curated rich
+    component list and mapped to the LB medium-matched sector allocation.
+    Returns (n_opened, n_missing)."""
     model = pm.ec.model if hasattr(pm, "ec") else pm
-    # switch the medium-matched sector allocation, if wired
+    # switch the medium-matched sector allocation, if wired. BHI has no measured
+    # proteome (DeyuWang is LB/Glucose/Glycerol), so it uses the LB (rich) curve.
+    sector_medium = "LB" if medium == "BHI" else medium
     alloc = getattr(getattr(pm, "ec", None), "_alloc_from_data", None)
     if alloc is not None and hasattr(alloc, "set_active_medium"):
-        alloc.set_active_medium(medium)
-    if medium == "LB":
+        alloc.set_active_medium(sector_medium)
+    if medium in ("LB", "BHI"):
         comps = LB_COMPONENTS
-        if lb_media_csv:
+        csv = bhi_media_csv if medium == "BHI" else lb_media_csv
+        if csv:
             import pandas as pd
-            df = pd.read_csv(lb_media_csv)
+            df = pd.read_csv(csv)
             comps = [str(n)[3:-2] for n in df["Name"] if str(n).startswith("EX_")]
-        # close non-LB carbon sources, then open every LB component uptake present
-        lb_set = set(comps)
+        # close non-medium carbon sources, then open every component uptake present
+        rich_set = set(comps)
         for base in _CARBON_BASES:
             rev = f"EX_{base}_e_REV"
-            if rev in model.reactions and base not in lb_set:
+            if rev in model.reactions and base not in rich_set:
                 model.reactions.get_by_id(rev).upper_bound = 0.0
         opened, missing = 0, 0
         for base in comps:
