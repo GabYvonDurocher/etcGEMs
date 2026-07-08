@@ -29,34 +29,40 @@ abstract: |
   curves. The emergent activation energy is medium-dependent (0.83 eV on LB, on the
   0.84–0.88 eV benchmark). These are honest a-priori results — remaining errors point to
   $\sigma$/$k_\text{cat}$/medium uncertainty — not tuning failures. Its predicted
-  per-enzyme allocation correlates with the measured proteome ($\rho\approx0.3$). A
-  range-fair, nominal-centred Shapley decomposition (every axis moved by the same
-  standardised width about the measured operating point, with a melting-temperature $T_m$
-  axis added) and a matched local elasticity agree on a **measure-dependent** division of
-  labour: the rate $r_\text{max}$ is allocation-controlled ($\varphi_A=1.0$), the upper
-  limit $CT_\text{max}$ is $T_m$/stability-controlled ($\varphi_\text{stab}=0.93$, IQR
-  1.3 °C), the cold side is kinetic-envelope-led, and $T_\text{opt}$/$E_a$ are genuinely
-  coupled. This **corrects** an earlier decomposition that, using unequal envelope-favouring
-  ranges, off-nominal sampling, no $T_m$ axis and variance shares without magnitude, wrongly
-  reported the rate as envelope-dominated ($\varphi_E=0.72$). Thermal control is concentrated
-  in a few enzymes while ~98 % of per-enzyme parameters are unidentifiable from growth alone.
-  All results are structural in-silico predictions pending further phenotype/omics
-  calibration.
+  per-enzyme allocation correlates with the measured proteome ($\rho\approx0.3$). Two
+  complementary sensitivity analyses — a local elasticity (how much each parameter moves
+  each curve feature at the operating point) and a global variance decomposition (how much
+  of each feature's variability each group of parameters owns, including a melting-temperature
+  $T_m$ axis) — agree on a **measure-dependent** division of labour: the maximum growth rate
+  $r_\text{max}$ is set by proteome allocation ($\varphi_A=1.0$), the upper thermal limit
+  $CT_\text{max}$ by protein stability / $T_m$ ($\varphi_\text{stab}=0.93$, an achievable
+  spread of $\approx1.3$ °C), the cold-side shape by the kinetic envelope, and the optimum
+  $T_\text{opt}$ and activation energy $E_a$ are shared between allocation and envelope.
+  Thermal control is concentrated in a few enzymes while ~98 % of per-enzyme parameters are
+  unidentifiable from growth alone. All results are structural in-silico predictions pending
+  further phenotype/omics calibration.
 ---
 
 # Background and objectives
 
-The broad aim is to **predict microbial thermal performance curves (TPCs) from
-genomes**, because the temperature dependence of microbial growth, respiration and
-carbon-use efficiency governs how microbial communities — and the carbon they cycle —
-respond to warming. A cell's TPC is an emergent property of its metabolism under a
-finite, temperature-sensitive enzyme budget, so an enzyme- and temperature-constrained
-genome-scale metabolic model (etc-GEM) is a natural mechanistic predictor: it turns a
-genome plus enzyme kinetic/stability parameters into a growth rate at any temperature.
-We build and validate the method on *E. coli* using the enzyme-constrained model
-**eciML1515** — a GECKO formulation [@Sanchez2017; @Domenzain2022] of the manually
-curated iML1515 reconstruction [@Monk2017] — the best-curated bacterial GEM, before
-scaling to a phylogenetically diverse isolate library.
+A **thermal performance curve (TPC)** is how a rate — here microbial growth rate — varies
+with temperature: it rises from a cold limit, peaks at an optimum, and falls to a hot limit.
+The temperature dependence of microbial growth, respiration and carbon-use efficiency governs
+how microbial communities, and the carbon they cycle, respond to warming, so predicting these
+curves matters for climate–carbon models. The broad aim of this work is to **predict such
+curves from a genome**.
+
+A cell's growth curve is not a single measured parameter but an emergent outcome of its whole
+metabolism operating under a finite, temperature-sensitive supply of enzymes. A natural
+mechanistic predictor is therefore an **enzyme- and temperature-constrained genome-scale
+metabolic model (etc-GEM)**: a computational reconstruction of an organism's metabolism in
+which every reaction requires a temperature-dependent amount of enzyme drawn from a limited
+budget, so that supplying it with a genome plus enzyme kinetic and stability parameters yields
+a predicted growth rate at any temperature. We build and validate the method on *Escherichia
+coli* using **eciML1515**, an enzyme-constrained version (built with the GECKO method
+[@Sanchez2017; @Domenzain2022]) of the manually curated iML1515 metabolic reconstruction
+[@Monk2017] — the best-curated bacterial model available — as a proving ground before scaling
+to a phylogenetically diverse library of isolates.
 
 The in-silico work addresses six objectives:
 **O1** reproduce a realistic *E. coli* growth TPC and define its components;
@@ -68,66 +74,99 @@ magnitude — the key hypothesis;
 **O5** assess **identifiability** — which parameters are inferable from growth alone;
 **O6** move from a nominal scan to **calibrated uncertainty** and data-grounded inputs.
 
-Rather than presenting the model as an incremental build-up, we describe the **one
-complete model**, validate it, and run the analyses on it; the incremental
-contribution of each layer is quantified by ablation in the Supplementary.
+We describe the **one complete model**, validate it, and run all analyses on it; a
+Supplementary ablation quantifies how much each of its layers contributes.
 
 # The complete model
 
-The complete etc-GEM links four data-grounded layers.
+**In plain terms.** The model turns a genome plus enzyme parameters into a predicted growth
+rate at any temperature, in four stacked layers. The first says growth requires enzymes and
+the cell has a limited budget of them. The second makes each enzyme's efficiency
+temperature-dependent — enzymes speed up with warming, then unfold and fail at high
+temperature. The third fixes how the enzyme budget is split among broad functional groups,
+using measured proteome data. The fourth insists that none of the numbers are tuned to match
+the growth curve we are trying to predict. We now describe each layer.
 
-**Metabolic network + enzyme constraints.** The iML1515 stoichiometry and GPRs
-[@Monk2017] are enzyme-constrained via GECKO [@Sanchez2017; @Domenzain2022]
-(SysBioChalmers ecModels; solved with cobrapy [@Ebrahim2013]): each reaction's flux
-costs enzyme mass $v_i/k_{\text{cat},i}$, and the summed cost is bounded by a shared
-proteome pool, making allocation a limiting resource.
+**Layer 1 — metabolic network with an enzyme budget.** We start from iML1515, a manually
+curated map of *E. coli* metabolism (its reaction stoichiometry and gene–protein–reaction
+rules, GPRs) [@Monk2017], solved by **flux-balance analysis (FBA)** — a linear-programming
+method that finds the reaction fluxes maximising growth subject to mass balance and capacity
+limits, using cobrapy [@Ebrahim2013]. GECKO [@Sanchez2017; @Domenzain2022] makes it
+**enzyme-constrained**: running each reaction $i$ at flux $v_i$ requires an amount of enzyme
+$v_i/k_{\text{cat},i}$, where $k_{\text{cat},i}$ (the *turnover number*) is how many reactions
+one copy of the enzyme catalyses per second. The total enzyme mass is capped by a shared
+**proteome pool**, so the cell must *allocate* a finite protein budget across reactions —
+this is what makes allocation a limiting resource and growth a competition for enzyme.
 
-**Thermal envelope — two-state unfolding.** Each enzyme's turnover follows
-macromolecular rate theory (MMRT) [@Hobbs2013] on the rising limb, and its
-high-temperature collapse is set by a two-state native$\leftrightarrow$unfolded
-equilibrium (after Li et al. [@Li2021] and the MRes of Madkaikar [@Madkaikar2023]):
-the effective cost is $\text{cost}_i(T)=\text{base}_i/[\text{rel-}k_{\text{cat},i}(T)\cdot
-f_{N,i}(T)]$, where the native fraction $f_{N,i}(T)$ is keyed on the enzyme melting
-temperature $T_m$ and drives the falling limb. Per-enzyme $T_m$ come from the *E. coli*
-melting proteome [@Leuenberger2017] and $T_\text{opt}$ from sequence-based catalytic
-optima [@LiEngqvist2019] (assembled by the MRes; **90 % of enzymes grounded**, the rest
-at dataset means), with **DLTKcat** temperature-dependent $k_\text{cat}$ predictions
-[@Qiu2024] overlaying $T_\text{opt}$ where good fits exist. This grounds $CT_\text{max}$
-in protein stability and decouples it from the rising-limb $E_a$; the in-vitro/in-vivo
-$k_\text{cat}$ gap motivates data-driven turnover [@Davidi2016; @Heckmann2020].
+**Layer 2 — a temperature-dependent enzyme envelope (the "thermal envelope").** Each enzyme's
+turnover rises with temperature following **macromolecular rate theory (MMRT)** [@Hobbs2013] —
+an extension of the Arrhenius law in which the activation energy itself changes with
+temperature (a heat-capacity term), giving a curved, single-peaked turnover response rather
+than a straight Arrhenius line. Above a threshold the enzyme unfolds: we model the fraction
+still in the working (folded) state with a **two-state native$\leftrightarrow$unfolded
+equilibrium** (after Li et al. [@Li2021] and the MRes of Madkaikar [@Madkaikar2023]), the
+**native fraction** $f_{N,i}(T)$, which collapses from one to zero around the enzyme's
+**melting temperature** $T_m$ (the temperature at which half the protein is unfolded). The
+effective per-flux cost combines both effects,
+$\text{cost}_i(T)=\text{base}_i/[\,\widehat{k}_{\text{cat},i}(T)\cdot f_{N,i}(T)\,]$, so cost
+rises both when turnover is slow (cold) and when the enzyme denatures (hot). Per-enzyme $T_m$
+come from a measurement of which *E. coli* proteins melt at which temperature (the "melting
+proteome") [@Leuenberger2017], and each enzyme's optimum temperature $T_\text{opt}$ from a
+sequence-based predictor [@LiEngqvist2019] (**90 % of enzymes grounded** in these data, the
+rest set to dataset means); **DLTKcat**, a deep-learning predictor of temperature-dependent
+$k_\text{cat}$ [@Qiu2024], refines $T_\text{opt}$ where it fits well. Keying the collapse on
+$T_m$ ties the upper thermal limit to protein *stability* and lets it differ from the
+rising-limb activation energy. Turnover numbers measured in a test tube (**in vitro**) tend
+to overstate the effective rate inside a cell (**in vivo**), which motivates the
+data-driven-saturation correction below [@Davidi2016; @Heckmann2020].
 
-**Proteome allocation — measured, medium- *and* temperature-matched sectors.** The pool
-is refined into three growth-law sectors [@Basan2015; @Scott2010] — metabolic
-($f_\text{metab}$, the enzyme pool), biosynthesis ($f_\text{bio}$, a translation cap on
-growth) and maintenance ($f_\text{maint}$). The sector fractions are **set from the
-measured *E. coli* proteome, matched to both growth medium and temperature** (Wang et
-al. [@Wang2026]; COG-mapped, mass-weighted; per-medium series LB / Glucose / Glycerol at
-their measured temperatures), never hand-set or fit. This captures the **growth law**:
-the measured biosynthesis (ribosome) fraction at 37 °C is $f_\text{bio}=0.36$ on LB but
-only $0.18$ on glucose-minimal, so a run under LB gets a higher translation cap and
-predicts faster growth than one under minimal medium — straight from data. The default
-(glucose-minimal) nominal split is $f_\text{metab}=0.483$, $f_\text{bio}=0.191$,
-$f_\text{maint}=0.326$ (folding the measured chaperone + other sectors, incl. the
-2.7-fold heat-stress chaperone ramp, into maintenance); `set_medium` switches the active
-per-medium curve. A temperature-dependent maintenance (NGAM) term is included.
+**Layer 3 — proteome allocation from measured, medium- and temperature-matched sectors.** We
+split the enzyme budget into three broad **proteome sectors** — coarse functional groups of
+proteins whose fractions of the total proteome are known to shift predictably with growth
+conditions (the bacterial "growth laws") [@Basan2015; @Scott2010]: a **metabolic** sector
+($f_\text{metab}$, the enzymes that carry flux), a **biosynthesis** sector ($f_\text{bio}$,
+dominated by ribosomes, which caps how fast biomass can be made), and a **maintenance**
+sector ($f_\text{maint}$, housekeeping and stress proteins). These fractions are **taken from
+the measured *E. coli* proteome, matched to both the growth medium and the temperature**
+(Wang et al. [@Wang2026]; proteins grouped by function, weighted by mass; separate series for
+LB, glucose and glycerol media across their measured temperatures), never hand-set or fit to
+growth. This encodes the growth law directly: the measured ribosome (biosynthesis) fraction
+at 37 °C is $f_\text{bio}=0.36$ on rich LB medium but only $0.18$ on glucose-minimal, so a
+prediction run under LB automatically gets a higher biosynthesis cap and grows faster than
+one under minimal medium. The default glucose-minimal split is $f_\text{metab}=0.483$,
+$f_\text{bio}=0.191$, $f_\text{maint}=0.326$ (the maintenance sector absorbs the measured
+chaperone and other housekeeping proteins, including a 2.7-fold heat-stress chaperone rise);
+`set_medium` switches to another medium's measured curve. A **maintenance (NGAM,
+non-growth-associated maintenance)** demand — the ATP the cell must spend just to stay alive,
+independent of growth — is included and made temperature-dependent.
 
-**Emergent — nothing fit to the growth curve.** A central design choice is that the
-TPC is a genuine a-priori prediction: no parameter is tuned to growth. The rate
-**magnitude emerges** from the pool budget $= P_\text{total}\times f_\text{metab}\times
-\sigma$ — total protein per gDW ($P_\text{total}=0.5$ g/gDW, literature), the *measured*
-metabolic proteome fraction ($f_\text{metab}$, medium-matched: 0.48 on glucose-minimal,
-0.28 on LB), and the average in-vivo enzyme saturation ($\sigma=0.45$, an independent
-literature value carried with its 0.4–0.5 range [@Davidi2016; @Heckmann2020]) — giving
-**emergent $r_\text{max}=0.55\,\text{h}^{-1}$ on glucose-minimal (1.04 on LB)**, not the
-growth-calibrated GECKO pool. The **envelope emerges** too: per-enzyme $\Delta C_p$ comes
-from a literature MMRT prior (−4 kJ/mol/K [@Hobbs2013]) plus DLTKcat where available — no
-value is chosen to hit an $E_a$ target — so the organismal **$E_a$ (0.83–0.96 eV) emerges**
-and can be *tested* against the independent benchmark. The deprecated growth-fit knobs
-(pool_scale, and the `calibrate-dcp`-to-$E_a$ calibration used earlier) are switched off.
-The model builds and grows (translation cap and pool co-limiting at the nominal split,
-$\mu^\ast\approx0.55\,\text{h}^{-1}$ at 30 °C).
+**Layer 4 — everything emerges; nothing is fit to the growth curve.** The central design
+choice is that the predicted growth curve is a genuine forward prediction: no parameter is
+adjusted to match observed growth. The rate *magnitude* follows from the enzyme budget
+$P_\text{metab}=P_\text{total}\times f_\text{metab}\times\sigma$ — total protein per gram dry
+weight ($P_\text{total}=0.5$ g/gDW, from the literature), the measured metabolic fraction
+($f_\text{metab}$: 0.48 on glucose-minimal, 0.28 on LB), and the average **in-vivo enzyme
+saturation** $\sigma$ (the fraction of an enzyme's maximum rate actually realised in the cell,
+$\sigma=0.45$, an independent literature value carried with its 0.4–0.5 range
+[@Davidi2016; @Heckmann2020]). This yields an emergent $r_\text{max}=0.55\,\text{h}^{-1}$ on
+glucose-minimal (1.04 on LB), rather than the growth-calibrated pool GECKO ships. The
+*envelope* emerges too: each enzyme's MMRT curvature $\Delta C_p$ is a single literature value
+(−4 kJ/mol/K [@Hobbs2013]) refined by DLTKcat where available, with nothing chosen to hit an
+activation-energy target — so the whole-organism activation energy $E_a$ (0.83–0.96 eV)
+emerges and can be *tested* against an independent benchmark. All growth-fitting knobs are
+switched off. The model builds and grows, with the biosynthesis cap and the enzyme pool
+co-limiting at the nominal split ($\mu^\ast\approx0.55\,\text{h}^{-1}$ at 30 °C).
 
 # Model equations, parameters and methods
+
+**What this section contains.** The equations below make the four layers precise: how each
+enzyme's turnover depends on temperature (@eq-mmrt), how the folded fraction collapses at
+high temperature (@eq-fn), how the two combine into a temperature-dependent enzyme cost
+(@eq-cost), and how growth is maximised under the enzyme, biosynthesis and maintenance limits
+(@eq-constraints–@eq-alloc). We then define the summary numbers we read off a predicted curve
+(the **descriptors**) and list where every parameter comes from (@tbl-provenance). A reader
+who wants the biology rather than the algebra can skip to the descriptor definitions and the
+provenance table.
 
 **Governing equations.** Each enzyme $i$'s turnover follows macromolecular rate theory
 (MMRT), with activation enthalpy/entropy $\Delta H_0,\Delta S_0$ (at reference $T_0$) and
@@ -157,13 +196,20 @@ with the emergent metabolic budget and the medium-/temperature-matched sector fr
 
 $$P_\text{metab} = f_\text{metab}(m,T)\,P_\text{total},\quad P_\text{total}=\sigma\,P^{\text{lit}},\quad \big(f_\text{metab},f_\text{bio},f_\text{maint}\big)(m,T)\ \text{from the measured medium-}m\text{ proteome}, $$ {#eq-alloc}
 
-where $\kappa$ (`translation_coeff`) is auto-calibrated once so the cap and pool
-co-limit at the nominal split, and $\text{NGAM}(T)$ rises with $T$ above a basal floor.
-TPC descriptors are read from the emergent curve $\mu(T)$: $T_\text{opt}=\arg\max_T\mu$,
-$r_\text{max}=\max_T\mu$, $CT_\text{min}/CT_\text{max}$ the crossings of $\mu=0.05\,r_\text{max}$
-below/above the peak, thermal breadth $=CT_\text{max}-CT_\text{min}$, and the
-Boltzmann–Arrhenius activation energy $E_a=-\text{slope of }\ln\mu\text{ vs }1/(k_B T)$
-on the rising limb ($0.1$–$0.95\,r_\text{max}$). The allocation-vs-envelope decomposition
+where $\kappa$ (`translation_coeff`) is auto-calibrated once so the biosynthesis cap and the
+enzyme pool co-limit at the nominal split, and $\text{NGAM}(T)$ rises with temperature above a
+basal floor.
+
+**Curve descriptors.** From a predicted growth curve $\mu(T)$ we read a small set of standard
+**thermal-performance-curve descriptors** — the numbers ecologists use to summarise a TPC:
+the **optimum temperature** $T_\text{opt}$ (the temperature of peak growth), the **maximum
+growth rate** $r_\text{max}$ (the height of the peak, in h⁻¹), the **critical thermal minimum
+and maximum** $CT_\text{min}$ / $CT_\text{max}$ (the cold and hot temperatures where growth
+falls to 5 % of the peak, i.e. the curve's lower and upper edges), the **thermal breadth** or
+**niche width** ($CT_\text{max}-CT_\text{min}$, how wide a temperature range supports growth),
+and the **activation energy** $E_a$ (the steepness of the rising cold-side limb, obtained as
+the slope of $\ln\mu$ against $-1/(k_B T)$ over the 10–95 % rising portion — the standard
+Boltzmann–Arrhenius measure of thermal sensitivity, reported in electron-volts). The allocation-vs-envelope decomposition
 uses a range-fair, nominal-centred, fully-crossed **three-way** (allocation × kinetic ×
 stability) functional ANOVA — every parameter moved by the same standardised half-width
 $H$ about the measured nominal — giving both the exact two-group Shapley split
@@ -189,9 +235,10 @@ literature value — none is fit to the growth curve (@tbl-provenance).
 
 : Parameter provenance — every value grounded in independent data or a stated literature value, never fit to growth. {#tbl-provenance}
 
-**In-silico experiments.** (O1) The nominal TPC over an 8–60 °C grid gives the
-descriptors. (O2/O3) A **global sensitivity** sweep draws a Latin-hypercube sample
-($n=120$) over envelope knobs ($dT_\text{opt}\in[-6,6]$ K, `topt_scale`$\in[0.7,1.4]$,
+**In-silico experiments.** (O1) The nominal growth curve over an 8–60 °C grid gives the
+descriptors. (O2/O3) A **global sensitivity** sweep draws a Latin-hypercube sample (a
+space-filling random sample that spreads points evenly over each input's range; $n=120$) over
+envelope knobs ($dT_\text{opt}\in[-6,6]$ K, `topt_scale`$\in[0.7,1.4]$,
 `dCp_scale`$\in[0.5,2]$) and a pool knob (`budget_scale`$\in[0.7,1.1]$), reducing each
 TPC to descriptors and Spearman indices. (O4) The **decomposition** evaluates a fully-crossed
 three-way allocation$\times$kinetic$\times$stability design, every parameter moved by the same
@@ -217,8 +264,11 @@ per-enzyme mass, §Validation).
 
 # Validation
 
-We lead with whether the emergent model — **with nothing fit to growth** — predicts
-individual *E. coli* TPCs.
+**What this section does.** The strongest test of a forward model is whether it reproduces
+real data it never saw. We compare the model's predicted growth curves — **with nothing fit
+to growth** — against 26 measured *E. coli* growth curves, one prediction per curve under that
+experiment's medium, and separately check whether the model's predicted enzyme demands track a
+measured proteome.
 
 **Medium as an input, per curve.** The medium is an experimental input encoded as
 *availability* — we open the uptake (`EX_*_REV`) of each medium component and let the
@@ -242,8 +292,9 @@ allocation) to **$+0.21$** and their shape $R^2$ from $-0.67$ to $+0.70$, with p
 $r_\text{max}$ (1.04) now within ~2× of the observed 2.5 h⁻¹ rather than ~7×. The
 emergent activation energy is **medium-dependent and near-benchmark**: $E_a=0.83$ eV on
 LB (right on the mesophilic-bacterial-growth benchmark 0.84–0.88 eV, [@Smith2019]) and
-0.96 eV on minimal, versus observed rising-limb values ~0.64–0.73 eV — and far from the
-0.65 eV metabolic-theory value earlier (wrongly) calibrated to. A residual gap remains
+0.96 eV on minimal, versus observed rising-limb values ~0.64–0.73 eV. Because $E_a$ here is
+an emergent output of the literature MMRT curvature prior rather than a fitted target, this
+agreement is a genuine test rather than a calibration. A residual gap remains
 (the model still under-predicts the fastest rich curves, and the two defined
 glucose-minimal curves stay noisy — one is anomalously low at 0.10 h⁻¹): honest a-priori
 errors pointing to $\sigma$ / in-vivo $k_\text{cat}$ / medium-composition uncertainty,
@@ -314,16 +365,21 @@ c = c.rename(columns={"temp_C": "T (°C)", "n": "n enzymes",
 print(c.round(3).to_markdown(index=False))
 ```
 
-# What generates TPC variation (global sensitivity)
+# Which parameters move the curve? (local sensitivity)
 
-To ask **which parts of the model most drive the shape of the TPC**, we move every
-input by an *equal, standardised* amount and report a dimensionless magnitude. This
-avoids two problems with a hand-set Latin-hypercube + rank-correlation sweep (kept below
-as a rank-consistency view): a dial given a wider range can rank higher for that reason
-alone, and a rank correlation measures monotonic *consistency*, not the *magnitude* of
-the effect.
+**What this section does.** Having built the model, we ask which of its inputs actually
+control each feature of the growth curve. The cleanest way to compare inputs on an equal
+footing is an **elasticity**: nudge one input by a small, standardised amount and measure the
+fractional change it produces in a curve feature. Because every input is nudged by the *same*
+relative amount, the resulting numbers are directly comparable — a larger elasticity means a
+stronger lever. This is a *local* measure (it describes the model right at its operating
+point); the next section gives the complementary *global* view. Two pitfalls of a cruder
+approach motivate this one: if inputs are instead swept over hand-chosen ranges of differing
+width, an input handed a wider range can look more important for that reason alone; and a rank
+correlation (which we still report below for comparison) captures only whether a relationship
+is consistently increasing or decreasing, not how *big* the effect is.
 
-**Method (elasticities).** Around the nominal complete model we perturb each input by
+**Method.** Around the nominal complete model we perturb each input by
 the same standardised step $\pm h$ (here $h=0.10$) by central finite difference and
 compute, for each descriptor $D$, a local **elasticity**
 
@@ -425,90 +481,95 @@ out = pd.DataFrame({"Descriptor": keep, "Median": q.loc[0.5].values,
 print(out.to_markdown(index=False))
 ```
 
-# Allocation vs envelope decomposition — is the division of labour forced or emergent?
+# What sets each feature of the curve: allocation, kinetics, or stability? (objective O4)
 
-The elasticity above is the *local* view — nudge each dial at the operating point, read
-magnitude and direction. The decomposition is its *global*, grouped companion: with every
-axis varied together, how much of each descriptor's **variance** does each axis own, and how
-much lives in their interaction? The key methodological point is that we make the two
-analyses **commensurate** — the same equal, nominal-centred perturbations, the same
-parameter set (now including $T_m$) — so they are two views of one result rather than two
-procedures that can diverge for bookkeeping reasons. (An earlier version of this section did
-diverge from the elasticity; that was an artefact of the analysis, corrected below.)
+**What this section does.** The elasticity above measured how much each individual parameter
+moves each curve feature. Here we group the parameters into the three biological levers a
+cell actually has and ask how much of each feature's variability each lever owns. The three
+levers are: **proteome allocation** (how the finite enzyme budget is divided between
+metabolism, ribosomes and maintenance — the sector fractions $f_\text{metab}$,
+$f_\text{maint}$); the **kinetic envelope** (where each enzyme works best and how sharply its
+turnover falls away either side of that optimum — the optima $T_\text{opt}$, their spread,
+and the MMRT curvature); and **protein stability** (the melting temperatures $T_m$ that set
+where enzymes unfold). The question — objective O4 — is whether these levers divide the
+labour cleanly: does allocation set the curve's *height* while the envelope sets its *shape
+and position*, or are they entangled?
 
-**Method — range-fair, nominal-centred, magnitude-aware.** Every parameter, allocation
-*and* envelope, is moved by the **same** standardised relative half-width $H=0.2$ about the
-**measured** nominal: multiplicative dials over $\text{nominal}\times(1\pm H)$; the additive
-shifts $dT_\text{opt}$/$dT_m$ over $\pm H\,\Delta_\text{ref}$ with
-$\Delta_\text{ref}=\text{sd}$ of the per-enzyme $T_\text{opt}$/$T_m$ distribution
-(4.25 / 6.13 K); the sector fractions over $\text{nominal}\times(1\pm H)$ with biosynthesis
-renormalised. A fully-crossed three-way (allocation × kinetic-envelope × stability)
-functional ANOVA then yields, in one design, **both** the two-group allocation-vs-envelope
-Shapley split ($\varphi_A,\varphi_E$; envelope $=$ kinetic $\cup$ stability) **and** the
-three-group allocation / kinetic / stability split — so kinetics (cold side, $E_a$) is
-separated from $T_m$ (hot side, $CT_\text{max}$). Alongside the shares we report a
-**magnitude**: the achievable interquartile range of each descriptor when each axis alone is
-perturbed over $\pm H$, so a large *share* on a negligible *movement* cannot masquerade as
-importance.
+**How the decomposition works, in words.** We vary all three levers together and record each
+curve feature across the resulting ensemble. A **variance decomposition** then splits the
+total spread (variance) of each feature into the part attributable to each lever on its own
+plus an **interaction** part — variability that appears only when two levers move together
+and cannot be assigned to either alone. Each lever's share is reported as a **Shapley value**
+(written $\varphi$), a fair-division rule from cooperative game theory that splits the
+interaction evenly among the levers involved, so the shares sum to one. We run one
+fully-crossed design over allocation × kinetic-envelope × stability, which yields both a
+two-lever split (allocation $\varphi_A$ vs the whole envelope $\varphi_E$, where envelope $=$
+kinetic $+$ stability) and the finer three-lever split (allocation / kinetic / stability), so
+we can separate the cold-side kinetics from the hot-side melting temperature.
 
-@fig-decompiqr is the centrepiece. Per axis it shows the family of absolute TPCs reachable
-over $\pm H$, drawn as a median $+$ shaded IQR band with the nominal overlaid. The mapping is
-immediate and is exactly what the elasticity predicted: **allocation moves the plateau
-height, the kinetic envelope moves the cold-side rising limb, and $T_m$ moves the hot edge
+**Equal, operating-point-centred perturbations.** So the shares reflect biology rather than
+how wide we happened to sweep each dial, every parameter is moved by the **same** standardised
+relative half-width $H=0.2$ about its **measured** value: multiplicative parameters over
+$\text{value}\times(1\pm H)$; the additive temperature shifts $dT_\text{opt}$ and $dT_m$ over
+$\pm H\,\Delta_\text{ref}$, where $\Delta_\text{ref}$ is the standard deviation of the
+per-enzyme $T_\text{opt}$ / $T_m$ distribution (4.25 / 6.13 K, i.e. "$H$ of a natural
+temperature scale"); the sector fractions over $\text{value}\times(1\pm H)$ with the
+biosynthesis fraction renormalised so the budget still sums to one. This uses the same step
+philosophy as the elasticity, so the two analyses are directly comparable.
+
+**Share and magnitude together.** A share answers "of whatever variability exists, which
+lever owns it" — but a lever can own almost all of a movement that is itself tiny. So
+alongside each share we report a **magnitude**: the achievable **interquartile range** (IQR,
+the spread between the 25th and 75th percentiles) of each feature when that lever alone is
+varied over the standardised range. Reporting both prevents a large share on a negligible
+movement from reading as importance.
+
+@fig-decompiqr is the central result. For each lever it shows the family of absolute growth
+curves (in h⁻¹, not height-normalised) reachable by moving that lever alone, drawn as a
+median curve with a shaded interquartile band and the unperturbed nominal overlaid. The
+mapping is visually immediate: **allocation moves the plateau height, the kinetic envelope
+moves the cold-side rising limb, and the melting temperature moves the hot falling edge
 alone**.
 
-![**Achievable TPC bands per axis (centrepiece).** Absolute growth-rate TPCs (1/h, not peak-normalised) reachable by perturbing one axis alone over the standardised $\pm H$ range: median (solid) + interquartile band, nominal dashed. Allocation ($f_\text{metab},f_\text{maint}$) moves the plateau height; the kinetic envelope ($T_\text{opt}$, spread, curvature) moves the cold-side limb; $T_m$/stability moves only the hot falling edge; the full envelope combines the latter two.](assets/figures/decomp_iqr_bands.png){#fig-decompiqr fig-pos="H" width=100%}
+![**Reachable growth curves per lever (central result).** Absolute growth-rate curves (h⁻¹, not height-normalised) reachable by moving one lever alone over the standardised $\pm H$ range: median (solid) with interquartile band, nominal dashed. Allocation ($f_\text{metab},f_\text{maint}$) moves the plateau height; the kinetic envelope ($T_\text{opt}$, spread, curvature) moves the cold-side limb; the melting temperature $T_m$ moves only the hot falling edge; the full envelope combines the last two.](assets/figures/decomp_iqr_bands.png){#fig-decompiqr fig-pos="H" width=100%}
 
-**Result — the clean part of H1.3 holds; the earlier "envelope dominates everything" was an
-artefact of the analysis, not the model.** With range-fair, nominal-centred perturbations
-(@tbl-decomp, @fig-decomprecast):
+**What controls what** (@tbl-decomp, @fig-decomprecast):
 
-- **The rate is allocation-controlled.** $r_\text{max}$ has $\varphi_A=1.00$; the envelope
-  moves it by $<10^{-13}$ 1/h (achievable IQR $\approx0$ vs $0.13$ 1/h for allocation). This
-  matches the elasticity exactly (envelope elasticity $\approx0$ on $r_\text{max}$) and
-  **overturns** the superseded run's $\varphi_E=0.72$ (@tbl-decomp-compare).
-- **The upper thermal limit is $T_m$/stability-controlled — now with a real magnitude.**
-  $CT_\text{max}$ is $\varphi_E=0.93$, essentially *all* stability
-  ($\varphi_\text{stab}=0.93$, kinetic $0.00$), with an achievable IQR of $1.3$ °C under
-  $T_m$ vs $0.02$ (kinetic) and $0.09$ (allocation). Adding the $dT_m$ knob is what turns the
-  old "insensitive to everything" verdict into a clean, sizeable stability lever.
-- **The cold side and breadth are kinetic-envelope-led.** $CT_\text{min}$ is
-  $\varphi_\text{kin}=0.83$ (IQR 3.5 °C) and niche width $\varphi_\text{kin}=0.73$ — the
-  rising-limb shape is set by $T_\text{opt}$/curvature, matching the elasticity's cold-side
-  ranking.
-- **$T_\text{opt}$ and $E_a$ are coupled, not cleanly split.** $T_\text{opt}$ divides
-  $\varphi_A=0.67$ / $\varphi_E=0.33$ with a **large interaction** $S_{AE}=0.44$ (allocation
-  and envelope shift the optimum *together*); $E_a$ is allocation-led ($\varphi_A=0.85$) with
-  a kinetic remainder ($\varphi_\text{kin}=0.15$). This coupling is precisely why a purely
-  *local* elasticity and a *global* decomposition can appear to disagree on these two
-  descriptors — the interaction is real, and only the crossed design sees it.
+- **The maximum growth rate is set by allocation.** $r_\text{max}$ has $\varphi_A=1.00$: the
+  envelope leaves it essentially unchanged (achievable IQR $\approx0$ vs $0.13$ h⁻¹ for
+  allocation), consistent with the elasticity, where the envelope elasticity on $r_\text{max}$
+  is $\approx0$. The rate is a budget quantity, set by how much enzyme the cell can afford.
+- **The upper thermal limit is set by protein stability.** $CT_\text{max}$ has
+  $\varphi_E=0.93$, and within the envelope this is essentially all stability
+  ($\varphi_\text{stab}=0.93$, kinetic $0.00$), with an achievable spread of $1.3$ °C under
+  $T_m$ versus $0.02$ (kinetic) and $0.09$ (allocation). The melting temperature is the one
+  lever that moves where the curve collapses.
+- **The cold side and the breadth are set by the kinetic envelope.** The lower limit
+  $CT_\text{min}$ has $\varphi_\text{kin}=0.83$ (IQR 3.5 °C) and the niche width (the span
+  between the lower and upper limits) has $\varphi_\text{kin}=0.73$: the rising-limb shape is
+  governed by where enzymes work best and how curved their turnover response is.
+- **The optimum and the activation energy are shared, not cleanly owned.** $T_\text{opt}$
+  divides $\varphi_A=0.67$ / $\varphi_E=0.33$ with a **large interaction** $S_{AE}=0.44$ —
+  allocation and envelope shift the optimum together, so neither owns it. The activation
+  energy $E_a$ is mostly allocation ($\varphi_A=0.85$) with a kinetic remainder
+  ($\varphi_\text{kin}=0.15$). Because a purely local elasticity cannot see an interaction,
+  these two features are exactly where a local and a grouped view differ; only the crossed
+  design resolves the sharing.
 
-**Why the earlier decomposition said the opposite.** The superseded run (Supplementary)
-reported "the envelope dominates every descriptor" and "$r_\text{max}$ $\varphi_E=0.72$".
-That conclusion was inflated by four analysis choices, all corrected here: (i) **unequal
-ranges** — the envelope was swept wide ($dT_\text{opt}\pm6$ K, $dC_p\times0.5$–2) while
-allocation was swept narrow, and a wider box buys a larger variance share for free;
-(ii) **off-nominal sampling** — $f_\text{metab}$ was drawn 0.20–0.40 although the measured
-nominal is $\approx0.48$, displacing the allocation axis off the operating point;
-(iii) **shares without magnitude** — reporting only variance fractions let a 93–99 % share on
-a sub-degree $CT_\text{max}$ movement read as "dominant"; and (iv) **no $T_m$ axis** — the one
-dial that actually moves $CT_\text{max}$ was never perturbed. Under equal, nominal-centred,
-magnitude-aware perturbations with $T_m$ included, the rate and optimum are allocation-led,
-the cold-side shape is kinetic-envelope-led, and the upper limit is $T_m$/stability-controlled.
+**The answer to the separability question.** The division of labour is **partly clean and
+measure-dependent**, and that is the finding. Two features sit in clean, opposite corners —
+the rate is owned by allocation and the upper limit by the melting temperature — and the
+cold side is owned by the kinetic envelope; but the optimum and the activation energy are
+genuinely shared between allocation and envelope (a large interaction term). No single lever
+sets the *whole* curve's shape or the *whole* curve's height. This is why pinning a real
+organism's growth curve needs both classes of measurement: the proteome allocation that sets
+the rate, and the melting proteome ($T_m$) that sets the upper limit.
 
-**The honest answer to H1.3.** The division of labour is *partly* clean and *measure-
-dependent*, and that is itself the finding. $r_\text{max}\!\to\!$ allocation and
-$CT_\text{max}\!\to\!T_m$ are clean and sit in opposite corners; the cold side is kinetic;
-but $T_\text{opt}$ and $E_a$ are genuinely coupled (large $S_{AE}$). No single axis "sets
-shape" or "sets magnitude" for the *whole* curve — which is exactly why both classes of
-measurement, proteome allocation **and** the melting proteome ($T_m$), are needed to pin a
-TPC.
-
-![**Recast variance decomposition.** Left: three-group Shapley shares (allocation / kinetic envelope / $T_m$-stability) per descriptor, range-fair and nominal-centred, summing to 1. Right: the achievable IQR magnitude per axis — so a large share on a negligible movement (e.g. $CT_\text{max}$ under kinetics) cannot masquerade as importance.](assets/figures/decomp_recast_variance.png){#fig-decomprecast fig-pos="H" width=95%}
+![**Grouped variance decomposition.** Left: three-lever Shapley shares (allocation / kinetic envelope / $T_m$-stability) per curve feature, summing to one. Right: the achievable IQR magnitude of each feature under each lever alone (native units) — reported alongside the shares so a large share on a negligible movement cannot read as importance.](assets/figures/decomp_recast_variance.png){#fig-decomprecast fig-pos="H" width=95%}
 
 ```{python}
 #| label: tbl-decomp
-#| tbl-cap: "Recast decomposition (complete model, range-fair H=0.2, nominal-centred, +Tm). Two-group allocation (φ_A) vs envelope (φ_E) Shapley with interaction S_AE, the three-group kinetic/stability split (φ_kin, φ_stab), and the achievable IQR magnitude of the descriptor under each axis alone."
+#| tbl-cap: "Grouped variance decomposition (complete model; equal half-width H=0.2 about the measured operating point). Two-lever allocation (φ_A) vs whole-envelope (φ_E) Shapley shares with the interaction term S_AE; the three-lever kinetic/stability split (φ_kin, φ_stab); and the achievable IQR magnitude of each feature under each lever alone."
 #| output: asis
 import pandas as pd, json
 
@@ -517,7 +578,7 @@ m = pd.read_csv("assets/tables/decomposition_recast_magnitude.csv").set_index("d
 keep = ["Topt_C", "rmax", "CTmin_C", "CTmax_C", "niche_width_C", "Ea_eV"]
 keep = [k for k in keep if k in d.index]
 tab = pd.DataFrame({
-    "descriptor": keep,
+    "feature": keep,
     "φ_A": d.loc[keep, "phi_A"].values,
     "φ_E": d.loc[keep, "phi_E"].values,
     "S_AE": d.loc[keep, "S_AE"].values,
@@ -530,43 +591,44 @@ tab = pd.DataFrame({
 print(tab.to_markdown(index=False))
 ```
 
-```{python}
-#| label: tbl-decomp-compare
-#| tbl-cap: "Allocation Shapley share φ_A per descriptor: the superseded decomposition (unequal envelope-favouring ranges, off-nominal f_metab, shares without magnitude, no Tm) vs the recast (range-fair, nominal-centred, magnitude-aware, +Tm). The rate flips from envelope- to allocation-controlled; CTmax stays envelope but now carries a real magnitude."
-#| output: asis
-import pandas as pd
+**Sector trade-off — the measured allocation sits near the model's growth optimum.** Allocation
+is a trade-off: giving more of the proteome to metabolic enzymes ($f_\text{metab}$) adds flux
+capacity but starves the biosynthesis (ribosome) sector that caps how fast biomass is made. To
+see where the cell sits on this trade-off, we sweep $f_\text{metab}$ around the measured
+operating point (with maintenance held near its nominal 0.326) and read off $r_\text{max}$
+(@fig-sectrade, @fig-secsens). The maximum growth rate rises with $f_\text{metab}$, reaches an
+**interior optimum plateau around $f_\text{metab}\approx0.41$–0.48, then falls** as the
+ribosome sector is squeezed. The **measured glucose-minimal operating point,
+$f_\text{metab}=0.483$, lies within this optimal plateau** — so the cell's measured proteome
+partition is essentially the split that maximises growth in the model, rather than an arbitrary
+point on the trade-off. The upper thermal limit $CT_\text{max}$ stays pinned near 47 °C across
+the whole sweep, because it is set by the enzyme melting temperatures and not by how the budget
+is allocated.
 
-old = pd.read_csv("assets/tables/decomposition_table.csv").set_index("descriptor")
-new = pd.read_csv("assets/tables/decomposition_recast_table.csv").set_index("descriptor")
-rows = []
-for lab, k in [("r_max", "rmax"), ("T_opt", "Topt_C"), ("CT_min", "CTmin_C"),
-               ("CT_max", "CTmax_C"), ("E_a", "Ea_eV")]:
-    rows.append((lab, f"{old.loc[k,'phi_A']:.2f}", f"{new.loc[k,'phi_A']:.2f}"))
-print(pd.DataFrame(rows, columns=["descriptor", "φ_A superseded", "φ_A recast"]).to_markdown(index=False))
-```
+![**Proteome-sector trade-off.** Maximum growth rate $r_\text{max}$ (left) and upper thermal limit $CT_\text{max}$ (right) versus the metabolic sector fraction $f_\text{metab}$, each point a sampled allocation coloured by its maintenance fraction $f_\text{maint}$. Growth rises to an interior optimum plateau ($f_\text{metab}\approx0.41$–0.48) that contains the measured operating point (0.483), then falls as biosynthesis is starved; $CT_\text{max}$ stays near 47 °C throughout, fixed by the melting temperatures.](assets/figures/sector_tradeoff.png){#fig-sectrade fig-pos="H" width=90%}
 
-**Sector trade-off.** Sweeping the sector split (@fig-sectrade, @fig-secsens) confirms an
-**interior growth optimum**: mean $r_\text{max}$ peaks at $f_\text{metab}\approx0.28$–0.31
-— essentially where the **measured** allocation sits ($f_\text{metab}=0.285$) — so the
-cell's proteome partition is close to the model's growth optimum. $r_\text{max}$ falls
-with both metabolic *and* maintenance fraction (Spearman $-0.48$, $-0.50$), while the
-thermal limits track the optimum shift through the fixed $T_m$ ceiling.
+![**Sector-sweep rank sensitivities.** Spearman rank correlations between the swept sector/envelope inputs and each curve feature over this sweep.](assets/figures/sectors_sensitivity.png){#fig-secsens fig-pos="H" width=85%}
 
-![**Proteome-sector trade-off.** $r_\text{max}$ and $CT_\text{max}$ vs the metabolic sector fraction $f_\text{metab}$, coloured by $f_\text{maint}$; the interior $r_\text{max}$ optimum sits near the measured allocation.](assets/figures/sector_tradeoff.png){#fig-sectrade fig-pos="H" width=90%}
+# Which enzymes matter, and can we learn them from growth? (control and identifiability)
 
-![**Sector-sweep sensitivity.**](assets/figures/sectors_sensitivity.png){#fig-secsens fig-pos="H" width=85%}
+**What this section does.** The previous sections grouped parameters; here we ask two
+enzyme-level questions. First, **which individual enzymes control the thermal envelope** — do
+a few enzymes dominate, or is control spread thinly across the whole proteome? We answer with
+a *control score* that combines how heavily each enzyme is used with how thermally sensitive
+it is. Second, **could the ~7,700 per-enzyme parameters be inferred from a growth curve
+alone**, or do they need direct measurement? We answer with an *identifiability* score: a
+parameter is identifiable if changing it visibly changes the growth curve (a first-order
+proxy — a full profile-likelihood analysis is future work).
 
-# Per-enzyme thermal control and identifiability
-
-@fig-ctrlthermal and @tbl-control rank enzymes by a thermal-screen control score;
-@fig-ctrlident and @tbl-ident summarise identifiability. **Thermal control is
-concentrated in very few enzymes** — the top determinant is **homoserine dehydrogenase**
-(`HSDy`, enzyme `P00562`), the screen then falling essentially to zero — so a handful of
-enzymes set the envelope (the basis for sequence-predictability, O2). Computed
-**proteome-wide** over all 2560 enzymes × 3 parameters (7680), only **175 (2.3 %)** are
-identifiable from growth alone, essentially all within the 300 finite-difference-refined
-high-control enzymes (**58 % among that top-K**; @tbl-ident): growth constrains only a
-small, high-control subset, and ~98 % of parameters require omics (O5).
+**Thermal control is concentrated in very few enzymes** (@fig-ctrlthermal, @tbl-control): the
+top determinant is homoserine dehydrogenase (reaction `HSDy`, enzyme `P00562`), and the score
+falls essentially to zero thereafter — so a handful of enzymes set the envelope, which is what
+makes sequence-based prediction of the envelope plausible (objective O2). Computed across all
+2560 enzymes × 3 parameters (7680 in total), only **175 (2.3 %)** are identifiable from growth
+alone, and these lie almost entirely within the 300 highest-control enzymes (**58 %** of that
+subset are identifiable; @tbl-ident). Growth data therefore constrain only a small,
+high-control subset of parameters; the remaining ~98 % must come from independent measurement
+(objective O5).
 
 ![**Per-enzyme thermal control.** Top enzymes by thermal-screen control score.](assets/figures/control_thermal.png){#fig-ctrlthermal fig-pos="H" width=85%}
 
@@ -604,32 +666,26 @@ print(summ.to_markdown(index=False))
 
 # Interpretation and caveats
 
-On the complete, data-grounded model — analysed with equal, nominal-centred perturbations
-and a matched local elasticity — the control of the TPC is **partitioned and measure-
-dependent**, not owned by one axis. **Proteome allocation controls the rate** ($r_\text{max}$
-$\varphi_A=1.0$; an interior sector optimum at the measured allocation); **protein stability
-($T_m$) controls the upper limit** ($CT_\text{max}$ $\varphi_\text{stab}=0.93$, a real
-$\approx1.3$ °C IQR); **the kinetic envelope ($T_\text{opt}$, MMRT curvature) controls the
-cold side and breadth**; and **$T_\text{opt}$ and $E_a$ are genuinely coupled** across
-allocation and envelope (large interaction). So H1.3's "allocation sets magnitude, envelope
-sets shape" is *half right and instructive*: the rate→allocation and $CT_\text{max}\to T_m$
-corners are clean and opposite, but the optimum and activation energy are shared. Thermal
-control is concentrated in a few enzymes, yet ~98 % of per-enzyme parameters are
-unidentifiable from growth alone, which is why we ground them in independent data (melting
-proteome, sequence predictors, DLTKcat, temperature proteomics) rather than fitting them to
-the growth curve.
-
-This **corrects an earlier version** of the decomposition that reported the envelope as the
-dominant control of *every* descriptor, including 72 % of the rate. That result did not
-survive a range-fair check: it came from sweeping the envelope over wider ranges than
-allocation, sampling allocation off its measured nominal, reporting variance shares without a
-magnitude, and never perturbing $T_m$. Once every axis is moved by the same standardised
-width about the measured operating point and $T_m$ is included, the local elasticity and the
-global decomposition agree (they are two views of one result), and the rate is allocation-,
-not envelope-, controlled. Separately, grounding the allocation layer *costs* empirical
-growth-TPC fit (the sector constraints sharpen the curve; $R^2$ falls from 0.74 for the
-envelope-only model to 0.49 for the complete model) — its value is the proteome grounding and
-the range-fair decomposition, not a better growth fit.
+Control of the growth curve is **shared and feature-specific**, not owned by any single
+lever. **Proteome allocation sets the maximum rate** ($r_\text{max}$, $\varphi_A=1.0$), and the
+model's growth-optimal metabolic fraction is an interior optimum ($f_\text{metab}\approx0.41$–
+0.48) that contains the measured glucose-minimal operating point (0.483) — the cell's measured
+proteome partition sits close to the growth-maximising split.
+**Protein stability — the melting temperature $T_m$ — sets the upper thermal limit**
+($CT_\text{max}$, $\varphi_\text{stab}=0.93$, an achievable spread of $\approx1.3$ °C). **The
+kinetic envelope — where enzymes work best and how curved their turnover is — sets the
+cold-side shape and the thermal breadth.** And **the optimum $T_\text{opt}$ and the activation
+energy $E_a$ are shared** between allocation and envelope (a large interaction term). So the
+intuitive picture "allocation sets the height, the envelope sets the shape" is half right: the
+rate and the upper limit are cleanly and separately owned, but the optimum and the activation
+energy are entangled. Thermal control is concentrated in a few enzymes, yet ~98 % of
+per-enzyme parameters cannot be inferred from a growth curve alone, which is why we ground
+them in independent data (the melting proteome, sequence-based optima, DLTKcat and temperature
+proteomics) rather than fitting them to growth. Grounding the allocation layer *costs* some
+empirical growth-curve fit — the sector constraints tighten the curve and the fit $R^2$ falls
+from 0.74 (enzyme-envelope only) to 0.49 (complete model) — so its value is the proteome
+realism and the ability to attribute control to measurable quantities, not a better growth
+fit.
 
 Remaining limitations, all structural / in-silico, and now framed by the emergent
 per-curve validation: **(i)** the emergent rising limb is **too steep** — the
@@ -661,23 +717,23 @@ free couplings against phenotype/proteome/flux data [@Li2021; @Pettersen2023] (�
 
 # Supplementary: model construction and layer contributions
 
-The complete model is presented above as one configuration; here we quantify what each
-layer adds by ablation (@fig-ablation, @tbl-ablation), each scored against the empirical
-TPC.
+The complete model above is one configuration. To show how much each layer contributes, we
+build it up one layer at a time and score each version against the empirical glucose-minimal
+growth curves (@fig-ablation, @tbl-ablation). Each row adds one ingredient to the row above.
 
-- **Peak-normalised MMRT, scalar pool** (the old assumed model) reproduces the
-  pre-grounding nominal exactly (a sanity check: $T_\text{opt}=37$ °C, $r_\text{max}=0.571$,
-  but an unphysical $CT_\text{max}=75.6$ °C), $R^2=0.23$.
-- **Two-state unfolding, scalar pool** grounds $CT_\text{max}$ in $T_m$ ($46.8$ °C) and is
-  the **decisive improvement**: $R^2=0.74$.
-- **+ temperature-independent sectors** (measured nominal split) *lowers* the fit
-  ($R^2=0.37$) — the sector constraints sharpen the curve.
-- **+ measured temperature-dependent allocation** (the complete model) recovers some
-  ($R^2=0.49$).
+- **Simple temperature envelope with a single enzyme pool** (turnover peak-normalised, no
+  unfolding): $T_\text{opt}=37$ °C, $r_\text{max}=0.571$, but an unphysical
+  $CT_\text{max}=75.6$ °C because nothing sets an upper limit; $R^2=0.23$.
+- **Add two-state unfolding** (still a single pool): the melting temperature now sets a
+  realistic upper limit ($CT_\text{max}=46.8$ °C). This is the **decisive improvement**:
+  $R^2=0.74$.
+- **Add temperature-independent proteome sectors** (measured nominal split): the sector
+  constraints tighten the curve and *lower* the raw fit to $R^2=0.37$.
+- **Add measured temperature-dependent allocation** (the complete model): $R^2=0.49$.
 
-So the unfolding/$T_m$ envelope is the ingredient that makes the TPC realistic; the
-allocation layers add proteome realism and the corrected decomposition at a small cost in
-growth-fit. The DLTKcat $k_\text{cat}(T)$ overlay (@fig-dltkcat) currently touches 13 of
+So the unfolding / $T_m$ envelope is the ingredient that makes the curve physically realistic;
+the allocation layers add proteome realism — and the ability to attribute control to
+measurable quantities — at a modest cost in raw growth-curve fit. The DLTKcat $k_\text{cat}(T)$ overlay (@fig-dltkcat) currently touches 13 of
 2560 enzymes, none pool-limiting, so it does not yet move the nominal curve; broadening it
 is future work. Parameter provenance and coverage: grounded $T_\text{opt}$/$T_m$ for
 90 % of enzymes (rest at dataset means), proteome-to-enzyme mapping 62 %.
