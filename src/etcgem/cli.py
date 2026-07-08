@@ -544,6 +544,8 @@ def cmd_calibrate(args):
     if args.list:
         print(cal.list_defined_curves(args.strain).to_string(index=False))
         return
+    if getattr(args, "vdl", False):
+        return _cmd_calibrate_vdl(args)
     trusted_noll = bool(args.noll)
     if not args.strain or (not args.curve and not trusted_noll):
         raise SystemExit("calibrate needs --strain NAME --curve CURVE_ID (or --noll / --list)")
@@ -564,6 +566,34 @@ def cmd_calibrate(args):
         n_proc=int(args.procs if args.procs is not None else s.get("n_proc", 0)),
         priors_cfg=priors_cfg, trusted_noll=trusted_noll)
     _calibrate_console_summary(res)
+    print(f"[calibrate] wrote {out_dir}")
+    return out_dir
+
+
+def _cmd_calibrate_vdl(args):
+    """Unified multi-parameter tuning on Van Derlinden at the rich BHI operating point."""
+    from . import calibration_multi as cm
+    out_dir = _out_dir(args.strain, "calibration_vanderlinden")
+    res = cm.run(args.strain, out_dir,
+                 n_walkers=int(args.walkers or 40), n_steps=int(args.steps or 2500),
+                 n_burn=int(args.burn or 800),
+                 seed=int(args.seed if args.seed is not None else 1),
+                 n_proc=int(args.procs if args.procs is not None else 0))
+    sm, d, po = res["sampler"], res["descriptors"], res["posterior"]
+    print("\n" + "=" * 72)
+    print("CALIBRATION (unified) — Van Derlinden MG1655/BHI, rich operating point")
+    print("=" * 72)
+    print(f"  acceptance={sm['acceptance_fraction']}  autocorr_max={sm['autocorr_time_max']}  "
+          f"n_eff={sm['n_eff']}  wall={sm['wall_time_s']}s")
+    print(f"  {'descriptor':10s} {'observed':>10s} {'emergent':>10s} {'posterior':>10s}")
+    for k in ("rmax", "Topt_C", "Ea_eV", "CTmax_C"):
+        print(f"  {k:10s} {d['observed'][k]:>10} {d['emergent_prior'][k]:>10} {d['posterior_median'][k]:>10}")
+    print("  demanded corrections (posterior median [90% CI], constrained?):")
+    for k in ("kcat_scale", "kappa_scale", "dCp_scale", "dTopt", "dTm", "topt_scale",
+              "f_metab", "f_maint", "sigma_disc"):
+        p = po[k]
+        print(f"    {k:12s} {p['demanded_correction']:>18s}  CI{p['posterior_90CI']}  "
+              f"constrained={p['constrained_by_curve']}")
     print(f"[calibrate] wrote {out_dir}")
     return out_dir
 
@@ -782,6 +812,9 @@ def build_parser():
     ca.add_argument("--noll", action="store_true",
                     help="fit the trusted Noll glucose-minimal curve with per-point-SD "
                          "likelihood (writes to calibration_noll_minimal/)")
+    ca.add_argument("--vdl", action="store_true",
+                    help="unified multi-parameter tuning on Van Derlinden (MG1655, BHI) at "
+                         "the rich operating point (writes to calibration_vanderlinden/)")
     ca.add_argument("--experiment", help="experiment carrying a calibration: block (optional)")
     ca.add_argument("--medium", default=None)
     ca.add_argument("--walkers", type=int, default=None)
