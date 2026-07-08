@@ -486,6 +486,53 @@ def cmd_anatomy(args):
 
 
 # ---------------------------------------------------------------------------
+# calibrate: single-curve Bayesian calibration (emcee); prior vs posterior
+# ---------------------------------------------------------------------------
+def cmd_calibrate(args):
+    from . import calibration as cal
+    if args.list:
+        print(cal.list_defined_curves(args.strain).to_string(index=False))
+        return
+    if not (args.strain and args.curve):
+        raise SystemExit("calibrate needs --strain NAME --curve CURVE_ID (or --list)")
+    cfg = resolve(args.strain, args.experiment) if args.experiment else {}
+    cal_cfg = (cfg.get("calibration") or {}) if isinstance(cfg, dict) else {}
+    s = cal_cfg.get("sampler", {})
+    priors_cfg = cal_cfg.get("priors", {})
+    out_dir = _out_dir(args.strain, "calibration_phase1")
+    res = cal.run_emcee(
+        args.strain, args.curve, out_dir,
+        medium=args.medium or cal_cfg.get("medium", "glucose_minimal"),
+        n_walkers=int(args.walkers or s.get("n_walkers", 24)),
+        n_steps=int(args.steps or s.get("n_steps", 1500)),
+        n_burn=int(args.burn or s.get("n_burn", 500)),
+        seed=int(args.seed if args.seed is not None else s.get("seed", 1)),
+        n_proc=int(args.procs if args.procs is not None else s.get("n_proc", 0)),
+        priors_cfg=priors_cfg)
+    _calibrate_console_summary(res)
+    print(f"[calibrate] wrote {out_dir}")
+    return out_dir
+
+
+def _calibrate_console_summary(res):
+    d = res["descriptors"]; sm = res["sampler"]; po = res["posterior"]
+    print("\n" + "=" * 68)
+    print(f"CALIBRATION SUMMARY — {res['curve']['curve_id']} "
+          f"({res['curve']['study']}, {res['curve']['medium_class']})")
+    print("=" * 68)
+    print(f"  acceptance={sm['acceptance_fraction']}  autocorr_max={sm['autocorr_time_max']}  "
+          f"n_eff={sm['n_eff']}  wall={sm['wall_time_s']}s")
+    print(f"  {'descriptor':10s} {'observed':>10s} {'prior':>10s} {'posterior':>10s}")
+    for k in ("rmax", "Topt_C", "Ea_eV", "CTmax_C"):
+        print(f"  {k:10s} {d['observed'][k]:>10} {d['prior'][k]:>10} {d['posterior_median'][k]:>10}")
+    print("  demanded corrections (posterior median [90% CI], curve-constrained?):")
+    for k in ("kappa_scale", "dCp_scale", "dTopt", "dTm"):
+        p = po[k]
+        print(f"    {k:12s} {p['demanded_correction']:>9s}  CI{p['posterior_90CI']}  "
+              f"constrained={p['constrained_by_curve']}")
+
+
+# ---------------------------------------------------------------------------
 # proteome-sectors: empirical temperature-dependent allocation + validation
 # ---------------------------------------------------------------------------
 def cmd_proteome_sectors(args):
@@ -662,6 +709,21 @@ def build_parser():
     an.add_argument("--strain")
     an.add_argument("--experiment")
     an.set_defaults(func=cmd_anatomy)
+
+    ca = sub.add_parser("calibrate",
+                        help="single-curve Bayesian calibration (emcee): prior vs "
+                             "posterior on one measured glucose-minimal TPC")
+    ca.add_argument("--strain")
+    ca.add_argument("--curve", help="curve id from thermal/ecoli_tpc_curves.csv")
+    ca.add_argument("--experiment", help="experiment carrying a calibration: block (optional)")
+    ca.add_argument("--medium", default=None)
+    ca.add_argument("--walkers", type=int, default=None)
+    ca.add_argument("--steps", type=int, default=None)
+    ca.add_argument("--burn", type=int, default=None)
+    ca.add_argument("--seed", type=int, default=None)
+    ca.add_argument("--procs", type=int, default=None, help="parallel workers (0=auto)")
+    ca.add_argument("--list", action="store_true", help="list defined curves and exit")
+    ca.set_defaults(func=cmd_calibrate)
 
     pspar = sub.add_parser("proteome-sectors",
                            help="empirical temperature-dependent proteome allocation + "
