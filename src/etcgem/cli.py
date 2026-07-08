@@ -446,9 +446,10 @@ def cmd_elasticity(args):
 # anatomy: reference-operating-point description (curve + enzyme distributions)
 # ---------------------------------------------------------------------------
 def cmd_anatomy(args):
-    """Model-anatomy figures at the reference operating point (glucose-minimal
-    strain nominal): the reference TPC with descriptors, the per-enzyme thermal
-    parameter densities, and an example per-enzyme kcat(T)/f_N(T) panel."""
+    """Model-anatomy figures at the reference operating point: the reference TPC
+    with descriptors, the per-enzyme thermal parameter densities, and an example
+    per-enzyme kcat(T)/f_N(T) panel. The reference is the rich BHI medium by
+    default (--medium to override, e.g. glucose_minimal)."""
     if not args.strain:
         raise SystemExit("anatomy needs --strain NAME")
     cfg = resolve(args.strain, args.experiment)
@@ -457,6 +458,9 @@ def cmd_anatomy(args):
     pm = _build_pm(cfg)
     temps = temperature_grid(cfg)
     dump_resolved(cfg, out_dir)
+    # reference operating point medium (rich BHI by default)
+    medium = args.medium or "BHI"
+    op_label = _anatomy_set_medium(pm, medium, args.strain)
     # optional highlight: top thermal-control enzymes, if a control run exists
     highlight = []
     ctrl = os.path.join(os.path.dirname(out_dir), "control_control", "thermal_control.csv")
@@ -474,8 +478,9 @@ def cmd_anatomy(args):
     from .plotting import (plot_reference_tpc, plot_enzyme_param_densities,
                            plot_example_kcatT)
     print(f"[anatomy] model={pm.name} grid={temps[0]:.0f}-{temps[-1]:.0f}°C "
-          f"enzymes={len(pm.ec.table.entries)}")
-    p1 = plot_reference_tpc(pm, temps, out_dir, crit_frac=cfg.get("crit_frac", 0.05))
+          f"medium={medium} enzymes={len(pm.ec.table.entries)}")
+    p1 = plot_reference_tpc(pm, temps, out_dir, crit_frac=cfg.get("crit_frac", 0.05),
+                            op_label=op_label)
     p2 = plot_enzyme_param_densities(pm.ec, out_dir)
     p3 = plot_example_kcatT(pm.ec, temps, out_dir, highlight=highlight or None)
     import numpy as _np
@@ -483,6 +488,29 @@ def cmd_anatomy(args):
           f"(reference scales for dTopt/dTm)")
     print(f"[anatomy] wrote {p1}\n          {p2}\n          {p3}")
     return out_dir
+
+
+def _anatomy_set_medium(pm, medium, strain):
+    """Set the anatomy reference operating-point medium and return a display label
+    with the effective sector fractions at the curve optimum."""
+    from .providers import set_medium
+    import os as _os
+    if medium == "BHI":
+        set_medium(pm, "BHI", bhi_media_csv=_os.path.join("strains", strain, "media", "BHI_media.csv"))
+    elif medium == "LB":
+        set_medium(pm, "LB", lb_media_csv=_os.path.join("strains", strain, "media", "LB_media.csv"))
+    else:
+        set_medium(pm, "glucose_minimal", "glc__D", True)
+    # effective sector fractions at 37 C (T-dependent when allocation_from_data is on)
+    alloc = getattr(pm.ec, "_alloc_from_data", None)
+    label = {"BHI": "rich (BHI)", "LB": "rich (LB)"}.get(medium, "glucose-minimal")
+    if alloc is not None and hasattr(alloc, "model_alloc"):
+        fm, fmaint = alloc.model_alloc(37.0)
+        fb = 1.0 - fm - fmaint
+        return (f"Reference operating point: {label}\n"
+                f"$f_\\mathrm{{metab}}$={fm:.3f}, $f_\\mathrm{{bio}}$={fb:.3f}, "
+                f"$f_\\mathrm{{maint}}$={fmaint:.3f} (at 37 °C)")
+    return f"Reference operating point: {label}"
 
 
 # ---------------------------------------------------------------------------
@@ -736,6 +764,8 @@ def build_parser():
                              "(reference TPC + per-enzyme parameter densities + example kcat(T))")
     an.add_argument("--strain")
     an.add_argument("--experiment")
+    an.add_argument("--medium", default=None,
+                    help="reference operating-point medium (default BHI; e.g. glucose_minimal, LB)")
     an.set_defaults(func=cmd_anatomy)
 
     va = sub.add_parser("validate",

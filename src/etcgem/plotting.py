@@ -210,9 +210,11 @@ def plot_all(result, out_dir: str):
 # Model anatomy: reference TPC, enzyme-parameter densities, example kcat(T)
 # ===========================================================================
 def plot_reference_tpc(pm, temps_C, out_dir: str, crit_frac: float = 0.05,
-                       fname: str = "reference_tpc.png"):
-    """The model's growth TPC at the reference operating point (glucose-minimal
-    strain nominal), on RAW absolute rate (1/h), with the descriptors marked."""
+                       fname: str = "reference_tpc.png", op_label=None):
+    """The model's growth TPC at the reference operating point, on RAW absolute
+    rate (1/h), with the descriptors marked. ``op_label`` overrides the
+    operating-point annotation (e.g. for a rich BHI reference); when None it falls
+    back to the static glucose-minimal sector nominal."""
     plt = _mpl()
     from .tpc import compute_tpc
     from .enzyme_cost import Perturbation
@@ -220,10 +222,14 @@ def plot_reference_tpc(pm, temps_C, out_dir: str, crit_frac: float = 0.05,
     tpc = compute_tpc(pm, T, Perturbation())
     g = tpc.growth
     d = tpc.descriptors(crit_frac)
-    sec = getattr(pm.ec, "_sectors", None) or {}
-    fm = float(sec.get("f_metab_nom", float("nan")))
-    fmn = float(sec.get("f_maint_nom", float("nan")))
-    fb = 1.0 - fm - fmn if np.isfinite(fm) and np.isfinite(fmn) else float("nan")
+    if op_label is None:
+        sec = getattr(pm.ec, "_sectors", None) or {}
+        fm = float(sec.get("f_metab_nom", float("nan")))
+        fmn = float(sec.get("f_maint_nom", float("nan")))
+        fb = 1.0 - fm - fmn if np.isfinite(fm) and np.isfinite(fmn) else float("nan")
+        op_label = (f"Reference operating point: glucose-minimal\n"
+                    f"$f_\\mathrm{{metab}}$={fm:.3f}, $f_\\mathrm{{bio}}$={fb:.3f}, "
+                    f"$f_\\mathrm{{maint}}$={fmn:.3f}")
 
     fig, ax = plt.subplots(figsize=(8, 5))
     ax.plot(T, g, color="tab:blue", lw=2.2, zorder=3)
@@ -254,10 +260,7 @@ def plot_reference_tpc(pm, temps_C, out_dir: str, crit_frac: float = 0.05,
     ax.set_xlabel("Temperature (°C)")
     ax.set_ylabel("Growth rate (1/h)")
     ax.set_ylim(0, d.rmax * 1.18)
-    op = (f"Reference operating point: glucose-minimal\n"
-          f"$f_\\mathrm{{metab}}$={fm:.3f}, $f_\\mathrm{{bio}}$={fb:.3f}, "
-          f"$f_\\mathrm{{maint}}$={fmn:.3f}")
-    ax.text(0.02, 0.97, op, transform=ax.transAxes, va="top", ha="left", fontsize=8.5,
+    ax.text(0.02, 0.97, op_label, transform=ax.transAxes, va="top", ha="left", fontsize=8.5,
             bbox=dict(boxstyle="round", fc="0.96", ec="0.8"))
     ax.set_title("Reference growth thermal performance curve (complete model)")
     fig.tight_layout()
