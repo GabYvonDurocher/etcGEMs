@@ -262,6 +262,62 @@ the rising-limb $E_a$ (tested against the independent 0.84–0.88 eV benchmark) 
 secondary diagnostics. The proteome is validated separately (predicted vs measured
 per-enzyme mass, §Validation).
 
+# How the model works: the reference operating point and its enzyme-level parameters
+
+**What this section does.** Before testing the model against data or dissecting what controls
+its predictions, it helps to open it up at a single fixed condition and see what it actually
+contains and how it behaves. This section is a description, not a result: it defines the
+**reference operating point** we use throughout the rest of the report, shows the growth curve
+the model predicts there, and displays the per-enzyme parameters underneath that curve. The
+next section then tests this reference prediction against real data.
+
+**The reference operating point.** Everything below, and every sensitivity result later, is
+computed at one condition: the **glucose-minimal strain nominal**. The organism grows on a
+defined glucose-minimal medium, and the proteome budget is split using the measured
+glucose-minimal sector fractions $f_\text{metab}=0.483$ (metabolic enzymes),
+$f_\text{bio}=0.191$ (biosynthesis/ribosomes) and $f_\text{maint}=0.326$ (maintenance).
+@fig-reftpc shows the growth curve the model predicts there, on absolute rate. Its descriptors
+read off directly: the optimum is $T_\text{opt}=30$ °C, the maximum growth rate
+$r_\text{max}=0.55\,\text{h}^{-1}$, the cold and hot limits $CT_\text{min}=9$ °C and
+$CT_\text{max}=47$ °C, and the rising-limb activation energy $E_a\approx0.98$ eV. This is the
+predicted reference curve that the validation section then compares against measured *E. coli*
+curves.
+
+![**Reference growth thermal performance curve.** The model's predicted growth rate versus temperature at the reference operating point (glucose-minimal strain nominal; sector fractions shown), on raw absolute rate (h⁻¹). The optimum $T_\text{opt}$, maximum rate $r_\text{max}$, cold and hot limits $CT_\text{min}$/$CT_\text{max}$ (where growth falls to 5 % of peak) and the rising-limb activation energy $E_a$ are marked.](assets/figures/reference_tpc.png){#fig-reftpc fig-pos="H" width=85%}
+
+**What sits underneath the curve: 2,560 enzymes, each with its own thermal parameters.** The
+organismal curve above is the aggregate of 2,560 individual enzymes, each carrying three
+grounded thermal parameters: its optimum temperature $T_\text{opt}$, its melting temperature
+$T_m$, and its MMRT curvature $\Delta C_p$. @fig-enzdens shows their distributions across the
+whole proteome. The enzyme optima cluster around a mean of 41 °C with a standard deviation of
+**4.25 °C**, and the melting temperatures around 55 °C with a standard deviation of **6.13 °C**;
+the curvature is a single literature value (−4 kJ/mol/K) held for almost every enzyme and
+refined only for the handful with direct data. These per-enzyme values are **held fixed as the
+model's baseline** — they are inputs grounded in independent data (a sequence-based optimum
+predictor and a measured melting proteome), not quantities we adjust. The two standard
+deviations are worth noting because the sensitivity analyses later use exactly these spreads
+(4.25 °C and 6.13 °C) to define what "a standard step" means when they shift the whole optimum
+or melting-temperature distribution.
+
+![**Per-enzyme grounded thermal parameters.** Distributions across all 2,560 enzymes of the optimum temperature $T_\text{opt}$, the melting temperature $T_m$ and the MMRT curvature $\Delta C_p$, each annotated with its mean and standard deviation (dashed line = mean). The $T_\text{opt}$ and $T_m$ standard deviations (4.25 and 6.13 °C) are the reference scales the sensitivity analyses use for their standardised temperature steps; $\Delta C_p$ is a literature prior held near −4 kJ/mol/K for all but a few enzymes.](assets/figures/enzyme_param_densities.png){#fig-enzdens fig-pos="H" width=100%}
+
+**What one enzyme's temperature response looks like.** @fig-enzkcat shows, for a representative
+spread of enzymes, the two temperature-dependent factors that combine into each enzyme's cost.
+On the left is the relative turnover $\widehat{k}(T)=k_\text{cat}(T)/k_\text{cat}(T_\text{opt})$
+— each enzyme's catalytic rate rises to a peak at its own optimum and falls away either side.
+On the right is the native (folded) fraction $f_N(T)$, which stays near one until the enzyme's
+melting temperature and then collapses to zero as the protein unfolds. Different enzymes peak
+and collapse at different temperatures, so the organismal curve in @fig-reftpc is a weighted
+blend of this per-enzyme heterogeneity: the coldest-melting enzymes set where the population as
+a whole begins to fail.
+
+![**Example per-enzyme temperature responses.** For ~12 enzymes spanning the optimum range (colour = enzyme $T_\text{opt}$; the two highest thermal-control enzymes drawn thick and labelled): (left) relative turnover $\widehat{k}(T)$, peaking at each enzyme's optimum; (right) native folded fraction $f_N(T)$, collapsing at each enzyme's melting temperature.](assets/figures/example_enzyme_kcatT.png){#fig-enzkcat fig-pos="H" width=100%}
+
+The sensitivity and decomposition analyses later in the report do not tune these 2,560 enzymes
+individually; instead they move the whole distributions in @fig-enzdens with a few global dials
+(described in @sec-sensitivity), while keeping each enzyme's grounded value relative to the
+rest.
+
 # Validation
 
 **What this section does.** The strongest test of a forward model is whether it reproduces
@@ -365,7 +421,7 @@ c = c.rename(columns={"temp_C": "T (°C)", "n": "n enzymes",
 print(c.round(3).to_markdown(index=False))
 ```
 
-# Which parameters move the curve? (local sensitivity)
+# Which parameters move the curve? (local sensitivity) {#sec-sensitivity}
 
 **What this section does.** Having built the model, we ask which of its inputs actually
 control each feature of the growth curve. The cleanest way to compare inputs on an equal
@@ -395,6 +451,27 @@ Because every input uses the same $h$, the elasticities are directly comparable 
 (@fig-elast-tornado, @fig-elast-heat, @tbl-elasticity). We include $dT_m$ (a uniform shift of
 every enzyme's melting temperature) as an input so the denaturation-limited hot side has an
 explicit lever.
+
+**The inputs are global dials on whole distributions, not per-enzyme knobs.** This is the key
+thing to understand about what these analyses do. Each input is a single **global scalar** that
+moves the *whole* per-enzyme distribution shown in @fig-enzdens while preserving its shape:
+$dT_\text{opt}$ slides every enzyme's optimum up or down together (a rigid shift of the
+$T_\text{opt}$ density), `topt_scale` stretches or compresses the spread of optima about their
+mean, $dT_m$ slides the entire melting-temperature density, `dCp_scale` scales every enzyme's
+curvature, and `budget_scale`, $f_\text{metab}$ and $f_\text{maint}$ set whole-cell allocation.
+No enzyme is given a free parameter of its own — each keeps its grounded value, and the dial
+only moves the population. So these six or seven dials are a deliberately **low-dimensional
+summary of the ~7,700-parameter per-enzyme space** (2,560 enzymes × 3 thermal parameters): the
+heterogeneity in @fig-enzkcat is preserved throughout, but not individually tuned. (The
+per-enzyme *control* analysis later does act enzyme-by-enzyme, and is the complementary
+fine-grained view.)
+
+**Everything here is computed on the single reference curve.** These elasticities — and the
+decomposition in the next section — are computed on **one** model growth curve at the reference
+operating point (the glucose-minimal strain nominal of @fig-reftpc), evaluated over the
+temperature grid. They are *not* an average over the 26 empirical curves; those enter only in
+the validation section, each predicted under its own medium. So "what moves the curve" here
+means "what moves this one reference curve at its operating point".
 
 **Result — allocation drives the rate, kinetics drive the cold side, $T_m$ sets the hot
 limit.** The ranking is clear and, in places, sharper than the rank-correlation view:
@@ -505,7 +582,11 @@ interaction evenly among the levers involved, so the shares sum to one. We run o
 fully-crossed design over allocation × kinetic-envelope × stability, which yields both a
 two-lever split (allocation $\varphi_A$ vs the whole envelope $\varphi_E$, where envelope $=$
 kinetic $+$ stability) and the finer three-lever split (allocation / kinetic / stability), so
-we can separate the cold-side kinetics from the hot-side melting temperature.
+we can separate the cold-side kinetics from the hot-side melting temperature. As in the
+elasticity, each lever is moved by the same **global dials on the whole per-enzyme
+distributions** (@fig-enzdens) rather than by tuning individual enzymes, and the whole analysis
+runs on the **single reference growth curve** (glucose-minimal, @fig-reftpc) over the
+temperature grid — not per empirical curve.
 
 **Equal, operating-point-centred perturbations.** So the shares reflect biology rather than
 how wide we happened to sweep each dial, every parameter is moved by the **same** standardised

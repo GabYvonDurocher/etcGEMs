@@ -43,6 +43,7 @@ RUNS = {
     "ablation":   os.path.join(STRAIN),                          # ablation_* live in outputs/
     "percurve":   os.path.join(STRAIN, "percurve_validation"),   # emergent per-curve validation
     "elasticity": os.path.join(STRAIN, "elasticity_elasticity"), # equal-perturbation sensitivity
+    "anatomy":    os.path.join(STRAIN, "anatomy"),               # reference-point model anatomy
 }
 
 FIG_DIR = os.path.join(HERE, "assets", "figures")
@@ -73,6 +74,9 @@ FIGURES = [
     ("percurve",   "percurve_R2_distribution.png", "percurve_R2_distribution.png"),
     ("elasticity", "elasticity_tornado.png",       "elasticity_tornado.png"),
     ("elasticity", "elasticity_heatmap.png",       "elasticity_heatmap.png"),
+    ("anatomy",    "reference_tpc.png",            "reference_tpc.png"),
+    ("anatomy",    "enzyme_param_densities.png",   "enzyme_param_densities.png"),
+    ("anatomy",    "example_enzyme_kcatT.png",     "example_enzyme_kcatT.png"),
 ]
 
 TABLES = [
