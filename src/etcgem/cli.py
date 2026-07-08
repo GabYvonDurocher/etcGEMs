@@ -486,6 +486,31 @@ def cmd_anatomy(args):
 
 
 # ---------------------------------------------------------------------------
+# validate: emergent model vs trusted strain-matched TPCs (Noll + Erdos)
+# ---------------------------------------------------------------------------
+def cmd_validate(args):
+    if not args.strain:
+        raise SystemExit("validate needs --strain NAME")
+    from . import validation as val
+    out_dir = _out_dir(args.strain, "validation_trusted")
+    res = val.run(args.strain, out_dir, aa_variant=not args.no_aa_variant)
+    mc = res["magnitude_contrast"]
+    print("\n" + "=" * 66)
+    print("VALIDATION — trusted strain-matched curves (nothing fit to growth)")
+    print("=" * 66)
+    for k in ("noll_minimal", "erdos_LB"):
+        r = res[k]
+        print(f"  {k:14s} absR2={r['abs_R2']:>6} RMSE={r['RMSE_per_h']} | "
+              f"rmax obs {r['obs_rmax']} vs pred {r['pred_rmax']} | "
+              f"Topt obs {r['obs_Topt_C']} vs pred {r['pred_Topt_C']} | "
+              f"Ea obs {r['obs_Ea_eV']} vs pred {r['pred_Ea_eV']}")
+    print(f"  rich/minimal rmax ratio: observed {mc['observed_rich_over_minimal']}× "
+          f"vs model {mc['model_rich_over_minimal']}×")
+    print(f"[validate] wrote {out_dir}")
+    return out_dir
+
+
+# ---------------------------------------------------------------------------
 # calibrate: single-curve Bayesian calibration (emcee); prior vs posterior
 # ---------------------------------------------------------------------------
 def cmd_calibrate(args):
@@ -709,6 +734,14 @@ def build_parser():
     an.add_argument("--strain")
     an.add_argument("--experiment")
     an.set_defaults(func=cmd_anatomy)
+
+    va = sub.add_parser("validate",
+                        help="emergent model vs trusted strain-matched TPCs "
+                             "(Noll glucose-minimal + Erdos LB); absolute rates")
+    va.add_argument("--strain")
+    va.add_argument("--no-aa-variant", action="store_true",
+                    help="skip the Noll +6-amino-acid sensitivity variant")
+    va.set_defaults(func=cmd_validate)
 
     ca = sub.add_parser("calibrate",
                         help="single-curve Bayesian calibration (emcee): prior vs "
