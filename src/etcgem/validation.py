@@ -28,6 +28,7 @@ from .tpc import TPC, compute_tpc
 
 SRC = os.path.join("strains", "{strain}", "thermal", "sources")
 LB_MEDIA_CSV = os.path.join("strains", "{strain}", "media", "LB_media.csv")
+BHI_MEDIA_CSV = os.path.join("strains", "{strain}", "media", "BHI_media.csv")
 
 # 6 trace amino acids supplemented in the Noll minimal medium (exchange REV ids)
 NOLL_TRACE_AA = ["met__L", "his__L", "arg__L", "pro__L", "thr__L", "trp__L"]
@@ -37,22 +38,29 @@ NOLL_TRACE_AA = ["met__L", "his__L", "arg__L", "pro__L", "thr__L", "trp__L"]
 class CurveSpec:
     key: str
     rel_path: str
-    medium: str                 # "glucose_minimal" | "LB"
+    medium: str                 # "glucose_minimal" | "LB" | "BHI"
     label: str
     color: str
     carbon: str = "glc__D"
     digitized: bool = False
 
 
+# Primary (and only main) validation curve: the exact GEM strain (K-12 MG1655) on
+# a rich medium, spanning the cold rising limb through the hot collapse.
 CURVES = [
-    CurveSpec("noll_minimal",
-              "noll2023_ncm3722/noll2023_ncm3722_tpc.csv",
-              "glucose_minimal",
-              "Noll 2023 — K-12 NCM3722, glucose-minimal", "tab:green"),
+    CurveSpec("vanderlinden_bhi",
+              "vanderlinden2012_intfoodmicro/vanderlinden2012_mg1655_bhi_tpc.csv",
+              "BHI",
+              "Van Derlinden 2012 — K-12 MG1655, BHI (rich)", "tab:blue", digitized=True),
+]
+
+# Optional secondary rich cross-checks (not exact-strain / lower confidence), kept
+# for reference but not the main validation. Noll (NCM3722, wrong strain) is dropped.
+SECONDARY = [
     CurveSpec("erdos_LB",
               "erdos2026_unpubl/erdos2026_mg1655_wt_nokan_tpc.csv",
               "LB",
-              "Erdos 2026 — MG1655 wt, LB (rich)", "tab:orange", digitized=True),
+              "Erdos 2026 — MG1655 wt, LB (rich; unpublished)", "tab:orange", digitized=True),
 ]
 
 
@@ -76,7 +84,9 @@ def load_curve(strain: str, spec: CurveSpec) -> Dict:
 
 def _set_medium(pm, spec: CurveSpec, strain: str, extra_aa: Optional[List[str]] = None):
     from .providers import set_medium
-    if spec.medium == "LB":
+    if spec.medium == "BHI":
+        set_medium(pm, "BHI", bhi_media_csv=BHI_MEDIA_CSV.format(strain=strain))
+    elif spec.medium == "LB":
         set_medium(pm, "LB", lb_media_csv=LB_MEDIA_CSV.format(strain=strain))
     else:
         set_medium(pm, "glucose_minimal", spec.carbon, True)
@@ -110,7 +120,29 @@ def _predict(pm, spec, strain, data_temps, extra_aa=None):
 
 
 # ---------------------------------------------------------------------------
-def run(strain: str, out_dir: str, aa_variant: bool = True) -> Dict:
+def _score_curve(pm, spec, strain):
+    cv = load_curve(strain, spec)
+    pred, dense, dg, desc = _predict(pm, spec, strain, cv["temps_C"])
+    r2, rmse = _fit_stats(cv["rate"], pred)
+    obs_desc = TPC(cv["temps_C"], cv["rate"]).descriptors(0.05)
+    res = {
+        "study": cv["study"], "strain": cv["strain"], "medium": spec.medium,
+        "digitized": spec.digitized, "n": int(len(cv["temps_C"])),
+        "T_range_C": [float(cv["temps_C"].min()), float(cv["temps_C"].max())],
+        "abs_R2": round(r2, 3), "RMSE_per_h": round(rmse, 3),
+        "obs_rmax": round(cv["obs_rmax"], 3), "pred_rmax": round(float(desc.rmax), 3),
+        "obs_Topt_C": round(cv["obs_Topt_C"], 1), "pred_Topt_C": round(float(desc.Topt_C), 1),
+        "obs_CTmax_C": round(float(obs_desc.CTmax_C), 1),
+        "pred_CTmax_C": round(float(desc.CTmax_C), 1),
+        "obs_Ea_eV": round(float(obs_desc.Ea_eV), 3),
+        "pred_Ea_eV": round(float(desc.Ea_eV), 3),
+    }
+    cv["pred"] = pred; cv["dense_T"] = dense; cv["dense_g"] = dg; cv["desc"] = desc
+    res["_cv"] = cv
+    return res
+
+
+def run(strain: str, out_dir: str, include_secondary: bool = True, **_ignore) -> Dict:
     from .config import resolve, build_provider
     pm = build_provider(resolve(strain))
     try:
@@ -120,50 +152,15 @@ def run(strain: str, out_dir: str, aa_variant: bool = True) -> Dict:
     os.makedirs(out_dir, exist_ok=True)
 
     results, rows = {}, []
-    for spec in CURVES:
-        cv = load_curve(strain, spec)
-        pred, dense, dg, desc = _predict(pm, spec, strain, cv["temps_C"])
-        r2, rmse = _fit_stats(cv["rate"], pred)
-        obs_desc = TPC(cv["temps_C"], cv["rate"]).descriptors(0.05)
-        res = {
-            "study": cv["study"], "strain": cv["strain"], "medium": spec.medium,
-            "digitized": spec.digitized, "n": int(len(cv["temps_C"])),
-            "T_range_C": [float(cv["temps_C"].min()), float(cv["temps_C"].max())],
-            "abs_R2": round(r2, 3), "RMSE_per_h": round(rmse, 3),
-            "obs_rmax": round(cv["obs_rmax"], 3), "pred_rmax": round(float(desc.rmax), 3),
-            "obs_Topt_C": round(cv["obs_Topt_C"], 1), "pred_Topt_C": round(float(desc.Topt_C), 1),
-            "obs_CTmax_C": round(float(obs_desc.CTmax_C), 1),
-            "pred_CTmax_C": round(float(desc.CTmax_C), 1),
-            "obs_Ea_eV": round(float(obs_desc.Ea_eV), 3),
-            "pred_Ea_eV": round(float(desc.Ea_eV), 3),
-        }
+    specs = list(CURVES) + (list(SECONDARY) if include_secondary else [])
+    for spec in specs:
+        res = _score_curve(pm, spec, strain)
+        res["role"] = "primary" if spec in CURVES else "secondary_crosscheck"
         results[spec.key] = res
-        rows.append({"curve": spec.key, **res})
-        cv["pred"] = pred; cv["dense_T"] = dense; cv["dense_g"] = dg; cv["desc"] = desc
-        results[spec.key]["_cv"] = cv   # kept in-memory for plotting only
-
-    # optional Noll variant with the 6 trace amino acids opened (sensitivity check)
-    if aa_variant:
-        spec = CURVES[0]
-        cv = load_curve(strain, spec)
-        _, dense, dg, desc = _predict(pm, spec, strain, cv["temps_C"], extra_aa=NOLL_TRACE_AA)
-        results["noll_minimal_AAopen"] = {"pred_rmax": round(float(desc.rmax), 3),
-                                          "pred_Topt_C": round(float(desc.Topt_C), 1),
-                                          "note": "glucose-minimal + 6 trace amino-acid uptakes opened"}
-
-    # headline: minimal-vs-rich magnitude ratio
-    mn, rh = results["noll_minimal"], results["erdos_LB"]
-    results["magnitude_contrast"] = {
-        "observed_rich_over_minimal": round(rh["obs_rmax"] / mn["obs_rmax"], 2),
-        "model_rich_over_minimal": round(rh["pred_rmax"] / mn["pred_rmax"], 2),
-        "obs_rmax_minimal": mn["obs_rmax"], "obs_rmax_rich": rh["obs_rmax"],
-        "model_rmax_minimal": mn["pred_rmax"], "model_rmax_rich": rh["pred_rmax"],
-        "note": "model reproduces the rich>minimal direction/ratio; both absolute "
-                "rates under-predicted (kcat scale / sigma / medium composition)",
-    }
+        rows.append({"curve": spec.key, "role": res["role"],
+                     **{k: v for k, v in res.items() if k not in ("_cv", "role")}})
 
     _plot_curves(results, out_dir)
-    _plot_minimal_vs_rich(results, out_dir)
 
     pd.DataFrame(rows).to_csv(os.path.join(out_dir, "validation_trusted_table.csv"), index=False)
     clean = {k: {kk: vv for kk, vv in v.items() if kk != "_cv"} if isinstance(v, dict) else v
@@ -182,11 +179,16 @@ def _mpl():
 
 
 def _plot_curves(results, out_dir):
+    """Emergent model vs the primary Van Derlinden curve (and any secondary
+    cross-check), raw absolute rate. Primary first, one panel per curve."""
     plt = _mpl()
-    specs = [CURVES[0], CURVES[1]]
-    fig, axes = plt.subplots(1, 2, figsize=(12, 5))
-    for ax, spec in zip(axes, specs):
-        cv = results[spec.key]["_cv"]; r = results[spec.key]
+    keys = [s.key for s in CURVES if s.key in results] + \
+           [s.key for s in SECONDARY if s.key in results]
+    n = len(keys)
+    fig, axes = plt.subplots(1, n, figsize=(6.0 * n, 5))
+    axes = np.atleast_1d(axes)
+    for ax, key in zip(axes, keys):
+        r = results[key]; cv = r["_cv"]; spec = cv["spec"]
         if cv["sd"] is not None:
             ax.errorbar(cv["temps_C"], cv["rate"], yerr=cv["sd"], fmt="o", color="k",
                         ms=5, capsize=3, label="data (mean ± SD)", zorder=3)
@@ -195,44 +197,17 @@ def _plot_curves(results, out_dir):
                     label="data (digitized)", zorder=3)
         ax.plot(cv["dense_T"], cv["dense_g"], color=spec.color, lw=2.2,
                 label="emergent model")
-        ax.set_title(spec.label, fontsize=10)
+        tag = "primary" if spec in CURVES else "secondary cross-check"
+        ax.set_title(f"{spec.label}\n({tag})", fontsize=10)
         ax.set_xlabel("Temperature (°C)"); ax.set_ylabel("Growth rate (1/h)")
         ax.text(0.03, 0.97, f"absolute $R^2$={r['abs_R2']}\nRMSE={r['RMSE_per_h']} 1/h\n"
-                f"obs $r_{{max}}$={r['obs_rmax']} vs pred {r['pred_rmax']}",
+                f"obs $r_{{max}}$={r['obs_rmax']} vs pred {r['pred_rmax']}\n"
+                f"obs $T_{{opt}}$={r['obs_Topt_C']} vs pred {r['pred_Topt_C']} °C",
                 transform=ax.transAxes, va="top", fontsize=8.5,
                 bbox=dict(boxstyle="round", fc="0.96", ec="0.8"))
         ax.legend(frameon=False, fontsize=8, loc="lower right")
-    fig.suptitle("Emergent model vs trusted strain-matched TPCs (raw absolute rate, nothing fit)")
+    fig.suptitle("Emergent model vs Van Derlinden (K-12 MG1655, BHI; raw absolute rate, nothing fit)")
     fig.tight_layout()
     p = os.path.join(out_dir, "validation_trusted_curves.png")
-    fig.savefig(p, dpi=150); plt.close(fig)
-    return p
-
-
-def _plot_minimal_vs_rich(results, out_dir):
-    plt = _mpl()
-    mn, rh = results["noll_minimal"], results["erdos_LB"]
-    cvm, cvr = mn["_cv"], rh["_cv"]
-    fig, ax = plt.subplots(figsize=(7.5, 5.2))
-    # data
-    if cvm["sd"] is not None:
-        ax.errorbar(cvm["temps_C"], cvm["rate"], yerr=cvm["sd"], fmt="o",
-                    color="tab:green", ms=5, capsize=3, label="minimal data (Noll, ±SD)")
-    ax.plot(cvr["temps_C"], cvr["rate"], "s", color="tab:orange", ms=5,
-            label="rich LB data (Erdos, digitized)")
-    # model
-    ax.plot(cvm["dense_T"], cvm["dense_g"], color="tab:green", lw=2.2, ls="-",
-            label="model — glucose-minimal")
-    ax.plot(cvr["dense_T"], cvr["dense_g"], color="tab:orange", lw=2.2, ls="-",
-            label="model — LB")
-    mc = results["magnitude_contrast"]
-    ax.set_xlabel("Temperature (°C)"); ax.set_ylabel("Growth rate (1/h)")
-    ax.set_title("Minimal vs rich magnitude — model reproduces the medium contrast")
-    ax.text(0.97, 0.55, f"rich/minimal $r_{{max}}$ ratio\n  observed {mc['observed_rich_over_minimal']}×\n"
-            f"  model {mc['model_rich_over_minimal']}×", transform=ax.transAxes, va="top",
-            ha="right", fontsize=9, bbox=dict(boxstyle="round", fc="0.96", ec="0.8"))
-    ax.legend(frameon=False, fontsize=8, loc="upper left")
-    fig.tight_layout()
-    p = os.path.join(out_dir, "validation_minimal_vs_rich.png")
     fig.savefig(p, dpi=150); plt.close(fig)
     return p

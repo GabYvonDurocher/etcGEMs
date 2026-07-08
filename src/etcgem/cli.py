@@ -514,26 +514,24 @@ def _anatomy_set_medium(pm, medium, strain):
 
 
 # ---------------------------------------------------------------------------
-# validate: emergent model vs trusted strain-matched TPCs (Noll + Erdos)
+# validate: emergent model vs the trusted MG1655 curve (Van Derlinden, BHI)
 # ---------------------------------------------------------------------------
 def cmd_validate(args):
     if not args.strain:
         raise SystemExit("validate needs --strain NAME")
     from . import validation as val
     out_dir = _out_dir(args.strain, "validation_trusted")
-    res = val.run(args.strain, out_dir, aa_variant=not args.no_aa_variant)
-    mc = res["magnitude_contrast"]
-    print("\n" + "=" * 66)
-    print("VALIDATION — trusted strain-matched curves (nothing fit to growth)")
-    print("=" * 66)
-    for k in ("noll_minimal", "erdos_LB"):
-        r = res[k]
-        print(f"  {k:14s} absR2={r['abs_R2']:>6} RMSE={r['RMSE_per_h']} | "
-              f"rmax obs {r['obs_rmax']} vs pred {r['pred_rmax']} | "
+    res = val.run(args.strain, out_dir, include_secondary=not args.no_secondary)
+    print("\n" + "=" * 70)
+    print("VALIDATION — emergent model vs strain-matched TPCs (nothing fit to growth)")
+    print("=" * 70)
+    for k, r in res.items():
+        if not isinstance(r, dict) or "abs_R2" not in r:
+            continue
+        print(f"  {k:18s}[{r.get('role','')[:9]:9s}] absR2={r['abs_R2']:>7} "
+              f"RMSE={r['RMSE_per_h']} | rmax obs {r['obs_rmax']} vs pred {r['pred_rmax']} | "
               f"Topt obs {r['obs_Topt_C']} vs pred {r['pred_Topt_C']} | "
               f"Ea obs {r['obs_Ea_eV']} vs pred {r['pred_Ea_eV']}")
-    print(f"  rich/minimal rmax ratio: observed {mc['observed_rich_over_minimal']}× "
-          f"vs model {mc['model_rich_over_minimal']}×")
     print(f"[validate] wrote {out_dir}")
     return out_dir
 
@@ -772,8 +770,8 @@ def build_parser():
                         help="emergent model vs trusted strain-matched TPCs "
                              "(Noll glucose-minimal + Erdos LB); absolute rates")
     va.add_argument("--strain")
-    va.add_argument("--no-aa-variant", action="store_true",
-                    help="skip the Noll +6-amino-acid sensitivity variant")
+    va.add_argument("--no-secondary", action="store_true",
+                    help="skip the optional Erdos LB secondary cross-check")
     va.set_defaults(func=cmd_validate)
 
     ca = sub.add_parser("calibrate",
