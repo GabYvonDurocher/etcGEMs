@@ -204,3 +204,161 @@ def plot_all(result, out_dir: str):
     if samples is not None and "f_metab" in samples.columns:
         figs.append(plot_sector_tradeoff(result, out_dir))
     return figs
+
+
+# ===========================================================================
+# Model anatomy: reference TPC, enzyme-parameter densities, example kcat(T)
+# ===========================================================================
+def plot_reference_tpc(pm, temps_C, out_dir: str, crit_frac: float = 0.05,
+                       fname: str = "reference_tpc.png"):
+    """The model's growth TPC at the reference operating point (glucose-minimal
+    strain nominal), on RAW absolute rate (1/h), with the descriptors marked."""
+    plt = _mpl()
+    from .tpc import compute_tpc
+    from .enzyme_cost import Perturbation
+    T = np.asarray(temps_C, float)
+    tpc = compute_tpc(pm, T, Perturbation())
+    g = tpc.growth
+    d = tpc.descriptors(crit_frac)
+    sec = getattr(pm.ec, "_sectors", None) or {}
+    fm = float(sec.get("f_metab_nom", float("nan")))
+    fmn = float(sec.get("f_maint_nom", float("nan")))
+    fb = 1.0 - fm - fmn if np.isfinite(fm) and np.isfinite(fmn) else float("nan")
+
+    fig, ax = plt.subplots(figsize=(8, 5))
+    ax.plot(T, g, color="tab:blue", lw=2.2, zorder=3)
+    # r_max / T_opt
+    ax.axhline(d.rmax, color="0.7", ls=":", lw=1)
+    ax.plot([d.Topt_C], [d.rmax], "o", color="tab:blue", ms=8, zorder=4)
+    ax.annotate(f"$T_\\mathrm{{opt}}$ = {d.Topt_C:.0f} °C\n$r_\\mathrm{{max}}$ = {d.rmax:.2f} h⁻¹",
+                xy=(d.Topt_C, d.rmax), xytext=(d.Topt_C - 15, d.rmax * 0.86),
+                fontsize=9, ha="left")
+    # CTmin / CTmax at crit_frac of rmax
+    lvl = crit_frac * d.rmax
+    for xc, lab, dx in ((d.CTmin_C, "$CT_\\mathrm{min}$", -1), (d.CTmax_C, "$CT_\\mathrm{max}$", 1)):
+        if np.isfinite(xc):
+            ax.axvline(xc, color="0.6", ls="--", lw=1)
+            ax.annotate(f"{lab}\n{xc:.1f} °C", xy=(xc, lvl),
+                        xytext=(xc + dx * 3.0, d.rmax * 0.12),
+                        fontsize=9, ha="right" if dx < 0 else "left", color="0.3")
+    # Ea marker on the rising limb
+    i_peak = int(np.argmax(g))
+    mask = (np.arange(len(T)) <= i_peak) & (g > 0.1 * d.rmax) & (g < 0.95 * d.rmax)
+    if mask.sum() >= 3:
+        Tm_mid = float(np.median(T[mask]))
+        gm_mid = float(np.interp(Tm_mid, T, g))
+        ax.annotate(f"rising limb\n$E_a$ = {d.Ea_eV:.2f} eV",
+                    xy=(Tm_mid, gm_mid), xytext=(Tm_mid - 2, d.rmax * 0.55),
+                    fontsize=9, ha="right",
+                    arrowprops=dict(arrowstyle="->", color="0.5", lw=1))
+    ax.set_xlabel("Temperature (°C)")
+    ax.set_ylabel("Growth rate (1/h)")
+    ax.set_ylim(0, d.rmax * 1.18)
+    op = (f"Reference operating point: glucose-minimal\n"
+          f"$f_\\mathrm{{metab}}$={fm:.3f}, $f_\\mathrm{{bio}}$={fb:.3f}, "
+          f"$f_\\mathrm{{maint}}$={fmn:.3f}")
+    ax.text(0.02, 0.97, op, transform=ax.transAxes, va="top", ha="left", fontsize=8.5,
+            bbox=dict(boxstyle="round", fc="0.96", ec="0.8"))
+    ax.set_title("Reference growth thermal performance curve (complete model)")
+    fig.tight_layout()
+    p = os.path.join(out_dir, fname)
+    fig.savefig(p, dpi=150); plt.close(fig)
+    return p
+
+
+def plot_enzyme_param_densities(ec, out_dir: str,
+                                fname: str = "enzyme_param_densities.png"):
+    """Distributions of the grounded per-enzyme thermal parameters across all
+    enzymes in the loaded model: optimum Topt (°C), melting temperature Tm (°C),
+    and MMRT curvature dCp (kJ/mol/K). The Topt/Tm SDs are the reference scales the
+    elasticity/decomposition use to set their standardised additive steps."""
+    plt = _mpl()
+    topt = np.asarray(ec._Topt, float) - 273.15
+    tm = np.asarray(ec._Tm, float) - 273.15
+    dcp = np.asarray(ec._uCpt, float) / 1000.0     # J/mol/K -> kJ/mol/K
+    n = len(topt)
+    panels = [(topt, "Enzyme optimum $T_\\mathrm{opt}$ (°C)", "tab:green"),
+              (tm, "Melting temperature $T_m$ (°C)", "tab:red"),
+              (dcp, "MMRT curvature $\\Delta C_p$ (kJ/mol/K)", "tab:purple")]
+    fig, axes = plt.subplots(1, 3, figsize=(13, 4))
+    for ax, (v, title, col) in zip(axes, panels):
+        vv = v[np.isfinite(v)]
+        ax.hist(vv, bins=40, color=col, alpha=0.75)
+        mu, sd = float(np.mean(vv)), float(np.std(vv))
+        ax.axvline(mu, color="k", ls="--", lw=1.2)
+        ax.set_title(title, fontsize=10)
+        ax.set_ylabel("enzymes")
+        ax.text(0.97, 0.95, f"mean {mu:.2f}\nSD {sd:.2f}", transform=ax.transAxes,
+                va="top", ha="right", fontsize=9,
+                bbox=dict(boxstyle="round", fc="white", ec="0.8", alpha=0.9))
+    fig.suptitle(f"Per-enzyme grounded thermal parameters across {n} enzymes "
+                 "(held fixed as the model baseline)", fontsize=11)
+    fig.tight_layout(rect=(0, 0, 1, 0.96))
+    p = os.path.join(out_dir, fname)
+    fig.savefig(p, dpi=150); plt.close(fig)
+    return p
+
+
+def plot_example_kcatT(ec, temps_C, out_dir: str, n_examples: int = 10,
+                       highlight=None, fname: str = "example_enzyme_kcatT.png"):
+    """Per-enzyme temperature responses for a spread of representative enzymes:
+    the relative turnover $\\widehat k(T)=k_\\mathrm{cat}(T)/k_\\mathrm{cat}(T_\\mathrm{opt})$
+    (left, peaks at each enzyme's Topt) and the native (folded) fraction $f_N(T)$
+    (right, collapses at each enzyme's Tm). ``highlight`` is an optional list of
+    (enzyme_id, label) to draw thicker/labelled (e.g. top thermal-control enzymes)."""
+    plt = _mpl()
+    from . import unfolding as U
+    T = np.asarray(temps_C, float)
+    Tk = T + 273.15
+    topt = np.asarray(ec._Topt, float)
+    tm = np.asarray(ec._Tm, float)
+    hth, sts, cpu, cpt = ec._uHTH, ec._uSTS, ec._uCpu, ec._uCpt
+    finite = np.where(np.isfinite(topt) & np.isfinite(tm))[0]
+    order = finite[np.argsort(topt[finite])]
+    # ~n_examples enzymes evenly spaced across the Topt range
+    qs = np.linspace(0, len(order) - 1, n_examples).round().astype(int)
+    idx = list(dict.fromkeys(order[qs].tolist()))
+    # add highlighted control enzymes if present
+    hi_idx = {}
+    if highlight:
+        ents = ec.table.entries
+        id_to_i = {getattr(e, "enzyme_id", None): i for i, e in enumerate(ents)}
+        for eid, lab in highlight:
+            i = id_to_i.get(eid)
+            if i is not None:
+                hi_idx[i] = lab
+                if i not in idx:
+                    idx.append(i)
+
+    cmap = plt.get_cmap("viridis")
+    trange = (topt[idx].min(), topt[idx].max())
+    fig, (axk, axn) = plt.subplots(1, 2, figsize=(13, 5))
+    for i in idx:
+        rk = U.rel_kcat(Tk, hth[i], sts[i], cpu[i], cpt[i], topt[i])
+        fn = U.native_fraction(Tk, hth[i], sts[i], cpu[i])
+        c = cmap((topt[i] - trange[0]) / (trange[1] - trange[0] + 1e-9))
+        hl = i in hi_idx
+        lw = 2.6 if hl else 1.3
+        alpha = 1.0 if hl else 0.8
+        lab = None
+        if hl:
+            lab = f"{hi_idx[i]} ($T_\\mathrm{{opt}}${topt[i]-273.15:.0f}, $T_m${tm[i]-273.15:.0f} °C)"
+        axk.plot(T, rk, color=c, lw=lw, alpha=alpha, label=lab)
+        axn.plot(T, fn, color=c, lw=lw, alpha=alpha, label=lab)
+    axk.set_xlabel("Temperature (°C)"); axk.set_ylabel("relative turnover $\\widehat k(T)$")
+    axk.set_title("Per-enzyme turnover (anchored at each $T_\\mathrm{opt}$)")
+    axk.set_ylim(0, 1.05)
+    axn.set_xlabel("Temperature (°C)"); axn.set_ylabel("native fraction $f_N(T)$")
+    axn.set_title("Per-enzyme folded fraction (collapses at each $T_m$)")
+    axn.set_ylim(0, 1.05)
+    sm = plt.cm.ScalarMappable(cmap=cmap,
+                               norm=plt.Normalize(trange[0] - 273.15, trange[1] - 273.15))
+    cb = fig.colorbar(sm, ax=[axk, axn], fraction=0.03, pad=0.02)
+    cb.set_label("enzyme $T_\\mathrm{opt}$ (°C)")
+    if any(i in hi_idx for i in idx):
+        axk.legend(frameon=False, fontsize=8, loc="upper left")
+    fig.suptitle(f"Example per-enzyme temperature responses ({len(idx)} enzymes "
+                 "spanning the optimum range)", fontsize=11)
+    p = os.path.join(out_dir, fname)
+    fig.savefig(p, dpi=150, bbox_inches="tight"); plt.close(fig)
+    return p

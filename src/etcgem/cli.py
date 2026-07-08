@@ -443,6 +443,49 @@ def cmd_elasticity(args):
 
 
 # ---------------------------------------------------------------------------
+# anatomy: reference-operating-point description (curve + enzyme distributions)
+# ---------------------------------------------------------------------------
+def cmd_anatomy(args):
+    """Model-anatomy figures at the reference operating point (glucose-minimal
+    strain nominal): the reference TPC with descriptors, the per-enzyme thermal
+    parameter densities, and an example per-enzyme kcat(T)/f_N(T) panel."""
+    if not args.strain:
+        raise SystemExit("anatomy needs --strain NAME")
+    cfg = resolve(args.strain, args.experiment)
+    out_dir = _out_dir(args.strain, "anatomy")
+    os.makedirs(out_dir, exist_ok=True)
+    pm = _build_pm(cfg)
+    temps = temperature_grid(cfg)
+    dump_resolved(cfg, out_dir)
+    # optional highlight: top thermal-control enzymes, if a control run exists
+    highlight = []
+    ctrl = os.path.join(os.path.dirname(out_dir), "control_control", "thermal_control.csv")
+    if os.path.exists(ctrl):
+        try:
+            import pandas as pd
+            c = pd.read_csv(ctrl)
+            idc = "enzyme_id" if "enzyme_id" in c.columns else None
+            if idc:
+                for _, r in c.head(2).iterrows():
+                    highlight.append((str(r[idc]),
+                                      str(r.get("rxn_id", r[idc]))))
+        except Exception:
+            pass
+    from .plotting import (plot_reference_tpc, plot_enzyme_param_densities,
+                           plot_example_kcatT)
+    print(f"[anatomy] model={pm.name} grid={temps[0]:.0f}-{temps[-1]:.0f}°C "
+          f"enzymes={len(pm.ec.table.entries)}")
+    p1 = plot_reference_tpc(pm, temps, out_dir, crit_frac=cfg.get("crit_frac", 0.05))
+    p2 = plot_enzyme_param_densities(pm.ec, out_dir)
+    p3 = plot_example_kcatT(pm.ec, temps, out_dir, highlight=highlight or None)
+    import numpy as _np
+    print(f"[anatomy] Topt SD={_np.std(pm.ec._Topt):.3f}K  Tm SD={_np.std(pm.ec._Tm):.3f}K "
+          f"(reference scales for dTopt/dTm)")
+    print(f"[anatomy] wrote {p1}\n          {p2}\n          {p3}")
+    return out_dir
+
+
+# ---------------------------------------------------------------------------
 # proteome-sectors: empirical temperature-dependent allocation + validation
 # ---------------------------------------------------------------------------
 def cmd_proteome_sectors(args):
@@ -612,6 +655,13 @@ def build_parser():
     el.add_argument("--h", type=float, default=None, help="standardised step (default from experiment / 0.10)")
     el.add_argument("--no-plots", action="store_true")
     el.set_defaults(func=cmd_elasticity)
+
+    an = sub.add_parser("anatomy",
+                        help="model-anatomy figures at the reference operating point "
+                             "(reference TPC + per-enzyme parameter densities + example kcat(T))")
+    an.add_argument("--strain")
+    an.add_argument("--experiment")
+    an.set_defaults(func=cmd_anatomy)
 
     pspar = sub.add_parser("proteome-sectors",
                            help="empirical temperature-dependent proteome allocation + "
