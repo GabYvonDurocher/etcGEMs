@@ -644,33 +644,36 @@ def plot_recast_variance(res: RecastResult, out_dir, fname="recast_variance.png"
     large share on a negligible movement cannot masquerade as importance."""
     plt = _mpl()
     descs = [d for d in KEY_DESCRIPTORS if d in res.table.index]
-    fig, (axL, axR) = plt.subplots(1, 2, figsize=(13, 5))
+    fig, (axL, axR) = plt.subplots(1, 2, figsize=(13, 5.4))
     x = np.arange(len(descs))
+    colors = ["tab:orange", "tab:green", "tab:red"]
+    labels = ["allocation", "kinetic envelope", "Tm / stability"]
     pa = res.table.loc[descs, "phi_A3"].astype(float).values
     pk = res.table.loc[descs, "phi_kin"].astype(float).values
     ps = res.table.loc[descs, "phi_stab"].astype(float).values
-    axL.bar(x, pa, label="allocation", color="tab:orange")
-    axL.bar(x, pk, bottom=pa, label="kinetic envelope", color="tab:green")
-    axL.bar(x, ps, bottom=pa + pk, label="Tm / stability", color="tab:red")
+    handles = [axL.bar(x, pa, color=colors[0])[0],
+               axL.bar(x, pk, bottom=pa, color=colors[1])[0],
+               axL.bar(x, ps, bottom=pa + pk, color=colors[2])[0]]
     axL.set_xticks(x); axL.set_xticklabels(descs, rotation=30, ha="right")
     axL.set_ylabel("Shapley variance share (sums to 1)")
     axL.set_ylim(0, 1); axL.set_title("3-group variance share (range-fair)")
-    axL.legend(frameon=False, fontsize=8)
     w = 0.27
-    for off, ax_key, col, lab in ((-w, "IQR_allocation", "tab:orange", "allocation"),
-                                  (0.0, "IQR_kinetic", "tab:green", "kinetic"),
-                                  (w, "IQR_stability", "tab:red", "Tm/stability")):
+    for off, ax_key, col in ((-w, "IQR_allocation", colors[0]),
+                             (0.0, "IQR_kinetic", colors[1]),
+                             (w, "IQR_stability", colors[2])):
         vals = res.magnitude.loc[descs, ax_key].astype(float).values \
             if ax_key in res.magnitude.columns else np.zeros(len(descs))
-        axR.bar(x + off, vals, w, color=col, label=lab)
+        axR.bar(x + off, vals, w, color=col)
     axR.set_xticks(x); axR.set_xticklabels(descs, rotation=30, ha="right")
     axR.set_ylabel("achievable IQR of descriptor (native units)")
     axR.set_title("Magnitude: IQR under each axis alone")
-    axR.legend(frameon=False, fontsize=8)
+    # one shared legend, anchored BELOW both panels so it never overlaps the bars
+    fig.legend(handles, labels, loc="lower center", ncol=3, frameon=False,
+               bbox_to_anchor=(0.5, -0.02))
     fig.suptitle("Recast decomposition: variance SHARE (left) vs MAGNITUDE (right)")
-    fig.tight_layout()
+    fig.tight_layout(rect=(0, 0.06, 1, 1))
     p = os.path.join(out_dir, fname)
-    fig.savefig(p, dpi=150); plt.close(fig)
+    fig.savefig(p, dpi=150, bbox_inches="tight"); plt.close(fig)
     return p
 
 
