@@ -181,10 +181,45 @@ def log_likelihood(theta, sim: Simulator, obs: np.ndarray) -> float:
     return float(-0.5 * np.sum((r / sigma) ** 2) - n * np.log(sigma * np.sqrt(2 * np.pi)))
 
 
+def log_likelihood_sd(theta, sim: Simulator, obs: np.ndarray, obs_sd: np.ndarray) -> float:
+    """Gaussian likelihood with a per-point measurement variance plus a free model-
+    discrepancy variance: var_i = obs_sd_i^2 + sigma_disc^2 (theta[4]=log sigma_disc).
+    Weights each temperature by its measured precision while absorbing structural
+    model error."""
+    sigma_disc = float(np.exp(theta[4]))
+    pred = sim.predict(theta)
+    if not np.all(np.isfinite(pred)):
+        return -np.inf
+    var = np.asarray(obs_sd, float) ** 2 + sigma_disc ** 2
+    r = obs - pred
+    return float(-0.5 * np.sum(r ** 2 / var + np.log(2.0 * np.pi * var)))
+
+
 # --- module globals for multiprocessing workers (non-picklable cobra model) ---
 _SIM: Optional[Simulator] = None
 _OBS: Optional[np.ndarray] = None
+_OBS_SD: Optional[np.ndarray] = None
 _PRI: Optional[Dict] = None
+
+
+def load_noll_curve(strain: str):
+    """Load the trusted Noll glucose-minimal curve (temps 28-45 C with rate + SD)
+    via the shared validation loader, so calibration and validation read the SAME
+    data. Returns (temps_C, rate, sd, meta)."""
+    from . import validation as V
+    spec = next(s for s in V.CURVES if s.key == "noll_minimal")
+    cv = V.load_curve(strain, spec)
+    sd = cv["sd"]
+    if sd is None:
+        sd = np.full_like(cv["rate"], 0.05)
+    sd = np.where(np.isfinite(sd) & (sd > 0), sd, np.nanmedian(sd[sd > 0]) if np.any(sd > 0) else 0.05)
+    meta = {"curve_id": "Noll2023_NCM3722", "study": cv["study"], "strain": cv["strain"],
+            "medium_class": "glucose_minimal", "medium_detail": cv["medium_detail"],
+            "n": int(len(cv["temps_C"])),
+            "temp_min_C": float(cv["temps_C"].min()), "temp_max_C": float(cv["temps_C"].max()),
+            "obs_rmax": float(cv["obs_rmax"]), "obs_Topt_C": float(cv["obs_Topt_C"]),
+            "units": "1/h", "has_sd": True}
+    return cv["temps_C"], cv["rate"], sd, meta
 
 
 def _set_solver_timeout(pm, seconds):
@@ -196,14 +231,19 @@ def _set_solver_timeout(pm, seconds):
         pass
 
 
-def _worker_init(strain, curve_id, medium, priors):
-    global _SIM, _OBS, _PRI
+def _worker_init(strain, curve_id, medium, priors, trusted_noll=False):
+    global _SIM, _OBS, _OBS_SD, _PRI
     from .config import resolve, build_provider
     from .providers import set_medium
     pm = build_provider(resolve(strain))
     _set_solver_timeout(pm, 2)   # cap slow/degenerate LP solves so no eval stalls
     set_medium(pm, medium, "glc__D", True)
-    temps, rates, _ = load_curve(strain, curve_id)
+    if trusted_noll:
+        temps, rates, sd, _ = load_noll_curve(strain)
+        _OBS_SD = sd
+    else:
+        temps, rates, _ = load_curve(strain, curve_id)
+        _OBS_SD = None
     _SIM = Simulator(pm, temps)
     _OBS = rates
     _PRI = priors
@@ -213,15 +253,19 @@ def _log_prob_worker(theta):
     lp = log_prior(theta, _PRI)
     if not np.isfinite(lp):
         return -np.inf
+    if _OBS_SD is not None:
+        return lp + log_likelihood_sd(theta, _SIM, _OBS, _OBS_SD)
     return lp + log_likelihood(theta, _SIM, _OBS)
 
 
-def make_log_prob(sim: Simulator, obs: np.ndarray, pri: Dict):
+def make_log_prob(sim: Simulator, obs: np.ndarray, pri: Dict, obs_sd=None):
     """Single-process log-prob closure (used when no pool)."""
     def _lp(theta):
         lp = log_prior(theta, pri)
         if not np.isfinite(lp):
             return -np.inf
+        if obs_sd is not None:
+            return lp + log_likelihood_sd(theta, sim, obs, obs_sd)
         return lp + log_likelihood(theta, sim, obs)
     return _lp
 
@@ -232,8 +276,13 @@ def make_log_prob(sim: Simulator, obs: np.ndarray, pri: Dict):
 def run_emcee(strain: str, curve_id: str, out_dir: str, *, medium="glucose_minimal",
               n_walkers: int = 24, n_steps: int = 1500, n_burn: int = 500,
               seed: int = 1, n_proc: int = 0, priors_cfg: Optional[dict] = None,
-              progress: bool = True) -> Dict:
-    """Run the single-curve emcee calibration and write all Phase-1 outputs."""
+              trusted_noll: bool = False, progress: bool = True) -> Dict:
+    """Run the single-curve emcee calibration and write all outputs.
+
+    ``trusted_noll``: fit the trusted Noll glucose-minimal curve (loaded via the
+    validation loader) with a per-point-SD + model-discrepancy likelihood; the 5th
+    free parameter is then sigma_disc (structural model error) rather than a single
+    homoscedastic sigma_noise."""
     import emcee
 
     os.makedirs(out_dir, exist_ok=True)
@@ -245,7 +294,15 @@ def run_emcee(strain: str, curve_id: str, out_dir: str, *, medium="glucose_minim
     pm = build_provider(resolve(strain))
     _set_solver_timeout(pm, 2)
     set_medium(pm, medium, "glc__D", True)
-    temps, obs, meta = load_curve(strain, curve_id)
+    if trusted_noll:
+        temps, obs, obs_sd, meta = load_noll_curve(strain)
+        # model-discrepancy sigma needs room to absorb structural misfit (the
+        # emergent model under-predicts by ~0.5 1/h), so widen its HalfNormal prior
+        priors_cfg = dict(priors_cfg or {})
+        priors_cfg.setdefault("sigma_halfnormal_scale", 0.3)
+    else:
+        temps, obs, meta = load_curve(strain, curve_id)
+        obs_sd = None
     sim = Simulator(pm, temps)
     pri = build_priors(obs, priors_cfg)
 
@@ -267,14 +324,14 @@ def run_emcee(strain: str, curve_id: str, out_dir: str, *, medium="glucose_minim
     if n_proc > 1:
         from multiprocessing import Pool
         pool = Pool(processes=n_proc, initializer=_worker_init,
-                    initargs=(strain, curve_id, medium, pri))
+                    initargs=(strain, curve_id, medium, pri, trusted_noll))
         try:
             sampler = emcee.EnsembleSampler(n_walkers, NDIM, _log_prob_worker, pool=pool)
             _run_chain(sampler, p0, n_steps, progress)
         finally:
             pool.close(); pool.join()
     else:
-        lp = make_log_prob(sim, obs, pri)
+        lp = make_log_prob(sim, obs, pri, obs_sd)
         sampler = emcee.EnsembleSampler(n_walkers, NDIM, lp)
         _run_chain(sampler, p0, n_steps, progress)
     wall = time.time() - t0
@@ -303,7 +360,7 @@ def run_emcee(strain: str, curve_id: str, out_dir: str, *, medium="glucose_minim
                     "n_proc": n_proc, "seed": seed},
         "priors": pri,
     }
-    _finalise_outputs(out_dir, flat, sim, obs, pri, meta, result, pm)
+    _finalise_outputs(out_dir, flat, sim, obs, pri, meta, result, pm, obs_sd=obs_sd)
     return result
 
 
@@ -324,17 +381,19 @@ def _ci(x, q=(5, 50, 95)):
     return [float(v) for v in np.percentile(x, q)]
 
 
-def _finalise_outputs(out_dir, flat, sim, obs, pri, meta, result, pm):
+def _finalise_outputs(out_dir, flat, sim, obs, pri, meta, result, pm, obs_sd=None):
     np.save(os.path.join(out_dir, "chain_flat.npy"), flat)
     post = _posterior_natural(flat)
+    noise_key = "sigma_disc" if obs_sd is not None else "sigma_noise"
+    post[noise_key] = post.pop("sigma_noise")
 
     # --- per-parameter posterior summary + demanded corrections ---
     prior_sd = {"dTopt": pri["dTopt"]["scale"], "dTm": pri["dTm"]["scale"],
                 "dCp_scale": pri["dCp_scale"]["log_scale"],
                 "kappa_scale": pri["kappa_scale"]["log_scale"]}
     rows, summary = [], {}
-    emergent = {"dTopt": 0.0, "dTm": 0.0, "dCp_scale": 1.0, "kappa_scale": 1.0, "sigma_noise": None}
-    for k in ("dTopt", "dTm", "dCp_scale", "kappa_scale", "sigma_noise"):
+    emergent = {"dTopt": 0.0, "dTm": 0.0, "dCp_scale": 1.0, "kappa_scale": 1.0, noise_key: None}
+    for k in ("dTopt", "dTm", "dCp_scale", "kappa_scale", noise_key):
         lo, med, hi = _ci(post[k])
         summary[k] = {"prior_center": emergent[k],
                       "posterior_median": round(med, 4),
@@ -392,17 +451,18 @@ def _finalise_outputs(out_dir, flat, sim, obs, pri, meta, result, pm):
     pp_lo, pp_med, pp_hi = np.percentile(pp, [5, 50, 95], axis=0)
     np.savez(os.path.join(out_dir, "posterior_predictive.npz"),
              temps_C=dense, lo=pp_lo, med=pp_med, hi=pp_hi,
-             prior=prior_curve, obs_T=sim.temps_C, obs=obs)
+             prior=prior_curve, obs_T=sim.temps_C, obs=obs,
+             obs_sd=(obs_sd if obs_sd is not None else np.zeros_like(obs)))
 
     with open(os.path.join(out_dir, "summary.json"), "w") as fh:
         json.dump(result, fh, indent=2)
 
     _plot_prior_vs_posterior(out_dir, dense, prior_curve, pp_lo, pp_med, pp_hi,
-                             sim.temps_C, obs, meta)
-    _plot_corner(out_dir, flat)
+                             sim.temps_C, obs, meta, obs_sd=obs_sd)
+    _plot_corner(out_dir, flat, noise_key=noise_key)
 
 
-def _plot_prior_vs_posterior(out_dir, T, prior, lo, med, hi, obsT, obs, meta):
+def _plot_prior_vs_posterior(out_dir, T, prior, lo, med, hi, obsT, obs, meta, obs_sd=None):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -411,7 +471,11 @@ def _plot_prior_vs_posterior(out_dir, T, prior, lo, med, hi, obsT, obs, meta):
                     label="posterior predictive 90% CI")
     ax.plot(T, med, color="tab:orange", lw=2, label="posterior median")
     ax.plot(T, prior, color="tab:blue", lw=2, ls="--", label="emergent prior")
-    ax.plot(obsT, obs, "o", color="k", ms=6, label=f"data ({meta['study']})")
+    if obs_sd is not None:
+        ax.errorbar(obsT, obs, yerr=obs_sd, fmt="o", color="k", ms=5, capsize=3,
+                    label=f"data ({meta['study']}, ±SD)")
+    else:
+        ax.plot(obsT, obs, "o", color="k", ms=6, label=f"data ({meta['study']})")
     ax.set_xlabel("Temperature (°C)"); ax.set_ylabel("Growth rate (1/h)")
     ax.set_title(f"Prior vs posterior — {meta['curve_id']} ({meta['medium_class']}, "
                  f"n={meta['n']})")
@@ -422,7 +486,7 @@ def _plot_prior_vs_posterior(out_dir, T, prior, lo, med, hi, obsT, obs, meta):
     return p
 
 
-def _plot_corner(out_dir, flat):
+def _plot_corner(out_dir, flat, noise_key="sigma_noise"):
     import matplotlib
     matplotlib.use("Agg")
     import corner
@@ -430,7 +494,7 @@ def _plot_corner(out_dir, flat):
     # show natural units for interpretability
     nat = np.column_stack([flat[:, 0], flat[:, 1], np.exp(flat[:, 2]),
                            np.exp(flat[:, 3]), np.exp(flat[:, 4])])
-    labels = ["dTopt (K)", "dTm (K)", "dCp_scale", "kappa_scale", "sigma_noise"]
+    labels = ["dTopt (K)", "dTm (K)", "dCp_scale", "kappa_scale", noise_key]
     fig = corner.corner(nat, labels=labels, show_titles=True,
                         title_fmt=".2f", quantiles=[0.05, 0.5, 0.95],
                         truths=[0, 0, 1, 1, None])

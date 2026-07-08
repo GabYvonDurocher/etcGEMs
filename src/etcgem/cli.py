@@ -518,22 +518,25 @@ def cmd_calibrate(args):
     if args.list:
         print(cal.list_defined_curves(args.strain).to_string(index=False))
         return
-    if not (args.strain and args.curve):
-        raise SystemExit("calibrate needs --strain NAME --curve CURVE_ID (or --list)")
+    trusted_noll = bool(args.noll)
+    if not args.strain or (not args.curve and not trusted_noll):
+        raise SystemExit("calibrate needs --strain NAME --curve CURVE_ID (or --noll / --list)")
     cfg = resolve(args.strain, args.experiment) if args.experiment else {}
     cal_cfg = (cfg.get("calibration") or {}) if isinstance(cfg, dict) else {}
     s = cal_cfg.get("sampler", {})
     priors_cfg = cal_cfg.get("priors", {})
-    out_dir = _out_dir(args.strain, "calibration_phase1")
+    # trusted Noll fit writes to its own dir (does NOT overwrite the superseded phase-1)
+    out_dir = _out_dir(args.strain, "calibration_noll_minimal" if trusted_noll
+                       else "calibration_phase1")
     res = cal.run_emcee(
-        args.strain, args.curve, out_dir,
+        args.strain, args.curve or "Noll2023_NCM3722", out_dir,
         medium=args.medium or cal_cfg.get("medium", "glucose_minimal"),
         n_walkers=int(args.walkers or s.get("n_walkers", 24)),
         n_steps=int(args.steps or s.get("n_steps", 1500)),
         n_burn=int(args.burn or s.get("n_burn", 500)),
         seed=int(args.seed if args.seed is not None else s.get("seed", 1)),
         n_proc=int(args.procs if args.procs is not None else s.get("n_proc", 0)),
-        priors_cfg=priors_cfg)
+        priors_cfg=priors_cfg, trusted_noll=trusted_noll)
     _calibrate_console_summary(res)
     print(f"[calibrate] wrote {out_dir}")
     return out_dir
@@ -747,7 +750,10 @@ def build_parser():
                         help="single-curve Bayesian calibration (emcee): prior vs "
                              "posterior on one measured glucose-minimal TPC")
     ca.add_argument("--strain")
-    ca.add_argument("--curve", help="curve id from thermal/ecoli_tpc_curves.csv")
+    ca.add_argument("--curve", help="curve id from thermal/ecoli_tpc_curves.csv (legacy)")
+    ca.add_argument("--noll", action="store_true",
+                    help="fit the trusted Noll glucose-minimal curve with per-point-SD "
+                         "likelihood (writes to calibration_noll_minimal/)")
     ca.add_argument("--experiment", help="experiment carrying a calibration: block (optional)")
     ca.add_argument("--medium", default=None)
     ca.add_argument("--walkers", type=int, default=None)
