@@ -44,7 +44,7 @@ RUNS = {
     "percurve":   os.path.join(STRAIN, "percurve_validation"),   # legacy 26-curve compilation (RETIRED)
     "elasticity": os.path.join(STRAIN, "elasticity_elasticity"), # equal-perturbation sensitivity
     "anatomy":    os.path.join(STRAIN, "anatomy"),               # reference-point model anatomy
-    "valid_trust": os.path.join(STRAIN, "validation_trusted"),   # trusted strain-matched curves (Noll + Erdos)
+    "valid_trust": os.path.join(STRAIN, "validation_trusted"),   # Van Derlinden (MG1655, BHI) validation
 }
 
 FIG_DIR = os.path.join(HERE, "assets", "figures")
@@ -72,7 +72,6 @@ FIGURES = [
     ("validation", "complete_vs_empirical_tpc.png", "complete_vs_empirical_tpc.png"),
     ("ablation",   "ablation_comparison.png",      "ablation_comparison.png"),
     ("valid_trust", "validation_trusted_curves.png",  "validation_trusted_curves.png"),
-    ("valid_trust", "validation_minimal_vs_rich.png", "validation_minimal_vs_rich.png"),
     ("elasticity", "elasticity_tornado.png",       "elasticity_tornado.png"),
     ("elasticity", "elasticity_heatmap.png",       "elasticity_heatmap.png"),
     ("anatomy",    "reference_tpc.png",            "reference_tpc.png"),
