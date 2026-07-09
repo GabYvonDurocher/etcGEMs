@@ -308,7 +308,11 @@ class EnzymeConstrainedModel:
         Topt_eff = self._T0 + pert.topt_scale * (self._Topt - self._T0) + pert.dTopt
         dCpt_eff = self._uCpt * pert.dCp_scale
         rk = U.rel_kcat(T, self._uHTH, self._uSTS, self._uCpu, dCpt_eff, Topt_eff)
-        fN = U.native_fraction(T - pert.dTm, self._uHTH, self._uSTS, self._uCpu)
+        # dTm shifts every Tm uniformly; tm_scale stretches/compresses the Tm spread
+        # about its mean (narrow -> synchronised sharp collapse; broad -> gradual
+        # shoulder). Both applied as a per-enzyme shift of the evaluation temperature.
+        Tm_shift = pert.dTm + (pert.tm_scale - 1.0) * (self._Tm - np.mean(self._Tm))
+        fN = U.native_fraction(T - Tm_shift, self._uHTH, self._uSTS, self._uCpu)
         # numerical guard: clamp the turnover*fold product to a finite, strictly
         # positive band so no enzyme becomes free (denom=inf -> cost=0) or NaN under
         # extreme perturbations, which would leave the LP degenerate and hang the
