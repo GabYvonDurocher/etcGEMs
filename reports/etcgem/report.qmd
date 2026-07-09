@@ -891,6 +891,7 @@ proteome, sequence-based optima and DLTKcat rather than fitting it to growth.
 import pandas as pd
 
 c = pd.read_csv("assets/tables/control_top_enzymes.csv")
+c["gene"] = c["gene"].fillna("").replace("nan", "")
 c["enzyme_name"] = c["enzyme_name"].astype(str).str.slice(0, 42)
 cols = [x for x in ["display_rank", "gene", "enzyme_name", "enzyme_id", "control_coeff"] if x in c.columns]
 t = c[cols].head(10).rename(columns={"display_rank": "rank", "enzyme_name": "enzyme",
