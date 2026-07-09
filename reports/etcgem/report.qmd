@@ -344,6 +344,55 @@ none is fit to the growth curve in the emergent model (@tbl-provenance).
 
 : Parameter provenance — every value grounded in independent data or a stated literature value, never fit to growth. {#tbl-provenance}
 
+**Model hierarchy — how the components link.** The model is a hierarchy that turns grounded
+per-enzyme thermal parameters into an organismal curve, each level feeding only the next.
+**(i)** Every enzyme carries three grounded thermal parameters — its optimum $T_{\text{opt},i}$,
+its melting temperature $T_{m,i}$ and its turnover curvature $\Delta C^{\ddagger}_{p,i}$.
+**(ii)** These set the two per-enzyme temperature responses: the optimum-anchored turnover
+$\widehat{k}_i(T)$ (@eq-kcat) and the native (folded) fraction $f_{N,i}(T)$ (@eq-fn).
+**(iii)** The two combine into an effective per-flux enzyme cost $c_i(T)$ (@eq-cost).
+**(iv)** The costs enter the sector-partitioned proteome constraints — metabolic pool,
+biosynthesis cap and temperature-dependent maintenance (@eq-pool–@eq-maint) — optionally coupled
+through the growth law (@eq-growthlaw). **(v)** FBA maximises biomass flux at each temperature
+(@eq-obj), tracing the TPC $\mu(T)$. **(vi)** The curve is reduced to descriptors, and
+**(vii)** for the analyses, the global correction knobs (@tbl-knobs) deform the whole per-enzyme
+distribution at level (i). So the forward chain is *grounded parameters $\to$ per-enzyme responses
+$\to$ cost $\to$ sector constraints $+$ growth law $+$ $\text{NGAM}(T)$ $\to$ FBA growth $\to$
+descriptors*, with the knobs acting at the parameter level and no growth-curve information entering
+anywhere in the emergent model.
+
+**Relationship to, and departures from, the Li et al. 2021 yeast etc-GEM.** Our model is a direct
+descendant of the yeast etc-GEM of Li et al. 2021 (Nat. Commun. 12:190) [@Li2021], and we **follow
+it for the thermal core**: the transition-state turnover $k_{\text{cat}}(T)$ (@eq-kcat), the
+two-state native-fraction denaturation keyed on $T_m$ (@eq-fn), a temperature-dependent maintenance
+term, and the enzyme-constrained proteome-pool idea. We **depart from / upgrade** it in five
+deliberate ways, each with a rationale:
+
+- **Organism.** *E. coli* iML1515 / K-12 MG1655 (eciML1515) rather than their *S. cerevisiae*
+  ecYeast7.6 — the best-curated bacterial model, chosen as a proving ground before scaling to a
+  phylogenetically diverse isolate library.
+- **Grounded, not fitted, per-enzyme parameters.** We fix each enzyme's $T_\text{opt}$, $T_m$ and
+  curvature from independent data (a sequence-based optimum predictor, the measured melting proteome,
+  an MMRT prior refined by DLTKcat), so the TPC is an **a-priori forward prediction**. Li et al.
+  instead infer the per-enzyme thermal parameters by fitting the growth data — the opposite
+  epistemic stance. Grounding is what lets us *test* the emergent $E_a$ and magnitude against an
+  independent benchmark rather than recover values we tuned.
+- **Sector-partitioned proteome, not a single pool.** We replace the single undivided protein pool
+  with a **measured, medium- and temperature-matched proteome-sector partition** (metabolic /
+  biosynthesis / maintenance; @eq-pool–@eq-maint) plus an explicit biosynthesis/translation cap
+  (@eq-biocap). This encodes the bacterial growth laws directly and makes proteome allocation an
+  attributable, measurable control on the rate — at a modest cost in raw growth-curve fit.
+- **Growth-rate-dependent allocation.** An optional proteome-conserving growth law (@eq-growthlaw)
+  lets the ribosome $\leftrightarrow$ metabolism trade-off, rather than a static cap, set the maximal
+  rate — closer to the physiology of the Scott/Basan laws.
+- **Inference by likelihood, not ABC.** We calibrate a **low-dimensional set of global correction
+  knobs** (@tbl-knobs) by likelihood-based ensemble MCMC (emcee), kept as a **separate** inverse
+  analysis layered on top of the emergent prior — contrasting with Li et al.'s SMC-ABC over the
+  full per-enzyme parameter set. An exact likelihood is available because the etc-GEM is a
+  deterministic simulator with a Gaussian residual model; keeping the emergent prediction and the
+  tuned inverse problem separate is precisely what lets us report an honest a-priori gap instead of a
+  fit.
+
 **In-silico experiments.** (O1) The nominal growth curve over an 8–60 °C grid gives the
 descriptors. (O2/O3) A **global sensitivity** sweep draws a Latin-hypercube sample (a
 space-filling random sample that spreads points evenly over each input's range; $n=120$) over
