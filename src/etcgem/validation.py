@@ -103,21 +103,38 @@ def _fit_stats(obs, pred):
     return r2, rmse
 
 
-def _predict(pm, spec, strain, data_temps, extra_aa=None):
+def _predict(pm, spec, strain, data_temps, extra_aa=None, pert=None, set_med=True):
     """Return (pred_at_data_temps, dense_T, dense_growth, descriptors)."""
-    _set_medium(pm, spec, strain, extra_aa)
-    pred = compute_tpc(pm, data_temps, Perturbation()).growth
+    if set_med:
+        _set_medium(pm, spec, strain, extra_aa)
+    pert = pert or Perturbation()
+    pred = compute_tpc(pm, data_temps, pert).growth
     dense = np.linspace(min(5.0, float(min(data_temps)) - 3),
-                        max(50.0, float(max(data_temps)) + 3), 91)
-    dg = compute_tpc(pm, dense, Perturbation()).growth
+                        max(52.0, float(max(data_temps)) + 6), 101)
+    dg = compute_tpc(pm, dense, pert).growth
     desc = TPC(dense, dg).descriptors(0.05)
     return pred, dense, dg, desc
 
 
 # ---------------------------------------------------------------------------
-def _score_curve(pm, spec, strain):
+def _build_emergent_rich(strain):
+    """Provider configured EXACTLY as the P2 tuning will use it: rich BHI,
+    reconciled single proteome pool (P1c), coupled growth law ON (P1b), T-dependent
+    maintenance restored. The emergent prediction sets the measured rich sector
+    fractions and identity magnitude/envelope knobs."""
+    from .calibration_multi import _build_pm_rich
+    pm = _build_pm_rich(strain)   # BHI, growth law ON, static rich alloc, reconciled
+    pert = Perturbation(f_metab=0.280, f_maint=0.360)   # measured rich (LB) sectors; else identity
+    return pm, pert
+
+
+def _score_curve(pm, spec, strain, growth_law_rich=False):
     cv = load_curve(strain, spec)
-    pred, dense, dg, desc = _predict(pm, spec, strain, cv["temps_C"])
+    if growth_law_rich and spec.medium == "BHI":
+        pmr, pert = _build_emergent_rich(strain)
+        pred, dense, dg, desc = _predict(pmr, spec, strain, cv["temps_C"], pert=pert, set_med=False)
+    else:
+        pred, dense, dg, desc = _predict(pm, spec, strain, cv["temps_C"])
     r2, rmse = _fit_stats(cv["rate"], pred)
     obs_desc = TPC(cv["temps_C"], cv["rate"]).descriptors(0.05)
     res = {
@@ -137,7 +154,11 @@ def _score_curve(pm, spec, strain):
     return res
 
 
-def run(strain: str, out_dir: str, include_secondary: bool = True, **_ignore) -> Dict:
+def run(strain: str, out_dir: str, include_secondary: bool = True,
+        growth_law_rich: bool = True, **_ignore) -> Dict:
+    """Emergent (nothing-fit) validation. ``growth_law_rich`` (default True) predicts
+    the rich BHI curve on the model configured as it will be tuned: reconciled single
+    proteome pool + coupled growth law ON + T-dependent maintenance (rounded peak)."""
     from .config import resolve, build_provider
     pm = build_provider(resolve(strain))
     try:
@@ -149,7 +170,7 @@ def run(strain: str, out_dir: str, include_secondary: bool = True, **_ignore) ->
     results, rows = {}, []
     specs = list(CURVES) + (list(SECONDARY) if include_secondary else [])
     for spec in specs:
-        res = _score_curve(pm, spec, strain)
+        res = _score_curve(pm, spec, strain, growth_law_rich=growth_law_rich)
         res["role"] = "primary" if spec in CURVES else "secondary_crosscheck"
         results[spec.key] = res
         rows.append({"curve": spec.key, "role": res["role"],
@@ -201,8 +222,9 @@ def _plot_curves(results, out_dir):
                 transform=ax.transAxes, va="top", fontsize=8.5,
                 bbox=dict(boxstyle="round", fc="0.96", ec="0.8"))
         ax.legend(frameon=False, fontsize=8, loc="lower right")
-    fig.suptitle("Emergent model vs Van Derlinden (K-12 MG1655, BHI; raw absolute rate, nothing fit)")
-    fig.tight_layout()
+    fig.suptitle("Emergent model vs Van Derlinden (K-12 MG1655, BHI; raw absolute rate, nothing fit)",
+                 fontsize=10)
+    fig.tight_layout(rect=(0, 0, 1, 0.97))
     p = os.path.join(out_dir, "validation_trusted_curves.png")
     fig.savefig(p, dpi=150); plt.close(fig)
     return p

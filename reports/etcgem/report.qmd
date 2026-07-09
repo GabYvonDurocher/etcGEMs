@@ -15,14 +15,16 @@ abstract: |
   $P_\text{total}\times f_\text{metab}\times\sigma$ (literature protein content ×
   measured metabolic fraction × literature in-vivo saturation), and the activation
   energy from a literature MMRT $\Delta C_p$ prior plus DLTKcat, so the emergent
-  $E_a$ (0.8–1.0 eV, medium-dependent) lands near the independent bacterial-growth
-  benchmark (~0.85 eV) rather than a value we tuned. Validated on **raw absolute growth rate**
+  $E_a$ (medium- and allocation-dependent, ~0.6–1.0 eV) is fixed by grounded inputs rather than
+  tuned — near the independent ~0.85 eV bacterial-growth benchmark by default, and matching the
+  observed rich-curve value under the coupled growth law. Validated on **raw absolute growth rate**
   against the one curve measured on the **exact GEM strain** — *E. coli* K-12 MG1655 in
   Brain-Heart-Infusion broth over 7–46 °C (Van Derlinden 2012), predicted a priori under a rich
-  medium (availability, uptake unpinned) — the emergent model **tracks the curve shape**
-  (optimum 37 °C vs observed 40; rising-limb $E_a$ 0.82 eV vs 0.64, near benchmark; positive
-  absolute $R^2=0.14$ over the full span) but **under-predicts the absolute peak ~2.3-fold**
-  (1.03 vs 2.40 h⁻¹). This is an honest a-priori gap — a rich medium relaxes the enzyme
+  medium (availability, uptake unpinned) with the model configured as it will be tuned — the
+  emergent model **tracks the curve shape** (rounded optimum 40 °C vs observed 40; rising-limb
+  $E_a$ 0.63 eV vs 0.64; hot collapse near 51 vs 46 °C; positive absolute $R^2=0.27$ over the full
+  span) but **under-predicts the absolute peak ~2.3-fold** (1.04 vs 2.40 h⁻¹). This is an honest
+  a-priori gap — a rich medium relaxes the enzyme
   constraints, and the shortfall points to $\sigma$/$k_\text{cat}$/medium uncertainty — not a
   tuning failure. (An earlier draft's strain-mismatched curves are set aside; an MG1655
   defined-minimal TPC is the gold-standard future test.) Its predicted
@@ -167,9 +169,11 @@ rather than the growth-calibrated pool GECKO ships. The *envelope* emerges too: 
 curvature is a single literature MMRT value (−4 kJ/mol/K [@Hobbs2013]) refined by DLTKcat, with
 nothing chosen to hit an activation-energy target, so the whole-organism activation energy
 $E_a\approx0.8$ eV **emerges and can be tested** against an independent benchmark — and, checked
-against the exact-strain curve, the emergent model tracks the shape but under-predicts the absolute
-peak roughly 2.3-fold (predicted $\approx1.0$ vs observed $\approx2.4\,\text{h}^{-1}$), an honest
-a-priori gap. *Calibration is a separate, labelled step.* On top of this prior, a **Bayesian inverse
+against the exact-strain curve with the model configured as the calibration will tune it (the
+coupled growth law engaged; Validation), the emergent model tracks the shape closely — a rounded
+optimum at $T_\text{opt}=40$ °C (observed 40) and rising-limb $E_a=0.63$ eV (observed 0.64) —
+but under-predicts the absolute peak roughly 2.3-fold (predicted $\approx1.0$ vs observed
+$\approx2.4\,\text{h}^{-1}$), an honest a-priori gap. *Calibration is a separate, labelled step.* On top of this prior, a **Bayesian inverse
 analysis** (the global correction knobs of @tbl-knobs; the O6 experiment) asks what corrections a
 measured curve *demands* of the few borrowed or uncertain global knobs — it does **not** re-fit the
 grounded per-enzyme parameters. Keeping the emergent prediction and the tuned posterior distinct is
@@ -490,16 +494,23 @@ components excluded, asparagine/glutamine omitted by the hydrolysate convention)
 components map to the model. Because the measured proteome (LB/glucose/glycerol) has no BHI
 entry, BHI uses the **LB (rich) medium-matched sector allocation**.
 
+The rich operating point is the model **configured exactly as the later calibration tunes it**:
+the reconciled single proteome pool (Methods), the coupled biosynthesis–metabolic growth law
+engaged, and temperature-dependent maintenance restored (the latter two rounding the peak so it
+plateaus rather than spiking at a single temperature).
+
 **Result — the model tracks the shape but under-predicts the magnitude ~2.3-fold.** Predicted
 a priori under BHI (@fig-valcurves, @tbl-val), the emergent model reproduces the *shape* of the
-Van Derlinden curve — the cold rising limb, an optimum at $T_\text{opt}=37$ °C (observed 40 °C)
-and a rising-limb $E_a=0.82$ eV (observed 0.64 eV, near the ~0.85 eV mesophilic-growth
-benchmark) — giving a positive absolute $R^2=0.14$ over the full 7–46 °C span. What it does not
-capture is the **absolute level**: the predicted peak $r_\text{max}=1.03$ h⁻¹ is about
-**2.3-fold below** the observed 2.40 h⁻¹. This is an honest a-priori gap, not a tuning failure
-(nothing is fit): a rich medium relaxes the enzyme constraints so the biosynthesis cap and pool
-saturate, and the shortfall points to the in-vivo $k_\text{cat}$ scale, the saturation $\sigma$,
-or the exact medium composition — the levers a later calibration phase examines.
+Van Derlinden curve — the cold rising limb, a **rounded optimum at** $T_\text{opt}=40$ °C
+(observed 40 °C), a rising-limb $E_a=0.63$ eV (observed 0.64 eV; both a touch below the ~0.85 eV
+mesophilic-growth benchmark, and matching each other closely), and a hot-side collapse
+($\text{CT}_\text{max}\approx51$ °C vs observed 46 °C) — giving a positive absolute $R^2=0.27$
+over the full 7–46 °C span. What it does not capture is the **absolute level**: the predicted
+peak $r_\text{max}=1.04$ h⁻¹ is about **2.3-fold below** the observed 2.40 h⁻¹. This is an honest
+a-priori gap, not a tuning failure (nothing is fit): a rich medium relaxes the enzyme constraints
+so the biosynthesis cap and pool saturate, and the shortfall points to the in-vivo $k_\text{cat}$
+scale, the saturation $\sigma$, or the exact medium composition — the levers a later calibration
+phase examines.
 
 ![**Emergent model vs the exact-strain curve (raw absolute rate, nothing fit).** Van Derlinden 2012, K-12 MG1655 in BHI, 7–46 °C (figure-digitized), predicted a priori under the rich medium. The model line tracks the shape but sits ~2.3-fold below the peak; absolute $R^2$/RMSE and observed-vs-predicted $r_\text{max}$/$T_\text{opt}$ are annotated.](assets/figures/validation_trusted_curves.png){#fig-valcurves fig-pos="H" width=70%}
 
@@ -833,8 +844,8 @@ fit.
 
 Remaining limitations, all structural / in-silico, and framed by the exact-strain (Van
 Derlinden, MG1655/BHI) validation: **(i)** the emergent model **under-predicts the absolute
-peak ~2.3-fold** (predicted 1.03 vs observed 2.40 h⁻¹) while tracking the curve *shape* (optimum
-37 vs 40 °C; $E_a$ 0.82 vs 0.64 eV, near benchmark); the magnitude shortfall reflects residual
+peak ~2.3-fold** (predicted 1.04 vs observed 2.40 h⁻¹) while tracking the curve *shape* (rounded
+optimum 40 vs 40 °C; $E_a$ 0.63 vs 0.64 eV; hot collapse ~51 vs 46 °C); the magnitude shortfall reflects residual
 uncertainty in the in-vivo $k_\text{cat}$ scale, the saturation $\sigma$ and the exact rich-medium
 composition (all carried as literature values/availability, not tuned), and a rich medium is a
 less stringent test than a defined minimal one; **(ii)** the rising-limb curvature is set by a
