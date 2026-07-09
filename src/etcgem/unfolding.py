@@ -116,12 +116,16 @@ def rel_kcat(T, dHTH, dSTS, dCpu, dCpt, Topt):
 # ---------------------------------------------------------------------------
 # temperature-dependent non-growth-associated maintenance (NGAM/ATPM)
 # ---------------------------------------------------------------------------
-def ngam_T(T):
+def ngam_T(T, scale: float = 1.0, steepness: float = 1.0):
     """Temperature-dependent maintenance ATP demand at T (K), with a basal floor
-    at 25 C (port of etc.py getNGAMT). Returns mmol ATP / gDW / h."""
+    at 25 C (port of etc.py getNGAMT). Returns mmol ATP / gDW / h.
+
+    ``scale`` multiplies the ~8.5 baseline amplitude; ``steepness`` multiplies the
+    activation term (how fast maintenance rises with temperature) -- the
+    peak-rounding lever. Both default to the ported Li getNGAMT values (1.0)."""
     def _f(Tk):
-        return 8.5 * (1.0 - 0.62 * np.exp((-0.5 / (8.617e-5))
-                                          * (1.0 / (273.15 + 25.0) - 1.0 / Tk)))
+        return scale * 8.5 * (1.0 - 0.62 * np.exp((-0.5 * steepness / (8.617e-5))
+                                                  * (1.0 / (273.15 + 25.0) - 1.0 / Tk)))
     val = _f(T)
     floor = _f(273.15 + 25.0)
     return float(max(val, floor))

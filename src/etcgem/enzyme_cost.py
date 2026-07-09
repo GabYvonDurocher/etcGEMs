@@ -125,6 +125,12 @@ class Perturbation:
                    E_a / T_opt / CT_max unchanged. The in-vitro->in-vivo kcat gap is the
                    physical prior; a single global scalar (per-enzyme kcat corrections
                    are unidentifiable from one growth curve).
+    tm_scale     : multiplies each enzyme's (Tm - mean_Tm) about the distribution mean
+                   (mirrors topt_scale for optima) -> controls how synchronised the
+                   unfolding collapse is (narrow: sharp cliff; broad: gradual shoulder).
+    ngam_scale     : multiplier on the maintenance (NGAM) amplitude.
+    ngam_steepness : multiplier on how fast maintenance rises with temperature (the
+                     peak-rounding lever). Both no-ops at 1.
     budget       : total proteome pool P (g/gDW); None keeps model default
     group_alloc  : per-group multiplier on that group's sub-budget (allocation)
     """
@@ -132,8 +138,11 @@ class Perturbation:
     topt_scale: float = 1.0
     dCp_scale: float = 1.0
     dTm: float = 0.0
+    tm_scale: float = 1.0
     kappa_scale: float = 1.0
     kcat_scale: float = 1.0
+    ngam_scale: float = 1.0
+    ngam_steepness: float = 1.0
     budget: Optional[float] = None
     group_alloc: Dict[str, float] = field(default_factory=dict)
     # Proteome-sector allocation (opt-in; None -> use the scalar pool / set_budget
@@ -326,14 +335,31 @@ class EnzymeConstrainedModel:
                 gc[self._fwd[i]] = ci
                 gc[self._rev[i]] = ci
             con.set_linear_coefficients(gc)
-        # Temperature-dependent maintenance (unfolding mode only). Skipped when
-        # sectors are wired, since the sector model owns the ATPM lower bound.
+        # Temperature-dependent maintenance (unfolding mode). Li/MRes call set_NGAMT
+        # at EVERY temperature, so maintenance rises with T and rounds the peak --
+        # apply it both without AND with the sector model wired.
         if (self.thermal_model == "unfolding" and self.ngam_temperature
-                and self._ngam_rxn is not None and self._sectors is None):
+                and self._ngam_rxn is not None):
             from . import unfolding as U
-            val = U.ngam_T(T)
-            self._ngam_rxn.lower_bound = val
-            self._ngam_rxn.upper_bound = max(val, self._ngam_rxn.upper_bound)
+            if self._sectors is None:
+                val = U.ngam_T(T, scale=pert.ngam_scale, steepness=pert.ngam_steepness)
+                self._ngam_rxn.lower_bound = val
+                self._ngam_rxn.upper_bound = max(val, self._ngam_rxn.upper_bound)
+            else:
+                # relative T-factor about the 25 C anchor (scale cancels in the ratio,
+                # so it is applied separately as an amplitude), on top of the
+                # sector-owned ATPM bound that set_allocation scales by f_maint.
+                T0 = 273.15 + 25.0
+                r = (U.ngam_T(T, steepness=pert.ngam_steepness)
+                     / U.ngam_T(T0, steepness=pert.ngam_steepness))
+                self._ngam_T_factor = float(r) * float(pert.ngam_scale)
+                s = self._sectors
+                atpm = s["atpm_rxn"]
+                if atpm is not None and s["f_maint_nom"] > 0:
+                    fmaint = getattr(self, "_last_fmaint", None) or s["f_maint_nom"]
+                    val = s["atpm_nom_lb"] * (fmaint / s["f_maint_nom"]) * self._ngam_T_factor
+                    atpm.lower_bound = val
+                    atpm.upper_bound = max(val, atpm.upper_bound)
         if pert.budget is not None or pert.group_alloc:
             self.set_budget(pert.budget, pert.group_alloc)
 
@@ -373,9 +399,14 @@ class EnzymeConstrainedModel:
         P = s["P_total"]
         self._pool.ub = fm * P
         s["bio_constraint"].ub = fbio * P * float(kappa_scale)
+        self._last_fmaint = fmaint
         atpm = s["atpm_rxn"]
         if atpm is not None and s["f_maint_nom"] > 0:
-            atpm.lower_bound = s["atpm_nom_lb"] * (fmaint / s["f_maint_nom"])
+            # include the T-dependent maintenance factor set by set_temperature
+            nf = getattr(self, "_ngam_T_factor", 1.0)
+            val = s["atpm_nom_lb"] * (fmaint / s["f_maint_nom"]) * nf
+            atpm.lower_bound = val
+            atpm.upper_bound = max(val, atpm.upper_bound)
 
     # -- diagnostics --------------------------------------------------------
     def enzyme_mass(self, solution, T: float, pert: Optional[Perturbation] = None) -> float:
