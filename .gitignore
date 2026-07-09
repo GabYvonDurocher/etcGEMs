@@ -26,3 +26,11 @@ reports/etcgem/_output/
 .quarto/
 **/.quarto/
 refs/
+
+# Transient / local artifacts (FUSE temp files, editor backups, verify logs)
+.fuse_hidden*
+*.bak*
+verify_*.log
+
+/tpc_pipeline/
+collaborator_email_draft.md
