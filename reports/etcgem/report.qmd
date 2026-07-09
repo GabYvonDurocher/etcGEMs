@@ -81,8 +81,10 @@ rate at any temperature, in four stacked layers. The first says growth requires 
 the cell has a limited budget of them. The second makes each enzyme's efficiency
 temperature-dependent — enzymes speed up with warming, then unfold and fail at high
 temperature. The third fixes how the enzyme budget is split among broad functional groups,
-using measured proteome data. The fourth insists that none of the numbers are tuned to match
-the growth curve we are trying to predict. We now describe each layer.
+using measured proteome data, including how that split shifts with growth rate. The fourth is
+the epistemic stance: the emergent model is a genuine forward prediction — every number grounded
+in independent data, nothing fit to the growth curve — with any calibration kept as a separate,
+labelled inverse step. We now describe each layer.
 
 **Layer 1 — metabolic network with an enzyme budget.** We start from iML1515, a manually
 curated map of *E. coli* metabolism (its reaction stoichiometry and gene–protein–reaction
@@ -117,42 +119,61 @@ rising-limb activation energy. Turnover numbers measured in a test tube (**in vi
 to overstate the effective rate inside a cell (**in vivo**), which motivates the
 data-driven-saturation correction below [@Davidi2016; @Heckmann2020].
 
-**Layer 3 — proteome allocation from measured, medium- and temperature-matched sectors.** We
-split the enzyme budget into three broad **proteome sectors** — coarse functional groups of
-proteins whose fractions of the total proteome are known to shift predictably with growth
-conditions (the bacterial "growth laws") [@Basan2015; @Scott2010]: a **metabolic** sector
-($f_\text{metab}$, the enzymes that carry flux), a **biosynthesis** sector ($f_\text{bio}$,
-dominated by ribosomes, which caps how fast biomass can be made), and a **maintenance**
-sector ($f_\text{maint}$, housekeeping and stress proteins). These fractions are **taken from
-the measured *E. coli* proteome, matched to both the growth medium and the temperature**
-(Wang et al. [@Wang2026]; proteins grouped by function, weighted by mass; separate series for
-LB, glucose and glycerol media across their measured temperatures), never hand-set or fit to
-growth. This encodes the growth law directly: the measured ribosome (biosynthesis) fraction
-at 37 °C is $f_\text{bio}=0.36$ on rich LB medium but only $0.18$ on glucose-minimal, so a
-prediction run under LB automatically gets a higher biosynthesis cap and grows faster than
-one under minimal medium. The default glucose-minimal split is $f_\text{metab}=0.483$,
-$f_\text{bio}=0.191$, $f_\text{maint}=0.326$ (the maintenance sector absorbs the measured
-chaperone and other housekeeping proteins, including a 2.7-fold heat-stress chaperone rise);
-`set_medium` switches to another medium's measured curve. A **maintenance (NGAM,
-non-growth-associated maintenance)** demand — the ATP the cell must spend just to stay alive,
-independent of growth — is included and made temperature-dependent.
+**Layer 3 — proteome allocation: measured sectors, a biosynthesis cap, and the bacterial
+growth law.** We split the enzyme budget into three broad **proteome sectors** [@Basan2015; @Scott2010]:
+a **metabolic** sector ($f_\text{metab}$, the enzymes that carry flux), a **biosynthesis** sector
+($f_\text{bio}$, dominated by ribosomes), and a **maintenance** sector ($f_\text{maint}$,
+housekeeping and stress proteins). Four things act on this partition.
 
-**Layer 4 — everything emerges; nothing is fit to the growth curve.** The central design
-choice is that the predicted growth curve is a genuine forward prediction: no parameter is
-adjusted to match observed growth. The rate *magnitude* follows from the enzyme budget
-$P_\text{metab}=P_\text{total}\times f_\text{metab}\times\sigma$ — total protein per gram dry
-weight ($P_\text{total}=0.5$ g/gDW, from the literature), the measured metabolic fraction
-($f_\text{metab}$: 0.48 on glucose-minimal, 0.28 on LB), and the average **in-vivo enzyme
-saturation** $\sigma$ (the fraction of an enzyme's maximum rate actually realised in the cell,
-$\sigma=0.45$, an independent literature value carried with its 0.4–0.5 range
-[@Davidi2016; @Heckmann2020]). This yields an emergent $r_\text{max}=0.55\,\text{h}^{-1}$ on
-glucose-minimal (1.04 on LB), rather than the growth-calibrated pool GECKO ships. The
-*envelope* emerges too: each enzyme's MMRT curvature $\Delta C_p$ is a single literature value
-(−4 kJ/mol/K [@Hobbs2013]) refined by DLTKcat where available, with nothing chosen to hit an
-activation-energy target — so the whole-organism activation energy $E_a$ (0.83–0.96 eV)
-emerges and can be *tested* against an independent benchmark. All growth-fitting knobs are
-switched off. The model builds and grows, with the biosynthesis cap and the enzyme pool
-co-limiting at the nominal split ($\mu^\ast\approx0.55\,\text{h}^{-1}$ at 30 °C).
+*Static, measured allocation.* The sector fractions are **taken from the measured *E. coli*
+proteome, matched to both growth medium and temperature** (Wang et al. [@Wang2026]; separate
+LB / glucose / glycerol series across their measured temperatures), never hand-set or fit to
+growth, so the split is condition-specific: the measured ribosome fraction at 37 °C is
+$f_\text{bio}\approx0.36$ on rich LB but only $\approx0.19$ on glucose-minimal, so a prediction
+run under a rich medium automatically gets a higher biosynthesis cap and grows faster. The default
+glucose-minimal split is $f_\text{metab}=0.483$, $f_\text{bio}=0.191$, $f_\text{maint}=0.326$
+(maintenance absorbs the chaperone/housekeeping proteins, including a 2.7-fold heat-stress
+chaperone rise); the rich (BHI/LB) reference used for validation is
+$f_\text{metab}\approx0.28$, $f_\text{bio}\approx0.36$, $f_\text{maint}\approx0.36$ at 37 °C.
+
+*The biosynthesis (translation) cap.* The biosynthesis sector caps how fast biomass can be made —
+a translation limit $\kappa\,v_\text{bio}\le f_\text{bio}\,P_\text{tot}$ (@eq-biocap) that binds
+alongside the metabolic-pool bound (@eq-pool).
+
+*The growth-rate-dependent growth law.* The static medium-matched fractions above are only the
+resting split; the true bacterial growth law is that allocation shifts *with growth rate itself*.
+When the coupled, proteome-conserving mode is enabled (Scott 2010 [@Scott2010]), rising growth
+moves proteome out of the metabolic sector into ribosomes at a fixed slope —
+$f_\text{bio}(\mu)=f_{\text{bio},0}+s\mu$ and $f_\text{metab}(\mu)=f_{\text{metab},0}-s\mu$
+(@eq-growthlaw) — so the **ribosome $\leftrightarrow$ metabolism trade-off**, not a static cap,
+sets the maximal rate. (Earlier drafts called the medium-matched $f_\text{bio}$ "the growth law";
+that was only the static part.)
+
+*Temperature-dependent maintenance.* A **maintenance (NGAM, non-growth-associated maintenance)**
+demand — the ATP the cell spends just to stay alive — is included and made to **rise with
+temperature** (@eq-ngam), which lifts the hot-side ATP burden and **rounds the curve into a
+realistic optimum** rather than a sharp cliff.
+
+**Layer 4 — an emergent a-priori prediction, with calibration kept separate.** The design stance
+has two distinct parts. *The emergent model is the prediction.* Every input is grounded in
+independent data — the per-enzyme thermal parameters (Layer 2), the measured sector allocation
+(Layer 3), and the literature magnitude scalars — and **nothing is fit to the growth curve**. The
+rate *magnitude* follows from the enzyme budget $P_\text{metab}=\sigma\,f_\text{metab}\,P^{\text{lit}}$
+(@eq-alloc): literature total protein ($P^{\text{lit}}=0.5$ g/gDW), the measured metabolic fraction,
+and the average **in-vivo enzyme saturation** ($\sigma=0.45$, an independent literature value
+carried with its 0.4–0.5 range [@Davidi2016; @Heckmann2020]). At the **rich (BHI) reference** this
+yields an emergent peak of about $r_\text{max}\approx1.0\,\text{h}^{-1}$ at $T_\text{opt}\approx37$ °C,
+rather than the growth-calibrated pool GECKO ships. The *envelope* emerges too: each enzyme's
+curvature is a single literature MMRT value (−4 kJ/mol/K [@Hobbs2013]) refined by DLTKcat, with
+nothing chosen to hit an activation-energy target, so the whole-organism activation energy
+$E_a\approx0.8$ eV **emerges and can be tested** against an independent benchmark — and, checked
+against the exact-strain curve, the emergent model tracks the shape but under-predicts the absolute
+peak roughly 2.3-fold (predicted $\approx1.0$ vs observed $\approx2.4\,\text{h}^{-1}$), an honest
+a-priori gap. *Calibration is a separate, labelled step.* On top of this prior, a **Bayesian inverse
+analysis** (the global correction knobs of @tbl-knobs; the O6 experiment) asks what corrections a
+measured curve *demands* of the few borrowed or uncertain global knobs — it does **not** re-fit the
+grounded per-enzyme parameters. Keeping the emergent prediction and the tuned posterior distinct is
+the point: it quantifies the gap rather than papering over it.
 
 # Model equations, parameters and methods
 
