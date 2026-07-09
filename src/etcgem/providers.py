@@ -299,6 +299,12 @@ def from_gecko(model_path: str, T0: float = 303.15,
                                 ngam_temperature=ngam_temperature, ngam_rxn=ngam_rxn,
                                 unfold_means={"dCpt": dcp_prior_kJ * 1000.0})
     ec.model.objective = biomass_rxn
+    # P1c: reconcile the two redundant enzyme-mass pools into ONE proteome budget.
+    # The etcgem sMOMENT/sector pool (P_total x f_metab x sigma, medium- & growth-law-
+    # aware, scaled by kcat_scale) is the sole proteome accounting; relax the leftover
+    # GECKO base pool supply (prot_pool_exchange) so it can no longer cap growth
+    # independently (the magnitude levers kcat_scale/sigma/P_total do not touch it).
+    _relax_base_protein_pool(ec.model, pool_id)
     return ProvidedModel(ec=ec, T0=T0, biomass_rxn=biomass_rxn,
                          name=f"gecko:{model.id}")
 
@@ -380,6 +386,24 @@ def _existing_pool_bound(model, pool_id):
         prod = [m for m in rxn.metabolites if m.id == pool_id and rxn.metabolites[m] > 0]
         if prod and rxn.upper_bound < 1e6:
             return float(rxn.upper_bound)
+    return None
+
+
+def _relax_base_protein_pool(model, pool_id, big=1e6):
+    """Relax the GECKO base protein-pool supply reaction (which produces the pool
+    metabolite with a finite upper bound) so it no longer independently caps growth.
+    The etcgem sMOMENT/sector pool becomes the sole enzyme-mass constraint. Returns
+    the original bound that was relaxed (or None)."""
+    for rxn in model.reactions:
+        prod = [m for m in rxn.metabolites if m.id == pool_id and rxn.metabolites[m] > 0]
+        if prod and rxn.upper_bound < 1e6:
+            old = float(rxn.upper_bound)
+            rxn.upper_bound = float(big)
+            model.solver.update()
+            print(f"[from_gecko] reconciled proteome pools: relaxed base pool supply "
+                  f"'{rxn.id}' ({old:.4g} -> inf); the etcgem sMOMENT/sector pool is now "
+                  f"the sole enzyme-mass budget.")
+            return old
     return None
 
 
