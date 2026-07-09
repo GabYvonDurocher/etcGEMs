@@ -63,9 +63,7 @@ FIGURES = [
     # TUNED-model decomposition + control + calibration (P3); replace the stale versions
     ("decompose_tuned", "decomp_iqr_bands.png",    "decomp_iqr_bands.png"),
     ("decompose_tuned", "decomp_variance.png",     "decomp_variance.png"),
-    ("control_tuned",   "thermal_control_bar.png", "control_thermal.png"),
-    ("control_tuned",   "bottleneck_vs_temperature.png", "control_bottleneck.png"),
-    ("control_tuned",   "identifiability_hist.png", "control_identifiability.png"),
+    ("control_tuned",   "control_coefficient_bar.png", "control_thermal.png"),
     ("calibration_v3",  "prior_vs_posterior_tpc.png", "prior_vs_posterior_tpc.png"),
     ("calibration_v3",  "corner.png",              "corner_v3.png"),
     ("dltkcat",    "tpc_ensemble.png",             "dltkcat_ensemble.png"),
@@ -97,6 +95,7 @@ TABLES = [
     ("control_tuned",   "identifiability.csv",       "identifiability.csv"),
     ("control_tuned",   "thermal_control_annotated.csv", "thermal_control_annotated.csv"),
     ("control_tuned",   "identifiability_annotated.csv", "identifiability_annotated.csv"),
+    ("control_tuned",   "control_top_enzymes.csv",       "control_top_enzymes.csv"),
     ("calibration_v3",  "demanded_corrections.csv",  "demanded_corrections.csv"),
     ("calibration_v3",  "summary.json",              "calibration_v3_summary.json"),
     ("calibrated", "descriptors.csv",           "calibrated_descriptors.csv"),
