@@ -393,21 +393,45 @@ deliberate ways, each with a rationale:
   tuned inverse problem separate is precisely what lets us report an honest a-priori gap instead of a
   fit.
 
-**In-silico experiments.** (O1) The nominal growth curve over an 8–60 °C grid gives the
-descriptors. (O2/O3) A **global sensitivity** sweep draws a Latin-hypercube sample (a
-space-filling random sample that spreads points evenly over each input's range; $n=120$) over
-envelope knobs ($dT_\text{opt}\in[-6,6]$ K, `topt_scale`$\in[0.7,1.4]$,
-`dCp_scale`$\in[0.5,2]$) and a pool knob (`budget_scale`$\in[0.7,1.1]$), reducing each
-TPC to descriptors. (O4) The **decomposition** evaluates a fully-crossed
-three-way allocation$\times$kinetic$\times$stability design, every parameter moved by the same
-standardised half-width $H=0.2$ about the measured nominal (allocation $=$ sector split;
-kinetic $=$ $dT_\text{opt}$/spread/curvature; stability $=$ $dT_m$), and applies the Shapley
-split of @eq-alloc plus an achievable-IQR magnitude per axis. (O2/O5) The
-**control/identifiability** analysis screens all
-2560 enzymes (usage × thermal sensitivity), then computes finite-difference control
-coefficients on the top-100, reporting proteome-wide identifiability over all
-$2560\times3$ parameters. All analyses reuse the same
-`compute_tpc`/`descriptors` engine.
+**In-silico experimental design.** Every analysis reuses the same deterministic
+`compute_tpc`/`descriptors` engine and moves the model *only* through the global correction knobs
+(@tbl-knobs); none refits the per-enzyme parameters. Five analyses build on one another.
+
+- **(O1) Emergent a-priori prediction.** The nominal model — with **nothing fit to growth** —
+  predicts the reference curve (@eq-obj) and its descriptors on the 5–60 °C grid. This prediction is
+  the prior for everything downstream and is validated a priori against the exact-strain curve
+  (*Validation* below).
+- **(O2/O3) Equal-perturbation elasticity.** Each knob is nudged by the *same* standardised step
+  $\pm h$ ($h=0.10$) by central finite difference and we record the fractional change it produces in
+  each descriptor (@eq-elasticity) — a **local, magnitude-based** sensitivity in which every input is
+  directly comparable because it is perturbed by the same relative amount (the additive shifts
+  $dT_\text{opt}$/$dT_m$ move by $\pm h\,\Delta_\text{ref}$, $\Delta_\text{ref}=$ the per-enzyme
+  $T_\text{opt}$/$T_m$ SD $=4.25$/$6.13$ K).
+- **(O4) Allocation / kinetic / stability decomposition.** A range-fair, nominal-centred,
+  fully-crossed **three-way** (allocation × kinetic-envelope × stability) functional ANOVA, every
+  parameter moved by the same standardised half-width $H=0.2$ about its measured value (allocation
+  $=$ the sector split $f_\text{metab}$/$f_\text{maint}$, which carries maintenance; kinetic $=$
+  $dT_\text{opt}$ / spread / curvature; stability $=$ $dT_m$). It yields both the two-group Shapley
+  split $\varphi_A=S_A+\tfrac12 S_{AE}$, $\varphi_E=S_E+\tfrac12 S_{AE}$ (allocation vs whole
+  envelope) and the three-group allocation/kinetic/stability shares, each reported alongside an
+  achievable-IQR magnitude and the family of reachable growth curves per lever.
+- **(O2/O5) Per-enzyme control and identifiability.** We screen all 2560 enzymes by a thermal-control
+  score (proteome usage × thermal sensitivity), compute central-finite-difference control
+  coefficients of each descriptor to each top-enzyme's $T_{\text{opt},i}$/$\Delta C^{\ddagger}_{p,i}$,
+  and report proteome-wide identifiability — the max-normalised control magnitude, a first-order
+  proxy (not Fisher information) — over all $2560\times3$ per-enzyme parameters.
+- **(O6) Bayesian calibration (emergent vs tuned).** Treating the emergent prediction as the
+  **prior**, we ask the inverse question by exact likelihood-based inference with a gradient-free
+  ensemble sampler (**emcee**): because the etc-GEM is a deterministic simulator with a Gaussian
+  residual model, an exact likelihood is available (it is **not** ABC). The free set is the
+  low-dimensional, elasticity-selected group of global knobs
+  $\{dT_\text{opt},\,dT_m,\,\texttt{dCp\_scale},\,\texttt{kappa\_scale}\}$ plus a nuisance noise
+  scale, with the saturation $\sigma$ and the measured sector fractions held **fixed**; priors are
+  centred on the emergent values (0, 0, 1, 1) with provenance-based widths
+  ($dT_\text{opt}\sim\mathcal{N}(0,4.25\,\text{K})$, $dT_m\sim\mathcal{N}(0,6.13\,\text{K})$,
+  `dCp_scale`/`kappa_scale` LogNormal about 1), positive parameters sampled in log space. Keeping the
+  emergent prior and the tuned posterior **separate** quantifies how far the borrowed/uncertain
+  quantities must move to reproduce a curve, and how well one curve constrains them.
 
 **Validation.** The model is validated against the one curve measured on the exact GEM strain —
 K-12 MG1655 in BHI broth over 7–46 °C (Van Derlinden 2012 [@VanDerlinden2012], figure-digitized)
