@@ -95,6 +95,8 @@ TABLES = [
     ("decompose_tuned", "decompose_summary.json",          "decompose_summary.json"),
     ("control_tuned",   "thermal_control.csv",       "thermal_control.csv"),
     ("control_tuned",   "identifiability.csv",       "identifiability.csv"),
+    ("control_tuned",   "thermal_control_annotated.csv", "thermal_control_annotated.csv"),
+    ("control_tuned",   "identifiability_annotated.csv", "identifiability_annotated.csv"),
     ("calibration_v3",  "demanded_corrections.csv",  "demanded_corrections.csv"),
     ("calibration_v3",  "summary.json",              "calibration_v3_summary.json"),
     ("calibrated", "descriptors.csv",           "calibrated_descriptors.csv"),
@@ -195,6 +197,12 @@ def _derived_sector_tradeoff(copied, missing):
 
 def main():
     copied, missing = [], []
+    # local enzyme-identity join (gene / protein name) for the control tables
+    try:
+        import annotate_enzymes
+        annotate_enzymes.main()
+    except Exception as e:
+        print(f"[assemble] enzyme annotation skipped ({e})")
     for key, src_name, dest in FIGURES:
         _copy(RUNS[key], src_name, FIG_DIR, dest, copied, missing, key)
     for key, src_name, dest in TABLES:
