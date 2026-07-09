@@ -131,6 +131,16 @@ class Perturbation:
     ngam_scale     : multiplier on the maintenance (NGAM) amplitude.
     ngam_steepness : multiplier on how fast maintenance rises with temperature (the
                      peak-rounding lever). Both no-ops at 1.
+    sigma_sat    : effective average in-vivo enzyme saturation sigma (the GECKO/
+                   sMOMENT saturation coefficient in the total-protein budget
+                   P_metab = sigma * f_metab * P_total). None -> use the model's
+                   nominal sigma (identity). Because sigma multiplies the whole
+                   enzyme-mass budget it raises BOTH the metabolic pool AND the
+                   biosynthesis/ribosome cap (unlike kcat_scale, which only relaxes
+                   the metabolic per-flux cost), so it is the effective magnitude
+                   lever once the metabolic pool is cheap and the ribosome budget
+                   binds. Applied as the multiplier sigma_sat / sigma_nom on both
+                   sector caps (sectors mode only).
     budget       : total proteome pool P (g/gDW); None keeps model default
     group_alloc  : per-group multiplier on that group's sub-budget (allocation)
     """
@@ -151,10 +161,11 @@ class Perturbation:
     f_metab: Optional[float] = None
     f_maint: Optional[float] = None
     maint_to_bio: Optional[float] = None   # shift maintenance->biosynthesis at fixed f_metab
+    sigma_sat: Optional[float] = None      # effective in-vivo saturation (scales both caps)
 
     def uses_allocation(self) -> bool:
         return (self.f_metab is not None or self.f_maint is not None
-                or self.maint_to_bio is not None)
+                or self.maint_to_bio is not None or self.sigma_sat is not None)
 
     def topt_of(self, e: EnzymeEntry) -> float:
         return e.T0 + self.topt_scale * (e.Topt - e.T0) + self.dTopt
@@ -379,7 +390,8 @@ class EnzymeConstrainedModel:
 
     def set_allocation(self, f_metab: Optional[float] = None,
                        f_maint: Optional[float] = None,
-                       kappa_scale: float = 1.0):
+                       kappa_scale: float = 1.0,
+                       sigma_sat: Optional[float] = None):
         """Set the three-sector proteome partition (Basan/Scott) in place.
 
         f_bio = 1 - f_metab - f_maint. Updates the metabolic pool bound
@@ -387,7 +399,11 @@ class EnzymeConstrainedModel:
         the maintenance-ATP lower bound (scaled by f_maint / f_maint_nominal).
         ``kappa_scale`` (>0) multiplies the biosynthesis cap bound, equivalent to
         dividing the translation coefficient by kappa_scale -- the in-vivo
-        translation-efficiency lever on r_max. Requires sectors wired via
+        translation-efficiency lever on r_max. ``sigma_sat`` (>0) overrides the
+        effective in-vivo saturation: it multiplies BOTH sector caps by
+        sigma_sat / sigma_nom (the whole enzyme-mass budget scales with the average
+        saturation), so unlike kcat_scale it also relaxes the ribosome/biosynthesis
+        cap. None -> nominal sigma (identity). Requires sectors wired via
         sectors.add_proteome_sectors."""
         s = self._sectors
         if s is None:
@@ -401,6 +417,8 @@ class EnzymeConstrainedModel:
             raise ValueError(f"invalid sector simplex: f_metab={fm}, "
                              f"f_maint={fmaint}, f_bio={fbio}")
         P = s["P_total"]
+        # effective-saturation multiplier on the whole enzyme-mass budget (both caps)
+        sig = 1.0 if sigma_sat is None else float(sigma_sat) / float(s.get("sigma_nom", 0.45))
         if s.get("growth_law"):
             # coupled growth law: f_maint drives the split; the biosynthesis intercept
             # f_bio_0 is fixed and f_metab_0 = 1 - f_maint - f_bio_0 (conserving). The
@@ -408,11 +426,11 @@ class EnzymeConstrainedModel:
             # v_bio coefficients wired at build). Both caps are LINEAR in mu.
             f_bio_0 = s["f_bio_0"]
             f_metab_0 = 1.0 - fmaint - f_bio_0
-            self._pool.ub = f_metab_0 * P
-            s["bio_constraint"].ub = f_bio_0 * P * float(kappa_scale)
+            self._pool.ub = f_metab_0 * P * sig
+            s["bio_constraint"].ub = f_bio_0 * P * float(kappa_scale) * sig
         else:
-            self._pool.ub = fm * P
-            s["bio_constraint"].ub = fbio * P * float(kappa_scale)
+            self._pool.ub = fm * P * sig
+            s["bio_constraint"].ub = fbio * P * float(kappa_scale) * sig
         self._last_fmaint = fmaint
         atpm = s["atpm_rxn"]
         if atpm is not None and s["f_maint_nom"] > 0:

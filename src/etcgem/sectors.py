@@ -118,6 +118,10 @@ def add_proteome_sectors(pm, cfg: dict) -> dict:
         "growth_law": growth_law, "growth_law_slope": slope,
         "f_bio_0": f_bio_0, "f_metab_0": f_metab_0,
         "biomass_var": biomass.forward_variable,
+        # nominal in-vivo saturation baked into P_total (budget = P_total_lit x
+        # f_metab x sigma_nom); a free sigma_sat perturbation scales both caps by
+        # sigma_sat / sigma_nom. Kept here so set_allocation can form the ratio.
+        "sigma_nom": float(cfg.get("sigma_nom", 0.45)),
     }
     print(f"[sectors] P_total={P_total:.4g}  f=(metab {f_metab_nom}, bio "
           f"{f_bio_nom:.2f}, maint {f_maint_nom})  translation_coeff="
