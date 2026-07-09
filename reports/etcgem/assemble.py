@@ -42,9 +42,14 @@ RUNS = {
     "validation": os.path.join(STRAIN, "validation"),            # empirical TPC fit (legacy)
     "ablation":   os.path.join(STRAIN),                          # ablation_* live in outputs/
     "percurve":   os.path.join(STRAIN, "percurve_validation"),   # legacy 26-curve compilation (RETIRED)
-    "elasticity": os.path.join(STRAIN, "elasticity_elasticity"), # equal-perturbation sensitivity
+    "elasticity": os.path.join(STRAIN, "elasticity_elasticity"), # equal-perturbation sensitivity (STALE, pre-reconciliation)
     "anatomy":    os.path.join(STRAIN, "anatomy"),               # reference-point model anatomy
     "valid_trust": os.path.join(STRAIN, "validation_trusted"),   # Van Derlinden (MG1655, BHI) validation
+    # P2 v3 calibration + P3 TUNED-model analyses (rich BHI, reconciled pool, growth law)
+    "calibration_v3": os.path.join(STRAIN, "calibration_vanderlinden_v3"),
+    "elasticity_tuned": os.path.join(STRAIN, "elasticity_tuned"),
+    "decompose_tuned":  os.path.join(STRAIN, "decompose_tuned"),
+    "control_tuned":    os.path.join(STRAIN, "control_tuned"),
 }
 
 FIG_DIR = os.path.join(HERE, "assets", "figures")
@@ -55,14 +60,14 @@ FIGURES = [
     ("sweep",      "tpc_ensemble.png",             "tpc_ensemble.png"),
     ("sweep",      "sensitivity_heatmap.png",      "sensitivity_heatmap.png"),
     ("sweep",      "descriptor_distributions.png", "descriptor_distributions.png"),
-    ("decompose",  "achievable_ranges.png",        "decomp_achievable.png"),
-    ("decompose",  "variance_partition.png",       "decomp_variance.png"),
-    ("decompose",  "shapley_effects.png",          "decomp_shapley.png"),
-    ("recast",     "recast_iqr_bands.png",         "decomp_iqr_bands.png"),
-    ("recast",     "recast_variance.png",          "decomp_recast_variance.png"),
-    ("control",    "thermal_control_bar.png",      "control_thermal.png"),
-    ("control",    "bottleneck_vs_temperature.png","control_bottleneck.png"),
-    ("control",    "identifiability_hist.png",     "control_identifiability.png"),
+    # TUNED-model decomposition + control + calibration (P3); replace the stale versions
+    ("decompose_tuned", "decomp_iqr_bands.png",    "decomp_iqr_bands.png"),
+    ("decompose_tuned", "decomp_variance.png",     "decomp_variance.png"),
+    ("control_tuned",   "thermal_control_bar.png", "control_thermal.png"),
+    ("control_tuned",   "bottleneck_vs_temperature.png", "control_bottleneck.png"),
+    ("control_tuned",   "identifiability_hist.png", "control_identifiability.png"),
+    ("calibration_v3",  "prior_vs_posterior_tpc.png", "prior_vs_posterior_tpc.png"),
+    ("calibration_v3",  "corner.png",              "corner_v3.png"),
     ("dltkcat",    "tpc_ensemble.png",             "dltkcat_ensemble.png"),
     ("calibrated", "tpc_ensemble.png",             "calibrated_ensemble.png"),
     ("sectors",    "sensitivity_heatmap.png",      "sectors_sensitivity.png"),
@@ -72,8 +77,9 @@ FIGURES = [
     ("validation", "complete_vs_empirical_tpc.png", "complete_vs_empirical_tpc.png"),
     ("ablation",   "ablation_comparison.png",      "ablation_comparison.png"),
     ("valid_trust", "validation_trusted_curves.png",  "validation_trusted_curves.png"),
-    ("elasticity", "elasticity_tornado.png",       "elasticity_tornado.png"),
-    ("elasticity", "elasticity_heatmap.png",       "elasticity_heatmap.png"),
+    ("elasticity_tuned", "elasticity_tornado_rmax.png", "elasticity_tornado_rmax.png"),
+    ("elasticity_tuned", "elasticity_tornado_CTmax_C.png", "elasticity_tornado_CTmax_C.png"),
+    ("elasticity_tuned", "elasticity_heatmap.png",   "elasticity_heatmap.png"),
     ("anatomy",    "reference_tpc.png",            "reference_tpc.png"),
     ("anatomy",    "enzyme_param_densities.png",   "enzyme_param_densities.png"),
     ("anatomy",    "example_enzyme_kcatT.png",     "example_enzyme_kcatT.png"),
@@ -83,12 +89,14 @@ TABLES = [
     ("sweep",      "descriptors.csv",           "descriptors.csv"),
     ("sweep",      "sensitivity_spearman.csv",  "sensitivity_spearman.csv"),
     ("sweep",      "summary.json",              "summary.json"),
-    ("decompose",  "decomposition_table.csv",   "decomposition_table.csv"),
-    ("recast",     "decomposition_recast_table.csv",     "decomposition_recast_table.csv"),
-    ("recast",     "decomposition_recast_magnitude.csv", "decomposition_recast_magnitude.csv"),
-    ("recast",     "recast_summary.json",                "recast_summary.json"),
-    ("control",    "thermal_control.csv",       "thermal_control.csv"),
-    ("control",    "identifiability.csv",       "identifiability.csv"),
+    # TUNED-model decomposition + control + calibration corrections (P3)
+    ("decompose_tuned", "decomposition_variance.csv",      "decomposition_variance.csv"),
+    ("decompose_tuned", "decomposition_iqr_magnitude.csv", "decomposition_iqr_magnitude.csv"),
+    ("decompose_tuned", "decompose_summary.json",          "decompose_summary.json"),
+    ("control_tuned",   "thermal_control.csv",       "thermal_control.csv"),
+    ("control_tuned",   "identifiability.csv",       "identifiability.csv"),
+    ("calibration_v3",  "demanded_corrections.csv",  "demanded_corrections.csv"),
+    ("calibration_v3",  "summary.json",              "calibration_v3_summary.json"),
     ("calibrated", "descriptors.csv",           "calibrated_descriptors.csv"),
     ("calibrated", "summary.json",              "calibrated_summary.json"),
     ("sectors",    "samples.csv",               "sectors_samples.csv"),
@@ -99,8 +107,8 @@ TABLES = [
     ("ablation",   "ablation_summary.csv",      "ablation_summary.csv"),
     ("valid_trust", "validation_trusted_table.csv",   "validation_trusted_table.csv"),
     ("valid_trust", "validation_trusted_summary.json", "validation_trusted_summary.json"),
-    ("elasticity", "elasticity_table.csv",      "elasticity_table.csv"),
-    ("elasticity", "reference_scales.json",     "elasticity_reference_scales.json"),
+    ("elasticity_tuned", "elasticity_table.csv",  "elasticity_table.csv"),
+    ("elasticity_tuned", "elasticity_bands.json", "elasticity_bands.json"),
 ]
 
 # resolved_config.yaml for supplementary provenance: first available wins.
