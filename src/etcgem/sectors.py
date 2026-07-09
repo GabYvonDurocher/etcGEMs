@@ -79,11 +79,45 @@ def add_proteome_sectors(pm, cfg: dict) -> dict:
             atpm_nom_lb = float(atpm_rxn.lower_bound)
             break
 
+    # --- optional coupled bacterial growth law (Scott 2010; proteome-conserving) ---
+    # f_bio(mu) = f_bio_0 + slope*mu ; f_metab(mu) = f_metab_0 - slope*mu (same slope),
+    # so both caps stay LINEAR in v_bio=mu (no iteration): the biosynthesis-cap v_bio
+    # coefficient becomes (translation_coeff - slope*P_total) and the metabolic pool
+    # gains a +slope*P_total*v_bio term. At high mu the shrinking metabolic sector binds
+    # and sets the maximal rate -- the ribosome<->metabolism trade-off.
+    growth_law = bool(cfg.get("biosynthesis_growth_law", False))
+    slope = float(cfg.get("growth_law_slope", 0.30))
+    # f_bio_0 is the mu=0 ribosome/biosynthesis floor, grounded INDEPENDENTLY of the
+    # operating point (Scott 2010 phi_R,min ~ 0.04-0.07). NB: anchoring it at the
+    # nominal (f_bio_nom - slope*mu) would make the biosynthesis cap bind at mu_nominal
+    # for any slope -- a self-defeating degeneracy -- so it must be a free floor.
+    f_bio_0 = float(cfg.get("growth_law_f_bio0", 0.045))
+    f_metab_0 = None
+    if growth_law:
+        if slope >= translation_coeff / P_total:
+            slope = 0.95 * translation_coeff / P_total
+            print(f"[sectors] growth_law_slope clamped to {slope:.4g} "
+                  f"(< translation_coeff/P_total for a positive biosynthesis coeff)")
+        f_metab_0 = 1.0 - f_maint_nom - f_bio_0     # conserving: f_bio_0 + f_metab_0 = 1 - f_maint
+        v_bio = biomass.forward_variable
+        # biosynthesis cap: (translation_coeff - slope*P) * v_bio <= f_bio_0 * P
+        bio_con.set_linear_coefficients({v_bio: translation_coeff - slope * P_total})
+        bio_con.ub = f_bio_0 * P_total
+        # metabolic pool: Sum cost*v + slope*P * v_bio <= f_metab_0 * P
+        ec._pool.set_linear_coefficients({v_bio: slope * P_total})
+        ec._pool.ub = f_metab_0 * P_total
+        model.solver.update()
+        print(f"[sectors] growth law ON (Scott 2010): slope={slope:.3g}/h, "
+              f"f_bio_0={f_bio_0:.3f}, f_metab_0={f_metab_0:.3f} (proteome-conserving)")
+
     ec._sectors = {
         "P_total": P_total, "f_metab_nom": f_metab_nom, "f_maint_nom": f_maint_nom,
         "f_bio_nom": f_bio_nom, "bio_constraint": bio_con,
         "translation_coeff": translation_coeff, "atpm_rxn": atpm_rxn,
         "atpm_nom_lb": atpm_nom_lb, "mu_nominal": float(mu),
+        "growth_law": growth_law, "growth_law_slope": slope,
+        "f_bio_0": f_bio_0, "f_metab_0": f_metab_0,
+        "biomass_var": biomass.forward_variable,
     }
     print(f"[sectors] P_total={P_total:.4g}  f=(metab {f_metab_nom}, bio "
           f"{f_bio_nom:.2f}, maint {f_maint_nom})  translation_coeff="

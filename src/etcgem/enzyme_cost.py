@@ -401,8 +401,18 @@ class EnzymeConstrainedModel:
             raise ValueError(f"invalid sector simplex: f_metab={fm}, "
                              f"f_maint={fmaint}, f_bio={fbio}")
         P = s["P_total"]
-        self._pool.ub = fm * P
-        s["bio_constraint"].ub = fbio * P * float(kappa_scale)
+        if s.get("growth_law"):
+            # coupled growth law: f_maint drives the split; the biosynthesis intercept
+            # f_bio_0 is fixed and f_metab_0 = 1 - f_maint - f_bio_0 (conserving). The
+            # measured f_metab arg is ignored (the mu-dependent law sets it via the
+            # v_bio coefficients wired at build). Both caps are LINEAR in mu.
+            f_bio_0 = s["f_bio_0"]
+            f_metab_0 = 1.0 - fmaint - f_bio_0
+            self._pool.ub = f_metab_0 * P
+            s["bio_constraint"].ub = f_bio_0 * P * float(kappa_scale)
+        else:
+            self._pool.ub = fm * P
+            s["bio_constraint"].ub = fbio * P * float(kappa_scale)
         self._last_fmaint = fmaint
         atpm = s["atpm_rxn"]
         if atpm is not None and s["f_maint_nom"] > 0:

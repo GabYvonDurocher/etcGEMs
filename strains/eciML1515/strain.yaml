@@ -46,6 +46,15 @@ proteome_sectors:
   f_maint: 0.326             # maintenance = chaperone + other (measured Glucose 30 C)
   atpm_reaction: null        # null -> auto-detect ATPM / NGAM
   translation_coeff: auto    # auto -> co-limit translation cap + pool at nominal, T0
+  # Coupled bacterial growth law (Scott et al. 2010, Science 330:1099): the
+  # biosynthesis/ribosome fraction rises linearly with growth rate and the metabolic
+  # fraction falls by the SAME slope (proteome-conserving). OFF by default (keeps the
+  # fixed measured partition for comparison). slope in mass-fraction per (1/h),
+  # ~1/kappa_t with kappa_t~4.5/h (Scott 2010).
+  biosynthesis_growth_law: false
+  growth_law_slope: 0.33      # ~1/kappa_t; just below translation_coeff/P_total so the
+                              # biosynthesis cap relaxes and the coupled metabolic sector binds
+  growth_law_f_bio0: 0.045    # mu=0 ribosome/biosynthesis floor (Scott 2010 phi_R,min)
 
 # Measured MEDIUM-MATCHED temperature-dependent sector allocation: the sector split
 # follows the measured per-medium f_sector(T) curve (LB / Glucose / Glycerol),
