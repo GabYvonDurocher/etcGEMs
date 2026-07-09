@@ -854,19 +854,26 @@ print(tab.to_markdown(index=False))
 **What this section does.** The previous sections grouped parameters; here we ask two
 enzyme-level questions **on the tuned model at the rich operating point**. First, **which
 individual enzymes control the thermal envelope** — do a few enzymes dominate, or is control
-spread thinly across the whole proteome? We answer with a *control score* that combines how
-heavily each enzyme is used with how thermally sensitive it is. Second, **could the ~7,700
+spread thinly across the whole proteome? We answer with a **control coefficient**: after a cheap
+usage×sensitivity *screen* to shortlist candidate enzymes, we finite-difference each candidate's
+grounded thermal parameters and record the resulting change in every envelope descriptor; the
+envelope control coefficient is the largest such influence (max $|\partial\text{descriptor}/
+\partial\text{param}|$ over $\{T_{\text{opt},i}, \Delta C_{p,i}\}$). Second, **could the ~7,700
 per-enzyme parameters be inferred from a growth curve alone**, or do they need direct
 measurement? We answer with an *identifiability* score: a parameter is identifiable if changing
 it visibly changes the growth curve (a first-order proxy — a full profile-likelihood analysis
 is future work).
 
-**Thermal control is concentrated in very few enzymes** (@fig-ctrlthermal, @tbl-control): on the
-tuned model the top determinant is glucosamine–fructose-6-phosphate aminotransferase (gene *glmS*,
-reaction `GF6PTA`, UniProt `P17169`), followed by succinyl-CoA synthetase (*sucC/sucD*, `P0A836`)
-and a fatty-acyl-CoA thioesterase (*tesB*, `P0AGG2`), with the control score falling off sharply
-thereafter — so a handful of enzymes set the envelope, which is what makes sequence-based
-prediction of the envelope plausible (objective O2). Computed across all 2560 enzymes × 3 parameters (7680 in total), only
+**Thermal control is concentrated in very few enzymes** (@fig-ctrlthermal, @tbl-control): ranked by
+the control coefficient, **one enzyme dominates by an order of magnitude** — acyl-[acyl-carrier-
+protein] synthetase / the acyl-carrier protein (gene *acpP/aas*, UniProt `P0A6A8`, control coefficient
+≈0.54) — followed at ~1/13th the influence by succinate dehydrogenase (*sdhA/sdhB*, `P07014`),
+glutamine synthetase (*glnA*, `P0A9C5`) and succinyl-CoA synthetase (*sucC/sucD*, `P0A836`), with the
+coefficient falling off sharply thereafter. Notably, this per-enzyme control acts almost entirely on
+the **niche width** (and, weakly, $CT_\text{max}$): the control coefficient on the organismal
+$T_\text{opt}$ is essentially zero for every single enzyme, because the optimum is set by whole-cell
+allocation and stability, not by any one enzyme. That a handful of enzymes set the envelope is what
+makes sequence-based prediction of the envelope plausible (objective O2). Computed across all 2560 enzymes × 3 parameters (7680 in total), only
 **30 (0.4 %)** are identifiable from the growth curve alone, and even among the highest-control
 enzymes only ~**13 %** are (@tbl-ident). At the rich tuned peak the rate is magnitude-limited
 (the previous two sections), so individual enzyme thermal parameters have even *less* leverage on
@@ -875,22 +882,19 @@ and the remaining **~99.6 %** of per-enzyme parameters must come from independen
 (objective O5). This is the identifiability argument for grounding the envelope in the melting
 proteome, sequence-based optima and DLTKcat rather than fitting it to growth.
 
-![**Per-enzyme thermal control.** Top enzymes by thermal-screen control score.](assets/figures/control_thermal.png){#fig-ctrlthermal fig-pos="H" width=85%}
-
-![**Identifiability of per-enzyme parameters.** Distribution of the first-order identifiability score.](assets/figures/control_identifiability.png){#fig-ctrlident fig-pos="H" width=70%}
+![**Which enzymes control the thermal envelope.** Top enzymes ranked by the envelope **control coefficient** (the largest absolute model-computed influence of that enzyme's thermal parameters on any envelope descriptor), gene-labelled. The signal is carried by the niche-width response; per-enzyme control of the organismal $T_\text{opt}$ is ~0. One enzyme (acyl-carrier protein, `acpP`) dominates by an order of magnitude.](assets/figures/control_thermal.png){#fig-ctrlthermal fig-pos="H" width=85%}
 
 ```{python}
 #| label: tbl-control
-#| tbl-cap: "Top enzymes by thermal-screen control score (tuned model, rich BHI). Identities joined locally from the ecModel reaction name and the measured proteome (b-number → gene symbol); UniProt from the ecModel. EC is not stored in this GECKO build."
+#| tbl-cap: "Top enzymes by envelope CONTROL COEFFICIENT (max |∂envelope-descriptor/∂thermal-param| over {Topt_i, dCp_i}) on the tuned model, rich BHI — the model-computed influence of each enzyme's thermal parameters on the envelope. (thermal_screen — usage × thermal sensitivity — is only the candidate-screening step, not the ranking.) Identities joined locally: enzyme name from the ecModel reaction, gene from the measured proteome (b-number → gene symbol), UniProt from the ecModel; EC is not stored in this GECKO build. Deduplicated to one row per enzyme (its strongest reaction)."
 #| output: asis
 import pandas as pd
 
-c = pd.read_csv("assets/tables/thermal_control_annotated.csv")
-cols = [x for x in ["rank", "gene", "enzyme_name", "enzyme_id", "thermal_screen"] if x in c.columns]
-t = c[cols].head(10).copy()
-if "enzyme_name" in t:
-    t["enzyme_name"] = t["enzyme_name"].astype(str).str.slice(0, 44)
-t = t.rename(columns={"enzyme_name": "enzyme", "enzyme_id": "UniProt", "thermal_screen": "control score"})
+c = pd.read_csv("assets/tables/control_top_enzymes.csv")
+c["enzyme_name"] = c["enzyme_name"].astype(str).str.slice(0, 42)
+cols = [x for x in ["display_rank", "gene", "enzyme_name", "enzyme_id", "control_coeff"] if x in c.columns]
+t = c[cols].head(10).rename(columns={"display_rank": "rank", "enzyme_name": "enzyme",
+                                     "enzyme_id": "UniProt", "control_coeff": "control coefficient"})
 print(t.round(4).to_markdown(index=False))
 ```
 
