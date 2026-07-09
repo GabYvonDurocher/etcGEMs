@@ -177,6 +177,44 @@ it closes, is quantified in the Calibration section, and the tuned model is what
 decomposition and identifiability sections then dissect. Keeping the emergent prediction and the
 tuned posterior distinct is the point: it quantifies the gap rather than papering over it.
 
+**Inputs and data provenance — what the model uses for each enzyme, and where it comes from.** The
+model is **per-enzyme**: every one of the ~2,560 modelled enzymes carries its own set of inputs,
+applied individually (not one global temperature response shared across the proteome). For each
+enzyme the model uses four things, from these sources (exactly as implemented):
+
+- **Flux** (how much reaction it carries) — **not measured; predicted** by the flux-balance
+  optimisation. It is an *output* of the model, not an input.
+- **Turnover $k_\text{cat}(T)$** (how fast one copy works at temperature $T$) — built from the
+  enzyme's reference turnover in the **GECKO ecModel** [@Sanchez2017; @Domenzain2022] shaped by a
+  temperature response: a macromolecular-rate-theory (MMRT) curvature and, where a fit exists, the
+  **DLTKcat** deep-learning predictor of temperature-dependent $k_\text{cat}$ [@Qiu2024].
+- **Thermal optimum $T_\text{opt}$ and curvature** (where turnover peaks and how sharply it falls) —
+  the optimum is **sequence/ML-predicted** per enzyme (a TOME-style predictor, after Li–Engqvist
+  [@LiEngqvist2019]), refined by DLTKcat where it fits; the curvature is a single independent
+  literature MMRT $\Delta C_p$ prior [@Hobbs2013] (deliberately *not* fitted, so $E_a$ emerges).
+- **Unfolding / melting temperature $T_m$** (where the enzyme denatures, setting the native fraction
+  $f_N(T)$) — from the measured ***E. coli* melting proteome** [@Leuenberger2017], applied through
+  the two-state native$\leftrightarrow$unfolded formulation of Li et al. [@Li2021] and the MRes of
+  Madkaikar [@Madkaikar2023]. Enzymes without a measured value (≈10 %) fall back to the dataset mean.
+
+So, to answer the natural question directly: **yes — the turnover response, the thermal optimum and
+the melting temperature are all applied per enzyme individually**, each from the source named above;
+only the pool budget scalars ($P_\text{total}$, $\sigma$) and the sector fractions are whole-cell
+quantities.
+
+**Enzyme abundance, and the compensation question.** Per-enzyme **abundances are not measured or set
+individually.** Each enzyme's proteome mass usage is $\text{flux}/k_\text{cat}(T)\times\text{MW}$,
+drawn from a **shared proteome pool** that the optimiser allocates across all enzymes; only at the
+coarse **sector** level do we supply measured (medium- and temperature-matched) proteome fractions.
+Per-enzyme abundance is therefore an **optimisation outcome, not an input**. This has a subtle
+consequence worth stating plainly: as temperature rises and an enzyme's $k_\text{cat}$ falls (or it
+begins to unfold), carrying the same flux costs **more** enzyme mass, so the optimiser *does* draw
+more of the pool toward those steps — an implicit, mass-balance "compensation" — until the pool
+binds and growth is throttled. But this is **least-cost allocation under a fixed budget, not
+regulatory sensing**: there is no mechanism that detects a falling product and up-regulates a gene.
+The distinction matters and is a genuine limitation — the model captures the *demand* side of
+thermal compensation (more enzyme needed when catalysis is poor) but not active feedback regulation.
+
 # Model equations, parameters and methods
 
 **What this section contains.** This section makes the model precise. We write it as a
@@ -574,15 +612,40 @@ chasing it. The measured sectors barely move ($f_\text{metab}=0.281$, $f_\text{m
 measured priors), and `kappa_scale`/`ngam_*`/`topt_scale`/`dCp_scale`/`tm_scale` stay near their
 priors — one curve weakly constrains them.
 
-**What carries the magnitude — and the degeneracy** (@fig-corner). The magnitude is carried by the
-saturation and turnover levers together, on an **anti-correlated ridge**: the in-vivo saturation
-$\sigma=0.867$ $[0.671, 0.986]$ **rails toward its physical 1.0 ceiling**, well above the 0.4–0.5
-literature range, while `kcat_scale` stays a modest 1.25 $[0.86, 2.64]$. Because both relax the
-metabolic pool they trade off along a ridge; but only $\sigma$ *also* lifts the ribosome cap, so it
-is the lever that reaches the rich peak. The residual $2.14\!\to\!2.40$ and the meaning of a $\sigma$
-pinned to its bound are taken up in the Interpretation. The **tuned model** defined by these
-posterior medians — rich BHI, growth law on, reconciled pool — is the baseline that the sensitivity,
-decomposition and identifiability sections below dissect.
+**What the tuning reveals about each feature of the curve** (@tbl-corrections, @fig-corner). The
+demanded corrections are a *second, independent* line of evidence on what drives each TPC feature —
+not the structural decomposition of the later sections, but a direct reading of what the data
+actually had to **correct** in the a-priori model. Feature by feature:
+
+- **Magnitude ($r_\text{max}$ $1.04\!\to\!2.14$ vs observed 2.40).** The data demanded **catalytic
+  capacity and nothing in the envelope**: the in-vivo saturation $\sigma$ railed to its 1.0 ceiling
+  ($0.867$, above the 0.4–0.5 literature range) with a modest turnover bump (`kcat_scale` 1.25), on
+  an anti-correlated ridge (both relax the metabolic pool, but only $\sigma$ *also* lifts the
+  ribosome cap, so $\sigma$ is the lever that reaches the peak). The height is a **capacity**
+  quantity, and the a-priori shortfall was purely capacity, not shape.
+- **Upper limit ($CT_\text{max}$ $51.8\!\to\!45.9$ vs 45.9).** The data demanded a melting-temperature
+  shift $dT_m=-5.6$ K and essentially nothing else — the emergent melting proteome sat a few K too
+  hot, and the tuning corrected only that **stability** axis. The hot collapse is set by $T_m$.
+- **Optimum ($T_\text{opt}$ $39.9\!\to\!38.4$ vs 40).** $dT_\text{opt}$ and `topt_scale` barely
+  moved (the $dT_\text{opt}$ 90 % CI touches zero; `topt_scale`$\approx0.96$): the sequence/kinetic-
+  grounded optimum was **already right a priori** and needed no material correction.
+- **Rising limb / $E_a$.** $dC_p$ was only weakly constrained and the free discrepancy term absorbed
+  the possibly-flattened figure-digitized observed $E_a$ (0.64) rather than the fit chasing it — so
+  the cold-side shape stays **envelope/kinetic**, and a single curve does not pin it (the posterior
+  $E_a\approx0.92$ tracks the ~0.85 eV benchmark, not the digitized 0.64).
+
+**The headline.** The grounded, sequence- and structure-based envelope got the **shape and position
+of the TPC essentially right out of the box** — the optimum, the cold-side activation energy and the
+rounded peak — and the data only had to correct the **capacity** (magnitude) and fine-tune the
+**upper limit** ($T_m$). That is a strong statement that the a-priori envelope is trustworthy and
+that growth data mainly inform the catalytic budget. It **agrees with the tuned-model decomposition**
+below (magnitude owns the height; stability owns $T_\text{opt}$/$CT_\text{max}$; kinetics owns the
+cold side): two independent arguments — one from what the data had to *correct*, one from the
+structural variance *shares* — reach the same division of labour. The one honest caveat, carried to
+the Interpretation, is that $\sigma$ pinned to its bound and the growth-law $f_\text{metab}$ squeeze
+make the residual $2.14\!\to\!2.40$ a tight-budget frontier, not a fully closed gap. The **tuned
+model** defined by these posterior medians — rich BHI, growth law on, reconciled pool — is the
+baseline that the sensitivity, decomposition and identifiability sections below dissect.
 
 ![**Prior vs posterior on raw absolute rate (Van Derlinden, MG1655/BHI).** Emergent prior (dashed), posterior-predictive median and 90 % band (orange), and the digitized data. Calibration lifts the peak ~89 % of the way to the observed value and pulls the hot collapse in to match, while the rising limb is unchanged.](assets/figures/prior_vs_posterior_tpc.png){#fig-postcurve fig-pos="H" width=78%}
 
@@ -799,10 +862,11 @@ it visibly changes the growth curve (a first-order proxy — a full profile-like
 is future work).
 
 **Thermal control is concentrated in very few enzymes** (@fig-ctrlthermal, @tbl-control): on the
-tuned model the top determinant is glucosamine–fructose-6-phosphate aminotransferase (reaction
-`GF6PTA`, enzyme `P17169`), with the control score falling off sharply thereafter — so a handful
-of enzymes set the envelope, which is what makes sequence-based prediction of the envelope
-plausible (objective O2). Computed across all 2560 enzymes × 3 parameters (7680 in total), only
+tuned model the top determinant is glucosamine–fructose-6-phosphate aminotransferase (gene *glmS*,
+reaction `GF6PTA`, UniProt `P17169`), followed by succinyl-CoA synthetase (*sucC/sucD*, `P0A836`)
+and a fatty-acyl-CoA thioesterase (*tesB*, `P0AGG2`), with the control score falling off sharply
+thereafter — so a handful of enzymes set the envelope, which is what makes sequence-based
+prediction of the envelope plausible (objective O2). Computed across all 2560 enzymes × 3 parameters (7680 in total), only
 **30 (0.4 %)** are identifiable from the growth curve alone, and even among the highest-control
 enzymes only ~**13 %** are (@tbl-ident). At the rich tuned peak the rate is magnitude-limited
 (the previous two sections), so individual enzyme thermal parameters have even *less* leverage on
@@ -817,13 +881,17 @@ proteome, sequence-based optima and DLTKcat rather than fitting it to growth.
 
 ```{python}
 #| label: tbl-control
-#| tbl-cap: "Top enzymes by thermal-screen control score (tuned model, rich BHI operating point)."
+#| tbl-cap: "Top enzymes by thermal-screen control score (tuned model, rich BHI). Identities joined locally from the ecModel reaction name and the measured proteome (b-number → gene symbol); UniProt from the ecModel. EC is not stored in this GECKO build."
 #| output: asis
 import pandas as pd
 
-c = pd.read_csv("assets/tables/thermal_control.csv")
-cols = [x for x in ["rank", "rxn_id", "enzyme_id", "thermal_screen"] if x in c.columns]
-print(c[cols].head(10).round(4).to_markdown(index=False))
+c = pd.read_csv("assets/tables/thermal_control_annotated.csv")
+cols = [x for x in ["rank", "gene", "enzyme_name", "enzyme_id", "thermal_screen"] if x in c.columns]
+t = c[cols].head(10).copy()
+if "enzyme_name" in t:
+    t["enzyme_name"] = t["enzyme_name"].astype(str).str.slice(0, 44)
+t = t.rename(columns={"enzyme_name": "enzyme", "enzyme_id": "UniProt", "thermal_screen": "control score"})
+print(t.round(4).to_markdown(index=False))
 ```
 
 ```{python}
