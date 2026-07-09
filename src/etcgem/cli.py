@@ -572,26 +572,33 @@ def cmd_calibrate(args):
 
 def _cmd_calibrate_vdl(args):
     """Unified multi-parameter tuning on Van Derlinden at the rich BHI operating
-    point, growth law ON (writes to calibration_vanderlinden_v2/; supersedes the
-    first flat-top run in calibration_vanderlinden/)."""
+    point, growth law ON, reconciled single pool with the in-vivo saturation sigma
+    freed (P2 v3 -> calibration_vanderlinden_v3/; v1=flat-top/kcat-wasted,
+    v2=growth-law-on but redundant pool). Gurobi + pre-flight + warm-start +
+    autocorr early stop. ALLOW_GLPK=1 in the env overrides the Gurobi stop-and-flag."""
+    import os as _os
     from . import calibration_multi as cm
-    out_dir = _out_dir(args.strain, "calibration_vanderlinden_v2")
+    out_dir = _out_dir(args.strain, "calibration_vanderlinden_v3")
     res = cm.run(args.strain, out_dir,
-                 n_walkers=int(args.walkers or 48), n_steps=int(args.steps or 2000),
-                 n_burn=int(args.burn or 600),
+                 n_walkers=int(args.walkers or 52),
+                 n_steps_max=int(args.steps or 6000),
+                 n_burn=int(args.burn or 150),
                  seed=int(args.seed if args.seed is not None else 1),
-                 n_proc=int(args.procs if args.procs is not None else 0))
+                 n_proc=int(args.procs if args.procs is not None else 0),
+                 allow_glpk=bool(_os.environ.get("ALLOW_GLPK")))
     sm, d, po = res["sampler"], res["descriptors"], res["posterior"]
     print("\n" + "=" * 72)
-    print("CALIBRATION (unified) — Van Derlinden MG1655/BHI, rich operating point")
+    print("CALIBRATION v3 — Van Derlinden MG1655/BHI, rich operating point (sigma freed)")
     print("=" * 72)
+    print(f"  solver={res.get('solver')}  preflight_single_solve={res.get('preflight_single_solve_ms')} ms")
+    print(f"  warm_started={sm['warm_started']}  stop_reason={sm['stop_reason']}")
     print(f"  acceptance={sm['acceptance_fraction']}  autocorr_max={sm['autocorr_time_max']}  "
-          f"n_eff={sm['n_eff']}  wall={sm['wall_time_s']}s")
+          f"n_eff={sm['n_eff']}  steps={sm['n_steps']}  wall={sm['wall_time_s']}s")
     print(f"  {'descriptor':10s} {'observed':>10s} {'emergent':>10s} {'posterior':>10s}")
     for k in ("rmax", "Topt_C", "Ea_eV", "CTmax_C"):
         print(f"  {k:10s} {d['observed'][k]:>10} {d['emergent_prior'][k]:>10} {d['posterior_median'][k]:>10}")
     print("  demanded corrections (posterior median [90% CI], constrained?):")
-    for k in ("kcat_scale", "kappa_scale", "dCp_scale", "dTopt", "dTm", "topt_scale",
+    for k in ("kcat_scale", "kappa_scale", "sigma", "dCp_scale", "dTopt", "dTm", "topt_scale",
               "tm_scale", "f_metab", "f_maint", "ngam_scale", "ngam_steepness", "sigma_disc"):
         if k not in po:
             continue
