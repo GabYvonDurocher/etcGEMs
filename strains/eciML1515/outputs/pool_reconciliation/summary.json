@@ -1,0 +1,42 @@
+{
+  "reconciliation": {
+    "relaxed_constraint": "GECKO base pool supply prot_pool_exchange",
+    "old_GECKO_bound_gDW": 0.0909,
+    "sole_pool": "etcgem sMOMENT/sector pool (P_total x f_metab x sigma, medium/growth-law/kcat aware)",
+    "sector_metabolic_budget_glucose_gDW": 0.1087,
+    "P_total_x_sigma_gDW": 0.225,
+    "note": "the two pools were two computations of the same ~0.1 g/gDW enzyme-mass quantity; kept the sector one"
+  },
+  "emergent_descriptors_reconciled": {
+    "glucose_minimal": {
+      "rmax": 0.551,
+      "Topt_C": 31.0,
+      "CTmax_C": 46.9,
+      "Ea_eV": 0.948
+    },
+    "BHI_rich": {
+      "rmax": 1.044,
+      "Topt_C": 37.0,
+      "CTmax_C": 51.3,
+      "Ea_eV": 0.81
+    }
+  },
+  "ceiling_now_movable_richBHI_GLon": {
+    "kcat_scan": {
+      "kcat1": 1.023,
+      "kcat2": 1.307,
+      "kcat4": 1.516,
+      "kcat8": 1.647,
+      "kcat16": 1.721
+    },
+    "budget_sigma_scan_kcat2p56": {
+      "x1.0_sig0.45": 1.391,
+      "x1.4_sig0.63": 1.95,
+      "x1.8_sig0.81": 2.509,
+      "x2.2_sig0.99": 3.067
+    },
+    "budget_multiplier_for_2p4": "~1.7",
+    "sigma_for_2p4": "~0.77"
+  },
+  "honest_residual": "The fixable redundancy unlocks the magnitude levers (kcat/sigma now MOVE the ceiling instead of saturating against the GECKO pool at 1.55). But reaching the observed ~2.4 still needs ~1.7x more total enzyme budget (sigma ~0.45 -> ~0.77), ABOVE the 0.4-0.5 literature range -- so part of the rich-medium magnitude is a genuinely higher in-vivo capacity (and the observed 2.4 is a figure-digitized high-end value), not just the pool double-accounting."
+}

@@ -9,16 +9,16 @@
       7.0,
       46.0
     ],
-    "abs_R2": 0.141,
-    "RMSE_per_h": 0.762,
+    "abs_R2": 0.148,
+    "RMSE_per_h": 0.759,
     "obs_rmax": 2.403,
-    "pred_rmax": 1.033,
+    "pred_rmax": 1.042,
     "obs_Topt_C": 40.0,
     "pred_Topt_C": 36.7,
     "obs_CTmax_C": 45.9,
     "pred_CTmax_C": 50.0,
     "obs_Ea_eV": 0.643,
-    "pred_Ea_eV": 0.816,
+    "pred_Ea_eV": 0.803,
     "role": "primary"
   }
 }
