@@ -292,9 +292,11 @@ maintenance-sector ratio $f_\text{maint}/f_\text{maint}^{\text{nom}}$ (@eq-maint
 by $\text{NGAM}(T)/\text{NGAM}(T_\text{ref})$. The amplitude and steepness carry the
 `ngam_scale`/`ngam_steepness` levers (part 8).
 
-**7 — Objective and curve descriptors.** At each grid temperature FBA maximises the biomass flux,
+**7 — Objective and curve descriptors.** At each grid temperature FBA maximises the biomass flux
+subject to mass balance (@eq-ss), the metabolic pool (@eq-pool), the biosynthesis cap (@eq-biocap)
+and the maintenance floor (@eq-maint),
 
-$$\mu(T) = \max_{\mathbf v}\ v_\text{bio}\quad\text{subject to @eq-ss, @eq-pool, @eq-biocap and @eq-maint}, $$ {#eq-obj}
+$$\mu(T) = \max_{\mathbf v}\ v_\text{bio}, $$ {#eq-obj}
 
 tracing the organismal TPC $\mu(T)$. From it we read a standard set of **thermal-performance-curve
 descriptors**: the **optimum** $T_\text{opt}=\arg\max_T\mu$; the **maximum growth rate**
