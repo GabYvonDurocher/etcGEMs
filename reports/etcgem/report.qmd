@@ -459,8 +459,7 @@ deliberate ways, each with a rationale:
 **Validation.** The model is validated against the one curve measured on the exact GEM strain —
 K-12 MG1655 in BHI broth over 7–46 °C (Van Derlinden 2012 [@VanDerlinden2012], figure-digitized)
 — predicted a priori under a rich medium (availability, uptake unpinned) with its medium-matched
-sector fractions; an MG1655 LB curve (Erdos 2026 [@Erdos2026]) serves as an optional secondary
-cross-check. The **primary metric is absolute** $R^2$/RMSE on raw specific growth rate
+sector fractions. The **primary metric is absolute** $R^2$/RMSE on raw specific growth rate
 ($\text{h}^{-1}$); the rising-limb $E_a$ (tested against the ~0.85 eV mesophilic-growth
 benchmark) is a secondary diagnostic. The proteome is validated separately (predicted vs
 measured per-enzyme mass; see the Supplementary Information).
@@ -475,18 +474,10 @@ Brain-Heart-Infusion (BHI) broth, spanning 7–46 °C with a peak near 2.4 h⁻�
 covers the cold rising limb and the hot collapse. The model is predicted a priori under a rich
 medium and scored on **raw absolute growth rate (h⁻¹)**.
 
-**Data provenance — why the validation curve changed.** We now validate only against curves
-measured on the exact GEM strain. An earlier compilation (Smith et al. 2019) was dropped after
-one of its curves was found mis-scaled by roughly 8-fold and the strains/media of most others
-were uncertain; two strain-matched curves used in a previous draft are also set aside here —
-Noll (K-12 NCM3722) is the *wrong* strain, and Erdos (MG1655, LB) is unpublished, figure-
-digitized data. Van Derlinden is the exact strain (MG1655) with a wide, well-sampled TPC, so it
-becomes the sole primary validation. Erdos is retained only as an **optional secondary
-cross-check** (@fig-valcurves, right). The honest caveats: Van Derlinden is **figure-digitized**
-(no per-temperature SD); and a rich medium is a **less stringent test than a defined minimal
-medium**, because supplying amino acids and nucleosides relaxes the biosynthetic enzyme demand
-the model constrains most tightly. An MG1655 *defined-minimal* TPC remains the gold-standard
-future test.
+**Honest caveats.** Van Derlinden is **figure-digitized** (no per-temperature SD); and a rich
+medium is a **less stringent test than a defined minimal medium**, because supplying amino acids
+and nucleosides relaxes the biosynthetic enzyme demand the model constrains most tightly. An
+MG1655 *defined-minimal* TPC remains the gold-standard future test.
 
 **Medium as an input (BHI by availability).** The medium enters as *availability*, not as a
 pinned uptake rate: we open the exchange uptakes (`EX_*_REV`) of the medium's components and let
@@ -508,36 +499,31 @@ capture is the **absolute level**: the predicted peak $r_\text{max}=1.03$ h⁻¹
 **2.3-fold below** the observed 2.40 h⁻¹. This is an honest a-priori gap, not a tuning failure
 (nothing is fit): a rich medium relaxes the enzyme constraints so the biosynthesis cap and pool
 saturate, and the shortfall points to the in-vivo $k_\text{cat}$ scale, the saturation $\sigma$,
-or the exact medium composition — the levers a later calibration phase examines. The secondary
-Erdos LB cross-check (MG1655, digitized) shows the same ~2.3-fold shortfall (predicted 1.04 vs
-observed 2.35 h⁻¹), consistent with a systematic rich-medium magnitude gap rather than a
-curve-specific artefact.
+or the exact medium composition — the levers a later calibration phase examines.
 
-![**Emergent model vs the exact-strain curve (raw absolute rate, nothing fit).** Left (primary): Van Derlinden 2012, K-12 MG1655 in BHI, 7–46 °C (figure-digitized). Right (secondary cross-check): Erdos 2026, MG1655 wt in LB. The model line tracks the shape but sits ~2.3-fold below the peak; absolute $R^2$/RMSE and observed-vs-predicted $r_\text{max}$/$T_\text{opt}$ are annotated.](assets/figures/validation_trusted_curves.png){#fig-valcurves fig-pos="H" width=100%}
+![**Emergent model vs the exact-strain curve (raw absolute rate, nothing fit).** Van Derlinden 2012, K-12 MG1655 in BHI, 7–46 °C (figure-digitized), predicted a priori under the rich medium. The model line tracks the shape but sits ~2.3-fold below the peak; absolute $R^2$/RMSE and observed-vs-predicted $r_\text{max}$/$T_\text{opt}$ are annotated.](assets/figures/validation_trusted_curves.png){#fig-valcurves fig-pos="H" width=70%}
 
 ```{python}
 #| label: tbl-val
-#| tbl-cap: "Validation against Van Derlinden (K-12 MG1655, BHI; primary) with Erdos (LB) as a secondary cross-check. Nothing is fit to growth: the model tracks the shape (Topt, Ea) but under-predicts the absolute peak ~2.3-fold under the rich medium."
+#| tbl-cap: "Validation against Van Derlinden (K-12 MG1655, BHI). Nothing is fit to growth: the model tracks the shape (Topt, Ea) but under-predicts the absolute peak ~2.3-fold under the rich medium."
 #| output: asis
 import json, pandas as pd
 with open("assets/tables/validation_trusted_summary.json") as fh:
     s = json.load(fh)
-pr, se = s["vanderlinden_bhi"], s.get("erdos_LB")
-rows = [("role", "primary", "secondary"),
-        ("strain", "K-12 MG1655", "K-12 MG1655 wt"),
-        ("medium", "BHI (rich)", "LB (rich)"),
-        ("T range (°C)", f"{pr['T_range_C'][0]:.0f}–{pr['T_range_C'][1]:.0f}",
-         f"{se['T_range_C'][0]:.0f}–{se['T_range_C'][1]:.0f}" if se else "—"),
-        ("n temperatures", pr["n"], se["n"] if se else "—"),
-        ("absolute R²", pr["abs_R2"], se["abs_R2"] if se else "—"),
-        ("RMSE (h⁻¹)", pr["RMSE_per_h"], se["RMSE_per_h"] if se else "—"),
-        ("observed r_max (h⁻¹)", pr["obs_rmax"], se["obs_rmax"] if se else "—"),
-        ("predicted r_max (h⁻¹)", pr["pred_rmax"], se["pred_rmax"] if se else "—"),
-        ("observed T_opt (°C)", pr["obs_Topt_C"], se["obs_Topt_C"] if se else "—"),
-        ("predicted T_opt (°C)", pr["pred_Topt_C"], se["pred_Topt_C"] if se else "—"),
-        ("observed E_a (eV)", pr["obs_Ea_eV"], se["obs_Ea_eV"] if se else "—"),
-        ("predicted E_a (eV)", pr["pred_Ea_eV"], se["pred_Ea_eV"] if se else "—")]
-print(pd.DataFrame(rows, columns=["quantity", "Van Derlinden (primary)", "Erdos (cross-check)"]).to_markdown(index=False))
+pr = s["vanderlinden_bhi"]
+rows = [("strain", "K-12 MG1655"),
+        ("medium", "BHI (rich)"),
+        ("T range (°C)", f"{pr['T_range_C'][0]:.0f}–{pr['T_range_C'][1]:.0f}"),
+        ("n temperatures", pr["n"]),
+        ("absolute R²", pr["abs_R2"]),
+        ("RMSE (h⁻¹)", pr["RMSE_per_h"]),
+        ("observed r_max (h⁻¹)", pr["obs_rmax"]),
+        ("predicted r_max (h⁻¹)", pr["pred_rmax"]),
+        ("observed T_opt (°C)", pr["obs_Topt_C"]),
+        ("predicted T_opt (°C)", pr["pred_Topt_C"]),
+        ("observed E_a (eV)", pr["obs_Ea_eV"]),
+        ("predicted E_a (eV)", pr["pred_Ea_eV"])]
+print(pd.DataFrame(rows, columns=["quantity", "Van Derlinden (MG1655, BHI)"]).to_markdown(index=False))
 ```
 
 # Which parameters move the curve? (local sensitivity) {#sec-sensitivity}
