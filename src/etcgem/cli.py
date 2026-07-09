@@ -443,6 +443,41 @@ def cmd_elasticity(args):
 
 
 # ---------------------------------------------------------------------------
+# dissect: tuned-model analyses (elasticity + decomposition + identifiability)
+# ---------------------------------------------------------------------------
+def cmd_dissect(args):
+    if not args.strain:
+        raise SystemExit("dissect needs --strain NAME")
+    from . import dissect
+    v3 = _out_dir(args.strain, "calibration_vanderlinden_v3")
+    if not os.path.exists(os.path.join(v3, "summary.json")):
+        raise SystemExit(f"[dissect] no P2 v3 posterior at {v3}; run `calibrate --vdl` first")
+    out_base = os.path.dirname(v3)   # strains/<strain>/outputs
+    allow = bool(os.environ.get("ALLOW_GLPK"))
+    res = dissect.run(args.strain, v3, out_base,
+                      n_proc=int(args.procs) if args.procs is not None else 0,
+                      n_draws=int(args.draws) if args.draws is not None else 150,
+                      allow_glpk=allow)
+    ctrl_dir = dissect.run_control_tuned(args.strain, v3,
+                                         _out_dir(args.strain, "control_tuned"), allow_glpk=allow)
+    bd = res["baseline_descriptors"]
+    print("\n" + "=" * 72)
+    print("DISSECT (tuned model, rich BHI) — elasticity + decomposition + identifiability")
+    print("=" * 72)
+    print(f"  tuned baseline: rmax={bd['rmax']:.3f}  Topt={bd['Topt_C']:.1f}  "
+          f"CTmax={bd['CTmax_C']:.1f}  Ea={bd['Ea_eV']:.3f}")
+    print(f"  elasticity -> {res['elasticity_dir']}")
+    print(f"  decompose  -> {res['decompose_dir']}")
+    print(f"  control    -> {ctrl_dir}")
+    E = res["elasticity"]
+    for D in ("rmax", "CTmax_C", "Topt_C"):
+        if D in E.columns:
+            rank = E[D].astype(float).abs().sort_values(ascending=False)
+            print(f"  {D:8s} top levers: " + ", ".join(f"{i}={E.loc[i, D]:+.2f}" for i in rank.index[:4]))
+    return out_base
+
+
+# ---------------------------------------------------------------------------
 # anatomy: reference-operating-point description (curve + enzyme distributions)
 # ---------------------------------------------------------------------------
 def cmd_anatomy(args):
@@ -797,6 +832,15 @@ def build_parser():
     el.add_argument("--h", type=float, default=None, help="standardised step (default from experiment / 0.10)")
     el.add_argument("--no-plots", action="store_true")
     el.set_defaults(func=cmd_elasticity)
+
+    di = sub.add_parser("dissect",
+                        help="dissect the TUNED model (P2 v3 posterior) at the rich BHI "
+                             "operating point: posterior-propagated elasticity + envelope-vs-"
+                             "magnitude decomposition + per-enzyme identifiability")
+    di.add_argument("--strain")
+    di.add_argument("--procs", type=int, default=None, help="parallel workers (0=auto)")
+    di.add_argument("--draws", type=int, default=None, help="posterior draws for elasticity bands (default 150)")
+    di.set_defaults(func=cmd_dissect)
 
     an = sub.add_parser("anatomy",
                         help="model-anatomy figures at the reference operating point "
