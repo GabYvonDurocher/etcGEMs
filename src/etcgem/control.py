@@ -48,10 +48,23 @@ _DESC_ALIAS = {"CT_max_C": "CTmax_C", "rmax": "rmax", "Topt_C": "Topt_C",
                "niche_width_C": "niche_width_C", "Ea_eV": "Ea_eV"}
 
 
-def _desc(pm, tpc_temps_C, crit_frac):
-    d = compute_tpc(pm, tpc_temps_C, Perturbation()).descriptors(crit_frac).as_dict()
+def _desc(pm, tpc_temps_C, crit_frac, base=None):
+    d = compute_tpc(pm, tpc_temps_C, base or Perturbation()).descriptors(crit_frac).as_dict()
     d["CT_max_C"] = d.get("CTmax_C", np.nan)   # expose the proposal-facing name
     return d
+
+
+def _apply(ec, Tk, base=None):
+    """Set the operating point at temperature Tk about the baseline perturbation:
+    sector allocation (incl. kappa/sigma) when sectors are wired, else the scalar
+    pool. Baseline None -> the identity/nominal point (unchanged behaviour)."""
+    base = base or Perturbation()
+    ec.set_temperature(Tk, base)
+    if getattr(ec, "_sectors", None) is not None and base.uses_allocation():
+        ec.set_allocation(base.f_metab, base.f_maint,
+                          kappa_scale=base.kappa_scale, sigma_sat=base.sigma_sat)
+    else:
+        ec.set_budget(ec.default_budget)
 
 
 def _analysis_temps(nom, tpc_temps_C):
@@ -96,17 +109,19 @@ class ControlResult:
 # ---------------------------------------------------------------------------
 # Stage A: usage + analytic thermal sensitivity (no per-enzyme re-solve)
 # ---------------------------------------------------------------------------
-def _usage_at(ecm, Tk, h=0.25):
-    """Return (usage array u_i, cost sensitivity s_i = d ln cost/dT) at Tk."""
-    ecm.set_temperature(Tk, Perturbation())
-    ecm.set_budget(ecm.default_budget)
+def _usage_at(ecm, Tk, h=0.25, base=None):
+    """Return (usage array u_i, cost sensitivity s_i = d ln cost/dT) at Tk, about
+    the baseline operating point (sector allocation when wired)."""
+    base = base or Perturbation()
+    _apply(ecm, Tk, base)
     sol = ecm.model.optimize()
     ents = ecm.table.entries
     if sol.status != "optimal":
         return np.zeros(len(ents)), np.zeros(len(ents))
     v = np.array([abs(sol.fluxes.get(e.rxn_id, 0.0)) for e in ents])
-    c = ecm._costs(Tk, Perturbation())
-    u = c * v / ecm.default_budget
+    c = ecm._costs(Tk, base)
+    budget = float(ecm._pool.ub) if getattr(ecm, "_sectors", None) is not None else ecm.default_budget
+    u = c * v / max(budget, 1e-12)
     r1 = relative_kcat_vec(Tk + h, ecm._T0, ecm._Topt, ecm._dCp)
     r2 = relative_kcat_vec(Tk - h, ecm._T0, ecm._Topt, ecm._dCp)
     s = -(np.log(r1) - np.log(r2)) / (2 * h)   # d ln cost/dT
@@ -116,28 +131,28 @@ def _usage_at(ecm, Tk, h=0.25):
 # ---------------------------------------------------------------------------
 # Stage B: finite-difference control coefficients (mutate entry + refresh)
 # ---------------------------------------------------------------------------
-def _thermal_cc(pm, entry, attr, step, fractional, tpc_temps_C, descriptors, crit_frac):
+def _thermal_cc(pm, entry, attr, step, fractional, tpc_temps_C, descriptors, crit_frac, base=None):
     ec = pm.ec
     orig = getattr(entry, attr)
     plus = orig * (1 + step) if fractional else orig + step
     minus = orig * (1 - step) if fractional else orig - step
-    setattr(entry, attr, plus); ec.refresh_params(); dP = _desc(pm, tpc_temps_C, crit_frac)
-    setattr(entry, attr, minus); ec.refresh_params(); dM = _desc(pm, tpc_temps_C, crit_frac)
+    setattr(entry, attr, plus); ec.refresh_params(); dP = _desc(pm, tpc_temps_C, crit_frac, base)
+    setattr(entry, attr, minus); ec.refresh_params(); dM = _desc(pm, tpc_temps_C, crit_frac, base)
     setattr(entry, attr, orig); ec.refresh_params()
     denom = plus - minus
     return {D: (dP.get(D, np.nan) - dM.get(D, np.nan)) / denom for D in descriptors}
 
 
-def _fcc(pm, entry, Tk, f):
+def _fcc(pm, entry, Tk, f, base=None):
     ec = pm.ec
-    base = entry.base_cost
-    entry.base_cost = base / (1 + f); ec.refresh_params()
-    ec.set_temperature(Tk, Perturbation()); ec.set_budget(ec.default_budget)
+    bc = entry.base_cost
+    entry.base_cost = bc / (1 + f); ec.refresh_params()
+    _apply(ec, Tk, base)
     gp = ec.model.slim_optimize()
-    entry.base_cost = base / (1 - f); ec.refresh_params()
-    ec.set_temperature(Tk, Perturbation()); ec.set_budget(ec.default_budget)
+    entry.base_cost = bc / (1 - f); ec.refresh_params()
+    _apply(ec, Tk, base)
     gm = ec.model.slim_optimize()
-    entry.base_cost = base; ec.refresh_params()
+    entry.base_cost = bc; ec.refresh_params()
     if gp and gm and np.isfinite(gp) and np.isfinite(gm) and gp > 0 and gm > 0:
         return (np.log(gp) - np.log(gm)) / (2 * f)
     return np.nan
@@ -149,7 +164,7 @@ def _fcc(pm, entry, Tk, f):
 def run_control(pm, tpc_temps_C, perturb=None, screen_top_k=100,
                 descriptors=("Topt_C", "CT_max_C", "niche_width_C", "rmax", "Ea_eV"),
                 identifiable_threshold=0.05, analysis_temps_C=None,
-                crit_frac=0.05, progress=True) -> ControlResult:
+                crit_frac=0.05, progress=True, base_pert=None) -> ControlResult:
     perturb = perturb or {}
     dT = float(perturb.get("Topt_K", 1.0))
     dCp_frac = float(perturb.get("dCp_frac", 0.1))
@@ -160,7 +175,7 @@ def run_control(pm, tpc_temps_C, perturb=None, screen_top_k=100,
     enz = [e.enzyme_id for e in ents]
     grp = [e.group for e in ents]
 
-    nom = _desc(pm, tpc_temps_C, crit_frac)
+    nom = _desc(pm, tpc_temps_C, crit_frac, base_pert)
     temps = analysis_temps_C or _analysis_temps(nom, tpc_temps_C)
     temps = [float(t) for t in temps]
     labels = ["sub", "opt", "supra"][:len(temps)] + \
@@ -172,7 +187,7 @@ def run_control(pm, tpc_temps_C, perturb=None, screen_top_k=100,
     # -- Stage A: usage + sensitivity at each analysis temperature --
     U, S = {}, {}
     for lab, tc in zip(labels, temps):
-        u, s = _usage_at(ec, tc + 273.15)
+        u, s = _usage_at(ec, tc + 273.15, base=base_pert)
         U[lab], S[lab] = u, s
     hot = labels[-1]
     rate_screen = np.max(np.vstack([U[l] for l in labels]), axis=0)
@@ -201,8 +216,8 @@ def run_control(pm, tpc_temps_C, perturb=None, screen_top_k=100,
     trows = []
     for n, i in enumerate(thermal_cand):
         e = ents[i]
-        cc_topt = _thermal_cc(pm, e, "Topt", dT, False, tpc_temps_C, temp_descs, crit_frac)
-        cc_dcp = _thermal_cc(pm, e, "dCp", dCp_frac, True, tpc_temps_C, temp_descs, crit_frac)
+        cc_topt = _thermal_cc(pm, e, "Topt", dT, False, tpc_temps_C, temp_descs, crit_frac, base_pert)
+        cc_dcp = _thermal_cc(pm, e, "dCp", dCp_frac, True, tpc_temps_C, temp_descs, crit_frac, base_pert)
         row = {"rxn_id": ids[i], "enzyme_id": enz[i], "group": grp[i],
                "thermal_screen": float(thermal_screen[i])}
         for D in temp_descs:
@@ -223,7 +238,7 @@ def run_control(pm, tpc_temps_C, perturb=None, screen_top_k=100,
         e = ents[i]
         row = {"rxn_id": ids[i], "enzyme_id": enz[i], "group": grp[i]}
         for l, tc in zip(labels, temps):
-            row[f"FCC_{l}_{tc:g}C"] = _fcc(pm, e, tc + 273.15, kcat_frac) \
+            row[f"FCC_{l}_{tc:g}C"] = _fcc(pm, e, tc + 273.15, kcat_frac, base_pert) \
                 if U[l][i] > 1e-9 else np.nan
         rrows.append(row)
         if progress and (n + 1) % max(1, len(rate_cand) // 5) == 0:
