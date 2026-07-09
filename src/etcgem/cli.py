@@ -571,12 +571,14 @@ def cmd_calibrate(args):
 
 
 def _cmd_calibrate_vdl(args):
-    """Unified multi-parameter tuning on Van Derlinden at the rich BHI operating point."""
+    """Unified multi-parameter tuning on Van Derlinden at the rich BHI operating
+    point, growth law ON (writes to calibration_vanderlinden_v2/; supersedes the
+    first flat-top run in calibration_vanderlinden/)."""
     from . import calibration_multi as cm
-    out_dir = _out_dir(args.strain, "calibration_vanderlinden")
+    out_dir = _out_dir(args.strain, "calibration_vanderlinden_v2")
     res = cm.run(args.strain, out_dir,
-                 n_walkers=int(args.walkers or 40), n_steps=int(args.steps or 2500),
-                 n_burn=int(args.burn or 800),
+                 n_walkers=int(args.walkers or 48), n_steps=int(args.steps or 2000),
+                 n_burn=int(args.burn or 600),
                  seed=int(args.seed if args.seed is not None else 1),
                  n_proc=int(args.procs if args.procs is not None else 0))
     sm, d, po = res["sampler"], res["descriptors"], res["posterior"]
@@ -590,7 +592,9 @@ def _cmd_calibrate_vdl(args):
         print(f"  {k:10s} {d['observed'][k]:>10} {d['emergent_prior'][k]:>10} {d['posterior_median'][k]:>10}")
     print("  demanded corrections (posterior median [90% CI], constrained?):")
     for k in ("kcat_scale", "kappa_scale", "dCp_scale", "dTopt", "dTm", "topt_scale",
-              "f_metab", "f_maint", "sigma_disc"):
+              "tm_scale", "f_metab", "f_maint", "ngam_scale", "ngam_steepness", "sigma_disc"):
+        if k not in po:
+            continue
         p = po[k]
         print(f"    {k:12s} {p['demanded_correction']:>18s}  CI{p['posterior_90CI']}  "
               f"constrained={p['constrained_by_curve']}")

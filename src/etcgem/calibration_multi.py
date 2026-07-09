@@ -39,20 +39,24 @@ class PSpec:
 
 
 def build_vdl_specs(f_metab_meas=0.280, f_maint_meas=0.360) -> List[PSpec]:
-    """Canonical free set for the rich Van Derlinden fit. Measured (rich/LB) sector
-    fractions get TIGHT priors (measurement wiggle only); the in-vivo magnitude
-    levers (kcat_scale, kappa_scale) get broad LogNormals; the envelope shape gets
-    moderate priors; sigma_disc is a free discrepancy term (no measured SD)."""
+    """Canonical free set for the rich Van Derlinden fit (the SAME set P3 uses).
+    Measured (rich/LB) sector fractions get TIGHT priors (measurement wiggle only);
+    the in-vivo magnitude levers (kcat_scale, kappa_scale) get broad LogNormals; the
+    envelope shape (incl. tm_scale) and the borrowed maintenance (ngam_scale/
+    ngam_steepness) get moderate/broad priors; sigma_disc is a free discrepancy term."""
     return [
-        PSpec("dTopt",       "add", "normal",     4.25, 0.0, -12.0, 12.0, "dTopt", 0.0),
-        PSpec("topt_scale",  "log", "lognormal",  0.12, 0.0, 0.5, 2.0, "topt_scale", 1.0),
-        PSpec("dCp_scale",   "log", "lognormal",  0.30, 0.0, 0.25, 4.0, "dCp_scale", 1.0),
-        PSpec("dTm",         "add", "normal",     6.13, 0.0, -15.0, 15.0, "dTm", 0.0),
-        PSpec("kcat_scale",  "log", "lognormal",  0.60, 0.0, 0.2, 10.0, "kcat_scale", 1.0),
-        PSpec("kappa_scale", "log", "lognormal",  0.60, 0.0, 0.2, 10.0, "kappa_scale", 1.0),
-        PSpec("f_metab",     "add", "normal",     0.03, f_metab_meas, 0.15, 0.45, "f_metab", f_metab_meas),
-        PSpec("f_maint",     "add", "normal",     0.03, f_maint_meas, 0.20, 0.50, "f_maint", f_maint_meas),
-        PSpec("sigma_disc",  "log", "halfnormal", 0.50, 0.0, 1e-4, 5.0, None, None),
+        PSpec("dTopt",         "add", "normal",     4.25, 0.0, -12.0, 12.0, "dTopt", 0.0),
+        PSpec("topt_scale",    "log", "lognormal",  0.12, 0.0, 0.5, 2.0, "topt_scale", 1.0),
+        PSpec("dCp_scale",     "log", "lognormal",  0.30, 0.0, 0.25, 4.0, "dCp_scale", 1.0),
+        PSpec("dTm",           "add", "normal",     6.13, 0.0, -15.0, 15.0, "dTm", 0.0),
+        PSpec("tm_scale",      "log", "lognormal",  0.15, 0.0, 0.4, 2.2, "tm_scale", 1.0),
+        PSpec("kcat_scale",    "log", "lognormal",  0.60, 0.0, 0.2, 12.0, "kcat_scale", 1.0),
+        PSpec("kappa_scale",   "log", "lognormal",  0.60, 0.0, 0.2, 12.0, "kappa_scale", 1.0),
+        PSpec("f_metab",       "add", "normal",     0.03, f_metab_meas, 0.15, 0.45, "f_metab", f_metab_meas),
+        PSpec("f_maint",       "add", "normal",     0.03, f_maint_meas, 0.20, 0.50, "f_maint", f_maint_meas),
+        PSpec("ngam_scale",    "log", "lognormal",  0.50, 0.0, 0.1, 6.0, "ngam_scale", 1.0),
+        PSpec("ngam_steepness","log", "lognormal",  0.50, 0.0, 0.1, 6.0, "ngam_steepness", 1.0),
+        PSpec("sigma_disc",    "log", "halfnormal", 0.50, 0.0, 1e-4, 5.0, None, None),
     ]
 
 
@@ -118,12 +122,16 @@ def init_walkers(specs, n_walkers, rng):
 # operating point + curve
 # ---------------------------------------------------------------------------
 def _build_pm_rich(strain):
-    """Provider at the RICH (BHI) operating point with a STATIC rich sector
-    allocation (allocation_from_data disabled) so the fit's f_metab/f_maint drive
-    the sector split rather than the fixed measured T-curve."""
+    """Provider at the RICH (BHI) operating point with the coupled growth law ON and
+    a STATIC rich sector allocation (allocation_from_data disabled) so the fit's
+    f_metab/f_maint drive the split. With the growth law ON the biosynthesis cap
+    relaxes and the coupled metabolic sector binds, so kcat_scale is the effective
+    magnitude lever."""
     from .config import resolve, build_provider
     from .providers import set_medium
-    pm = build_provider(resolve(strain))
+    cfg = resolve(strain)
+    cfg.setdefault("proteome_sectors", {})["biosynthesis_growth_law"] = True
+    pm = build_provider(cfg)
     try:
         pm.ec.model.solver.configuration.timeout = 2
     except Exception:
