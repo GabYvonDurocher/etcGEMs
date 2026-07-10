@@ -1,6 +1,0 @@
-parameter,prior_center,prior_width,posterior_median,ci5,ci95,demanded_correction,constrained_by_curve
-dTopt,0.0,4.25,2.0336,-2.3635,3.2875,+2.0 K,True
-dTm,0.0,6.13,-3.4209,-6.4003,6.5366,-3.4 K,False
-dCp_scale,1.0,0.3,1.1955,0.6299,2.1816,x1.20,False
-kappa_scale,1.0,0.7,0.1786,0.1449,1.9561,x0.18,False
-sigma_noise,,0.02,0.0188,0.0107,0.0542,0.019 1/h,

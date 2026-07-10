@@ -31,22 +31,17 @@ ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))          # project root
 STRAIN = os.path.join(ROOT, "strains", "eciML1515", "outputs")
 
 RUNS = {
-    "sweep":      os.path.join(STRAIN, "sweep_default"),
-    "dltkcat":    os.path.join(STRAIN, "sweep_dltkcat_ext"),     # DLTKcat fits applied
-    "decompose":  os.path.join(STRAIN, "decompose_decomposition_sectors"),  # sector allocation axis (SUPERSEDED)
-    "recast":     os.path.join(STRAIN, "decompose_decomposition_recast"),   # range-fair nominal-centred +Tm
-    "control":    os.path.join(STRAIN, "control_control"),       # full control run
-    "calibrated": os.path.join(STRAIN, "sweep_calibrated"),      # M1.2
-    "sectors":    os.path.join(STRAIN, "sweep_sectors"),         # optional
-    "proteome":   os.path.join(STRAIN, "proteome_sectors"),      # temperature proteomics
-    "validation": os.path.join(STRAIN, "validation"),            # empirical TPC fit (legacy)
-    "ablation":   os.path.join(STRAIN),                          # ablation_* live in outputs/
-    "percurve":   os.path.join(STRAIN, "percurve_validation"),   # legacy 26-curve compilation (RETIRED)
-    "elasticity": os.path.join(STRAIN, "elasticity_elasticity"), # equal-perturbation sensitivity (STALE, pre-reconciliation)
-    "anatomy":    os.path.join(STRAIN, "anatomy"),               # reference-point model anatomy
-    "valid_trust": os.path.join(STRAIN, "validation_trusted"),   # Van Derlinden (MG1655, BHI) validation
+    # Canonical runs only (superseded/quick/diagnostic runs are archived under
+    # outputs/_archive/). The report renders from the TUNED-model + calibration dirs.
+    "sweep":      os.path.join(STRAIN, "sweep_default"),          # summary.json + provenance
+    "dltkcat":    os.path.join(STRAIN, "sweep_dltkcat_ext"),      # DLTKcat fits applied
+    "calibrated": os.path.join(STRAIN, "sweep_calibrated"),       # M1.2; kept for resolved_config provenance
+    "proteome":   os.path.join(STRAIN, "proteome_sectors"),       # temperature proteomics
+    "ablation":   os.path.join(STRAIN),                           # ablation_* live in outputs/
+    "anatomy":    os.path.join(STRAIN, "anatomy"),                # reference-point model anatomy
+    "valid_trust": os.path.join(STRAIN, "validation"),            # Van Derlinden (MG1655, BHI) validation (renamed from validation_trusted)
     # P2 v3 calibration + P3 TUNED-model analyses (rich BHI, reconciled pool, growth law)
-    "calibration_v3": os.path.join(STRAIN, "calibration_vanderlinden_v3"),
+    "calibration_v3": os.path.join(STRAIN, "calibration_vanderlinden"),  # renamed from calibration_vanderlinden_v3
     "elasticity_tuned": os.path.join(STRAIN, "elasticity_tuned"),
     "decompose_tuned":  os.path.join(STRAIN, "decompose_tuned"),
     "control_tuned":    os.path.join(STRAIN, "control_tuned"),
@@ -67,12 +62,9 @@ FIGURES = [
     ("calibration_v3",  "prior_vs_posterior_tpc.png", "prior_vs_posterior_tpc.png"),
     ("calibration_v3",  "corner.png",              "corner_v3.png"),
     ("dltkcat",    "tpc_ensemble.png",             "dltkcat_ensemble.png"),
-    ("calibrated", "tpc_ensemble.png",             "calibrated_ensemble.png"),
-    ("sectors",    "sensitivity_heatmap.png",      "sectors_sensitivity.png"),
     ("proteome",   "sector_fractions_vs_T.png",    "proteome_sector_fractions.png"),
     ("proteome",   "usage_pred_vs_meas.png",       "proteome_usage_pred_vs_meas.png"),
     ("proteome",   "sector_pred_vs_meas.png",      "proteome_sector_pred_vs_meas.png"),
-    ("validation", "complete_vs_empirical_tpc.png", "complete_vs_empirical_tpc.png"),
     ("ablation",   "ablation_comparison.png",      "ablation_comparison.png"),
     ("valid_trust", "validation_trusted_curves.png",  "validation_trusted_curves.png"),
     ("elasticity_tuned", "elasticity_tornado_rmax.png", "elasticity_tornado_rmax.png"),
@@ -98,13 +90,8 @@ TABLES = [
     ("control_tuned",   "control_top_enzymes.csv",       "control_top_enzymes.csv"),
     ("calibration_v3",  "demanded_corrections.csv",  "demanded_corrections.csv"),
     ("calibration_v3",  "summary.json",              "calibration_v3_summary.json"),
-    ("calibrated", "descriptors.csv",           "calibrated_descriptors.csv"),
-    ("calibrated", "summary.json",              "calibrated_summary.json"),
-    ("sectors",    "samples.csv",               "sectors_samples.csv"),
-    ("sectors",    "descriptors.csv",           "sectors_descriptors.csv"),
     ("proteome",   "sector_fractions_vs_T.csv", "proteome_sector_fractions.csv"),
     ("proteome",   "validation_correlations.csv","proteome_validation_correlations.csv"),
-    ("validation", "validation_summary.json",   "validation_summary.json"),
     ("ablation",   "ablation_summary.csv",      "ablation_summary.csv"),
     ("valid_trust", "validation_trusted_table.csv",   "validation_trusted_table.csv"),
     ("valid_trust", "validation_trusted_summary.json", "validation_trusted_summary.json"),
@@ -113,7 +100,7 @@ TABLES = [
 ]
 
 # resolved_config.yaml for supplementary provenance: first available wins.
-PROVENANCE_ORDER = ["calibrated", "sectors", "decompose", "control"]
+PROVENANCE_ORDER = ["calibrated", "sweep", "proteome", "anatomy"]
 
 KEY_DESCRIPTORS = ["Topt_C", "rmax", "CTmax_C", "niche_width_C"]
 
@@ -127,71 +114,6 @@ def _copy(src_dir, src_name, dest_dir, dest_name, copied, missing, tag):
     shutil.copy2(src, os.path.join(dest_dir, dest_name))
     copied.append(f"{dest_name}  <- {tag}/{src_name}")
     return True
-
-
-def _derived_calibrated_vs_default(copied, missing):
-    """Overlay the DEFAULT (hand-set LHS ranges) and CALIBRATED (correlated /
-    DLTKcat-posterior per-enzyme) descriptor distributions -- the headline M1.2
-    comparison of nominal vs calibrated uncertainty."""
-    d_def = os.path.join(RUNS["sweep"], "descriptors.csv")
-    d_cal = os.path.join(RUNS["calibrated"], "descriptors.csv")
-    if not (os.path.exists(d_def) and os.path.exists(d_cal)):
-        missing.append("derived:calibrated_vs_default.png (needs sweep + calibrated descriptors.csv)")
-        return
-    df_def = pd.read_csv(d_def)
-    df_cal = pd.read_csv(d_cal)
-    cols = [c for c in KEY_DESCRIPTORS if c in df_def.columns and c in df_cal.columns]
-    fig, axes = plt.subplots(2, 2, figsize=(9, 7))
-    for ax, c in zip(axes.ravel(), cols):
-        a = df_def[c].replace([np.inf, -np.inf], np.nan).dropna()
-        b = df_cal[c].replace([np.inf, -np.inf], np.nan).dropna()
-        lo = float(min(a.min(), b.min()))
-        hi = float(max(a.max(), b.max()))
-        bins = np.linspace(lo, hi, 26) if hi > lo else 26
-        ax.hist(a, bins=bins, density=True, color="0.6", alpha=0.6, label="default (hand-set)")
-        ax.hist(b, bins=bins, density=True, color="tab:orange", alpha=0.55, label="calibrated")
-        ax.set_title(c)
-        ax.set_yticks([])
-    for ax in axes.ravel()[len(cols):]:
-        ax.axis("off")
-    axes.ravel()[0].legend(frameon=False, fontsize=8)
-    fig.suptitle("Nominal (hand-set) vs calibrated descriptor uncertainty (M1.2)")
-    fig.tight_layout()
-    out = os.path.join(FIG_DIR, "calibrated_vs_default.png")
-    fig.savefig(out, dpi=150); plt.close(fig)
-    copied.append("calibrated_vs_default.png  <- DERIVED (sweep vs calibrated)")
-
-
-def _derived_sector_tradeoff(copied, missing):
-    """Interior growth optimum from the sectors run: rmax / CTmax_C vs f_metab
-    coloured by f_maint (metabolic vs biosynthesis co-limitation)."""
-    s = os.path.join(RUNS["sectors"], "samples.csv")
-    d = os.path.join(RUNS["sectors"], "descriptors.csv")
-    if not (os.path.exists(s) and os.path.exists(d)):
-        missing.append("derived:sector_tradeoff.png (needs sectors samples.csv + descriptors.csv)")
-        return
-    sm = pd.read_csv(s)
-    de = pd.read_csv(d)
-    if "f_metab" not in sm.columns:
-        missing.append("derived:sector_tradeoff.png (sectors run has no f_metab column)")
-        return
-    fm = sm["f_metab"].values
-    fmaint = sm["f_maint"].values if "f_maint" in sm.columns else np.zeros_like(fm)
-    fig, axes = plt.subplots(1, 2, figsize=(11, 4.5))
-    for ax, c in zip(axes, ["rmax", "CTmax_C"]):
-        if c not in de.columns:
-            ax.axis("off"); continue
-        y = de[c].replace([np.inf, -np.inf], np.nan).values
-        sc = ax.scatter(fm, y, c=fmaint, cmap="viridis", s=18, alpha=0.85)
-        ax.set_xlabel("f_metab (metabolic sector)")
-        ax.set_ylabel(c)
-        ax.set_title(f"{c} vs metabolic allocation")
-        fig.colorbar(sc, ax=ax, label="f_maint")
-    fig.suptitle("Proteome-sector trade-off (interior growth optimum)")
-    fig.tight_layout()
-    out = os.path.join(FIG_DIR, "sector_tradeoff.png")
-    fig.savefig(out, dpi=150); plt.close(fig)
-    copied.append("sector_tradeoff.png  <- DERIVED (sectors)")
 
 
 def main():
@@ -212,10 +134,6 @@ def main():
         if _copy(RUNS[key], "resolved_config.yaml", TBL_DIR,
                  "resolved_config.yaml", copied, missing, key):
             break
-
-    # derived figures
-    _derived_calibrated_vs_default(copied, missing)
-    _derived_sector_tradeoff(copied, missing)
 
     print("=" * 70)
     print(f"COPIED / GENERATED ({len(copied)}):")

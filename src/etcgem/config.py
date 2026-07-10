@@ -2,11 +2,11 @@
 
 Three-tier config model, merged as ``defaults <- strain <- experiment``:
 
-* ``defaults.yaml`` (project root)      -- universal METHOD defaults only
+* ``configs/defaults.yaml``             -- universal METHOD defaults only
   (solver_timeout, crit_frac, a fallback temperature_grid).
 * ``strains/<name>/strain.yaml``        -- ORGANISM only (provider block, T0_C,
   temperature_grid); self-sufficient to build + run the model.
-* ``experiments/<name>.yaml``           -- OPTIONAL method overlays (kind +
+* ``configs/experiments/<name>.yaml``   -- OPTIONAL method overlays (kind +
   sensitivity / decomposition blocks).
 
 ``resolve(strain, experiment=None)`` returns the merged dict with
@@ -24,10 +24,14 @@ import numpy as np
 
 from . import providers
 
-# Project-root-relative locations (commands run from the project root).
-DEFAULTS_FILE = "defaults.yaml"
+# Project-root-relative locations (commands run from the project root). Config now
+# lives under configs/; the legacy root locations are kept as a fallback so an old
+# checkout still resolves.
+DEFAULTS_FILE = "configs/defaults.yaml"
+DEFAULTS_FILE_LEGACY = "defaults.yaml"
 STRAINS_DIR = "strains"
-EXPERIMENTS_DIR = "experiments"
+EXPERIMENTS_DIR = "configs/experiments"
+EXPERIMENTS_DIR_LEGACY = "experiments"
 
 
 def load_config(path: str) -> Dict[str, Any]:
@@ -62,7 +66,10 @@ def strain_dir(name: str) -> str:
 
 
 def load_defaults() -> Dict[str, Any]:
-    return load_config(DEFAULTS_FILE) if os.path.exists(DEFAULTS_FILE) else {}
+    for p in (DEFAULTS_FILE, DEFAULTS_FILE_LEGACY):
+        if os.path.exists(p):
+            return load_config(p)
+    return {}
 
 
 def load_strain(name: str) -> Dict[str, Any]:
@@ -70,7 +77,11 @@ def load_strain(name: str) -> Dict[str, Any]:
 
 
 def load_experiment(name: str) -> Dict[str, Any]:
-    return load_config(os.path.join(EXPERIMENTS_DIR, f"{name}.yaml"))
+    for d in (EXPERIMENTS_DIR, EXPERIMENTS_DIR_LEGACY):
+        p = os.path.join(d, f"{name}.yaml")
+        if os.path.exists(p):
+            return load_config(p)
+    return load_config(os.path.join(EXPERIMENTS_DIR, f"{name}.yaml"))  # raise on the new path
 
 
 def resolve(strain: str, experiment: Optional[str] = None) -> Dict[str, Any]:

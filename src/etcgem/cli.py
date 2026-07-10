@@ -9,7 +9,7 @@ Strain-only (no experiment needed -- a strain is runnable on its own):
     etcgem fba   --strain NAME --temp C [--fits [PATH]]   # single solve at C
     etcgem dltkcat prep|parse --strain NAME ... # DLTKcat tooling (strain-aware)
 
-Strain + experiment (method overlay from experiments/EXP.yaml):
+Strain + experiment (method overlay from configs/experiments/EXP.yaml):
     etcgem sweep     --strain NAME --experiment EXP [--fits [PATH]] [--resume] [--seconds N] [--no-plots]
     etcgem decompose --strain NAME --experiment EXP [--no-plots]
     etcgem sweep     --config PATH ...          # ad-hoc self-contained config escape hatch
@@ -45,6 +45,24 @@ _FITS_DEFAULT = "\0default"   # `--fits` given without an explicit path
 # ---------------------------------------------------------------------------
 def _out_dir(strain, tag):
     return os.path.join(strain_dir(strain), "outputs", tag)
+
+
+def _run_tag(command, experiment):
+    """Output-dir tag ``<command>_<experiment>``, de-doubled when the experiment name
+    already repeats the command (e.g. decompose + 'decomposition_sectors' ->
+    decompose_sectors, not decompose_decomposition_sectors). Affects NEW runs only."""
+    if not experiment:
+        return command
+    fam = {"decompose": ("decompose", "decomposition"), "control": ("control",),
+           "elasticity": ("elasticity",), "sweep": ("sweep",)}.get(command, (command,))
+    exp = experiment
+    for f in fam:
+        if exp == f:
+            return command
+        if exp.startswith(f + "_"):
+            exp = exp[len(f) + 1:]
+            break
+    return f"{command}_{exp}"
 
 
 def _fits_path(strain, fits_arg):
@@ -248,7 +266,7 @@ def _sweep_cfg_out(args):
     cfg = resolve(args.strain, args.experiment)
     if "sensitivity" not in cfg:
         raise SystemExit(f"experiment '{args.experiment}' defines no `sensitivity` block")
-    return cfg, _out_dir(args.strain, f"sweep_{args.experiment}")
+    return cfg, _out_dir(args.strain, _run_tag("sweep", args.experiment))
 
 
 def _finalize_sweep(cfg, out_dir, pm, result, no_plots, tag="run"):
@@ -375,7 +393,7 @@ def cmd_decompose(args):
     if not (args.strain and args.experiment):
         raise SystemExit("decompose needs --strain NAME --experiment EXP")
     cfg = resolve(args.strain, args.experiment)
-    out_dir = _out_dir(args.strain, f"decompose_{args.experiment}")
+    out_dir = _out_dir(args.strain, _run_tag("decompose", args.experiment))
     try:
         from . import decomposition  # noqa: F401
     except Exception:
@@ -396,7 +414,7 @@ def cmd_control(args):
     if not args.strain:
         raise SystemExit("control needs --strain NAME")
     cfg = resolve(args.strain, args.experiment)
-    tag = f"control_{args.experiment}" if args.experiment else "control"
+    tag = _run_tag("control", args.experiment)
     out_dir = _out_dir(args.strain, tag)
     os.makedirs(out_dir, exist_ok=True)
     dump_resolved(cfg, out_dir)
@@ -411,7 +429,7 @@ def cmd_elasticity(args):
     if not (args.strain and args.experiment):
         raise SystemExit("elasticity needs --strain NAME --experiment EXP")
     cfg = resolve(args.strain, args.experiment)
-    out_dir = _out_dir(args.strain, f"elasticity_{args.experiment}")
+    out_dir = _out_dir(args.strain, _run_tag("elasticity", args.experiment))
     os.makedirs(out_dir, exist_ok=True)
     pm = _build_pm(cfg)
     temps = temperature_grid(cfg)
