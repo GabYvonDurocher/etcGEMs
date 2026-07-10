@@ -44,9 +44,9 @@ RUNS = {
     "percurve":   os.path.join(STRAIN, "percurve_validation"),   # legacy 26-curve compilation (RETIRED)
     "elasticity": os.path.join(STRAIN, "elasticity_elasticity"), # equal-perturbation sensitivity (STALE, pre-reconciliation)
     "anatomy":    os.path.join(STRAIN, "anatomy"),               # reference-point model anatomy
-    "valid_trust": os.path.join(STRAIN, "validation_trusted"),   # Van Derlinden (MG1655, BHI) validation
+    "valid_trust": os.path.join(STRAIN, "validation"),           # Van Derlinden (MG1655, BHI) validation (renamed from validation_trusted)
     # P2 v3 calibration + P3 TUNED-model analyses (rich BHI, reconciled pool, growth law)
-    "calibration_v3": os.path.join(STRAIN, "calibration_vanderlinden_v3"),
+    "calibration_v3": os.path.join(STRAIN, "calibration_vanderlinden"),  # renamed from calibration_vanderlinden_v3
     "elasticity_tuned": os.path.join(STRAIN, "elasticity_tuned"),
     "decompose_tuned":  os.path.join(STRAIN, "decompose_tuned"),
     "control_tuned":    os.path.join(STRAIN, "control_tuned"),
