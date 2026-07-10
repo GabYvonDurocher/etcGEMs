@@ -9,7 +9,7 @@ Strain-only (no experiment needed -- a strain is runnable on its own):
     etcgem fba   --strain NAME --temp C [--fits [PATH]]   # single solve at C
     etcgem dltkcat prep|parse --strain NAME ... # DLTKcat tooling (strain-aware)
 
-Strain + experiment (method overlay from experiments/EXP.yaml):
+Strain + experiment (method overlay from configs/experiments/EXP.yaml):
     etcgem sweep     --strain NAME --experiment EXP [--fits [PATH]] [--resume] [--seconds N] [--no-plots]
     etcgem decompose --strain NAME --experiment EXP [--no-plots]
     etcgem sweep     --config PATH ...          # ad-hoc self-contained config escape hatch
