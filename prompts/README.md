@@ -6,7 +6,14 @@ commit; launch Claude Code in an auto-approving mode (accept edits + allow comma
 e.g. `--dangerously-skip-permissions`) to run them unattended. They build on each
 other, so run them roughly in the order below.
 
-Status legend: ✅ run · ▶ in progress · ⏳ pending
+## Layout
+
+- `prompts/repo_restructure_prompt.md` — the current / most-recently run task (top level).
+- `prompts/archive/` — **all executed historical prompts**, kept for provenance. The index
+  below refers to files now under `archive/` (run roughly in that order to reproduce the build).
+
+Status legend: ✅ run · ▶ in progress · ⏳ pending  (all archived prompts have been executed;
+the ⏳ markers below are historical and no longer accurate)
 
 ## Recommended run order
 

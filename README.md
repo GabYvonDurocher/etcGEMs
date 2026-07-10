@@ -144,9 +144,9 @@ strain; method keys from defaults, overridden by the experiment):
 
 | file | holds |
 |------|-------|
-| `defaults.yaml` (root) | universal **method** defaults: `solver_timeout`, `crit_frac`, fallback `temperature_grid` |
+| `configs/defaults.yaml` | universal **method** defaults: `solver_timeout`, `crit_frac`, fallback `temperature_grid` |
 | `strains/NAME/strain.yaml` | **organism only**: `provider` block, `T0_C`, `temperature_grid`, `proteome_sectors`, `allocation_from_data` |
-| `experiments/EXP.yaml` | optional **method overlay**: `kind` + a `sensitivity` / `decomposition` / `control` block |
+| `configs/experiments/EXP.yaml` | optional **method overlay**: `kind` + a `sensitivity` / `decomposition` / `control` block |
 
 `config.resolve(strain, experiment)` returns the merged dict (with
 `provider.model_path` injected); every run also writes the exact merged config as
@@ -189,6 +189,27 @@ strains/eciML1515/
 strains/_toy/         offline synthetic strain (no model file)
 strains/_template/    copy to start a new strain
 ```
+
+### Repository layout
+
+```
+etcGEMs/
+├── configs/                     ALL config: defaults.yaml, examples/, experiments/
+├── scripts/                     helper scripts (push_updates.sh)
+├── src/etcgem/                  the package
+├── strains/eciML1515/           strain descriptor + raw data (model/ media/ thermal/
+│   │                            proteomics/ dltkcat/) + outputs/
+│   └── outputs/
+│       ├── <canonical runs>     the runs the report renders from
+│       └── _archive/            superseded / quick / diagnostic runs (on disk, gitignored)
+├── reports/etcgem/              report.qmd, supplementary.qmd, assets/, assemble.py
+├── prompts/                     README index; repo_restructure_prompt.md; archive/ (executed)
+└── docs/                        RESTRUCTURE_PROPOSAL.md, correspondence/
+```
+
+External, kept outside the tracked tree and **gitignored** (documented, not committed):
+`DLTKcat/` (vendored kcat(T) predictor clone) and `refs/` (reference PDFs). The legacy
+`tpc_pipeline/` scaffold has been removed (fully superseded by `src/etcgem/`).
 
 ---
 
