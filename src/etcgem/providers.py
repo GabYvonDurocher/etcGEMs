@@ -19,8 +19,9 @@ the toy route is what the sandbox tests run on.
 from __future__ import annotations
 
 import csv
-from dataclasses import dataclass
-from typing import Dict, Optional
+import re
+from dataclasses import dataclass, field
+from typing import Dict, List, Optional
 
 import numpy as np
 
@@ -33,6 +34,45 @@ class ProvidedModel:
     T0: float                     # reference temperature (K) of the kcats
     biomass_rxn: str
     name: str
+    closed_free_o2_sinks: List[str] = field(default_factory=list)
+
+
+# ---------------------------------------------------------------------------
+# Model-quality correction: uncosted free-energy (O2) sink reactions
+# ---------------------------------------------------------------------------
+# Base reaction IDs (GECKO adds No<n> isozyme and _REV suffixes) of O2-consuming
+# side reactions that carry ~zero enzyme cost and short-circuit the electron
+# transport chain, creating a futile O2 cycle (Parsa's gas-flux audit: at LB/40 C,
+# ~75% of gross O2 turnover was this cycle). Closing them routes O2 through the
+# genuine, enzyme-costed cytochrome oxidase (CYTBO3) at ~-0.3% growth. NB: catalase
+# (CATNo1) and superoxide dismutase (SPODMNo1) are REAL enzymes (kcat 1e5-1e9/s) and
+# are deliberately NOT in this list. Extend per-organism as other models are audited.
+FREE_O2_SINK_REACTIONS = [
+    "QMO2",    # 2 O2 + ubiquinol -> 2 superoxide + ubiquinone      (ygiN / P0ADU2; ~free)
+    "QMO3",    # 2 O2 + menaquinol -> 2 superoxide + menaquinone    (same enzyme; ~free)
+    "MOX",     # malate + O2 -> H2O2 + oxaloacetate                 (no enzyme-cost entry)
+    "CU1Opp",  # 4 Cu+ + O2 -> 4 Cu2+ + 2 H2O                       (no enzyme-cost entry)
+]
+
+
+def close_free_energy_sinks(model, bases: Optional[List[str]] = None) -> List[str]:
+    """Close uncosted O2-sink reactions (Parsa's audit) so flux routes through the
+    genuine enzyme-costed respiratory chain. Matches each base ID plus any GECKO
+    ``No<n>`` isozyme / ``_REV`` suffix, and sets the forward (and reverse, if the
+    reaction is reversible) bound to 0. Returns the list of closed reaction IDs.
+    Reusable/auditable: pass ``bases`` to close a different set per organism. Does
+    NOT touch catalase / SOD (real kcat)."""
+    bases = list(bases) if bases is not None else FREE_O2_SINK_REACTIONS
+    pat = re.compile(r"^(" + "|".join(re.escape(b) for b in bases) + r")(No\d+)?(_REV(No\d+)?)?$")
+    closed = []
+    for r in model.reactions:
+        if pat.match(r.id):
+            if r.upper_bound > 0.0:
+                r.upper_bound = 0.0
+            if r.lower_bound < 0.0:
+                r.lower_bound = 0.0
+            closed.append(r.id)
+    return closed
 
 
 # ---------------------------------------------------------------------------
@@ -194,7 +234,8 @@ def from_gecko(model_path: str, T0: float = 303.15,
                enzyme_params: Optional[str] = None,
                budget_override: Optional[float] = None,
                enzyme_params_use_dCpt: bool = True,
-               dcp_prior_kJ: float = -4.0) -> ProvidedModel:
+               dcp_prior_kJ: float = -4.0,
+               close_free_o2_sinks: bool = True) -> ProvidedModel:
     """Extract an enzyme cost table from a GECKO-style ecModel.
 
     Handles two encodings:
@@ -211,6 +252,14 @@ def from_gecko(model_path: str, T0: float = 303.15,
     import cobra
 
     model = _load_any(model_path)
+    # Model-quality correction (default ON): close the uncosted O2-sink reactions
+    # (Parsa's audit) so O2 routes through the real respiratory chain, not a futile cycle.
+    closed_sinks = []
+    if close_free_o2_sinks:
+        closed_sinks = close_free_energy_sinks(model)
+        if closed_sinks:
+            print(f"[from_gecko] closed {len(closed_sinks)} uncosted O2-sink reaction(s) "
+                  f"(Parsa's audit): {closed_sinks}")
     if biomass_rxn is None:
         biomass_rxn = _find_biomass(model)
 
@@ -306,7 +355,7 @@ def from_gecko(model_path: str, T0: float = 303.15,
     # independently (the magnitude levers kcat_scale/sigma/P_total do not touch it).
     _relax_base_protein_pool(ec.model, pool_id)
     return ProvidedModel(ec=ec, T0=T0, biomass_rxn=biomass_rxn,
-                         name=f"gecko:{model.id}")
+                         name=f"gecko:{model.id}", closed_free_o2_sinks=closed_sinks)
 
 
 # A GEM-compatible LB (rich) medium: amino acids, nucleosides/bases, vitamins,

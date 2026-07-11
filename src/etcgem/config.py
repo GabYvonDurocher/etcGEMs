@@ -161,10 +161,13 @@ def build_provider(cfg: Dict[str, Any]):
             budget_override=budget_override,
             enzyme_params_use_dCpt=(p.get("dcp_from", "table") != "prior"),
             dcp_prior_kJ=p.get("dcp_prior_kJ", -4.0),
+            close_free_o2_sinks=cfg.get("close_free_o2_sinks", True),
         )
         if budget_override is not None:
             print(f"[emergent] pool budget = P_total({p_total}) x f_metab({f_metab}) "
                   f"x sigma({sigma}) = {budget_override:.4g} g/gDW (not growth-calibrated)")
+        # record exactly which reactions the closure touched, for the resolved config
+        cfg["closed_free_o2_sinks"] = list(pm.closed_free_o2_sinks)
     elif kind == "csv":
         pm = providers.from_kcat_csv(
             model_path=p["model_path"], csv_path=p["csv_path"], T0=T0,
