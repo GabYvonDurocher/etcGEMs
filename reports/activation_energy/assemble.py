@@ -1,65 +1,61 @@
-"""Copy the Ea-dissection outputs into reports/activation_energy/assets/ under stable
-names, so report.qmd renders without touching the analysis outputs. Run from the project
-root:  python reports/activation_energy/assemble.py
+"""Collect the finalised cross-organism comparison assets into reports/activation_energy/
+assets/ under stable names, so report.qmd + supplementary.qmd render without touching the
+analysis outputs. Run from the project root:  python reports/activation_energy/assemble.py
 
-Mirrors reports/ecoli_tpc/assemble.py; reads only strains/eciML1515/outputs/ea_dissection/
-(produced by `etcgem ea`)."""
+This is the CROSS-ORGANISM COMPARISON PAPER (E. coli respiration vs M. maripaludis
+methanogenesis), Sharpe-Schoolfield E throughout. Sources: outputs/ea_cross_organism/ (the
+final comparison), outputs/ea_definition_audit/ (window-sensitivity + SS fits), the two
+strains' outputs/ (decompositions, Mcr sweep, methanogen calibration/audit figures). Figure 1
+(assets/fig1/) is built in place by gen_fig1_ss_posteriors.py + the fig1 assembler."""
 import os
 import shutil
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
-# SS-E re-base: the report now uses the window-independent Sharpe-Schoolfield decomposition
-# (ea_dissection_ss/); the windowed-slope version (ea_dissection/) is kept as a deprecated
-# cross-check. Same asset filenames, so only the source directory changes.
-EA = os.path.join(ROOT, "strains", "eciML1515", "outputs", "ea_dissection_ss")
+XORG = os.path.join(ROOT, "outputs", "ea_cross_organism")
+AUDIT = os.path.join(ROOT, "outputs", "ea_definition_audit")
+MM = os.path.join(ROOT, "strains", "mmaripaludis", "outputs")
 FIG_DIR = os.path.join(HERE, "assets", "figures")
 TBL_DIR = os.path.join(HERE, "assets", "tables")
 
-# (source_filename, stable_dest_name)
-FIGURES = [
-    ("ea_signed_contributions.png", "ea_signed_contributions.png"),
-    ("ea_departure.png",            "ea_departure.png"),
-    ("ea_top_enzymes_no_carrier.png", "ea_top_enzymes.png"),   # acpP-excluded (robust) version
-    ("ea_by_cog.png",               "ea_by_cog.png"),
-    ("ea_robustness.png",           "ea_robustness.png"),
+# (source_path, dest_dir, dest_name)
+COPIES = [
+    # main-paper figures
+    (os.path.join(XORG, "cross_organism_signed_contributions.png"), FIG_DIR, "cross_organism_signed_contributions.png"),
+    # supplement figures
+    (os.path.join(MM, "calibration_jones", "prior_vs_posterior_tpc.png"), FIG_DIR, "methanogen_calibration_jones.png"),
+    (os.path.join(MM, "M3_thermal", "emergent_tpc_vs_jones.png"), FIG_DIR, "methanogen_emergent_tpc.png"),
+    (os.path.join(AUDIT, "ss_fits_overlay.png"), FIG_DIR, "ss_fits_overlay.png"),
+    # main-paper tables
+    (os.path.join(XORG, "comparison_table_final.csv"), TBL_DIR, "comparison_table_final.csv"),
+    (os.path.join(AUDIT, "window_sensitivity.csv"), TBL_DIR, "window_sensitivity.csv"),
+    (os.path.join(AUDIT, "sharpe_schoolfield_fits.csv"), TBL_DIR, "sharpe_schoolfield_fits.csv"),
+    (os.path.join(MM, "ea_dissection_ss", "mcr_sweep.csv"), TBL_DIR, "mcr_sweep.csv"),
 ]
-TABLES = [
-    ("summary.json",                "ea_summary.json"),
-    ("ea_by_cog_BHI_no_carrier.csv", "ea_by_cog_BHI.csv"),
-    ("ea_by_cog_glucose_no_carrier.csv", "ea_by_cog_glucose.csv"),
-    ("ea_per_enzyme_BHI.csv",       "ea_per_enzyme_BHI.csv"),
-    ("ea_per_enzyme_glucose.csv",   "ea_per_enzyme_glucose.csv"),
-]
-
-
-def _copy(src_name, dest_dir, dest_name, copied, missing):
-    src = os.path.join(EA, src_name)
-    if not os.path.exists(src):
-        missing.append(f"{src_name}  ({src})")
-        return False
-    os.makedirs(dest_dir, exist_ok=True)
-    shutil.copy2(src, os.path.join(dest_dir, dest_name))
-    copied.append(f"{dest_name}  <- ea_dissection/{src_name}")
-    return True
 
 
 def main():
     copied, missing = [], []
-    for s, d in FIGURES:
-        _copy(s, FIG_DIR, d, copied, missing)
-    for s, d in TABLES:
-        _copy(s, TBL_DIR, d, copied, missing)
-    print("=" * 60)
+    for src, dest_dir, dest_name in COPIES:
+        if not os.path.exists(src):
+            missing.append(src)
+            continue
+        os.makedirs(dest_dir, exist_ok=True)
+        shutil.copy2(src, os.path.join(dest_dir, dest_name))
+        copied.append(f"{dest_name}  <- {os.path.relpath(src, ROOT)}")
+    # Figure 1 is built in place under assets/fig1/ (gen_fig1_ss_posteriors.py)
+    fig1 = os.path.join(HERE, "assets", "fig1", "fig1_scene_setter.png")
+    fig1_ok = os.path.exists(fig1)
+    print("=" * 64)
     print(f"COPIED ({len(copied)}):")
     for c in copied:
         print("  +", c)
+    print(f"Figure 1 (assets/fig1/fig1_scene_setter.png): {'present' if fig1_ok else 'MISSING - run gen_fig1_ss_posteriors.py'}")
     if missing:
         print(f"MISSING ({len(missing)}):")
         for m in missing:
-            print("  -", m)
-    print("=" * 60)
-    print(f"assets -> {os.path.relpath(os.path.join(HERE, 'assets'), ROOT)}")
+            print("  -", os.path.relpath(m, ROOT))
+    print("=" * 64)
 
 
 if __name__ == "__main__":

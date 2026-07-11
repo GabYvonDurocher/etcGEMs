@@ -1,318 +1,318 @@
 ---
-title: "What mechanistically sets the activation energy of *Escherichia coli* growth: a control-weighted aggregation of enzyme activation energies"
+title: "What mechanistically sets the activation energy of microbial growth: a control-weighted, allocation-modulated aggregate, and why methanogenesis exceeds respiration"
 date: last-modified
 abstract: |
-  The **activation energy** ($E_a$) of a growth thermal performance curve is widely
-  treated as a single emergent number (~0.6–1.0 eV), but it is unclear whether it
-  reflects one rate-limiting enzyme or an aggregate of the whole proteome. We quantify
-  $E_a$ with the **window-independent Sharpe–Schoolfield** $E$ (Schoolfield 1981) — the
-  naive Boltzmann–Arrhenius rising-limb *slope* is severely window-dependent (0.4–1.4 eV
-  spread across conventions), so is not a stable, comparable quantity. We use an enzyme-
-  and temperature-constrained genome-scale model of *E. coli* (GECKO eciML1515;
-  construction in the companion report) as a mechanistic testbed, and dissect the
-  organism-level $E_a$ by metabolic control analysis. The construction is
-  **non-circular**: the per-enzyme activation energies $E_{a,i}$ are *inputs* (the
-  rising-limb Arrhenius $E$ of each $k_\text{cat},i(T)$, from MMRT curvature and
-  DLTKcat-refined optima; the folding term is the high-$T$ deactivation, not the rising
-  $E$). The result is how $E_a^\text{org}$ **aggregates** them and **departs** from their
-  naive mean. On the calibrated model at a rich operating point,
-  $E_a^\text{org}=0.68$ eV (Sharpe–Schoolfield), matching the **observed** value
-  (0.56 eV, Van Derlinden) and sitting on the "universal" metabolic ~0.65 eV benchmark.
-  It is, to first order, a **control-weighted mean of the enzyme $E_{a,i}$**
-  ($0.978$ eV) — which sits **above the naive enzyme-$E_a$ mean** ($0.872$) because growth
-  control concentrates on higher-$E_a$ enzymes ($+0.11$ eV), the non-circular headline —
-  buffered strongly downward by proteome allocation ($-0.126$), negligible
-  temperature-dependent maintenance ($+0.005$), and a large nonlinear residual ($-0.178$):
-  the window-independent organism $E$ sits well below the windowed-Arrhenius enzyme mean
-  even with the growth law and maintenance switched off, because the Sharpe–Schoolfield
-  functional reads a lower $E$ from a composite curve. The same proteome-allocation lever
-  that caps the rich-medium *magnitude* in the companion report is the dominant non-kinetic
-  offset here — allocation links magnitude and $E_a$. The controlling enzymes are
-  **medium-dependent**: fatty-acid synthesis and glycolysis on rich medium, amino-acid
-  biosynthesis on glucose-minimal. All numbers are model outputs (nothing fit to the
-  curve's $E_a$); this is the first (E. coli) instalment of a planned cross-organism
-  comparison, where the methanogen $E_a$ (~1.0 eV) is now, under the same Sharpe–Schoolfield
-  convention, clearly **higher** than *E. coli*'s.
+  The **activation energy** ($E_a$) of a growth thermal performance curve is widely treated
+  as a single emergent number (~0.6–1.0 eV), yet it is unclear whether it reflects one
+  rate-limiting enzyme, an aggregate of the proteome, or a biophysical constant — and why
+  different metabolisms carry systematically different $E_a$ (methanogenesis has long been
+  observed to exceed respiration). We dissect the growth $E_a$ mechanistically in two
+  enzyme- and temperature-constrained genome-scale models with contrasting metabolic
+  strategies: aerobic respiration (*Escherichia coli*) and hydrogenotrophic methanogenesis
+  (*Methanococcus maripaludis*). We quantify $E_a$ with the **window-independent
+  Sharpe–Schoolfield $E$** (the naive Arrhenius slope is severely window-dependent), and
+  decompose it, non-circularly, into a control-weighted mean of the per-enzyme activation
+  energies (which are *inputs*) plus four named couplings. Both models **reproduce the
+  observed** $E_a$ (*E. coli* 0.68 eV vs observed 0.56, on the "universal" ~0.65 eV
+  benchmark; *M. maripaludis* 1.06 vs 1.04), and the two calibration posteriors are cleanly
+  separated. The +0.38 eV difference is **structural, not thermodynamic**: the methanogen's
+  enzymes are on average *less* temperature-sensitive (naive mean 0.51 vs 0.87 eV), but its
+  growth control concentrates (89%) on the high-$E_a$ methanogenesis backbone
+  (+0.34 vs +0.11 eV), and its **constant-ribosome-fraction allocation strategy** lacks the
+  proteome buffer that lowers *E. coli*'s $E_a$ (allocation +0.00 vs −0.13 eV). Both terms are
+  grounded in each organism's own measured allocation physiology. The "universal" metabolic
+  $E_a$ is thus better read as an organism-specific, mechanistic attribution — the same
+  control-weighted-aggregation mechanism acting on a different controlling set — and resource
+  allocation strategy emerges as a determinant of thermal sensitivity.
+format:
+  pdf:
+    toc: false
+    number-sections: true
+    keep-tex: false
+    include-in-header: header.tex
+bibliography: references.bib
+csl: nature-communications.csl
 ---
 
-# Background: is the growth activation energy one enzyme or an aggregate?
+# Introduction
 
-A **thermal performance curve (TPC)** is growth rate versus temperature: it rises from a
-cold limit, peaks at an optimum $T_\text{opt}$, and collapses at a hot limit. The
-**activation energy** $E_a$ summarises the *rising limb* — classically the
-Boltzmann–Arrhenius slope of $\ln(\text{rate})$ against $1/(k_B T)$ below the optimum, in eV,
-though because the limb is curved this slope depends on the fitting window, so we use the
-window-independent **Sharpe–Schoolfield $E$** throughout (Method). Across bacteria the
-growth $E_a$ clusters near a "universal" value (~0.6–1.0 eV, often quoted around
-0.65 eV), and this apparent constancy has been read as evidence for a shared biophysical
-constraint. Yet it is not known whether an organism's $E_a$ is set by a **single
-rate-limiting enzyme** whose own temperature response the organism inherits, or is an
-**aggregate** over many enzymes weighted by how much each controls growth.
+A **thermal performance curve (TPC)** is growth rate versus temperature: it rises from a cold
+limit, peaks at an optimum $T_\text{opt}$, and collapses at a hot limit. Its rising-limb
+**activation energy** $E_a$ (in eV) is a central quantity in metabolic and thermal-ecology
+theory. Across microbes the growth $E_a$ clusters near a "universal" value (~0.6–1.0 eV, often
+quoted around 0.65 eV), and this apparent constancy has been read as evidence for a shared
+biophysical constraint on metabolism [@gillooly2001; @delletal2011]. Yet two questions remain
+unresolved. First, **what is $E_a$ mechanistically** — the temperature response of a single
+rate-limiting enzyme that the organism inherits, an aggregate over many enzymes, or a
+thermodynamic constant? Second, why do **different metabolic processes carry different
+$E_a$** — methanogenesis, for instance, has long been observed to have a higher apparent
+activation energy than aerobic respiration? A single "universal" value cannot be the whole
+story.
 
-An enzyme- and temperature-constrained genome-scale model (etc-GEM) is the natural
-testbed: it carries a temperature-dependent turnover for *every* enzyme and predicts the
-whole TPC from enzyme-constrained flux-balance analysis. The construction, calibration and
-validation of the *E. coli* model used here — GECKO **eciML1515**, with a two-state
-unfolding thermal envelope, measured proteome-sector allocation, and a Bayesian
-calibration to a measured curve — are the subject of the **companion report**
-(`reports/ecoli_tpc/`); we do not re-derive them. Here we use that model, at its
-calibrated ("tuned") operating point, to ask **what mechanistically sets $E_a^\text{org}$**.
+An **enzyme- and temperature-constrained genome-scale model (etc-GEM)** is a natural
+mechanistic testbed: it carries a temperature-dependent turnover for *every* enzyme and
+predicts the whole TPC from enzyme-constrained flux-balance analysis, so the organism-level
+$E_a$ can be decomposed into per-enzyme contributions. Here we build two such models for
+organisms with maximally contrasting energy metabolisms — *E. coli* (a complete respiratory
+electron transport chain) and *M. maripaludis* (a hydrogenotroph whose *only*
+energy-conserving pathway is the Wolfe-cycle methanogenesis backbone, terminating in the
+famously slow methyl-coenzyme-M reductase, Mcr) — and ask, non-circularly, how each organism's
+$E_a$ emerges from and departs from its enzymes.
 
-The essential discipline is **non-circularity**. The model's per-enzyme activation
-energies $E_{a,i}$ are *inputs*, grounded in independent data. Asking "what is $E_a$" would
-be $E_a$-in-$E_a$-out. Instead we ask two questions the inputs do **not** predetermine: how
-does the organism-level $E_a^\text{org}$ **aggregate** the $E_{a,i}$, and how does it
-**depart** from their naive average? The departure is created by things absent from the
-input distribution — the concentration of growth control in a few enzymes, the
-temperature-dependent maintenance cost, and the growth-law proteome reallocation.
+Two methodological points are essential. (i) The naive Boltzmann–Arrhenius *slope* used to read
+$E_a$ is **window-dependent** because the rising limb is curved; we therefore use the
+window-independent Sharpe–Schoolfield $E$ (@sec-methods). (ii) The per-enzyme activation
+energies are model *inputs* (grounded in independent kinetics/stability data), so we do not
+ask "what is $E_a$" (that would be $E_a$-in-$E_a$-out) but how the organism-level value
+**aggregates and departs** from the naive enzyme mean.
 
-# Method: a control-weighted decomposition of $E_a^\text{org}$
+# Methods {#sec-methods}
 
-By the chain rule (metabolic control analysis), the Arrhenius slope of growth is, to first
-order, a sum of enzyme-kinetic and non-kinetic terms:
+## $E_a$ as the window-independent Sharpe–Schoolfield $E$
+
+The rising-limb Boltzmann–Arrhenius slope of $\ln(\text{rate})$ vs $1/(k_B T)$ is not a stable
+quantity: because enzyme kinetics are not log-linear in $1/T$, the slope depends on the fitting
+window. Recomputing it for our TPCs under five window conventions gives a spread of
+**0.42–1.41 eV per curve** — larger than the effects we attribute, and enough to reverse the
+cross-organism ordering (@sec-window). We therefore quantify $E_a$ as the
+**Sharpe–Schoolfield $E$** [@schoolfield1981], fit to the whole curve with a fixed reference
+temperature ($T_\text{ref}=20$ °C):
 
 $$
-E_a^\text{org} \;\approx\; \underbrace{\sum_i C_i\,E_{a,i}}_{\text{enzyme-kinetic}}
-\;+\; \underbrace{\Delta_\text{alloc} + \Delta_\text{maint} + \text{residual}}_{\text{non-kinetic}},
-$$ {#eq-mca}
+\text{rate}(T) = r_{T_\text{ref}}\;
+  \frac{\exp\!\big[(E/k_B)(1/T_\text{ref}-1/T)\big]}
+       {1 + \exp\!\big[(E_h/k_B)(1/T_h-1/T)\big]},
+$$ {#eq-ss}
 
-with the ingredients defined **identically to the companion model** (`ea_dissection.py`):
+where $E$ is the rising-limb activation energy (read from the whole shape, not a window),
+and $E_h,T_h$ describe the high-$T$ deactivation. $E$ is window-independent, field-standard
+(rTPC), and — the decisive test — makes model and observed curves comparable (@sec-valid). The
+windowed slope is retained only as a deprecated cross-check.
 
-- **$E_a^\text{org}$** is the **window-independent Sharpe–Schoolfield $E$** (Schoolfield
-  1981; the rTPC `sharpeschoolhigh_1981` form), fit to the whole growth TPC:
-  $\text{rate}(T)=r_{T_\text{ref}}\,e^{(E/k_B)(1/T_\text{ref}-1/T)}\,/\,[1+e^{(E_h/k_B)(1/T_h-1/T)}]$,
-  with a fixed $T_\text{ref}=20$ °C. $E$ is the rising-limb activation energy read from the
-  full shape rather than a chosen window; $E_h,T_h$ describe the high-$T$ deactivation. This
-  **replaces** the naive Boltzmann–Arrhenius *slope*, which is severely window-dependent
-  (see the Methods note); the slope is retained only as a deprecated cross-check.
-- **$E_{a,i}$** (the *inputs*): the **rising-limb Arrhenius $E$ of each enzyme's turnover
-  $\widehat{k}_{\text{cat},i}(T)$ alone** (MMRT curvature refined by DLTKcat). The folded
-  fraction $f_{N,i}(T)$ (a two-state native$\leftrightarrow$unfolded term keyed on $T_m$) is
-  the enzyme's *deactivation* side and maps to the organism $E_h/T_h$, **not** the rising
-  $E$; its contribution to the rising-limb $E$ is negligible ($-0.008$ eV control-weighted),
-  so it cleanly leaves the $E$ decomposition.
-- **$C_i=\partial\ln\mu/\partial\ln k_{\text{cat},i}$** is enzyme $i$'s **growth flux
-  control coefficient**, computed by a small symmetric $k_{\text{cat},i}$ perturbation and
-  re-solve (reusing the companion per-enzyme control harness). The **summation theorem**
-  requires $\sum_i C_i\approx 1$ over the controlling set.
-- The **non-kinetic terms** are each isolated by a temporary, in-analysis switch-off
-  (never written back to the model): $\Delta_\text{maint}$ by flattening the
-  temperature-dependent maintenance, $\Delta_\text{alloc}$ by disabling the growth-law
-  proteome reallocation.
+## The two etc-GEMs
 
-So $E_a^\text{org}$ is, to first order, a **control-weighted mean of the enzyme
-$E_{a,i}$**, offset by the non-kinetic couplings. The analysis quantifies (a) whether the
-identity closes, (b) how the control-weighted mean departs from the unweighted mean, and
-(c) how much the non-kinetic terms shift it. The substrate is the **tuned** model (the
-calibrated posterior) at the rich operating point, with the model's uncosted O2-sink
-reactions closed (companion correction) so control is attributed to genuine respiration;
-a glucose-minimal operating point is used for the medium comparison.
+**E. coli (respiration).** GECKO **eciML1515** with a two-state unfolding thermal envelope,
+measured proteome-sector allocation (a Scott-type coupled growth law), temperature-dependent
+maintenance, and a Bayesian calibration to a measured rich-medium (BHI) TPC. Its construction,
+calibration and validation are the subject of a companion report (`reports/ecoli_tpc/`) and are
+not re-derived here.
 
-> **Why Sharpe–Schoolfield $E$, not the Arrhenius slope.** The naive rising-limb slope depends
-> on the fitting window because the limb is curved (enzyme kinetics are not log-linear in
-> $1/T$): recomputed under five window conventions, the slope $E_a$ of these very curves spans
-> **0.42–1.41 eV per curve**, larger than the effects we attribute. It also made the
-> cross-organism comparison ambiguous (the methanogen looked comparable to *E. coli* under one
-> window, higher under another). The Sharpe–Schoolfield $E$ is read from the whole shape, is
-> window-independent, is the field standard (rTPC), and — the decisive test — makes the model
-> **comparable to the observed data** (below). We therefore standardise on it and apply it
-> identically to model and observed curves and to both organisms; the windowed slope is a
-> deprecated cross-check (its value is reported once, for continuity).
+**M. maripaludis (methanogenesis).** A parallel etc-GEM built for this study from the iMR539
+reconstruction [@richards2016]: curated into a carbon-honest H2/CO2 autotroph; an sMOMENT
+enzyme-cost layer with per-reaction $k_\text{cat}$ from measured core kinetics
+[@milton2018 for the electron-bifurcation complexes] plus DLTKcat sequence predictions and
+literature/BRENDA overrides for the rest; a two-state thermal envelope; a
+temperature-dependent maintenance NGAM($T$) anchored on the **measured** M. maripaludis
+maintenance energy [@goyal2015]; and a proteome-sector layer set from the organism's **own**
+allocation physiology — a *constant* ribosomal proteome fraction across growth rate
+[@muller2021], i.e. a flat growth law, unlike the bacterial scaling law. The model was
+Bayesian-calibrated to the digitised Jones 1983 growth TPC [@jones1983]. Full construction,
+parameterisation and honest caveats are in the Supplement.
+
+## The control-weighted decomposition (non-circular)
+
+By metabolic control analysis the organism-level $E_a$ is, to first order, a control-weighted
+aggregate of the enzyme activation energies, offset by non-kinetic couplings. We compute a
+decomposition with **four named terms** relative to the naive (unweighted) mean of the
+per-enzyme rising-limb $E_i$:
+
+$$
+E_a^\text{org} = \underbrace{\overline{E_i}}_{\text{naive mean}}
+  + \underbrace{(\textstyle\sum_i \hat C_i E_i - \overline{E_i})}_{\text{control weighting}}
+  + \underbrace{\Delta_\text{alloc}}_{\text{allocation}}
+  + \underbrace{\Delta_\text{maint}}_{\text{maintenance}}
+  + \underbrace{\Delta_\text{agg}}_{\text{aggregation}} ,
+$$ {#eq-decomp}
+
+with the ingredients defined **identically for both organisms** and non-circularly:
+
+- **$E_i$ (inputs):** each enzyme's rising-limb Arrhenius $E$ of its turnover
+  $k_\text{cat},i(T)$ *alone* (MMRT curvature; sequence-predicted optima). The folded-fraction
+  term is the enzyme's high-$T$ *deactivation* (it maps to the organism $E_h/T_h$), and its
+  contribution to the rising $E$ is negligible ($-0.008$ eV control-weighted), so it cleanly
+  leaves the $E$ decomposition.
+- **$\hat C_i=\partial\ln\mu/\partial\ln k_\text{cat},i$:** the growth flux-control
+  coefficient (a small symmetric perturbation + re-solve), normalised over the controlling set.
+- **Allocation** is isolated by disabling the growth-law proteome coupling; **maintenance** by
+  flattening NGAM($T$); **aggregation** is computed directly as the Sharpe–Schoolfield $E$ of
+  the kinetic-backbone aggregate curve minus the control-weighted per-enzyme $E$ mean (the
+  heterogeneity/flattening term), not left as a residual.
+
+Both organisms are analysed on the **calibrated** ("tuned") model at their operating point
+(E. coli rich BHI; methanogen H2/CO2), each carrying a proteome-sector/growth-law layer, with
+the model's uncosted energy side-reactions closed so control is attributed to genuine
+metabolism. The per-enzyme $E_i$ are inputs; the results are the aggregation and the departure.
 
 # Results
 
-## The decomposition closes, and $E_a^\text{org}$ is a control-weighted enzyme mean
+## Two calibrated TPCs, two separated $E_a$ posteriors {#sec-fig1}
 
-At the rich operating point the calibrated model gives a **Sharpe–Schoolfield
-$E_a^\text{org}=0.68$ eV** (fit $R^2=0.93$), sitting right on the "universal" metabolic
-~0.65 eV benchmark. Crucially, this **matches the observed** Van Derlinden curve, whose own
-Sharpe–Schoolfield $E$ is **0.56 eV** — a genuine model–data agreement on the activation
-energy that the window-dependent slope obscured. (For reference the *emergent*, nothing-fit
-model gives 0.50 eV; the deprecated windowed slope of this same tuned curve reads 0.91 eV,
-illustrating the window inflation. This report concerns the *mechanism* of the tuned value.)
+@fig-scene sets the scene. Both etc-GEMs, Bayesian-calibrated to their organism's measured
+growth TPC, reproduce the data (posterior-predictive median and 90% band through the
+Van Derlinden and Jones 1983 points), and the two curves have visibly different rising-limb
+steepness. Propagating each calibration posterior through the Sharpe–Schoolfield fitter
+(@eq-ss) yields the **posterior distribution of $E_a$** for each organism (@fig-scene, right):
+the two are **cleanly separated** — *M. maripaludis* ~1.0 eV versus *E. coli* ~0.6 eV — so the
+$E_a$ difference is robust to Bayesian parameter uncertainty, not an artefact of a point
+estimate. The remainder of the paper explains *why* the two differ.
 
-The MCA decomposition of @eq-mca (@fig-waterfall, @tbl-decomp): the enzyme-kinetic
-backbone — the **control-weighted mean** $E_{a,i}$ — is 0.978 eV; proteome allocation
-lowers it by 0.126 eV, temperature-dependent maintenance is negligible ($+0.005$), and a
-**large nonlinear residual** ($-0.178$) closes to the organism value. That residual is
-itself informative: even with the growth law and maintenance switched off, the
-Sharpe–Schoolfield $E$ of the composite growth curve (0.80 eV) sits well below the
-control-weighted mean of the individual enzymes' *windowed* kinetic $E$ (0.98 eV) — the
-window-independent functional reads a lower $E$ from an aggregate curve than from its parts.
-So the organism-level $E_a$ is **an aggregate of the enzyme activation energies, not the
-signature of a single rate-limiting step**, buffered downward both by the cell's allocation
-physiology and by this aggregation nonlinearity.
+![**Two organisms, two activation energies.** Left/centre: the calibrated (Bayesian) growth TPCs — *E. coli* respiration (rich BHI) and *M. maripaludis* methanogenesis (H₂/CO₂) — posterior-predictive median + 90% band and the observed data (Van Derlinden; Jones 1983). Right: the Sharpe–Schoolfield $E_a$ posteriors, propagated from the calibration draws, are separated (methanogen ~1.0 vs *E. coli* ~0.6 eV).](assets/fig1/fig1_scene_setter.png){#fig-scene fig-pos="H" width=100%}
 
-![**What moves the organism $E_a$ from the naive enzyme mean (rich medium, tuned model; Sharpe–Schoolfield $E$).** Each decomposition term as a signed deviation from the unweighted enzyme-$E_a$ mean (0.872 eV): control weighting raises it ($+0.106$, control falls on higher-$E_a$ enzymes), growth-law allocation lowers it ($-0.126$), temperature-dependent maintenance is negligible ($+0.005$), and a large nonlinear residual ($-0.178$, the Sharpe–Schoolfield-vs-windowed aggregation gap) closes to the organism $E_a^\text{org}=0.68$ eV.](assets/figures/ea_signed_contributions.png){#fig-waterfall fig-pos="H" width=85%}
+## The activation-energy metric must be window-independent {#sec-window}
+
+The naive Boltzmann–Arrhenius slope is not a usable cross-organism quantity. Recomputed under
+five window conventions, the slope $E_a$ of these very curves spans **0.42–1.41 eV per curve**
+(@tbl-window). Under one window the methanogen and *E. coli* look comparable (~0.65 eV each);
+under another the methanogen is far higher — the conclusion flips with an arbitrary analysis
+choice. The Sharpe–Schoolfield $E$ removes this: it is read from the whole shape and is stable.
+All $E_a$ values below are Sharpe–Schoolfield $E$.
 
 ```{python}
-#| label: tbl-decomp
-#| tbl-cap: "Decomposition of the departure of E_a^org from the naive enzyme-E_a mean (tuned model, rich medium), matching the signed-contribution figure. Starting from the unweighted enzyme mean, control weighting raises it to the control-weighted mean, and allocation, maintenance and a small nonlinear residual close it to the organism E_a. Values in eV; signs as in the figure."
-#| output: asis
-import json, pandas as pd
-h = json.load(open("assets/tables/ea_summary.json"))["headline_BHI"]
-D = h["decomposition_eV"]; dep = h["departure_from_naive_mean_eV"]
-base = float(dep["unweighted_mean_Ea_i"]); cw = float(dep["control_weighted_mean_Ea_i"])
-ctrl = cw - base
-alloc = float(D["allocation_growth_law"]); maint = float(D["maintenance_NGAM"])
-resid = float(D["residual_nonlinear"]); Ea = float(D["actual_Ea_org"])
-chk = base + ctrl + alloc + maint + resid
-assert abs(chk - Ea) < 1e-3, f"decomposition does not close: {chk} vs {Ea}"
-def sgn(v):
-    return f"{v:+.3f}".replace("-", "−")
-def num(v):
-    return f"{v:.3f}".replace("-", "−")
-rows = [("naive (unweighted) enzyme mean", num(base)),
-        ("+ control weighting", sgn(ctrl)),
-        ("= control-weighted mean", num(cw)),
-        ("allocation (growth law)", sgn(alloc)),
-        ("maintenance NGAM(T)", sgn(maint)),
-        ("residual (nonlinear aggregation)", sgn(resid)),
-        ("**= organism $E_a$ (Sharpe–Schoolfield)**", "**" + num(Ea) + "**")]
-print(pd.DataFrame(rows, columns=["term", "eV"]).to_markdown(index=False))
-```
-
-## The departure from the naive mean — control on higher-$E_a$ enzymes
-
-The non-circular result is the **departure** of the enzyme-kinetic backbone from the naive
-average of the input $E_{a,i}$ (@fig-departure). The unweighted mean over the flux-carrying
-enzymes is 0.872 eV and the proteome-mass-weighted mean 0.897 eV, but the **control-weighted
-mean is 0.978 eV** — the enzymes that actually control growth have a *higher* activation
-energy than the average enzyme, lifting the effective enzyme-$E_a$ by **+0.11 eV**. That
-concentration of control on higher-$E_a$ enzymes is a property of the enzyme *bottlenecks*,
-not the enzyme *pool*, and is unchanged by the switch to the window-independent convention
-(the per-enzyme $E_i$ are the same kinetic quantity). It is the *aggregation* into the
-organism curve — the growth-law allocation plus the Sharpe–Schoolfield-vs-windowed
-nonlinearity — that then pulls the organism $E_a$ (0.68) back *below* this control-weighted
-enzyme mean.
-
-![**Departure from the naive enzyme-$E_a$ mean.** The unweighted (0.872) and proteome-mass-weighted (0.897) means of the input $E_{a,i}$ versus the control-weighted mean (0.978): growth control falls on higher-$E_a$ enzymes, raising the effective enzyme activation energy by ~0.11 eV.](assets/figures/ea_departure.png){#fig-departure fig-pos="H" width=65%}
-
-## Summation-theorem validation, and the allocation link
-
-The control structure is validated by the **summation theorem**. On the full tuned model
-$\sum_i C_i = 0.56$ — *not* unity — because the growth law places a temperature-independent
-biomass term inside the binding metabolic-enzyme budget, so ~0.44 of the marginal growth
-control sits on the proteome **allocation** rather than on enzyme turnovers (the in-vivo
-saturation $\sigma$ has a growth elasticity ≈ 1.0). With the growth law **disabled**,
-$\sum_i C_i \to 1.02$: the control returns to the enzyme turnovers. Under the **windowed
-slope** this made the identity close directly — the raw $\sum_i C_i E_{a,i}\to 0.96\approx
-E_a^\text{org}(\text{no GL, slope})=1.02$. Under the window-independent **Sharpe–Schoolfield**
-$E$ it does *not* close so tidily: the growth-law-off organism $E$ is 0.80 eV, still ~0.18
-below the control-weighted enzyme mean (0.98). That gap is the **aggregation nonlinearity** —
-the Sharpe–Schoolfield $E$ of a composite curve is intrinsically lower than the control-mean
-of its components' windowed slopes — and it is the honest residual of moving to a
-window-independent organism $E$. On glucose-minimal, where the growth law barely binds
-($\sum_i C_i=0.96$) and the curve is more Arrhenius-like, the SS-E decomposition *does* close
-cleanly (residual $+0.001$; @sec-pathways), confirming the residual is the rich-medium /
-sharp-peak aggregation term, not a model defect.
-
-This is the analysis's **through-line to the companion report**: the *same* proteome-budget
-lever ($\sigma$, the in-vivo enzyme saturation) that had to rail toward its physical ceiling
-to reach the rich-medium growth *magnitude* is here the largest non-kinetic offset to $E_a$
-($-0.126$ eV) and the holder of ~0.44 of growth control. **Proteome allocation links the
-magnitude and the temperature sensitivity of growth** — the same physiological constraint
-governs both.
-
-## Which pathways set $E_a^\text{org}$ — and the medium dependence {#sec-pathways}
-
-Ranking enzymes by their contribution $C_i\cdot E_{a,i}$ (@fig-topenz, @tbl-cog), the rich-
-medium $E_a$ is set by **fatty-acid synthesis** (fabB, fadA) and **glycolysis** (gapA,
-enolase). The shared acyl-carrier protein acpP (P0A6A8) is a genuine contributor (14.5 % of
-the enzyme-kinetic term) but a hub that participates in 30 reactions; excluding it, the
-*genuine* catalytic enzymes still carry the lipid signal (fabB/fadA contribute 0.198 of the
-0.28 lipid-category total), and **lipid metabolism still leads the by-category ranking**
-(0.198 vs glycolysis 0.152). This attribution is **unchanged** by the switch to the
-Sharpe–Schoolfield convention (the per-enzyme $C_i\cdot E_{a,i}$ use the same control
-coefficients and the same kinetic $E_i$, the folding term being negligible). The figures and
-tables here use that acpP-excluded, robust attribution.
-
-The most striking result is **medium dependence**, and it is where the window-independent
-$E$ makes the decomposition *cleaner*. On glucose-minimal the organism $E_a^\text{org}=0.89$
-eV (vs 0.68 on rich BHI) and the SS-E decomposition **closes almost exactly** (residual
-$+0.001$): the controlling set shifts entirely to **amino-acid biosynthesis** —
-argininosuccinate synthase (argG) is the single largest contributor, with threonine synthase
-and glutamine synthetase — and lipid falls to second; only 6 of the top 15 controlling
-enzymes are shared with the rich medium. The mechanistic basis of the growth $E_a$ is thus
-**set by whatever the cell is actively synthesising**: fatty acids and central carbon on a
-rich medium where building blocks are supplied, amino-acid biosynthesis on a minimal medium
-where they must be made. A single "universal" $E_a$ can sit atop quite different controlling
-machinery.
-
-![**Top enzymes setting $E_a^\text{org}$ (rich medium; acyl-carrier hub excluded).** Contribution $C_i\cdot E_{a,i}$ per enzyme — fatty-acid synthesis (fabB, fadA) and glycolysis (gapA, enolase) dominate the robust attribution.](assets/figures/ea_top_enzymes.png){#fig-topenz fig-pos="H" width=78%}
-
-```{python}
-#| label: tbl-cog
-#| tbl-cap: "E_a^org contribution by functional (COG) category, acyl-carrier hub excluded. Rich medium (BHI) vs glucose-minimal: the controlling machinery is medium-dependent — lipid/glycolysis on rich, amino-acid biosynthesis on minimal."
+#| label: tbl-window
+#| tbl-cap: "Window-sensitivity of the naive Arrhenius-slope Ea (eV) for the model + observed curves, under five window conventions, versus the window-independent Sharpe-Schoolfield E. The slope spread per curve (0.42-1.41 eV) exceeds the cross-organism differences; SS-E is stable and makes model and observed agree."
 #| output: asis
 import pandas as pd
-b = pd.read_csv("assets/tables/ea_by_cog_BHI.csv"); g = pd.read_csv("assets/tables/ea_by_cog_glucose.csv")
-b = b.rename(columns={"contrib": "BHI (eV)"}).set_index("cog_category")["BHI (eV)"]
-g = g.rename(columns={"contrib": "glucose (eV)"}).set_index("cog_category")["glucose (eV)"]
-t = pd.concat([b, g], axis=1).fillna(0.0).round(3)
-t = t.reindex(t["BHI (eV)"].abs().add(t["glucose (eV)"].abs()).sort_values(ascending=False).index).head(6)
-print(t.to_markdown())
+w = pd.read_csv("assets/tables/window_sensitivity.csv").set_index("curve")
+ss = pd.read_csv("assets/tables/sharpe_schoolfield_fits.csv").set_index("curve")
+rows = []
+label = {"ecoli_tuned":"E. coli model","ecoli_observed_VdL":"E. coli observed",
+         "methan_calibrated":"methanogen model","methan_observed_Jones":"methanogen observed"}
+for k,lab in label.items():
+    rows.append({"curve":lab, "slope 10-95%":round(float(w.loc[k,"rel_10_95"]),2),
+                 "slope range":f'{w.loc[k,["rel_10_95","full_below","rel_10_80","rel_30_90","rel_10_50"]].min():.2f}–{w.loc[k,["rel_10_95","full_below","rel_10_80","rel_30_90","rel_10_50"]].max():.2f}',
+                 "Sharpe–Schoolfield E":round(float(ss.loc[k,"SS_E_eV"]),2)})
+print(pd.DataFrame(rows).to_markdown(index=False))
 ```
 
-## Robustness, and a discarded artefact
+## Validation: both models reproduce the observed $E_a$ {#sec-valid}
 
-The Sharpe–Schoolfield $E_a^\text{org}$ is **robust** to moderate changes in the enzyme-$E_a$
-heterogeneity: scaling the spread of the per-enzyme kinetics by ×0.5–1.0 leaves it stable at
-0.68–0.69 eV (@fig-robust). The control-weighting **mechanism** is also structural rather than
-a fit artefact: the top-15 controlling enzymes overlap 7/15 between the emergent (nothing-fit)
-and tuned models. We explicitly **do not** interpret the fully homogenised value (all optima
-equal → 0.97 eV) or the ×1.25 over-spread value (0.90 eV): a diagnostic showed these are
-window/aggregation artefacts — homogenising sharpens the composite peak and shifts its shape
-so the Sharpe–Schoolfield fit reads a higher $E$ (see the diagnostic note). The moderate-spread
-result is the honest robustness statement.
+A genuine, a-priori-style test of the framework is that the *model* Sharpe–Schoolfield $E$
+matches the *observed* one — which the windowed slope obscured. It does, for **both**
+organisms: *E. coli* model **0.68** vs observed **0.56** eV (and *E. coli* sits on the
+"universal" metabolic ~0.65 eV benchmark), and *M. maripaludis* model **1.06** vs observed
+**1.04** eV (@tbl-comp). The organism $E_a$ is therefore a property the models predict, not a
+fitted output — and the methanogen genuinely sits ~1.6× above respiration.
 
-![**Robustness of $E_a^\text{org}$ to enzyme-$E_a$ heterogeneity (Sharpe–Schoolfield $E$).** Over a moderate range (×0.5–1.0 of the actual spread) $E_a^\text{org}$ is stable at ~0.68–0.69 eV; the dashed full-homogenisation value is a peak-sharpening artefact and is not interpreted (Discussion).](assets/figures/ea_robustness.png){#fig-robust fig-pos="H" width=62%}
+## The difference is structural: control weighting + allocation, not enzyme thermodynamics
 
-# Interpretation
+@fig-decomp and @tbl-comp give the symmetric decomposition (@eq-decomp), both organisms on the
+same four named terms plus the naive enzyme mean. The result is counter-intuitive and is the
+central finding:
 
-The organism-level activation energy of *E. coli* growth is, mechanistically, a
-**control-weighted average of per-enzyme activation energies** — an aggregate, not the
-fingerprint of one rate-limiting enzyme. Three features shape it. First, it sits *above* the
-naive enzyme-$E_a$ mean because growth **control concentrates on a few, higher-$E_a$
-enzymes**; the organism inherits the temperature sensitivity of its bottlenecks, not of its
-average protein. Second, it is **buffered downward** by proteome physiology — the growth-law
-reallocation of proteome toward ribosomes at higher growth, and temperature-dependent
-maintenance — which together remove ~0.12 eV; the same in-vivo-saturation lever that limits
-the growth *magnitude* is the dominant $E_a$ offset, so **allocation ties the height and the
-temperature sensitivity of the curve together**. Third, the controlling machinery is
-**medium-dependent**: the $E_a$ reflects the temperature sensitivity of whatever biosynthesis
-the cell is actively running, so a common ~0.65 eV can rest on lipid/glycolytic control in
-rich conditions and amino-acid biosynthesis in minimal ones.
+- **The methanogen's enzymes are, on average, *less* temperature-sensitive** — its naive
+  (unweighted) enzyme-$E$ mean is **0.51 eV**, well below *E. coli*'s **0.87**. Intrinsic
+  enzyme thermodynamics would predict the *opposite* ordering.
+- **Growth control concentrates on the high-$E_a$ methanogenesis backbone.** In *M.
+  maripaludis*, energy metabolism *is* growth: the Wolfe-cycle backbone
+  (Fwd/Mtr/Mcr/Mer/Hdr and the hydrogenases) carries **89% of the control term** and is high-$E$
+  (backbone $E$ 0.77 vs proteome mean 0.51), lifting the effective enzyme $E_a$ by **+0.34 eV**.
+  *E. coli*'s control is spread over broad biosynthesis, so its control-weighting adds only
+  **+0.11 eV**.
+- **The methanogen lacks *E. coli*'s allocation buffer.** *E. coli*'s growth-law proteome
+  reallocation removes **−0.13 eV**; *M. maripaludis*, which maintains a **constant ribosomal
+  fraction** and full methanogenesis capacity across growth rate [@muller2021], has a
+  measured allocation term of **+0.00 eV**. Both terms are measured on each organism's own
+  sectored model, so the comparison is symmetric.
 
-This reframes the "universal" metabolic $E_a$. If the value is an aggregate set by the
-*active* biosynthetic bottlenecks and buffered by allocation, its apparent constancy need
-not imply a single conserved enzyme or a fixed biophysical constant — it can emerge from
-different controlling enzymes in different conditions and organisms, provided those
-bottlenecks share a temperature sensitivity near the benchmark. Two methodological points
-strengthen the reading. First, measuring $E_a$ as the **window-independent Sharpe–Schoolfield
-$E$** is essential: the naive Arrhenius slope of these curves spans 0.4–1.4 eV across windows,
-and only under $E$ does the model **agree with the observed** value (0.68 vs 0.56 eV) and the
-cross-organism ordering become stable. Second, the caveats are those of the model: the
-per-enzyme $E_{a,i}$ are grounded *inputs* (MMRT + DLTKcat + a melting proteome), so the
+Together, control-weighting (+0.24 eV of difference) and the allocation asymmetry (+0.13 eV)
+account for essentially the whole +0.38 eV gap. The remaining two terms nearly cancel — the
+methanogen's lower average enzyme $E$ (−0.36) is offset by a larger **aggregation** term
+(+0.39): its narrow, synchronised control on a few backbone enzymes steepens the composite
+curve where *E. coli*'s broad control flattens it. The **robust bottom line rests on control +
+allocation**, not on the aggregation term (the largest single term but the most
+definition-sensitive; @sec-caveats).
+
+![**What moves the organism $E_a$ from the naive enzyme mean (Sharpe–Schoolfield $E$; both organisms sectored).** Each named term as a signed deviation from the naive enzyme-$E$ mean, sign-coloured. The control-weighting (+0.11 vs +0.34) and allocation (−0.13 vs +0.00) differences — not enzyme thermodynamics — drive the higher methanogen $E_a$.](assets/figures/cross_organism_signed_contributions.png){#fig-decomp fig-pos="H" width=100%}
+
+```{python}
+#| label: tbl-comp
+#| tbl-cap: "Symmetric cross-organism SS-E decomposition (both organisms sectored). The organism Ea difference (+0.38 eV) is set by control-weighting (methanogen control 89% on the high-E backbone) and the allocation asymmetry (E. coli Scott buffer -0.13 vs methanogen flat +0.00, Muller 2021), not by a higher intrinsic enzyme Ea (naive mean 0.87 vs 0.51). Both models match observed."
+#| output: asis
+import pandas as pd
+t = pd.read_csv("assets/tables/comparison_table_final.csv")
+print(t.to_markdown(index=False))
+```
+
+## Robustness to the Mcr rate {#sec-mcr}
+
+Mcr's mesophilic turnover is uncertain (a 3–294 s⁻¹ literature range). Sweeping it
+(@tbl-mcr): the organism $E_a$ stays **1.01–1.27 eV across the whole range, always well above
+*E. coli*'s 0.68**, and the methanogenesis backbone carries **83–103%** of the control term
+throughout. The ordering and the backbone-control finding are therefore robust to the Mcr
+uncertainty. What *does* shift is the single leading enzyme: **Mcr** dominates when it is slow
+(low $k_\text{cat}$ → expensive → high control), **formylmethanofuran dehydrogenase (Fwd)**
+leads when Mcr is fast, and they co-lead at the calibrated value. So the classic "Mcr sets the
+methanogen $E_a$" hypothesis holds specifically when Mcr is slow; the robust statement is that
+the **backbone** (not one enzyme) carries it.
+
+```{python}
+#| label: tbl-mcr
+#| tbl-cap: "Mcr-kcat sensitivity (3-294/s). Organism SS-E and the backbone fraction of the control term stay well above E. coli (0.68) and near-total across the range; the leading enzyme shifts Mcr<->Fwd."
+#| output: asis
+import pandas as pd
+m = pd.read_csv("assets/tables/mcr_sweep.csv")
+m2 = m[["Mcr_kcat","SS_E","backbone_frac_of_control","top3"]].copy()
+m2.columns = ["Mcr kcat (1/s)","organism SS-E (eV)","backbone frac. of control","leading enzymes"]
+print(m2.to_markdown(index=False))
+```
+
+# Discussion
+
+The organism-level activation energy of microbial growth is, mechanistically, a
+**control-weighted, allocation-modulated aggregate** of per-enzyme activation energies — not
+the fingerprint of one rate-limiting enzyme, and not a fixed thermodynamic constant. The two
+organisms make the point sharply because they sit at opposite ends of two axes. *E. coli*
+spreads growth control across a broad biosynthetic proteome and buffers its $E_a$ down through
+a Scott-type growth-law reallocation; its $E_a$ (~0.65 eV) is a broadly-controlled,
+allocation-buffered aggregate that lands on the "universal" benchmark. *M. maripaludis*
+concentrates control on a single narrow energy backbone and, by its constant-ribosome
+allocation strategy, applies no such buffer; its $E_a$ (~1.0 eV) is a narrowly-controlled,
+unbuffered energy-backbone value.
+
+This reframes the "universal" metabolic $E_a$: its apparent constancy need not imply a shared
+enzyme or biophysical constant. The same control-weighted-aggregation mechanism, acting on a
+**different controlling set** and modulated by a **different allocation strategy**, produces
+different organism $E_a$. Two implications follow. First, **why methanogenesis $E_a$ >
+respiration** has a concrete mechanistic answer here: not because methanogen enzymes are more
+temperature-sensitive (they are less), but because the process that controls their growth is a
+single high-$E$ energy backbone that is not allocation-buffered. Second, and more generally,
+**resource-allocation strategy is a determinant of thermal sensitivity** — a link between
+proteome economics and the temperature dependence of growth that, to our knowledge, has not
+been drawn, and that is testable as allocation strategies vary across the tree of life.
+
+## Caveats {#sec-caveats}
+
+We are deliberately measured. (i) The **aggregation term** is the largest single term and the
+most definition-sensitive (it carries the Sharpe–Schoolfield-vs-windowed basis difference); the
+bottom line rests on control-weighting + allocation, which alone account for the +0.38 eV gap.
+(ii) The **Mcr turnover** (3–294 s⁻¹) is the dominant single-parameter uncertainty; the
+ordering and backbone finding are robust across it, but the identity of the single leading
+enzyme is not — pinning the mesophilic-Mcr $k_\text{cat}$ is the key remaining measurement.
+(iii) The per-enzyme $E_i$ are grounded model *inputs* (MMRT + sequence-predicted optima +
+melting proteome, with a DLTKcat archaeal-prediction correction for the methanogen), so the
 result is an attribution given those inputs, not an ab-initio prediction of the $E_a$ value.
+(iv) This is **two organisms**; the mechanism is a hypothesis to be tested more broadly.
 
-# Next steps: a cross-organism test
+# Next steps
 
-The sharpest test of "the $E_a$ is set by the active, rate-controlling biosynthesis" is
-**across metabolisms**, and the first cross-organism data point is now in hand. A parallel
-etc-GEM for a **hydrogenotrophic methanogen** (*Methanococcus maripaludis*; see
-`docs/METHANOGEN_ETCGEM_PLAN.md`), calibrated to its measured growth TPC (Jones 1983), gives a
-**Sharpe–Schoolfield $E_a\approx1.0$ eV** — matching its observed curve (1.04 eV) and, under
-this single window-independent convention, **clearly higher than *E. coli*'s ~0.6 eV**.
-(Notably, the *windowed slope* had made the two look comparable, ~0.65 each; the ordering only
-emerges once the window dependence is removed — the motivation for this report's convention.)
-Methanogenesis is the *only* energy-generating pathway there and growth is tightly coupled to
-CH$_4$, so the growth-$E_a$ control is expected to fall on the methanogenesis backbone, with
-**methyl-coenzyme-M reductase (Mcr)**, the famously slow terminal step, a candidate
-higher-$E_a$ controller — the dissection of that model (on the *same* Sharpe–Schoolfield
-footing) is the immediate next step. A within-metabolism, across-thermal-niche test (a
-thermophilic *Methanococcales* relative such as *Methanocaldococcus jannaschii*) and an
-across-metabolism control (a **cyanobacterium**, phototrophy) complete the design. If the same
-control-weighted-aggregation mechanism holds — with a *different* controlling enzyme set for
-each metabolism — the framework will have turned a phenomenological "universal" $E_a$ into a
-mechanistic, organism-specific attribution. This report is the first (E. coli) act.
+The sharpest test of "the $E_a$ is set by the active, rate-controlling metabolism, modulated by
+allocation strategy" is a **third contrasting strategy**: a **cyanobacterium** (oxygenic
+photosynthesis), whose light-driven energy metabolism and distinct proteome allocation should,
+under the same framework, predict its own controlling set and $E_a$. A within-metabolism,
+across-thermal-niche test (a thermophilic *Methanococcales* relative) would further separate
+kinetic from stability effects. Extending the methanogen model's carbon-use-efficiency and
+respiration outputs is a parallel direction.
+
+::: {.content-visible when-format="pdf"}
+\clearpage
+:::
+
+# Data and model availability
+
+All figures and tables are generated from the finalised analysis assets
+(`outputs/ea_cross_organism/`, the two `ea_dissection_ss/` decompositions, the
+window-sensitivity audit, and the Mcr sweep). The *M. maripaludis* model construction
+(M1–M6), the parameterisation caveats, the window-sensitivity audit, the Mcr sweep, and the
+calibration-vs-Jones fit are documented in the **Supplement**
+(`reports/activation_energy/supplementary.qmd`). The *E. coli* model is described in the
+companion report (`reports/ecoli_tpc/`).
