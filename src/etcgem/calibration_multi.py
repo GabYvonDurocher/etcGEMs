@@ -31,11 +31,16 @@ class PSpec:
     space: str           # "add" (theta = natural) | "log" (theta = log natural)
     prior: str           # "normal" | "lognormal" | "halfnormal"
     scale: float         # prior scale (add: natural units; log: sd on log)
-    loc: float = 0.0     # prior centre (natural units; log priors centre log at 0)
+    loc: float = 0.0     # prior centre (natural units); for lognormal the log is centred at log(loc) if loc>0 else 0
     lo: float = -1e9     # hard support bound (natural)
     hi: float = 1e9
     pert: Optional[str] = None   # Perturbation attribute to set (None -> nuisance sigma_disc)
     emergent: Optional[float] = 0.0   # emergent/reference value for reporting
+
+    @property
+    def log_center(self) -> float:
+        """Centre of the LogNormal in log space (0 -> median 1; log(loc) -> median loc)."""
+        return float(np.log(self.loc)) if (self.prior == "lognormal" and self.loc and self.loc > 0) else 0.0
 
 
 def build_vdl_specs(f_metab_meas=0.280, f_maint_meas=0.360, sigma_nom=0.45) -> List[PSpec]:
@@ -64,6 +69,163 @@ def build_vdl_specs(f_metab_meas=0.280, f_maint_meas=0.360, sigma_nom=0.45) -> L
         PSpec("ngam_steepness","log", "lognormal",  0.50, 0.0, 0.1, 6.0, "ngam_steepness", 1.0),
         PSpec("sigma_disc",    "log", "halfnormal", 0.50, 0.0, 1e-4, 5.0, None, None),
     ]
+
+
+def build_methanogen_specs() -> List[PSpec]:
+    """Free set for the M. maripaludis Jones-1983 fit (M4). The methanogen ecModel is a
+    SINGLE sMOMENT pool with NGAM(T) and NO sectors/growth-law (per M3), so the E. coli
+    allocation levers (f_metab/f_maint/sigma_sat) have NO independent effect -- magnitude
+    collapses onto ``kcat_scale`` (which absorbs the in-vitro->in-vivo gap, the residual
+    archaeal-kcat underprediction, AND the pool/saturation/f_metab magnitude uncertainty).
+    MAGNITUDE-FIRST: kcat_scale gets a LogNormal centred on the Davidi ~4x in-vitro->in-vivo
+    median (broad) so walkers start where growth clears the measured maintenance. Envelope
+    shape knobs correct the a-priori Topt (+5 C) and steep Ea (1.72 eV); the maintenance
+    multipliers stay near 1 (Goyal 2015 NGAM is measured). sigma_disc MUST stay last."""
+    return [
+        PSpec("kcat_scale",    "log", "lognormal", 0.60, 4.0,  0.5, 25.0, "kcat_scale", 1.0),
+        PSpec("dTopt",         "add", "normal",    5.0,  0.0, -15.0, 15.0, "dTopt", 0.0),
+        PSpec("topt_scale",    "log", "lognormal", 0.15, 0.0,  0.4, 2.2, "topt_scale", 1.0),
+        PSpec("dCp_scale",     "log", "lognormal", 0.45, 0.0,  0.2, 4.0, "dCp_scale", 1.0),
+        PSpec("dTm",           "add", "normal",    4.0,  0.0, -12.0, 12.0, "dTm", 0.0),
+        PSpec("tm_scale",      "log", "lognormal", 0.15, 0.0,  0.4, 2.2, "tm_scale", 1.0),
+        PSpec("ngam_scale",    "log", "lognormal", 0.30, 0.0,  0.3, 3.0, "ngam_scale", 1.0),
+        PSpec("ngam_steepness","log", "lognormal", 0.40, 0.0,  0.2, 4.0, "ngam_steepness", 1.0),
+        PSpec("sigma_disc",    "log", "halfnormal", 0.50, 0.0, 1e-4, 5.0, None, None),
+    ]
+
+
+def _build_pm_methanogen(strain):
+    """Provider at the methanogen H2/CO2 operating point: the M3 thermal ecModel (unfolding
+    kcat(T)+f_N(T), NGAM(T) anchored on Goyal 2015), single sMOMENT pool, NO sectors/growth
+    law. The defined H2/CO2 medium is baked into the curated SBML, so no set_medium call."""
+    from .config import resolve, build_provider
+    pm = build_provider(resolve(strain))
+    try:
+        pm.ec.model.solver.configuration.timeout = 2
+    except Exception:
+        pass
+    return pm
+
+
+def load_jones(strain):
+    """Load the digitised Jones 1983 growth TPC (H2/CO2), raw absolute rate (1/h)."""
+    path = os.path.join("strains", strain, "thermal", "mmaripaludis_tpc_curves.csv")
+    df = pd.read_csv(path, comment="#").sort_values("temp_C")
+    temps = df["temp_C"].to_numpy(float)
+    rates = df["mu_per_h"].to_numpy(float)
+    meta = {"curve_id": "Jones1983_JJ_H2CO2", "study": "Jones, Paynter & Gupta 1983",
+            "strain": "M. maripaludis (type strain JJ)", "medium": "H2/CO2 defined",
+            "n": int(len(df)), "temp_min_C": float(temps.min()), "temp_max_C": float(temps.max()),
+            "obs_rmax": float(rates.max()), "obs_Topt_C": float(temps[int(np.argmax(rates))]),
+            "units": "1/h", "has_sd": False}
+    return temps, rates, meta
+
+
+def _winit_methanogen(strain, solver_pref="gurobi", timeout=30.0):
+    global _PM, _T, _OBS, _SPECS
+    _set_default_solver(solver_pref)
+    _PM = _build_pm_methanogen(strain)
+    try:
+        _PM.ec.model.solver.configuration.timeout = timeout
+    except Exception:
+        pass
+    _T, _OBS, _ = load_jones(strain)
+    _SPECS = build_methanogen_specs()
+
+
+def run_methanogen(strain, out_dir, *, n_walkers=40, n_steps_max=6000, n_burn=150, seed=1,
+                   n_proc=0, check_every=200, target_neff=400, tau_factor=50,
+                   allow_glpk=False, warm_start=True, progress=True) -> Dict:
+    """Emcee calibration of the M. maripaludis thermal ecModel to the Jones 1983 TPC
+    (H2/CO2, single pool + NGAM(T), growth law OFF). Same machinery as run() (warm-start,
+    autocorr early-stop) but the methanogen operating point / curve / free set."""
+    import emcee
+    os.makedirs(out_dir, exist_ok=True)
+    np.random.seed(seed)
+    specs = build_methanogen_specs()
+    ndim = len(specs)
+
+    solver = _set_default_solver("gurobi")
+    if solver != "gurobi":
+        if not allow_glpk:
+            raise SystemExit("[solver] Gurobi NOT active - stopping (set ALLOW_GLPK to override).")
+        print("[solver] GLPK - slow; install gurobipy + academic licence (ALLOW_GLPK override)")
+    else:
+        print("[solver] gurobi")
+
+    pm = _build_pm_methanogen(strain)
+    try:
+        pm.ec.model.solver.configuration.timeout = 30.0
+    except Exception:
+        pass
+    temps, obs, meta = load_jones(strain)
+
+    # pre-flight: at the Davidi kcat_scale prior centre the model must grow (clears NGAM)
+    pm.ec.set_temperature(38 + 273.15, Perturbation(kcat_scale=4.0))
+    t_pf = time.time(); g_pf = pm.ec.model.slim_optimize(); pf_ms = (time.time() - t_pf) * 1000
+    status = getattr(pm.ec.model.solver, "status", "?")
+    if g_pf is None or not np.isfinite(g_pf) or status != "optimal" or g_pf <= 0:
+        raise SystemExit(f"[preflight] methanogen ecModel did not grow at kcat_scale=4 "
+                         f"(status={status}, g={g_pf}); the magnitude-first init region is empty.")
+    print(f"[preflight] solve OK on {solver}: rmax(38C, kcat_scale=4)={g_pf:.4f}, single-solve={pf_ms:.1f} ms")
+
+    n_proc = n_proc or max(1, min(10, (os.cpu_count() or 2) - 2))
+    n_walkers = int(np.ceil(max(n_walkers, 2 * ndim + 2) / n_proc)) * n_proc
+
+    from multiprocessing import Pool
+    pool = Pool(processes=n_proc, initializer=_winit_methanogen, initargs=(strain, solver, 30.0))
+    t0 = time.time()
+    try:
+        if warm_start:
+            p0, mode = _warm_start(specs, n_walkers, seed, pool, progress)
+        else:
+            p0, mode = init_walkers(specs, n_walkers, np.random.default_rng(seed)), None
+        sampler = emcee.EnsembleSampler(n_walkers, ndim, _wlogprob, pool=pool)
+        state = p0; done = 0; tau_max = float("nan")
+        stop_reason = f"n_steps_max ({n_steps_max})"
+        while done < n_steps_max:
+            n = min(check_every, n_steps_max - done)
+            state = sampler.run_mcmc(state, n, progress=progress)
+            done += n
+            try:
+                tau = sampler.get_autocorr_time(tol=0); tau_max = float(np.nanmax(tau))
+            except Exception:
+                tau_max = float("nan")
+            if np.isfinite(tau_max) and tau_max > 0:
+                burn_now = min(int(max(n_burn, 2 * tau_max)), done - 10)
+                n_eff_min = n_walkers * (done - burn_now) / tau_max
+                need = tau_factor * tau_max
+                print(f"[emcee] step {done}: tau_max={tau_max:.1f} chain/tau={done/tau_max:.1f} "
+                      f"(need >{tau_factor}) min n_eff~{n_eff_min:.0f} (need >={target_neff})")
+                if done > need and n_eff_min >= target_neff:
+                    stop_reason = (f"converged: chain {done} > {tau_factor}*tau_max={need:.0f} "
+                                   f"AND min n_eff {n_eff_min:.0f} >= {target_neff}")
+                    break
+            else:
+                print(f"[emcee] step {done}: autocorr not yet estimable")
+    finally:
+        pool.close(); pool.join()
+    wall = time.time() - t0
+
+    burn = min(int(n_burn if not np.isfinite(tau_max) else max(n_burn, 2 * tau_max)), done - 10)
+    thin = max(1, int(tau_max / 2)) if np.isfinite(tau_max) else 1
+    flat = sampler.get_chain(discard=burn, thin=thin, flat=True)
+    accept = float(np.mean(sampler.acceptance_fraction))
+    n_eff = flat.shape[0] if not np.isfinite(tau_max) else float(n_walkers * (done - burn) / tau_max)
+
+    result = {
+        "strain": strain, "curve": meta, "medium": "H2/CO2",
+        "operating_point": "methanogen H2/CO2, thermal ecModel (unfolding+NGAM(T)), single sMOMENT pool, growth law OFF",
+        "solver": solver, "preflight_single_solve_ms": round(pf_ms, 1),
+        "sampler": {"n_walkers": n_walkers, "n_steps": done, "n_steps_max": n_steps_max,
+                    "burn": burn, "thin": thin, "warm_started": bool(mode is not None),
+                    "stop_reason": stop_reason, "acceptance_fraction": round(accept, 3),
+                    "autocorr_time_max": None if not np.isfinite(tau_max) else round(tau_max, 1),
+                    "n_eff": round(float(n_eff), 1), "wall_time_s": round(wall, 1),
+                    "n_proc": n_proc, "seed": seed},
+    }
+    _finalise(out_dir, flat, pm, temps, obs, meta, specs, result)
+    return result
 
 
 # ---------------------------------------------------------------------------
@@ -96,8 +258,8 @@ def log_prior(theta, specs) -> float:
             return -np.inf
         if s.prior == "normal":            # add-space Normal(loc, scale) on natural
             lp += -0.5 * ((v - s.loc) / s.scale) ** 2 - np.log(s.scale * np.sqrt(2 * np.pi))
-        elif s.prior == "lognormal":       # Normal(0, scale) on the sampled log param
-            lp += -0.5 * (theta[j] / s.scale) ** 2 - np.log(s.scale * np.sqrt(2 * np.pi))
+        elif s.prior == "lognormal":       # Normal(log_center, scale) on the sampled log param
+            lp += -0.5 * ((theta[j] - s.log_center) / s.scale) ** 2 - np.log(s.scale * np.sqrt(2 * np.pi))
         elif s.prior == "halfnormal":      # HalfNormal(scale) on natural + log-Jacobian
             lp += (-0.5 * (v / s.scale) ** 2 + np.log(np.sqrt(2 / np.pi) / s.scale)) + theta[j]
     return float(lp)
@@ -117,7 +279,7 @@ def init_walkers(specs, n_walkers, rng):
     cols = []
     for s in specs:
         if s.space == "log":
-            cols.append(0.6 * s.scale * rng.standard_normal(n_walkers) if s.prior == "lognormal"
+            cols.append(s.log_center + 0.6 * s.scale * rng.standard_normal(n_walkers) if s.prior == "lognormal"
                         else np.log(s.scale) + 0.2 * rng.standard_normal(n_walkers))
         else:  # add-space: centre on prior loc, 0.6x prior width
             cols.append(np.clip(s.loc + 0.6 * s.scale * rng.standard_normal(n_walkers), s.lo, s.hi))
