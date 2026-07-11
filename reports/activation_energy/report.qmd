@@ -115,15 +115,28 @@ rate-limiting step**, buffered downward by the cell's allocation and maintenance
 
 ```{python}
 #| label: tbl-decomp
-#| tbl-cap: "MCA decomposition of E_a^org (tuned model, rich medium). The control-weighted mean enzyme E_a, offset by allocation and maintenance, closes to the actual value (residual = higher-order / window nonlinearity)."
+#| tbl-cap: "Decomposition of the departure of E_a^org from the naive enzyme-E_a mean (tuned model, rich medium), matching the signed-contribution figure. Starting from the unweighted enzyme mean, control weighting raises it to the control-weighted mean, and allocation, maintenance and a small nonlinear residual close it to the organism E_a. Values in eV; signs as in the figure."
 #| output: asis
 import json, pandas as pd
-D = json.load(open("assets/tables/ea_summary.json"))["headline_BHI"]["decomposition_eV"]
-rows = [("control-weighted mean $E_{a,i}$ (enzyme-kinetic)", D["kinetic_control_weighted_mean_Ea_i"]),
-        ("allocation (growth law)", D["allocation_growth_law"]),
-        ("maintenance NGAM(T)", D["maintenance_NGAM"]),
-        ("residual (nonlinear)", D["residual_nonlinear"]),
-        ("**= $E_a^\\text{org}$ (actual)**", D["actual_Ea_org"])]
+h = json.load(open("assets/tables/ea_summary.json"))["headline_BHI"]
+D = h["decomposition_eV"]; dep = h["departure_from_naive_mean_eV"]
+base = float(dep["unweighted_mean_Ea_i"]); cw = float(dep["control_weighted_mean_Ea_i"])
+ctrl = cw - base
+alloc = float(D["allocation_growth_law"]); maint = float(D["maintenance_NGAM"])
+resid = float(D["residual_nonlinear"]); Ea = float(D["actual_Ea_org"])
+chk = base + ctrl + alloc + maint + resid
+assert abs(chk - Ea) < 1e-3, f"decomposition does not close: {chk} vs {Ea}"
+def sgn(v):
+    return f"{v:+.3f}".replace("-", "−")
+def num(v):
+    return f"{v:.3f}".replace("-", "−")
+rows = [("naive (unweighted) enzyme mean", num(base)),
+        ("+ control weighting", sgn(ctrl)),
+        ("= control-weighted mean", num(cw)),
+        ("− allocation (growth law)", sgn(alloc)),
+        ("− maintenance NGAM(T)", sgn(maint)),
+        ("+ residual (nonlinear)", sgn(resid)),
+        ("**= organism $E_a$ (actual)**", "**" + num(Ea) + "**")]
 print(pd.DataFrame(rows, columns=["term", "eV"]).to_markdown(index=False))
 ```
 
