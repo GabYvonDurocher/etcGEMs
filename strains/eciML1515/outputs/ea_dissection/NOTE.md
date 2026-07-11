@@ -60,10 +60,12 @@ to central-carbon + lipid biosynthesis rather than distributed evenly across the
 
 ## Robustness
 
-- **Homogenise** (all enzymes → the common mean kinetics): `Ea_org → 1.320 eV`. So real enzyme
-  heterogeneity *plus* the flux allocation **lowers** `Ea_org` below the uniform-kinetics value
-  (flux is routed partly through enzymes with lower effective Ea in the window) — the network,
-  not just the input mean, shapes it.
+- **Homogenise** (all enzymes → the common mean `Topt`/`dCp`): `Ea_org → 1.320 eV`. **Caveat
+  (see `DIAGNOSTIC_NOTE.md`):** this large value is largely a numerical/edge artefact — setting
+  all `Topt` equal sharpens the peak and shifts the rising-limb window (17–35 → 23–35 °C) into a
+  steeper, hotter region where maintenance amplifies it (+0.40), and the homogenisation is
+  incomplete (`Tm`/`f_N` not homogenised). Do **not** read it as "heterogeneity lowers Ea"; use
+  the moderate-spread result below instead.
 - **Spread sensitivity** (scale the `Topt`/`dCp` heterogeneity ×0.5–1.25): `Ea_org` is stable at
   ~0.90–0.93 over the moderate range (it diverges only at unphysically large spreads that break
   the curve).
