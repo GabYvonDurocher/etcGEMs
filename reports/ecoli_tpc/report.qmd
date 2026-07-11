@@ -100,6 +100,20 @@ one copy of the enzyme catalyses per second. The total enzyme mass is capped by 
 **proteome pool**, so the cell must *allocate* a finite protein budget across reactions —
 this is what makes allocation a limiting resource and growth a competition for enzyme.
 
+*Model curation — uncosted O2 sinks.* Four reactions in eciML1515 consume O2 at negligible
+enzyme cost — two quinol/menaquinol monooxygenases (QMO2, QMO3, which reduce O2 to
+superoxide), a malate oxidase (MOX) and a copper oxidase (CU1Opp). Because they are
+effectively free, the optimiser routes O2 through them rather than through the enzyme-costed
+terminal oxidases, creating a **futile O2 cycle** that at the rich-medium optimum accounts for
+**~75 % of gross O2 turnover** (O2 uptake 49.5 vs 1.3 mmol gDW⁻¹ h⁻¹ of genuine respiratory
+demand) and scrambles the O2 read-out. We **close these four reactions** as a model-curation
+step for physically-interpretable energy metabolism: this routes O2 through a genuine
+enzyme-costed terminal oxidase (cytochrome *bd*), makes net intracellular O2 consumption equal
+the exchange flux, and costs only **~0.3 % growth** ($r_\text{max}$ 2.16→2.16 h⁻¹), leaving
+the growth TPC essentially unchanged. Catalase and superoxide dismutase — whose genuinely high
+turnover makes their negligible per-flux cost correct biology — are retained. The
+enzyme-control analysis below is computed on this curated model.
+
 **Layer 2 — a temperature-dependent enzyme envelope (the "thermal envelope").** Each enzyme's
 turnover rises with temperature following **macromolecular rate theory (MMRT)** [@Hobbs2013] —
 an extension of the Arrhenius law in which the activation energy itself changes with
@@ -979,3 +993,8 @@ efficiency TPCs** (○). 5. **Scale across the isolate library** with per-strain
 and sequence-based $T_\text{opt}$/$T_m$ predictors to estimate the envelope-vs-allocation
 control across taxa (○). 6. **Hierarchical-Bayesian calibration** of the remaining
 free couplings against phenotype/proteome/flux data [@Li2021; @Pettersen2023] (○).
+
+# Acknowledgements
+
+We thank Parsa for identifying, from gas-flux modelling, the four uncosted O2-consuming
+reactions whose closure is described under model curation.
