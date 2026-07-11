@@ -9,7 +9,10 @@ import shutil
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
-EA = os.path.join(ROOT, "strains", "eciML1515", "outputs", "ea_dissection")
+# SS-E re-base: the report now uses the window-independent Sharpe-Schoolfield decomposition
+# (ea_dissection_ss/); the windowed-slope version (ea_dissection/) is kept as a deprecated
+# cross-check. Same asset filenames, so only the source directory changes.
+EA = os.path.join(ROOT, "strains", "eciML1515", "outputs", "ea_dissection_ss")
 FIG_DIR = os.path.join(HERE, "assets", "figures")
 TBL_DIR = os.path.join(HERE, "assets", "tables")
 

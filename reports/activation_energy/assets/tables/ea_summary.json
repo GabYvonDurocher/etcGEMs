@@ -1,249 +1,45 @@
 {
   "headline_BHI": {
+    "Ea_org_eV": 0.6784,
     "medium": "BHI",
-    "operating_point": "tuned (v3 medians), BHI, growth law ON, reconciled pool",
-    "closed_free_o2_sinks": [
-      "CU1Opp",
-      "MOX",
-      "QMO2No1",
-      "QMO3No1"
-    ],
-    "tuned_medians": {
-      "dTopt": 2.7076,
-      "topt_scale": 0.9613,
-      "dCp_scale": 1.2002,
-      "dTm": -5.5801,
-      "tm_scale": 1.0067,
-      "kcat_scale": 1.2462,
-      "kappa_scale": 1.0949,
-      "sigma": 0.8669,
-      "f_metab": 0.2807,
-      "f_maint": 0.3408,
-      "ngam_scale": 0.9946,
-      "ngam_steepness": 0.9802,
-      "sigma_disc": 0.2016
-    },
-    "Ea_org_eV": 0.9095,
-    "window_C": [
-      17.0,
-      35.0
-    ],
-    "T_control_C": 29.0,
-    "n_flux_carrying_enzymes": 230,
     "sum_C_i": 0.556,
-    "sum_C_i_note": "control shared with the growth-law allocation: the T-independent biomass term in the binding metabolic pool holds the remaining ~0.44 of marginal growth control (sigma elasticity ~1); off the growth law Sum C_i ~= 1 and the decomposition closes directly.",
     "decomposition_eV": {
-      "kinetic_control_weighted_mean_Ea_i": 0.9699,
-      "  of_which_kcat": 0.9779,
-      "  of_which_native_fraction_fN": -0.0081,
-      "allocation_growth_law": -0.107,
-      "maintenance_NGAM": -0.0102,
-      "residual_nonlinear": 0.0569,
-      "predicted_sum": 0.9095,
-      "actual_Ea_org": 0.9095,
-      "raw_Sum_Ci_Eai": 0.5389,
-      "Ea_org_growth_law_off": 1.0165
+      "kinetic_control_weighted_mean_Ea_i": 0.9779,
+      "allocation_growth_law": -0.1261,
+      "maintenance_NGAM": 0.005,
+      "residual_nonlinear": -0.1784,
+      "actual_Ea_org": 0.6784
     },
     "departure_from_naive_mean_eV": {
-      "unweighted_mean_Ea_i": 0.8674,
-      "mass_weighted_mean_Ea_i": 0.8957,
-      "control_weighted_mean_Ea_i": 0.9699,
-      "Ea_org_minus_unweighted_mean": 0.0421,
+      "unweighted_mean_Ea_i": 0.8716,
+      "mass_weighted_mean_Ea_i": 0.8969,
+      "control_weighted_mean_Ea_i": 0.9779,
       "attribution": {
-        "control_concentration": 0.1025,
-        "allocation": -0.107,
-        "maintenance": -0.0102
+        "control_concentration": 0.1063,
+        "allocation": -0.1261,
+        "maintenance": 0.005
       }
-    }
-  },
-  "medium_glucose": {
-    "medium": "glucose_minimal",
-    "operating_point": "tuned (v3 medians), glucose_minimal, growth law ON, reconciled pool",
-    "closed_free_o2_sinks": [
-      "CU1Opp",
-      "MOX",
-      "QMO2No1",
-      "QMO3No1"
-    ],
-    "tuned_medians": {
-      "dTopt": 2.7076,
-      "topt_scale": 0.9613,
-      "dCp_scale": 1.2002,
-      "dTm": -5.5801,
-      "tm_scale": 1.0067,
-      "kcat_scale": 1.2462,
-      "kappa_scale": 1.0949,
-      "sigma": 0.8669,
-      "f_metab": 0.2807,
-      "f_maint": 0.3408,
-      "ngam_scale": 0.9946,
-      "ngam_steepness": 0.9802,
-      "sigma_disc": 0.2016
     },
-    "Ea_org_eV": 0.9763,
-    "window_C": [
-      19.0,
-      36.0
-    ],
-    "T_control_C": 30.0,
-    "n_flux_carrying_enzymes": 326,
-    "sum_C_i": 0.959,
-    "sum_C_i_note": "control shared with the growth-law allocation: the T-independent biomass term in the binding metabolic pool holds the remaining ~0.04 of marginal growth control (sigma elasticity ~1); off the growth law Sum C_i ~= 1 and the decomposition closes directly.",
-    "decomposition_eV": {
-      "kinetic_control_weighted_mean_Ea_i": 0.9013,
-      "  of_which_kcat": 0.9058,
-      "  of_which_native_fraction_fN": -0.0045,
-      "allocation_growth_law": -0.0085,
-      "maintenance_NGAM": -0.0181,
-      "residual_nonlinear": 0.1016,
-      "predicted_sum": 0.9763,
-      "actual_Ea_org": 0.9763,
-      "raw_Sum_Ci_Eai": 0.8642,
-      "Ea_org_growth_law_off": 0.9848
-    },
-    "departure_from_naive_mean_eV": {
-      "unweighted_mean_Ea_i": 0.7835,
-      "mass_weighted_mean_Ea_i": 0.8342,
-      "control_weighted_mean_Ea_i": 0.9013,
-      "Ea_org_minus_unweighted_mean": 0.1928,
-      "attribution": {
-        "control_concentration": 0.1178,
-        "allocation": -0.0085,
-        "maintenance": -0.0181
-      }
-    }
+    "convention": "Sharpe-Schoolfield E (window-independent)"
   },
   "medium_comparison": {
-    "top15_overlap_enzymes": 6,
-    "of": 15,
-    "Ea_org_BHI": 0.9095,
-    "Ea_org_glucose": 0.9763
+    "Ea_org_BHI": 0.6784,
+    "Ea_org_glucose": 0.8898
   },
   "robustness_BHI": {
-    "homogenised_Ea_org": 1.3203,
+    "homogenised_Ea_org": 0.9656,
     "spread_sweep": {
-      "spread_x0.0": 1.3203,
-      "spread_x0.5": 0.9038,
-      "spread_x0.75": 0.9337,
-      "spread_x1.0": 0.9095,
-      "spread_x1.25": 1.221
+      "spread_x0.0": 0.9656,
+      "spread_x0.5": 0.6932,
+      "spread_x0.75": 0.6853,
+      "spread_x1.0": 0.6784,
+      "spread_x1.25": 0.901
     },
-    "note": "spread_x1.0 = actual heterogeneity; x0.0 = homogenised (all-mean kinetics)"
+    "note": "SS-E; spread_x1.0 = actual heterogeneity; x0.0 = homogenised"
   },
   "emergent_vs_tuned": {
-    "Ea_org_emergent": 0.6545,
-    "top15_overlap_with_tuned": 7,
-    "of": 15,
-    "note": "similar controlling set on the emergent model => the mechanism is structural, not an artefact of the fit"
+    "Ea_org_emergent": 0.4998
   },
-  "top_enzymes_BHI": [
-    {
-      "gene": "gapA",
-      "enzyme_name": "Glyceraldehyde-3-phosphate dehydrogenase",
-      "enzyme_id": "P0A9B2",
-      "cog_category": "carbohydrate/glycolysis",
-      "C_i": 0.0851,
-      "Ea_i_eV": 1.0849,
-      "contrib": 0.0923
-    },
-    {
-      "gene": "fabB",
-      "enzyme_name": "3-oxoacyl-[acyl-carrier-protein] synthase (n-C14:0)",
-      "enzyme_id": "P0A953",
-      "cog_category": "lipid metab",
-      "C_i": 0.098,
-      "Ea_i_eV": 0.8264,
-      "contrib": 0.081
-    },
-    {
-      "gene": "aas;acpP",
-      "enzyme_name": "Acyl-[acyl-carrier-protein] synthetase  (n-C16:1)",
-      "enzyme_id": "P0A6A8",
-      "cog_category": "lipid metab",
-      "C_i": 0.0159,
-      "Ea_i_eV": 2.0367,
-      "contrib": 0.0324
-    },
-    {
-      "gene": "aas;acpP",
-      "enzyme_name": "Acyl-[acyl-carrier-protein] synthetase  (n-C16:0)",
-      "enzyme_id": "P0A6A8",
-      "cog_category": "lipid metab",
-      "C_i": 0.0135,
-      "Ea_i_eV": 2.0367,
-      "contrib": 0.0275
-    },
-    {
-      "gene": "deoB",
-      "enzyme_name": "Phosphopentomutase 2 (deoxyribose)",
-      "enzyme_id": "P0A6K6",
-      "cog_category": "carbohydrate/glycolysis",
-      "C_i": 0.0291,
-      "Ea_i_eV": 0.8897,
-      "contrib": 0.0259
-    },
-    {
-      "gene": "glnA",
-      "enzyme_name": "Glutamine synthetase",
-      "enzyme_id": "P0A9C5",
-      "cog_category": "amino-acid metab",
-      "C_i": 0.0265,
-      "Ea_i_eV": 0.9498,
-      "contrib": 0.0252
-    },
-    {
-      "gene": "eno",
-      "enzyme_name": "Enolase",
-      "enzyme_id": "P0A6P9",
-      "cog_category": "carbohydrate/glycolysis",
-      "C_i": 0.0205,
-      "Ea_i_eV": 1.1422,
-      "contrib": 0.0234
-    },
-    {
-      "gene": "fadA",
-      "enzyme_name": "Acetyl-CoA C-acyltransferase (hexanoyl-CoA) (r)",
-      "enzyme_id": "P21151",
-      "cog_category": "lipid metab",
-      "C_i": 0.023,
-      "Ea_i_eV": 0.7841,
-      "contrib": 0.018
-    },
-    {
-      "gene": "fadA",
-      "enzyme_name": "Acetyl-CoA C-acyltransferase (butanoyl-CoA) (r)",
-      "enzyme_id": "P21151",
-      "cog_category": "lipid metab",
-      "C_i": 0.023,
-      "Ea_i_eV": 0.7841,
-      "contrib": 0.018
-    },
-    {
-      "gene": "fadA",
-      "enzyme_name": "Acetyl-CoA C-acyltransferase (octanoyl-CoA) (r)",
-      "enzyme_id": "P21151",
-      "cog_category": "lipid metab",
-      "C_i": 0.023,
-      "Ea_i_eV": 0.7841,
-      "contrib": 0.018
-    }
-  ],
-  "by_cog_BHI": {
-    "I (lipid metab)": 0.2758,
-    "G (carbohydrate/glycolysis)": 0.1516,
-    "S (unknown/other)": 0.0378,
-    "E (amino-acid metab)": 0.0345,
-    "H (coenzyme metab)": 0.0153,
-    "M (cell wall/membrane)": 0.0104,
-    "F (nucleotide metab)": 0.0091,
-    "C (energy (ETC/TCA))": 0.0017,
-    "D (cell cycle)": 0.0016,
-    "P (inorganic ion)": 0.0004,
-    "J (translation/ribosome)": 0.0002,
-    "L (replication/repair)": 0.0001,
-    "T (signal transduction)": 0.0001,
-    "O (chaperone/PTM (stress))": 0.0001,
-    "V (defence)": 0.0001,
-    "K (transcription)": 0.0
-  }
+  "observed_VdL_SS_E": 0.5584,
+  "convention": "Sharpe-Schoolfield E (Schoolfield 1981), T_ref=20C; per-enzyme E_i = kcat(T) rising-limb Arrhenius E (f_N separated to the deactivation side, contribution ~-0.008 eV, negligible)"
 }
