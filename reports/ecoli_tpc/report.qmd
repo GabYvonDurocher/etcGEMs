@@ -881,18 +881,18 @@ is future work).
 **Thermal control is concentrated in very few enzymes** (@fig-ctrlthermal, @tbl-control): ranked by
 the control coefficient, **one enzyme dominates by an order of magnitude** — acyl-[acyl-carrier-
 protein] synthetase / the acyl-carrier protein (gene *acpP/aas*, UniProt `P0A6A8`, control coefficient
-≈0.54) — followed at ~1/13th the influence by succinate dehydrogenase (*sdhA/sdhB*, `P07014`),
+≈0.52) — followed at ~1/10th the influence by glutamate dehydrogenase (*gdhA*, `P00370`),
 glutamine synthetase (*glnA*, `P0A9C5`) and succinyl-CoA synthetase (*sucC/sucD*, `P0A836`), with the
 coefficient falling off sharply thereafter. Notably, this per-enzyme control acts almost entirely on
 the **niche width** (and, weakly, $CT_\text{max}$): the control coefficient on the organismal
 $T_\text{opt}$ is essentially zero for every single enzyme, because the optimum is set by whole-cell
 allocation and stability, not by any one enzyme. That a handful of enzymes set the envelope is what
 makes sequence-based prediction of the envelope plausible (objective O2). Computed across all 2560 enzymes × 3 parameters (7680 in total), only
-**30 (0.4 %)** are identifiable from the growth curve alone, and even among the highest-control
-enzymes only ~**13 %** are (@tbl-ident). At the rich tuned peak the rate is magnitude-limited
+**40 (0.5 %)** are identifiable from the growth curve alone, and even among the highest-control
+enzymes only ~**17 %** are (@tbl-ident). At the rich tuned peak the rate is magnitude-limited
 (the previous two sections), so individual enzyme thermal parameters have even *less* leverage on
 growth than at a slower operating point — growth data constrain only a tiny, high-control subset,
-and the remaining **~99.6 %** of per-enzyme parameters must come from independent measurement
+and the remaining **~99.5 %** of per-enzyme parameters must come from independent measurement
 (objective O5). This is the identifiability argument for grounding the envelope in the melting
 proteome, sequence-based optima and DLTKcat rather than fitting it to growth.
 
