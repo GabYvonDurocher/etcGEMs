@@ -1,0 +1,58 @@
+{
+  "BHI": {
+    "Ea_org_SS_E": 0.6784,
+    "SS_fit_r2": 0.9313,
+    "SS_Eh_eV": 4.428,
+    "SS_Th_C": 41.77,
+    "windowed_slope_crosscheck": 0.9095,
+    "control_weighted_mean_kcat_E": 0.9779,
+    "  of_which_native_fraction_fN": -0.0081,
+    "  control_weighted_kcat_fN": 0.9699,
+    "unweighted_mean_kcat_E": 0.8716,
+    "sum_C_i": 0.556,
+    "allocation_growth_law_SS": -0.1261,
+    "maintenance_NGAM_SS": 0.005,
+    "residual_nonlinear_SS": -0.1784,
+    "SS_growth_law_off": 0.8045,
+    "SS_ngam_flat": 0.6735,
+    "closure_check": 0.6784
+  },
+  "glucose_minimal": {
+    "Ea_org_SS_E": 0.8898,
+    "SS_fit_r2": 0.9815,
+    "SS_Eh_eV": 10.0,
+    "SS_Th_C": 39.06,
+    "windowed_slope_crosscheck": 0.9763,
+    "control_weighted_mean_kcat_E": 0.9058,
+    "  of_which_native_fraction_fN": -0.0045,
+    "  control_weighted_kcat_fN": 0.9013,
+    "unweighted_mean_kcat_E": 0.7892,
+    "sum_C_i": 0.959,
+    "allocation_growth_law_SS": -0.0024,
+    "maintenance_NGAM_SS": -0.0148,
+    "residual_nonlinear_SS": 0.0013,
+    "SS_growth_law_off": 0.8922,
+    "SS_ngam_flat": 0.9046,
+    "closure_check": 0.8898
+  },
+  "emergent_BHI_SS_E": 0.4998,
+  "observed_VdL_SS_E": 0.5584,
+  "meta": {
+    "convention": "Sharpe-Schoolfield E (Schoolfield 1981), T_ref=20C; per-enzyme E_i = kcat(T) rising-limb Arrhenius E (f_N separated to the deactivation side, contribution ~-0.008 eV, negligible)",
+    "tuned_medians": {
+      "dTopt": 2.7076,
+      "topt_scale": 0.9613,
+      "dCp_scale": 1.2002,
+      "dTm": -5.5801,
+      "tm_scale": 1.0067,
+      "kcat_scale": 1.2462,
+      "kappa_scale": 1.0949,
+      "sigma": 0.8669,
+      "f_metab": 0.2807,
+      "f_maint": 0.3408,
+      "ngam_scale": 0.9946,
+      "ngam_steepness": 0.9802,
+      "sigma_disc": 0.2016
+    }
+  }
+}

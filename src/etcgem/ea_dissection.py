@@ -82,6 +82,17 @@ def ea_org(pm, pert, grid) -> Tuple[float, np.ndarray, "TPC"]:
     return float(d.Ea_eV), grid[mask], tpc
 
 
+def ea_org_ss(pm, pert, grid, T_ref_C: float = 20.0):
+    """Organism Ea as the window-INDEPENDENT Sharpe-Schoolfield E (Schoolfield 1981) fit to
+    the whole growth TPC, replacing the window-dependent Arrhenius slope (see the Ea-definition
+    audit). Returns (E_eV, SSFit, TPC). The rising-limb slope (deprecated) is still available
+    via ea_org()."""
+    from .sharpe_schoolfield import fit_sharpe_schoolfield
+    tpc = compute_tpc(pm, grid, pert)
+    fit = fit_sharpe_schoolfield(grid, tpc.growth, T_ref_C=T_ref_C)
+    return float(fit.E), fit, tpc
+
+
 # --- per-enzyme Ea_i on the SAME window (capacity r_i = rk_i * f_N_i) ------------
 def _rk_fN(ec, T_C: float, pert: Perturbation):
     """Per-enzyme (rel_kcat, native_fraction) at T_C under `pert`, reproducing exactly
