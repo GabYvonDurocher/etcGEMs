@@ -8,7 +8,7 @@ is a static PNG and every table just reads a CSV.
 ## Layout
 
 ```
-reports/etcgem/
+reports/ecoli_tpc/
   _quarto.yml            project: formats pdf+docx, output-dir _output
   header.tex             LaTeX preamble (line numbers, caption styling, title block)
   references.bib         method references
@@ -71,19 +71,19 @@ reports/etcgem/
    two derived figures):
 
    ```bash
-   python reports/etcgem/assemble.py
+   python reports/ecoli_tpc/assemble.py
    ```
 
 3. Render:
 
    ```bash
-   cd reports/etcgem
+   cd reports/ecoli_tpc
    quarto render                    # report + supplementary, pdf + docx
    # or just the PDF of the main report:
    quarto render report.qmd --to pdf
    ```
 
-   Output lands in `reports/etcgem/_output/` (`report.pdf`, `report.docx`,
+   Output lands in `reports/ecoli_tpc/_output/` (`report.pdf`, `report.docx`,
    `supplementary.pdf`, `supplementary.docx`).
 
 ## Notes

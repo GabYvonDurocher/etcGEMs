@@ -2,7 +2,7 @@
 """Assemble the etcGEM report assets.
 
 Copies the chosen pipeline run's figures and tables into
-``reports/etcgem/assets/`` under STABLE names, so report.qmd / supplementary.qmd
+``reports/ecoli_tpc/assets/`` under STABLE names, so report.qmd / supplementary.qmd
 reference fixed filenames regardless of which experiment/run-dir produced them.
 Also generates two DERIVED figures (calibrated-vs-default descriptor comparison
 and the sector trade-off) that the pipeline itself does not emit.
@@ -11,7 +11,7 @@ The document never re-runs the pipeline -- it only embeds these assets. Missing
 sources are skipped with a warning (assembly never fails on a missing run), and a
 summary of what was copied/generated is printed at the end.
 
-Run from the project root:  ``python reports/etcgem/assemble.py``
+Run from the project root:  ``python reports/ecoli_tpc/assemble.py``
 """
 from __future__ import annotations
 

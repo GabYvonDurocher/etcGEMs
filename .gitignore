@@ -22,7 +22,7 @@ dist/
 **/_checkpoint.npz
 
 # Quarto report render output (keep .qmd, header.tex, refs, csl, assemble.py, assets)
-reports/etcgem/_output/
+reports/ecoli_tpc/_output/
 .quarto/
 **/.quarto/
 refs/
