@@ -512,6 +512,70 @@ def from_kcat_csv(model_path: str, csv_path: str, T0: float = 303.15,
                          name=f"csv:{model.id}")
 
 
+def from_gem_smoment(model_path: str, kcat_csv: str, T0: float = 310.15,
+                     budget_override: Optional[float] = None,
+                     target_fraction: float = 0.6,
+                     biomass_rxn: Optional[str] = None,
+                     default_kcat: float = 25.0, default_mw: float = 40.0,
+                     close_free_sinks: Optional[List[str]] = None) -> ProvidedModel:
+    """Attach a temperature-INDEPENDENT sMOMENT total-protein pool to a plain GEM.
+
+    This is the methanogen route: the base GEM (iMR539_curated) carries no GECKO
+    protein layer, so we build the enzyme cost table from an external
+    (rxn_id, mw_kDa, kcat_s[, group, source]) CSV -- one entry per enzymatic
+    reaction, costing ``MW/(kcat*3600)`` g protein per unit flux from a shared pool
+    (enzyme_cost.EnzymeConstrainedModel). Reactions absent from the CSV (no GPR:
+    transport/spontaneous) carry no cost (free), exactly as in a GECKO ecModel.
+
+    Temperature-independent by construction: every entry's Topt is pinned to T0, so
+    the peak-normalised MMRT shape is flat (cost == base_cost at the reference T).
+    The thermal layer (M3) overrides Topt/Tm/dCp per enzyme to introduce kcat(T).
+
+    ``budget_override`` sets the grounded proteome pool P_total*f_metab*sigma
+    (emergent: NOT calibrated to growth). If None, ``calibrate_budget`` is used as a
+    fallback so the pool at least binds. ``close_free_sinks`` optionally closes
+    listed (uncosted) energy side-reactions before building (the methanogen analogue
+    of the E. coli O2-sink fix); returns them on the ProvidedModel."""
+    model = _load_any(model_path)
+    if biomass_rxn is None:
+        biomass_rxn = _find_biomass(model)
+    closed_sinks: List[str] = []
+    if close_free_sinks:
+        closed_sinks = close_free_energy_sinks(model, bases=close_free_sinks)
+        if closed_sinks:
+            print(f"[smoment_gem] closed {len(closed_sinks)} uncosted energy side-reaction(s): {closed_sinks}")
+    entries = []
+    with open(kcat_csv, newline="") as fh:
+        for row in csv.DictReader(fh):
+            rid = (row.get("rxn_id") or "").strip()
+            if rid not in model.reactions:
+                continue
+            mw = float(row.get("mw_kDa") or row.get("mw") or default_mw)
+            kcat = float(row.get("kcat_s") or row.get("kcat") or default_kcat)
+            if kcat <= 0:
+                kcat = default_kcat
+            entries.append(EnzymeEntry(
+                rxn_id=rid, mw=mw, kcat_ref=kcat,
+                Topt=T0, dCp=-4.0, T0=T0,          # Topt=T0 -> flat (temperature-independent)
+                group=(row.get("group") or _subsystem(model.reactions.get_by_id(rid))),
+                enzyme_id=(row.get("enzyme_id") or row.get("enz") or None),
+            ))
+    if not entries:
+        raise RuntimeError("No kcat CSV rows matched reactions in the GEM.")
+    table = EnzymeCostTable(entries)
+    if budget_override is not None:
+        budget = float(budget_override)
+    else:
+        budget = calibrate_budget(model, table, T0, biomass_rxn, target_fraction)
+    # Single total-protein pool only (no allocation sub-budgets -- that is the M3
+    # sector layer; group labels are kept on the entries for diagnostics).
+    ec = EnzymeConstrainedModel(model, table, default_budget=budget,
+                                thermal_model="mmrt")
+    ec.model.objective = biomass_rxn
+    return ProvidedModel(ec=ec, T0=T0, biomass_rxn=biomass_rxn,
+                         name=f"smoment_gem:{model.id}", closed_free_o2_sinks=closed_sinks)
+
+
 def _read_sbml_safe(path: str):
     """Read an SBML model, sanitising COBRA id-encodings that break the LP
     backend. GECKO SBML encodes spaces as ``__32__`` which cobra decodes to a

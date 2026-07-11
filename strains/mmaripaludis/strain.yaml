@@ -22,16 +22,25 @@ organism:
   Trange_C: [18, 47]
 
 provider:
-  type: fba                   # PLACEHOLDER (M1): base GEM, plain FBA. -> enzyme-constrained in M2.
+  # M2: sMOMENT total-protein pool on the curated GEM (temperature-INDEPENDENT base
+  # ecModel; M3 adds kcat(T)/unfolding). Cost per reaction i = MW_i/kcat_i, from a
+  # shared proteome pool (src/etcgem/enzyme_cost). See outputs/M2_ecmodel.md.
+  type: smoment_gem
   model_file: iMR539_curated.xml   # M1b carbon-honest autotroph (original iMR539.xml kept alongside)
   biomass_rxn: biomass0
-  # ModelSEED-style SBML (cpd/rxn IDs, [c0]/[e0] compartments); no fbc package
-  # (bounds/objective in the legacy COBRA notes). Loaded with cobra directly in M1.
+  kcat_csv: dltkcat/kcat_table.csv  # measured core (Milton 2018 + biochem) + DLTKcat prior + fallback
   # M1b curation (see outputs/M1b_curation.md): archaellin removed from biomass (resolves
   # Membrane_lipid/NAC/Flagellin), tRNA(SeCys) recycling restored, organic-C leaks closed,
   # CH4 unpinned. Grows autotrophically on H2/CO2 with 99.98% of biomass carbon from CO2.
+  # EMERGENT grounded pool budget = P_total x sigma x f_metab (independent data, NOT tuned
+  # to mu_max; M4 calibrates magnitude). Reference kcats at T0 = 37 C.
+  p_total: 0.5                # total protein per gDW (g/gDW; ~50% of dry mass, literature)
+  sigma: 0.45                 # average in-vivo enzyme saturation (Davidi 2016 / Heckmann 2020)
+  f_metab: 0.5                # modelled-metabolic-enzyme mass fraction (grounded; see M2 note)
+  default_kcat: 25.0          # fallback if a CSV kcat is missing/non-positive
+  close_free_sinks: null      # set by the M2 PART D enzyme-cost artefact audit
 
-T0_C: 30
+T0_C: 37                      # methanogen reference temperature (Jones 1983 optimum ~38 C)
 
 temperature_grid:
   start_C: 5

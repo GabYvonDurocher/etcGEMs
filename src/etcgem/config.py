@@ -176,6 +176,33 @@ def build_provider(cfg: Dict[str, Any]):
             biomass_rxn=p.get("biomass_rxn"),
             target_fraction=p.get("target_fraction", 0.6),
         )
+    elif kind == "smoment_gem":
+        # sMOMENT pool on a plain GEM (methanogen). Grounded pool budget =
+        # P_total x f_metab x sigma from independent data (emergent, not calibrated).
+        kcat_csv = p["kcat_csv"]
+        if not os.path.isabs(kcat_csv) and cfg.get("_strain"):
+            cand = os.path.join(strain_dir(cfg["_strain"]), kcat_csv)
+            if os.path.exists(cand):
+                kcat_csv = cand
+        p_total = p.get("p_total")
+        sigma = p.get("sigma", 0.45)
+        budget_override = None
+        if p_total is not None:
+            # f_metab from the provider block (M2 base ecModel is sector-free; sectors are M3)
+            f_metab = p.get("f_metab", (cfg.get("proteome_sectors") or {}).get("f_metab", 0.5))
+            budget_override = float(p_total) * float(sigma) * float(f_metab)
+        pm = providers.from_gem_smoment(
+            model_path=p["model_path"], kcat_csv=kcat_csv, T0=T0,
+            budget_override=budget_override,
+            target_fraction=p.get("target_fraction", 0.6),
+            biomass_rxn=p.get("biomass_rxn"),
+            default_kcat=p.get("default_kcat", 25.0),
+            close_free_sinks=p.get("close_free_sinks"),
+        )
+        if budget_override is not None:
+            print(f"[emergent] pool budget = P_total({p_total}) x f_metab({f_metab}) "
+                  f"x sigma({sigma}) = {budget_override:.4g} g/gDW (not growth-calibrated)")
+        cfg["closed_free_o2_sinks"] = list(pm.closed_free_o2_sinks)
     else:
         raise ValueError(f"Unknown provider type: {kind}")
 
