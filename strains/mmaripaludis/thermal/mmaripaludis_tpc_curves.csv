@@ -1,0 +1,14 @@
+# PLACEHOLDER TPC for M. maripaludis (H2/CO2). NOT digitised — approximate values
+# consistent with Jones, Paynter & Gupta 1983 (Arch Microbiol 135:91-97, Fig 2):
+# optimum ~38 C, range ~18-47 C, mu_max ~0.18-0.19/h. Replace in M2 (see
+# sources/jones1983_archmicrobiol/SOURCE.md). Every row flagged PLACEHOLDER.
+temp_C,mu_per_h,source,medium,flag
+18,0.02,jones1983_placeholder,H2CO2_defined,PLACEHOLDER
+22,0.05,jones1983_placeholder,H2CO2_defined,PLACEHOLDER
+26,0.08,jones1983_placeholder,H2CO2_defined,PLACEHOLDER
+30,0.12,jones1983_placeholder,H2CO2_defined,PLACEHOLDER
+34,0.16,jones1983_placeholder,H2CO2_defined,PLACEHOLDER
+38,0.19,jones1983_placeholder,H2CO2_defined,PLACEHOLDER
+41,0.17,jones1983_placeholder,H2CO2_defined,PLACEHOLDER
+44,0.10,jones1983_placeholder,H2CO2_defined,PLACEHOLDER
+47,0.02,jones1983_placeholder,H2CO2_defined,PLACEHOLDER

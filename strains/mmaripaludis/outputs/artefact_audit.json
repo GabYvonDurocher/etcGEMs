@@ -1,0 +1,10 @@
+{
+  "internal": 629,
+  "internal_with_gpr": 527,
+  "metabolic": 593,
+  "metabolic_with_gpr": 506,
+  "transport": 36,
+  "genes": 539,
+  "loop_reactions": 0,
+  "top_loops": []
+}
