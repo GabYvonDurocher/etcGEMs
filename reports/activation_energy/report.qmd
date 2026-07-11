@@ -111,7 +111,7 @@ residual (0.057 eV) for higher-order/window nonlinearity. So the organism-level 
 **an aggregate of the enzyme activation energies, not the signature of a single
 rate-limiting step**, buffered downward by the cell's allocation and maintenance physiology.
 
-![**How $E_a^\text{org}$ emerges (rich medium, tuned model).** A waterfall from the enzyme-kinetic backbone — the control-weighted mean of the per-enzyme $E_{a,i}$ (0.970 eV) — through the growth-law allocation ($-0.107$) and temperature-dependent maintenance ($-0.010$) offsets and a small nonlinear residual to the actual $E_a^\text{org}=0.909$ eV.](assets/figures/ea_waterfall.png){#fig-waterfall fig-pos="H" width=80%}
+![**What moves the organism $E_a$ from the naive enzyme mean (rich medium, tuned model).** Each decomposition term as a signed deviation from the unweighted enzyme-$E_a$ mean (0.867 eV): control weighting raises it ($+0.103$, control falls on higher-$E_a$ enzymes), growth-law allocation lowers it ($-0.107$), temperature-dependent maintenance is negligible ($-0.010$), and a small nonlinear residual ($+0.057$) closes to the organism $E_a^\text{org}=0.909$ eV.](assets/figures/ea_signed_contributions.png){#fig-waterfall fig-pos="H" width=85%}
 
 ```{python}
 #| label: tbl-decomp

@@ -345,6 +345,54 @@ def _plot_waterfall(dec, out):
     fig.tight_layout(); p = os.path.join(out, "ea_waterfall.png"); fig.savefig(p, dpi=150); plt.close(fig)
 
 
+def _signed_components(dec):
+    """Derive the four signed contributions (deviations from the unweighted enzyme mean)
+    from a decomposition summary dict, and assert they close to Ea_org."""
+    D = dec["decomposition_eV"]; dep = dec["departure_from_naive_mean_eV"]
+    base = float(dep["unweighted_mean_Ea_i"])
+    Ea = float(dec["Ea_org_eV"])
+    comps = [
+        ("control weighting", float(dep["control_weighted_mean_Ea_i"]) - base),
+        ("allocation (growth law)", float(D["allocation_growth_law"])),
+        ("maintenance NGAM(T)", float(D["maintenance_NGAM"])),
+        ("residual (nonlinear)", float(D["residual_nonlinear"])),
+    ]
+    close = base + sum(v for _, v in comps)
+    return base, Ea, comps, (close - Ea)
+
+
+def plot_ea_signed_contributions(dec, out_path):
+    """Horizontal signed-contribution bar: each decomposition term as a +/- deviation from
+    the naive (unweighted) enzyme-Ea mean, from the mean to the organism Ea. Positive
+    (raises Ea) teal, negative (lowers Ea) coral. `dec` is a decomposition summary dict."""
+    plt = _mpl()
+    base, Ea, comps, resid_check = _signed_components(dec)
+    labels = [c[0] for c in comps]
+    vals = [c[1] for c in comps]
+    y = np.arange(len(comps))[::-1]                       # top -> bottom order as listed
+    pos, neg = "#199e70", "#d85a30"
+    colors = [pos if v >= 0 else neg for v in vals]
+    fig, ax = plt.subplots(figsize=(7.8, 3.6))
+    ax.barh(y, vals, color=colors, height=0.62, zorder=3)
+    ax.axvline(0, color="k", lw=0.9, zorder=2)
+    for yi, v in zip(y, vals):
+        s = f"{'+' if v >= 0 else '−'}{abs(v):.3f}"
+        ax.text(v + (0.004 if v >= 0 else -0.004), yi, s, va="center",
+                ha="left" if v >= 0 else "right", fontsize=9,
+                color=(pos if v >= 0 else neg), fontweight="bold")
+    ax.set_yticks(y); ax.set_yticklabels(labels, fontsize=9)
+    span = max(abs(min(vals)), abs(max(vals)))
+    ax.set_xlim(-span * 1.6, span * 1.6)
+    ax.set_xlabel(f"Δ $E_a$ from enzyme mean ({base:.3f} eV)  →  "
+                  f"organism $E_a$ = {Ea:.3f} eV", fontsize=9)
+    ax.set_title("What moves the organism $E_a$ from the naive enzyme mean", fontsize=10)
+    for sp in ("top", "right", "left"):
+        ax.spines[sp].set_visible(False)
+    ax.tick_params(left=False)
+    fig.tight_layout(); fig.savefig(out_path, dpi=200); plt.close(fig)
+    return out_path
+
+
 def _plot_top_enzymes(m, out):
     plt = _mpl()
     t = m.reindex(m["contrib"].abs().sort_values(ascending=False).index).head(15).iloc[::-1]
@@ -456,7 +504,7 @@ def run(strain: str, out_dir: str, *, grid=None, f: float = 0.02) -> Dict:
     with open(os.path.join(out_dir, "summary.json"), "w") as fh:
         json.dump(summary, fh, indent=2, default=str)
 
-    _plot_waterfall(bhi["summary"], out_dir)
+    plot_ea_signed_contributions(bhi["summary"], os.path.join(out_dir, "ea_signed_contributions.png"))
     _plot_top_enzymes(m, out_dir)
     _plot_by_cog(m, out_dir)
     _plot_departure(bhi["summary"]["departure_from_naive_mean_eV"], out_dir)

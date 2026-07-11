@@ -15,7 +15,7 @@ TBL_DIR = os.path.join(HERE, "assets", "tables")
 
 # (source_filename, stable_dest_name)
 FIGURES = [
-    ("ea_waterfall.png",            "ea_waterfall.png"),
+    ("ea_signed_contributions.png", "ea_signed_contributions.png"),
     ("ea_departure.png",            "ea_departure.png"),
     ("ea_top_enzymes_no_carrier.png", "ea_top_enzymes.png"),   # acpP-excluded (robust) version
     ("ea_by_cog.png",               "ea_by_cog.png"),
