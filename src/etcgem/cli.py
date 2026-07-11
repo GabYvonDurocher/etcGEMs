@@ -496,6 +496,37 @@ def cmd_dissect(args):
 
 
 # ---------------------------------------------------------------------------
+# ea: dissect the organism-level activation energy (Ea) of the growth TPC
+# ---------------------------------------------------------------------------
+def cmd_ea(args):
+    if not args.strain:
+        raise SystemExit("ea needs --strain NAME")
+    from .calibration_multi import _set_default_solver
+    solver = _set_default_solver("gurobi")
+    if solver != "gurobi" and not os.environ.get("ALLOW_GLPK"):
+        raise SystemExit("[solver] Gurobi NOT active - stopping (set ALLOW_GLPK to override).")
+    print(f"[solver] {solver}")
+    from . import ea_dissection as ED
+    out_dir = _out_dir(args.strain, "ea_dissection")
+    res = ED.run(args.strain, out_dir, f=float(args.f) if args.f is not None else 0.02)
+    s = res["summary"]; h = s["headline_BHI"]; D = h["decomposition_eV"]; dep = h["departure_from_naive_mean_eV"]
+    print("\n" + "=" * 72)
+    print("Ea DISSECTION (tuned model) — how the organism-level Ea emerges & departs from the mean")
+    print("=" * 72)
+    print(f"  Ea_org (rich BHI) = {h['Ea_org_eV']} eV over {h['window_C']} C; Sum C_i = {h['sum_C_i']}")
+    print(f"  decomposition (eV): control-weighted mean Ea_i {D['kinetic_control_weighted_mean_Ea_i']} "
+          f"+ allocation {D['allocation_growth_law']} + maintenance {D['maintenance_NGAM']} "
+          f"+ residual {D['residual_nonlinear']} = {D['predicted_sum']} (actual {D['actual_Ea_org']})")
+    print(f"  DEPARTURE from naive mean: unweighted {dep['unweighted_mean_Ea_i']} -> control-weighted "
+          f"{dep['control_weighted_mean_Ea_i']} (control concentration {dep['attribution']['control_concentration']:+})")
+    print(f"  medium: Ea_org glucose {s['medium_glucose']['Ea_org_eV']} vs BHI {h['Ea_org_eV']}; "
+          f"top-15 overlap {s['medium_comparison']['top15_overlap_enzymes']}/15")
+    print(f"  emergent-vs-tuned top-15 overlap {s['emergent_vs_tuned']['top15_overlap_with_tuned']}/15 (structural)")
+    print(f"[ea] wrote {out_dir}")
+    return out_dir
+
+
+# ---------------------------------------------------------------------------
 # anatomy: reference-operating-point description (curve + enzyme distributions)
 # ---------------------------------------------------------------------------
 def cmd_anatomy(args):
@@ -859,6 +890,14 @@ def build_parser():
     di.add_argument("--procs", type=int, default=None, help="parallel workers (0=auto)")
     di.add_argument("--draws", type=int, default=None, help="posterior draws for elasticity bands (default 150)")
     di.set_defaults(func=cmd_dissect)
+
+    ea = sub.add_parser("ea",
+                        help="dissect the organism-level activation energy (Ea) of the growth "
+                             "TPC: control-weighted aggregation of enzyme Eas + departure from the "
+                             "naive mean (MCA decomposition; tuned model)")
+    ea.add_argument("--strain")
+    ea.add_argument("--f", type=float, default=None, help="finite-diff step for C_i (default 0.02)")
+    ea.set_defaults(func=cmd_ea)
 
     an = sub.add_parser("anatomy",
                         help="model-anatomy figures at the reference operating point "
