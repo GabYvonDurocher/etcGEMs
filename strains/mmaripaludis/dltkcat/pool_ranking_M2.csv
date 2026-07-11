@@ -1,0 +1,26 @@
+rxn_id,name,mw_kDa,kcat_s,source,pool_pct,flag_implausible_low
+rxn03127_LSQBKT_c0_RSQBKT_,2-Methylthioethanesulfonate N-7-thioheptanoyl-3-O- c0,176.758,8.84,measured_core,39.74,False
+rxn05938_LSQBKT_c0_RSQBKT_,Pyruvate Oxidoreductase,136.494,0.2571,dltkcat,18.84,True
+rxn11938_LSQBKT_c0_RSQBKT_,Formylmethanofuran NAD oxidoreductase c0,34.12,8.53,measured_core,8.1,False
+rxn03020_LSQBKT_c0_RSQBKT_,5-Methyl-5 6 7 8-tetrahydromethanopterin 2-mercaptoethanesulfonate c0,186.578,62.19,measured_core,5.96,False
+rxn03085_LSQBKT_c0_RSQBKT_,5 10-Methylenetetrahydromethanopterin coenzyme-F420 oxidoreductase c0,33.823,22.55,measured_core,3.03,False
+HdrABC,HdrABC,55.11,45.92,measured_core,2.39,False
+CODH,Carbon monoxide dehydrogenase,293.916,4.8748,fallback_mean,2.1,False
+ATPS,ATP synthase:Sodium utilizing,323.82,161.91,measured_core,1.98,False
+rxn05939_LSQBKT_c0_RSQBKT_,2-oxoglutarate synthase rev c0,96.4,0.2302,dltkcat,1.84,True
+rxn03147_LSQBKT_c0_RSQBKT_,1-5-Phosphoribosyl-5-amino-4-carboxyimidazole L-aspartate ligase c0,27.763,0.0154,dltkcat,1.66,True
+rxn06696_LSQBKT_c0_RSQBKT_,"Hydrogen:5,10-methenyltetrahydromethanopterin oxidoreductase",37.868,100.98,measured_core,1.58,False
+rxn07191_LSQBKT_c0_RSQBKT_,D-glyceraldehyde-3-phosphate ferredoxin oxidoreductase c0,70.85,4.8748,fallback_mean,1.56,False
+ACS,Acetyl-CoA synthase,293.916,7.0908,dltkcat,1.44,False
+rxn02431_LSQBKT_c0_RSQBKT_,Formylmethanofuran 5 6 7 8-tetrahydromethanopterin c0,32.09,53.48,measured_core,1.21,False
+rxn00782_LSQBKT_c0_RSQBKT_,D-Glyceraldehyde-3-phosphate NADP oxidoreductasephosphorylating c0,37.27,4.8748,fallback_mean,0.86,False
+rxn02480_LSQBKT_c0_RSQBKT_,5 10-Methenyltetrahydromethanopterin 10-hydrolase decyclizing c0,34.823,87.06,measured_core,0.81,False
+FNO,F420:NADP oxidoreductase,23.716,4.8748,fallback_mean,0.78,False
+rxn05466_LSQBKT_c0_RSQBKT_,Ammonia transport via diffusion c0,84.733,4.8748,fallback_mean,0.61,False
+rxn00789_LSQBKT_c0_RSQBKT_,1-5-Phospho-D-ribosyl-ATP pyrophosphate phosphoribosyl-transferase c0,31.561,0.0191,dltkcat,0.6,False
+rxn00260_LSQBKT_c0_RSQBKT_,L-Aspartate 2-oxoglutarate aminotransferase c0,41.781,1.2231,dltkcat,0.48,False
+rxn03136_LSQBKT_c0_RSQBKT_,1-5'-Phosphoribosyl-5-amino-4-N-succinocarboxamide-imidazole c0,50.715,0.1051,dltkcat,0.44,False
+rxn00187_LSQBKT_c0_RSQBKT_,L-Glutamate ammonia ligase ADP-forming c0,49.421,6.334,dltkcat,0.28,False
+rxn02914_LSQBKT_c0_RSQBKT_,3-Phosphoserine 2-oxoglutarate aminotransferase c0,41.851,0.2301,dltkcat,0.26,False
+rxn08764_LSQBKT_c0_RSQBKT_,ketol-acid reductoisomerase (2-Acetolactate),36.604,0.1999,dltkcat,0.2,False
+rxn00800_LSQBKT_c0_RSQBKT_,N6-1 2-DicarboxyethylAMP AMP-lyase c0,50.715,0.1409,dltkcat,0.2,False
