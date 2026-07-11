@@ -1,0 +1,73 @@
+{
+  "mu": 0.044,
+  "undershoot_x": 6.6,
+  "H2_per_CH4": 4.122,
+  "CO2_per_CH4": 1.061,
+  "pool_binds": true,
+  "mcr_pct": 14.2,
+  "pfor_pct": 0.7,
+  "top": [
+    [
+      "rxn11938_LSQBKT_c0_RSQBKT_",
+      19.29,
+      8.53
+    ],
+    [
+      "rxn03020_LSQBKT_c0_RSQBKT_",
+      14.2,
+      62.19
+    ],
+    [
+      "rxn03127_LSQBKT_c0_RSQBKT_",
+      14.2,
+      58.92
+    ],
+    [
+      "rxn03085_LSQBKT_c0_RSQBKT_",
+      7.23,
+      22.55
+    ],
+    [
+      "HdrABC",
+      5.7,
+      45.92
+    ],
+    [
+      "CODH",
+      4.98,
+      4.87
+    ],
+    [
+      "ATPS",
+      4.72,
+      161.91
+    ],
+    [
+      "rxn06696_LSQBKT_c0_RSQBKT_",
+      3.76,
+      100.98
+    ],
+    [
+      "rxn07191_LSQBKT_c0_RSQBKT_",
+      3.7,
+      4.87
+    ],
+    [
+      "ACS",
+      3.42,
+      7.09
+    ],
+    [
+      "rxn02431_LSQBKT_c0_RSQBKT_",
+      2.89,
+      53.48
+    ],
+    [
+      "rxn00782_LSQBKT_c0_RSQBKT_",
+      2.05,
+      4.87
+    ]
+  ],
+  "mu_max_target_jones": 0.1806,
+  "undershoot_vs_jones_x": 4.1
+}

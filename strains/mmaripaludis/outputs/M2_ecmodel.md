@@ -1,5 +1,12 @@
 # M2 — base (temperature-independent) sMOMENT ecModel for M. maripaludis
 
+> **Superseded in part by M2b** (`M2b_kcat_refinement.md`): the kcat table was refined
+> (PFOR/OGOR literature overrides, Mcr re-pinned to its cited kcat, a DLTKcat <1/s floor).
+> The current numbers are **mu 0.044/h** (was 0.0185; ~4.1× under the Jones peak, was ~10×)
+> and a methanogenesis backbone that **shares** the pool (Fwd/Mtr/Mcr ≈ 14–19% each) rather
+> than Mcr dominating at 39.7%. The parameterisation narrative below is the M2 snapshot.
+
+
 Enzyme-constraint layer on the M1b carbon-honest autotroph (`iMR539_curated.xml`), reusing
 `src/etcgem/enzyme_cost` (sMOMENT total-protein pool). **Base ecModel only** — no thermal
 layer (M3), no calibration (M4). Emergent-then-calibrate: a grounded pool from independent
