@@ -1,0 +1,21 @@
+{
+  "kcat_scale_prior": 4.0,
+  "apriori_peak_mu": 0.0,
+  "shape": {
+    "Topt_C": 42.0,
+    "CTmax_C": 46.84,
+    "Ea_eV": 1.72,
+    "Ea_kJmol": 165.9,
+    "B80_C": 5.55,
+    "peak_mu": 0.06855
+  },
+  "ch4_tpc": {
+    "Topt_C": 42.0,
+    "CTmax_C": 47.88
+  },
+  "jones": {
+    "peak_mu": 0.1806,
+    "Topt_C": 37.03962704
+  },
+  "undershoot_x": 2.6
+}
