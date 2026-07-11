@@ -50,12 +50,17 @@ def add_proteome_sectors(pm, cfg: dict) -> dict:
 
     ec._pool.ub = f_metab_nom * P_total   # == default_budget at nominal
 
-    # nominal growth at T0 with only the metabolic pool binding
-    ec.set_temperature(pm.T0, Perturbation())
+    # nominal growth at T0 with only the metabolic pool binding. For models whose magnitude
+    # is carried by a calibrated kcat_scale (the methanogen: the a-priori kcat_scale=1 is
+    # maintenance-crushed to mu~0), calibrate the sector co-limit at that operating point via
+    # nominal_kcat_scale, so translation_coeff is finite and the two caps co-bind there.
+    nominal_pert = Perturbation(kcat_scale=float(cfg.get("nominal_kcat_scale", 1.0)))
+    ec.set_temperature(pm.T0, nominal_pert)
     ec.set_budget(f_metab_nom * P_total)
     mu = model.slim_optimize()
     if mu is None or mu <= 0:
-        raise RuntimeError("model does not grow at T0; cannot calibrate sectors")
+        raise RuntimeError("model does not grow at T0; cannot calibrate sectors "
+                           "(set proteome_sectors.nominal_kcat_scale to the calibrated magnitude)")
 
     tc = cfg.get("translation_coeff", "auto")
     if tc in (None, "auto"):

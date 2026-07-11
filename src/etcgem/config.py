@@ -241,6 +241,16 @@ def build_provider(cfg: Dict[str, Any]):
         # so a free sigma_sat perturbation can scale both sector caps by sigma/sigma_nom
         ps.setdefault("sigma_nom", float(p.get("sigma", 0.45)))
         add_proteome_sectors(pm, ps)
+        # Fix the sector NGAM anchor for a temperature-dependent maintenance reaction: the
+        # sector branch scales atpm_nom_lb by ngam_T(T)/ngam_T(25C), so atpm_nom_lb must be
+        # the 25C NGAM value. At sector-build the reaction's lb was NGAM(ref_T) (e.g. 37C),
+        # which would double-scale; reset it to the 25C anchor.
+        if kind == "smoment_gem" and p.get("ngam_temperature") and pm.ec._sectors and pm.ec._sectors.get("atpm_rxn") is not None:
+            from .unfolding import ngam_T
+            anchor25 = ngam_T(273.15 + 25.0, scale=1.0) * float(p.get("ngam_base_scale", 1.0))
+            pm.ec._sectors["atpm_nom_lb"] = float(anchor25)
+            print(f"[sectors] reset methanogen NGAM anchor atpm_nom_lb -> {anchor25:.3f} "
+                  f"(25C NGAM; the sector branch rescales it to ~{anchor25*ngam_T(310.15)/ngam_T(298.15):.2f} at 37C)")
 
         # Opt-in temperature-dependent allocation from measured proteomics. Only
         # active when sectors are enabled AND a data file is configured; otherwise

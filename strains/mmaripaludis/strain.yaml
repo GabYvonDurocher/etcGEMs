@@ -57,6 +57,32 @@ temperature_grid:
   stop_C: 55
   n: 51
 
+# --- M6 proteome-sector / allocation layer (the METHANOGEN'S OWN strategy) ---
+# Grounded in Muller et al. 2021 (PNAS 118:e2025854118): M. maripaludis keeps a CONSTANT
+# ribosomal proteome fraction and INVARIANT catabolic/anabolic allocation across growth
+# rate (0.09 -> 0.002 /h), maintaining maximum methanogenesis capacity even at slow growth
+# -- the opposite of the E. coli/yeast growth law where the ribosome fraction rises with mu.
+# So the growth-law COUPLING SLOPE is ~0 (flat), NOT the bacterial Scott ~0.30. This makes
+# the allocation buffer small BY THE ORGANISM'S OWN PHYSIOLOGY, grounding the M5 asymmetry.
+proteome_sectors:
+  enabled: true
+  P_total: null              # back out from the M4 metabolic-pool budget / f_metab (keeps nominal growth)
+  f_metab: 0.55              # methanogenesis-heavy metabolic sector (Mcr ~10% of protein; Xia/Muller)
+  f_maint: 0.30              # maintenance/housekeeping (S-layer, chaperonin Hsp60) -> f_bio = 0.15
+  sigma_nom: 0.45
+  atpm_reaction: rxn00062_LSQBKT_c0_RSQBKT_
+  biosynthesis_growth_law: true
+  growth_law_slope: 0.0      # Muller 2021: CONSTANT ribosome fraction -> flat coupling (vs E. coli 0.30)
+  growth_law_f_bio0: 0.15    # constant ribosome/biosynthesis fraction (= f_bio_nom; no mu-scaling)
+  nominal_kcat_scale: 7.223  # M4 calibrated magnitude (the a-priori kcat_scale=1 is maintenance-crushed
+                             # to mu~0, so the sector-build mu>0 check runs at the operating point)
+  # Fixed biosynthesis/ribosome cap at the organism mu_max: a CONSTANT ribosome fraction (Muller
+  # 2021) sets the translation cap at the physiological ceiling (M. maripaludis mu_max ~0.23/h),
+  # ABOVE the TPC peak, so the ribosome cap does not clip the curve -- the metabolic pool binds
+  # across the TPC and the allocation buffer is ~0 (the M5 asymmetry, grounded, not forced).
+  # translation_coeff = f_bio * P_total / mu_max = 0.15 * 0.2045 / 0.23.
+  translation_coeff: 0.133
+
 # Defined H2/CO2 minimal medium (availability, not pinned uptake): the exchanges
 # opened in M1 (resolved by ID at run time; see media/H2CO2_medium note).
 medium:

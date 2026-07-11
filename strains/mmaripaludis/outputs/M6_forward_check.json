@@ -1,0 +1,17 @@
+{
+  "sectors_on": {
+    "peak": 0.1861,
+    "Topt_C": 36.0,
+    "CTmax_C": 49.19,
+    "SS_E": 1.0558
+  },
+  "sectors_off_M4": {
+    "peak": 0.1861,
+    "Topt_C": 36.0,
+    "CTmax_C": 49.19,
+    "SS_E": 1.0558
+  },
+  "max_abs_dmu": 0.0,
+  "jones_peak": 0.181,
+  "verdict": "near-neutral -> no re-fit"
+}
