@@ -1,0 +1,132 @@
+---
+title: "Supplement — Construction of the *Methanococcus maripaludis* etc-GEM, the Sharpe–Schoolfield $E_a$ audit, and robustness"
+date: last-modified
+format:
+  pdf:
+    toc: true
+    number-sections: true
+    include-in-header: header.tex
+bibliography: references.bib
+csl: nature-communications.csl
+---
+
+This Supplement documents the construction of the *M. maripaludis* methanogenesis etc-GEM
+(the *E. coli* respiration model is described in the companion report `reports/ecoli_tpc/`),
+the window-independence audit that motivates the Sharpe–Schoolfield $E$, and the robustness
+analyses. Numbers are model outputs; honest caveats are stated throughout.
+
+# Building the methanogen etc-GEM (M1–M6)
+
+The model was built in six phases, each committed and validated (build records in
+`strains/mmaripaludis/outputs/M*.md`).
+
+## M1 — base GEM + medium (foundation)
+The iMR539 reconstruction [@richards2016] (688 reactions / 710 metabolites / 539 genes;
+BioModels BIOMD0000001099) was acquired and validated on a defined H2/CO2 medium. Plain FBA
+reproduces hydrogenotrophic methanogenesis with the correct **H2:CO2:CH4 = 4:1:1**
+stoichiometry and a gene-annotated Wolfe cycle. A preliminary audit found **no thermodynamic
+energy loops**; 85% metabolic GPR coverage; MMP locus tags map to UniProt proteome
+UP000000590 (sequences fetchable) — ecModel-ready.
+
+## M1b — carbon-honest curation
+The published reconstruction could not grow without free uptake of four biomass precursors.
+Tracing the network, three (Membrane_lipid, NAC, Flagellin) feed *only* the archaellin
+(flagellum) glycoprotein — a dispensable motility structure — so archaellin was folded out of
+biomass; the fourth (tRNA(SeCys)) was a **recycling gap** (the incorporation step failed to
+release the free tRNA), fixed by regenerating it. Organic-carbon leaks were closed and the
+pinned CH4 exchange freed. The curated model grows autotrophically on H2/CO2 with **99.98% of
+biomass carbon from CO2**. Two vitamin cofactors (thiamin, NMN) lack biosynthesis and are
+supplied as documented medium traces (0.02% of carbon).
+
+## M2 / M2b — the sMOMENT ecModel + kcat refinement
+An sMOMENT total-protein pool was attached (reusing the E. coli `enzyme_cost` engine): each
+reaction costs $\text{MW}/k_\text{cat}$ from a shared budget. Per-reaction $k_\text{cat}$ by
+source priority: **measured core** (electron-bifurcation complexes from Milton et al. 2018,
+25–165 U/mg [@milton2018]; classic biochemistry for Mtr/Fwd/Mcr/etc.), **DLTKcat** sequence
+predictions for the bulk, and a mean fallback. Mcr — the famously slow terminal enzyme and the
+$E_a$ target — was sourced carefully (mature-Mcr average specific activity ~20 U/mg,
+*Methanothermobacter*; $k_\text{cat}$ ≈ 59 s⁻¹, uncertainty range 3–294 s⁻¹). **M2b** corrected
+a systematic DLTKcat archaeal-underprediction (28% of predictions <1 s⁻¹) with cited
+literature/BRENDA overrides for the flagged high-pool offenders (pyruvate- and
+2-oxoglutarate:ferredoxin oxidoreductases) plus a documented 1 s⁻¹ floor. The grounded pool
+($P_\text{total}\times\sigma\times f_\text{metab}$, not tuned to $\mu_\text{max}$) gives an
+emergent $\mu$ that undershoots the observed rate ~4×, expected for a-priori kinetics.
+
+## M3 — thermal envelope + measured maintenance
+kcat($T$) (MMRT/Eyring) × native fraction $f_N(T)$ (two-state unfolding keyed on $T_m$), with
+per-enzyme optima from a documented **mesophile Topt prior** and $T_m$ from a mesophile prior
+(the sequence/meltome predictors are the future upgrade). Maintenance is a
+temperature-dependent NGAM($T$) **anchored on the measured** M. maripaludis maintenance energy
+(7.836 mmol ATP gDW⁻¹ h⁻¹, Goyal et al. 2015 [@goyal2015]). The emergent TPC matches Jones'
+**CTmax (~47 °C)** a-priori (@fig-emergent); the rising limb was too warm/steep and the
+magnitude maintenance-crushed — the residuals the calibration then addresses.
+
+![Emergent (nothing-fit) methanogen TPC vs Jones 1983: the falling limb (CTmax) matches a-priori; the rising limb and magnitude are calibrated in M4.](assets/figures/methanogen_emergent_tpc.png){#fig-emergent width=95%}
+
+## M4 — Bayesian calibration to Jones 1983
+The thermal ecModel was calibrated to the digitised Jones 1983 growth TPC [@jones1983] by
+ensemble MCMC (emcee; the same machinery as the E. coli fit), magnitude-first, with
+provenance priors. The posterior **reproduces the whole curve** (@fig-calib; RMSE 0.005 h⁻¹),
+reaching the peak (0.184 vs 0.181 h⁻¹) with Topt 37 °C and CTmax 51 °C. The demanded magnitude
+correction (kcat_scale ≈ 7×) is a plausible in-vitro→in-vivo + archaeal-underprediction gap
+(the single sMOMENT pool lumps the degenerate magnitude levers). The maintenance multiplier
+stayed near 1, confirming the Goyal-measured NGAM.
+
+![Prior (emergent) vs posterior methanogen TPC against Jones 1983.](assets/figures/methanogen_calibration_jones.png){#fig-calib width=85%}
+
+## M6 — the methanogen's own allocation layer
+A proteome-sector/growth-law layer was added, grounded in the organism's **own** allocation
+physiology: Müller et al. 2021 [@muller2021] show M. maripaludis holds a **constant ribosomal
+proteome fraction** and invariant catabolic/anabolic allocation across growth rate (the
+opposite of the E. coli/yeast scaling law), so the growth-law coupling slope is **~0 (flat)**.
+Sector fractions ($f_\text{metab}$ 0.55 / $f_\text{maint}$ 0.30 / $f_\text{bio}$ 0.15) are
+grounded in the Xia/Müller proteome. Forward-check: with the sector layer on and the M4
+posterior, the TPC is **identical** to the single-pool model (max\|$\Delta\mu$\| = 0), so no
+re-calibration was needed. The directly-measured allocation buffer is **+0.000 eV** (vs
+E. coli −0.130), grounding the allocation asymmetry in each organism's measured strategy.
+
+**Honest caveats carried into the analysis.** (i) The **Mcr $k_\text{cat}$** (3–294 s⁻¹) is
+the dominant single-parameter uncertainty. (ii) **DLTKcat is bacteria-trained**, so archaeal
+predictions are corrected but remain a prior for the biosynthetic bulk. (iii) The **$T_m$ and
+Topt** are mesophile priors (no archaeal sequence predictor). (iv) The **sector fractions** are
+grounded but approximate; the flat slope is the robust, cited quantity. The main-text
+conclusions are shown robust to the parameter that matters most (Mcr; @sec-mcr).
+
+# Why Sharpe–Schoolfield $E$: the window-sensitivity audit
+
+The naive Boltzmann–Arrhenius slope of the rising limb depends on the fitting window because
+the limb is curved. @tbl-window-full recomputes it under five window conventions for every
+model and observed curve: the spread is **0.42–1.41 eV per curve**, larger than the effects we
+attribute, and enough to reverse the cross-organism ordering. The Sharpe–Schoolfield $E$
+(the high-temperature-inactivation model, main text) is read from the whole shape, is
+window-independent, and — the
+decisive test — makes model and observed agree for both organisms (@fig-ssfits).
+
+```{python}
+#| label: tbl-window-full
+#| tbl-cap: "Full window-sensitivity table: Boltzmann-Arrhenius slope Ea (eV) under five window conventions, and the window-independent Sharpe-Schoolfield E, for every model + observed curve."
+#| output: asis
+import pandas as pd
+w = pd.read_csv("assets/tables/window_sensitivity.csv")
+ss = pd.read_csv("assets/tables/sharpe_schoolfield_fits.csv")[["curve","SS_E_eV","SS_r2" if "SS_r2" in pd.read_csv("assets/tables/sharpe_schoolfield_fits.csv").columns else "r2"]]
+m = w.merge(ss, on="curve", how="left")
+print(m.round(3).to_markdown(index=False))
+```
+
+![Sharpe–Schoolfield fits overlaid on the model and observed curves for both organisms; the model and observed $E$ agree.](assets/figures/ss_fits_overlay.png){#fig-ssfits width=100%}
+
+# Mcr-$k_\text{cat}$ sensitivity {#sec-mcr}
+
+@tbl-mcr-full sweeps Mcr across its 3–294 s⁻¹ range. The organism $E_a$ stays **1.01–1.27 eV,
+always well above E. coli's 0.68**, and the methanogenesis backbone carries **83–103%** of the
+control term throughout — so the ordering and the backbone-control finding are robust. Only the
+identity of the single leading enzyme shifts (Mcr when slow → Fwd when fast).
+
+```{python}
+#| label: tbl-mcr-full
+#| tbl-cap: "Mcr-kcat sensitivity sweep: organism SS-E, backbone fraction of the control term, and the leading enzymes, across 3-294/s."
+#| output: asis
+import pandas as pd
+m = pd.read_csv("assets/tables/mcr_sweep.csv")
+print(m.round(3).to_markdown(index=False))
+```
