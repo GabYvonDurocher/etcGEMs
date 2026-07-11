@@ -27,8 +27,8 @@ decomposition and per-enzyme identifiability. In brief, the grounded envelope re
 *capacity* (magnitude).
 
 > **The full science — equations, parameter provenance, validation, calibration and all
-> results — is in the Quarto report:** `reports/etcgem/report.qmd` (and
-> `reports/etcgem/supplementary.qmd`). This README covers **how the repository works**; it
+> results — is in the Quarto report:** `reports/ecoli_tpc/report.qmd` (and
+> `reports/ecoli_tpc/supplementary.qmd`). This README covers **how the repository works**; it
 > deliberately does not reproduce the equations or detailed findings.
 
 ## Repository layout
@@ -50,7 +50,7 @@ etcGEMs/
 │       ├── dltkcat/             DLTKcat kcat(T) inputs/outputs/fits
 │       └── outputs/             one folder per run (resolved_config.yaml + results)
 │           └── _archive/        superseded / quick / diagnostic runs (on disk, gitignored)
-├── reports/etcgem/              report.qmd, supplementary.qmd, assemble.py, assets/
+├── reports/ecoli_tpc/              report.qmd, supplementary.qmd, assemble.py, assets/
 ├── prompts/                     README index + the current prompt; archive/ = executed
 ├── docs/                        RUNBOOK.md (step-by-step), correspondence/, proposals
 ├── pyproject.toml               package metadata; console entry point `etcgem`
@@ -60,6 +60,12 @@ etcGEMs/
 External, **kept outside the tracked tree and gitignored** (documented, not committed):
 `DLTKcat/` (a vendored clone of the DLTKcat kcat(T) predictor) and `refs/` (reference
 PDFs). The legacy `tpc_pipeline/` scaffold has been removed (superseded by `src/etcgem/`).
+
+**Report convention.** Reports are **per deliverable**, named by organism + topic — the
+current one is `reports/ecoli_tpc/` (this *E. coli* TPC study). Future deliverables live in
+sibling directories, e.g. `reports/activation_energy/` (a cross-organism activation-energy
+analysis) and `reports/respiration/`, each with its own `report.qmd` + `assemble.py`.
+`strains/` is deliberately shared and not renamed per report.
 
 ## How it works
 
@@ -202,9 +208,9 @@ The report renders from the committed canonical output dirs — it does not re-r
 analyses. The flow is **outputs → `assemble.py` → `quarto render`**:
 
 ```bash
-python reports/etcgem/assemble.py            # copy the canonical outputs into reports/etcgem/assets/
-quarto render reports/etcgem/report.qmd --to pdf
-quarto render reports/etcgem/supplementary.qmd --to pdf
+python reports/ecoli_tpc/assemble.py            # copy the canonical outputs into reports/ecoli_tpc/assets/
+quarto render reports/ecoli_tpc/report.qmd --to pdf
+quarto render reports/ecoli_tpc/supplementary.qmd --to pdf
 ```
 
 `assemble.py` copies a curated set of figures/tables from the canonical outputs
