@@ -1,0 +1,31 @@
+{
+  "ecoli": {
+    "SS_E": 0.6784,
+    "obs_SS_E": 0.558,
+    "Topt_C": 38.4,
+    "CTmax_C": 46.0,
+    "named_terms": {
+      "control_weighting": 0.1063,
+      "allocation": -0.1295,
+      "maintenance": 0.0049,
+      "aggregation": -0.1749
+    },
+    "unweighted": 0.8716,
+    "sum_C_i": 0.556
+  },
+  "methanogen": {
+    "SS_E": 1.0558,
+    "obs_SS_E": 1.042,
+    "Topt_C": 35.3,
+    "CTmax_C": 48.8,
+    "named_terms": {
+      "control_weighting": 0.3427,
+      "allocation": 0.0,
+      "maintenance": -0.0164,
+      "aggregation": 0.2177
+    },
+    "unweighted": 0.5118,
+    "sum_C_i": 1.189,
+    "backbone_fraction_of_control": 0.887
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "sweep": [
+    {
+      "Mcr_kcat": 3.0,
+      "SS_E": 1.2743,
+      "slope": 1.5971,
+      "backbone_frac_of_control": 1.026,
+      "top3": "Mcr(1.605);Fwd(0.092);CODH(-0.065)",
+      "Mcr_C_i": 2.3911,
+      "Mcr_contrib": 1.6053
+    },
+    {
+      "Mcr_kcat": 10.0,
+      "SS_E": 1.0105,
+      "slope": 1.1049,
+      "backbone_frac_of_control": 0.986,
+      "top3": "Mcr(0.876);Fwd(0.167);CODH(-0.039)",
+      "Mcr_C_i": 0.907,
+      "Mcr_contrib": 0.8764
+    },
+    {
+      "Mcr_kcat": 30.0,
+      "SS_E": 1.0651,
+      "slope": 1.1323,
+      "backbone_frac_of_control": 0.925,
+      "top3": "Mcr(0.488);Fwd(0.277);Mtr(0.059)",
+      "Mcr_C_i": 0.4436,
+      "Mcr_contrib": 0.488
+    },
+    {
+      "Mcr_kcat": 58.9,
+      "SS_E": 1.0558,
+      "slope": 1.0812,
+      "backbone_frac_of_control": 0.887,
+      "top3": "Fwd(0.337);Mcr(0.304);Mtr(0.070)",
+      "Mcr_C_i": 0.27,
+      "Mcr_contrib": 0.3044
+    },
+    {
+      "Mcr_kcat": 100.0,
+      "SS_E": 1.0659,
+      "slope": 1.1527,
+      "backbone_frac_of_control": 0.857,
+      "top3": "Fwd(0.395);Mcr(0.211);Mtr(0.079)",
+      "Mcr_C_i": 0.1785,
+      "Mcr_contrib": 0.2107
+    },
+    {
+      "Mcr_kcat": 294.0,
+      "SS_E": 1.0171,
+      "slope": 1.0745,
+      "backbone_frac_of_control": 0.833,
+      "top3": "Fwd(0.427);Mtr(0.086);Mer(0.079)",
+      "Mcr_C_i": 0.0657,
+      "Mcr_contrib": 0.0776
+    }
+  ],
+  "verdict": {
+    "mcr_kcat_range": [
+      3.0,
+      294.0
+    ],
+    "SS_E_range": [
+      1.0105,
+      1.2743
+    ],
+    "SS_E_min_vs_ecoli_0.68": "methanogen SS-E stays above E. coli 0.68 across the whole Mcr range",
+    "backbone_frac_range": [
+      0.833,
+      1.026
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+term,E. coli (rich BHI),M. maripaludis (H2/CO2),difference (methanogen - E. coli)
+SS-E organism Ea (eV),0.6784,1.0558,0.3774
+observed SS-E (eV),0.558,1.042,0.484
+Topt (C),38.4,35.3,-3.1
+CTmax (C),46.0,48.8,2.8
+— naive (unweighted) enzyme-E mean,0.8716,0.5118,-0.3598
++ control weighting,0.1063,0.3427,0.2364
++ allocation (growth law),-0.1295,0.0,0.1295
++ maintenance NGAM(T),0.0049,-0.0164,-0.0213
++ aggregation (heterogeneity/flattening),-0.1749,0.2177,0.3926
+control-weighted enzyme-E mean,0.9779,0.8545,-0.1234
+sum C_i,0.556,1.189,0.633
