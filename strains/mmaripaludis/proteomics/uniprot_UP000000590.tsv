@@ -1,0 +1,1723 @@
+Entry	Gene Names (primary)	Gene Names	Mass	Length	Protein names
+Q6LZM9	spcS	spcS MMP0595	48447	436	O-phosphoseryl-tRNA(Sec) selenium transferase (EC 2.9.1.2) (Selenocysteine synthase) (Sec synthase) (Selenocysteinyl-tRNA(Sec) synthase) (Sep-tRNA:Sec-tRNA synthase) (SepSecS)
+Q6LX38	hsp60	hsp60 MMP1515	58215	543	Chaperonin subunit (EC 3.6.1.-) (EC 5.6.1.7) (Thermosome subunit)
+Q6LX54	hcgC	hcgC MMP1498	29262	260	6-carboxymethyl-5-methyl-4-hydroxypyridin-2-ol 3-C-methyltransferase HcgC (EC 2.1.1.400) (SAM-dependent pyridinol methyltransferase)
+P62426	rpl7ae	rpl7ae MMP0641	12381	117	Large ribosomal subunit protein eL8 (50S ribosomal protein L7Ae) (Ribonuclease P protein component Rpp38) (RNase P component Rpp38) (EC 3.1.26.5) (Ribosomal protein L8e)
+Q6LX42	agcS	agcS MMP1511	47526	453	Sodium/alanine symporter AgcS (Alanine permease) (Alanine/glycine:cation symporter)
+Q6LZD5	fttA	fttA MMP0694	71231	635	Transcription termination factor FttA (EC 3.1.-.-) (Ribonuclease aCPSF1)
+Q6LZY8	rce1	rce1 MMP0485	31197	271	CAAX prenyl protease 2 (EC 3.4.26.1) (Intramembrane protease Rce1) (IMP Rce1) (Prenyl protein-specific endoprotease 2) (Ras and a-factor-converting enzyme 1)
+F1SVN3	fdhA2	fdhA2 MMP0138	74734	676	F420-dependent formate dehydrogenase 2 subunit alpha (Fdh2 subunit alpha) (EC 1.17.98.3)
+Q6LWL2	hdrA	hdrA MMP1697	71281	658	H(2)/formate:CoB-CoM heterodisulfide,ferredoxin reductase subunit A (EC 1.8.98.5) (EC 1.8.98.6) (CoB--CoM heterodisulfide reductase iron-sulfur subunit A)
+Q6LX26	dapL	dapL MMP1527	46764	416	LL-diaminopimelate aminotransferase (DAP-AT) (DAP-aminotransferase) (LL-DAP-aminotransferase) (EC 2.6.1.83)
+Q6LX40	ald	ald MMP1513	39654	373	Alanine dehydrogenase (EC 1.4.1.1)
+Q6LXF7	aroD	aroD MMP1394	24532	218	3-dehydroquinate dehydratase (3-dehydroquinase) (EC 4.2.1.10) (Type I DHQase) (Type I dehydroquinase) (DHQ1)
+Q6LYB4	glmM	glmM MMP1077	49384	447	Phosphoglucosamine mutase (EC 5.4.2.10)
+Q6M0B9		MMP0352	34363	311	UDP-N-acetylglucosamine 3-dehydrogenase (EC 1.1.1.374) (UDP-GlcNAc oxidoreductase) (UDP-N-acetyl-alpha-D-glucosamine:NAD(+) 3-oxidoreductase)
+P61819	cbiX	cbiX cbiX(s) cfbA MMP0164	16107	144	Sirohydrochlorin cobaltochelatase (EC 4.99.1.3) (CbiXS) (Sirohydrochlorin nickelchelatase) (EC 4.99.1.11)
+Q6LWW5	carA	carA MMP1589	40518	366	Carbamoyl phosphate synthase small chain (EC 6.3.5.5) (Carbamoyl phosphate synthetase glutamine chain)
+Q6LY39	hdrC1	hdrC1 MMP1154	21600	192	H(2)/formate:CoB-CoM heterodisulfide,ferredoxin reductase subunit C1 (EC 1.8.98.5) (EC 1.8.98.6) (CoB--CoM heterodisulfide reductase iron-sulfur subunit C1)
+Q6LZC5		MMP0704	31034	289	Iron-sulfur cluster carrier protein
+Q6LZL7	nrpR	nrpR MMP0607	59602	536	Global nitrogen regulator NrpR (Nitrogen regulatory protein R)
+Q6M056		MMP0415	61248	548	Probable bifunctional tRNA threonylcarbamoyladenosine biosynthesis protein [Includes: tRNA N6-adenosine threonylcarbamoyltransferase (EC 2.3.1.234) (N6-L-threonylcarbamoyladenine synthase) (t(6)A synthase) (t(6)A37 threonylcarbamoyladenosine biosynthesis protein Kae1) (tRNA threonylcarbamoyladenosine biosynthesis protein Kae1); Serine/threonine-protein kinase Bud32 (EC 2.7.11.1)]
+Q6LWM9	glmS	glmS MMP1680	67138	599	Glutamine--fructose-6-phosphate aminotransferase [isomerizing] (EC 2.6.1.16) (D-fructose-6-phosphate amidotransferase) (GFAT) (Glucosamine-6-phosphate synthase) (Hexosephosphate aminotransferase) (L-glutamine--D-fructose-6-phosphate amidotransferase)
+Q6LX63		MMP1489	62594	566	Bifunctional NADP phosphatase/NAD kinase [Includes: NAD kinase (EC 2.7.1.23) (ATP-dependent NAD kinase) (Poly(P)-dependent NAD kinase) (PPNK); NADP phosphatase (NADPase) (pNPPase) (EC 3.1.3.-)]
+Q6LYU4	pyrG	pyrG MMP0893	59546	533	CTP synthase (EC 6.3.4.2) (Cytidine 5'-triphosphate synthase) (Cytidine triphosphate synthetase) (CTP synthetase) (CTPS) (UTP--ammonia ligase)
+P60780	rnp2	rnp2 MMP0878	15149	130	Ribonuclease P protein component 2 (RNase P component 2) (EC 3.1.26.5) (Pop5)
+P60781	rnp3	rnp3 MMP0430	26452	232	Ribonuclease P protein component 3 (RNase P component 3) (EC 3.1.26.5) (Rpp30)
+P60832	rnp1	rnp1 MMP1407	11069	96	Ribonuclease P protein component 1 (RNase P component 1) (EC 3.1.26.5) (Rpp29)
+Q6LWM4	epdE	epdE MMP1685	7788	74	Major structural pilin EpdE (Type IV pilin-like protein MMP1685)
+Q6LYD7	hdrC2	hdrC2 MMP1054	20452	184	H(2)/formate:CoB-CoM heterodisulfide,ferredoxin reductase subunit C2 (EC 1.8.98.5) (EC 1.8.98.6) (CoB--CoM heterodisulfide reductase iron-sulfur subunit C2)
+Q6M0Z2	hcgA	hcgA MMP0126	37572	341	6-carboxymethyl-5-methyl-4-hydroxy-2-pyridinol synthase
+O30520	serS	serS MMP0879	59587	514	Type-2 serine--tRNA ligase (EC 6.1.1.11) (Seryl-tRNA synthetase) (SerRS) (Seryl-tRNA(Ser/Sec) synthetase)
+P62378	rnp4	rnp4 MMP0921	12891	110	Ribonuclease P protein component 4 (RNase P component 4) (EC 3.1.26.5) (Rpp21)
+Q6LX61	dadD	dadD MMP1491	46703	422	5'-deoxyadenosine deaminase (5'-dA deaminase) (EC 3.5.4.41) (5'-methylthioadenosine deaminase) (MTA deaminase) (EC 3.5.4.31) (Adenosine deaminase) (EC 3.5.4.4) (S-adenosylhomocysteine deaminase) (SAH deaminase) (EC 3.5.4.28)
+Q6LXQ1	fdhA1	fdhA1 MMP1298	74225	674	F420-dependent formate dehydrogenase 1 subunit alpha (Fdh1 subunit alpha) (EC 1.17.98.3)
+Q6LZC3	wecC	wecC MMP0706	47252	427	UDP-N-acetyl-D-mannosamine dehydrogenase (EC 1.1.1.336) (UDP-ManNAc 6-dehydrogenase)
+O59648	glnA	glnA MMP1206	49421	446	Glutamine synthetase (GS) (EC 6.3.1.2) (Glutamate--ammonia ligase) (Glutamine synthetase I alpha) (GSI alpha)
+P0CW51	nifD	nifD MMP0856	53632	477	Nitrogenase molybdenum-iron protein alpha chain (EC 1.18.6.1) (Dinitrogenase) (Nitrogenase component I)
+P0CW63	mat	mat MMP1640	44292	405	S-adenosylmethionine synthase (AdoMet synthase) (EC 2.5.1.6) (Methionine adenosyltransferase)
+P61123	rpl24e	rpl24e MMP0639	7193	62	Large ribosomal subunit protein eL24 (50S ribosomal protein L24e)
+P62065	argJ	argJ MMP0897	43749	408	Glutamate N-acetyltransferase (EC 2.3.1.35) (Ornithine acetyltransferase) (OATase) (Ornithine transacetylase) [Cleaved into: Glutamate N-acetyltransferase alpha chain; Glutamate N-acetyltransferase beta chain]
+P62131	mre11	mre11 MMP1340	43263	372	DNA double-strand break repair protein Mre11 (EC 3.1.-.-)
+Q6LWR0	pan	pan MMP1647	45852	407	Proteasome-activating nucleotidase (PAN) (EC 3.6.1.-) (Proteasomal ATPase) (Proteasome regulatory ATPase) (Proteasome regulatory particle)
+Q6LX78	ileS	ileS MMP1474	119910	1034	Isoleucine--tRNA ligase (EC 6.1.1.5) (Isoleucyl-tRNA synthetase) (IleRS)
+Q6LXI1	tuf	tuf MMP1370	46397	428	Elongation factor 1-alpha (EF-1-alpha) (EC 3.6.5.3) (Elongation factor Tu) (EF-Tu)
+Q6LXJ8	thi4	thi4 MMP1352	27925	262	Thiamine thiazole synthase (EC 2.4.2.59)
+Q6LXR6	epdD	epdD MMP1283	7218	67	Minor structural pilin EpdD
+Q6LXY8	aroA	aroA MMP1205	46474	429	3-phosphoshikimate 1-carboxyvinyltransferase (EC 2.5.1.19) (5-enolpyruvylshikimate-3-phosphate synthase) (EPSP synthase) (EPSPS)
+Q6LY38	hdrB1	hdrB1 MMP1155	33510	301	H(2)/formate:CoB-CoM heterodisulfide,ferredoxin reductase subunit B1 (EC 1.8.98.5) (EC 1.8.98.6) (CoB--CoM heterodisulfide reductase subunit B1)
+Q6LYX3	ablB	ablB yodP MMP0862	31930	274	Beta-lysine N(6)-acetyltransferase (EC 2.3.1.264)
+Q6LYX4	ablA	ablA kamA MMP0861	49186	433	L-lysine 2,3-aminomutase (LAM) (EC 5.4.3.2)
+Q6LZ92	nadX	nadX MMP0737	28593	267	L-aspartate dehydrogenase (EC 1.4.1.21)
+Q6LZE1	sepS	sepS MMP0688	61148	537	O-phosphoserine--tRNA(Cys) ligase (O-phosphoserine--tRNA ligase) (EC 6.1.1.27) (Non-canonical O-phosphoseryl-tRNA(Cys) synthetase) (O-phosphoseryl-tRNA(Cys) synthetase) (SepRS)
+Q6LZE9	upp	upp MMP0680	25973	231	Uracil phosphoribosyltransferase (EC 2.4.2.9) (UMP pyrophosphorylase) (UPRTase)
+Q6LZL5	tgtA	tgtA MMP0610	74401	649	tRNA-guanine(15) transglycosylase (EC 2.4.2.48) (7-cyano-7-deazaguanine tRNA-ribosyltransferase) (Archaeal tRNA-guanine transglycosylase)
+Q6LZQ3	moaA	moaA MMP0571	34147	297	Probable GTP 3',8-cyclase (EC 4.1.99.22) (Molybdenum cofactor biosynthesis protein A)
+Q6M075	eno	eno MMP0396	45929	426	Enolase (EC 4.2.1.11) (2-phospho-D-glycerate hydro-lyase) (2-phosphoglycerate dehydratase)
+Q6M079	purD	purD MMP0392	48796	444	Phosphoribosylamine--glycine ligase (EC 6.3.4.13) (GARS) (Glycinamide ribonucleotide synthetase) (Phosphoribosylglycinamide synthetase)
+Q6M0F3	ilvD	ilvD MMP0318	58718	550	Dihydroxy-acid dehydratase (DAD) (EC 4.2.1.9)
+Q6M0G7		MMP0304	30106	252	N-glycosylase/DNA lyase (8-oxoguanine DNA glycosylase) (EC 3.2.2.-) (AGOG) (DNA-(apurinic or apyrimidinic site) lyase) (AP lyase) (EC 4.2.99.18)
+Q6M0I7	ndk	ndk MMP0283	15292	133	Nucleoside diphosphate kinase (NDK) (NDP kinase) (EC 2.7.4.6) (Nucleoside-2-P kinase)
+Q6M0K2	truA	truA MMP0268	30405	262	tRNA pseudouridine synthase A (EC 5.4.99.12) (tRNA pseudouridine(38-40) synthase) (tRNA pseudouridylate synthase I) (tRNA-uridine isomerase I)
+Q6M0K9	rpo11	rpo11 rpoL MMP0261	10828	96	DNA-directed RNA polymerase subunit Rpo11 (EC 2.7.7.6) (DNA-directed RNA polymerase subunit L)
+Q6M0U0	purQ	purQ MMP0178	30466	272	Phosphoribosylformylglycinamidine synthase subunit PurQ (FGAM synthase) (EC 6.3.5.3) (Formylglycinamide ribonucleotide amidotransferase subunit I) (FGAR amidotransferase I) (FGAR-AT I) (Glutaminase PurQ) (EC 3.5.1.2) (Phosphoribosylformylglycinamidine synthase subunit I)
+Q6M102	argC	argC MMP0116	37784	343	N-acetyl-gamma-glutamyl-phosphate reductase (AGPR) (EC 1.2.1.38) (N-acetyl-glutamate semialdehyde dehydrogenase) (NAGSA dehydrogenase)
+Q6M115	pdxS	pdxS MMP0103	32022	299	Pyridoxal 5'-phosphate synthase subunit PdxS (PLP synthase subunit PdxS) (EC 4.3.3.6) (Pdx1)
+Q6M160	cofH2	cofH2 MMP0057	39482	358	5-amino-6-(D-ribitylamino)uracil--L-tyrosine 4-hydroxyphenyl transferase 2 (EC 2.5.1.147) (FO synthase subunit 2 2)
+Q6M183	mptA	mptA MMP0034	35607	315	GTP cyclohydrolase MptA (EC 3.5.4.39) (GTP cyclohydrolase IV)
+F1SVF6	fdhB2	fdhB2 MMP0139	42431	375	F420-dependent formate dehydrogenase 2 subunit beta (Fdh2 subunit beta) (EC 1.17.98.3)
+P0CW53	nifK	nifK MMP0857	50503	462	Nitrogenase molybdenum-iron protein beta chain (EC 1.18.6.1) (Dinitrogenase) (Nitrogenase component I)
+P61400	gatD	gatD MMP1266	45982	418	Glutamyl-tRNA(Gln) amidotransferase subunit D (Glu-ADT subunit D) (EC 6.3.5.-)
+P61413	thiE	thiE MMP1139	22358	207	Thiamine-phosphate synthase (TP synthase) (TPS) (EC 2.5.1.3) (Thiamine-phosphate pyrophosphorylase) (TMP pyrophosphorylase) (TMP-PPase)
+P61527	argG	argG MMP0073	44580	397	Argininosuccinate synthase (EC 6.3.4.5) (Citrulline--aspartate ligase)
+Q6LWK4	arfB	arfB MMP1705	24325	221	2-amino-5-formylamino-6-ribosylaminopyrimidin-4(3H)-one 5'-monophosphate deformylase (FAPy deformylase) (EC 3.5.1.102) (Formamide hydrolase)
+Q6LWM0	comE	comE MMP1689	20281	185	Sulfopyruvate decarboxylase subunit beta (EC 4.1.1.79)
+Q6LWX1	speH	speH MMP1583	13472	122	S-adenosylmethionine decarboxylase proenzyme (AdoMetDC) (SAMDC) (EC 4.1.1.50) [Cleaved into: S-adenosylmethionine decarboxylase beta chain; S-adenosylmethionine decarboxylase alpha chain]
+Q6LX60	pyrE	pyrE MMP1492	20257	185	Orotate phosphoribosyltransferase (OPRT) (OPRTase) (EC 2.4.2.10)
+Q6LX84		MMP1468	43545	396	L-cysteine desulfidase (EC 4.4.1.28) (L-cysteine desulfhydrase)
+Q6LXH8	purP	purP MMP1373	40413	361	5-formaminoimidazole-4-carboxamide-1-(beta)-D-ribofuranosyl 5'-monophosphate synthetase (EC 6.3.4.23) (5-aminoimidazole-4-carboxamide-1-beta-D-ribofuranosyl 5'-monophosphate--formate ligase)
+Q6LXQ4	pgi	pgi MMP1295	49256	438	Probable glucose-6-phosphate isomerase (GPI) (EC 5.3.1.9) (Phosphoglucose isomerase) (PGI) (Phosphohexose isomerase) (PHI)
+Q6LY93	pstB	pstB MMP1098	28619	251	Phosphate import ATP-binding protein PstB (EC 7.3.2.1) (ABC phosphate transporter) (Phosphate-transporting ATPase)
+Q6LYE7	atpA	atpA MMP1044	64194	586	A-type ATP synthase subunit A (EC 7.1.2.2)
+Q6LYI4	trpD	trpD MMP1007	34870	321	Anthranilate phosphoribosyltransferase (EC 2.4.2.18)
+Q6LYK1	dtdA	dtdA MMP0990	29152	254	D-aminoacyl-tRNA deacylase (EC 3.1.1.96) (D-tyrosyl-tRNA(Tyr) deacylase)
+Q6LYP1	cca	cca MMP0949	52133	444	CCA-adding enzyme (EC 2.7.7.72) (CCA tRNA nucleotidyltransferase) (tRNA CCA-pyrophosphorylase) (tRNA adenylyl-/cytidylyl- transferase) (tRNA nucleotidyltransferase) (tRNA-NT)
+Q6LZC7	mptN	mptN MMP0702	33016	292	Tetrahydromethanopterin:alpha-L-glutamate ligase (EC 6.3.2.33) (H(4)MPT:alpha-L-glutamate ligase)
+Q6LZH4	ilvC	ilvC MMP0654	36604	330	Ketol-acid reductoisomerase (NADP(+)) (KARI) (EC 1.1.1.86) (Acetohydroxy-acid isomeroreductase) (AHIR) (Alpha-keto-beta-hydroxylacyl reductoisomerase) (Ketol-acid reductoisomerase type 1) (Ketol-acid reductoisomerase type I)
+Q6M083		MMP0388	42545	390	Digeranylgeranylglycerophospholipid reductase (DGGGPL reductase) (EC 1.3.-.-) (2,3-bis-O-geranylgeranylglyceryl phosphate reductase) (Geranylgeranyl reductase) (GGR)
+Q6M0E5	metG	metG MMP0326	76173	663	Methionine--tRNA ligase (EC 6.1.1.10) (Methionyl-tRNA synthetase) (MetRS)
+Q6M0K7	tyrS	tyrS MMP0263	36076	319	Tyrosine--tRNA ligase (EC 6.1.1.1) (Tyrosyl-tRNA synthetase) (TyrRS)
+Q6M0N7	epdA	epdA MMP0233	14395	129	Minor structural pilin EpdA (EppA-dependent protein A)
+Q6M0P4	egsA	egsA MMP0225	36819	334	Glycerol-1-phosphate dehydrogenase [NAD(P)+] (G1P dehydrogenase) (G1PDH) (EC 1.1.1.261) (Enantiomeric glycerophosphate synthase) (sn-glycerol-1-phosphate dehydrogenase)
+Q6M0Y7	mfnA	mfnA MMP0131	43145	384	Probable L-tyrosine/L-aspartate decarboxylase (TDC/ADC) (EC 4.1.1.11) (EC 4.1.1.25)
+Q6M133	pelA	pelA MMP0085	39474	348	Protein pelota homolog (EC 3.1.-.-)
+Q6M161	cofH1	cofH1 MMP0056	39824	359	5-amino-6-(D-ribitylamino)uracil--L-tyrosine 4-hydroxyphenyl transferase 1 (EC 2.5.1.147) (FO synthase subunit 2 1)
+Q6M174	fni	fni MMP0043	38740	355	Isopentenyl-diphosphate delta-isomerase (IPP isomerase) (EC 5.3.3.2) (Isopentenyl diphosphate:dimethylallyl diphosphate isomerase) (Isopentenyl pyrophosphate isomerase) (Type 2 isopentenyl diphosphate isomerase) (IDI-2)
+Q6M191	polC	polC MMP0026	128381	1131	DNA polymerase II large subunit (Pol II) (EC 2.7.7.7) (Exodeoxyribonuclease large subunit) (EC 3.1.11.1)
+Q6M1B0	aroB'	aroB' MMP0006	40003	361	3-dehydroquinate synthase (DHQ synthase) (EC 1.4.1.24) (3-dehydroquinate synthase II)
+P60862	hisD	hisD MMP0968	46184	424	Histidinol dehydrogenase (HDH) (EC 1.1.1.23)
+P61428	thiC	thiC MMP0187	47166	426	Phosphomethylpyrimidine synthase (EC 4.1.99.17) (Hydroxymethylpyrimidine phosphate synthase) (HMP-P synthase) (HMP-phosphate synthase) (HMPP synthase) (Thiamine biosynthesis protein ThiC)
+P61782	hisH1	hisH1 hisH MMP0256	22676	203	Imidazole glycerol phosphate synthase subunit HisH 1 (EC 4.3.2.10) (IGP synthase glutaminase subunit 1) (EC 3.5.1.2) (IGP synthase subunit HisH 1) (ImGP synthase subunit HisH 1) (IGPS subunit HisH 1)
+P62391	hisI	hisI MMP0280	14855	129	Phosphoribosyl-AMP cyclohydrolase (PRA-CH) (EC 3.5.4.19)
+P62423	pgk	pgk MMP1532	45329	414	Phosphoglycerate kinase (EC 2.7.2.3)
+Q6LWN2		MMP1677	31204	278	Digeranylgeranylglyceryl phosphate synthase (DGGGP synthase) (DGGGPS) (EC 2.5.1.42) ((S)-2,3-di-O-geranylgeranylglyceryl phosphate synthase) (Geranylgeranylglycerol-phosphate geranylgeranyltransferase)
+Q6LWU0	aspS	aspS MMP1616	50132	438	Aspartate--tRNA(Asp/Asn) ligase (EC 6.1.1.23) (Aspartyl-tRNA synthetase) (AspRS) (Non-discriminating aspartyl-tRNA synthetase) (ND-AspRS)
+Q6LWZ2	mtrC	mtrC MMP1562	26607	262	Tetrahydromethanopterin S-methyltransferase subunit C (EC 7.2.1.4) (N5-methyltetrahydromethanopterin--coenzyme M methyltransferase subunit C)
+Q6LWZ3	mtrD	mtrD MMP1561	23229	235	Tetrahydromethanopterin S-methyltransferase subunit D (EC 7.2.1.4) (N5-methyltetrahydromethanopterin--coenzyme M methyltransferase subunit D)
+Q6LX56	pheS	pheS MMP1496	58087	500	Phenylalanine--tRNA ligase alpha subunit (EC 6.1.1.20) (Phenylalanyl-tRNA synthetase alpha subunit) (PheRS)
+Q6LXC6	dcd	dcd MMP1426	23388	206	dCTP deaminase, dUMP-forming (EC 3.5.4.30) (Bifunctional dCTP deaminase:dUTPase) (DCD-DUT)
+Q6LXD3	rps5	rps5 MMP1419	24376	225	Small ribosomal subunit protein uS5 (30S ribosomal protein S5)
+Q6LXL7	aroC	aroC MMP1333	40808	373	Chorismate synthase (CS) (EC 4.2.3.5) (5-enolpyruvylshikimate-3-phosphate phospholyase)
+Q6LXQ2	fdhB1	fdhB1 MMP1297	43092	387	F420-dependent formate dehydrogenase 1 subunit beta (Fdh1 subunit beta) (EC 1.17.98.3)
+Q6LXU3	purM	purM MMP1254	38198	349	Phosphoribosylformylglycinamidine cyclo-ligase (EC 6.3.3.1) (AIR synthase) (AIRS) (Phosphoribosyl-aminoimidazole synthetase)
+Q6LXV8	bioB	bioB MMP1238	37125	327	Biotin synthase (EC 2.8.1.6)
+Q6LXY6	eif2g	eif2g MMP1208	43943	410	Translation initiation factor 2 subunit gamma (EC 3.6.5.3) (aIF2-gamma) (eIF-2-gamma)
+Q6LY06	fucA	fucA MMP1187	20110	180	L-fuculose phosphate aldolase (EC 4.1.2.17) (L-fuculose-1-phosphate aldolase)
+Q6LYB5		MMP1076	45282	411	Bifunctional protein GlmU [Includes: UDP-N-acetylglucosamine pyrophosphorylase (EC 2.7.7.23) (N-acetylglucosamine-1-phosphate uridyltransferase); Glucosamine-1-phosphate N-acetyltransferase (EC 2.3.1.157)]
+Q6LYP5	ribL	ribL MMP0943	17170	150	FAD synthase (EC 2.7.7.2) (FMN adenylyltransferase) (Flavin adenine dinucleotide synthase)
+Q6LYR5	dapB	dapB MMP0923	28861	270	4-hydroxy-tetrahydrodipicolinate reductase (HTPA reductase) (EC 1.17.1.8)
+Q6LYT2	rnz	rnz MMP0906	34580	308	Ribonuclease Z (RNase Z) (EC 3.1.26.11) (tRNA 3 endonuclease) (tRNase Z)
+Q6LYU3	guaAB	guaAB guaA MMP0894	34856	310	GMP synthase [glutamine-hydrolyzing] subunit B (EC 6.3.5.2) (GMP synthetase)
+Q6LZC4	wecB	wecB wbpI MMP0705	41356	366	UDP-N-acetylglucosamine 2-epimerase (EC 5.1.3.14) (UDP-GlcNAc-2-epimerase)
+Q6LZD4	psmB	psmB MMP0695	23648	219	Proteasome subunit beta (EC 3.4.25.1) (20S proteasome beta subunit) (Proteasome core protein PsmB)
+Q6LZN6	dphB	dphB dph5 MMP0588	28771	255	Diphthine synthase (EC 2.1.1.98) (Diphthamide biosynthesis methyltransferase)
+Q6LZP0	valS	valS MMP0584	102046	886	Valine--tRNA ligase (EC 6.1.1.9) (Valyl-tRNA synthetase) (ValRS)
+Q6M086	pyrH	pyrH MMP0385	23933	225	Uridylate kinase (UK) (EC 2.7.4.22) (Uridine monophosphate kinase) (UMP kinase) (UMPK)
+Q6M0H5	thrB	thrB MMP0295	32453	301	Homoserine kinase (HK) (HSK) (EC 2.7.1.39)
+Q6M0P3	queC	queC MMP0226	26162	233	7-cyano-7-deazaguanine synthase (EC 6.3.4.20) (7-cyano-7-carbaguanine synthase) (Archaeosine biosynthesis protein QueC) (PreQ(0) synthase)
+Q6M0Z1	hmd	hmd MMP0127	37868	354	5,10-methenyltetrahydromethanopterin hydrogenase (EC 1.12.98.2) (H(2)-dependent methylene-H(4)MPT dehydrogenase) (H(2)-forming N(5),N(10)-methylenetetrahydromethanopterin dehydrogenase) (N(5),N(10)-methenyltetrahydromethanopterin hydrogenase) ([Fe]-hydrogenase)
+Q6M0Z3	hcgG	hcgG MMP0125	56879	510	Iron-guanylylpyridinol cofactor synthase (FeGP cofactor synthase)
+Q6M1A9		MMP0007	27801	256	Geranylgeranylglyceryl phosphate synthase (GGGP synthase) (GGGPS) (EC 2.5.1.41) ((S)-3-O-geranylgeranylglyceryl phosphate synthase) (Phosphoglycerol geranylgeranyltransferase)
+P0CW43	fwdC	fwdC MMP1249	29187	272	Tungsten-containing formylmethanofuran dehydrogenase 2 subunit C (EC 1.2.7.12) (Tungsten-containing formylmethanofuran dehydrogenase II subunit C)
+P0CW57	nifH	nifH MMP0853	30146	275	Nitrogenase iron protein (EC 1.18.6.1) (Nitrogenase Fe protein) (Nitrogenase component II) (Nitrogenase reductase)
+P60807	hisG	hisG MMP0947	31561	288	ATP phosphoribosyltransferase (ATP-PRT) (ATP-PRTase) (EC 2.4.2.17)
+P61519	rpo5	rpo5 rpoH MMP1360	8782	78	DNA-directed RNA polymerase subunit Rpo5 (EC 2.7.7.6) (DNA-directed RNA polymerase subunit H)
+P61730	ribH	ribH MMP0050	15063	137	6,7-dimethyl-8-ribityllumazine synthase (DMRL synthase) (LS) (Lumazine synthase) (EC 2.5.1.78)
+P61783	hisH2	hisH2 MMP1082	22797	202	Imidazole glycerol phosphate synthase subunit HisH 2 (EC 4.3.2.10) (IGP synthase glutaminase subunit 2) (EC 3.5.1.2) (IGP synthase subunit HisH 2) (ImGP synthase subunit HisH 2) (IGPS subunit HisH 2)
+P62647	cheB	cheB MMP0926	39791	365	Protein-glutamate methylesterase/protein-glutamine glutaminase (EC 3.1.1.61) (EC 3.5.1.44)
+Q6LWL8	fwdB	fwdB MMP1691	48323	434	Tungsten-containing formylmethanofuran dehydrogenase 2 subunit B (EC 1.2.7.12) (Tungsten-containing formylmethanofuran dehydrogenase II subunit B)
+Q6LWQ0	pyrB	pyrB MMP1659	34171	302	Aspartate carbamoyltransferase catalytic subunit (EC 2.1.3.2) (Aspartate transcarbamylase) (ATCase)
+Q6LWY8	mtrG	mtrG MMP1566	8198	74	Tetrahydromethanopterin S-methyltransferase subunit G (EC 7.2.1.4) (N5-methyltetrahydromethanopterin--coenzyme M methyltransferase subunit G)
+Q6LWZ1	mtrB	mtrB MMP1563	12027	108	Tetrahydromethanopterin S-methyltransferase subunit B (EC 7.2.1.4) (N5-methyltetrahydromethanopterin--coenzyme M methyltransferase subunit B)
+Q6LWZ4	mtrE	mtrE MMP1560	31080	299	Tetrahydromethanopterin S-methyltransferase subunit E (EC 7.2.1.4) (N5-methyltetrahydromethanopterin--coenzyme M methyltransferase subunit E)
+Q6LXA7	guaAA	guaAA guaA MMP1445	20884	189	GMP synthase [glutamine-hydrolyzing] subunit A (EC 6.3.5.2) (Glutamine amidotransferase)
+Q6LXI7	rpo1C	rpo1C rpoA2 MMP1364	42795	386	DNA-directed RNA polymerase subunit Rpo1C (EC 2.7.7.6) (DNA-directed RNA polymerase subunit A'')
+Q6LXP1	tal	tal MMP1308	23442	215	Transaldolase (EC 2.2.1.2)
+Q6LXY3		MMP1211	37738	349	Hydroxymethylglutaryl-CoA synthase (HMG-CoA synthase) (HMGCS) (EC 2.3.3.10)
+Q6LY04	rpiA	rpiA MMP1189	25658	239	Ribose-5-phosphate isomerase A (EC 5.3.1.6) (Phosphoriboisomerase A) (PRI)
+Q6LY19		MMP1174	24969	217	Peroxiredoxin (EC 1.11.1.24) (Thioredoxin peroxidase) (Thioredoxin-dependent peroxiredoxin)
+Q6LY53	thiM	thiM MMP1138	28378	266	Hydroxyethylthiazole kinase (EC 2.7.1.50) (4-methyl-5-beta-hydroxyethylthiazole kinase) (TH kinase) (Thz kinase)
+Q6LYM1	lig	lig MMP0970	65752	573	DNA ligase (EC 6.5.1.1) (Polydeoxyribonucleotide synthase [ATP])
+Q6LYQ1	cofE	cofE MMP0937	26989	248	Coenzyme F420:L-glutamate ligase (EC 6.3.2.31) (EC 6.3.2.34) (Coenzyme F420-0:L-glutamate ligase) (Coenzyme F420-1:gamma-L-glutamate ligase)
+Q6LYQ2	aroE	aroE MMP0936	30781	278	Shikimate dehydrogenase (NADP(+)) (SDH) (EC 1.1.1.25)
+Q6LZA2	uvrB	uvrB MMP0727	74765	646	UvrABC system protein B (Protein UvrB) (Excinuclease ABC subunit B)
+Q6LZE3	aroA'	aroA' MMP0686	29418	272	2-amino-3,7-dideoxy-D-threo-hept-6-ulosonate synthase (ADH synthase) (ADHS) (ADTH synthase) (EC 2.2.1.10)
+Q6LZI3	mdh	mdh MMP0645	34468	314	Malate dehydrogenase (EC 1.1.1.299)
+Q6LZL0	truD2	truD2 MMP0615	45732	390	Probable tRNA pseudouridine synthase D 2 (EC 5.4.99.27) (tRNA pseudouridine(13) synthase) (tRNA pseudouridylate synthase D 2) (tRNA-uridine isomerase D 2)
+Q6LZM2	pyrF	pyrF MMP0602	23639	217	Orotidine 5'-phosphate decarboxylase (EC 4.1.1.23) (OMP decarboxylase) (OMPDCase) (OMPdecase)
+Q6LZP8	dapA	dapA MMP0576	31584	289	4-hydroxy-tetrahydrodipicolinate synthase (HTPA synthase) (EC 4.3.3.7)
+Q6M044	rfcS	rfcS rfcA MMP0427	35643	315	Replication factor C small subunit (RFC small subunit) (Clamp loader small subunit)
+Q6M057	thrS	thrS MMP0414	71469	622	Threonine--tRNA ligase (EC 6.1.1.3) (Threonyl-tRNA synthetase) (ThrRS)
+Q6M0E4		MMP0327	54597	505	AMP phosphorylase (AMPpase) (EC 2.4.2.57) (Nucleoside monophosphate phosphorylase) (NMP phosphorylase)
+Q6M0L1	rpl10	rpl10 rplP0 MMP0259	35805	335	Large ribosomal subunit protein uL10 (50S ribosomal protein L10) (Acidic ribosomal protein P0 homolog)
+Q6M0M1	rpl37ae	rpl37ae MMP0249	10675	96	Large ribosomal subunit protein eL43 (50S ribosomal protein L37Ae)
+Q6M0T4	ribK	ribK MMP0184	14345	127	Riboflavin kinase (RFK) (EC 2.7.1.161) (CTP-dependent riboflavin kinase) (CTP:riboflavin 5'-phosphotransferase) (Flavokinase)
+Q6M0U8	cofF	cofF MMP0170	32127	285	Coenzyme gamma-F420-2:alpha-L-glutamate ligase (EC 6.3.2.32)
+Q6M0X3	hpt	hpt MMP0145	20402	185	Hypoxanthine/guanine phosphoribosyltransferase (HGPRTase) (EC 2.4.2.8)
+Q6M1A3	truD1	truD1 MMP0014	46201	389	Probable tRNA pseudouridine synthase D 1 (EC 5.4.99.27) (tRNA pseudouridine(13) synthase) (tRNA pseudouridylate synthase D 1) (tRNA-uridine isomerase D 1)
+P0C036	pdxT	pdxT MMP1656	20632	187	Pyridoxal 5'-phosphate synthase subunit PdxT (EC 4.3.3.6) (Pdx2) (Pyridoxal 5'-phosphate synthase glutaminase subunit) (EC 3.5.1.2)
+P0CW65	trm1	trm1 trmI MMP0228	41820	373	tRNA (guanine(26)-N(2))-dimethyltransferase (EC 2.1.1.216) (tRNA 2,2-dimethylguanosine-26 methyltransferase) (tRNA(guanine-26,N(2)-N(2)) methyltransferase) (tRNA(m(2,2)G26)dimethyltransferase)
+P60820	selD	selD MMP0904	36152	335	Selenide, water dikinase (EC 2.7.9.3) (Selenium donor protein) (Selenophosphate synthase)
+P61710	alaS	alaS MMP0397	101406	892	Alanine--tRNA ligase (EC 6.1.1.7) (Alanyl-tRNA synthetase) (AlaRS)
+P62454	hisF	hisF MMP1722	29960	272	Imidazole glycerol phosphate synthase subunit HisF (EC 4.3.2.10) (IGP synthase cyclase subunit) (IGP synthase subunit HisF) (ImGP synthase subunit HisF) (IGPS subunit HisF)
+Q6LWM3	truB	truB MMP1686	37662	333	Probable tRNA pseudouridine synthase B (EC 5.4.99.25) (tRNA pseudouridine(55) synthase) (Psi55 synthase) (tRNA pseudouridylate synthase) (tRNA-uridine isomerase)
+Q6LWZ0	mtrA	mtrA MMP1564	24955	239	Tetrahydromethanopterin S-methyltransferase subunit A (EC 7.2.1.4) (N5-methyltetrahydromethanopterin--coenzyme M methyltransferase subunit A)
+Q6LX03	srp54	srp54 MMP1551	49857	450	Signal recognition particle 54 kDa protein (SRP54) (EC 3.6.5.4)
+Q6LX41	alr	alr MMP1512	41536	373	Alanine racemase (EC 5.1.1.1)
+Q6LX55	hcgB	hcgB MMP1497	17189	159	Pyridinol guanylyltransferase HcgB (EC 2.7.7.109)
+Q6LX68	ecfA	ecfA cbiO MMP1484	30567	278	Energy-coupling factor transporter ATP-binding protein EcfA (ECF transporter A component EcfA) (EC 7.-.-.-)
+Q6LXC0	purA	purA MMP1432	36573	338	Adenylosuccinate synthetase (AMPSase) (AdSS) (EC 6.3.4.4) (IMP--aspartate ligase)
+Q6LXF9	rtcB	rtcB MMP1392	52801	480	tRNA-splicing ligase RtcB (EC 6.5.1.8) (3'-phosphate/5'-hydroxy nucleic acid ligase)
+Q6LXH7	rnhB	rnhB MMP1374	27671	242	Ribonuclease HII (RNase HII) (EC 3.1.26.4)
+Q6LXM4	rpo10	rpo10 rpoN MMP1326	8269	68	DNA-directed RNA polymerase subunit Rpo10 (EC 2.7.7.6) (DNA-directed RNA polymerase subunit N)
+Q6LXR3	dnaG	dnaG MMP1286	48637	436	DNA primase DnaG (EC 2.7.7.101)
+Q6LXU2	pheT	pheT MMP1255	62644	554	Phenylalanine--tRNA ligase beta subunit (EC 6.1.1.20) (Phenylalanyl-tRNA synthetase beta subunit) (PheRS)
+Q6LYD8	hdrB2	hdrB2 MMP1053	32026	293	H(2)/formate:CoB-CoM heterodisulfide,ferredoxin reductase subunit B2 (EC 1.8.98.5) (EC 1.8.98.6) (CoB--CoM heterodisulfide reductase subunit B2)
+Q6LYR8	ahcY	ahcY MMP0920	45834	415	S-inosyl-L-homocysteine hydrolase (SIHH) (EC 3.13.1.9)
+Q6LYS1	dapF	dapF MMP0917	30835	277	Diaminopimelate epimerase (DAP epimerase) (EC 5.1.1.7) (PLP-independent amino acid racemase)
+Q6LYV9	cofG	cofG MMP0876	38039	330	7,8-didemethyl-8-hydroxy-5-deazariboflavin synthase (EC 4.3.1.32) (FO synthase subunit 1)
+Q6LZG8	apt2	apt2 MMP0660	18982	172	Adenine phosphoribosyltransferase (APRT) (EC 2.4.2.7)
+Q6LZR9	flaK	flaK MMP0555	25915	230	Preflagellin peptidase (PFP) (EC 3.4.23.52)
+Q6M0E6	gap	gap MMP0325	37270	340	Glyceraldehyde-3-phosphate dehydrogenase (GAPDH) (EC 1.2.1.59) (NAD(P)-dependent glyceraldehyde-3-phosphate dehydrogenase)
+Q6M0L9	psmA	psmA MMP0251	28514	259	Proteasome subunit alpha (20S proteasome alpha subunit) (Proteasome core protein PsmA)
+Q6M0N3	epdC	epdC MMP0237	17266	154	Minor structural pilin EpdC (EppA-dependent protein C)
+Q6M0N4	epdB	epdB MMP0236	14246	132	Minor structural pilin EpdB
+Q6M0Q7	glyS	glyS MMP0212	66010	574	Glycine--tRNA ligase (EC 6.1.1.14) (Glycyl-tRNA synthetase) (GlyRS)
+Q6M0Z5	purT	purT MMP0123	42908	388	Formate-dependent phosphoribosylglycinamide formyltransferase (EC 6.3.1.21) (5'-phosphoribosylglycinamide transformylase 2) (Formate-dependent GAR transformylase) (GAR transformylase 2) (GART 2) (Non-folate glycinamide ribonucleotide transformylase) (Phosphoribosylglycinamide formyltransferase 2)
+Q6M116	pcm	pcm MMP0102	23108	212	Protein-L-isoaspartate O-methyltransferase (EC 2.1.1.77) (L-isoaspartyl protein carboxyl methyltransferase) (Protein L-isoaspartyl methyltransferase) (Protein-beta-aspartate methyltransferase) (PIMT)
+Q6M130	hemA	hemA MMP0088	43612	382	Glutamyl-tRNA reductase (GluTR) (EC 1.2.1.70)
+Q6M154	argB	argB MMP0063	32250	294	Acetylglutamate kinase (EC 2.7.2.8) (N-acetyl-L-glutamate 5-phosphotransferase) (NAG kinase) (NAGK)
+P0CW47	glnBII	glnBII nifI2 MMP0855	13233	121	Nitrogen fixation nifHD region glnB-like protein 2
+P60846	rpl4	rpl4 MMP1544	27127	252	Large ribosomal subunit protein uL4 (50S ribosomal protein L4)
+P60850	albA	albA MMP1613	9940	89	DNA/RNA-binding protein Alba
+P61300	rps8e	rps8e MMP1658	14331	128	Small ribosomal subunit protein eS8 (30S ribosomal protein S8e)
+P62445	rpl11	rpl11 MMP1433	16873	159	Large ribosomal subunit protein uL11 (50S ribosomal protein L11)
+Q6LWX2	pdaD	pdaD MMP1582	17584	164	Pyruvoyl-dependent arginine decarboxylase (PvlArgDC) (EC 4.1.1.19) [Cleaved into: Pyruvoyl-dependent arginine decarboxylase subunit beta; Pyruvoyl-dependent arginine decarboxylase subunit alpha]
+Q6LX65		MMP1487	50981	465	Lactaldehyde dehydrogenase (EC 1.2.1.22)
+Q6LX80		MMP1472	25673	223	RNA-free ribonuclease P (RNA-free RNase P) (EC 3.1.26.5) (Protein-only RNase P)
+Q6LXD6	rpl32e	rpl32e MMP1416	15535	135	Large ribosomal subunit protein eL32 (50S ribosomal protein L32e)
+Q6LXD9	rps14	rps14 MMP1413	6100	53	Small ribosomal subunit protein uS14 (30S ribosomal protein S14 type Z)
+Q6LXE4	rps17	rps17 rpsQ MMP1408	12141	109	Small ribosomal subunit protein uS17 (30S ribosomal protein S17)
+Q6LXM6	rpl13	rpl13 MMP1324	15195	137	Large ribosomal subunit protein uL13 (50S ribosomal protein L13)
+Q6LXN9	purO	purO MMP1310	22582	201	IMP cyclohydrolase (EC 3.5.4.10) (IMP synthase) (Inosinicase)
+Q6LXQ9	engB	engB MMP1290	26663	230	Probable GTP-binding protein EngB
+Q6LXR0	rpl10e	rpl10e MMP1289	19372	173	Large ribosomal subunit protein uL16 (50S ribosomal protein L10e)
+Q6LY02	mch	mch MMP1191	34823	323	Methenyltetrahydromethanopterin cyclohydrolase (EC 3.5.4.27) (Methenyl-H4MPT cyclohydrolase)
+Q6LY46	rpl37e	rpl37e MMP1147	7257	64	Large ribosomal subunit protein eL37 (50S ribosomal protein L37e)
+Q6LYC4		MMP1067	56112	494	Uncharacterized iron-sulfur protein MMP1067
+Q6LYE0	surE	surE MMP1051	28980	262	5'-nucleotidase SurE (EC 3.1.3.5) (Nucleoside 5'-monophosphate phosphohydrolase)
+Q6LYE5	atpD	atpD MMP1046	24394	214	A-type ATP synthase subunit D
+Q6LYF4	rlmH	rlmH MMP1037	18162	159	Putative ribosomal RNA large subunit methyltransferase H (EC 2.1.1.177) (23S rRNA (pseudouridine1915-N3)-methyltransferase) (rRNA (pseudouridine-N3-)-methyltransferase RlmH)
+Q6LYR4	trmY	trmY MMP0924	22860	200	tRNA (pseudouridine(54)-N(1))-methyltransferase (EC 2.1.1.257)
+Q6LZA1	uvrC	uvrC MMP0728	61368	527	UvrABC system protein C (Protein UvrC) (Excinuclease ABC subunit C)
+Q6LZG2	rps2	rps2 MMP0667	25262	220	Small ribosomal subunit protein uS2 (30S ribosomal protein S2)
+Q6LZI8	rps28e	rps28e MMP0640	8457	76	Small ribosomal subunit protein eS28 (30S ribosomal protein S28e)
+Q6LZK1	cmk	cmk MMP0626	20212	178	Cytidylate kinase (CK) (EC 2.7.4.25) (Cytidine monophosphate kinase) (CMP kinase)
+Q6LZP7	rps17e	rps17e MMP0577	7265	63	Small ribosomal subunit protein eS17 (30S ribosomal protein S17e)
+Q6M030		MMP0442	18121	158	GTP-dependent dephospho-CoA kinase (EC 2.7.1.237) (Dephospho-coenzyme A kinase) (DPCK)
+Q6M060	comD	comD MMP0411	18467	167	Sulfopyruvate decarboxylase subunit alpha (EC 4.1.1.79)
+Q6M0F1	aroK	aroK MMP0320	30411	283	Shikimate kinase (SK) (EC 2.7.1.71)
+Q6M0H0	hypA	hypA MMP0301	14212	126	Hydrogenase maturation factor HypA
+Q6M0L3	tbp	tbp MMP0257	20113	181	TATA-box-binding protein (Box A-binding protein) (BAP) (TATA sequence-binding protein) (TBP) (TATA-box factor)
+Q6M0N8	eppA	eppA MMP0232	38669	346	Prepilin peptidase EppA (EC 3.4.-.-) (Euryarchaeal type IV prepilin peptidase)
+Q6M146	priS	priS priA MMP0071	42294	357	DNA primase small subunit PriS (EC 2.7.7.-)
+Q6M155	rpl31e	rpl31e MMP0062	9669	83	Large ribosomal subunit protein eL31 (50S ribosomal protein L31e)
+Q6M156	eif6	eif6 MMP0061	24595	227	Translation initiation factor 6 (aIF-6)
+P0C1V5	vhuU	vhuU MMP1693	5083	44	F420-non-reducing hydrogenase vhu subunit U (EC 1.12.99.-)
+P61350	gatB	gatB MMP0946	53318	469	Aspartyl/glutamyl-tRNA(Asn/Gln) amidotransferase subunit B (Asp/Glu-ADT subunit B) (EC 6.3.5.-)
+P61820	cbiT	cbiT MMP1221	20166	181	Probable cobalt-precorrin-6B C(15)-methyltransferase (decarboxylating) (EC 2.1.1.196)
+Q6LWJ8	pcn	pcn MMP1711	27871	250	DNA polymerase sliding clamp (Proliferating cell nuclear antigen homolog) (PCNA)
+Q6LWX6		MMP1578	19878	171	Nicotinamide-nucleotide adenylyltransferase (EC 2.7.7.1) (NAD(+) diphosphorylase) (NAD(+) pyrophosphorylase) (NMN adenylyltransferase)
+Q6LWX9	bioW	bioW MMP1575	27453	244	6-carboxyhexanoate--CoA ligase (EC 6.2.1.14) (Pimeloyl-CoA synthase)
+Q6LX08	rpl2	rpl2 MMP1546	25768	240	Large ribosomal subunit protein uL2 (50S ribosomal protein L2)
+Q6LX70	cbiN	cbiN MMP1482	10797	98	Cobalt transport protein CbiN (Energy-coupling factor transporter probable substrate-capture protein CbiN) (ECF transporter S component CbiN)
+Q6LX82	pfdA	pfdA pdfA MMP1470	16389	144	Prefoldin subunit alpha (GimC subunit alpha)
+Q6LXA4	ehaA	ehaA MMP1448	9345	88	Probable [NiFe]-hydrogenase-type-3 Eha complex membrane subunit A
+Q6LXB7	secE	secE MMP1435	7843	69	Protein translocase subunit SecE (Protein transport protein Sec61 gamma subunit homolog)
+Q6LXC1	pgk2	pgk2 MMP1431	35858	312	2-phosphoglycerate kinase (2PGK) (EC 2.7.2.16)
+Q6LXC7		MMP1425	20477	179	tRNA (cytidine(56)-2'-O)-methyltransferase (EC 2.1.1.206) (tRNA ribose 2'-O-methyltransferase aTrm56)
+Q6LXE2	rpl24	rpl24 MMP1410	13394	119	Large ribosomal subunit protein uL24 (50S ribosomal protein L24)
+Q6LXE7	rps3	rps3 MMP1404	23254	211	Small ribosomal subunit protein uS3 (30S ribosomal protein S3)
+Q6LXI4	rps12	rps12 MMP1367	16156	147	Small ribosomal subunit protein uS12 (30S ribosomal protein S12)
+Q6LXM5	rps9	rps9 MMP1325	14910	134	Small ribosomal subunit protein uS9 (30S ribosomal protein S9)
+Q6LXM7	rpl18e	rpl18e MMP1323	12871	120	Large ribosomal subunit protein eL18 (50S ribosomal protein L18e)
+Q6LXN1	rps13	rps13 MMP1319	17171	149	Small ribosomal subunit protein uS13 (30S ribosomal protein S13)
+Q6LXT2	gatE	gatE MMP1265	71170	631	Glutamyl-tRNA(Gln) amidotransferase subunit E (Glu-ADT subunit E) (EC 6.3.5.-)
+Q6LXV6		MMP1240	43377	380	O-phospho-L-seryl-tRNA:Cys-tRNA synthase (EC 2.5.1.73) (Sep-tRNA:Cys-tRNA synthase) (SepCysS)
+Q6LY84	srp19	srp19 MMP1107	10461	89	Signal recognition particle 19 kDa protein (SRP19)
+Q6LYD1	cysS	cysS MMP1060	55409	476	Cysteine--tRNA ligase (EC 6.1.1.16) (Cysteinyl-tRNA synthetase) (CysRS)
+Q6LYF7	tmk	tmk MMP1034	22723	199	Probable thymidylate kinase (EC 2.7.4.9) (dTMP kinase)
+Q6LYG5	argS	argS MMP1026	64132	566	Arginine--tRNA ligase (EC 6.1.1.19) (Arginyl-tRNA synthetase) (ArgRS)
+Q6LYI9	trpA	trpA MMP1002	28497	258	Tryptophan synthase alpha chain (EC 4.2.1.20)
+Q6LYY1	msrA	msrA MMP0848	18151	157	Peptide methionine sulfoxide reductase MsrA (Protein-methionine-S-oxide reductase) (EC 1.8.4.11) (Peptide-methionine (S)-S-oxide reductase) (Peptide Met(O) reductase)
+Q6LZC1	mfnB	mfnB MMP0708	25114	236	(5-formylfuran-3-yl)methyl phosphate synthase (EC 4.2.3.153) (4-(hydroxymethyl)-2-furancarboxaldehyde-phosphate synthase) (4-HFC-P synthase)
+Q6LZM4		MMP0600	25327	227	Probable minor pilin MMP0600
+Q6M029	rps27ae	rps27ae MMP0444	7532	67	Small ribosomal subunit protein eS31 (30S ribosomal protein S27ae)
+Q6M0H3	eif2b	eif2b MMP0297	15971	138	Translation initiation factor 2 subunit beta (aIF2-beta) (eIF-2-beta)
+Q6M0I6	infB	infB MMP0284	66154	598	Probable translation initiation factor IF-2
+Q6M0M5	pfdB	pfdB MMP0245	13478	113	Prefoldin subunit beta (GimC subunit beta)
+Q6M0V9	rpl39e	rpl39e MMP0159	6004	51	Large ribosomal subunit protein eL39 (50S ribosomal protein L39e)
+Q6M101	cofC	cofC MMP0117	24709	222	2-phospho-L-lactate guanylyltransferase (LP guanylyltransferase) (EC 2.7.7.68)
+Q6M181	tfe	tfe MMP0036	20869	175	Transcription factor E (TFE) (TFIIE subunit alpha homolog) (Transcription initiation factor TFIIE)
+P0CW61	radB	radB MMP0617	24455	216	DNA repair and recombination protein RadB
+P0CW67	lysS	lysS MMP1318	61237	533	Lysine--tRNA ligase (EC 6.1.1.6) (Lysyl-tRNA synthetase) (LysRS)
+P60921	hisS	hisS MMP1614	47630	416	Histidine--tRNA ligase (EC 6.1.1.21) (Histidyl-tRNA synthetase) (HisRS)
+P62134	rad50	rad50 MMP1341	116892	993	DNA double-strand break repair Rad50 ATPase
+P62357	hisA	hisA MMP0417	26205	241	1-(5-phosphoribosyl)-5-[(5-phosphoribosylamino)methylideneamino] imidazole-4-carboxamide isomerase (EC 5.3.1.16) (Phosphoribosylformimino-5-aminoimidazole carboxamide ribotide isomerase)
+Q6LWY7	mtrH	mtrH MMP1567	34348	319	Tetrahydromethanopterin S-methyltransferase subunit H (EC 7.2.1.4) (N5-methyltetrahydromethanopterin--coenzyme M methyltransferase subunit H)
+Q6LX07	rps19	rps19 MMP1547	18524	161	Small ribosomal subunit protein uS19 (30S ribosomal protein S19)
+Q6LX09	rpl23	rpl23 MMP1545	9628	86	Large ribosomal subunit protein uL23 (50S ribosomal protein L23)
+Q6LX10	rpl3	rpl3 MMP1543	36652	334	Large ribosomal subunit protein uL3 (50S ribosomal protein L3)
+Q6LX43	gatA	gatA MMP1510	47139	431	Glutamyl-tRNA(Gln) amidotransferase subunit A (Glu-ADT subunit A) (EC 6.3.5.7)
+Q6LX62	pstK	pstK MMP1490	29776	255	L-seryl-tRNA(Sec) kinase (EC 2.7.1.164) (O-phosphoseryl-tRNA(Sec) kinase) (PSTK)
+Q6LXD4	rpl18	rpl18 MMP1418	21409	193	Large ribosomal subunit protein uL18 (50S ribosomal protein L18)
+Q6LXD8	rps8	rps8 MMP1414	14324	130	Small ribosomal subunit protein uS8 (30S ribosomal protein S8)
+Q6LXE0	rpl5	rpl5 rplE MMP1412	20360	181	Large ribosomal subunit protein uL5 (50S ribosomal protein L5)
+Q6LXF3		MMP1398	46968	415	Uncharacterized metallohydrolase MMP1398 (EC 3.-.-.-)
+Q6LXI2	fusA	fusA MMP1369	80134	727	Elongation factor 2 (EF-2)
+Q6LXX7		MMP1218	45548	415	Ornithine cyclodeaminase (OCD) (EC 4.3.1.12) (Archaeal ornithine cyclodeaminase) (Mls2)
+Q6LY59	endA	endA MMP1132	20731	177	tRNA-splicing endonuclease (EC 4.6.1.16) (tRNA-intron endonuclease)
+Q6LYF0	atpE	atpE MMP1041	22777	203	A-type ATP synthase subunit E
+Q6LYG0	adkA	adkA MMP1031	21094	192	Adenylate kinase (AK) (EC 2.7.4.3) (ATP-AMP transphosphorylase)
+Q6LYR0	cheD	cheD MMP0928	16387	154	Probable chemoreceptor glutamine deamidase CheD (EC 3.5.1.44)
+Q6LZD2	leuS	leuS MMP0697	110690	955	Leucine--tRNA ligase (EC 6.1.1.4) (Leucyl-tRNA synthetase) (LeuRS)
+Q6LZD3	proS	proS MMP0696	53319	460	Proline--tRNA ligase (EC 6.1.1.15) (Prolyl-tRNA synthetase) (ProRS)
+Q6LZM1	eif1a	eif1a MMP0603	12355	104	Translation initiation factor 1A (aIF-1A)
+Q6LZM7	flpA	flpA MMP0597	26026	230	Fibrillarin-like rRNA/tRNA 2'-O-methyltransferase (EC 2.1.1.-)
+Q6M066	gch3	gch3 MMP0405	29942	266	GTP cyclohydrolase III (EC 3.5.4.29)
+Q6M099	mtd	mtd MMP0372	29907	277	F420-dependent methylenetetrahydromethanopterin dehydrogenase (MTD) (EC 1.5.98.1) (Coenzyme F420-dependent N5,N10-methylenetetrahydromethanopterin dehydrogenase)
+Q6M0E9	rfcL	rfcL rfcB MMP0322	54502	486	Replication factor C large subunit (RFC large subunit) (Clamp loader large subunit)
+Q6M0P5	hemL	hemL MMP0224	47426	427	Glutamate-1-semialdehyde 2,1-aminomutase (GSA) (EC 5.4.3.8) (Glutamate-1-semialdehyde aminotransferase) (GSA-AT)
+Q6M0W1		MMP0157	14026	119	DNA-binding protein MMP0157
+Q6M132		MMP0086	17347	149	Putative transcriptional regulatory protein MMP0086
+Q6M139	gfcR	gfcR MMP0079	22744	205	Transcriptional regulator GfcR
+Q6M197		MMP0020	16059	141	Putative nickel-responsive regulator
+P0CW55	nifE	nifE MMP0858	53289	480	Nitrogenase iron-molybdenum cofactor biosynthesis protein NifE
+P60942	uppP	uppP bacA upk MMP1144	27278	249	Undecaprenyl-diphosphatase (EC 3.6.1.27) (Undecaprenyl pyrophosphate phosphatase)
+P61193	rps24e	rps24e MMP0443	11458	102	Small ribosomal subunit protein eS24 (30S ribosomal protein S24e)
+P61234	pth	pth MMP0609	12705	116	Peptidyl-tRNA hydrolase (PTH) (EC 3.1.1.29)
+P62348	hisE	hisE MMP0051	10886	96	Phosphoribosyl-ATP pyrophosphatase (PRA-PH) (EC 3.6.1.31)
+P62649	rpl22	rpl22 rplV MMP1403	17457	153	Large ribosomal subunit protein uL22 (50S ribosomal protein L22)
+Q6LWL1	carS	carS MMP1698	19831	178	CDP-archaeol synthase (EC 2.7.7.67) (CDP-2,3-bis-(O-geranylgeranyl)-sn-glycerol synthase)
+Q6LWL3	vhuD	vhuD MMP1696	14658	134	F420-non-reducing hydrogenase vhu iron-sulfur subunit D (EC 1.12.99.-)
+Q6LWX5	rps15	rps15 MMP1579	17027	151	Small ribosomal subunit protein uS15 (30S ribosomal protein S15)
+Q6LXB3	apgM	apgM MMP1439	44464	406	2,3-bisphosphoglycerate-independent phosphoglycerate mutase (BPG-independent PGAM) (Phosphoglyceromutase) (aPGAM) (EC 5.4.2.12)
+Q6LXD1	rpl15	rpl15 MMP1421	15951	143	Large ribosomal subunit protein uL15 (50S ribosomal protein L15)
+Q6LXD2	rpl30	rpl30 MMP1420	17269	154	Large ribosomal subunit protein uL30 (50S ribosomal protein L30)
+Q6LXE3	rpl14	rpl14 MMP1409	14269	132	Large ribosomal subunit protein uL14 (50S ribosomal protein L14)
+Q6LXE6	rpl29	rpl29 MMP1405	7784	71	Large ribosomal subunit protein uL29 (50S ribosomal protein L29)
+Q6LXF0	ef1b	ef1b MMP1401	9820	89	Elongation factor 1-beta (EF-1-beta) (aEF-1beta)
+Q6LXI3	rps7	rps7 MMP1368	20815	188	Small ribosomal subunit protein uS7 (30S ribosomal protein S7)
+Q6LXM9	rps11	rps11 MMP1321	13418	124	Small ribosomal subunit protein uS11 (30S ribosomal protein S11)
+Q6LXN0	rps4	rps4 MMP1320	20462	178	Small ribosomal subunit protein uS4 (30S ribosomal protein S4)
+Q6LXY7	rps6e	rps6e MMP1207	13538	124	Small ribosomal subunit protein eS6 (30S ribosomal protein S6e)
+Q6LY87	pyrI	pyrI MMP1104	16715	148	Aspartate carbamoyltransferase regulatory chain
+Q6LYE6	atpB	atpB MMP1045	50701	462	A-type ATP synthase subunit B
+Q6LYI0	gltX	gltX MMP1011	64095	555	Glutamate--tRNA ligase (EC 6.1.1.17) (Glutamyl-tRNA synthetase) (GluRS)
+Q6LYK4	rsmA	rsmA ksgA MMP0987	30786	267	Probable ribosomal RNA small subunit methyltransferase A (EC 2.1.1.-) (16S rRNA dimethyladenosine transferase) (16S rRNA dimethylase) (S-adenosylmethionine-6-N',N'-adenosyl(rRNA) dimethyltransferase)
+Q6LYN8	eif5a	eif5a MMP0952	14324	131	Translation initiation factor 5A (Hypusine-containing protein) (eIF-5A)
+Q6LYT4		MMP0903	7998	75	Probable minor pilin MMP0903
+Q6LZG0	rps3ae	rps3ae MMP0669	25432	225	Small ribosomal subunit protein eS1 (30S ribosomal protein S3Ae) (Ribosomal protein S1e)
+Q6LZK2	rpl14e	rpl14e MMP0625	8349	77	Large ribosomal subunit protein eL14 (50S ribosomal protein L14e)
+Q6LZL8	rlmE	rlmE rrmJ MMP0606	29571	258	Ribosomal RNA large subunit methyltransferase E (EC 2.1.1.166) (23S rRNA Um2552 methyltransferase) (rRNA (uridine-2'-O-)-methyltransferase)
+Q6LZS1	argF	argF MMP0553	34084	304	Ornithine carbamoyltransferase (OTCase) (EC 2.1.3.3)
+Q6LZU5		MMP0528	7741	73	Probable minor pilin MMP0528
+Q6M067	cofD	cofD MMP0404	34679	309	2-phospho-L-lactate transferase (EC 2.7.8.28)
+Q6M0I0	nac	nac MMP0290	14130	126	Nascent polypeptide-associated complex protein
+O74026	argH	argH MMP0013	54052	481	Argininosuccinate lyase (ASAL) (EC 4.3.2.1) (Arginosuccinase)
+P0CW45	glnBI	glnBI nifI1 MMP0854	11503	105	Nitrogen fixation nifHD region glnB-like protein 1
+P0CW59	radA	radA MMP1222	35146	322	DNA repair and recombination protein RadA
+P60888	hisB	hisB MMP0548	21218	190	Imidazoleglycerol-phosphate dehydratase (IGPD) (EC 4.2.1.19)
+P61003	hisC	hisC MMP1216	42246	371	Histidinol-phosphate aminotransferase (EC 2.6.1.9) (Imidazole acetol-phosphate transaminase)
+P61370	rpl15e	rpl15e MMP0298	22220	194	Large ribosomal subunit protein eL15 (50S ribosomal protein L15e)
+P61395	fluC	fluC crcB MMP1279	13573	122	Fluoride-specific ion channel FluC
+P61731	prf1	prf1 MMP1131	47250	419	Peptide chain release factor subunit 1 (Translation termination factor aRF1)
+P61988	cbiD	cbiD MMP1203	40103	365	Cobalt-precorrin-5B C(1)-methyltransferase (EC 2.1.1.195) (Cobalt-precorrin-6A synthase)
+P62026	rpl40e	rpl40e MMP0151	5528	47	Large ribosomal subunit protein eL40 (50S ribosomal protein L40e)
+P62428	rps4e	rps4e MMP1411	27071	244	Small ribosomal subunit protein eS4 (30S ribosomal protein S4e)
+Q6LWK3	nop10	nop10 MMP1706	5977	51	Ribosome biogenesis protein Nop10
+Q6LXD7	rpl6	rpl6 rplF MMP1415	19970	182	Large ribosomal subunit protein uL6 (50S ribosomal protein L6)
+Q6LXE5		MMP1406	11504	102	Protein translation factor SUI1 homolog
+Q6LXI0	rps10	rps10 rpsJ MMP1371	11545	102	Small ribosomal subunit protein uS10 (30S ribosomal protein S10)
+Q6LXI6	rpl30e	rpl30e MMP1365	10824	100	Large ribosomal subunit protein eL30 (50S ribosomal protein L30e)
+Q6LXX9	cobQ	cobQ MMP1215	54580	492	Probable cobyric acid synthase
+Q6LYE8	atpF	atpF MMP1043	10649	99	A-type ATP synthase subunit F
+Q6LYI7	trpF	trpF MMP1004	23621	211	N-(5'-phosphoribosyl)anthranilate isomerase (PRAI) (EC 5.3.1.24)
+Q6LYN9	cobD	cobD MMP0951	34145	306	Probable cobalamin biosynthesis protein CobD
+Q6LYQ3	hcgF	hcgF MMP0935	18425	165	Iron-guanylylpyridinol cofactor biosynthesis protein HcgF (EC 2.3.1.-)
+Q6LZC0		MMP0709	21531	198	Probable minor pilin MMP0709
+Q6LZF1		MMP0678	37061	326	Putative HTH-type transcriptional regulatory protein MMP0678
+Q6LZK0	rpl34e	rpl34e MMP0627	9791	89	Large ribosomal subunit protein eL34 (50S ribosomal protein L34e)
+Q6LZM3		MMP0601	33397	295	Probable minor pilin MMP0601
+Q6M0L0	rpl1	rpl1 rplA MMP0260	23131	213	Large ribosomal subunit protein uL1 (50S ribosomal protein L1)
+Q6M125	rpl21e	rpl21e MMP0093	10995	97	Large ribosomal subunit protein eL21 (50S ribosomal protein L21e)
+Q6M157	rpl18a	rpl18a rpl20e rplX MMP0060	8635	76	Large ribosomal subunit protein eL20 (50S ribosomal protein L18Ae) (50S ribosomal protein L20e) (50S ribosomal protein LX)
+Q6M176	tfb	tfb MMP0041	38206	339	Transcription initiation factor IIB (TFIIB)
+P0CW69		MMP1509	12049	113	UPF0212 protein MMP1509
+P61618		MMP1652	36799	332	Uncharacterized solute-binding protein MMP1652
+Q6LZI6		MMP0642	35376	325	UPF0285 protein MMP0642
+Q6LWN0		MMP1679	16100	145	UPF0179 protein MMP1679
+Q6LZK8		MMP0619	15301	131	UPF0251 protein MMP0619
+Q6M1B4		MMP0002	39103	354	UPF0425 pyridoxal phosphate-dependent protein MMP0002
+Q6LXC5		MMP1427	48085	458	UPF0210 protein MMP1427
+Q6LXR7		MMP1282	20889	183	UPF0200 protein MMP1282
+Q6LXW0		MMP1236	26526	247	UPF0280 protein MMP1236
+Q6LYD6		MMP1055	11507	101	UPF0235 protein MMP1055
+Q6LZH1		MMP0657	10045	90	UPF0237 protein MMP0657
+Q6M0B4		MMP0357	40851	357	UDP-N-acetylglucosamine 2-epimerase homolog (EC 5.1.-.-)
+Q6M0I4		MMP0286	9122	76	UPF0248 protein MMP0286
+Q6M0M3		MMP0247	19071	164	Probable Brix domain-containing ribosomal biogenesis protein
+P0CW49		MMP0618	12256	109	Uncharacterized protein MMP0618
+P60818		MMP0665	19252	162	UPF0305 protein MMP0665
+P61652		MMP1387	31921	284	MEMO1 family protein MMP1387
+Q6LX81		MMP1471	40328	349	Uncharacterized protein MMP1471
+Q6LWU8	coaBC	coaBC MMP1606	44125	396	Coenzyme A biosynthesis bifunctional protein CoaBC (DNA/pantothenate metabolism flavoprotein) (Phosphopantothenoylcysteine synthetase/decarboxylase) (PPCS-PPCDC) [Includes: Phosphopantothenoylcysteine decarboxylase (PPC decarboxylase) (PPC-DC) (EC 4.1.1.36) (CoaC); Phosphopantothenate--cysteine ligase (EC 6.3.2.5) (CoaB) (Phosphopantothenoylcysteine synthetase) (PPC synthetase) (PPC-S)]
+Q6LXG0	asd	asd MMP1391	37881	348	Aspartate-semialdehyde dehydrogenase (ASA dehydrogenase) (ASADH) (EC 1.2.1.11) (Aspartate-beta-semialdehyde dehydrogenase)
+Q6LYH8	carB	carB MMP1013	119552	1081	Carbamoyl phosphate synthase large chain (EC 6.3.4.16) (EC 6.3.5.5) (Carbamoyl phosphate synthetase ammonia chain)
+Q6LYZ4		MMP0835	47378	434	Lysosomal dipeptide transporter MFSD1 (Major facilitator superfamily domain-containing protein 1)
+Q6M0L6	nnrE	nnrE nnrD MMP0254	56761	507	Bifunctional NAD(P)H-hydrate repair enzyme (Nicotinamide nucleotide repair protein) [Includes: ADP-dependent (S)-NAD(P)H-hydrate dehydratase (EC 4.2.1.136) (ADP-dependent NAD(P)HX dehydratase); NAD(P)H-hydrate epimerase (EC 5.1.99.6)]
+Q6M0Q5		MMP0214	20952	183	dITP/XTP pyrophosphatase (EC 3.6.1.66) (Non-canonical purine NTP pyrophosphatase) (Non-standard purine NTP pyrophosphatase) (Nucleoside-triphosphate diphosphatase) (Nucleoside-triphosphate pyrophosphatase) (NTPase)
+Q6LWT8	aIF-2B I	aIF-2B I MMP1618	35931	321	Putative methylthioribose-1-phosphate isomerase (M1Pi) (MTR-1-P isomerase) (EC 5.3.1.23) (MTNA-like protein) (aMTNA) (S-methyl-5-thioribose-1-phosphate isomerase)
+Q6LWX0	speE	speE MMP1584	31816	280	Polyamine aminopropyltransferase (Putrescine aminopropyltransferase) (PAPT) (Spermidine synthase) (SPDS) (SPDSY) (EC 2.5.1.16)
+Q6LWX7	hat	hat MMP1577	61435	540	tRNA carboxymethyluridine synthase (EC 2.3.1.311)
+Q6LWY1	bioD	bioD MMP1573	21130	190	ATP-dependent dethiobiotin synthetase BioD (EC 6.3.3.3) (DTB synthetase) (DTBS) (Dethiobiotin synthase)
+Q6LWY9	or900	or900 mtrA MMP1565	26134	253	Tetrahydromethanopterin S-methyltransferase subunit A (EC 7.2.1.4) (N5-methyltetrahydromethanopterin--coenzyme M methyltransferase subunit A)
+Q6LWZ5	mcrA	mcrA MMP1559	61070	553	Methyl-coenzyme M reductase subunit alpha (EC 2.8.4.1)
+Q6LX72	leuC	leuC MMP1480	45588	418	3-isopropylmalate dehydratase large subunit (EC 4.2.1.33) (Alpha-IPM isomerase) (IPMI) (Isopropylmalate isomerase)
+Q6LXA8	map	map MMP1444	32597	295	Methionine aminopeptidase (MAP) (MetAP) (EC 3.4.11.18) (Peptidase M)
+Q6LXB2	taw1	taw1 MMP1440	36194	313	S-adenosyl-L-methionine-dependent tRNA 4-demethylwyosine synthase (EC 4.1.3.44) (tRNA wyosine derivatives biosynthesis protein Taw1)
+Q6LXB5	top6A	top6A MMP1437	47744	419	Type 2 DNA topoisomerase 6 subunit A (EC 5.6.2.2) (Type II DNA topoisomerase VI subunit A)
+Q6LXF4	smc1	smc1 smc MMP1397	137184	1189	Chromosome partition protein Smc
+Q6LXI8	rpoA1	rpoA1 rpo1N MMP1363	98846	889	DNA-directed RNA polymerase subunit Rpo1N (EC 2.7.7.6) (DNA-directed RNA polymerase subunit A')
+Q6LXI9	rpoB1	rpoB1 MMP1362	68572	611	DNA-directed RNA polymerase subunit beta (EC 2.7.7.6)
+Q6LXJ6	thiI	thiI MMP1354	43707	383	Probable tRNA sulfurtransferase (EC 2.8.1.4) (Sulfur carrier protein ThiS sulfurtransferase) (Thiamine biosynthesis protein ThiI) (tRNA 4-thiouridine synthase)
+Q6LXK1	nadE	nadE MMP1349	28563	258	NH(3)-dependent NAD(+) synthetase (EC 6.3.1.5)
+Q6LXK5	uppS	uppS MMP1345	30993	264	Tritrans,polycis-undecaprenyl-diphosphate synthase (geranylgeranyl-diphosphate specific) (EC 2.5.1.89) (Undecaprenyl diphosphate synthase) (UDS) (Undecaprenyl pyrophosphate synthase) (UPP synthase)
+Q6LXL5	mvk	mvk MMP1335	35202	317	Mevalonate kinase (MK) (MVK) (EC 2.7.1.36)
+Q6LXM8	rpoD	rpoD rpo3 MMP1322	20138	180	DNA-directed RNA polymerase subunit Rpo3 (EC 2.7.7.6) (DNA-directed RNA polymerase subunit D)
+Q6LXN6	fen-1	fen-1 fen MMP1313	36806	324	Flap endonuclease 1 (FEN-1) (EC 3.1.-.-) (Flap structure-specific endonuclease 1)
+Q6LXQ3	pfkC	pfkC MMP1296	52700	463	ADP-specific phosphofructokinase (EC 2.7.1.146) (ADP-dependent phosphofructokinase) (ADP-Pfk)
+Q6LXZ3	lysA	lysA MMP1200	47953	436	Diaminopimelate decarboxylase (DAP decarboxylase) (DAPDC) (EC 4.1.1.20)
+Q6LY07	lon	lon MMP1186	75871	692	Archaeal Lon protease (EC 3.4.21.-) (ATP-dependent protease La homolog)
+Q6LY44	leuC	leuC MMP1149	45408	424	3-isopropylmalate dehydratase large subunit (EC 4.2.1.33) (Alpha-IPM isomerase) (IPMI) (Isopropylmalate isomerase)
+Q6LY47	purF	purF MMP1146	50828	459	Amidophosphoribosyltransferase (ATase) (EC 2.4.2.14) (Glutamine phosphoribosylpyrophosphate amidotransferase) (GPATase)
+Q6LY67	thiL	thiL MMP1124	34731	315	Thiamine-monophosphate kinase (TMP kinase) (Thiamine-phosphate kinase) (EC 2.7.4.16)
+Q6LY77	rpe	rpe MMP1114	24023	219	Ribulose-phosphate 3-epimerase (EC 5.1.3.1)
+Q6LY90	argD	argD MMP1101	42843	395	Acetylornithine aminotransferase (ACOAT) (EC 2.6.1.11)
+Q6LYI2	pyrC	pyrC MMP1009	47175	418	Dihydroorotase (DHOase) (EC 3.5.2.3)
+Q6LYK6	cdhA	cdhA MMP0985	85625	778	Acetyl-CoA decarbonylase/synthase complex subunit alpha (ACDS complex subunit alpha) (EC 1.2.7.4) (ACDS complex carbon monoxide dehydrogenase subunit alpha) (ACDS CODH subunit alpha)
+Q6LYK8	cdhB	cdhB cdhC MMP0983	51020	457	Acetyl-CoA decarbonylase/synthase complex subunit beta (ACDS complex subunit beta) (EC 2.3.1.169) (ACDS complex acyltransferase)
+Q6LYL1	cdh	cdh cdhE MMP0980	50305	457	Acetyl-CoA decarbonylase/synthase complex subunit gamma (ACDS complex subunit gamma) (EC 2.1.1.245) (5-methyltetrahydrosarcinapterin:corrinoid/iron-sulfur protein Co-methyltransferase) (ACDS complex methyltransferase) (Corrinoid/iron-sulfur component large subunit)
+Q6LYM0	purB	purB MMP0971	50715	449	Adenylosuccinate lyase (ASL) (EC 4.3.2.2) (Adenylosuccinase)
+Q6LYN4	topA	topA MMP0956	93928	823	DNA topoisomerase 1 (EC 5.6.2.1) (DNA topoisomerase I)
+Q6LYN5	sucD	sucD MMP0955	30506	288	Succinate--CoA ligase [ADP-forming] subunit alpha (EC 6.2.1.5) (Succinyl-CoA synthetase subunit alpha) (SCS-alpha)
+Q6LYQ0	cobS	cobS MMP0938	28414	257	Adenosylcobinamide-GDP ribazoletransferase (EC 2.7.8.26) (Cobalamin synthase) (Cobalamin-5'-phosphate synthase)
+Q6LYR9	pyrK	pyrK MMP0919	28011	255	Probable dihydroorotate dehydrogenase B (NAD(+)), electron transfer subunit (Dihydroorotate oxidase B, electron transfer subunit)
+Q6LYU7	hel308	hel308 MMP0890	85281	747	ATP-dependent DNA helicase Hel308 (EC 5.6.2.4) (DNA 3'-5' helicase Hel308)
+Q6LYX0	bioA	bioA MMP0865	52877	467	Adenosylmethionine-8-amino-7-oxononanoate aminotransferase (EC 2.6.1.62) (7,8-diamino-pelargonic acid aminotransferase) (DAPA AT) (DAPA aminotransferase) (7,8-diaminononanoate synthase) (DANS) (Diaminopelargonic acid synthase)
+Q6LZA0	uvrA	uvrA MMP0729	106284	951	UvrABC system protein A (UvrA protein) (Excinuclease ABC subunit A)
+Q6LZA9	hcp	hcp MMP0720	60225	546	Hydroxylamine reductase (EC 1.7.99.1) (Hybrid-cluster protein) (HCP) (Prismane protein)
+Q6LZB6	iorA2	iorA2 MMP0713	63402	578	Indolepyruvate oxidoreductase subunit IorA (IOR) (EC 1.2.7.8) (Indolepyruvate ferredoxin oxidoreductase subunit alpha)
+Q6LZE6	ftsY	ftsY MMP0683	42007	383	Signal recognition particle receptor FtsY (SRP receptor) (EC 3.6.5.4)
+Q6LZH7	ilvN	ilvN MMP0651	18875	169	Acetolactate synthase small subunit (AHAS) (ALS) (EC 2.2.1.6) (Acetohydroxy-acid synthase small subunit)
+Q6LZH8	ilvB	ilvB MMP0650	63804	587	Acetolactate synthase (EC 2.2.1.6)
+Q6LZP5	mptE	mptE MMP0579	26828	238	6-hydroxymethyl-7,8-dihydropterin pyrophosphokinase (HPPK) (EC 2.7.6.3) (2-amino-4-hydroxy-6-hydroxymethyldihydropteridine pyrophosphokinase) (6-hydroxymethyl-7,8-dihydropterin diphosphokinase) (6-HMPDK) (7,8-dihydro-6-hydroxymethylpterin diphosphokinase) (7,8-dihydro-6-hydroxymethylpterin pyrophosphokinase) (PPPK)
+Q6LZQ1	mobA	mobA MMP0573	24795	214	Probable molybdenum cofactor guanylyltransferase (MoCo guanylyltransferase) (EC 2.7.7.77) (GTP:molybdopterin guanylyltransferase) (Mo-MPT guanylyltransferase) (Molybdopterin guanylyltransferase) (Molybdopterin-guanine dinucleotide synthase) (MGD synthase)
+Q6M032	rpo7	rpo7 rpoE MMP0440	21030	187	DNA-directed RNA polymerase subunit Rpo7 (EC 2.7.7.6) (DNA-directed RNA polymerase subunit E)
+Q6M033	pyrD	pyrD MMP0439	31984	304	Dihydroorotate dehydrogenase (DHOD) (DHODase) (DHOdehase) (EC 1.3.-.-)
+Q6M061	prsA	prsA prs MMP0410	31026	287	Ribose-phosphate pyrophosphokinase (RPPK) (EC 2.7.6.1) (5-phospho-D-ribosyl alpha-1-diphosphate synthase) (Phosphoribosyl diphosphate synthase) (Phosphoribosyl pyrophosphate synthase) (P-Rib-PP synthase) (PRPP synthase) (PRPPase)
+Q6M081		MMP0390	24075	219	Probable inosine/xanthosine triphosphatase (ITPase/XTPase) (EC 3.6.1.73) (Non-canonical purine NTP phosphatase) (Non-standard purine NTP phosphatase) (Nucleoside-triphosphate phosphatase) (NTPase)
+Q6M090	leuD	leuD MMP0381	17735	161	3-isopropylmalate dehydratase small subunit (EC 4.2.1.33) (Alpha-IPM isomerase) (IPMI) (Isopropylmalate isomerase)
+Q6M0D5	hjc	hjc MMP0336	15205	135	Crossover junction endodeoxyribonuclease Hjc (Hjc) (EC 3.1.21.10) (Holliday junction resolvase Hjc)
+Q6M0F4	fbp	fbp MMP0317	42515	383	Fructose-1,6-bisphosphate aldolase/phosphatase (FBP A/P) (FBP aldolase/phosphatase) (EC 3.1.3.11) (EC 4.1.2.13)
+Q6M0F5	iorA1	iorA1 MMP0316	66871	612	Indolepyruvate oxidoreductase subunit IorA (IOR) (EC 1.2.7.8) (Indolepyruvate ferredoxin oxidoreductase subunit alpha)
+Q6M0M2	rpo12	rpo12 rpoP MMP0248	5184	46	DNA-directed RNA polymerase subunit Rpo12 (EC 2.7.7.6) (DNA-directed RNA polymerase subunit P)
+Q6M0T3	mtaP	mtaP MMP0185	28610	253	Probable S-methyl-5'-thioinosine phosphorylase (EC 2.4.2.44) (5'-methylthioinosine phosphorylase) (MTI phosphorylase) (MTIP)
+Q6M0T5	ribB	ribB MMP0183	27803	247	3,4-dihydroxy-2-butanone 4-phosphate synthase (DHBP synthase) (EC 4.1.99.12)
+Q6M0T9	purL	purL MMP0179	109640	989	Phosphoribosylformylglycinamidine synthase subunit PurL (FGAM synthase) (EC 6.3.5.3) (Formylglycinamide ribonucleotide amidotransferase subunit II) (FGAR amidotransferase II) (FGAR-AT II) (Glutamine amidotransferase PurL) (Phosphoribosylformylglycinamidine synthase subunit II)
+Q6M0X1	nifH	nifH MMP0147	34193	313	Nitrogenase iron protein (EC 1.18.6.1) (Nitrogenase Fe protein) (Nitrogenase component II) (Nitrogenase reductase)
+Q6M0Y3	thrC	thrC MMP0135	43782	404	Threonine synthase (EC 4.2.3.1)
+Q6M0Y5	guaB	guaB MMP0133	53684	500	Inosine-5'-monophosphate dehydrogenase (IMP dehydrogenase) (IMPD) (IMPDH) (EC 1.1.1.205)
+Q6M0Y6	ilvE	ilvE MMP0132	31670	287	Branched-chain-amino-acid aminotransferase (BCAT) (EC 2.6.1.42)
+Q6M141	queE	queE MMP0077	27919	242	7-carboxy-7-deazaguanine synthase (CDG synthase) (EC 4.3.99.3) (Archaeosine biosynthesis protein QueE)
+Q6M1A8	DP1	DP1 polB MMP0008	67586	585	DNA polymerase II small subunit (Pol II) (EC 2.7.7.7) (Exodeoxyribonuclease small subunit) (EC 3.1.11.1)
+Q6LWK0	rpl44e	rpl44e MMP1709	10879	93	Large ribosomal subunit protein eL42
+Q6LWK1	rps27e	rps27e MMP1708	6609	61	Small ribosomal subunit protein eS27
+Q6LWK2	aIF2 alpha	aIF2 alpha MMP1707	29894	265	Translation initiation factor 2 subunit alpha (aIF2-alpha) (eIF-2-alpha)
+Q6LWK7	hom	hom MMP1702	36294	337	Homoserine dehydrogenase (EC 1.1.1.3)
+Q6LWP1	flaB3	flaB3 MMP1668	22078	210	Flagellin
+Q6LWP2	flaB2	flaB2 MMP1667	22474	216	Flagellin
+Q6LWP3	flaB1	flaB1 MMP1666	27748	263	Flagellin
+Q6LWP6		MMP1663	43716	401	Phosphomevalonate dehydratase large subunit (EC 4.2.1.182)
+Q6LWQ8	modC	modC MMP1649	39456	353	Molybdate/tungstate import ATP-binding protein WtpC (EC 7.3.2.6)
+Q6LWR2		MMP1645	29080	257	Isopentenyl phosphate kinase (IPK) (EC 2.7.4.26)
+Q6LWU5	ftr	ftr MMP1609	32090	302	Formylmethanofuran--tetrahydromethanopterin formyltransferase (Ftr) (EC 2.3.1.101) (H4MPT formyltransferase)
+Q6LWU9		MMP1605	50143	447	Pyruvate kinase (EC 2.7.1.40)
+Q6LWW2	trpS	trpS MMP1592	40891	358	Tryptophan--tRNA ligase (EC 6.1.1.2) (Tryptophanyl-tRNA synthetase) (TrpRS)
+Q6LWW6	serA	serA MMP1588	56410	523	D-3-phosphoglycerate dehydrogenase (EC 1.1.1.95)
+Q6LWZ6	mcrG	mcrG MMP1558	29605	260	Methyl-coenzyme M reductase subunit gamma (EC 2.8.4.1)
+Q6LWZ9	mcrB	mcrB MMP1555	46646	443	Methyl-coenzyme M reductase subunit beta (EC 2.8.4.1) (Coenzyme-B sulfoethylthiotransferase beta)
+Q6LX02	ubiX	ubiX MMP1552	20844	185	Flavin prenyltransferase UbiX (EC 2.5.1.129)
+Q6LX04		MMP1550	23716	223	NADP oxidoreductase, coenzyme F420-dependent (EC 1.-.-.-)
+Q6LX27	rncS	rncS MMP1526	26471	230	ribonuclease III (EC 3.1.26.3)
+Q6LX29	secF	secF MMP1524	30098	281	Protein-export membrane protein SecF
+Q6LX30	secD	secD MMP1523	41426	388	Protein-export membrane protein SecD
+Q6LX34		MMP1519	28002	255	Molybdate/tungstate transport system permease protein WtpB
+Q6LX35		MMP1518	34899	312	Molybdate/tungstate import ATP-binding protein WtpC (EC 7.3.2.6)
+Q6LX36		MMP1517	22772	200	Zn-dependent protease
+Q6LX45	porC	porC MMP1507	18942	176	Pyruvate synthase subunit PorC (EC 1.2.7.1) (Pyruvate oxidoreductase gamma chain) (Pyruvic-ferredoxin oxidoreductase subunit gamma)
+Q6LX46	porD	porD MMP1506	9682	85	Pyruvate synthase subunit PorD (Pyruvate oxidoreductase delta chain) (Pyruvic-ferredoxin oxidoreductase subunit delta)
+Q6LX47	porA	porA MMP1505	42248	387	Pyruvate synthase subunit PorA (EC 1.2.7.1) (Pyruvate oxidoreductase alpha chain) (Pyruvic-ferredoxin oxidoreductase subunit alpha)
+Q6LX50	porF	porF MMP1502	15166	138	Ferredoxin
+Q6LX52	ftsz2	ftsz2 ftsZ MMP1500	38551	365	Cell division protein FtsZ
+Q6LX71	cbiM	cbiM MMP1481	23833	225	Putative cobalt transport protein CbiM (Energy-coupling factor transporter probable substrate-capture protein CbiM) (ECF transporter S component CbiM)
+Q6LX73	dacZ	dacZ MMP1479	34566	312	Diadenylate cyclase (DAC) (EC 2.7.7.85) (Cyclic-di-AMP synthase) (c-di-AMP synthase)
+Q6LX90	ehaO	ehaO MMP1462	42881	375	Energy conserving hydrogenase A large subunit (EC 1.6.5.3)
+Q6LXB6	ftsZ	ftsZ ftsZ1 MMP1436	38310	360	Cell division protein FtsZ
+Q6LXB8	spt5	spt5 MMP1434	16027	146	Transcription elongation factor Spt5
+Q6LXC3	rpm	rpm MMP1429	12295	105	Transcription factor S (Transcription elongation factor IIS/RNA polymerase subunit homolog)
+Q6LXC8		MMP1424	94927	852	dolichyl-phosphooligosaccharide-protein glycotransferase (EC 2.4.99.21) (Oligosaccharyl transferase)
+Q6LXD0	secY	secY MMP1422	48295	442	Protein translocase subunit SecY (Protein transport protein SEC61 subunit alpha homolog)
+Q6LXD5	rpl19e	rpl19e MMP1417	17301	149	Large ribosomal subunit protein eL19
+Q6LXF6		MMP1395	85744	752	Helix-hairpin-helix motif:DEAD/DEAH box helicase:Helicase, C-terminal:Helix-hairpin-helix DNA-binding, class 1:ERCC4 domain (EC 2.7.7.-)
+Q6LXG6	fruB	fruB MMP1385	30777	282	Coenzyme F420 hydrogenase subunit beta (EC 1.12.98.1)
+Q6LXG7	fruG	fruG MMP1384	24115	228	Coenzyme F420 hydrogenase subunit gamma (EC 1.12.98.1)
+Q6LXG9	fruA	fruA MMP1382	46272	414	Coenzyme F420 hydrogenase subunit alpha (EC 1.12.98.1)
+Q6LXH2	thyA	thyA MMP1379	24422	212	Putative thymidylate synthase (TS) (TSase) (EC 2.1.1.-)
+Q6LXI5	nusA	nusA MMP1366	19404	173	Probable transcription termination protein NusA
+Q6LXJ0	rpoB2	rpoB2 MMP1361	55882	499	DNA-directed RNA polymerase (EC 2.7.7.6)
+Q6LXJ4		MMP1356	35803	314	Uncharacterized protein
+Q6LXK2		MMP1348	40465	360	UPF0292 protein MMP1348
+Q6LXL4	selB	selB MMP1336	51364	468	Selenocysteine-specific elongation factor (SelB translation factor)
+Q6LXP3		MMP1306	28057	253	4-phosphopantoate--beta-alanine ligase (EC 6.3.2.36) (Phosphopantothenate synthetase) (PPS)
+Q6LXP6		MMP1303	70804	639	histidine kinase (EC 2.7.13.3)
+Q6LXR1		MMP1288	46839	425	Anhydromevalonate phosphate decarboxylase (EC 4.1.1.126)
+Q6LXT3		MMP1264	56531	497	Uncharacterized protein
+Q6LXT9	hemB	hemB MMP1258	35756	322	Delta-aminolevulinic acid dehydratase (EC 4.2.1.24)
+Q6LXV4	nadA	nadA MMP1242	34059	305	Quinolinate synthase (EC 2.5.1.72)
+Q6LXZ5		MMP1198	28619	254	Molybdate/tungstate import ATP-binding protein WtpC (EC 7.3.2.6)
+Q6LY03		MMP1190	16677	150	Peptidyl-prolyl cis-trans isomerase (EC 5.2.1.8)
+Q6LY21		MMP1172	20626	183	DNA protection during starvation protein (EC 1.16.-.-)
+Q6LY22	pssA	pssA MMP1171	22482	204	CDP-diacylglycerol--serine O-phosphatidyltransferase (EC 2.7.8.8) (Phosphatidylserine synthase)
+Q6LY28		MMP1165	79169	723	Haloacid dehalogenase/epoxide hydrolase:ATPase, E1-E2 type:Heavy metal transport/detoxification protein (EC 3.6.1.-)
+Q6LY40	ehbN	ehbN MMP1153	43011	375	Energy conserving hydrogenase B large subunit (EC 1.6.5.3)
+Q6LY51		MMP1141	99969	874	Lhr-like RNA helicase (EC 3.6.1.-)
+Q6LY71		MMP1120	68394	614	histidine kinase (EC 2.7.13.3)
+Q6LY75		MMP1116	38134	350	Endoglucanase (EC 3.2.1.4)
+Q6LY83	corA	corA MMP1108	37194	316	Magnesium transport protein CorA
+Q6LY86	sucC	sucC MMP1105	39612	362	Succinate-CoA ligase (ADP-forming), beta chain (EC 6.2.1.5)
+Q6LY92		MMP1099	26794	233	Phosphate-specific transport system accessory protein PhoU
+Q6LY94		MMP1097	31088	288	Phosphate transport system permease protein PstA
+Q6LY97	ppsA	ppsA MMP1094	83398	758	Phosphoenolpyruvate synthase (PEP synthase) (EC 2.7.9.2) (Pyruvate, water dikinase)
+Q6LY98	coaD	coaD MMP1093	16952	148	Phosphopantetheine adenylyltransferase (EC 2.7.7.3) (Dephospho-CoA pyrophosphorylase) (Pantetheine-phosphate adenylyltransferase) (PPAT)
+Q6LYA0		MMP1091	31726	282	UTP--glucose-1-phosphate uridylyltransferase (EC 2.7.7.9) (UDP-glucose pyrophosphorylase)
+Q6LYA8		MMP1083	27041	244	Imidazole glycerol phosphate synthase subunit HisF (EC 4.3.2.10) (IGP synthase subunit HisF) (ImGP synthase subunit HisF)
+Q6LYB9		MMP1072	41781	375	Aminotransferase (EC 2.6.1.-)
+Q6LYC5	moaC	moaC MMP1066	23319	208	Probable cyclic pyranopterin monophosphate synthase (EC 4.6.1.17) (Molybdenum cofactor biosynthesis protein C)
+Q6LYC8	leuA	leuA MMP1063	55481	514	2-isopropylmalate synthase (EC 2.3.3.13) (Alpha-IPM synthase) (Alpha-isopropylmalate synthase)
+Q6LYC9		MMP1062	69533	613	Lon proteolytic domain-containing protein
+Q6LYE9	atpC	atpC MMP1042	43569	391	A-type ATP synthase subunit C
+Q6LYF1	atpK	atpK MMP1040	21502	222	A1A0 ATPase, subunit K (EC 3.6.3.14)
+Q6LYF2	atpI	atpI MMP1039	74704	686	A-type ATP synthase subunit I
+Q6LYG3	rqcH	rqcH MMP1028	78552	680	Archaeal Rqc2 homolog aRqcH (aRqcH)
+Q6LYG7		MMP1024	80486	710	DNA 3'-5' helicase (EC 5.6.2.4)
+Q6LYH3	cimA	cimA MMP1018	53434	492	Putative (R)-citramalate synthase CimA (EC 2.3.3.21)
+Q6LYH4	lysC	lysC MMP1017	50772	468	Aspartokinase (EC 2.7.2.4)
+Q6LYH9	exoA	exoA MMP1012	29139	249	Exonuclease III (EC 3.1.11.2)
+Q6LYI3	trpC	trpC MMP1008	25414	229	Indole-3-glycerol phosphate synthase (EC 4.1.1.48)
+Q6LYI5	trpE	trpE MMP1006	49770	439	Anthranilate synthase component 1 (EC 4.1.3.27)
+Q6LYI6	trpG	trpG MMP1005	21931	198	anthranilate synthase (EC 4.1.3.27) (Anthranilate synthase, GATase component)
+Q6LYI8	trpB	trpB MMP1003	43154	394	Tryptophan synthase beta chain (EC 4.2.1.20)
+Q6LYK2	top6B	top6B MMP0989	76159	664	Type 2 DNA topoisomerase 6 subunit B (EC 5.6.2.2) (Type II DNA topoisomerase VI subunit B) (TopoVI-B)
+Q6LYK7	cdh	cdh cdhB MMP0984	19154	172	Acetyl-CoA decarbonylase/synthase complex subunit epsilon (ACDS complex subunit epsilon) (ACDS complex carbon monoxide dehydrogenase subunit epsilon) (ACDS CODH subunit epsilon)
+Q6LYL0	cdhD	cdhD MMP0981	43038	384	Acetyl-CoA decarbonylase/synthase complex subunit delta (ACDS complex subunit delta) (Corrinoid/iron-sulfur component small subunit)
+Q6LYM4	cobA	cobA MMP0966	26115	239	uroporphyrinogen-III C-methyltransferase (EC 2.1.1.107) (S-adenosyl-L-methionine:uroporphyrinogen III methyltransferase)
+Q6LYP9		MMP0939	25289	225	Glyceraldehyde 3-phosphate phosphatase
+Q6LYR1	cheA	cheA MMP0927	102381	920	Chemotaxis protein CheA (EC 2.7.13.3)
+Q6LYS0	asnB	asnB MMP0918	58799	513	Putative asparagine synthetase [glutamine-hydrolyzing] (EC 6.3.5.4)
+Q6LYT5		MMP0902	13750	130	Phosphomevalonate dehydratase small subunit (PMDh small subunit) (PMDh-S) (EC 4.2.1.182)
+Q6LYV7	aksF	aksF MMP0880	37968	339	2-oxosuberate synthase, last step
+Q6LYV8	nadC	nadC MMP0877	31388	279	Nicotinate-nucleotide pyrophosphorylase [carboxylating] (EC 2.4.2.19) (Quinolinate phosphoribosyltransferase [decarboxylating])
+Q6LYW3	hemC	hemC MMP0872	33953	304	Hydroxymethylbilane synthase (EC 2.5.1.61)
+Q6LYW8		MMP0867	29989	277	ABC-type proline/glycine betaine transport system, permease component related protein
+Q6LYZ2		MMP0837	22809	201	Ribonuclease H (EC 3.1.26.4)
+Q6LZ04	hdrA	hdrA MMP0825	71349	654	CoB--CoM heterodisulfide reductase iron-sulfur subunit A (EC 1.8.-.-)
+Q6LZ09	frcA	frcA MMP0820	45683	410	Coenzyme F420 hydrogenase subunit alpha (EC 1.12.98.1)
+Q6LZ11	frcG	frcG MMP0818	25910	242	Coenzyme F420 hydrogenase subunit gamma (EC 1.12.98.1)
+Q6LZ12	frcB	frcB MMP0817	30887	282	Coenzyme F420 hydrogenase subunit beta (EC 1.12.98.1)
+Q6LZ19		MMP0810	22978	202	Probable queuosine precursor transporter (Q precursor transporter)
+Q6LZ41		MMP0788	77958	720	Methyl-accepting chemotaxis protein
+Q6LZ81		MMP0748	75660	668	MCM family related protein
+Q6LZ94		MMP0735	36040	306	site-specific DNA-methyltransferase (adenine-specific) (EC 2.1.1.72)
+Q6LZ96		MMP0733	49722	450	Multidrug export protein MepA
+Q6LZB8	corA	corA MMP0711	41394	352	Magnesium transport protein CorA
+Q6LZB9		MMP0710	102444	926	Cation-transporting ATPase
+Q6LZD0		MMP0699	48460	447	Multidrug export protein MepA
+Q6LZE2	tpiA	tpiA MMP0687	18110	173	Triosephosphate isomerase (EC 5.3.1.1)
+Q6LZF7		MMP0672	33848	306	2-dehydropantoate 2-reductase (EC 1.1.1.169) (Ketopantoate reductase)
+Q6LZH0		MMP0658	33799	297	FeMo cofactor biosynthesis protein NifB (Nitrogenase cofactor maturase NifB) (Radical SAM assemblase NifB)
+Q6LZI0	rtcA	rtcA MMP0648	37007	337	RNA 3'-terminal phosphate cyclase (RNA cyclase) (RNA-3'-phosphate cyclase) (EC 6.5.1.4)
+Q6LZJ7	feoB	feoB MMP0630	72478	647	Ferrous iron transport protein B
+Q6LZK9	tiaS	tiaS MMP0616	48713	424	tRNA(Ile2) 2-agmatinylcytidine synthetase TiaS (tRNA(Ile2)-agm2C synthetase) (EC 6.3.4.22) (tRNA(Ile2) agmatidine synthetase)
+Q6LZL2		MMP0613	30096	266	Alpha-acetolactate decarboxylase (EC 4.1.1.5)
+Q6LZL3	LigT	LigT MMP0612	20258	174	RNA 2',3'-cyclic phosphodiesterase (RNA 2',3'-CPDase) (EC 3.1.4.58)
+Q6LZL4		MMP0611	20286	180	Metallo-beta-lactamase domain-containing protein 1 (Endoribonuclease MBLAC1)
+Q6LZM0		MMP0604	32381	273	non-specific serine/threonine protein kinase (EC 2.7.11.1)
+Q6LZM6		MMP0598	48702	428	Archaeal phosphoglycerate mutase-related (EC 5.4.2.1)
+Q6LZR4	taw2	taw2 MMP0560	29477	253	tRNA(Phe) (4-demethylwyosine(37)-C(7)) aminocarboxypropyltransferase (EC 2.5.1.114) (tRNA wyosine derivatives biosynthesis protein Taw2)
+Q6LZT2	serB	serB MMP0541	23347	213	phosphoserine phosphatase (EC 3.1.3.3) (O-phosphoserine phosphohydrolase)
+Q6LZT3	purC	purC MMP0540	27763	246	Phosphoribosylaminoimidazole-succinocarboxamide synthase (EC 6.3.2.6) (SAICAR synthetase)
+Q6LZT4	leuB	leuB MMP0539	35318	330	3-isopropylmalate dehydrogenase (EC 1.1.1.85)
+Q6LZT6	nth1	nth1 MMP0537	41262	356	thymine-DNA glycosylase (EC 3.2.2.29)
+Q6LZV6		MMP0517	20126	176	Metallo-beta-lactamase domain-containing protein 1 (Endoribonuclease MBLAC1)
+Q6LZV7	modD	modD MMP0516	31846	283	Nicotinate-nucleotide pyrophosphorylase [carboxylating] (EC 2.4.2.19) (Quinolinate phosphoribosyltransferase [decarboxylating])
+Q6LZW1	fmdB	fmdB MMP0512	49502	445	formylmethanofuran dehydrogenase subunit B (EC 1.2.7.12)
+Q6LZW2	fmdB	fmdB MMP0511	48957	443	formylmethanofuran dehydrogenase subunit B (EC 1.2.7.12)
+Q6LZW3	fmdC	fmdC MMP0510	44680	415	formylmethanofuran dehydrogenase (EC 1.2.7.12)
+Q6LZW9	modC	modC MMP0504	38707	343	Molybdate/tungstate import ATP-binding protein WtpC (EC 7.3.2.6)
+Q6LZX7		MMP0496	54375	494	Archaeal glutamate synthase [NADPH] (EC 1.4.1.13)
+Q6LZY6		MMP0487	79511	729	Methyl-accepting chemotaxis protein
+Q6M016		MMP0457	60653	538	RNA helicase (EC 3.6.4.13)
+Q6M020		MMP0453	35961	328	Zinc metalloprotease
+Q6M031	rpoE2	rpoE2 spt4 MMP0441	6357	58	Transcription elongation factor Spt4
+Q6M052		MMP0419	55106	503	Transporter
+Q6M058		MMP0413	78811	731	Methyl-accepting chemotaxis protein
+Q6M059		MMP0412	48286	425	tRNA-t(6)A37 methylthiotransferase (EC 2.8.4.5)
+Q6M072	htpX	htpX MMP0399	31391	285	Protease HtpX homolog (EC 3.4.24.-)
+Q6M073		MMP0398	32090	290	Pantoate kinase (PoK) (EC 2.7.1.169)
+Q6M077	hemD	hemD MMP0394	27507	244	Uroporphyrinogen-III synthase (EC 4.2.1.75)
+Q6M091	dnaB	dnaB MMP0380	92037	784	DNA polymerase (EC 2.7.7.7)
+Q6M097		MMP0374	19949	176	Endoribonuclease Nob1
+Q6M0B8		MMP0353	47615	435	UDP-N-acetyl-D-mannosamine dehydrogenase (EC 1.1.1.336) (UDP-ManNAc 6-dehydrogenase)
+Q6M0D0	pycA	pycA MMP0341	55613	501	Pyruvate carboxylase subunit A (EC 6.4.1.1) (Pyruvic carboxylase A)
+Q6M0D1	pycB	pycB MMP0340	63694	569	Pyruvate carboxylase subunit B (Pyruvic carboxylase B)
+Q6M0E8		MMP0323	39564	342	tRNA (guanine(37)-N(1))-methyltransferase (EC 2.1.1.228) (M1G-methyltransferase) (tRNA [GM37] methyltransferase)
+Q6M0G1	taw3	taw3 MMP0310	22640	194	tRNA(Phe) 7-((3-amino-3-carboxypropyl)-4-demethylwyosine(37)-N(4))-methyltransferase (EC 2.1.1.282) (tRNA wyosine derivatives biosynthesis protein Taw3)
+Q6M0G5		MMP0306	63310	570	2-oxoglutarate synthase subunit KorA (EC 1.2.7.3) (2-ketoglutarate oxidoreductase alpha chain) (2-oxoglutarate-ferredoxin oxidoreductase subunit alpha)
+Q6M0G6		MMP0305	31938	286	Oxidoreductase family member subunit beta (EC 1.2.7.-)
+Q6M0I8	purE	purE MMP0282	16987	158	N5-carboxyaminoimidazole ribonucleotide mutase (N5-CAIR mutase) (EC 5.4.99.18) (5-(carboxyamino)imidazole ribonucleotide mutase)
+Q6M0J1	mptG	mptG MMP0279	35348	325	Beta-ribofuranosylaminobenzene 5'-phosphate synthase (Beta-RFA-P synthase) (EC 2.4.2.54)
+Q6M0L2	P1	P1 rpl12 MMP0258	9745	99	Large ribosomal subunit protein P1
+Q6M0M7	mptD	mptD MMP0243	14101	124	Dihydroneopterin aldolase (DHNA) (EC 4.1.2.25) (7,8-dihydroneopterin aldolase)
+Q6M0P2	nrdD	nrdD MMP0227	87969	770	Anaerobic Ribonucleoside-triphosphate reductase (EC 1.17.4.2)
+Q6M0P8	putP	putP MMP0221	53467	492	Sodium/proline symporter
+Q6M0Q0	ppaC	ppaC MMP0219	33707	307	inorganic diphosphatase (EC 3.6.1.1) (Pyrophosphate phospho-hydrolase)
+Q6M0Q3		MMP0216	75975	691	Cation transport ATPase
+Q6M0R2	modC	modC MMP0207	43539	380	Molybdate/tungstate import ATP-binding protein WtpC (EC 7.3.2.6)
+Q6M0T1		MMP0188	36031	309	2-(3-amino-3-carboxypropyl)histidine synthase (EC 2.5.1.108)
+Q6M0T2		MMP0186	22886	206	L-threonylcarbamoyladenylate synthase (EC 2.7.7.87) (L-threonylcarbamoyladenylate synthase)
+Q6M0T8	ribC	ribC MMP0180	17336	156	Riboflavin synthase (EC 2.5.1.9)
+Q6M0U9		MMP0169	41781	375	PDZ domain-containing protein
+Q6M0V5	arsA	arsA MMP0163	38769	345	Putative arsenical pump-driving ATPase (EC 7.3.2.7) (Arsenical resistance ATPase) (Arsenite-translocating ATPase) (Arsenite-transporting ATPase)
+Q6M0V7	comB	comB MMP0161	27648	248	2-phosphosulfolactate phosphatase (EC 3.1.3.71)
+Q6M0W2	rps19e	rps19e MMP0156	15601	141	Small ribosomal subunit protein eS19
+Q6M0W8		MMP0150	19646	171	16S rRNA aminocarboxypropyltransferase (EC 2.5.1.157)
+Q6M0W9		MMP0149	39705	350	tRNA (guanine(10)-N(2))-dimethyltransferase (EC 2.1.1.213) (tRNA:G10 dimethyltransferase)
+Q6M0X0	acsA	acsA MMP0148	71808	636	Acetate--CoA ligase (EC 6.2.1.1)
+Q6M0X6		MMP0142	55780	501	Thiamine pyrophosphate dependent enzyme related to acetolactate synthase
+Q6M0X8		MMP0140	86911	771	Carbamoyltransferase (EC 6.2.-.-)
+Q6M0Y1	dys	dys MMP0137	38353	338	Probable deoxyhypusine synthase (DHS) (EC 2.5.1.46)
+Q6M0Y2	leuD	leuD MMP0136	18248	167	3-isopropylmalate dehydratase small subunit (EC 4.2.1.33) (Alpha-IPM isomerase) (IPMI) (Isopropylmalate isomerase)
+Q6M106		MMP0112	49028	426	2,3-bisphosphoglycerate-independent phosphoglycerate mutase 2 (EC 5.4.2.1)
+Q6M108		MMP0110	36318	322	Molybdate/tungstate import ATP-binding protein WtpC (EC 7.3.2.6)
+Q6M124	pus10	pus10 MMP0094	54488	470	tRNA pseudouridine synthase Pus10 (EC 5.4.99.25) (tRNA pseudouridine 54/55 synthase) (Psi54/55 synthase)
+Q6M126	rpoF	rpoF rpo4 MMP0092	12381	107	DNA-directed RNA polymerase subunit Rpo4 (EC 2.7.7.6) (DNA-directed RNA polymerase subunit F)
+Q6M129		MMP0089	23267	201	precorrin-2 dehydrogenase (EC 1.3.1.76)
+Q6M131	hmgA	hmgA MMP0087	43943	408	3-hydroxy-3-methylglutaryl coenzyme A reductase (HMG-CoA reductase) (EC 1.1.1.34)
+Q6M137	gltB	gltB MMP0081	55153	510	Archaeal glutamate synthase [NADPH] (EC 1.4.1.13)
+Q6M140		MMP0078	31207	281	4Fe-4S ferredoxin-type domain-containing protein
+Q6M152	amtB	amtB MMP0065	41946	408	Ammonium transporter
+Q6M159	mer	mer MMP0058	33823	320	5,10-methylenetetrahydromethanopterin reductase (EC 1.5.98.2) (Coenzyme F420-dependent N(5),N(10)-methylenetetrahydromethanopterin reductase) (Methylene-H(4)MPT reductase)
+Q6M172	idsA	idsA MMP0045	35802	317	Bifunctional short chain isoprenyl diphosphate synthase (EC 2.5.1.1, EC 2.5.1.10)
+Q6M173	rnj	rnj MMP0044	49796	448	Ribonuclease J (RNase J) (EC 3.1.-.-)
+Q6M1A5		MMP0011	40463	355	DNA (cytosine-5-)-methyltransferase (EC 2.1.1.37)
+Q6M1A7	priL	priL MMP0009	43374	372	DNA primase large subunit PriL
+Q6M1B2		MMP0004	35136	298	non-specific serine/threonine protein kinase (EC 2.7.11.1)
+Q6M1B3	korA	korA MMP0003	40113	363	2-oxoglutarate synthase subunit KorA (EC 1.2.7.3) (2-ketoglutarate oxidoreductase alpha chain) (2-oxoglutarate-ferredoxin oxidoreductase subunit alpha)
+F1SVF5		MMP0229	27161	243	ABC amino acid transport ATP binding protein
+Q6LWI8		MMP1721	29319	262	Conserved hypothetical archaeal protein
+Q6LWI9		MMP1720	68184	598	Conserved hypothetical archaeal protein
+Q6LWJ0		MMP1719	99976	884	Uncharacterized protein
+Q6LWJ1		MMP1718	12522	110	Conserved hypothetical archeal protein
+Q6LWJ2		MMP1717	41327	360	Possible methyltransferase related protein (EC 2.1.1.-)
+Q6LWJ3	hmdII	hmdII MMP1716	36476	341	H(2)-forming methylenetetrahydromethanopterin dehydrogenase related protein
+Q6LWJ4		MMP1715	17485	157	Putative GTPase
+Q6LWJ5		MMP1714	11959	114	Roadblock/LAMTOR2 domain-containing protein
+Q6LWJ6		MMP1713	35362	314	Conserved hypothetical archaeal protein
+Q6LWJ7		MMP1712	32941	296	Transcriptional regulator, LysR Family Member
+Q6LWJ9		MMP1710	23590	198	Conserved hypothetical archeal protein
+Q6LWK5		MMP1704	17122	151	Conserved hypothetical archeal protein
+Q6LWK6		MMP1703	34217	298	Conserved hypothetical archaeal protein
+Q6LWK8		MMP1701	18058	160	Amino acid-binding ACT
+Q6LWK9		MMP1700	57529	533	Na+/solute symporter
+Q6LWL0		MMP1699	7198	63	Conserved hypothetical archaeal protein
+Q6LWL4	vhuG	vhuG MMP1695	30745	288	F420-non-reducing hydrogenase subunit (EC 1.12.-.-)
+Q6LWL5	vhuA	vhuA MMP1694	45597	418	F420-non-reducing hydrogenase subunit alpha (EC 1.12.-.-)
+Q6LWL7	vhuB	vhuB MMP1692	41096	383	Polyferredoxin, associated with F420-non-reducing hydrogenase (EC 1.12.-.-)
+Q6LWL9		MMP1690	24562	222	Similar to phosphoribosylformimino-5-aminoimidazole carboxamide ribotide isomerase
+Q6LWM1		MMP1688	26628	227	Conserved hypothetical Archael protein
+Q6LWM2	korD	korD MMP1687	7709	68	2-oxoglutarate ferredoxin oxidoreductase, delta (Ferredoxin) subunit (EC 1.2.7.3)
+Q6LWM5		MMP1684	25803	227	Calcineurin-like phosphoesterase domain-containing protein
+Q6LWM6		MMP1683	24678	213	Uncharacterized protein
+Q6LWM7	recJ	recJ MMP1682	53001	467	Single stranded DNA-specific exonuclease (EC 3.1.-.-)
+Q6LWM8		MMP1681	50764	428	Phosphoadenosine phosphosulfate reductase
+Q6LWN1	nfo	nfo MMP1678	30871	273	Endonuclease IV (EC 3.1.21.2)
+Q6LWN3	flaJ	flaJ MMP1676	63047	558	Flagella accessory protein J
+Q6LWN4	flaI	flaI MMP1675	62413	546	Flagella accessory protein I
+Q6LWN5	flaH	flaH MMP1674	25770	230	Flagella accessory protein H
+Q6LWN6	flaG	flaG MMP1673	15818	150	Flagella accessory protein G
+Q6LWN7	flaF	flaF MMP1672	14037	125	Flagella accessory protein F
+Q6LWN8	flaE	flaE MMP1671	15242	135	Flagella accessory protein E
+Q6LWN9	flaD	flaD MMP1670	36979	322	Flagella accessory protein D
+Q6LWP0	flaC	flaC MMP1669	21320	186	Flagella accessory protein C
+Q6LWP4		MMP1665	71577	621	Uncharacterized protein
+Q6LWP5		MMP1664	33792	298	Coenzyme F420:L-glutamate ligase-like domain-containing protein
+Q6LWP7	cbiF	cbiF MMP1662	27625	254	Precorrin-4 C11-methyltransferase (EC 2.1.1.133)
+Q6LWP8		MMP1661	7773	65	Uncharacterized protein
+Q6LWP9		MMP1660	13322	119	Conserved hypothetical archeal protein
+Q6LWQ1		MMP1657	44282	390	N(4)-bis(aminopropyl)spermidine synthase C-terminal domain-containing protein
+Q6LWQ2		MMP1655	69756	591	Uncharacterized protein
+Q6LWQ3		MMP1654	51992	446	Uncharacterized protein
+Q6LWQ4		MMP1653	121757	1036	Uncharacterized protein
+Q6LWQ6	modA	modA MMP1651	28830	267	Periplasmic molybdate-binding protein
+Q6LWQ7		MMP1650	28746	260	Probable amino acid ABC transporter, periplasmic component
+Q6LWQ9		MMP1648	42880	396	Phytoene dehydrogenase-like protein
+Q6LWR1		MMP1646	18319	158	Conserved hypothetical archaeal protein
+Q6LWR3		MMP1644	30954	283	Conserved hypothetical archaeal protein
+Q6LWR4		MMP1643	14395	129	Cell division protein SepF
+Q6LWR5		MMP1642	20870	184	ATP/GTP-binding site motif A (P-loop):Small GTP-binding protein domain
+Q6LWR6		MMP1641	29722	268	Soluble P-type ATPase (EC 3.6.3.-)
+Q6LWR7		MMP1639	45193	400	Acyl-CoA dehydrogenase (EC 2.7.4.7)
+Q6LWR8		MMP1638	32585	287	MoaA/nifB/pqqE family
+Q6LWR9		MMP1637	25027	230	Conserved hypothetical archaeal protein
+Q6LWS0		MMP1636	49658	460	General substrate transporter
+Q6LWS1		MMP1635	8633	80	Thioredoxin:Glutaredoxin:Thioredoxins/glutaredoxi n
+Q6LWS2		MMP1634	31179	286	UPF0033 domain-containing protein
+Q6LWS3		MMP1633	11946	109	Conserved hypothetical archaeal protein
+Q6LWS4	yqiX	yqiX MMP1632	26753	240	Solute-binding protein/glutamate receptor:Bacterial extracellular solute-binding protein, family 3
+Q6LWS5		MMP1631	22352	194	PA-phosphatase related phosphoesterase
+Q6LWS6		MMP1630	61495	549	ATP/GTP-binding site motif A (P-loop):ABC transporter:AAA ATPase (EC 1.8.-.-)
+Q6LWS7	ehbE	ehbE MMP1629	12699	118	NADH-ubiquinone oxidoreductase chain 4L
+Q6LWS8	ehbF	ehbF MMP1628	51945	482	Energy conserving hydrogenase B putative transmembrane subunit
+Q6LWS9	ehbG	ehbG MMP1627	11695	102	MJ1308 domain-containing protein
+Q6LWT0		MMP1626	27605	253	Na+/H+ antiporter MnhB subunit-related protein domain-containing protein
+Q6LWT1	ehbJ	ehbJ MMP1625	9336	86	Energy-converting hydrogenase B subunit J
+Q6LWT2	ehbK	ehbK MMP1624	53758	481	Polyferredoxin
+Q6LWT3	ehbL	ehbL MMP1623	19054	170	Ferredoxin
+Q6LWT4	ehbM	ehbM MMP1622	15677	147	Energy conserving hydrogenase B small subunit (EC 1.6.5.3)
+Q6LWT5	ehbO	ehbO MMP1621	36745	331	Energy conserving hydrogenase B integral membrane subunit (EC 1.6.5.3)
+Q6LWT6		MMP1620	10957	97	Uncharacterized protein
+Q6LWT7		MMP1619	45101	402	Molybdenum cofactor biosynthesis protein:MoeA N-terminal region, domain I and II:MoeA C-terminal, domain IV
+Q6LWT9		MMP1617	9225	87	Ca2+/H+ antiporter (TMEM165/GDT1 family)
+Q6LWU1		MMP1615	10635	99	MIP18 family-like domain-containing protein
+Q6LWU2		MMP1612	26156	225	non-specific serine/threonine protein kinase (EC 2.7.11.1)
+Q6LWU3		MMP1611	27504	250	Proteasome assembly chaperone family protein
+Q6LWU4		MMP1610	25916	224	Uncharacterized protein
+Q6LWU6		MMP1608	11761	102	Rubrerythrin diiron-binding domain-containing protein
+Q6LWU7		MMP1607	21012	183	UPF0215 protein MMP1607
+Q6LWV0		MMP1604	32356	289	MFS family permease
+Q6LWV1		MMP1603	43178	388	Ferredoxin
+Q6LWV2		MMP1602	8757	75	Uncharacterized protein
+Q6LWV3		MMP1601	29074	260	Putative RNA methylase
+Q6LWV4		MMP1600	30964	268	Ribosomal protein S6 modification enzyme (Glutaminyl transferase) related
+Q6LWV5	trkA	trkA MMP1599	23861	221	Trk system potassium uptake protein A
+Q6LWV6		MMP1598	21788	184	DUF483 domain-containing protein
+Q6LWV7		MMP1597	18817	169	YutG/PgpA domain-containing protein
+Q6LWV8		MMP1596	24611	212	Conserved Hypothetical Archael protein
+Q6LWV9		MMP1595	61547	538	ATP/GTP-binding site motif A (P-loop):PUA domain:Queuine/other tRNA-ribosyltransferase:Uncharacterized domain 2
+Q6LWW0		MMP1594	21670	180	Uncharacterized protein
+Q6LWW1		MMP1593	33129	301	TiaS-like TCKD domain-containing protein
+Q6LWW3	cbiG	cbiG MMP1591	36935	323	Cobalamin (Vitamin B12) biosynthesis CbiG protein
+Q6LWW4		MMP1590	29773	261	ExsB family protein
+Q6LWW7		MMP1587	14486	137	Conserved hypothetical archaeal protein
+Q6LWW8		MMP1586	9032	80	Conserved hypothetical archaeal protein
+Q6LWW9		MMP1585	32045	282	Arginase (EC 3.5.3.11)
+Q6LWX3		MMP1581	72758	633	Putative DNA helicase
+Q6LWX4		MMP1580	59724	523	Dihydropteroate synthase, DHPS:Dihydropteroate synthase-related protein synthase-related protein
+Q6LWX8		MMP1576	5875	51	Uncharacterized protein
+Q6LWY0	bioF	bioF MMP1574	41176	370	8-amino-7-oxononanoate synthase (EC 2.3.1.47)
+Q6LWY2		MMP1572	11739	98	Uncharacterized protein
+Q6LWY3		MMP1571	36820	333	Conserved hypothetical archaeal protein
+Q6LWY4		MMP1570	29184	251	TatD-related protein
+Q6LWY5		MMP1569	14480	128	Conserved hypothetical archaeal protein
+Q6LWY6		MMP1568	20437	177	Conserved hypothetical archaeal protein
+Q6LWZ7	mcrC	mcrC MMP1557	21354	198	Methyl-coenzyme M reductase operon protein C
+Q6LWZ8	mcrD	mcrD MMP1556	18083	159	Methyl-coenzyme M reductase I, protein D
+Q6LX00		MMP1554	48902	436	Conserved hypothetical archaeal protein
+Q6LX01	rdxA	rdxA MMP1553	22562	200	Nitroreductase family
+Q6LX05		MMP1549	30114	268	AP endonuclease, family 2
+Q6LX06		MMP1548	20904	190	Fe-S type hydro-lyases tartrate/fumarate beta region (EC 4.2.1.2)
+Q6LX11		MMP1542	23637	196	Translin related protein
+Q6LX12		MMP1541	11442	105	Conserved hypothetical archaeal protein
+Q6LX13		MMP1540	29911	273	Conserved hypothetical Archael protein
+Q6LX14		MMP1539	20614	186	Uncharacterized protein
+Q6LX15		MMP1538	16290	156	Predicted transporter component
+Q6LX16		MMP1537	15799	151	Cytochrome c heme-binding site
+Q6LX17		MMP1536	23501	203	Conserved hypothetical archaeal protein
+Q6LX18		MMP1535	44299	398	Conserved hypothetical archaeal protein
+Q6LX19		MMP1534	15192	129	Adenylate kinase
+Q6LX20		MMP1533	17618	150	Conserved hypothetical Archael protein
+Q6LX22		MMP1531	35504	323	Methanogenesis marker protein 2
+Q6LX23		MMP1530	11097	96	Uncharacterized protein
+Q6LX24		MMP1529	28054	236	Conserved hypothetical archaeal protein
+Q6LX25	pheA	pheA MMP1528	30315	268	Prephenate dehydratase (EC 4.2.1.51)
+Q6LX28		MMP1525	47007	420	Modulator of DNA gyrase
+Q6LX31		MMP1522	38244	340	Conserved hypothetical archaeal protein
+Q6LX32		MMP1521	15946	142	Conserved hypothetical archaeal protein
+Q6LX33		MMP1520	24849	224	ATP/GTP-binding site motif A (P-loop):HypB/UreG, nucleotide-binding:Hydrogenase accessory protein HypB
+Q6LX37		MMP1516	26040	222	Conserved hypothetical archaeal protein
+Q6LX39	tyrA	tyrA MMP1514	50037	440	Prephenate dehydrogenase (EC 1.3.1.12)
+Q6LX44		MMP1508	11427	101	DUF357 domain-containing protein
+Q6LX48	porB	porB MMP1504	32391	298	Pyruvate oxidoreductase (Synthase) subunit beta (EC 1.2.7.1)
+Q6LX49	porE	porE MMP1503	18065	167	Conserved archaeal protein, pyruvate oxidoreductase-associated
+Q6LX51		MMP1501	18745	163	Phosphoesterase (EC 3.1.4.-)
+Q6LX53		MMP1499	18994	170	Conserved hypothetical archaeal protein
+Q6LX57		MMP1495	38742	332	Radical SAM core domain-containing protein
+Q6LX58		MMP1494	23144	204	DUF366 family protein
+Q6LX59		MMP1493	50225	447	S-layer protein outer domain-containing protein
+Q6LX64		MMP1488	49755	458	Modulator of DNA gyrase
+Q6LX66		MMP1486	28939	267	Putative mechanosensitive ion channel
+Q6LX67	moaB	moaB MMP1485	17847	161	Molybdenum cofactor biosynthesis protein
+Q6LX69	cbiQ	cbiQ MMP1483	29216	257	Cobalt transport protein Q
+Q6LX74	cbiA	cbiA MMP1478	39413	349	Cobyrinic acid a,c-diamide synthase:Cobyrinic acid a,c-diamide synthase CbiA
+Q6LX75	cbiA	cbiA MMP1477	14690	131	Cobyrinic acid a,c-diamide synthase
+Q6LX76		MMP1476	28152	245	Conserved hypothetical archaeal protein
+Q6LX77		MMP1475	31369	277	Uncharacterized protein
+Q6LX79		MMP1473	14511	126	DUF356 domain-containing protein
+Q6LX83	ehbA	ehbA MMP1469	11181	100	Cation antiporter
+Q6LX85	ehaT	ehaT MMP1467	15493	131	Helix-turn-helix type 11 domain-containing protein
+Q6LX86	ehaS	ehaS MMP1466	23891	213	CBS domain-containing protein
+Q6LX87	ehaR	ehaR MMP1465	28164	252	4Fe-4S ferredoxin-type domain-containing protein
+Q6LX88	ehaQ	ehaQ MMP1464	18332	161	4Fe-4S ferredoxin-type domain-containing protein
+Q6LX89	ehaP	ehaP MMP1463	44349	393	Polyferredoxin
+Q6LX91	ehaN	ehaN MMP1461	16911	156	Energy conserving hydrogenase A small subunit (EC 1.6.5.3)
+Q6LX92	ehaM	ehaM MMP1460	15614	136	Energy-converting hydrogenase A subunit M
+Q6LX93	ehaL	ehaL MMP1459	10669	99	Energy-converting hydrogenase A subunit L
+Q6LX94	ehaK	ehaK MMP1458	9264	83	Energy-converting hydrogenase A subunit K
+Q6LX95	ehaJ	ehaJ MMP1457	31826	292	Energy conserving hydrogenase A integral membrane subunit
+Q6LX96	ehaI	ehaI MMP1456	7802	69	Energy-converting hydrogenase A subunit I
+Q6LX97	ehaH	ehaH MMP1455	24137	220	Putative transmembrane subunit of a hydrogenase
+Q6LX98	ehaG	ehaG MMP1454	25002	228	Energy-converting hydrogenase A subunit G
+Q6LX99	ehaF	ehaF MMP1453	17589	157	Energy-converting hydrogenase A subunit F
+Q6LXA0	ehaE	ehaE MMP1452	9299	84	Energy-converting hydrogenase A subunit E
+Q6LXA1	ehaD	ehaD MMP1451	10053	92	Energy-converting hydrogenase A subunit D
+Q6LXA2	ehaC	ehaC MMP1450	9489	88	Energy-converting hydrogenase A subunit C
+Q6LXA3	ehaB	ehaB MMP1449	17308	163	Energy-converting hydrogenase A subunit B
+Q6LXA5		MMP1447	24729	212	Cro repressor family Helix-turn-helix motif containing protein
+Q6LXA6		MMP1446	21393	190	Zn-finger, ZPR1 type:Zn-finger, ZPR1-related type
+Q6LXA9		MMP1443	41142	374	GTP1/OBG family:ATP/GTP-binding site motif A (P-loop):TGS domain:Small GTP-binding protein domain
+Q6LXB0		MMP1442	11033	95	ArsR family transcriptional regulator
+Q6LXB1	mobB	mobB MMP1441	25114	229	ATP/GTP-binding site motif A (P-loop):Molybdopterin-guanine dinucleotide biosynthesis protein
+Q6LXB4		MMP1438	43129	387	SCP domain-containing protein
+Q6LXC2		MMP1430	52869	478	Putative TRK system cation (K+) uptake protein
+Q6LXC4		MMP1428	5676	53	Preprotein translocase subunit SecG
+Q6LXC9		MMP1423	33369	299	Putative glycosyl transferase, family 4:Aldehyde dehydrogenase
+Q6LXE9		MMP1402	8002	69	Uncharacterized protein
+Q6LXF1		MMP1400	5919	54	Ribosomal protein aS21 zinc-binding pocket domain-containing protein
+Q6LXF2		MMP1399	23331	212	Aspartate/glutamate/uridylate kinase
+Q6LXF5		MMP1396	49488	434	Aminotransferase (Subgroup I) (EC 2.6.1.-)
+Q6LXF8		MMP1393	15454	138	DUF371 domain-containing protein
+Q6LXG1		MMP1390	6444	56	Conserved hypothetical archaeal protein
+Q6LXG2		MMP1389	43154	382	Major facilitator superfamily (MFS) profile domain-containing protein
+Q6LXG3		MMP1388	9187	81	Thioredoxin
+Q6LXG5		MMP1386	37116	335	Hydrophobic protein (TIGR00341 family)
+Q6LXG8	fruD	fruD MMP1383	22062	196	Coenzyme F420-reducing hydrogenase delta subunit (EC 1.12.98.1)
+Q6LXH0		MMP1381	46853	422	Beta-lactamase-like:ATP/GTP-binding site motif A (P-loop)
+Q6LXH1		MMP1380	41364	372	Chlorohydrolase
+Q6LXH3		MMP1378	6661	58	Uncharacterized protein
+Q6LXH4		MMP1377	41104	355	Transglutaminase-like domain-containing protein
+Q6LXH5		MMP1376	9107	80	Phage shock protein PspC N-terminal domain-containing protein
+Q6LXH6		MMP1375	32587	292	SAM (And some other nucleotide) binding motif (EC 2.1.1.77)
+Q6LXH9	manB	manB MMP1372	49998	437	Phosphoglucomutase/phosphomannomutase (EC 5.4.2.8)
+Q6LXJ1		MMP1359	55634	513	CBS domain-containing protein
+Q6LXJ2		MMP1358	14788	132	Ferredoxin
+Q6LXJ3		MMP1357	9511	84	ThiamineS
+Q6LXJ5		MMP1355	25779	226	Bacterial transferase hexapeptide repeat (EC 2.3.1.28)
+Q6LXJ7		MMP1353	37170	324	tRNA(Ile)-lysidine/2-thiocytidine synthase N-terminal domain-containing protein
+Q6LXJ9		MMP1351	19184	161	N-acetyltransferase domain-containing protein
+Q6LXK0		MMP1350	49237	437	Radical SAM core domain-containing protein
+Q6LXK3	HMmB	HMmB MMP1347	7015	66	Archaeal histone B
+Q6LXK4		MMP1346	27443	243	Basic helix-loop-helix dimerization domain bHLH
+Q6LXK6		MMP1344	17856	158	PrcB C-terminal domain-containing protein
+Q6LXK7		MMP1343	29829	266	Metallo-beta-lactamase domain-containing protein
+Q6LXK8		MMP1342	15298	131	PIN domain-containing protein
+Q6LXL1		MMP1339	29825	264	SAM (And some other nucleotide) binding motif
+Q6LXL2		MMP1338	7465	64	Uncharacterized protein
+Q6LXL3		MMP1337	17712	160	Hydrogenase maturation protease, related
+Q6LXL6		MMP1334	44053	384	Solute-binding protein/glutamate receptor:ATP/GTP-binding site motif A (P-loop):GTP-binding protein, HSR1-related:GTP-binding
+Q6LXL8		MMP1332	43811	384	NAD binding site:FAD-dependent pyridine nucleotide-disulphide oxidoreductase (EC 1.8.1.4)
+Q6LXL9		MMP1331	17357	157	VTT domain-containing protein
+Q6LXM0		MMP1330	9871	88	Hydrogenase expression/formation protein (HUPF/HYPC)
+Q6LXM1		MMP1329	6777	62	Ferredoxin
+Q6LXM2		MMP1328	34532	311	Enolase
+Q6LXM3	rpoK	rpoK MMP1327	6186	57	DNA-directed RNA polymerase, subunit K (EC 2.7.7.6)
+Q6LXN2		MMP1317	29162	258	MJ0538 domain-containing protein
+Q6LXN3	korB	korB MMP1316	29266	265	2-oxoglutarate oxidoreductase beta subunit (EC 1.2.7.3)
+Q6LXN4	korG	korG MMP1315	19312	177	2-oxoglutarate oxidoreductase gamma subunit (EC 1.2.7.3)
+Q6LXN5		MMP1314	85439	761	Phosphoesterase, RecJ-like:RNA binding S1:OB-fold nucleic acid binding domain Related protein
+Q6LXN7		MMP1312	24098	208	Uncharacterized protein
+Q6LXN8		MMP1311	5436	52	Ferredoxin
+Q6LXP0		MMP1309	23648	203	Conserved hypothetical archaeal protein
+Q6LXP2		MMP1307	43441	380	Methyltransferase related protein
+Q6LXP4		MMP1305	51656	467	FIST N domain protein
+Q6LXP5		MMP1304	13592	119	Response regulator receiver
+Q6LXP7		MMP1302	8592	81	Selenium-binding protein
+Q6LXP8	fdhC	fdhC MMP1301	28762	274	Formate transporter
+Q6LXP9		MMP1300	20151	177	Uncharacterized protein
+Q6LXQ0		MMP1299	16487	150	Carbonic anhydrase (EC 4.2.1.1)
+Q6LXQ5	glgA	glgA MMP1294	59635	522	starch synthase (EC 2.4.1.21)
+Q6LXQ6		MMP1293	44262	391	Glycosyl transferase, group 1
+Q6LXQ7		MMP1292	71262	621	Glucan 1,4-alpha-glucosidase (Glucoamylase) (EC 3.2.1.3)
+Q6LXQ8		MMP1291	48482	407	Glycoside hydrolase, family 57 (EC 3.2.1.1)
+Q6LXR2		MMP1287	11352	97	Metal-binding protein
+Q6LXR4		MMP1285	31251	266	Conserved hypothetical archaeal protein
+Q6LXR5		MMP1284	92330	811	DEAD/DEAH box helicase:Helicase, C-terminal
+Q6LXR8		MMP1281	19535	168	GCN5-related N-acetyltransferase
+Q6LXR9		MMP1280	13338	112	DMT family protein
+Q6LXS0		MMP1278	12354	109	Uncharacterized protein
+Q6LXS1	frdA	frdA MMP1277	59272	539	Fumarate reductase/succinate dehydrogenase, flavoprotein subunit (EC 1.3.99.1)
+Q6LXS2		MMP1276	16712	148	Uncharacterized protein
+Q6LXS3		MMP1275	21223	184	HTH cro/C1-type domain-containing protein
+Q6LXS4		MMP1274	63363	557	Acetyl-CoA synthetase, AMP-forming-related (EC 6.2.1.1)
+Q6LXS5	vorC	vorC MMP1273	8847	79	2-oxoisovalerate oxidoreductase subunit gamma (EC 1.2.7.-)
+Q6LXS6	vorB	vorB MMP1272	38440	351	2-oxoisovalerate oxidoreductase subunit beta (EC 1.2.7.-)
+Q6LXS7	vorA	vorA MMP1271	51781	479	2-oxoisovalerate oxidoreductase subunit alpha (EC 1.2.7.-)
+Q6LXS8		MMP1270	46876	438	Orotidine 5'-phosphate decarboxylase
+Q6LXS9		MMP1269	11333	96	YCII-related domain-containing protein
+Q6LXT0		MMP1268	38459	338	Uncharacterized protein
+Q6LXT1		MMP1267	28146	236	Uncharacterized protein
+Q6LXT4		MMP1263	31915	270	Conserved hypothetical archaeal protein
+Q6LXT5		MMP1262	20627	175	Uncharacterized protein
+Q6LXT6		MMP1261	21459	190	DZANK-type domain-containing protein
+Q6LXT7		MMP1260	41474	382	Conserved hypothetical Archael protein
+Q6LXT8		MMP1259	47513	442	NAD(P)H: rubredoxin oxidoreductase (NPOR)
+Q6LXU0		MMP1257	25407	225	NERD domain-containing protein
+Q6LXU1		MMP1256	19630	167	Uncharacterized protein
+Q6LXU4		MMP1253	33501	299	Damage-control phosphatase ARMT1-like metal-binding domain-containing protein
+Q6LXU5		MMP1252	31433	279	CBS domain
+Q6LXU6		MMP1251	20246	186	CBS domain-containing protein
+Q6LXU7		MMP1250	19077	167	6-pyruvoyl tetrahydropterin synthase
+Q6LXU8	fwdA	fwdA MMP1248	63266	567	Tungsten containing formylmethanofuran dehydrogenase, subunit A (EC 1.2.99.5)
+Q6LXU9	fwdD	fwdD MMP1247	14149	128	Tungsten containing formylmethanofuran dehydrogenase, subunit D (EC 1.2.99.5)
+Q6LXV0	fwdG	fwdG MMP1246	8343	80	Tungsten containing formylmethanofuran dehydrogenase, subunit G (EC 1.2.99.5)
+Q6LXV1	fwdF	fwdF MMP1245	38230	352	Tungsten containing formylmethanofuran dehydrogenase, subunit F (EC 1.2.99.5)
+Q6LXV2	fwdH	fwdH MMP1244	16642	148	Tungsten containing formylmethanofuran dehydrogenase, subunit H (EC 1.2.99.5)
+Q6LXV3		MMP1243	24381	217	Conserved hypothetical archaeal protein
+Q6LXV5		MMP1241	13633	119	Uncharacterized protein
+Q6LXV7		MMP1239	29806	258	NAD/GMP synthase domain-containing protein
+Q6LXV9		MMP1237	7471	66	Uncharacterized protein
+Q6LXW1	moaE	moaE MMP1235	16198	141	Molybdopterin biosynthesis MoaE
+Q6LXW2		MMP1234	26596	239	Conserved hypothetical membrane related protein
+Q6LXW3		MMP1233	26908	241	TonB-dependent receptor protein:Formate dehydrogenase, subunit FdhD
+Q6LXW4		MMP1232	34425	296	Phosphoadenosine phosphosulphate reductase domain-containing protein
+Q6LXW5		MMP1231	14696	134	Putative HAD family hydrolase, a
+Q6LXW6		MMP1230	40914	352	DNA polymerase, beta-like region
+Q6LXW7		MMP1229	10159	100	FUN14 family protein
+Q6LXW8		MMP1228	24691	215	Uncharacterized protein
+Q6LXW9	cbiE	cbiE MMP1227	28464	246	Uroporphyrin-III C/tetrapyrrole (Corrin/Porphyrin) methyltransferase (EC 2.1.1.132)
+Q6LXX0		MMP1226	43197	385	FAD-binding domain-containing protein
+Q6LXX1		MMP1225	28910	254	Amino acid ABC-type transporter related protein
+Q6LXX2		MMP1224	28999	254	ABC-type amino acid transport/signal transduction systems periplasmic component-related
+Q6LXX3		MMP1223	52990	492	Conserved hypothetical archaeal protein
+Q6LXX5	glgP	glgP MMP1220	60191	520	Glycogen phosphorylase (EC 2.4.1.1)
+Q6LXX6		MMP1219	76781	669	Putative dinG ATP-dependent helicase (EC 3.6.1.-)
+Q6LXX8		MMP1217	24583	219	Conserved hypothetical archaeal protein
+Q6LXY0		MMP1214	26564	225	Uncharacterized protein
+Q6LXY1		MMP1213	14842	130	Transcriptional regulator
+Q6LXY2		MMP1212	41453	392	Acetyl-CoA C-acetyltransferase
+Q6LXY4		MMP1210	25600	229	HTH cro/C1-type domain-containing protein
+Q6LXY5		MMP1209	41964	357	NurA domain-containing protein
+Q6LXY9		MMP1204	39080	339	Metallopeptidase family M24:Xaa-Pro dipeptidase/Xaa-Pro aminopeptidase (EC 3.4.21.-)
+Q6LXZ1		MMP1202	15867	135	TsaA-like domain-containing protein
+Q6LXZ2		MMP1201	21723	185	Staphylococcus nuclease (SNase-like):Thermonuclease (EC 3.1.31.1)
+Q6LXZ4		MMP1199	32975	284	Phosphate transport system regulatory protein-related
+Q6LXZ6		MMP1197	27295	253	Transport permease protein
+Q6LXZ7		MMP1196	20288	182	Uncharacterized protein
+Q6LXZ8	yneG	yneG MMP1195	14680	123	Putative cytoplasmic protein
+Q6LXZ9		MMP1194	70799	682	Collagen triple helix repeat:Surface protein from Gram-positive cocci, anchor region
+Q6LY00		MMP1193	164498	1497	Uncharacterized protein
+Q6LY01		MMP1192	42792	371	Radical SAM core domain-containing protein
+Q6LY05		MMP1188	10234	91	UPF0147 protein MMP1188
+Q6LY08		MMP1185	19938	179	Hydrogen uptake protein:Hydrogenase maturation protease HycI (EC 3.-.-.-)
+Q6LY09		MMP1184	20610	175	N-acetyltransferase related protein
+Q6LY10		MMP1183	28492	253	Iron ABC transporter ATPase subunit
+Q6LY11		MMP1182	37345	348	Iron(III) dicitrate transport system permease protein
+Q6LY12		MMP1181	41741	378	Iron transport system binding protein
+Q6LY13		MMP1180	65389	585	Radical SAM core domain-containing protein
+Q6LY14		MMP1179	24586	218	SAM (And some other nucleotide) binding motif:Generic methyltransferase
+Q6LY15		MMP1178	41279	373	Iron transport Periplasmic binding protein
+Q6LY16		MMP1177	23545	204	Putative iron transport system substrate-binding protein, C-term half
+Q6LY17		MMP1176	20216	187	Putative iron transport system substrate-binding protein, N-term half
+Q6LY18		MMP1175	41065	360	O-methyltransferase
+Q6LY20		MMP1173	28608	269	Conserved membrane protein
+Q6LY23		MMP1170	25944	230	Glycosyl transferase, family 2 (EC 2.4.1.83)
+Q6LY24		MMP1169	46415	418	SUF system FeS cluster assembly SufBD core domain-containing protein
+Q6LY25		MMP1168	27745	248	ABC transporter ATP-binding protein
+Q6LY26		MMP1167	20686	184	Flavoprotein related protein
+Q6LY27		MMP1166	22003	197	Related to iron-sulfur flavoprotein of Methanosarcina thermophila
+Q6LY29		MMP1164	8591	76	Heavy-metal transport ATPase related protein
+Q6LY30		MMP1163	12057	104	CutA1 divalent ion tolerance protein Related Protein
+Q6LY31		MMP1162	44358	387	Flavodoxin:Beta-lactamase-like
+Q6LY32		MMP1161	13345	116	Conserved hypothetical Archael protein
+Q6LY33		MMP1160	7082	62	Rubredoxin-like domain-containing protein
+Q6LY34		MMP1159	19940	171	Ferritin
+Q6LY35		MMP1158	9645	88	MTH865-like family protein
+Q6LY36	rbo	rbo MMP1157	13628	118	Desulfoferrodoxin, ferrous iron-binding site (EC 1.15.-.-)
+Q6LY37		MMP1156	11396	104	Carboxymuconolactone decarboxylase-like domain-containing protein
+Q6LY41		MMP1152	13490	120	Conserved hypothetical archaeal protein
+Q6LY42	mtbC	mtbC MMP1151	23661	215	Coenzyme B12-binding:Cobalamin-dependent methionine synthase, B12-binding
+Q6LY43	mtaA	mtaA MMP1150	38983	352	Uroporphyrinogen decarboxylase (URO-D)
+Q6LY45		MMP1148	8152	72	Putative snRNP Sm-like protein
+Q6LY48	minD	minD MMP1145	28864	262	Septum formation inhibitor-activating ATPase
+Q6LY49		MMP1143	14608	126	TPR repeat
+Q6LY50		MMP1142	27891	236	Metallo-phosphoesterase:Serine/threonine-specific protein phosphatase
+Q6LY52	fdxA	fdxA MMP1140	9250	81	Ferredoxin
+Q6LY54		MMP1137	15926	140	Lrp-Like Transcriptional regulatory proteins, AsnC family
+Q6LY55		MMP1136	15645	139	Rubrerythrin
+Q6LY56		MMP1135	45551	406	Flavodoxin:Beta-lactamase-like
+Q6LY57		MMP1134	45638	407	Type A flavoprotein
+Q6LY58	comC	comC MMP1133	37095	347	L-sulfolactate dehydrogenase/(S)-hydroxyglutaric acid dehydrogenase (EC 1.1.1.272)
+Q6LY61		MMP1130	14979	132	Secondary thiamine-phosphate synthase enzyme
+Q6LY62	ppiB	ppiB MMP1129	17974	162	peptidylprolyl isomerase (EC 5.2.1.8)
+Q6LY63	ppiB	ppiB MMP1128	22553	203	peptidylprolyl isomerase (EC 5.2.1.8)
+Q6LY64		MMP1127	80487	713	RNA binding S1
+Q6LY65		MMP1126	33269	292	Putative proliferating-cell nucleolar antigen
+Q6LY66		MMP1125	18400	157	Archaeosortase family protein ArtE
+Q6LY68		MMP1123	49594	438	Radical SAM core domain-containing protein
+Q6LY69		MMP1122	43376	392	GTP1/OBG family:ATP/GTP-binding site motif A (P-loop):TGS domain
+Q6LY70		MMP1121	21539	187	Metal-dependent phophohydrolase related protein
+Q6LY72	yjlA	yjlA MMP1119	35177	314	Drug/metabolite transporter (DMT)-like permease
+Q6LY73		MMP1118	12235	105	Uncharacterized protein
+Q6LY74		MMP1117	18893	162	YkgJ family cysteine cluster protein
+Q6LY76		MMP1115	30264	275	Transketolase, N terminal half (EC 2.2.1.1)
+Q6LY78		MMP1113	33678	312	Transketoloase, C terminal half (EC 2.2.1.1)
+Q6LY79		MMP1112	27847	251	Conserved hypothetical archaeal protein
+Q6LY80	modA	modA MMP1111	39847	357	Periplasmic ModA molybdate-binding protein
+Q6LY81		MMP1110	44266	391	Oligosaccharide repeat unit polymerase
+Q6LY82		MMP1109	41707	369	DUF373 family protein
+Q6LY85		MMP1106	12777	103	DNA repair exonuclease SbcCD ATPase subunit
+Q6LY88		MMP1103	24477	214	TfuA-like core domain-containing protein
+Q6LY89		MMP1102	25220	214	Phospholipase D/Transphosphatidylase
+Q6LY91		MMP1100	15565	135	Putative transricptional regulator
+Q6LY95		MMP1096	31435	291	Binding-protein-dependent transport systems inner membrane component
+Q6LY96		MMP1095	29720	279	Phosphate-binding protein
+Q6LY99		MMP1092	33471	304	Auxin Efflux Carrier
+Q6LYA1		MMP1090	34364	306	UDP-glucose 4-epimerase related (EC 5.1.3.2)
+Q6LYA2		MMP1089	56932	502	Polysaccharide biosynthesis protein
+Q6LYA3		MMP1088	47658	410	Glycosyl transferase, group 1
+Q6LYA4		MMP1087	40825	348	MoaA/NifB/PqqE/SkfB family radical SAM enzyme
+Q6LYA5		MMP1086	37394	320	Radical SAM core domain-containing protein
+Q6LYA6		MMP1085	25799	224	Methyltransferase domain-containing protein
+Q6LYA7		MMP1084	71388	597	Asparagine synthase
+Q6LYB0	wbpG	wbpG MMP1081	43603	370	Putative LPS biosynthesis protein WbpG
+Q6LYB1		MMP1080	42347	364	Glycosyl transferase, group 1
+Q6LYB2		MMP1079	32420	269	Glycosyl transferase, family 2
+Q6LYB3		MMP1078	37771	314	Conserved Hypothetical Archael Protein
+Q6LYB6	dut	dut MMP1075	17723	156	dUTP diphosphatase (EC 3.6.1.23)
+Q6LYB7	ehbD	ehbD MMP1074	8623	80	MrpA C-terminal/MbhD domain-containing protein
+Q6LYB8	ehbC	ehbC MMP1073	9614	84	Energy-converting hydrogenase B subunit C
+Q6LYC0		MMP1071	15817	139	UPF0201 protein MMP1071
+Q6LYC1		MMP1070	24446	210	Conserved hypothetical archaeal protein
+Q6LYC2		MMP1069	33747	308	Basic helix-loop-helix dimerization domain bHLH:Peptidase U7:Signal peptide peptidase, SppA 36 kDa type (EC 3.4.21.-)
+Q6LYC3		MMP1068	34518	322	K+-dependent Na+/Ca+ exchanger related-protein:Sodium/calcium exchanger membrane region
+Q6LYC6		MMP1065	16307	144	Conserved hypothetical archaeal protein
+Q6LYC7		MMP1064	21851	187	RNA-binding region RNP-1 (RNA recognition motif):Adenylate cyclase
+Q6LYD0		MMP1061	22985	202	YigZ family protein
+Q6LYD2		MMP1059	53854	483	FAD-dependent protein C-terminal domain-containing protein
+Q6LYD3		MMP1058	37932	322	Conserved hypothetical archeal protein
+Q6LYD4		MMP1057	40367	353	Uncharacterized protein
+Q6LYD5		MMP1056	45009	400	YcaO domain-containing protein
+Q6LYD9		MMP1052	29311	264	Conserved hypothetical archaeal protein
+Q6LYE1		MMP1050	24384	215	NYN domain-containing protein
+Q6LYE2		MMP1049	9700	89	Related to ehbB of Methanothermobacter thermautotrophicus
+Q6LYE3		MMP1048	15272	129	UPF0216 protein MMP1048
+Q6LYE4		MMP1047	13371	121	DUF22 domain-containing protein
+Q6LYF3	atpH	atpH MMP1038	11330	102	A1A0 ATPase, subunit H (EC 3.6.3.14)
+Q6LYF5		MMP1036	30362	268	Band 7 protein:Stomatin
+Q6LYF6		MMP1035	14880	137	NfeD-like C-terminal domain-containing protein
+Q6LYF8		MMP1033	112976	976	HEAT repeat protein
+Q6LYF9	rpa	rpa MMP1032	71388	642	Replication protein A
+Q6LYG1		MMP1030	22775	198	Conserved hypothetical archaeal protein
+Q6LYG2		MMP1029	14214	119	Uncharacterized protein
+Q6LYG4		MMP1027	21345	183	Uncharacterized protein
+Q6LYG6		MMP1025	19887	167	Conserved hypothetical archaeal protein
+Q6LYG8		MMP1023	23550	200	Transcriptional regulator, TetR Family Member
+Q6LYG9		MMP1022	42157	388	SSD domain-containing protein
+Q6LYH0		MMP1021	57775	523	Uncharacterized protein
+Q6LYH1		MMP1020	36810	334	PurR-regulated permease PerM
+Q6LYH2		MMP1019	30164	268	PEGA domain-containing protein
+Q6LYH5		MMP1016	47005	413	CBS domain-containing protein
+Q6LYH6		MMP1015	12865	112	Transcription factor CBF/NF-Y/archaeal histone:Histone-fold/TFIID-TAF/NF-Y domain
+Q6LYH7		MMP1014	40575	355	Elp3/MiaA/NifB-like radical SAM core domain-containing protein
+Q6LYI1		MMP1010	33819	297	Pseudouridine synthase:Pseudouridine synthase, Rlu. Related protein
+Q6LYJ0		MMP1001	46237	406	DNA repair protein
+Q6LYJ1		MMP1000	9048	82	DUF340 domain-containing protein
+Q6LYJ2		MMP0999	21069	195	Conserved hypothetical membrane related protein
+Q6LYJ3		MMP0998	23252	218	Periplasmic copper-binding protein NosD-like beta helix domain-containing protein
+Q6LYJ4		MMP0997	13273	118	Blue (Type 1) copper domain
+Q6LYJ5		MMP0996	9807	87	Rubrerythrin rubredoxin-like domain-containing protein
+Q6LYJ6		MMP0995	16838	143	Conserved hypothetical archaeal protein
+Q6LYJ7		MMP0994	13535	113	Uncharacterized protein
+Q6LYJ8		MMP0993	7705	66	Conserved hypothetical helix-turn-helix protein
+Q6LYJ9		MMP0992	19538	173	Conserved hypothetical archaeal protein
+Q6LYK0		MMP0991	60722	528	Uncharacterized protein
+Q6LYK3		MMP0988	32771	295	RNA methyltransferase related protein
+Q6LYK5	thyA	thyA MMP0986	32375	291	Thymidylate synthase (EC 2.1.1.45)
+Q6LYK9		MMP0982	27601	250	CobQ/CobB/MinD/ParA nucleotide binding domain-containing protein
+Q6LYL2		MMP0979	17173	154	Conserved archaeal protein
+Q6LYL3		MMP0978	6716	59	RNA-binding protein
+Q6LYL4	CooC	CooC MMP0977	28389	260	CO dehydrogenase maturation factor
+Q6LYL5		MMP0976	24537	218	Thymidylate synthase
+Q6LYL6	modA	modA MMP0975	31030	283	Possible molybdenum ABC transporter, solute-binding protein
+Q6LYL7		MMP0974	24822	219	4Fe-4S ferredoxin-type domain-containing protein
+Q6LYL8		MMP0973	31349	285	Hypothetical membrane spanning protein
+Q6LYL9		MMP0972	15158	137	Lipoprotein
+Q6LYM2		MMP0969	15729	138	Transcription elongation factor Elf1
+Q6LYM3		MMP0967	16222	143	Serine/threonine dehydratase, pyridoxal-phosphate attachment site
+Q6LYM5		MMP0965	22368	192	Formylmethanofuran dehydrogenase subunit E related protein
+Q6LYM6		MMP0964	10005	85	Uncharacterized protein
+Q6LYM7		MMP0963	24885	239	Aquaporin related
+Q6LYM8		MMP0962	7986	71	Zinc finger protein
+Q6LYM9		MMP0961	56158	499	DUF2193 domain-containing protein
+Q6LYN0		MMP0960	38971	335	Uncharacterized protein
+Q6LYN1	trxB	trxB MMP0959	32747	300	Thioredoxin reductase (EC 1.6.4.5)
+Q6LYN2		MMP0958	12978	115	Thioredoxin domain-containing protein
+Q6LYN3	cycZ	cycZ MMP0957	23761	217	Cytochrome C biogenesis protein transmembrane domain-containing protein
+Q6LYN6		MMP0954	18684	157	Uncharacterized protein
+Q6LYN7	cbiH	cbiH MMP0953	27907	250	Precorrin-3B C17-methyltransferase (EC 2.1.1.131)
+Q6LYP0		MMP0950	55011	476	Uncharacterized protein
+Q6LYP2		MMP0948	13873	118	Uncharacterized protein
+Q6LYP3		MMP0945	70850	613	Glyceraldehyde-3-phosphate ferredoxin oxidoreductase
+Q6LYP4		MMP0944	37567	336	PurR-regulated permease PerM
+Q6LYP6		MMP0942	29135	270	Probable membrane transporter protein
+Q6LYP7		MMP0941	57498	503	Phosphoadenosine phosphosulfate sulfotransferase putative (EC 2.7.7.4)
+Q6LYP8		MMP0940	10896	95	Related to ehbP of Methanothermobacter thermautotrophicus
+Q6LYQ4		MMP0934	39529	348	Conserved hypothetical archaeal protein
+Q6LYQ5	cheY	cheY MMP0933	13521	123	Chemotaxis protein CheY
+Q6LYQ6		MMP0932	25334	229	Probable chemotaxis-related protein
+Q6LYQ7		MMP0931	22622	202	Probable chemotaxis-related protein
+Q6LYQ8	cheR	cheR MMP0930	32593	270	protein-glutamate O-methyltransferase (EC 2.1.1.80)
+Q6LYQ9		MMP0929	52372	479	Methyl-accepting chemotaxis protein (MCP)
+Q6LYR3	cheW	cheW MMP0925	16380	147	Chemotaxis protein CheW
+Q6LYR6		MMP0922	25171	221	Possible phage infection protein
+Q6LYS2		MMP0916	8882	82	PRC-barrel domain-containing protein
+Q6LYS3	cobY	cobY cofC MMP0915	22929	202	Nucleoside triphosphate: 5'-deoxyadenosylcobinamide phosphate nucleotidyltransferase
+Q6LYS4		MMP0914	26384	235	Conserved hypothetical archaeal protein
+Q6LYS5		MMP0913	13459	125	Conserved hypothetical archaeal protein
+Q6LYS6		MMP0912	7100	64	Tautomerase related protein
+Q6LYS7		MMP0911	20851	193	Related to iron-sulfur flavoprotein of Methanosarcina thermophila
+Q6LYS8		MMP0910	16838	142	Uncharacterized protein
+Q6LYS9		MMP0909	17650	160	VTT domain-containing protein
+Q6LYT0		MMP0908	14194	126	CBS domain
+Q6LYT1		MMP0907	15067	130	Predicted archaeal transcriptional regulator
+Q6LYT3		MMP0905	21545	198	Pyruvate kinase C-terminal domain-containing protein
+Q6LYT6		MMP0901	38910	345	ATP/GTP-binding site motif A (P-loop):Small GTP-binding protein domain
+Q6LYT7		MMP0900	24180	217	Rhodanese-like
+Q6LYT8		MMP0899	25245	219	ATP/GTP-binding site motif A (P-loop)
+Q6LYT9		MMP0898	110537	1026	Cellulose-binding, bacterial type
+Q6LYU1		MMP0896	46935	423	Polysaccharide biosynthesis protein
+Q6LYU2		MMP0895	23850	202	TPR repeat
+Q6LYU5		MMP0892	21213	182	Acetyltransferase related protein
+Q6LYU6		MMP0891	22096	191	Exonuclease
+Q6LYU8		MMP0889	22646	212	Cobalamin (Vitamin B12) biosynthesis CbiM protein
+Q6LYU9		MMP0888	11050	108	Putative cobalt transport protein
+Q6LYV0		MMP0887	11752	100	Stress-response A/B barrel domain-containing protein
+Q6LYV1		MMP0886	28777	255	Cobalt transport system permease related protein
+Q6LYV2		MMP0885	45341	388	TPR repeat:ATP/GTP-binding site motif A (P-loop)
+Q6LYV3		MMP0884	19011	165	Uncharacterized protein
+Q6LYV4		MMP0883	37044	321	Uncharacterized protein
+Q6LYV5	purM	purM MMP0882	32477	293	Phosphoribosylformylglycinamidine cyclo-ligase (EC 6.3.3.1)
+Q6LYV6		MMP0881	13505	113	Uncharacterized protein
+Q6LYW0	slpB	slpB MMP0875	56644	533	S layer protein
+Q6LYW1		MMP0874	31283	265	SAM (And some other nucleotide) binding motif
+Q6LYW2		MMP0873	65587	567	TPR repeat
+Q6LYW4		MMP0871	43390	397	Conserved hypothetical membrane protein
+Q6LYW5		MMP0870	34993	318	2-hydroxyacid dehydrogenase, D-isomer specific (EC 1.1.1.29)
+Q6LYW6		MMP0869	15653	141	Cytidine/deoxycytidylate deaminase, zinc-binding region related protein
+Q6LYW7	proV	proV MMP0868	44152	389	CBS domain:ATP/GTP-binding site motif A (P-loop):ABC transporter:AAA ATPase
+Q6LYW9	proX	proX MMP0866	32989	295	Putative glycine betaine/L-proline ABC transporter, solute-binding protein
+Q6LYX1	napA-2	napA-2 MMP0864	42437	388	Na+/H+ exchanger
+Q6LYX2		MMP0863	17926	158	CBS domain
+Q6LYX5	nifX	nifX MMP0860	11972	106	Nitrogen fixation-related protein (EC 1.18.6.1)
+Q6LYX6	nifN	nifN MMP0859	50133	458	Iron-molybdenum cofactor biosynthesis protein, subunit N (EC 1.18.6.1)
+Q6LYX7		MMP0852	18595	159	Pyridoxamine 5'-phosphate oxidase
+Q6LYX8		MMP0851	23685	209	Metal-binding protein
+Q6LYX9	potE	potE MMP0850	45346	417	Amino acid/ polyamine transporter family I
+Q6LYY0		MMP0849	22154	207	L-lysine/ homoserine-homoserine lactone exporter family
+Q6LYY2		MMP0847	22177	199	Uncharacterized protein
+Q6LYY3		MMP0846	10018	89	Uncharacterized protein
+Q6LYY4		MMP0845	14621	123	Succinate dehydrogenase hydrophobic anchor subunit
+Q6LYY5		MMP0844	26806	244	YccA/Bax inhibitor family protein
+Q6LYY6		MMP0843	8562	75	Transcriptional regulator
+Q6LYY7		MMP0842	15228	132	Uncharacterized protein
+Q6LYY8		MMP0841	31306	281	Lysylphosphatidylglycerol synthetase-like protein (DUF2156 family)
+Q6LYY9		MMP0840	23130	196	Transcriptional regulator, TetR Family Member
+Q6LYZ0		MMP0839	18438	156	Uncharacterized protein
+Q6LYZ1		MMP0838	26929	222	YgjP-like metallopeptidase domain-containing protein
+Q6LYZ3		MMP0836	45102	393	2-hydroxyglutaryl-CoA dehydratase (Component D) related protein
+Q6LYZ5	mtbA	mtbA MMP0834	32461	287	Uroporphyrinogen decarboxylase (URO-D)
+Q6LYZ6		MMP0833	33955	302	CobW C-terminal domain-containing protein
+Q6LYZ7		MMP0832	64603	592	2Fe-2S ferredoxin-type domain-containing protein
+Q6LYZ8	mtbA	mtbA MMP0831	37276	342	Uroporphyrinogen decarboxylase (URO-D)
+Q6LYZ9	mtaA	mtaA MMP0830	39841	363	Uroporphyrinogen decarboxylase (URO-D)
+Q6LZ00		MMP0829	24166	219	Coenzyme B12-binding:Cobalamin-dependent methionine synthase, B12-binding
+Q6LZ01		MMP0828	13510	114	Uncharacterized protein
+Q6LZ02		MMP0827	11048	97	Uncharacterized protein
+Q6LZ03		MMP0826	10323	88	Transcriptional regulator
+Q6LZ05	vhcB	vhcB MMP0824	43065	397	Coenzyme F420-non-reducing hydrogenase subunit beta (EC 1.12.-.-)
+Q6LZ06	vhcA	vhcA MMP0823	52673	471	Coenzyme F420-non-reducing hydrogenase subunit alpha (EC 1.12.-.-)
+Q6LZ07	vhcG	vhcG MMP0822	32679	300	Coenzyme F420-non-reducing hydrogenase subunit gamma (EC 1.12.-.-)
+Q6LZ08	vhcD	vhcD MMP0821	15951	140	Coenzyme F420-non-reducing hydrogenase subunit delta (EC 1.12.-.-)
+Q6LZ10	frcD	frcD MMP0819	18213	166	Coenzyme F420-reducing hydrogenase subunit delta (EC 1.12.98.1)
+Q6LZ13		MMP0816	8827	73	Bacterial seryl-tRNA synthetase related
+Q6LZ14		MMP0815	84523	766	Parallel beta-helix repeat protein
+Q6LZ15		MMP0814	46218	412	Uncharacterized protein
+Q6LZ16		MMP0813	41922	369	Transglutaminase-like domain-containing protein
+Q6LZ17		MMP0812	79883	717	C1A family cysteine protease
+Q6LZ18		MMP0811	20287	170	Uncharacterized protein
+Q6LZ20		MMP0809	27250	261	Phosphoribosylaminoimidazole carboxylase related protein
+Q6LZ21		MMP0808	45246	397	4Fe-4S ferredoxin-type domain-containing protein
+Q6LZ22		MMP0807	27832	250	Carboxymuconolactone decarboxylase Related Protein
+Q6LZ23		MMP0806	25740	239	TIGR00299 family protein
+Q6LZ24		MMP0805	20105	182	Flavodoxin-like domain-containing protein
+Q6LZ25		MMP0804	19232	171	Cyclophilin-like domain-containing protein
+Q6LZ26		MMP0803	41712	370	Conserved archaeal protein
+Q6LZ27		MMP0802	42456	389	Iron-containing alcohol dehydrogenase (EC 1.1.1.1)
+Q6LZ28		MMP0801	32662	300	Permease
+Q6LZ29		MMP0800	38561	360	Conserved hypothetical Archael protein
+Q6LZ30		MMP0799	22169	192	Transcriptional regulator, TetR Family Member
+Q6LZ31		MMP0798	25392	222	Lipoprotein
+Q6LZ32		MMP0797	42262	401	General substrate transporter
+Q6LZ33		MMP0796	43609	404	Probable sugar efflux transporter
+Q6LZ34		MMP0795	19072	174	Cyclophilin-like domain-containing protein
+Q6LZ35		MMP0794	20008	172	Protein-S-isoprenylcysteine O-methyltransferase Ste14
+Q6LZ36		MMP0793	35893	315	DUF3737 family protein
+Q6LZ37		MMP0792	36754	331	Membrane protein
+Q6LZ38		MMP0791	22067	192	Transcriptional regulator, TetR Family Member
+Q6LZ39		MMP0790	21910	200	Uncharacterized protein
+Q6LZ40		MMP0789	43729	411	Permease for cytosine/purines, uracil, thiamine, allantoin
+Q6LZ42		MMP0787	19439	164	Transcriptional regulator, MarR Family Member
+Q6LZ43		MMP0786	6221	51	Uncharacterized protein
+Q6LZ44	dop	dop MMP0785	28212	258	Chymotrypsin serine protease, family S1 (EC 3.4.21.-)
+Q6LZ45		MMP0784	16162	136	ASCH domain-containing protein
+Q6LZ46		MMP0783	58209	499	N-acetyltransferase domain-containing protein
+Q6LZ47		MMP0782	12662	111	CRISPR/Cas system CSM-associated protein Csm2 small subunit
+Q6LZ48		MMP0781	70308	646	Conserved hypothetical archaeal protein
+Q6LZ49		MMP0780	74561	676	Uncharacterized protein
+Q6LZ50		MMP0779	15837	149	Uncharacterized protein
+Q6LZ51		MMP0778	11643	105	Multisubunit Na+/H+ antiporter MnhE subunit
+Q6LZ52		MMP0777	26561	243	Uncharacterized protein
+Q6LZ53		MMP0776	16514	159	Conserved hypothetical archaeal protein
+Q6LZ54		MMP0775	16893	146	Uncharacterized protein
+Q6LZ55		MMP0774	20382	179	Uncharacterized protein
+Q6LZ56		MMP0773	53155	457	Conserved hypothetical archaeal protein
+Q6LZ57		MMP0772	29518	254	Uncharacterized protein
+Q6LZ58		MMP0771	18466	163	Uncharacterized protein
+Q6LZ59		MMP0770	28291	250	Probable ABC transporter
+Q6LZ60		MMP0769	72766	625	Conserved hypothetical archaeal protein
+Q6LZ61		MMP0768	54947	472	Amine oxidase domain-containing protein
+Q6LZ62		MMP0767	36158	316	Lysylphosphatidylglycerol synthase-like protein
+Q6LZ63	resP	resP MMP0766	20957	184	Site-specific recombinase
+Q6LZ64		MMP0765	38848	334	Uncharacterized protein
+Q6LZ65		MMP0764	10548	90	Uncharacterized protein
+Q6LZ66		MMP0763	11912	102	Uncharacterized protein
+Q6LZ67		MMP0762	20390	175	TPR repeat
+Q6LZ68		MMP0761	14609	124	Uncharacterized protein
+Q6LZ69		MMP0760	8885	76	Uncharacterized protein
+Q6LZ70		MMP0759	45347	394	Putative lmo0304
+Q6LZ71		MMP0758	38443	323	HNH endonuclease:HNH nuclease
+Q6LZ72		MMP0757	11880	102	House-cleaning noncanonical NTP pyrophosphatase (MazG superfamily)
+Q6LZ73		MMP0756	50079	426	5-methylcytosine-specific restriction enzyme subunit McrC
+Q6LZ74		MMP0755	69801	604	ATP/GTP-binding site motif A (P-loop)
+Q6LZ75		MMP0754	51624	435	Shedu protein SduA C-terminal domain-containing protein
+Q6LZ76		MMP0753	52980	444	AF-1680-like domain-containing protein
+Q6LZ77		MMP0752	11659	99	Uncharacterized protein
+Q6LZ78		MMP0751	7391	65	Conserved hypothetical archaeal protein
+Q6LZ79		MMP0750	8095	70	Uncharacterized protein
+Q6LZ80		MMP0749	20535	175	Uncharacterized protein
+Q6LZ82		MMP0747	9218	76	Uncharacterized protein
+Q6LZ83		MMP0746	6149	51	Uncharacterized protein
+Q6LZ84		MMP0745	6347	52	Uncharacterized protein
+Q6LZ85		MMP0744	9844	86	Conserved hypothetical archaeal protein
+Q6LZ86		MMP0743	38842	324	Probable integrase/recombinase
+Q6LZ87		MMP0742	45785	389	Fido domain-containing protein
+Q6LZ88		MMP0741	14740	125	Uncharacterized protein
+Q6LZ89		MMP0740	26666	226	Possible purine NTPase
+Q6LZ90		MMP0739	26283	234	Asp/Glu racemase:Aspartate racemase (EC 5.1.1.13)
+Q6LZ91		MMP0738	34686	309	Elongation factor Tu, domain 2
+Q6LZ93		MMP0736	9056	84	Conserved hypothetical archaeal protein
+Q6LZ95		MMP0734	11948	105	Uncharacterized protein
+Q6LZ97	xseA	xseA MMP0732	46159	407	Exonuclease VII, large subunit:OB-fold nucleic acid binding domain (EC 3.1.11.6)
+Q6LZ98		MMP0731	7814	67	Exonuclease VII, small subunit related protein
+Q6LZ99		MMP0730	15171	139	EamA domain-containing protein
+Q6LZA3		MMP0726	10709	93	Uncharacterized protein
+Q6LZA4		MMP0725	21062	185	Putative integral membrane protein
+Q6LZA5		MMP0724	13723	114	Uncharacterized protein
+Q6LZA6		MMP0723	13009	114	Quercetin dioxygenase-like cupin family protein
+Q6LZA7		MMP0722	24024	210	Conserved Hypothetical Archael Protein
+Q6LZA8		MMP0721	24653	226	Ferredoxin
+Q6LZB0		MMP0719	15553	135	Predicted transcriptional regluator
+Q6LZB1		MMP0718	13947	116	Uncharacterized protein
+Q6LZB2		MMP0717	20995	178	Uncharacterized protein
+Q6LZB3		MMP0716	15619	141	Acetohydroxyacid synthase small subunit Related
+Q6LZB4		MMP0715	48685	432	Coenzyme F390 synthetase II
+Q6LZB5	iorB2	iorB2 MMP0714	20314	188	Indolepyruvate oxidoreductase subunit beta 2 (EC 1.2.7.-)
+Q6LZB7		MMP0712	28500	248	Similar to amino acid ABC transporter substrate-binding protein
+Q6LZC2		MMP0707	44716	417	Na+/H+ exchanger
+Q6LZC6		MMP0703	38925	340	MnmC-like methyltransferase domain-containing protein
+Q6LZC8		MMP0701	16461	147	DUF1890 domain-containing protein
+Q6LZC9		MMP0700	21615	183	Transcriptional regulator PadR-like family
+Q6LZD1		MMP0698	12246	105	DUF1894 domain-containing protein
+Q6LZD6		MMP0693	32669	288	Aminoacyl-tRNA synthetase, class II
+Q6LZD7		MMP0692	35612	319	Cell wall-binding protein
+Q6LZD8		MMP0691	20720	181	Conserved hypothetical archaeal protein
+Q6LZD9		MMP0690	26474	233	Polyferredoxin
+Q6LZE0		MMP0689	45272	433	Xanthine/uracil permease family
+Q6LZE4		MMP0685	24300	213	SAM (And some other nucleotide) binding motif:N-6 Adenine-specific DNA methylase
+Q6LZE5	hsp20	hsp20 MMP0684	16837	154	Heat shock protein Hsp20
+Q6LZE7		MMP0682	20274	188	LytS/YehU family sensor histidine kinase
+Q6LZE8		MMP0681	42919	413	Xanthine/uracil permease family
+Q6LZF0		MMP0679	55424	525	Na+/H+ Antiporter related protein
+Q6LZF2		MMP0677	17504	158	DUF2124 domain-containing protein
+Q6LZF3		MMP0676	53810	465	Intermediate filament protein:ATP/GTP-binding site motif A (P-loop):AAA ATPase
+Q6LZF4		MMP0675	14460	128	Conserved hypothetical archaeal protein
+Q6LZF5		MMP0674	7901	67	Helix-turn-helix DNA binding protein
+Q6LZF6		MMP0673	47360	409	TPR repeat
+Q6LZF8	ipa-20r	ipa-20r MMP0671	7055	64	Repeat protein (TIGR03833 family)
+Q6LZF9		MMP0670	33117	296	EamA domain-containing protein
+Q6LZG1		MMP0668	23478	202	Uncharacterized protein
+Q6LZG3		MMP0666	58984	541	Na+/Pi-cotransporter related protein
+Q6LZG4		MMP0664	19775	186	Uncharacterized protein
+Q6LZG5		MMP0663	58265	539	Sulfate transporter:Sulfate transporter/antisigma-factor antagonist STAS
+Q6LZG6		MMP0662	8836	76	KEOPS complex subunit Pcc1
+Q6LZG7		MMP0661	33732	291	Putative ATP binding related protein
+Q6LZG9		MMP0659	45705	403	Peptidase U32 (EC 3.4.-.-)
+Q6LZH2		MMP0656	21076	183	Methanogenesis marker protein 17
+Q6LZH3		MMP0655	7145	64	Sulfur carrier protein
+Q6LZH5		MMP0653	34519	321	Sodium-dependent transporter
+Q6LZH6		MMP0652	18067	150	Uncharacterized protein
+Q6LZH9		MMP0649	57584	511	Carbamoyltransferase
+Q6LZI1		MMP0647	16183	138	Protein archease
+Q6LZI2		MMP0646	7699	66	Uncharacterized protein
+Q6LZI4		MMP0644	32008	291	Cation efflux protein
+Q6LZI5		MMP0643	37986	337	DUF354 domain-containing protein
+Q6LZI9		MMP0638	84574	745	Proteinase inhibitor I42 chagasin domain-containing protein
+Q6LZJ0		MMP0637	19874	180	Transcriptional regulator, ArsR family member
+Q6LZJ1		MMP0636	46035	410	Uncharacterized protein
+Q6LZJ2		MMP0635	26793	241	ABC transporter:ATPase subunit
+Q6LZJ3		MMP0634	43511	397	ABC transport system permease protein
+Q6LZJ4		MMP0633	22114	193	Rubrerythrin
+Q6LZJ5		MMP0632	44518	388	ATP/GTP-binding site motif A (P-loop)
+Q6LZJ6		MMP0631	15498	134	Putatuve iron dependent repressor
+Q6LZJ8		MMP0629	14749	132	Conserved hypothetical archaeal protein
+Q6LZJ9		MMP0628	7232	68	Probable Molybdenum-pterin binding protein
+Q6LZK3		MMP0624	14372	133	Pyridoxamine 5'-phosphate oxidase N-terminal domain-containing protein
+Q6LZK4		MMP0623	23708	222	TIGR00266 family protein
+Q6LZK5		MMP0622	33355	302	ADP-ribosylglycohydrolase (DraG) homolog (EC 3.2.-.-)
+Q6LZK6		MMP0621	31794	269	Conserved hypothetical archaeal protein
+Q6LZK7	atwA	atwA MMP0620	59491	531	Methyl coenzyme M reductase, component A2 (EC 1.8.-.-)
+Q6LZL1		MMP0614	21019	191	Related to iron-sulfur flavoprotein of Methanosarcina thermophila
+Q6LZL6		MMP0608	43942	411	2-hydroxyglutaryl-CoA dehydratase (Component A) related protein
+Q6LZL9		MMP0605	20953	184	K Homology domain-containing protein
+Q6LZM5	cbiJ	cbiJ MMP0599	28037	248	Precorrin-6x reductase CbiJ/CobK (EC 1.3.1.54)
+Q6LZM8		MMP0596	54222	476	RNA 2'-O-methyl modification protein (NOP5/NOP56)
+Q6LZN0		MMP0594	21890	188	Conserved hypothetical archaeal protein
+Q6LZN1		MMP0593	27422	261	Walker type ATPase
+Q6LZN2		MMP0592	6848	60	Uncharacterized protein
+Q6LZN3		MMP0591	24219	219	Conserved hypothetical archaeal protein
+Q6LZN4		MMP0590	26631	232	Glycosyl transferase, family 2 (EC 2.4.1.83)
+Q6LZN5		MMP0589	59546	524	Uncharacterized protein
+Q6LZN7	napA	napA MMP0587	42332	389	Na+/H+ exchanger
+Q6LZN8		MMP0586	27090	232	Uncharacterized endonuclease III related protein (EC 4.2.99.18)
+Q6LZN9		MMP0585	15771	145	Universal stress protein (Usp)
+Q6LZP1		MMP0583	11548	102	Branched-subunit amino acid transport protein
+Q6LZP2		MMP0582	26219	238	AzlC related protein
+Q6LZP3		MMP0581	29570	260	Metallo-beta-lactamase domain-containing protein
+Q6LZP4	act	act MMP0580	30280	268	Radical-activating enzyme (EC 1.97.1.4)
+Q6LZP6	aroQ	aroQ MMP0578	11105	96	Chorismate mutase (EC 5.4.99.5)
+Q6LZP9		MMP0575	9076	79	Asp-tRNAAsn/Glu-tRNAGln amidotransferase subunit C (EC 6.3.5.-)
+Q6LZQ0		MMP0574	5245	39	LSU ribosomal protein L41E
+Q6LZQ2	slyD	slyD MMP0572	25537	228	peptidylprolyl isomerase (EC 5.2.1.8)
+Q6LZQ4		MMP0570	21369	181	DUF985 domain-containing protein
+Q6LZQ5		MMP0569	57207	528	S-layer protein (TIGR01564 family)
+Q6LZQ6		MMP0568	19317	173	Transcriptional regulator related protein
+Q6LZQ7		MMP0567	15688	135	Acyl-CoA thioester hydrolase
+Q6LZQ8		MMP0566	62374	549	Acyl-CoA synthetases (AMP-forming)/AMP-acid ligases II related protein (EC 6.2.1.3)
+Q6LZQ9		MMP0565	36035	311	Conserved hypothetical archaeal protein
+Q6LZR0		MMP0564	34398	302	Conserved hypothetical archaeal protein
+Q6LZR1		MMP0563	17852	160	Conserved hypothetical archaeal protein
+Q6LZR2		MMP0562	11474	96	Uncharacterized protein
+Q6LZR3	cmd	cmd MMP0561	15948	144	Carboxymuconolactone decarboxylase:Alkylhydroperoxidase AhpD core domain
+Q6LZR5		MMP0559	18404	172	DJ-1/PfpI domain-containing protein
+Q6LZR6		MMP0558	10978	98	Uncharacterized protein
+Q6LZR7		MMP0557	15858	137	UPF0146 protein MMP0557
+Q6LZR8		MMP0556	31642	280	Uncharacterized protein
+Q6LZS0		MMP0554	22124	200	SAM (And some other nucleotide) binding motif
+Q6LZS2		MMP0552	32309	296	EamA domain-containing protein
+Q6LZS3		MMP0551	24181	219	Binding-protein-dependent transport systems inner membrane component
+Q6LZS4		MMP0550	28891	264	Similar to ABC-type amino acid transport system, periplasmic component
+Q6LZS5		MMP0549	20794	182	Uncharacterized protein
+Q6LZS6		MMP0547	48541	431	RecJ related protein
+Q6LZS7		MMP0546	22912	203	Protein MMP0546
+Q6LZS8		MMP0545	68237	616	Molybdenum cofactor biosynthesis protein:MoeA N-terminal region, domain I and II:MoeA C-terminal, domain IV
+Q6LZS9		MMP0544	37920	336	MoaA/nifB/pqqE family (EC 1.97.1.4)
+Q6LZT0		MMP0543	19617	171	Chorismate-pyruvate lyase
+Q6LZT1		MMP0542	24637	209	Phosphoserine phosphatase
+Q6LZT5		MMP0538	22844	203	Uncharacterized protein
+Q6LZT7		MMP0536	15846	137	CGGC domain-containing protein
+Q6LZT8		MMP0535	24464	212	Conserved hypothetical archaeal protein
+Q6LZT9		MMP0534	41144	360	Small-conductance mechanosensitive channel
+Q6LZU0		MMP0533	21359	189	Conserved hypothetical Archael protein
+Q6LZU1		MMP0532	56430	489	Uncharacterized protein
+Q6LZU2		MMP0531	19746	169	HEPN domain-containing protein
+Q6LZU3		MMP0530	24220	205	protein adenylyltransferase (EC 2.7.7.108)
+Q6LZU4		MMP0529	59963	552	Sulfate transporter family
+Q6LZU6		MMP0527	23560	206	Conserved hypothetical archaeal protein
+Q6LZU7		MMP0526	27250	241	Uncharacterized protein
+Q6LZU8		MMP0525	17343	153	Uncharacterized protein
+Q6LZU9		MMP0524	22554	194	Possible (U93872) ORF 73, contains large complex repeat CR 73 [Human herpesvirus 8]
+Q6LZV0		MMP0523	25728	234	ABC transporter ATP-binding protein
+Q6LZV1		MMP0522	48330	445	NPCBM-associated, NEW3 domain of alpha-galactosidase
+Q6LZV2		MMP0521	45174	415	ABC transporter, permease protein
+Q6LZV3		MMP0520	93941	834	Cation transport ATPase (EC 3.6.1.-)
+Q6LZV4		MMP0519	14246	125	Uncharacterized protein
+Q6LZV5		MMP0518	10192	89	Uncharacterized protein
+Q6LZV8	modB	modB MMP0515	23879	221	Molybdenum ABC transporter, permease protein
+Q6LZV9	modA	modA MMP0514	27515	258	Molybdenum ABC transporter, periplasmic molybdenum-binding protein
+Q6LZW0	MoeA	MoeA MMP0513	41120	373	Molybdopterin biosynthesis moeA protein
+Q6LZW4	fmdA	fmdA MMP0509	64595	583	Formylmethanofuran dehydrogenase, subunit A (EC 1.2.99.5)
+Q6LZW5	fmdE	fmdE MMP0508	21422	191	Molybdenum containing formylmethanofuran dehydrogenase, subunit E (EC 1.2.99.5)
+Q6LZW6	modA	modA MMP0507	28500	260	Molybdate-binding periplasmic protein permease RELATED
+Q6LZW7	modB	modB MMP0506	29303	266	Molybdenum transport system permease protein, modB RELATED
+Q6LZW8		MMP0505	26428	237	Putative heavy-metal chelation domain-containing protein
+Q6LZX0		MMP0503	11681	101	Uncharacterized protein
+Q6LZX1		MMP0502	40803	362	Uncharacterized protein
+Q6LZX2		MMP0501	54994	500	Prenyltransferase/squalene oxidase-like repeat protein
+Q6LZX3		MMP0500	19982	183	Iron-sulfur flavoprotein-related
+Q6LZX4		MMP0499	28523	246	HTH arsR-type domain-containing protein
+Q6LZX5		MMP0498	20377	187	Uncharacterized membrane protein, ortholog YYAS B.subtilis
+Q6LZX6		MMP0497	26109	225	Methyltransferase type 11 domain-containing protein
+Q6LZX8		MMP0495	41734	364	YprB ribonuclease H-like domain-containing protein
+Q6LZX9		MMP0494	86304	759	Distinct helicase family member with a unique C-terminal domain including a metal-binding cysteine cluster (EC 2.7.7.-)
+Q6LZY0		MMP0493	228899	2076	Probable metal chelatase
+Q6LZY1		MMP0492	26273	239	Transporter
+Q6LZY2		MMP0491	23604	213	MotA/TolQ/ExbB proton channel
+Q6LZY3		MMP0490	12688	112	DUF2149 domain-containing protein
+Q6LZY4		MMP0489	16198	153	Uncharacterized protein
+Q6LZY5		MMP0488	15433	136	Low molecular weight phosphotyrosine protein phosphatase
+Q6LZY7		MMP0486	16280	145	Cupin type-2 domain-containing protein
+Q6LZY9		MMP0484	63388	566	Possible sodium/proton antiporter
+Q6LZZ0		MMP0483	11723	97	MJ0788 domain-containing protein
+Q6LZZ1		MMP0482	14298	127	DUF2283 domain-containing protein
+Q6LZZ2		MMP0481	76200	650	Abortive phage infection protein C-terminal domain-containing protein
+Q6LZZ3		MMP0480	10983	93	TFIIEalpha/SarR/Rpc3 HTH domain-containing protein
+Q6LZZ4		MMP0479	15702	136	Uncharacterized protein
+Q6LZZ5		MMP0478	14583	125	Uncharacterized protein
+Q6LZZ6		MMP0477	9413	82	Uncharacterized protein
+Q6LZZ7		MMP0476	11834	100	Addiction module RelE/StbE family toxin
+Q6LZZ8		MMP0475	71733	613	DED domain-containing protein
+Q6LZZ9		MMP0474	30542	268	Uncharacterized protein
+Q6M000		MMP0473	38259	332	Uncharacterized protein
+Q6M001		MMP0472	38853	328	Probable integrase/recombinase
+Q6M002		MMP0471	10280	90	Uncharacterized protein
+Q6M003		MMP0470	76097	674	MCM family related protein
+Q6M004		MMP0469	14531	127	Uncharacterized protein
+Q6M005		MMP0468	8350	74	Transposon-encoded protein
+Q6M006		MMP0467	20504	172	Uncharacterized protein
+Q6M007		MMP0466	9423	83	Uncharacterized protein
+Q6M008		MMP0465	14283	120	Conserved hypothetical archaeal protein
+Q6M009		MMP0464	29182	241	Uncharacterized protein
+Q6M010		MMP0463	120963	1029	Uncharacterized protein
+Q6M011		MMP0462	24316	205	Uncharacterized protein
+Q6M012		MMP0461	7327	64	Uncharacterized protein
+Q6M013		MMP0460	50198	447	HTH arsR-type domain-containing protein
+Q6M014		MMP0459	14608	125	Uncharacterized protein
+Q6M015		MMP0458	62338	548	GH3 auxin-responsive promoter
+Q6M017	xerD-like	xerD-like MMP0456	21798	182	Phage integrase
+Q6M018		MMP0455	27989	248	Probable amino-acid ABC transporter
+Q6M019		MMP0454	20596	173	Conserved hypothetical archaeal protein
+Q6M021		MMP0452	10336	90	DUF3953 domain-containing protein
+Q6M022		MMP0451	12891	119	Dinitrogenase iron-molybdenum cofactor biosynthesis domain-containing protein
+Q6M023		MMP0450	31463	285	Ferredoxin
+Q6M024		MMP0449	30971	281	Ferredoxin
+Q6M025		MMP0448	10743	94	Uncharacterized protein
+Q6M026		MMP0447	12683	119	Nitrogenase related protein
+Q6M027		MMP0446	12149	108	Nitrogen fixation-related protein
+Q6M028		MMP0445	9244	78	Uncharacterized protein
+Q6M034		MMP0438	30352	265	Epoxyqueuosine reductase QueG
+Q6M035		MMP0437	42531	367	Gamma-glutamyl:cysteine ligase YbdK (ATP-grasp superfamily)
+Q6M036	rimK	rimK MMP0436	36064	316	Putative SSU ribosomal protein S6 modification protein
+Q6M037		MMP0435	23368	204	RimK-like ATPgrasp N-terminal domain-containing protein
+Q6M038		MMP0434	9119	82	DUF378 domain-containing protein
+Q6M039		MMP0433	18815	164	Putative flavodoxin
+Q6M040		MMP0432	28556	253	Uncharacterized protein
+Q6M041		MMP0431	48607	433	Rhodopsin-like GPCR superfamily:Beta-lactamase-like
+Q6M042		MMP0429	10848	97	DUF211 domain-containing protein
+Q6M043		MMP0428	40949	366	Vanadium nitrogenase-associated related protein N
+Q6M045		MMP0426	21410	189	Nitroreductase family
+Q6M046		MMP0425	23594	213	LUD domain-containing protein
+Q6M047		MMP0424	8332	71	Uncharacterized protein
+Q6M048		MMP0423	55556	468	FRG domain-containing protein
+Q6M049		MMP0422	17653	150	Uncharacterized protein MJ0093 domain-containing protein
+Q6M050		MMP0421	34971	304	Methanogenesis marker protein 7
+Q6M051		MMP0420	37254	321	CBS domain Related protein
+Q6M053		MMP0418	33441	302	Carbohydrate kinase, PfkB (EC 2.7.1.15)
+Q6M055		MMP0416	21778	198	Energy-coupling factor transport system substrate-specific component
+Q6M062		MMP0409	42656	386	Conserved hypothetical archaeal protein
+Q6M063		MMP0408	34109	306	H+-transporting two-sector ATPase, A subunit
+Q6M064		MMP0407	14998	137	Conserved hypothetical archaeal protein with 2 CBS domains
+Q6M065		MMP0406	29381	256	Putative TIM-barrel protein
+Q6M068		MMP0403	40778	361	Conserved hypothetical Archael protein
+Q6M069		MMP0402	51532	453	Conserved hypothetical Archael protein
+Q6M070	metE	metE MMP0401	34830	312	5-methyltetrahydropteroyltriglutamate--homocystei ne S-methyltransferase (EC 2.1.1.14)
+Q6M071	ehbQ	ehbQ MMP0400	23276	217	ACT domain-containing protein
+Q6M076		MMP0395	10871	92	Uncharacterized protein
+Q6M078		MMP0393	19438	171	Phosphoesterase (EC 3.1.4.-)
+Q6M080	aspC	aspC MMP0391	41851	382	Aspartate aminotransferase (EC 2.6.1.1)
+Q6M082		MMP0389	5982	54	Ferredoxin
+Q6M084		MMP0387	24012	207	Microsomal signal peptidase 21 KD subunit (EC 3.4.-.-)
+Q6M085	HMmA	HMmA MMP0386	7294	67	Archaeal histone A
+Q6M087		MMP0384	7094	60	Uncharacterized protein
+Q6M088	slp	slp MMP0383	58948	575	S-layer protein
+Q6M089		MMP0382	65929	590	RNase L inhibitor
+Q6M092		MMP0379	12732	107	Putative gamma-glutamylcyclotransferase
+Q6M093		MMP0378	48196	427	Atrazine chlorohydrolase related protein
+Q6M094		MMP0377	24842	214	Isoleucyl-tRNA synthetase related
+Q6M095		MMP0376	46621	394	ATP-dependent DNA ligase
+Q6M096		MMP0375	51965	457	Uncharacterized protein
+Q6M098		MMP0373	9342	82	Uncharacterized protein
+Q6M0A0		MMP0371	22353	209	Glycine transporter domain-containing protein
+Q6M0A1		MMP0370	51823	468	Uncharacterized protein
+Q6M0A2		MMP0369	68610	654	Methanogen extracellular protein (TIGR04279 family)
+Q6M0A3		MMP0368	7551	67	DUF1616 domain-containing protein
+Q6M0A4		MMP0367	9367	83	Uncharacterized protein
+Q6M0A5		MMP0366	27297	243	DUF7982 domain-containing protein
+Q6M0A6		MMP0365	70513	611	DUF4129 domain-containing protein
+Q6M0A7		MMP0364	38085	332	DUF4350 domain-containing protein
+Q6M0A8		MMP0363	35486	313	Methanol dehydrogenase regulatory protein related protein
+Q6M0A9		MMP0362	49742	433	DUF58 domain-containing protein
+Q6M0B0		MMP0361	21473	184	Uncharacterized protein
+Q6M0B1		MMP0360	37579	323	DUF1616 domain-containing protein
+Q6M0B2		MMP0359	25314	225	Glycosyl transferase, family 2
+Q6M0B3		MMP0358	43391	373	Conserved hypothetical archaeal protein
+Q6M0B5		MMP0356	46137	394	Glycosyl transferase, group 1
+Q6M0B6		MMP0355	57811	499	Glycosyltransferase RgtA/B/C/D-like domain-containing protein
+Q6M0B7		MMP0354	46448	411	Putative oligosaccharide transporter
+Q6M0C0	aspB-like1	aspB-like1 MMP0351	40899	367	DegT/DnrJ/EryC1/StrS aminotransferase
+Q6M0C1		MMP0350	21588	196	Bacterial transferase hexapeptide repeat
+Q6M0C2		MMP0349	27135	246	2-hydroxyglutaryl-CoA dehydratase (Component A) related protein
+Q6M0C3		MMP0348	21273	197	GPR1/FUN34/yaaH family protein
+Q6M0C4		MMP0347	11729	104	Uncharacterized protein
+Q6M0C5		MMP0346	42320	373	2-hydroxyglutaryl-CoA dehydratase (Component D) related protein
+Q6M0C6		MMP0345	30028	275	PBP domain-containing protein
+Q6M0C7		MMP0344	33425	293	Conserved hypothetical archaeal protein
+Q6M0C8		MMP0343	25554	223	Uncharacterized protein
+Q6M0C9		MMP0342	15988	144	Flagellar protein FlaF
+Q6M0D2		MMP0339	19539	171	NUDIX hydrolase (EC 3.6.1.-)
+Q6M0D3		MMP0338	37032	350	UPF0284 protein MMP0338
+Q6M0D4		MMP0337	17242	148	Methanogenesis marker protein 6
+Q6M0D6		MMP0335	15178	137	Uncharacterized protein
+Q6M0D7		MMP0334	26249	234	rRNA methyltransferase related protein
+Q6M0D8		MMP0333	25730	237	TIGR00297 family protein
+Q6M0D9		MMP0332	72327	626	Uncharacterized protein
+Q6M0E0		MMP0331	15240	130	HIT domain-containing protein
+Q6M0E1	cbiC	cbiC MMP0330	22537	210	Precorrin-8X methylmutase CbiC/CobH (EC 5.4.1.2)
+Q6M0E2		MMP0329	11252	96	Uncharacterized protein
+Q6M0E3		MMP0328	31033	268	DUF63 family protein
+Q6M0E7		MMP0324	14655	126	Conserved hypothetical archaeal protein
+Q6M0F0		MMP0321	20402	181	Conserved hypothetical archaeal protein
+Q6M0F2	cbiL	cbiL MMP0319	25434	228	Precorrin-2 C-20 methyltransferase (EC 2.1.1.130)
+Q6M0F6	iorB1	iorB1 MMP0315	21729	199	Indolepyruvate oxidoreductase subunit beta 1 (EC 1.2.7.-)
+Q6M0F7		MMP0314	48822	429	Coenzyme F390 synthetase
+Q6M0F8		MMP0313	16604	151	Uncharacterized protein
+Q6M0F9		MMP0312	16287	146	Conserved hypothetical archaeal protein
+Q6M0G0		MMP0311	14035	127	Conserved hypothetical archaeal protein
+Q6M0G2		MMP0309	12253	114	Intracellular sulfur reduction related protein
+Q6M0G3		MMP0308	7654	70	Conserved hypothetical archaeal protein
+Q6M0G4		MMP0307	27456	229	Conserved hypothetical archaeal protein
+Q6M0G8		MMP0303	5149	45	Rubredoxin
+Q6M0G9		MMP0302	13907	119	Uncharacterized protein
+Q6M0H1		MMP0300	17773	153	Exosome subunit
+Q6M0H2		MMP0299	10409	91	Uncharacterized protein
+Q6M0H4		MMP0296	41787	362	Conserved hypothetical archaeal protein
+Q6M0H6		MMP0294	31479	282	Bacterial quinoprotein
+Q6M0H7		MMP0293	33942	308	fructose-bisphosphate aldolase (EC 4.1.2.13)
+Q6M0H8		MMP0292	6809	61	Uncharacterized protein
+Q6M0H9		MMP0291	49183	447	Hydrogenase expression/formation protein related
+Q6M0I1	hypD	hypD MMP0289	39980	360	Hydrogenase expression/formation protein
+Q6M0I2		MMP0288	28892	251	Conserved hypothetical archeal protein
+Q6M0I3		MMP0287	29902	264	CBS domain-containing protein
+Q6M0I5		MMP0285	53999	486	Phosphoesterase, RecJ-like:TrkA-N:Phosphoesterase, DHHA1
+Q6M0I9		MMP0281	70761	630	Hypothetical nucleotide binding protein
+Q6M0J2		MMP0278	16926	153	CBS domain-containing protein
+Q6M0J3		MMP0277	42010	380	TraB family
+Q6M0J4		MMP0276	38978	344	Uncharacterized protein
+Q6M0J5		MMP0275	99916	907	Carbohydrate-binding/sugar hydrolysis domain-containing protein
+Q6M0J6	hypE	hypE MMP0274	35179	334	Hydrogenase expression/formation protein
+Q6M0J7	comA	comA MMP0273	26618	235	Phosphosulfolactate synthase (EC 4.4.1.19)
+Q6M0J8		MMP0272	29113	263	ABC transporter ATPase subunit
+Q6M0J9		MMP0271	25424	232	ATP binding putative nickel incorporation protein
+Q6M0K0		MMP0270	24524	219	Conserved archaeal protein
+Q6M0K1		MMP0269	45306	404	Nickel insertion protein
+Q6M0K3		MMP0267	25888	238	Conserved hypothetical archaeal protein
+Q6M0K4		MMP0266	23183	213	UPF0056 membrane protein
+Q6M0K5		MMP0265	15628	147	Transporter family-2 protein
+Q6M0K6	MscMJ	MscMJ MMP0264	39899	351	Mechanosensitive (MS) ion channel
+Q6M0K8		MMP0262	24015	205	Uncharacterized protein
+Q6M0L5		MMP0255	33371	299	Isoleucyl-tRNA synthetase related
+Q6M0L7	acd	acd MMP0253	76641	702	acetate--CoA ligase (ADP-forming) (EC 6.2.1.13)
+Q6M0L8		MMP0252	3433	32	Uncharacterized protein
+Q6M0M0		MMP0250	26500	234	Ribosome maturation protein SDO1
+Q6M0M4		MMP0246	10262	88	Conserved hypothetical archaeal protein
+Q6M0M6		MMP0244	37802	338	NanoRNase/pAp phosphatase (C-di-AMP/oligoRNAs hydrolase)
+Q6M0M8		MMP0242	10368	89	Fe-Mo cluster-binding NifX family protein
+Q6M0M9		MMP0241	67137	587	Conserved hypothetical archaeal protein
+Q6M0N0		MMP0240	19948	177	Conserved hypothetical archaeal protein
+Q6M0N1		MMP0239	32972	285	Conserved hypothetical archaeal protein
+Q6M0N2		MMP0238	18310	161	Conserved hypothetical archaeal protein
+Q6M0N5		MMP0235	34060	297	Uncharacterized protein
+Q6M0N6		MMP0234	42862	382	Protein G-related albumin-binding (GA) module domain-containing protein
+Q6M0N9		MMP0231	14393	122	Cysteine-rich small domain-containing protein
+Q6M0P0		MMP0230	26006	228	HD domain-containing protein
+Q6M0P6		MMP0223	10489	92	Uncharacterized protein
+Q6M0P7		MMP0222	9434	79	Conserved hypothetical archaeal protein
+Q6M0P9		MMP0220	53285	489	Sodium/proline symporter-related
+Q6M0Q1		MMP0218	32494	275	Uncharacterized protein
+Q6M0Q2		MMP0217	13390	114	Transcriptional repressor related protein
+Q6M0Q4		MMP0215	15986	136	ArnR1-like winged helix-turn-helix domain-containing protein
+Q6M0Q6		MMP0213	33147	293	Triphosphoribosyl-dephospho-CoA synthetase related protein
+Q6M0Q8		MMP0211	25986	222	DUF434 domain-containing protein
+Q6M0Q9		MMP0210	33323	299	EamA domain-containing protein
+Q6M0R0		MMP0209	20895	184	HTH cro/C1-type domain-containing protein
+Q6M0R1		MMP0208	46279	409	4Fe-4S ferredoxin-type domain-containing protein
+Q6M0R3	modB	modB MMP0206	24240	221	Molybdenum ABC transporter, permease protein
+Q6M0R4	modA	modA MMP0205	28332	267	Molybdenum ABC transporter, periplasmic molybdenum-binding protein
+Q6M0R5		MMP0204	19308	176	Flavoprotein domain-containing protein
+Q6M0R6		MMP0203	8456	77	Thioredoxin
+Q6M0R7		MMP0202	34588	318	Permease
+Q6M0R8	moeA	moeA MMP0201	41128	375	Molybdenum cofactor biosynthesis protein
+Q6M0R9	fmdE	fmdE MMP0200	22758	202	Molybdenum containing formylmethanofuran dehydrogenase, subunit E (EC 1.2.99.5)
+Q6M0S0		MMP0199	28834	258	Conserved hypothetical archaeal protein
+Q6M0S1		MMP0198	29279	260	ABC-type iron(III) transport system, ATP binding protein
+Q6M0S2		MMP0197	34236	319	ABC-type iron(III) transport system, permease component
+Q6M0S3		MMP0196	39454	353	ABC-type iron(III) transport system, periplasmic binding protein
+Q6M0S4		MMP0195	13562	114	Uncharacterized protein
+Q6M0S5		MMP0194	30938	272	DUF2202 domain-containing protein
+Q6M0S6		MMP0193	8470	74	Uncharacterized protein
+Q6M0S7		MMP0192	39301	352	Uncharacterized protein
+Q6M0S8		MMP0191	27462	234	Alpha/beta hydrolase
+Q6M0S9		MMP0190	34793	320	Sodium/calcium exchanger membrane region domain-containing protein
+Q6M0T0		MMP0189	14820	125	Uncharacterized protein
+Q6M0T6		MMP0182	8303	70	Uncharacterized protein
+Q6M0T7		MMP0181	19122	179	DUF4352 domain-containing protein
+Q6M0U1		MMP0177	13910	119	Conserved hypothetical archaeal protein
+Q6M0U2		MMP0176	87237	788	CDC48 cell division cycle protein family member
+Q6M0U3		MMP0175	18697	154	Uncharacterized protein
+Q6M0U4		MMP0174	52470	458	HD phosphohydrolase family member
+Q6M0U5		MMP0173	45651	400	Uncharacterized protein
+Q6M0U6		MMP0172	10512	94	C-di-AMP phosphodiesterase-like protein
+Q6M0U7		MMP0171	27389	248	ABC transport system permease protein
+Q6M0V0		MMP0168	17666	152	Transcriptional regulator PadR-like family
+Q6M0V1		MMP0167	36621	322	ABC transporter ATP binding protein family member
+Q6M0V2		MMP0166	49485	460	MatE family member (Drug/sodium antiporters)
+Q6M0V3		MMP0165	28087	253	ABC transporter, family 2
+Q6M0V6		MMP0162	24189	214	DUF116 domain-containing protein
+Q6M0V8	ftsA-2	ftsA-2 MMP0160	48526	433	Coenzyme F390 synthetase
+Q6M0W0		MMP0158	22994	199	Uncharacterized protein
+Q6M0W3		MMP0155	14635	127	CRM domain-containing protein
+Q6M0W4		MMP0154	56346	501	UPF0288 protein MMP0154
+Q6M0W5	aksA	aksA MMP0153	43011	386	2-oxosuberate synthase, first step
+Q6M0W6		MMP0152	46876	446	Cation transporter
+Q6M0X2		MMP0146	52990	468	Phytoene dehydrogenase-like protein
+Q6M0X4	hpcE	hpcE MMP0144	22503	202	5-oxopent-3-ene-1,2,5-tricarboxylate decarboxylase (EC 4.1.1.68)
+Q6M0X5		MMP0143	41164	371	DUF2117 domain-containing protein
+Q6M0X7		MMP0141	33992	290	Conserved archaeal protein
+Q6M0Y4		MMP0134	13035	114	Uncharacterized protein
+Q6M0Y8	fumA	fumA MMP0130	30261	281	Fumarate hydratase (EC 4.2.1.2)
+Q6M0Y9		MMP0129	24259	218	Polymerase/histidinol phosphatase N-terminal domain-containing protein
+Q6M0Z0		MMP0128	21808	189	Kynurenine formamidase
+Q6M0Z4		MMP0124	25032	224	Inner membrane protein
+Q6M0Z6		MMP0122	34271	302	Replication factor A1
+Q6M0Z7		MMP0121	11646	105	Nucleic acid binding OB-fold tRNA/helicase-type
+Q6M0Z8		MMP0120	14623	128	OB domain-containing protein
+Q6M0Z9	birA	birA MMP0119	26807	235	Biotin--protein ligase (EC 6.3.4.15)
+Q6M100		MMP0118	22842	205	Metallo-beta-lactamase domain-containing protein
+Q6M103		MMP0115	19557	173	Nitroreductase domain-containing protein
+Q6M104		MMP0114	24513	213	Xylose isomerase-like TIM barrel domain-containing protein
+Q6M105		MMP0113	31451	269	Uncharacterized protein
+Q6M107		MMP0111	21667	179	Acyl carrier protein phosphodiesterase
+Q6M109	afuB_1	afuB_1 MMP0109	60021	538	ABC-type transporter permease protein
+Q6M110		MMP0108	38003	343	ABC-type Iron(III)-binding periplasmic protein
+Q6M111		MMP0107	20502	174	Energy-coupling factor transporter transmembrane protein EcfT
+Q6M112		MMP0106	19534	186	Energy-coupling factor transport system substrate-specific component
+Q6M113		MMP0105	18787	175	Energy-coupling factor transport system substrate-specific component
+Q6M114		MMP0104	22943	205	Polyferredoxin
+Q6M117		MMP0101	18215	161	CBS domain-containing protein
+Q6M118		MMP0100	42143	392	Na+/H+ exchanger family
+Q6M119		MMP0099	41429	383	General substrate transporter
+Q6M120		MMP0098	6824	65	Ferredoxin
+Q6M121		MMP0097	20852	182	Transcriptional regulator protein, Helix-turn-helix motif
+Q6M122		MMP0096	45249	395	Aminotransferase (Subgroup I) (EC 2.6.1.-)
+Q6M123		MMP0095	45079	394	PHP domain protein
+Q6M127		MMP0091	23123	194	Conserved hypothetical archaeal protein
+Q6M128		MMP0090	40066	355	Glycosyl transferase
+Q6M134		MMP0084	28351	237	Uncharacterized protein
+Q6M135		MMP0083	40359	359	Conserved archaeal protein
+Q6M136		MMP0082	29055	263	Glutamate synthase large subunit archaeal subunit 3 (EC 1.4.1.13)
+Q6M138		MMP0080	41357	363	Glutamate synthase large subunit archaeal subunit 1 (EC 1.4.1.13)
+Q6M142		MMP0076	7389	69	TRAM domain-containing protein
+Q6M143		MMP0075	36780	322	CAAX prenyl protease 2/Lysostaphin resistance protein A-like domain-containing protein
+Q6M144		MMP0074	13937	118	Conserved hypothetical Archael protein
+Q6M145		MMP0072	35908	326	Conserved archaeal protein
+Q6M147		MMP0070	34120	312	Tungsten containing formylmethanofruran dehydrogenase subunit C-related protein
+Q6M148		MMP0069	11070	99	Methyltransferase
+Q6M149	amtB	amtB MMP0068	42787	411	Ammonia transporter
+Q6M150	glnK2	glnK2 MMP0067	12270	112	Nitrogen regulatory protein P-II
+Q6M151	glnB	glnB MMP0066	12495	112	Nitrogen regulatory protein P-II
+Q6M153	glnK1	glnK1 MMP0064	12393	112	Nitrogen regulatory protein P-II
+Q6M158		MMP0059	16062	140	Conserved hypothetical archaeal protein
+Q6M162		MMP0055	17783	159	Conserved hypothetical Archael protein
+Q6M163		MMP0054	22593	202	Release factor glutamine methyltransferase
+Q6M164		MMP0053	27595	246	Dinuclear metal center YbgI/SA1388 family protein
+Q6M165		MMP0052	33493	303	CBS domain-containing protein
+Q6M168		MMP0049	16084	151	Carbonic anhydrase (Gamma family Zn(II)-dependent enzymes)
+Q6M169		MMP0048	10739	90	Uncharacterized protein
+Q6M170		MMP0047	42055	369	Uncharacterized protein
+Q6M171		MMP0046	17232	150	Uncharacterized protein
+Q6M175		MMP0042	10837	93	Uncharacterized protein
+Q6M177		MMP0040	61780	549	Type II secretion system protein putative subunit 1
+Q6M178		MMP0039	39808	352	Type II secretion system protein GspF domain-containing protein
+Q6M179		MMP0038	32782	298	Type II secretion system protein GspF domain-containing protein
+Q6M180		MMP0037	22435	195	HD/PDEase domain-containing protein
+Q6M182		MMP0035	39483	349	ATP-grasp domain-containing protein
+Q6M184		MMP0033	45945	408	LysR family member
+Q6M185		MMP0032	20077	173	ArsR family member
+Q6M186		MMP0031	42348	360	Conserved hypothetical archeal protein
+Q6M187		MMP0030	75634	672	DNA replication protein MCM family putative
+Q6M188		MMP0029	23447	212	Conserved hypothetical archeal protein
+Q6M189		MMP0028	54504	483	Cobyric acid synthase related protein
+Q6M190		MMP0027	37764	335	Putative potassium channel protein
+Q6M192		MMP0025	9875	90	Heavy metal-binding domain-containing protein
+Q6M193		MMP0024	41802	371	Putative AAA superfamily ATPase, similar to FtsH
+Q6M194		MMP0023	31453	274	ClpP class serine protease
+Q6M195		MMP0022	12941	111	DUF192 domain-containing protein
+Q6M196		MMP0021	32966	291	Conserved hypothetical archaeal protein
+Q6M198		MMP0019	8436	75	DUF2798 domain-containing protein
+Q6M199		MMP0018	32196	280	Transcriptional regulator, LysR Family Member
+Q6M1A0		MMP0017	39745	350	Radical SAM core domain-containing protein
+Q6M1A1		MMP0016	18367	163	60S ribosome subunit biogenesis protein NIP7
+Q6M1A2		MMP0015	31505	267	Uncharacterized protein
+Q6M1A4		MMP0012	16905	149	CoA-binding domain-containing protein
+Q6M1A6		MMP0010	15545	141	Conserved hypothetical Archael protein
+Q6M1B1		MMP0005	60483	527	DUF2254 domain-containing protein
+Q6M1B5		MMP0001	10628	93	Conserved archaeal protein

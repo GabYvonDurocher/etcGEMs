@@ -1,0 +1,11 @@
+/Users/g.yvon-durocher/Library/CloudStorage/OneDrive-UniversityofExeter/Documents/work/MICROADAPT/etcGEMs/DLTKcat/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+[v2] 506 rows | 295 enzymes | 385 substrates
+[v2] enzymes 200/295
+[v2] substrates 100/385
+[v2] substrates 200/385
+[v2] substrates 300/385
+[v2] substrate SMILES source: {'pubchem': 210, 'metanetx': 0, 'none': 175} (resolved 210/385)
+[v2] enzymes resolved seq 295/295
+[v2] kept 299/506 rows (299 reactions)
+[v2] wrote ../../strains/mmaripaludis/dltkcat/resolved.csv

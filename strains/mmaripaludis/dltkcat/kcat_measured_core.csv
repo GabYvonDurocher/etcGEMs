@@ -1,0 +1,12 @@
+rxn_base,enzyme,mw_kDa,SA_U_mg,kcat_s,source,flag
+rxn03127,Mcr methyl-CoM reductase,176.8,3.0,8.84,Mcr famously slow terminal enzyme; representative purified mesophile SA (Thauer/Goenrich reviews),HIGH-UNCERTAINTY / Ea-hypothesis target; range 1-10 U/mg (~3-30 1/s)
+rxn03020,Mtr methyl-H4MPT:CoM methyltransferase,186.6,20.0,62.19,classic biochemistry (Na+-pumping methyltransferase),representative
+rxn11938,Fwd/Fmd formylmethanofuran dehydrogenase,34.1,15.0,8.53,classic biochemistry (W/Mo-formylMF DH),representative; slow
+rxn02431,Ftr formyl-MF:H4MPT formyltransferase,32.1,100.0,53.48,classic biochemistry (fast transferase),representative
+rxn02480,Mch methenyl-H4MPT cyclohydrolase,34.8,150.0,87.06,classic biochemistry (fast cyclohydrolase),representative
+rxn06696,Hmd H2-forming methylene-H4MPT dehydrogenase,37.9,160.0,100.98,"classic biochemistry (Hmd, active)",representative
+rxn03085,Mer F420-dependent methylene-H4MPT reductase,33.8,40.0,22.55,classic biochemistry,representative
+rxn06299,Frh/Vhu F420/H2 hydrogenase,120.7,100.0,201.15,"Milton et al. 2018 Biochemistry (SA 25-165 U/mg, hydrogenase high end)",Milton2018 range
+HdrABC,Hdr heterodisulfide reductase (electron bifurcation),55.1,50.0,45.92,Milton et al. 2018 Biochemistry (SA 25-165 U/mg),Milton2018 range
+Fdh,Fdh formate dehydrogenase,117.2,50.0,97.64,Milton et al. 2018 Biochemistry (SA 25-165 U/mg),Milton2018 range
+ATPS,A1A0 ATP synthase (Na+),323.8,30.0,161.91,classic biochemistry (rotary ATP synthase),representative

@@ -1,0 +1,2110 @@
+{
+"rxn02483_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 16.28,
+"n_genes": 2
+},
+"rxn00802_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 54.052,
+"n_genes": 1
+},
+"rxn03638_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 90.564,
+"n_genes": 1
+},
+"rxn06078_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 16.905,
+"n_genes": 1
+},
+"rxn12636_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.597,
+"n_genes": 2
+},
+"rxn12644_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.597,
+"n_genes": 2
+},
+"rxn03492_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 28.037,
+"n_genes": 1
+},
+"rxn05616_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.194,
+"n_genes": 2
+},
+"rxn02212_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 40.003,
+"n_genes": 1
+},
+"rxn03419_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 35.607,
+"n_genes": 1
+},
+"rxn03052_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 34.83,
+"n_genes": 1
+},
+"rxn00248_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 34.468,
+"n_genes": 1
+},
+"rxn01302_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 36.294,
+"n_genes": 1
+},
+"rxn00048_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 17.336,
+"n_genes": 1
+},
+"rxn05229_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 16.987,
+"n_genes": 1
+},
+"rxn12637_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.597,
+"n_genes": 2
+},
+"rxn00321_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 49.186,
+"n_genes": 1
+},
+"rxn07586_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 36.935,
+"n_genes": 1
+},
+"rxn00902_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 55.481,
+"n_genes": 1
+},
+"rxn00952_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 16.905,
+"n_genes": 1
+},
+"rxn10230_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 22.482,
+"n_genes": 1
+},
+"rxn02056_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 23.267,
+"n_genes": 1
+},
+"rxn00459_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 45.929,
+"n_genes": 1
+},
+"rxn10225_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 19.831,
+"n_genes": 1
+},
+"rxn08311_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 19.831,
+"n_genes": 1
+},
+"rxn01101_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 34.993,
+"n_genes": 2
+},
+"rxn00302_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 35.607,
+"n_genes": 1
+},
+"rxn05145_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 58.647,
+"n_genes": 6
+},
+"rxn02988_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 34.059,
+"n_genes": 1
+},
+"rxn07307_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 26.618,
+"n_genes": 1
+},
+"rxn02937_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.477,
+"n_genes": 2
+},
+"rxn00558_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 49.256,
+"n_genes": 1
+},
+"rxn01406_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 31.816,
+"n_genes": 1
+},
+"rxn00187_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 49.421,
+"n_genes": 1
+},
+"rxn01200_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 30.264,
+"n_genes": 2
+},
+"rxn05232_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 87.969,
+"n_genes": 1
+},
+"rxn00835_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 33.441,
+"n_genes": 1
+},
+"rxn12844_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.597,
+"n_genes": 2
+},
+"rxn01678_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 15.292,
+"n_genes": 1
+},
+"rxn09208_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 22.482,
+"n_genes": 1
+},
+"rxn10060_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 62.594,
+"n_genes": 1
+},
+"rxn00100_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 15.817,
+"n_genes": 2
+},
+"rxn01018_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 16.715,
+"n_genes": 2
+},
+"rxn00806_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 31.67,
+"n_genes": 1
+},
+"rxn02834_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 25.741,
+"n_genes": 2
+},
+"rxn02341_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 19.308,
+"n_genes": 2
+},
+"rxn03175_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 26.205,
+"n_genes": 1
+},
+"rxn00786_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 33.942,
+"n_genes": 1
+},
+"rxn01637_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 42.843,
+"n_genes": 1
+},
+"rxn12640_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.597,
+"n_genes": 2
+},
+"rxn05596_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 23.861,
+"n_genes": 4
+},
+"rxn02569_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 36.152,
+"n_genes": 1
+},
+"rxn00710_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 23.639,
+"n_genes": 1
+},
+"rxn02775_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 25.434,
+"n_genes": 1
+},
+"rxn07589_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 20.166,
+"n_genes": 1
+},
+"rxn00717_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 15.653,
+"n_genes": 1
+},
+"rxn10308_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 33.369,
+"n_genes": 1
+},
+"rxn05249_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 62.374,
+"n_genes": 1
+},
+"rxn02897_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.032,
+"n_genes": 1
+},
+"rxn03409_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 49.421,
+"n_genes": 1
+},
+"rxn01301_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 36.294,
+"n_genes": 1
+},
+"rxn07191_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 70.85,
+"n_genes": 1
+},
+"rxn04046_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 25.434,
+"n_genes": 1
+},
+"rxn03407_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 49.421,
+"n_genes": 1
+},
+"rxn01682_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 71.65100000000001,
+"n_genes": 2
+},
+"rxn02474_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 40.465,
+"n_genes": 1
+},
+"rxn10311_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 33.369,
+"n_genes": 1
+},
+"rxn01486_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 35.802,
+"n_genes": 1
+},
+"rxn00898_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 58.718,
+"n_genes": 1
+},
+"rxn01069_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 43.782,
+"n_genes": 1
+},
+"rxn02113_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 30.096,
+"n_genes": 1
+},
+"rxn00117_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 15.292,
+"n_genes": 1
+},
+"rxn00555_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 67.138,
+"n_genes": 1
+},
+"rxn00260_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 41.781,
+"n_genes": 5
+},
+"rxn02484_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 45.193,
+"n_genes": 1
+},
+"rxn00527_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 83.71600000000001,
+"n_genes": 4
+},
+"rxn05171_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 27.295,
+"n_genes": 3
+},
+"rxn04052_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 22.537,
+"n_genes": 1
+},
+"rxn04045_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 16.107,
+"n_genes": 1
+},
+"rxn01974_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 30.835,
+"n_genes": 1
+},
+"rxn12645_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.597,
+"n_genes": 2
+},
+"rxn00299_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 35.607,
+"n_genes": 1
+},
+"rxn00839_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 15.292,
+"n_genes": 1
+},
+"rxn03020_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 186.57799999999997,
+"n_genes": 8
+},
+"rxn00283_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 41.536,
+"n_genes": 1
+},
+"rxn01022_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 28.61,
+"n_genes": 1
+},
+"rxn10221_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 19.831,
+"n_genes": 1
+},
+"rxn09177_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 19.308,
+"n_genes": 2
+},
+"rxn03437_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 58.718,
+"n_genes": 1
+},
+"rxn02320_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 89.01,
+"n_genes": 2
+},
+"rxn07587_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 40.103,
+"n_genes": 1
+},
+"rxn02507_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 25.414,
+"n_genes": 1
+},
+"rxn00669_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 71.808,
+"n_genes": 1
+},
+"rxn01333_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 23.442,
+"n_genes": 1
+},
+"rxn00714_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 15.24,
+"n_genes": 1
+},
+"rxn01434_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 44.58,
+"n_genes": 1
+},
+"rxn01116_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 24.023,
+"n_genes": 1
+},
+"rxn08308_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 19.831,
+"n_genes": 1
+},
+"rxn00409_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 15.292,
+"n_genes": 1
+},
+"rxn02213_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 24.532,
+"n_genes": 1
+},
+"rxn03062_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 35.318,
+"n_genes": 1
+},
+"rxn03446_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 43.782,
+"n_genes": 1
+},
+"rxn01519_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 17.723,
+"n_genes": 2
+},
+"rxn00029_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 35.756,
+"n_genes": 1
+},
+"rxn03491_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 20.166,
+"n_genes": 2
+},
+"rxn01964_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 71.65100000000001,
+"n_genes": 2
+},
+"rxn12510_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.09,
+"n_genes": 1
+},
+"rxn09207_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 22.482,
+"n_genes": 1
+},
+"rxn02380_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 49.256,
+"n_genes": 1
+},
+"rxn00474_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 71.65100000000001,
+"n_genes": 2
+},
+"rxn03435_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 36.604,
+"n_genes": 1
+},
+"rxn01673_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 15.292,
+"n_genes": 1
+},
+"rxn12845_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.597,
+"n_genes": 2
+},
+"rxn00085_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 125.565,
+"n_genes": 3
+},
+"rxn00832_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 22.582,
+"n_genes": 2
+},
+"rxn00295_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 34.364,
+"n_genes": 1
+},
+"rxn02187_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 36.604,
+"n_genes": 1
+},
+"rxn01219_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 20.212,
+"n_genes": 1
+},
+"rxn03514_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 27.625,
+"n_genes": 1
+},
+"rxn01270_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 41.781,
+"n_genes": 2
+},
+"rxn08309_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 19.831,
+"n_genes": 1
+},
+"rxn08312_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 19.831,
+"n_genes": 1
+},
+"rxn05144_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 20.632,
+"n_genes": 2
+},
+"rxn00410_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 59.546,
+"n_genes": 1
+},
+"rxn05221_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 53.285,
+"n_genes": 3
+},
+"rxn09210_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 22.482,
+"n_genes": 1
+},
+"rxn00782_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.27,
+"n_genes": 1
+},
+"rxn01607_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 35.202,
+"n_genes": 1
+},
+"rxn01000_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 30.315,
+"n_genes": 1
+},
+"rxn00675_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 71.808,
+"n_genes": 1
+},
+"rxn02305_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 22.358,
+"n_genes": 1
+},
+"rxn02296_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 27.453,
+"n_genes": 1
+},
+"rxn12641_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.597,
+"n_genes": 2
+},
+"rxn10315_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 33.369,
+"n_genes": 1
+},
+"rxn00711_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 25.973,
+"n_genes": 1
+},
+"rxn10309_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 33.369,
+"n_genes": 1
+},
+"rxn12633_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.597,
+"n_genes": 2
+},
+"rxn05250_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 62.374,
+"n_genes": 1
+},
+"rxn03174_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 35.607,
+"n_genes": 1
+},
+"rxn00763_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 42.456,
+"n_genes": 1
+},
+"rxn00138_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 28.563,
+"n_genes": 1
+},
+"rxn03136_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 50.715,
+"n_genes": 1
+},
+"rxn05165_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 29.989,
+"n_genes": 3
+},
+"rxn00988_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 62.374,
+"n_genes": 1
+},
+"rxn05236_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 87.969,
+"n_genes": 1
+},
+"rxn02835_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 25.741,
+"n_genes": 2
+},
+"rxn00726_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 71.70100000000001,
+"n_genes": 2
+},
+"rxn03147_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 27.763,
+"n_genes": 1
+},
+"rxn00650_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.597,
+"n_genes": 2
+},
+"rxn01241_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 43.811,
+"n_genes": 1
+},
+"rxn10229_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 22.482,
+"n_genes": 1
+},
+"rxn00776_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 30.405,
+"n_genes": 1
+},
+"rxn12646_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.597,
+"n_genes": 2
+},
+"rxn09296_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 8.633,
+"n_genes": 2
+},
+"rxn01255_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 40.808,
+"n_genes": 1
+},
+"rxn03194_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 82.679,
+"n_genes": 2
+},
+"rxn10222_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 19.831,
+"n_genes": 1
+},
+"rxn11938_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 34.12,
+"n_genes": 12
+},
+"rxn02287_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 26.115,
+"n_genes": 1
+},
+"rxn02475_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 40.465,
+"n_genes": 1
+},
+"rxn00147_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 83.398,
+"n_genes": 1
+},
+"rxn02774_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 23.267,
+"n_genes": 2
+},
+"rxn05172_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 27.295,
+"n_genes": 3
+},
+"rxn03057_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 35.931,
+"n_genes": 1
+},
+"rxn01485_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 49.384,
+"n_genes": 1
+},
+"rxn00245_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 20.904,
+"n_genes": 2
+},
+"rxn01629_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 47.426,
+"n_genes": 1
+},
+"rxn06874_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 249.675,
+"n_genes": 6
+},
+"rxn06299_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 120.69299999999998,
+"n_genes": 8
+},
+"rxn05313_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 58.984,
+"n_genes": 1
+},
+"rxn00966_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 19.617,
+"n_genes": 1
+},
+"rxn00785_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 30.264,
+"n_genes": 2
+},
+"rxn03084_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 30.466,
+"n_genes": 2
+},
+"rxn00011_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 82.679,
+"n_genes": 2
+},
+"rxn00292_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 40.851,
+"n_genes": 2
+},
+"rxn05252_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 62.374,
+"n_genes": 1
+},
+"rxn05155_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 27.161,
+"n_genes": 3
+},
+"rxn01513_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 22.723,
+"n_genes": 1
+},
+"rxn02476_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 46.474,
+"n_genes": 1
+},
+"rxn01575_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 31.67,
+"n_genes": 1
+},
+"rxn09206_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 22.482,
+"n_genes": 1
+},
+"rxn05181_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 29.989,
+"n_genes": 3
+},
+"rxn00775_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 19.539,
+"n_genes": 1
+},
+"rxn00364_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 20.212,
+"n_genes": 1
+},
+"rxn00515_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 15.292,
+"n_genes": 1
+},
+"rxn01025_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 15.653,
+"n_genes": 1
+},
+"rxn02186_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 36.604,
+"n_genes": 1
+},
+"rxn10227_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 22.482,
+"n_genes": 1
+},
+"rxn12846_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.597,
+"n_genes": 2
+},
+"rxn05201_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 42.919,
+"n_genes": 2
+},
+"rxn02789_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 18.248,
+"n_genes": 2
+},
+"rxn00830_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 38.74,
+"n_genes": 1
+},
+"rxn08180_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.125,
+"n_genes": 1
+},
+"rxn00800_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 50.715,
+"n_genes": 1
+},
+"rxn05234_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 87.969,
+"n_genes": 1
+},
+"rxn01465_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 47.175,
+"n_genes": 1
+},
+"rxn00863_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 46.184,
+"n_genes": 1
+},
+"rxn09449_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 62.374,
+"n_genes": 1
+},
+"rxn03436_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 36.604,
+"n_genes": 1
+},
+"rxn08307_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 19.831,
+"n_genes": 1
+},
+"rxn05555_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 72.478,
+"n_genes": 1
+},
+"rxn02159_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 46.184,
+"n_genes": 1
+},
+"rxn00727_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 71.70100000000001,
+"n_genes": 2
+},
+"rxn04385_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 14.393,
+"n_genes": 1
+},
+"rxn01300_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.453,
+"n_genes": 1
+},
+"rxn00175_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 71.808,
+"n_genes": 1
+},
+"rxn06979_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 14.69,
+"n_genes": 3
+},
+"rxn12642_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.597,
+"n_genes": 2
+},
+"rxn05247_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 62.374,
+"n_genes": 1
+},
+"rxn00986_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 71.808,
+"n_genes": 1
+},
+"rxn07588_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 28.464,
+"n_genes": 1
+},
+"rxn05559_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 28.762,
+"n_genes": 1
+},
+"rxn03068_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 36.604,
+"n_genes": 1
+},
+"rxn12634_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.597,
+"n_genes": 2
+},
+"rxn01269_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 50.037,
+"n_genes": 1
+},
+"rxn04048_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 27.625,
+"n_genes": 1
+},
+"rxn00278_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 39.654,
+"n_genes": 1
+},
+"rxn00790_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 50.828,
+"n_genes": 1
+},
+"rxn00060_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 33.953,
+"n_genes": 1
+},
+"rxn04050_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 28.037,
+"n_genes": 1
+},
+"rxn02473_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 21.218,
+"n_genes": 1
+},
+"rxn00834_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 53.684,
+"n_genes": 1
+},
+"rxn12639_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.597,
+"n_genes": 2
+},
+"rxn03080_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 15.063,
+"n_genes": 1
+},
+"rxn03085_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 33.823,
+"n_genes": 1
+},
+"rxn02297_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 41.176,
+"n_genes": 1
+},
+"rxn05040_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 27.803,
+"n_genes": 1
+},
+"rxn00105_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 19.878,
+"n_genes": 1
+},
+"rxn00799_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 20.904,
+"n_genes": 2
+},
+"rxn00313_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 47.953,
+"n_genes": 1
+},
+"rxn10226_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 22.482,
+"n_genes": 1
+},
+"rxn05248_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 62.374,
+"n_genes": 1
+},
+"rxn10223_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 19.831,
+"n_genes": 1
+},
+"rxn00285_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 70.118,
+"n_genes": 2
+},
+"rxn10307_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 33.369,
+"n_genes": 1
+},
+"rxn00770_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 31.026,
+"n_genes": 1
+},
+"rxn00192_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 43.749,
+"n_genes": 1
+},
+"rxn05938_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 136.494,
+"n_genes": 6
+},
+"rxn00211_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 47.252,
+"n_genes": 1
+},
+"rxn04783_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 42.908,
+"n_genes": 1
+},
+"rxn01739_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 30.411,
+"n_genes": 1
+},
+"rxn00543_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 42.456,
+"n_genes": 1
+},
+"rxn05235_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 87.969,
+"n_genes": 1
+},
+"rxn06591_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 43.612,
+"n_genes": 1
+},
+"rxn00126_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 44.292,
+"n_genes": 1
+},
+"rxn00414_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 160.07,
+"n_genes": 2
+},
+"rxn06937_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 64.095,
+"n_genes": 1
+},
+"rxn03127_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 176.758,
+"n_genes": 5
+},
+"rxn10312_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 33.369,
+"n_genes": 1
+},
+"rxn02508_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 23.621,
+"n_genes": 1
+},
+"rxn00127_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 13.472,
+"n_genes": 1
+},
+"rxn05251_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 62.374,
+"n_genes": 1
+},
+"rxn02938_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 16.987,
+"n_genes": 1
+},
+"rxn00139_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 18.982,
+"n_genes": 1
+},
+"rxn05736_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 62.374,
+"n_genes": 1
+},
+"rxn05527_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 43.729,
+"n_genes": 1
+},
+"rxn02465_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.784,
+"n_genes": 1
+},
+"rxn09205_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 22.482,
+"n_genes": 1
+},
+"rxn05957_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 16.905,
+"n_genes": 1
+},
+"rxn03513_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 27.907,
+"n_genes": 1
+},
+"rxn00549_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 42.515,
+"n_genes": 1
+},
+"rxn01257_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 21.931,
+"n_genes": 1
+},
+"rxn01740_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 30.781,
+"n_genes": 1
+},
+"rxn12847_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.597,
+"n_genes": 2
+},
+"rxn00416_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 58.799,
+"n_genes": 1
+},
+"rxn01620_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 20.11,
+"n_genes": 1
+},
+"rxn00903_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 31.67,
+"n_genes": 1
+},
+"rxn00947_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 62.374,
+"n_genes": 1
+},
+"rxn10310_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 33.369,
+"n_genes": 1
+},
+"rxn00838_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 36.573,
+"n_genes": 1
+},
+"rxn00297_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 40.851,
+"n_genes": 2
+},
+"rxn00065_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 21.851,
+"n_genes": 2
+},
+"rxn00141_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 45.834,
+"n_genes": 1
+},
+"rxn01454_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.738,
+"n_genes": 1
+},
+"rxn00337_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 50.772,
+"n_genes": 1
+},
+"rxn00777_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 25.658,
+"n_genes": 1
+},
+"rxn01512_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 15.292,
+"n_genes": 1
+},
+"rxn01466_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 35.802,
+"n_genes": 1
+},
+"rxn02185_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 82.679,
+"n_genes": 2
+},
+"rxn03406_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 49.421,
+"n_genes": 1
+},
+"rxn01106_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 44.464,
+"n_genes": 3
+},
+"rxn00293_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 90.564,
+"n_genes": 1
+},
+"rxn05740_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 60.191,
+"n_genes": 1
+},
+"rxn11544_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 14.69,
+"n_genes": 3
+},
+"rxn02277_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 21.13,
+"n_genes": 1
+},
+"rxn12638_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.597,
+"n_genes": 2
+},
+"rxn02480_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 34.823,
+"n_genes": 1
+},
+"rxn12643_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.597,
+"n_genes": 2
+},
+"rxn03079_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 29.907,
+"n_genes": 1
+},
+"rxn02264_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 27.507,
+"n_genes": 1
+},
+"rxn05209_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 42.143,
+"n_genes": 5
+},
+"rxn08306_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 19.831,
+"n_genes": 1
+},
+"rxn00148_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 50.143,
+"n_genes": 1
+},
+"rxn00214_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 34.364,
+"n_genes": 1
+},
+"rxn05197_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 42.919,
+"n_genes": 2
+},
+"rxn05289_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.747,
+"n_genes": 1
+},
+"rxn10228_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 22.482,
+"n_genes": 1
+},
+"rxn01977_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 49.256,
+"n_genes": 1
+},
+"rxn09448_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 62.374,
+"n_genes": 1
+},
+"rxn03421_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 35.607,
+"n_genes": 1
+},
+"rxn12635_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.597,
+"n_genes": 2
+},
+"rxn00213_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 31.726,
+"n_genes": 1
+},
+"rxn10314_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 33.369,
+"n_genes": 1
+},
+"rxn00493_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 83.71600000000001,
+"n_genes": 4
+},
+"rxn00789_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 31.561,
+"n_genes": 1
+},
+"rxn06077_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 18.151,
+"n_genes": 1
+},
+"rxn02895_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 48.796,
+"n_genes": 1
+},
+"rxn09211_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 22.482,
+"n_genes": 1
+},
+"rxn02312_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 52.877,
+"n_genes": 1
+},
+"rxn00438_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 34.731,
+"n_genes": 1
+},
+"rxn10474_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.194,
+"n_genes": 2
+},
+"rxn01643_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.881,
+"n_genes": 1
+},
+"rxn09209_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 22.482,
+"n_genes": 1
+},
+"rxn02431_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.09,
+"n_genes": 1
+},
+"rxn01999_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 40.899,
+"n_genes": 1
+},
+"rxn01362_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 20.257,
+"n_genes": 2
+},
+"rxn06493_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 43.811,
+"n_genes": 1
+},
+"rxn02402_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 31.388,
+"n_genes": 1
+},
+"rxn10224_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 19.831,
+"n_genes": 1
+},
+"rxn10231_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 22.482,
+"n_genes": 1
+},
+"rxn02811_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 63.656000000000006,
+"n_genes": 2
+},
+"rxn05939_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 96.39999999999999,
+"n_genes": 4
+},
+"rxn01019_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 34.084,
+"n_genes": 1
+},
+"rxn00412_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 59.546,
+"n_genes": 1
+},
+"rxn08310_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 19.831,
+"n_genes": 1
+},
+"rxn03135_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 22.676,
+"n_genes": 4
+},
+"rxn00469_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 46.968,
+"n_genes": 1
+},
+"rxn12512_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 19.308,
+"n_genes": 2
+},
+"rxn00791_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 34.87,
+"n_genes": 1
+},
+"rxn08040_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 33.369,
+"n_genes": 1
+},
+"rxn01636_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 43.749,
+"n_genes": 1
+},
+"rxn00914_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 33.441,
+"n_genes": 1
+},
+"rxn03843_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 30.993,
+"n_genes": 1
+},
+"rxn01329_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 49.384,
+"n_genes": 2
+},
+"rxn04047_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 27.907,
+"n_genes": 1
+},
+"rxn05177_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 34.899,
+"n_genes": 2
+},
+"rxn01353_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 15.292,
+"n_genes": 1
+},
+"rxn00077_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 62.594,
+"n_genes": 1
+},
+"rxn09450_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 62.374,
+"n_genes": 1
+},
+"rxn01213_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 35.802,
+"n_genes": 1
+},
+"rxn01917_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.25,
+"n_genes": 1
+},
+"rxn01100_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 45.329,
+"n_genes": 1
+},
+"rxn02339_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 41.781,
+"n_genes": 3
+},
+"rxn02175_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 16.952,
+"n_genes": 1
+},
+"rxn00288_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 115.384,
+"n_genes": 2
+},
+"rxn01790_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 33.848,
+"n_genes": 2
+},
+"rxn03075_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 28.378,
+"n_genes": 1
+},
+"rxn00747_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 18.11,
+"n_genes": 1
+},
+"rxn00707_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 20.212,
+"n_genes": 1
+},
+"rxn03108_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 45.193,
+"n_genes": 1
+},
+"rxn03512_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 22.537,
+"n_genes": 1
+},
+"rxn00237_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 15.292,
+"n_genes": 1
+},
+"rxn00420_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 23.347,
+"n_genes": 2
+},
+"rxn00001_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 33.707,
+"n_genes": 1
+},
+"rxn10313_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 33.369,
+"n_genes": 1
+},
+"rxn01268_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 50.037,
+"n_genes": 1
+},
+"rxn10220_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 19.831,
+"n_genes": 1
+},
+"rxn00858_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.045,
+"n_genes": 1
+},
+"rxn05195_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 102.969,
+"n_genes": 9
+},
+"rxn03393_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 67.68299999999999,
+"n_genes": 2
+},
+"rxn05388_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.738,
+"n_genes": 1
+},
+"rxn05359_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.738,
+"n_genes": 1
+},
+"rxn02288_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 78.824,
+"n_genes": 2
+},
+"rxn08766_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.738,
+"n_genes": 1
+},
+"rxn05396_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.738,
+"n_genes": 1
+},
+"rxn01675_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 45.282,
+"n_genes": 1
+},
+"rxn01644_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 31.584,
+"n_genes": 1
+},
+"rxn01997_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 34.364,
+"n_genes": 1
+},
+"rxn05379_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.738,
+"n_genes": 1
+},
+"rxn05371_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.738,
+"n_genes": 1
+},
+"rxn00300_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 27.803,
+"n_genes": 1
+},
+"rxn03397_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 26.109,
+"n_genes": 1
+},
+"rxn10481_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 29.722,
+"n_genes": 2
+},
+"rxn02914_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 41.851,
+"n_genes": 1
+},
+"rxn05054_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 34.145,
+"n_genes": 1
+},
+"rxn02160_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 21.218,
+"n_genes": 1
+},
+"rxn12008_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 35.802,
+"n_genes": 1
+},
+"rxn02269_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 47.513,
+"n_genes": 1
+},
+"rxn03891_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 35.802,
+"n_genes": 1
+},
+"rxn00102_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 16.084,
+"n_genes": 2
+},
+"rxn05513_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 44.68,
+"n_genes": 2
+},
+"rxn03030_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 21.588,
+"n_genes": 1
+},
+"rxn00119_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 23.933,
+"n_genes": 1
+},
+"rxn03919_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 77.889,
+"n_genes": 3
+},
+"rxn05384_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.738,
+"n_genes": 1
+},
+"rxn11650_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 19.557,
+"n_genes": 1
+},
+"rxn00172_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 76.641,
+"n_genes": 1
+},
+"rxn00917_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 55.74,
+"n_genes": 2
+},
+"rxn00274_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 41.176,
+"n_genes": 1
+},
+"rxn05400_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.738,
+"n_genes": 1
+},
+"rxn03540_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 54.58,
+"n_genes": 1
+},
+"rxn05404_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.738,
+"n_genes": 1
+},
+"rxn05392_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.738,
+"n_genes": 1
+},
+"rxn05367_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.738,
+"n_genes": 1
+},
+"rxn03408_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 40.778,
+"n_genes": 1
+},
+"rxn06729_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 21.588,
+"n_genes": 1
+},
+"rxn00086_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 43.811,
+"n_genes": 1
+},
+"rxn03086_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 41.781,
+"n_genes": 1
+},
+"rxn01332_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 30.315,
+"n_genes": 1
+},
+"rxn03904_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 33.369,
+"n_genes": 1
+},
+"rxn08618_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 44.262,
+"n_genes": 1
+},
+"rxn00611_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 36.819,
+"n_genes": 1
+},
+"rxn01117_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 47.005,
+"n_genes": 1
+},
+"rxn05735_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 50.981,
+"n_genes": 1
+},
+"rxn02929_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 28.861,
+"n_genes": 1
+},
+"rxn05375_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.738,
+"n_genes": 1
+},
+"rxn09128_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 38.978,
+"n_genes": 1
+},
+"rxn05363_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.738,
+"n_genes": 1
+},
+"rxn03538_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 28.414,
+"n_genes": 1
+},
+"rxn00351_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 30.964,
+"n_genes": 1
+},
+"rxn01791_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 43.943,
+"n_genes": 1
+},
+"rxn01501_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 43.943,
+"n_genes": 1
+},
+"rxn00250_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 119.307,
+"n_genes": 2
+},
+"rxn00646_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 42.531,
+"n_genes": 1
+},
+"rxn05466_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 84.733,
+"n_genes": 2
+},
+"rxn05287_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 35.802,
+"n_genes": 1
+},
+"rxn05108_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 46.764,
+"n_genes": 1
+},
+"rxn03892_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 35.802,
+"n_genes": 1
+},
+"rxn05104_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 20.11,
+"n_genes": 1
+},
+"rxn00157_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 30.28,
+"n_genes": 1
+},
+"rxn00178_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 41.453,
+"n_genes": 1
+},
+"rxn00134_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 33.441,
+"n_genes": 1
+},
+"HdrABC": {
+"mw_kDa": 55.11,
+"n_genes": 15
+},
+"Eha_FSLASH_Ehb": {
+"mw_kDa": 334.21900000000005,
+"n_genes": 34
+},
+"rxn04042_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 52.7,
+"n_genes": 1
+},
+"rxn04043_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 52.7,
+"n_genes": 1
+},
+"rxn04026_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 38.748,
+"n_genes": 2
+},
+"rxn04934_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.095,
+"n_genes": 1
+},
+"rxn04036_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 27.648,
+"n_genes": 1
+},
+"rxn07741_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 46.764,
+"n_genes": 1
+},
+"rxn05109_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 53.434,
+"n_genes": 1
+},
+"rxn02749_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 45.408,
+"n_genes": 1
+},
+"rxn02751_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 45.588,
+"n_genes": 1
+},
+"rxn00735_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 35.318,
+"n_genes": 1
+},
+"rxn08043_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 18.875,
+"n_genes": 2
+},
+"rxn08764_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 36.604,
+"n_genes": 1
+},
+"rxn00405_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 17.584,
+"n_genes": 1
+},
+"rxn10561_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 83.71600000000001,
+"n_genes": 4
+},
+"rxn06696_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.868,
+"n_genes": 1
+},
+"ATPS": {
+"mw_kDa": 323.82000000000005,
+"n_genes": 9
+},
+"Fdh": {
+"mw_kDa": 117.16499999999999,
+"n_genes": 4
+},
+"Hdr_formate": {
+"mw_kDa": 15.951,
+"n_genes": 12
+},
+"rxn00249_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 34.468,
+"n_genes": 1
+},
+"Tfr": {
+"mw_kDa": 115.384,
+"n_genes": 2
+},
+"rxn05215_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 47.526,
+"n_genes": 1
+},
+"rxn13660_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 47.526,
+"n_genes": 1
+},
+"Dsr_DASH_LP": {
+"mw_kDa": 40.359,
+"n_genes": 1
+},
+"rxn10434_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 43.011,
+"n_genes": 1
+},
+"rxn10472_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 63.323,
+"n_genes": 2
+},
+"rxn10612_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.968,
+"n_genes": 1
+},
+"rxn10433_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 43.011,
+"n_genes": 1
+},
+"rxn10595_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 63.323,
+"n_genes": 2
+},
+"rxn10468_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 63.323,
+"n_genes": 2
+},
+"rxn10610_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.968,
+"n_genes": 1
+},
+"rxn10435_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 43.011,
+"n_genes": 1
+},
+"rxn10596_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 63.323,
+"n_genes": 2
+},
+"rxn10469_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 63.323,
+"n_genes": 2
+},
+"rxn10611_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 37.968,
+"n_genes": 1
+},
+"MptA": {
+"mw_kDa": 35.607,
+"n_genes": 1
+},
+"rxn10490_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 26.006,
+"n_genes": 1
+},
+"rxn02504_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 14.101,
+"n_genes": 1
+},
+"rxn02503_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 26.828,
+"n_genes": 1
+},
+"rxn10446_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 35.348,
+"n_genes": 1
+},
+"ADTHs": {
+"mw_kDa": 29.418,
+"n_genes": 1
+},
+"ADTHOR": {
+"mw_kDa": 40.003,
+"n_genes": 1
+},
+"rxn00529_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 43.145,
+"n_genes": 1
+},
+"MfnD": {
+"mw_kDa": 34.398,
+"n_genes": 1
+},
+"MfnB": {
+"mw_kDa": 25.114,
+"n_genes": 1
+},
+"MfnC": {
+"mw_kDa": 41.781,
+"n_genes": 1
+},
+"F1Pp": {
+"mw_kDa": 23.331,
+"n_genes": 1
+},
+"F1PPc": {
+"mw_kDa": 35.908,
+"n_genes": 1
+},
+"rxn00097_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 21.094,
+"n_genes": 1
+},
+"rxn10499_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 77.863,
+"n_genes": 2
+},
+"rxn01053_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 50.981,
+"n_genes": 1
+},
+"rxn10567_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 24.709,
+"n_genes": 1
+},
+"rxn10566_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 34.679,
+"n_genes": 1
+},
+"rxn10525_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 26.989,
+"n_genes": 1
+},
+"rxn10526_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 26.989,
+"n_genes": 1
+},
+"rxn10527_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.127,
+"n_genes": 1
+},
+"rxn01361_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 59.995000000000005,
+"n_genes": 2
+},
+"CODH": {
+"mw_kDa": 293.916,
+"n_genes": 7
+},
+"ACS": {
+"mw_kDa": 293.916,
+"n_genes": 7
+},
+"FNO": {
+"mw_kDa": 23.716,
+"n_genes": 1
+},
+"Mot": {
+"mw_kDa": 83.24000000000001,
+"n_genes": 12
+},
+"HcyS": {
+"mw_kDa": 70.422,
+"n_genes": 2
+},
+"MetS": {
+"mw_kDa": 34.83,
+"n_genes": 1
+},
+"H4MPTdUMPm": {
+"mw_kDa": 56.797,
+"n_genes": 2
+},
+"rxn02377_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 47.252,
+"n_genes": 1
+},
+"rxn00298_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 47.615,
+"n_genes": 1
+},
+"UGAor": {
+"mw_kDa": 34.363,
+"n_genes": 1
+},
+"UGNAa": {
+"mw_kDa": 40.899,
+"n_genes": 1
+},
+"UGNAna": {
+"mw_kDa": 21.588,
+"n_genes": 1
+},
+"UGNAe": {
+"mw_kDa": 40.851,
+"n_genes": 1
+},
+"UMNAat": {
+"mw_kDa": 93.441,
+"n_genes": 3
+},
+"2NACmt": {
+"mw_kDa": 25.799,
+"n_genes": 1
+},
+"TSot": {
+"mw_kDa": 71.388,
+"n_genes": 1
+},
+"GLCgt": {
+"mw_kDa": 32.42,
+"n_genes": 1
+},
+"MANgt": {
+"mw_kDa": 42.347,
+"n_genes": 1
+},
+"2NACgt": {
+"mw_kDa": 47.658,
+"n_genes": 1
+},
+"TSost": {
+"mw_kDa": 94.927,
+"n_genes": 1
+},
+"rxn10586_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 83.71600000000001,
+"n_genes": 4
+},
+"rxn01946_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 83.71600000000001,
+"n_genes": 4
+},
+"rxn01842_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 83.71600000000001,
+"n_genes": 4
+},
+"rxn10563_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 83.71600000000001,
+"n_genes": 4
+},
+"rxn10562_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 83.71600000000001,
+"n_genes": 4
+},
+"rxn00483_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 83.71600000000001,
+"n_genes": 4
+},
+"rxn05166_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 39.827,
+"n_genes": 5
+},
+"rxn10447_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 93.941,
+"n_genes": 2
+},
+"F6PG3Pl": {
+"mw_kDa": 33.942,
+"n_genes": 1
+},
+"2OPs": {
+"mw_kDa": 18.11,
+"n_genes": 1
+},
+"DKFPs1": {
+"mw_kDa": 33.942,
+"n_genes": 1
+},
+"DKFPs2": {
+"mw_kDa": 33.942,
+"n_genes": 1
+},
+"GLYPs": {
+"mw_kDa": 55.78,
+"n_genes": 1
+},
+"rxn09249_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 59.587,
+"n_genes": 1
+},
+"rxn11751_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 29.776,
+"n_genes": 1
+},
+"rxn11752_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 48.447,
+"n_genes": 1
+},
+"rxn11571_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 32.747,
+"n_genes": 1
+},
+"rxn01217_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 23.388,
+"n_genes": 1
+},
+"rxn00915_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 20.402,
+"n_genes": 1
+},
+"rxn00836_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 20.402,
+"n_genes": 1
+},
+"IPk": {
+"mw_kDa": 29.08,
+"n_genes": 1
+},
+"rxn11998_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 27.801,
+"n_genes": 1
+},
+"rxn03114_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 31.204,
+"n_genes": 1
+},
+"rxn14345_LSQBKT_c0_RSQBKT_": {
+"mw_kDa": 19.831,
+"n_genes": 1
+},
+"ARCSs": {
+"mw_kDa": 22.482,
+"n_genes": 1
+},
+"CDPDGGR": {
+"mw_kDa": 42.545,
+"n_genes": 1
+},
+"ASDGGR": {
+"mw_kDa": 42.545,
+"n_genes": 1
+}
+}
