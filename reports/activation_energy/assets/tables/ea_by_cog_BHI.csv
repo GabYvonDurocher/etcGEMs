@@ -1,0 +1,17 @@
+cog,cog_category,contrib
+I,lipid metab,0.1977402420328892
+G,carbohydrate/glycolysis,0.15163662753835297
+S,unknown/other,0.03779174395925548
+E,amino-acid metab,0.034493307296586895
+H,coenzyme metab,0.015268198268712127
+M,cell wall/membrane,0.010401364717692829
+F,nucleotide metab,0.009076845743914302
+C,energy (ETC/TCA),0.001747220187155222
+D,cell cycle,0.0015536731058058
+P,inorganic ion,0.0004464373559463893
+J,translation/ribosome,0.00018953908546
+L,replication/repair,0.0001330155494136
+T,signal transduction,0.00011355936262352958
+O,chaperone/PTM (stress),0.00010349696175059103
+V,defence,6.052125265406518e-05
+K,transcription,1.8844363172747498e-05

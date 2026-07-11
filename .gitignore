@@ -23,6 +23,7 @@ dist/
 
 # Quarto report render output (keep .qmd, header.tex, refs, csl, assemble.py, assets)
 reports/ecoli_tpc/_output/
+reports/activation_energy/_output/
 .quarto/
 **/.quarto/
 refs/
