@@ -198,6 +198,7 @@ def build_provider(cfg: Dict[str, Any]):
             biomass_rxn=p.get("biomass_rxn"),
             default_kcat=p.get("default_kcat", 25.0),
             close_free_sinks=p.get("close_free_sinks"),
+            relax_pinned=p.get("relax_pinned"),
         )
         if budget_override is not None:
             print(f"[emergent] pool budget = P_total({p_total}) x f_metab({f_metab}) "

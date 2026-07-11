@@ -38,7 +38,9 @@ provider:
   sigma: 0.45                 # average in-vivo enzyme saturation (Davidi 2016 / Heckmann 2020)
   f_metab: 0.5                # modelled-metabolic-enzyme mass fraction (grounded; see M2 note)
   default_kcat: 25.0          # fallback if a CSV kcat is missing/non-positive
-  close_free_sinks: null      # set by the M2 PART D enzyme-cost artefact audit
+  close_free_sinks: null      # M2 PART D audit: no free ferredoxin/electron shortcut found
+  relax_pinned:               # M2 PART D: release iMR539's hard-pinned uncosted ATP drain
+    - rxn00062_LSQBKT_c0_RSQBKT_   # "protein-secreting ATPase" fixed 5.12 mmol/gDW/h -> 0-floor (M3 NGAM(T))
 
 T0_C: 37                      # methanogen reference temperature (Jones 1983 optimum ~38 C)
 

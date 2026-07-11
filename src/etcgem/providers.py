@@ -517,7 +517,8 @@ def from_gem_smoment(model_path: str, kcat_csv: str, T0: float = 310.15,
                      target_fraction: float = 0.6,
                      biomass_rxn: Optional[str] = None,
                      default_kcat: float = 25.0, default_mw: float = 40.0,
-                     close_free_sinks: Optional[List[str]] = None) -> ProvidedModel:
+                     close_free_sinks: Optional[List[str]] = None,
+                     relax_pinned: Optional[List[str]] = None) -> ProvidedModel:
     """Attach a temperature-INDEPENDENT sMOMENT total-protein pool to a plain GEM.
 
     This is the methanogen route: the base GEM (iMR539_curated) carries no GECKO
@@ -544,6 +545,20 @@ def from_gem_smoment(model_path: str, kcat_csv: str, T0: float = 310.15,
         closed_sinks = close_free_energy_sinks(model, bases=close_free_sinks)
         if closed_sinks:
             print(f"[smoment_gem] closed {len(closed_sinks)} uncosted energy side-reaction(s): {closed_sinks}")
+    # Enzyme-cost artefact audit (PART D): relax any hard-PINNED, uncosted ATP/maintenance
+    # drain (e.g. iMR539's rxn00062 protein-secreting ATPase, fixed at 5.12 mmol/gDW/h) to a
+    # 0-floor. A *fixed* uncosted ATP sink dominates the enzyme-limited energy budget and is
+    # non-physiological in the base ecModel; measured maintenance NGAM(T) is the M3 layer.
+    # Documented + reversible (reaction kept, only its forced lower bound is released).
+    for rid in (relax_pinned or []):
+        if rid in model.reactions:
+            r = model.reactions.get_by_id(rid)
+            if r.lower_bound > 0.0:
+                print(f"[smoment_gem] relaxed pinned uncosted reaction {rid} "
+                      f"(lb {r.lower_bound:.4g} -> 0; ub kept {r.upper_bound:.4g}); "
+                      f"maintenance is the M3 NGAM(T) layer.")
+                r.lower_bound = 0.0
+                closed_sinks.append(f"{rid}(lb->0)")
     entries = []
     with open(kcat_csv, newline="") as fh:
         for row in csv.DictReader(fh):

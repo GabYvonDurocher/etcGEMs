@@ -1,0 +1,17 @@
+{
+  "mu": 0.0185,
+  "ch4": 8.049,
+  "H2_per_CH4": 4.122,
+  "CO2_per_CH4": 1.061,
+  "ch4_per_biomass": 435.4,
+  "pool_ub": 0.1125,
+  "pool_used": 0.1125,
+  "pool_binds": true,
+  "mcr_mass_g": 0.04470357120732101,
+  "mcr_pct_pool": 39.7,
+  "plain_fba_mu": 0.548,
+  "lit_mu_max": "0.23-0.35",
+  "closed_free_o2_sinks": [
+    "rxn00062_LSQBKT_c0_RSQBKT_(lb->0)"
+  ]
+}
