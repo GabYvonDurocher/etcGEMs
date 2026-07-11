@@ -23,10 +23,13 @@ organism:
 
 provider:
   type: fba                   # PLACEHOLDER (M1): base GEM, plain FBA. -> enzyme-constrained in M2.
-  model_file: iMR539.xml      # file under strains/mmaripaludis/model/
+  model_file: iMR539_curated.xml   # M1b carbon-honest autotroph (original iMR539.xml kept alongside)
   biomass_rxn: biomass0
   # ModelSEED-style SBML (cpd/rxn IDs, [c0]/[e0] compartments); no fbc package
   # (bounds/objective in the legacy COBRA notes). Loaded with cobra directly in M1.
+  # M1b curation (see outputs/M1b_curation.md): archaellin removed from biomass (resolves
+  # Membrane_lipid/NAC/Flagellin), tRNA(SeCys) recycling restored, organic-C leaks closed,
+  # CH4 unpinned. Grows autotrophically on H2/CO2 with 99.98% of biomass carbon from CO2.
 
 T0_C: 30
 

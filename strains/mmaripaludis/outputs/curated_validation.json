@@ -1,0 +1,20 @@
+{
+  "mu": 0.548,
+  "H2_per_CH4": 4.12,
+  "CO2_per_CH4": 1.06,
+  "co2_carbon_in": 257.224,
+  "pct_carbon_from_CO2": 99.9776,
+  "vitamin_trace_carbon": 0.0577,
+  "vitamin_traces": [
+    [
+      "cpd00305_e0",
+      "Thiamin[e0]"
+    ],
+    [
+      "cpd00355_e0",
+      "Nicotinamide_ribonucleotide[e0]"
+    ]
+  ],
+  "no_H2_mu": 0.0,
+  "no_CO2_mu": 0.0
+}
