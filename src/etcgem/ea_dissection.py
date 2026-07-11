@@ -298,7 +298,7 @@ def _ea_org_with_kinetics(pm, pert, grid, Topt_arr, uCpt_arr):
     return Ea
 
 
-def robustness(pm, pert, grid, spreads=(0.0, 0.5, 1.0, 1.5, 2.0)) -> Dict:
+def robustness(pm, pert, grid, spreads=(0.0, 0.5, 0.75, 1.0, 1.25)) -> Dict:
     """HOMOGENISE (all enzymes -> common mean kinetics) and SPREAD sensitivity (scale the
     per-enzyme Topt/dCpt deviation about the mean). Reports how Ea_org responds to enzyme
     heterogeneity. Temporary array overrides, restored after."""
