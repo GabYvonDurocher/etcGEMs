@@ -1,3 +1,9 @@
+> **DEPRECATED convention.** This is the windowed-Arrhenius-slope version (Ea_org 0.909).
+> The Ea-definition audit showed the windowed slope is severely window-dependent
+> (0.42-1.41 eV/curve), so the analysis was **re-based to the window-independent
+> Sharpe-Schoolfield E** — see `../ea_dissection_ss/NOTE.md` (Ea_org 0.68, matching observed
+> 0.56). This note is kept only as a cross-check; the report uses the SS-E version.
+
 # What sets the organism-level activation energy (Ea) of the E. coli growth TPC
 
 A mechanistic dissection on the **tuned** model (P2 v3 posterior medians), rich BHI, growth
