@@ -518,7 +518,13 @@ def from_gem_smoment(model_path: str, kcat_csv: str, T0: float = 310.15,
                      biomass_rxn: Optional[str] = None,
                      default_kcat: float = 25.0, default_mw: float = 40.0,
                      close_free_sinks: Optional[List[str]] = None,
-                     relax_pinned: Optional[List[str]] = None) -> ProvidedModel:
+                     relax_pinned: Optional[List[str]] = None,
+                     thermal_model: str = "mmrt",
+                     enzyme_params: Optional[str] = None,
+                     enzyme_params_key: str = "rxn_id",
+                     ngam_temperature: bool = False, ngam_rxn: Optional[str] = None,
+                     ngam_base_scale: float = 1.0,
+                     dcp_prior_kJ: float = -4.0) -> ProvidedModel:
     """Attach a temperature-INDEPENDENT sMOMENT total-protein pool to a plain GEM.
 
     This is the methanogen route: the base GEM (iMR539_curated) carries no GECKO
@@ -555,9 +561,10 @@ def from_gem_smoment(model_path: str, kcat_csv: str, T0: float = 310.15,
             r = model.reactions.get_by_id(rid)
             if r.lower_bound > 0.0:
                 print(f"[smoment_gem] relaxed pinned uncosted reaction {rid} "
-                      f"(lb {r.lower_bound:.4g} -> 0; ub kept {r.upper_bound:.4g}); "
+                      f"(lb {r.lower_bound:.4g} -> 0; ub {r.upper_bound:.4g} -> 1000); "
                       f"maintenance is the M3 NGAM(T) layer.")
                 r.lower_bound = 0.0
+                r.upper_bound = max(r.upper_bound, 1000.0)  # headroom for the NGAM(T) lower bound
                 closed_sinks.append(f"{rid}(lb->0)")
     entries = []
     with open(kcat_csv, newline="") as fh:
@@ -582,10 +589,21 @@ def from_gem_smoment(model_path: str, kcat_csv: str, T0: float = 310.15,
         budget = float(budget_override)
     else:
         budget = calibrate_budget(model, table, T0, biomass_rxn, target_fraction)
-    # Single total-protein pool only (no allocation sub-budgets -- that is the M3
-    # sector layer; group labels are kept on the entries for diagnostics).
+    # M3 thermal envelope: overlay grounded per-enzyme Topt/Tm/length/dCpt (unfolding mode)
+    # before the model precomputes its two-state thermodynamics. Keyed by rxn_id (each
+    # methanogen reaction has one representative UniProt); report coverage.
+    if thermal_model == "unfolding" and enzyme_params:
+        params_df = load_enzyme_thermal_params(enzyme_params)
+        n_match, n_tot = apply_thermal_params(table, params_df, key=enzyme_params_key)
+        print(f"[smoment_gem] unfolding: matched grounded Topt/Tm for "
+              f"{n_match}/{n_tot} enzymes ({100*n_match/max(1,n_tot):.0f}%); rest at dataset means")
+    # Single total-protein pool only (no allocation sub-budgets -- that is the sector layer;
+    # group labels are kept on the entries for diagnostics).
     ec = EnzymeConstrainedModel(model, table, default_budget=budget,
-                                thermal_model="mmrt")
+                                thermal_model=thermal_model,
+                                ngam_temperature=ngam_temperature, ngam_rxn=ngam_rxn,
+                                ngam_base_scale=ngam_base_scale,
+                                unfold_means={"dCpt": dcp_prior_kJ * 1000.0})
     ec.model.objective = biomass_rxn
     return ProvidedModel(ec=ec, T0=T0, biomass_rxn=biomass_rxn,
                          name=f"smoment_gem:{model.id}", closed_free_o2_sinks=closed_sinks)

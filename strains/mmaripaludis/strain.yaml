@@ -40,7 +40,15 @@ provider:
   default_kcat: 25.0          # fallback if a CSV kcat is missing/non-positive
   close_free_sinks: null      # M2 PART D audit: no free ferredoxin/electron shortcut found
   relax_pinned:               # M2 PART D: release iMR539's hard-pinned uncosted ATP drain
-    - rxn00062_LSQBKT_c0_RSQBKT_   # "protein-secreting ATPase" fixed 5.12 mmol/gDW/h -> 0-floor (M3 NGAM(T))
+    - rxn00062_LSQBKT_c0_RSQBKT_   # "protein-secreting ATPase" fixed 5.12 mmol/gDW/h -> becomes NGAM(T)
+  # --- M3 thermal envelope (temperature-DEPENDENT; two-state unfolding) ---
+  thermal_model: unfolding    # kcat(T) MMRT (Eyring) x native fraction f_N(T); falling limb set by Tm
+  enzyme_params: thermal/enzyme_thermal_params.csv  # per-rxn Topt (mesophile prior)/Tm/Length/dCpt
+  enzyme_params_key: rxn_id
+  dcp_prior_kJ: -4.0          # literature MMRT dCp prior (Hobbs 2013); Ea EMERGES, not fitted
+  ngam_temperature: true      # temperature-dependent maintenance NGAM(T)
+  ngam_reaction: rxn00062_LSQBKT_c0_RSQBKT_   # the deferred ATP drain, now driven by NGAM(T)
+  ngam_base_scale: 1.3021     # anchors NGAM(37C) = 7.836 mmol ATP/gDW/h (Goyal 2015 measured)
 
 T0_C: 37                      # methanogen reference temperature (Jones 1983 optimum ~38 C)
 

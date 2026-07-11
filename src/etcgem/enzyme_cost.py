@@ -183,7 +183,8 @@ class EnzymeConstrainedModel:
                  group_budgets: Optional[Dict[str, float]] = None,
                  thermal_model: str = "mmrt", ngam_temperature: bool = False,
                  ngam_rxn: Optional[str] = None,
-                 unfold_means: Optional[Dict[str, float]] = None):
+                 unfold_means: Optional[Dict[str, float]] = None,
+                 ngam_base_scale: float = 1.0):
         self.model = model
         self.table = EnzymeCostTable(
             [e for e in table.entries if e.rxn_id in model.reactions]
@@ -203,6 +204,10 @@ class EnzymeConstrainedModel:
         # temperature-dependent maintenance term (unfolding only).
         self.thermal_model = thermal_model
         self.ngam_temperature = bool(ngam_temperature)
+        # Base multiplier on the NGAM(T) amplitude (default 1.0 = E. coli ngam_T baseline).
+        # Anchors the maintenance amplitude on an organism-specific measured NGAM (e.g. the
+        # methanogen sets this from Goyal 2015). Applied on top of the pert.ngam_scale knob.
+        self.ngam_base_scale = float(ngam_base_scale)
         um = unfold_means or {}
         self._unfold_mean_Tm = float(um.get("Tm", 273.15 + 55.6))   # thesis mean 55.6 C
         self._unfold_mean_len = float(um.get("length", 300.0))
@@ -357,7 +362,8 @@ class EnzymeConstrainedModel:
                 and self._ngam_rxn is not None):
             from . import unfolding as U
             if self._sectors is None:
-                val = U.ngam_T(T, scale=pert.ngam_scale, steepness=pert.ngam_steepness)
+                val = U.ngam_T(T, scale=pert.ngam_scale * self.ngam_base_scale,
+                               steepness=pert.ngam_steepness)
                 self._ngam_rxn.lower_bound = val
                 self._ngam_rxn.upper_bound = max(val, self._ngam_rxn.upper_bound)
             else:

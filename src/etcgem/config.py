@@ -184,6 +184,11 @@ def build_provider(cfg: Dict[str, Any]):
             cand = os.path.join(strain_dir(cfg["_strain"]), kcat_csv)
             if os.path.exists(cand):
                 kcat_csv = cand
+        enzyme_params = p.get("enzyme_params")
+        if enzyme_params and not os.path.isabs(enzyme_params) and cfg.get("_strain"):
+            cand = os.path.join(strain_dir(cfg["_strain"]), enzyme_params)
+            if os.path.exists(cand):
+                enzyme_params = cand
         p_total = p.get("p_total")
         sigma = p.get("sigma", 0.45)
         budget_override = None
@@ -199,6 +204,13 @@ def build_provider(cfg: Dict[str, Any]):
             default_kcat=p.get("default_kcat", 25.0),
             close_free_sinks=p.get("close_free_sinks"),
             relax_pinned=p.get("relax_pinned"),
+            thermal_model=p.get("thermal_model", "mmrt"),
+            enzyme_params=enzyme_params,
+            enzyme_params_key=p.get("enzyme_params_key", "rxn_id"),
+            ngam_temperature=p.get("ngam_temperature", False),
+            ngam_rxn=p.get("ngam_reaction"),
+            ngam_base_scale=p.get("ngam_base_scale", 1.0),
+            dcp_prior_kJ=p.get("dcp_prior_kJ", -4.0),
         )
         if budget_override is not None:
             print(f"[emergent] pool budget = P_total({p_total}) x f_metab({f_metab}) "
