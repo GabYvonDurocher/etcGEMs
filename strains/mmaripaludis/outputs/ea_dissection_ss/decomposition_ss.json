@@ -36,7 +36,7 @@
     "aggregation": 0.2177
   },
   "closure_check": 1.0558,
-  "allocation_note": "0 by the single sMOMENT pool (no growth law / sectors). Grounded in slow growth (~10x slower than E. coli): the Scott growth-law buffer is weak; a sector layer would make the comparison exactly symmetric (deferred).",
+  "allocation_note": "MEASURED +0.000 on the sectored model (constant-ribosome-fraction flat growth law, Muller 2021), symmetric with E. coli's measured -0.130 (Scott scaling law) -- not a structural 0.",
   "backbone_attribution": {
     "backbone_contrib_sum": 0.9011,
     "total_contrib_sum": 1.0156,
@@ -202,5 +202,12 @@
       "Ea_kcat_E": 0.5959,
       "contrib": 0.0135
     }
-  ]
+  ],
+  "sectored_confirmation": {
+    "model": "sectored (proteome_sectors.enabled=true; flat growth law, Muller 2021)",
+    "binding_constraint_at_control_T": "metabolic pool (used=ub=0.1125); ribosome/bio cap SLACK (0.016<0.031)",
+    "control_coefficients": "UNCHANGED vs single pool (same binding constraint) -> M5 C_i reused, decomposition numerically identical",
+    "allocation_term": "now MEASURED on the sectored model = SS-E(GL on, slope 0) - SS-E(GL off) = +0.000 eV (was a structural 0 in the single-pool M5); grounded in the constant-ribosome-fraction strategy (Muller 2021)",
+    "vs_ecoli_allocation": -0.13
+  }
 }
