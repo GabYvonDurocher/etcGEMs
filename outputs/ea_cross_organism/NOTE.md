@@ -1,5 +1,14 @@
 # Why methanogenesis Ea > respiration: E. coli vs M. maripaludis (Sharpe–Schoolfield E)
 
+> **FINALISED (symmetric, M5b).** Both organisms now carry a proteome-sector/growth-law layer,
+> so the allocation term is **measured** for each, not structural. E. coli: Scott scaling law →
+> allocation **−0.130**. M. maripaludis: constant-ribosome-fraction *flat* growth law (Müller
+> 2021) → allocation **+0.000** (directly measured on the sectored model; binding constraint
+> unchanged, M5 control coefficients valid). The allocation asymmetry is grounded in each
+> organism's **own measured allocation strategy**. Paper-ready assets:
+> `comparison_table_final.csv`, `cross_organism_decomposition_final.png`, the two
+> `ea_dissection_ss/decomposition_ss.json`, `mcr_sweep.csv`. (The M5 originals are kept.)
+
 The culminating cross-organism analysis. Both organisms dissected identically: organism Ea =
 window-independent Sharpe–Schoolfield E; per-enzyme Ea_i = rising-limb Arrhenius E of
 kcat_i(T) (folding term separated); MCA control coefficients C_i; a 4-term decomposition with
@@ -75,9 +84,11 @@ control-weighting + allocation alone (+0.37) already match the +0.38 difference.
   end of its 3–294/s range. Pinning the mesophilic-Mcr kcat is the key remaining measurement.
 
 ## Caveats (stated, not hidden)
-1. **Allocation asymmetry:** the methanogen is single-pool (no sector/growth-law layer), so
-   the allocation buffer is 0 by construction. Grounded in slow growth, but a methanogen
-   sector layer would make the −0.13 vs 0 comparison exactly symmetric (deferred).
+1. **Allocation asymmetry — RESOLVED (M6/M5b):** the methanogen now carries its own
+   sector/growth-law layer (Müller 2021 flat, constant ribosome fraction), so the allocation
+   buffer is a **measured +0.000** (not a structural 0), symmetric with E. coli's measured
+   −0.130 (Scott). The comparison is now on equal footing; the buffer difference is grounded
+   in each organism's own allocation physiology.
 2. **Aggregation term** is the largest and most definition-sensitive; the robust conclusion
    rests on control-weighting + allocation, not on it.
 3. **Mcr kcat 3–294/s** — the ordering + backbone finding are robust across it, but the
