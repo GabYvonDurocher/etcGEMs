@@ -1,0 +1,159 @@
+{
+  "strain": "mmaripaludis",
+  "curve": {
+    "curve_id": "Jones1983_JJ_H2CO2",
+    "study": "Jones, Paynter & Gupta 1983",
+    "strain": "M. maripaludis (type strain JJ)",
+    "medium": "H2/CO2 defined",
+    "n": 11,
+    "temp_min_C": 15.01165501,
+    "temp_max_C": 51.72494172,
+    "obs_rmax": 0.180605416,
+    "obs_Topt_C": 37.03962704,
+    "units": "1/h",
+    "has_sd": false
+  },
+  "medium": "H2/CO2",
+  "operating_point": "methanogen H2/CO2, thermal ecModel (unfolding+NGAM(T)), single sMOMENT pool, growth law OFF",
+  "solver": "gurobi",
+  "preflight_single_solve_ms": 11.1,
+  "sampler": {
+    "n_walkers": 40,
+    "n_steps": 6000,
+    "n_steps_max": 6000,
+    "burn": 494,
+    "thin": 123,
+    "warm_started": true,
+    "stop_reason": "n_steps_max (6000)",
+    "acceptance_fraction": 0.332,
+    "autocorr_time_max": 247.1,
+    "n_eff": 891.3,
+    "wall_time_s": 1887.3,
+    "n_proc": 10,
+    "seed": 1
+  },
+  "posterior": {
+    "kcat_scale": {
+      "emergent": 1.0,
+      "posterior_median": 7.2235,
+      "posterior_90CI": [
+        6.2152,
+        8.5418
+      ],
+      "demanded_correction": "x7.22",
+      "constrained_by_curve": true
+    },
+    "dTopt": {
+      "emergent": 0.0,
+      "posterior_median": -2.7178,
+      "posterior_90CI": [
+        -3.1452,
+        -2.2823
+      ],
+      "demanded_correction": "-2.7 K",
+      "constrained_by_curve": true
+    },
+    "topt_scale": {
+      "emergent": 1.0,
+      "posterior_median": 0.9139,
+      "posterior_90CI": [
+        0.7351,
+        1.0828
+      ],
+      "demanded_correction": "x0.91",
+      "constrained_by_curve": false
+    },
+    "dCp_scale": {
+      "emergent": 1.0,
+      "posterior_median": 1.2876,
+      "posterior_90CI": [
+        1.0624,
+        1.54
+      ],
+      "demanded_correction": "x1.29",
+      "constrained_by_curve": true
+    },
+    "dTm": {
+      "emergent": 0.0,
+      "posterior_median": 2.3054,
+      "posterior_90CI": [
+        -0.734,
+        6.1683
+      ],
+      "demanded_correction": "+2.3 K",
+      "constrained_by_curve": true
+    },
+    "tm_scale": {
+      "emergent": 1.0,
+      "posterior_median": 0.9463,
+      "posterior_90CI": [
+        0.7636,
+        1.1635
+      ],
+      "demanded_correction": "x0.95",
+      "constrained_by_curve": false
+    },
+    "ngam_scale": {
+      "emergent": 1.0,
+      "posterior_median": 1.2374,
+      "posterior_90CI": [
+        0.741,
+        2.0093
+      ],
+      "demanded_correction": "x1.24",
+      "constrained_by_curve": false
+    },
+    "ngam_steepness": {
+      "emergent": 1.0,
+      "posterior_median": 1.0188,
+      "posterior_90CI": [
+        0.5454,
+        1.9761
+      ],
+      "demanded_correction": "x1.02",
+      "constrained_by_curve": false
+    },
+    "sigma_disc": {
+      "emergent": null,
+      "posterior_median": 0.0062,
+      "posterior_90CI": [
+        0.0039,
+        0.0116
+      ],
+      "demanded_correction": "x0.01",
+      "constrained_by_curve": null
+    }
+  },
+  "descriptors": {
+    "observed": {
+      "rmax": 0.181,
+      "Topt_C": 37.04,
+      "Ea_eV": 0.66,
+      "CTmax_C": 51.095
+    },
+    "emergent_prior": {
+      "rmax": 0.0,
+      "Topt_C": NaN,
+      "Ea_eV": NaN,
+      "CTmax_C": NaN
+    },
+    "posterior_median": {
+      "rmax": 0.186,
+      "Topt_C": 35.323,
+      "Ea_eV": 1.161,
+      "CTmax_C": 49.322
+    },
+    "posterior_at_obs_temps": {
+      "rmax": 0.184,
+      "Topt_C": 37.0,
+      "CTmax_C": 51.1,
+      "Ea_eV": 0.846,
+      "note": "model evaluated at the 11 Jones temps (same basis as observed); the dense-grid Ea 1.16 is window-sensitive"
+    }
+  },
+  "fit_quality": {
+    "rmse_per_h": 0.0047,
+    "max_abs_resid_per_h": 0.01,
+    "reaches_peak": true
+  }
+}
