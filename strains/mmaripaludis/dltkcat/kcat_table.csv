@@ -2,7 +2,7 @@ rxn_id,mw_kDa,kcat_s,source,group
 rxn02483_LSQBKT_c0_RSQBKT_,16.28,4.8748,fallback_mean,Protocatechuate branch of beta-ketoadipate pathway
 rxn00802_LSQBKT_c0_RSQBKT_,54.052,16.5945,dltkcat,Arginine Biosynthesis
 rxn03638_LSQBKT_c0_RSQBKT_,90.564,5.3986,dltkcat,Peptidoglycan Biosynthesis
-rxn06078_LSQBKT_c0_RSQBKT_,16.905,0.6216,dltkcat,Methionine Biosynthesis
+rxn06078_LSQBKT_c0_RSQBKT_,16.905,1.0,dltkcat_floored,Methionine Biosynthesis
 rxn12636_LSQBKT_c0_RSQBKT_,32.597,4.8748,fallback_mean,Protein Degradation
 rxn12644_LSQBKT_c0_RSQBKT_,32.597,4.8748,fallback_mean,Protein Degradation
 rxn03492_LSQBKT_c0_RSQBKT_,28.037,4.8748,fallback_mean,Coenzyme B12 Biosynthesis
@@ -18,20 +18,20 @@ rxn12637_LSQBKT_c0_RSQBKT_,32.597,4.8748,fallback_mean,Protein Degradation
 rxn00321_LSQBKT_c0_RSQBKT_,49.186,24.5744,dltkcat,Lysine Degradation
 rxn07586_LSQBKT_c0_RSQBKT_,36.935,4.8748,fallback_mean,Coenzyme B12 Biosynthesis
 rxn00902_LSQBKT_c0_RSQBKT_,55.481,9.7028,dltkcat,Branched Chain Amino Acid Biosynthesis
-rxn00952_LSQBKT_c0_RSQBKT_,16.905,0.6216,dltkcat,Methionine Biosynthesis
+rxn00952_LSQBKT_c0_RSQBKT_,16.905,1.0,dltkcat_floored,Methionine Biosynthesis
 rxn10230_LSQBKT_c0_RSQBKT_,22.482,4.8748,fallback_mean,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
-rxn02056_LSQBKT_c0_RSQBKT_,23.267,0.018,dltkcat,Heme and Siroheme Biosynthesis
+rxn02056_LSQBKT_c0_RSQBKT_,23.267,1.0,dltkcat_floored,Heme and Siroheme Biosynthesis
 rxn00459_LSQBKT_c0_RSQBKT_,45.929,14.2374,dltkcat,Glycolysis and Gluconeogenesis
 rxn10225_LSQBKT_c0_RSQBKT_,19.831,4.8748,fallback_mean,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
 rxn08311_LSQBKT_c0_RSQBKT_,19.831,4.8748,fallback_mean,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
 rxn01101_LSQBKT_c0_RSQBKT_,34.993,42.5931,dltkcat,Serine Biosynthesis
-rxn00302_LSQBKT_c0_RSQBKT_,35.607,0.0293,dltkcat,Folate Biosynthesis
+rxn00302_LSQBKT_c0_RSQBKT_,35.607,1.0,dltkcat_floored,Folate Biosynthesis
 rxn05145_LSQBKT_c0_RSQBKT_,58.647,4.8748,fallback_mean,Transport
 rxn02988_LSQBKT_c0_RSQBKT_,34.059,6.8567,dltkcat,NAD/NADP Cofactor Biosynthesis
-rxn07307_LSQBKT_c0_RSQBKT_,26.618,0.7228,dltkcat,Coenzyme M Biosynthesis
-rxn02937_LSQBKT_c0_RSQBKT_,32.477,0.7217,dltkcat,De Novo Purine Biosynthesis
+rxn07307_LSQBKT_c0_RSQBKT_,26.618,1.0,dltkcat_floored,Coenzyme M Biosynthesis
+rxn02937_LSQBKT_c0_RSQBKT_,32.477,1.0,dltkcat_floored,De Novo Purine Biosynthesis
 rxn00558_LSQBKT_c0_RSQBKT_,49.256,5.1576,dltkcat,Glycolysis and Gluconeogenesis
-rxn01406_LSQBKT_c0_RSQBKT_,31.816,0.2112,dltkcat,Polyamine Metabolism
+rxn01406_LSQBKT_c0_RSQBKT_,31.816,1.0,dltkcat_floored,Polyamine Metabolism
 rxn00187_LSQBKT_c0_RSQBKT_,49.421,6.334,dltkcat,Glutamine/Glutamate/Aspartate/Asparagine Biosynthesis
 rxn01200_LSQBKT_c0_RSQBKT_,30.264,4.8748,fallback_mean,Pentose Phosphate Pathway
 rxn05232_LSQBKT_c0_RSQBKT_,87.969,4.8748,fallback_mean,Ribonucleotide Reduction
@@ -39,14 +39,14 @@ rxn00835_LSQBKT_c0_RSQBKT_,33.441,2.3618,dltkcat,Purine Conversions
 rxn12844_LSQBKT_c0_RSQBKT_,32.597,27.9026,dltkcat,Protein Degradation
 rxn01678_LSQBKT_c0_RSQBKT_,15.292,29.0038,dltkcat,Purine Conversions
 rxn09208_LSQBKT_c0_RSQBKT_,22.482,4.8748,fallback_mean,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
-rxn10060_LSQBKT_c0_RSQBKT_,62.594,0.3885,dltkcat,NAD/NADP Cofactor Biosynthesis
-rxn00100_LSQBKT_c0_RSQBKT_,15.817,0.6819,dltkcat,Coenzyme A Biosynthesis
-rxn01018_LSQBKT_c0_RSQBKT_,16.715,0.0935,dltkcat,De Novo Pyrimidine Synthesis
+rxn10060_LSQBKT_c0_RSQBKT_,62.594,1.0,dltkcat_floored,NAD/NADP Cofactor Biosynthesis
+rxn00100_LSQBKT_c0_RSQBKT_,15.817,1.0,dltkcat_floored,Coenzyme A Biosynthesis
+rxn01018_LSQBKT_c0_RSQBKT_,16.715,1.0,dltkcat_floored,De Novo Pyrimidine Synthesis
 rxn00806_LSQBKT_c0_RSQBKT_,31.67,2.6378,dltkcat,Branched Chain Amino Acid Biosynthesis
 rxn02834_LSQBKT_c0_RSQBKT_,25.741,3.2119,dltkcat,Histidine Biosynthesis
 rxn02341_LSQBKT_c0_RSQBKT_,19.308,2.8441,dltkcat,Coenzyme A Biosynthesis
-rxn03175_LSQBKT_c0_RSQBKT_,26.205,0.0577,dltkcat,Histidine Biosynthesis
-rxn00786_LSQBKT_c0_RSQBKT_,33.942,0.9189,dltkcat,Glycolysis and Gluconeogenesis
+rxn03175_LSQBKT_c0_RSQBKT_,26.205,1.0,dltkcat_floored,Histidine Biosynthesis
+rxn00786_LSQBKT_c0_RSQBKT_,33.942,1.0,dltkcat_floored,Glycolysis and Gluconeogenesis
 rxn01637_LSQBKT_c0_RSQBKT_,42.843,102.8576,dltkcat,Arginine Biosynthesis
 rxn12640_LSQBKT_c0_RSQBKT_,32.597,4.8748,fallback_mean,Protein Degradation
 rxn05596_LSQBKT_c0_RSQBKT_,23.861,4.8748,fallback_mean,Transport
@@ -73,18 +73,18 @@ rxn02113_LSQBKT_c0_RSQBKT_,30.096,4.8748,fallback_mean,"Acetoin, Butanediol Meta
 rxn00117_LSQBKT_c0_RSQBKT_,15.292,4.8748,fallback_mean,Purine Conversions; Pyrimidine Conversions
 rxn00555_LSQBKT_c0_RSQBKT_,67.138,21.7952,dltkcat,Formaldehyde Assimilation: Ribulose Monophosphate Pathway
 rxn00260_LSQBKT_c0_RSQBKT_,41.781,1.2231,dltkcat,Amino Acid Biosynthesis
-rxn02484_LSQBKT_c0_RSQBKT_,45.193,0.0739,dltkcat,Thiamin Biosynthesis
+rxn02484_LSQBKT_c0_RSQBKT_,45.193,1.0,dltkcat_floored,Thiamin Biosynthesis
 rxn00527_LSQBKT_c0_RSQBKT_,83.716,66.3441,dltkcat,Amino Acid Biosynthesis
 rxn05171_LSQBKT_c0_RSQBKT_,27.295,9.6283,dltkcat,Transport
 rxn04052_LSQBKT_c0_RSQBKT_,22.537,4.8748,fallback_mean,Coenzyme B12 Biosynthesis
-rxn04045_LSQBKT_c0_RSQBKT_,16.107,0.0049,dltkcat,Coenzyme B12 Biosynthesis
+rxn04045_LSQBKT_c0_RSQBKT_,16.107,1.0,dltkcat_floored,Coenzyme B12 Biosynthesis
 rxn01974_LSQBKT_c0_RSQBKT_,30.835,4.8748,fallback_mean,Lysine Biosynthesis DAP Pathway
 rxn12645_LSQBKT_c0_RSQBKT_,32.597,4.8748,fallback_mean,Protein Degradation
-rxn00299_LSQBKT_c0_RSQBKT_,35.607,0.0293,dltkcat,Folate Biosynthesis
+rxn00299_LSQBKT_c0_RSQBKT_,35.607,1.0,dltkcat_floored,Folate Biosynthesis
 rxn00839_LSQBKT_c0_RSQBKT_,15.292,38.8809,dltkcat,Purine Conversions; Pyrimidine Conversions
 rxn03020_LSQBKT_c0_RSQBKT_,186.578,62.19,measured_core,Methanogenesis
 rxn00283_LSQBKT_c0_RSQBKT_,41.536,54.8764,dltkcat,Alanine Biosynthesis
-rxn01022_LSQBKT_c0_RSQBKT_,28.61,0.7872,dltkcat,Methionine Salvage
+rxn01022_LSQBKT_c0_RSQBKT_,28.61,1.0,dltkcat_floored,Methionine Salvage
 rxn10221_LSQBKT_c0_RSQBKT_,19.831,4.8748,fallback_mean,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
 rxn09177_LSQBKT_c0_RSQBKT_,19.308,5.7722,dltkcat,Coenzyme A Biosynthesis
 rxn03437_LSQBKT_c0_RSQBKT_,58.718,4.8748,fallback_mean,Branched Chain Amino Acid Biosynthesis
@@ -93,12 +93,12 @@ rxn07587_LSQBKT_c0_RSQBKT_,40.103,4.8748,fallback_mean,Coenzyme B12 Biosynthesis
 rxn02507_LSQBKT_c0_RSQBKT_,25.414,4.8748,fallback_mean,Tryptophan Synthesis
 rxn00669_LSQBKT_c0_RSQBKT_,71.808,14.8014,dltkcat,Protein Acetylation and Deacetylation in Bacteria
 rxn01333_LSQBKT_c0_RSQBKT_,23.442,4.8748,fallback_mean,Folate Biosynthesis; Pentose Phosphate Pathway
-rxn00714_LSQBKT_c0_RSQBKT_,15.24,0.1244,dltkcat,Pyrimidine Conversions
+rxn00714_LSQBKT_c0_RSQBKT_,15.24,1.0,dltkcat_floored,Pyrimidine Conversions
 rxn01434_LSQBKT_c0_RSQBKT_,44.58,1.5245,dltkcat,Arginine Biosynthesis
 rxn01116_LSQBKT_c0_RSQBKT_,24.023,4.8748,fallback_mean,Pentose Phosphate Pathway
 rxn08308_LSQBKT_c0_RSQBKT_,19.831,4.8748,fallback_mean,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
 rxn00409_LSQBKT_c0_RSQBKT_,15.292,47.2977,dltkcat,Purine Conversions; Pyrimidine Conversions
-rxn02213_LSQBKT_c0_RSQBKT_,24.532,0.4889,dltkcat,Chorismate Synthesis
+rxn02213_LSQBKT_c0_RSQBKT_,24.532,1.0,dltkcat_floored,Chorismate Synthesis
 rxn03062_LSQBKT_c0_RSQBKT_,35.318,3.9675,dltkcat,Branched Chain Amino Acid Biosynthesis
 rxn03446_LSQBKT_c0_RSQBKT_,43.782,4.8748,fallback_mean,Threonine and Homoserine Biosynthesis
 rxn01519_LSQBKT_c0_RSQBKT_,17.723,6.9521,dltkcat,Folate Biosynthesis
@@ -108,7 +108,7 @@ rxn01964_LSQBKT_c0_RSQBKT_,71.651,4.8748,fallback_mean,Tryptophan Synthesis
 rxn12510_LSQBKT_c0_RSQBKT_,32.09,4.8748,fallback_mean,Coenzyme A Biosynthesis
 rxn09207_LSQBKT_c0_RSQBKT_,22.482,4.3338,dltkcat,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
 rxn02380_LSQBKT_c0_RSQBKT_,49.256,4.8748,fallback_mean,Glycolysis and Gluconeogenesis
-rxn00474_LSQBKT_c0_RSQBKT_,71.651,0.1309,dltkcat,Tryptophan Synthesis
+rxn00474_LSQBKT_c0_RSQBKT_,71.651,1.0,dltkcat_floored,Tryptophan Synthesis
 rxn03435_LSQBKT_c0_RSQBKT_,36.604,4.8748,fallback_mean,Coenzyme A Biosynthesis; Branched Chain Amino Acid Biosynthesis
 rxn01673_LSQBKT_c0_RSQBKT_,15.292,28.78,dltkcat,Purine Conversions; Pyrimidine Conversions
 rxn12845_LSQBKT_c0_RSQBKT_,32.597,53.428,dltkcat,Protein Degradation
@@ -118,7 +118,7 @@ rxn00295_LSQBKT_c0_RSQBKT_,34.364,182.6351,dltkcat,N-Linked Glycosylation in Bac
 rxn02187_LSQBKT_c0_RSQBKT_,36.604,4.8748,fallback_mean,"Valine, Leucine, and Isoleucine Biosynthesis"
 rxn01219_LSQBKT_c0_RSQBKT_,20.212,3.4235,dltkcat,Pyrimidine Conversions
 rxn03514_LSQBKT_c0_RSQBKT_,27.625,4.8748,fallback_mean,Coenzyme B12 Biosynthesis
-rxn01270_LSQBKT_c0_RSQBKT_,41.781,0.0072,dltkcat,Phenylalanine and Tyrosine Branches from Chorismate
+rxn01270_LSQBKT_c0_RSQBKT_,41.781,1.0,dltkcat_floored,Phenylalanine and Tyrosine Branches from Chorismate
 rxn08309_LSQBKT_c0_RSQBKT_,19.831,4.8748,fallback_mean,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
 rxn08312_LSQBKT_c0_RSQBKT_,19.831,4.8748,fallback_mean,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
 rxn05144_LSQBKT_c0_RSQBKT_,20.632,4.1704,dltkcat,Pyridoxin(Vitamin B6) Biosynthesis
@@ -130,7 +130,7 @@ rxn01607_LSQBKT_c0_RSQBKT_,35.202,4.8748,fallback_mean,Isoprenoid Biosynthesis; 
 rxn01000_LSQBKT_c0_RSQBKT_,30.315,5.6756,dltkcat,Phenylalanine and Tyrosine Branches from Chorismate
 rxn00675_LSQBKT_c0_RSQBKT_,71.808,7.83,dltkcat,Protein Acetylation and Deacetylation in Bacteria
 rxn02305_LSQBKT_c0_RSQBKT_,22.358,2.0865,dltkcat,Thiamin Biosynthesis
-rxn02296_LSQBKT_c0_RSQBKT_,27.453,0.1213,dltkcat,Biotin Biosynthesis
+rxn02296_LSQBKT_c0_RSQBKT_,27.453,1.0,dltkcat_floored,Biotin Biosynthesis
 rxn12641_LSQBKT_c0_RSQBKT_,32.597,167.335,dltkcat,Protein Degradation
 rxn10315_LSQBKT_c0_RSQBKT_,33.369,4.8748,fallback_mean,Teichoic and Lipoteichoic Acids Biosynthesis
 rxn00711_LSQBKT_c0_RSQBKT_,25.973,15.4839,dltkcat,De Novo Pyrimidine Synthesis
@@ -140,13 +140,13 @@ rxn05250_LSQBKT_c0_RSQBKT_,62.374,4.8748,fallback_mean,Unsaturated Fatty Acid Bi
 rxn03174_LSQBKT_c0_RSQBKT_,35.607,4.8748,fallback_mean,Folate Biosynthesis
 rxn00763_LSQBKT_c0_RSQBKT_,42.456,44.8235,dltkcat,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
 rxn00138_LSQBKT_c0_RSQBKT_,28.563,9.3477,dltkcat,NAD/NADP Cofactor Biosynthesis
-rxn03136_LSQBKT_c0_RSQBKT_,50.715,0.1051,dltkcat,De Novo Purine Biosynthesis
+rxn03136_LSQBKT_c0_RSQBKT_,50.715,1.0,dltkcat_floored,De Novo Purine Biosynthesis
 rxn05165_LSQBKT_c0_RSQBKT_,29.989,4.0177,dltkcat,Transport
 rxn00988_LSQBKT_c0_RSQBKT_,62.374,49.3403,dltkcat,Branched Chain Amino Acid Degradation Regulons
 rxn05236_LSQBKT_c0_RSQBKT_,87.969,22.5414,dltkcat,Ribonucleotide Reduction
 rxn02835_LSQBKT_c0_RSQBKT_,25.741,1.3377,dltkcat,Histidine Biosynthesis
 rxn00726_LSQBKT_c0_RSQBKT_,71.701,23.5113,dltkcat,Tryptophan Synthesis
-rxn03147_LSQBKT_c0_RSQBKT_,27.763,0.0154,dltkcat,De Novo Purine Biosynthesis
+rxn03147_LSQBKT_c0_RSQBKT_,27.763,1.0,dltkcat_floored,De Novo Purine Biosynthesis
 rxn00650_LSQBKT_c0_RSQBKT_,32.597,190.3146,dltkcat,Protein Degradation
 rxn01241_LSQBKT_c0_RSQBKT_,43.811,8.8222,dltkcat,TCA Cycle
 rxn10229_LSQBKT_c0_RSQBKT_,22.482,4.8748,fallback_mean,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
@@ -154,7 +154,7 @@ rxn00776_LSQBKT_c0_RSQBKT_,30.405,3.2384,dltkcat,tRNA Modification (Bacteria); r
 rxn12646_LSQBKT_c0_RSQBKT_,32.597,109.9558,dltkcat,Protein Degradation
 rxn09296_LSQBKT_c0_RSQBKT_,8.633,4.8748,fallback_mean,"Glycine Reductase, Sarcosine Reductase, and Betaine Reductase"
 rxn01255_LSQBKT_c0_RSQBKT_,40.808,4.8748,fallback_mean,Chorismate Synthesis
-rxn03194_LSQBKT_c0_RSQBKT_,82.679,0.1244,dltkcat,"Branched Chain Amino Acid Biosynthesis; Acetoin, Butanediol Metabolism"
+rxn03194_LSQBKT_c0_RSQBKT_,82.679,1.0,dltkcat_floored,"Branched Chain Amino Acid Biosynthesis; Acetoin, Butanediol Metabolism"
 rxn10222_LSQBKT_c0_RSQBKT_,19.831,4.8748,fallback_mean,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
 rxn11938_LSQBKT_c0_RSQBKT_,34.12,8.53,measured_core,Methanogenesis
 rxn02287_LSQBKT_c0_RSQBKT_,26.115,4.8748,fallback_mean,Coenzyme B12 Biosynthesis
@@ -164,8 +164,8 @@ rxn02774_LSQBKT_c0_RSQBKT_,23.267,4.8748,fallback_mean,Heme and Siroheme Biosynt
 rxn05172_LSQBKT_c0_RSQBKT_,27.295,4.4726,dltkcat,Transport
 rxn03057_LSQBKT_c0_RSQBKT_,35.931,4.8748,fallback_mean,Methionine Salvage
 rxn01485_LSQBKT_c0_RSQBKT_,49.384,4.8748,fallback_mean,Sialic Acid Metabolism
-rxn00245_LSQBKT_c0_RSQBKT_,20.904,0.6124,dltkcat,None
-rxn01629_LSQBKT_c0_RSQBKT_,47.426,0.7435,dltkcat,Heme and Siroheme Biosynthesis
+rxn00245_LSQBKT_c0_RSQBKT_,20.904,1.0,dltkcat_floored,None
+rxn01629_LSQBKT_c0_RSQBKT_,47.426,1.0,dltkcat_floored,Heme and Siroheme Biosynthesis
 rxn06874_LSQBKT_c0_RSQBKT_,249.675,4.8748,fallback_mean,Nitrogen Fixation
 rxn06299_LSQBKT_c0_RSQBKT_,120.693,201.15,measured_core,Methanogenesis
 rxn05313_LSQBKT_c0_RSQBKT_,58.984,6.1276,dltkcat,Transport
@@ -176,28 +176,28 @@ rxn00011_LSQBKT_c0_RSQBKT_,82.679,4.8748,fallback_mean,Methionine Degradation
 rxn00292_LSQBKT_c0_RSQBKT_,40.851,2.1831,dltkcat,Sialic Acid Metabolism
 rxn05252_LSQBKT_c0_RSQBKT_,62.374,4.8748,fallback_mean,Unsaturated Fatty Acid Biosynthesis; Biotin Biosynthesis
 rxn05155_LSQBKT_c0_RSQBKT_,27.161,1.2852,dltkcat,Transport
-rxn01513_LSQBKT_c0_RSQBKT_,22.723,0.5162,dltkcat,Pyrimidine Conversions
+rxn01513_LSQBKT_c0_RSQBKT_,22.723,1.0,dltkcat_floored,Pyrimidine Conversions
 rxn02476_LSQBKT_c0_RSQBKT_,46.474,17.3946,dltkcat,Chorismate Synthesis
 rxn01575_LSQBKT_c0_RSQBKT_,31.67,1.5567,dltkcat,Amino Acid Biosynthesis
 rxn09206_LSQBKT_c0_RSQBKT_,22.482,4.8748,fallback_mean,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
-rxn05181_LSQBKT_c0_RSQBKT_,29.989,0.1701,dltkcat,Transport
-rxn00775_LSQBKT_c0_RSQBKT_,19.539,0.0272,dltkcat,NAD/NADP Cofactor Biosynthesis
+rxn05181_LSQBKT_c0_RSQBKT_,29.989,1.0,dltkcat_floored,Transport
+rxn00775_LSQBKT_c0_RSQBKT_,19.539,1.0,dltkcat_floored,NAD/NADP Cofactor Biosynthesis
 rxn00364_LSQBKT_c0_RSQBKT_,20.212,4.8748,fallback_mean,Pyrimidine Conversions
 rxn00515_LSQBKT_c0_RSQBKT_,15.292,81.5824,dltkcat,Purine Conversions; Pyrimidine Conversions
-rxn01025_LSQBKT_c0_RSQBKT_,15.653,0.0516,dltkcat,Pyrimidine Conversions
+rxn01025_LSQBKT_c0_RSQBKT_,15.653,1.0,dltkcat_floored,Pyrimidine Conversions
 rxn02186_LSQBKT_c0_RSQBKT_,36.604,4.8748,fallback_mean,Coenzyme A Biosynthesis; Branched Chain Amino Acid Biosynthesis
 rxn10227_LSQBKT_c0_RSQBKT_,22.482,4.8748,fallback_mean,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
 rxn12846_LSQBKT_c0_RSQBKT_,32.597,4.3321,dltkcat,Protein Degradation
 rxn05201_LSQBKT_c0_RSQBKT_,42.919,4.8748,fallback_mean,Transport
 rxn02789_LSQBKT_c0_RSQBKT_,18.248,3.2112,dltkcat,Branched Chain Amino Acid Biosynthesis
 rxn00830_LSQBKT_c0_RSQBKT_,38.74,4.8748,fallback_mean,Isoprenoid Biosynthesis; Archaeal Lipids
-rxn08180_LSQBKT_c0_RSQBKT_,37.125,0.4928,dltkcat,Biotin Biosynthesis
-rxn00800_LSQBKT_c0_RSQBKT_,50.715,0.1409,dltkcat,De Novo Purine Biosynthesis
+rxn08180_LSQBKT_c0_RSQBKT_,37.125,1.0,dltkcat_floored,Biotin Biosynthesis
+rxn00800_LSQBKT_c0_RSQBKT_,50.715,1.0,dltkcat_floored,De Novo Purine Biosynthesis
 rxn05234_LSQBKT_c0_RSQBKT_,87.969,24.4933,dltkcat,Ribonucleotide Reduction
 rxn01465_LSQBKT_c0_RSQBKT_,47.175,4.8748,fallback_mean,De Novo Pyrimidine Synthesis
 rxn00863_LSQBKT_c0_RSQBKT_,46.184,5.7115,dltkcat,Histidine Biosynthesis
 rxn09449_LSQBKT_c0_RSQBKT_,62.374,4.8748,fallback_mean,Unsaturated Fatty Acid Biosynthesis; Biotin Biosynthesis
-rxn03436_LSQBKT_c0_RSQBKT_,36.604,0.1999,dltkcat,Coenzyme A Biosynthesis; Branched Chain Amino Acid Biosynthesis
+rxn03436_LSQBKT_c0_RSQBKT_,36.604,1.0,dltkcat_floored,Coenzyme A Biosynthesis; Branched Chain Amino Acid Biosynthesis
 rxn08307_LSQBKT_c0_RSQBKT_,19.831,4.8748,fallback_mean,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
 rxn05555_LSQBKT_c0_RSQBKT_,72.478,4.8748,fallback_mean,Transport
 rxn02159_LSQBKT_c0_RSQBKT_,46.184,7.7997,dltkcat,Histidine Biosynthesis
@@ -205,7 +205,7 @@ rxn00727_LSQBKT_c0_RSQBKT_,71.701,23.5113,dltkcat,Tryptophan Synthesis
 rxn04385_LSQBKT_c0_RSQBKT_,14.393,4.8748,fallback_mean,Coenzyme B12 Biosynthesis
 rxn01300_LSQBKT_c0_RSQBKT_,32.453,4.0932,dltkcat,Methionine Biosynthesis
 rxn00175_LSQBKT_c0_RSQBKT_,71.808,62.6909,dltkcat,"Pyruvate Metabolism II: Acetyl-CoA, Acetogenesis from Pyruvate"
-rxn06979_LSQBKT_c0_RSQBKT_,14.69,0.1221,dltkcat,Coenzyme B12 Biosynthesis
+rxn06979_LSQBKT_c0_RSQBKT_,14.69,1.0,dltkcat_floored,Coenzyme B12 Biosynthesis
 rxn12642_LSQBKT_c0_RSQBKT_,32.597,58.2954,dltkcat,Protein Degradation
 rxn05247_LSQBKT_c0_RSQBKT_,62.374,165.5543,dltkcat,Unsaturated Fatty Acid Biosynthesis; Biotin Biosynthesis
 rxn00986_LSQBKT_c0_RSQBKT_,71.808,7.83,dltkcat,Protein Acetylation and Deacetylation in Bacteria
@@ -216,7 +216,7 @@ rxn12634_LSQBKT_c0_RSQBKT_,32.597,4.8748,fallback_mean,Protein Degradation
 rxn01269_LSQBKT_c0_RSQBKT_,50.037,16.6449,dltkcat,Chorismate Synthesis
 rxn04048_LSQBKT_c0_RSQBKT_,27.625,4.8748,fallback_mean,Coenzyme B12 Biosynthesis
 rxn00278_LSQBKT_c0_RSQBKT_,39.654,39.4305,dltkcat,Pyruvate Alanine Serine Interconversions
-rxn00790_LSQBKT_c0_RSQBKT_,50.828,0.3557,dltkcat,De Novo Purine Biosynthesis
+rxn00790_LSQBKT_c0_RSQBKT_,50.828,1.0,dltkcat_floored,De Novo Purine Biosynthesis
 rxn00060_LSQBKT_c0_RSQBKT_,33.953,20.8795,dltkcat,Heme and Siroheme Biosynthesis
 rxn04050_LSQBKT_c0_RSQBKT_,28.037,4.8748,fallback_mean,Coenzyme B12 Biosynthesis
 rxn02473_LSQBKT_c0_RSQBKT_,21.218,4.8748,fallback_mean,Histidine Biosynthesis
@@ -230,14 +230,14 @@ rxn00105_LSQBKT_c0_RSQBKT_,19.878,4.8748,fallback_mean,NAD/NADP Cofactor Biosynt
 rxn00799_LSQBKT_c0_RSQBKT_,20.904,13.497,dltkcat,TCA Cycle
 rxn00313_LSQBKT_c0_RSQBKT_,47.953,4.8748,fallback_mean,Lysine Biosynthesis DAP Pathway
 rxn10226_LSQBKT_c0_RSQBKT_,22.482,4.8748,fallback_mean,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
-rxn05248_LSQBKT_c0_RSQBKT_,62.374,0.3497,dltkcat,Unsaturated Fatty Acid Biosynthesis; Biotin Biosynthesis
+rxn05248_LSQBKT_c0_RSQBKT_,62.374,1.0,dltkcat_floored,Unsaturated Fatty Acid Biosynthesis; Biotin Biosynthesis
 rxn10223_LSQBKT_c0_RSQBKT_,19.831,4.8748,fallback_mean,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
 rxn00285_LSQBKT_c0_RSQBKT_,70.118,8.1989,dltkcat,TCA Cycle
 rxn10307_LSQBKT_c0_RSQBKT_,33.369,4.8748,fallback_mean,Teichoic and Lipoteichoic Acids Biosynthesis
 rxn00770_LSQBKT_c0_RSQBKT_,31.026,65.6026,dltkcat,Pentose Phosphate Pathway; De Novo Purine Biosynthesis
 rxn00192_LSQBKT_c0_RSQBKT_,43.749,1.9946,dltkcat,Arginine Biosynthesis
-rxn05938_LSQBKT_c0_RSQBKT_,136.494,0.2571,dltkcat,Pyruvate:Ferredoxin Oxidoreductase
-rxn00211_LSQBKT_c0_RSQBKT_,47.252,0.0999,dltkcat,Sucrose Metabolism; Teichuronic Acid Biosynthesis
+rxn05938_LSQBKT_c0_RSQBKT_,136.494,16.83,literature_override,Pyruvate:Ferredoxin Oxidoreductase
+rxn00211_LSQBKT_c0_RSQBKT_,47.252,1.0,dltkcat_floored,Sucrose Metabolism; Teichuronic Acid Biosynthesis
 rxn04783_LSQBKT_c0_RSQBKT_,42.908,81.7076,dltkcat,De Novo Purine Biosynthesis
 rxn01739_LSQBKT_c0_RSQBKT_,30.411,28.0953,dltkcat,Chorismate Synthesis
 rxn00543_LSQBKT_c0_RSQBKT_,42.456,15.0918,dltkcat,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
@@ -246,20 +246,20 @@ rxn06591_LSQBKT_c0_RSQBKT_,43.612,4.8748,fallback_mean,Heme and Siroheme Biosynt
 rxn00126_LSQBKT_c0_RSQBKT_,44.292,2.432,dltkcat,Methionine Biosynthesis
 rxn00414_LSQBKT_c0_RSQBKT_,160.07,4.6418,dltkcat,De Novo Pyrimidine Synthesis
 rxn06937_LSQBKT_c0_RSQBKT_,64.095,4.8748,fallback_mean,tRNA Aminoacylation; Heme and Siroheme Biosynthesis
-rxn03127_LSQBKT_c0_RSQBKT_,176.758,8.84,measured_core,Methanogenesis
+rxn03127_LSQBKT_c0_RSQBKT_,176.758,58.92,measured_core,Methanogenesis
 rxn10312_LSQBKT_c0_RSQBKT_,33.369,4.8748,fallback_mean,Teichoic and Lipoteichoic Acids Biosynthesis
 rxn02508_LSQBKT_c0_RSQBKT_,23.621,4.8748,fallback_mean,Tryptophan Synthesis
 rxn00127_LSQBKT_c0_RSQBKT_,13.472,4.8748,fallback_mean,Polyamine Metabolism
 rxn05251_LSQBKT_c0_RSQBKT_,62.374,4.8748,fallback_mean,Unsaturated Fatty Acid Biosynthesis; Biotin Biosynthesis
-rxn02938_LSQBKT_c0_RSQBKT_,16.987,0.019,dltkcat,De Novo Purine Biosynthesis
+rxn02938_LSQBKT_c0_RSQBKT_,16.987,1.0,dltkcat_floored,De Novo Purine Biosynthesis
 rxn00139_LSQBKT_c0_RSQBKT_,18.982,2.8473,dltkcat,cAMP Signaling in Bacteria; Purine Conversions
 rxn05736_LSQBKT_c0_RSQBKT_,62.374,4.8748,fallback_mean,Unsaturated Fatty Acid Biosynthesis; Biotin Biosynthesis
 rxn05527_LSQBKT_c0_RSQBKT_,43.729,699.3144,dltkcat,Transport
 rxn02465_LSQBKT_c0_RSQBKT_,37.784,4.8748,fallback_mean,Arginine Biosynthesis
 rxn09205_LSQBKT_c0_RSQBKT_,22.482,4.8748,fallback_mean,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
-rxn05957_LSQBKT_c0_RSQBKT_,16.905,0.1442,dltkcat,Methionine Biosynthesis
+rxn05957_LSQBKT_c0_RSQBKT_,16.905,1.0,dltkcat_floored,Methionine Biosynthesis
 rxn03513_LSQBKT_c0_RSQBKT_,27.907,4.8748,fallback_mean,Coenzyme B12 Biosynthesis
-rxn00549_LSQBKT_c0_RSQBKT_,42.515,0.2655,dltkcat,Glycolysis and Gluconeogenesis
+rxn00549_LSQBKT_c0_RSQBKT_,42.515,1.0,dltkcat_floored,Glycolysis and Gluconeogenesis
 rxn01257_LSQBKT_c0_RSQBKT_,21.931,44.7085,dltkcat,Folate Biosynthesis; Tryptophan Synthesis
 rxn01740_LSQBKT_c0_RSQBKT_,30.781,116.8373,dltkcat,Chorismate Synthesis
 rxn12847_LSQBKT_c0_RSQBKT_,32.597,22.3442,dltkcat,Protein Degradation
@@ -268,10 +268,10 @@ rxn01620_LSQBKT_c0_RSQBKT_,20.11,4.8748,fallback_mean,L-Fucose Utilization
 rxn00903_LSQBKT_c0_RSQBKT_,31.67,3.6949,dltkcat,Amino Acid Biosynthesis
 rxn00947_LSQBKT_c0_RSQBKT_,62.374,10.0355,dltkcat,HMG CoA Synthesis
 rxn10310_LSQBKT_c0_RSQBKT_,33.369,4.8748,fallback_mean,Teichoic and Lipoteichoic Acids Biosynthesis
-rxn00838_LSQBKT_c0_RSQBKT_,36.573,0.7867,dltkcat,Histidine Biosynthesis; Purine Conversions
+rxn00838_LSQBKT_c0_RSQBKT_,36.573,1.0,dltkcat_floored,Histidine Biosynthesis; Purine Conversions
 rxn00297_LSQBKT_c0_RSQBKT_,40.851,2.1831,dltkcat,Sialic Acid Metabolism
 rxn00065_LSQBKT_c0_RSQBKT_,21.851,4.8748,fallback_mean,cAMP Signaling in Bacteria
-rxn00141_LSQBKT_c0_RSQBKT_,45.834,0.3716,dltkcat,Methionine Biosynthesis/Degradation
+rxn00141_LSQBKT_c0_RSQBKT_,45.834,1.0,dltkcat_floored,Methionine Biosynthesis/Degradation
 rxn01454_LSQBKT_c0_RSQBKT_,37.738,18.388,dltkcat,Isoprenoid Biosynthesis; Archaeal Lipids
 rxn00337_LSQBKT_c0_RSQBKT_,50.772,111.3796,dltkcat,Lysine Biosynthesis DAP Pathway; Threonine and Homoserine Biosynthesis
 rxn00777_LSQBKT_c0_RSQBKT_,25.658,6.4013,dltkcat,Pentose Phosphate Pathway
@@ -280,15 +280,15 @@ rxn01466_LSQBKT_c0_RSQBKT_,35.802,4.8748,fallback_mean,Archaeal Lipids
 rxn02185_LSQBKT_c0_RSQBKT_,82.679,4.8748,fallback_mean,"Branched Chain Amino Acid Synthesis; Acetoin, Butanediol Metabolism"
 rxn03406_LSQBKT_c0_RSQBKT_,49.421,4.8748,fallback_mean,Peptidoglycan Biosynthesis; Amino Acid Biosynthesis
 rxn01106_LSQBKT_c0_RSQBKT_,44.464,112.645,dltkcat,Glycolysis and Gluconeogenesis; Theronine and Homoserine Biosynthesis
-rxn00293_LSQBKT_c0_RSQBKT_,90.564,0.721,dltkcat,Peptidoglycan Biosynthesis
+rxn00293_LSQBKT_c0_RSQBKT_,90.564,1.0,dltkcat_floored,Peptidoglycan Biosynthesis
 rxn05740_LSQBKT_c0_RSQBKT_,60.191,2.6507,dltkcat,Glycogen Metabolism
-rxn11544_LSQBKT_c0_RSQBKT_,14.69,0.0052,dltkcat,Coenzyme B12 Biosynthesis
+rxn11544_LSQBKT_c0_RSQBKT_,14.69,1.0,dltkcat_floored,Coenzyme B12 Biosynthesis
 rxn02277_LSQBKT_c0_RSQBKT_,21.13,4.8748,fallback_mean,Biotin Biosynthesis
 rxn12638_LSQBKT_c0_RSQBKT_,32.597,4.8748,fallback_mean,Protein Degradation
 rxn02480_LSQBKT_c0_RSQBKT_,34.823,87.06,measured_core,Methanogenesis
 rxn12643_LSQBKT_c0_RSQBKT_,32.597,107.442,dltkcat,Protein Degradation
 rxn03079_LSQBKT_c0_RSQBKT_,29.907,2002.4804,dltkcat,Methanogenesis
-rxn02264_LSQBKT_c0_RSQBKT_,27.507,0.6959,dltkcat,Heme and Siroheme Biosynthesis
+rxn02264_LSQBKT_c0_RSQBKT_,27.507,1.0,dltkcat_floored,Heme and Siroheme Biosynthesis
 rxn05209_LSQBKT_c0_RSQBKT_,42.143,7.4975,dltkcat,Transport
 rxn08306_LSQBKT_c0_RSQBKT_,19.831,4.8748,fallback_mean,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
 rxn00148_LSQBKT_c0_RSQBKT_,50.143,4.8748,fallback_mean,Glycolysis and Gluconeogenesis
@@ -297,15 +297,15 @@ rxn05197_LSQBKT_c0_RSQBKT_,42.919,2.7071,dltkcat,Transport
 rxn05289_LSQBKT_c0_RSQBKT_,32.747,4.8748,fallback_mean,Thioredoxin-disulfide Reductase; Pyrimidine Conversions
 rxn10228_LSQBKT_c0_RSQBKT_,22.482,4.8748,fallback_mean,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
 rxn01977_LSQBKT_c0_RSQBKT_,49.256,5.1576,dltkcat,Glycolysis and Gluconeogenesis
-rxn09448_LSQBKT_c0_RSQBKT_,62.374,0.678,dltkcat,Unsaturated Fatty Acid Biosynthesis; Biotin Biosynthesis
+rxn09448_LSQBKT_c0_RSQBKT_,62.374,1.0,dltkcat_floored,Unsaturated Fatty Acid Biosynthesis; Biotin Biosynthesis
 rxn03421_LSQBKT_c0_RSQBKT_,35.607,4.8748,fallback_mean,Folate Biosynthesis
 rxn12635_LSQBKT_c0_RSQBKT_,32.597,93.3354,dltkcat,Protein Degradation
-rxn00213_LSQBKT_c0_RSQBKT_,31.726,0.5365,dltkcat,Sucrose Metabolism
+rxn00213_LSQBKT_c0_RSQBKT_,31.726,1.0,dltkcat_floored,Sucrose Metabolism
 rxn10314_LSQBKT_c0_RSQBKT_,33.369,4.8748,fallback_mean,Teichoic and Lipoteichoic Acids Biosynthesis
 rxn00493_LSQBKT_c0_RSQBKT_,83.716,41.9399,dltkcat,Amino Acid Biosynthesis
-rxn00789_LSQBKT_c0_RSQBKT_,31.561,0.0191,dltkcat,Histidine Biosynthesis
+rxn00789_LSQBKT_c0_RSQBKT_,31.561,1.0,dltkcat_floored,Histidine Biosynthesis
 rxn06077_LSQBKT_c0_RSQBKT_,18.151,4.8748,fallback_mean,Peptide Methionine Sufoxide Reductase
-rxn02895_LSQBKT_c0_RSQBKT_,48.796,0.6077,dltkcat,De Novo Purine Biosynthesis
+rxn02895_LSQBKT_c0_RSQBKT_,48.796,1.0,dltkcat_floored,De Novo Purine Biosynthesis
 rxn09211_LSQBKT_c0_RSQBKT_,22.482,4.8748,fallback_mean,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
 rxn02312_LSQBKT_c0_RSQBKT_,52.877,46.4007,dltkcat,Biotin Biosynthesis
 rxn00438_LSQBKT_c0_RSQBKT_,34.731,4.8748,fallback_mean,Thiamin Biosynthesis
@@ -316,15 +316,15 @@ rxn02431_LSQBKT_c0_RSQBKT_,32.09,53.48,measured_core,Methanogenesis
 rxn01999_LSQBKT_c0_RSQBKT_,40.899,4.8748,fallback_mean,None
 rxn01362_LSQBKT_c0_RSQBKT_,20.257,13.0522,dltkcat,De Novo Pyrimidine Synthesis
 rxn06493_LSQBKT_c0_RSQBKT_,43.811,4.8748,fallback_mean,Glycine and Serine Utilization
-rxn02402_LSQBKT_c0_RSQBKT_,31.388,0.9106,dltkcat,NAD/NADP Cofactor Biosynthesis
+rxn02402_LSQBKT_c0_RSQBKT_,31.388,1.0,dltkcat_floored,NAD/NADP Cofactor Biosynthesis
 rxn10224_LSQBKT_c0_RSQBKT_,19.831,4.8748,fallback_mean,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
 rxn10231_LSQBKT_c0_RSQBKT_,22.482,4.8748,fallback_mean,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
 rxn02811_LSQBKT_c0_RSQBKT_,63.656,10.7519,dltkcat,Branched Chain Amino Acid Biosynthesis
-rxn05939_LSQBKT_c0_RSQBKT_,96.4,0.2302,dltkcat,TCA Cycle
+rxn05939_LSQBKT_c0_RSQBKT_,96.4,11.99,literature_override,TCA Cycle
 rxn01019_LSQBKT_c0_RSQBKT_,34.084,1615.8284,dltkcat,Arginine Biosynthesis
 rxn00412_LSQBKT_c0_RSQBKT_,59.546,1.6477,dltkcat,Pyrimidine Conversions
 rxn08310_LSQBKT_c0_RSQBKT_,19.831,4.8748,fallback_mean,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
-rxn03135_LSQBKT_c0_RSQBKT_,22.676,0.2283,dltkcat,Histidine Biosynthesis
+rxn03135_LSQBKT_c0_RSQBKT_,22.676,1.0,dltkcat_floored,Histidine Biosynthesis
 rxn00469_LSQBKT_c0_RSQBKT_,46.968,1347.517,dltkcat,Arginine Biosynthesis
 rxn12512_LSQBKT_c0_RSQBKT_,19.308,4.8748,fallback_mean,Coenzyme A Biosynthesis
 rxn00791_LSQBKT_c0_RSQBKT_,34.87,2.2594,dltkcat,Tryptophan Synthesis
@@ -334,7 +334,7 @@ rxn00914_LSQBKT_c0_RSQBKT_,33.441,1.5225,dltkcat,Purine Conversions
 rxn03843_LSQBKT_c0_RSQBKT_,30.993,4.8748,fallback_mean,Isoprenoid Biosynthesis
 rxn01329_LSQBKT_c0_RSQBKT_,49.384,3525.7186,dltkcat,Mannose Metabolism
 rxn04047_LSQBKT_c0_RSQBKT_,27.907,4.8748,fallback_mean,Coenzyme B12 Biosynthesis
-rxn05177_LSQBKT_c0_RSQBKT_,34.899,0.0127,dltkcat,Transport
+rxn05177_LSQBKT_c0_RSQBKT_,34.899,1.0,dltkcat_floored,Transport
 rxn01353_LSQBKT_c0_RSQBKT_,15.292,13.4084,dltkcat,Purine Conversions; Pyrimidine Conversions
 rxn00077_LSQBKT_c0_RSQBKT_,62.594,4.8748,fallback_mean,NAD/NADP Cofactor Biosynthesis
 rxn09450_LSQBKT_c0_RSQBKT_,62.374,4.3582,dltkcat,Unsaturated Fatty Acid Biosynthesis; Biotin Biosynthesis
@@ -348,15 +348,15 @@ rxn01790_LSQBKT_c0_RSQBKT_,33.848,1.5601,dltkcat,Coenzyme A Biosynthesis; Branch
 rxn03075_LSQBKT_c0_RSQBKT_,28.378,4.8748,fallback_mean,Thiamin Biosynthesis
 rxn00747_LSQBKT_c0_RSQBKT_,18.11,4.8748,fallback_mean,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
 rxn00707_LSQBKT_c0_RSQBKT_,20.212,5.3328,dltkcat,Pyrimidine Conversions
-rxn03108_LSQBKT_c0_RSQBKT_,45.193,0.0431,dltkcat,Thiamin Biosynthesis
+rxn03108_LSQBKT_c0_RSQBKT_,45.193,1.0,dltkcat_floored,Thiamin Biosynthesis
 rxn03512_LSQBKT_c0_RSQBKT_,22.537,4.8748,fallback_mean,Coenzyme B12 Synthesis
 rxn00237_LSQBKT_c0_RSQBKT_,15.292,4.8748,fallback_mean,Purine Conversions; Pyrimidine Conversions
-rxn00420_LSQBKT_c0_RSQBKT_,23.347,0.764,dltkcat,Glycine and Serine Utilization; Serine Biosynthesis
+rxn00420_LSQBKT_c0_RSQBKT_,23.347,1.0,dltkcat_floored,Glycine and Serine Utilization; Serine Biosynthesis
 rxn00001_LSQBKT_c0_RSQBKT_,33.707,4.8748,fallback_mean,HPr Catabolite Repression System
 rxn10313_LSQBKT_c0_RSQBKT_,33.369,4.8748,fallback_mean,Teichoic and Lipoteichoic Acids Biosynthesis
 rxn01268_LSQBKT_c0_RSQBKT_,50.037,16.6449,dltkcat,Chorismate Synthesis
 rxn10220_LSQBKT_c0_RSQBKT_,19.831,4.8748,fallback_mean,Glycerolipid and Glycerophospholipid Metabolism (Bacteria)
-rxn00858_LSQBKT_c0_RSQBKT_,32.045,0.1117,dltkcat,Polyamine Metabnolism; Arginine and Ornithine Degradation
+rxn00858_LSQBKT_c0_RSQBKT_,32.045,1.0,dltkcat_floored,Polyamine Metabnolism; Arginine and Ornithine Degradation
 rxn05195_LSQBKT_c0_RSQBKT_,102.969,4.8748,fallback_mean,Transport
 rxn03393_LSQBKT_c0_RSQBKT_,67.683,22.7794,dltkcat,Hydroxyaromatic Decarboxylase Family
 rxn05388_LSQBKT_c0_RSQBKT_,37.738,4.8748,fallback_mean,Fatty Acid Biosynthesis
@@ -364,7 +364,7 @@ rxn05359_LSQBKT_c0_RSQBKT_,37.738,4.8748,fallback_mean,Fatty Acid Biosynthesis
 rxn02288_LSQBKT_c0_RSQBKT_,78.824,4.8748,fallback_mean,Heme and Siroheme Biosynthesis
 rxn08766_LSQBKT_c0_RSQBKT_,37.738,4.8748,fallback_mean,None
 rxn05396_LSQBKT_c0_RSQBKT_,37.738,4.8748,fallback_mean,Fatty Acid Biosynthesis
-rxn01675_LSQBKT_c0_RSQBKT_,45.282,0.5487,dltkcat,dTDP-Rhamnose Synthesis
+rxn01675_LSQBKT_c0_RSQBKT_,45.282,1.0,dltkcat_floored,dTDP-Rhamnose Synthesis
 rxn01644_LSQBKT_c0_RSQBKT_,31.584,4.8748,fallback_mean,Lysine Biosynthesis DAP Pathway
 rxn01997_LSQBKT_c0_RSQBKT_,34.364,24.7323,dltkcat,dTDP-Rhamnose Synthesis
 rxn05379_LSQBKT_c0_RSQBKT_,37.738,4.8748,fallback_mean,Fatty Acid Biosynthesis
@@ -372,15 +372,15 @@ rxn05371_LSQBKT_c0_RSQBKT_,37.738,4.8748,fallback_mean,Fatty Acid Biosynthesis
 rxn00300_LSQBKT_c0_RSQBKT_,27.803,1.346,dltkcat,"Riboflavin, FMN, and FAD Metabolism"
 rxn03397_LSQBKT_c0_RSQBKT_,26.109,4.8748,fallback_mean,Ubiquionine Biosynthesis
 rxn10481_LSQBKT_c0_RSQBKT_,29.722,4.8748,fallback_mean,Transport
-rxn02914_LSQBKT_c0_RSQBKT_,41.851,0.2301,dltkcat,Glycine and Serine Utilization; Serine Biosynthesis; Pyridoxin Biosynthesis
+rxn02914_LSQBKT_c0_RSQBKT_,41.851,1.0,dltkcat_floored,Glycine and Serine Utilization; Serine Biosynthesis; Pyridoxin Biosynthesis
 rxn05054_LSQBKT_c0_RSQBKT_,34.145,4.8748,fallback_mean,Coenzyme B12 Biosynthesis
-rxn02160_LSQBKT_c0_RSQBKT_,21.218,0.2274,dltkcat,Histidine Biosynthesis
+rxn02160_LSQBKT_c0_RSQBKT_,21.218,1.0,dltkcat_floored,Histidine Biosynthesis
 rxn12008_LSQBKT_c0_RSQBKT_,35.802,4.8748,fallback_mean,Polyprenyl Diphosphate Biosynthesis
 rxn02269_LSQBKT_c0_RSQBKT_,47.513,4.8748,fallback_mean,None
 rxn03891_LSQBKT_c0_RSQBKT_,35.802,4.8748,fallback_mean,Polyprenyl Diphosphate Biosynthesis
 rxn00102_LSQBKT_c0_RSQBKT_,16.084,4.8748,fallback_mean,"CO2 Uptake, Carboxysome"
 rxn05513_LSQBKT_c0_RSQBKT_,44.68,4.8748,fallback_mean,Transport
-rxn03030_LSQBKT_c0_RSQBKT_,21.588,0.4936,dltkcat,Lysine Biosynthesis DAP Pathway
+rxn03030_LSQBKT_c0_RSQBKT_,21.588,1.0,dltkcat_floored,Lysine Biosynthesis DAP Pathway
 rxn00119_LSQBKT_c0_RSQBKT_,23.933,18.5897,dltkcat,None
 rxn03919_LSQBKT_c0_RSQBKT_,77.889,4.8748,fallback_mean,LOS Core Oligosaccharide Biosynthesis
 rxn05384_LSQBKT_c0_RSQBKT_,37.738,4.8748,fallback_mean,Fatty Acid Biosynthesis
@@ -394,7 +394,7 @@ rxn05404_LSQBKT_c0_RSQBKT_,37.738,4.8748,fallback_mean,Fatty Acid Biosynthesis
 rxn05392_LSQBKT_c0_RSQBKT_,37.738,4.8748,fallback_mean,Fatty Acid Biosynthesis
 rxn05367_LSQBKT_c0_RSQBKT_,37.738,4.8748,fallback_mean,Fatty Acid Biosynthesis
 rxn03408_LSQBKT_c0_RSQBKT_,40.778,4.8748,fallback_mean,Peptidoglycan Biosynthesis
-rxn06729_LSQBKT_c0_RSQBKT_,21.588,0.1681,dltkcat,KDO2-Lipid A Biosynthesis
+rxn06729_LSQBKT_c0_RSQBKT_,21.588,1.0,dltkcat_floored,KDO2-Lipid A Biosynthesis
 rxn00086_LSQBKT_c0_RSQBKT_,43.811,4.8748,fallback_mean,Glutathione: Redox Cycle
 rxn03086_LSQBKT_c0_RSQBKT_,41.781,1.1539,dltkcat,Lysine Biosynthesis DAP Pathway
 rxn01332_LSQBKT_c0_RSQBKT_,30.315,4.8748,fallback_mean,Chorismate Synthesis
@@ -408,8 +408,8 @@ rxn05375_LSQBKT_c0_RSQBKT_,37.738,4.8748,fallback_mean,Fatty Acid Biosynthesis
 rxn09128_LSQBKT_c0_RSQBKT_,38.978,4.8748,fallback_mean,Triacylglycerol Metabolism
 rxn05363_LSQBKT_c0_RSQBKT_,37.738,4.8748,fallback_mean,Fatty Acid Biosynthesis
 rxn03538_LSQBKT_c0_RSQBKT_,28.414,28.488,dltkcat,Coenzyme B12 Biosynthesis; Heme and Siroheme Biosynthesis
-rxn00351_LSQBKT_c0_RSQBKT_,30.964,0.0938,dltkcat,Glutathione Biosynthesis
-rxn01791_LSQBKT_c0_RSQBKT_,43.943,0.6905,dltkcat,Coenzyme A Biosynthesis
+rxn00351_LSQBKT_c0_RSQBKT_,30.964,1.0,dltkcat_floored,Glutathione Biosynthesis
+rxn01791_LSQBKT_c0_RSQBKT_,43.943,1.0,dltkcat_floored,Coenzyme A Biosynthesis
 rxn01501_LSQBKT_c0_RSQBKT_,43.943,1.1655,dltkcat,Isoprenoid Biosynthesis; Archaeal Lipids
 rxn00250_LSQBKT_c0_RSQBKT_,119.307,5912.2311,dltkcat,"Pyruvate Metabolism I: Anaplerotic Reactions, PEP"
 rxn00646_LSQBKT_c0_RSQBKT_,42.531,20.9896,dltkcat,Glutathione Biosynthesis
@@ -424,17 +424,17 @@ rxn00134_LSQBKT_c0_RSQBKT_,33.441,2.3919,dltkcat,Purine Conversions
 HdrABC,55.11,45.92,measured_core,Methanogenesis
 Eha_FSLASH_Ehb,334.219,4.8748,fallback_mean,Methanogenesis
 rxn04042_LSQBKT_c0_RSQBKT_,52.7,14.7861,dltkcat,Glycolysis
-rxn04043_LSQBKT_c0_RSQBKT_,52.7,0.6966,dltkcat,Glycolysis
+rxn04043_LSQBKT_c0_RSQBKT_,52.7,1.0,dltkcat_floored,Glycolysis
 rxn04026_LSQBKT_c0_RSQBKT_,38.748,36.925,dltkcat,Coenzyme M Biosynthesis
 rxn04934_LSQBKT_c0_RSQBKT_,37.095,5.6922,dltkcat,Coenzyme M Biosynthesis
 rxn04036_LSQBKT_c0_RSQBKT_,27.648,4.8748,fallback_mean,Coenzyme M Biosynthesis
-rxn07741_LSQBKT_c0_RSQBKT_,46.764,0.9601,dltkcat,None
+rxn07741_LSQBKT_c0_RSQBKT_,46.764,1.0,dltkcat_floored,None
 rxn05109_LSQBKT_c0_RSQBKT_,53.434,6.4176,dltkcat,None
 rxn02749_LSQBKT_c0_RSQBKT_,45.408,2.037,dltkcat,None
 rxn02751_LSQBKT_c0_RSQBKT_,45.588,260.8324,dltkcat,None
 rxn00735_LSQBKT_c0_RSQBKT_,35.318,7.5785,dltkcat,None
 rxn08043_LSQBKT_c0_RSQBKT_,18.875,20.0517,dltkcat,None
-rxn08764_LSQBKT_c0_RSQBKT_,36.604,0.1999,dltkcat,None
+rxn08764_LSQBKT_c0_RSQBKT_,36.604,1.0,dltkcat_floored,None
 rxn00405_LSQBKT_c0_RSQBKT_,17.584,1.9696,dltkcat,Arginine and Ornithine Degradation
 rxn10561_LSQBKT_c0_RSQBKT_,83.716,27.7429,dltkcat,Amino Acid Biosynthesis
 rxn06696_LSQBKT_c0_RSQBKT_,37.868,100.98,measured_core,Methanogenesis
@@ -443,38 +443,38 @@ Fdh,117.165,97.64,measured_core,Methanogenesis
 Hdr_formate,15.951,12.4206,dltkcat,Methanogenesis
 rxn00249_LSQBKT_c0_RSQBKT_,34.468,61.1086,dltkcat,None
 Tfr,115.384,4.8748,fallback_mean,None
-rxn05215_LSQBKT_c0_RSQBKT_,47.526,0.4075,dltkcat,Transport
-rxn13660_LSQBKT_c0_RSQBKT_,47.526,0.4075,dltkcat,Transport
+rxn05215_LSQBKT_c0_RSQBKT_,47.526,1.0,dltkcat_floored,Transport
+rxn13660_LSQBKT_c0_RSQBKT_,47.526,1.0,dltkcat_floored,Transport
 Dsr_DASH_LP,40.359,4.8748,fallback_mean,Sulfur Assimilation
 rxn10434_LSQBKT_c0_RSQBKT_,43.011,4.8748,dltkcat,Coenzyme B Biosynthesis
 rxn10472_LSQBKT_c0_RSQBKT_,63.323,152.4851,dltkcat,Coenzyme B Biosynthesis
 rxn10612_LSQBKT_c0_RSQBKT_,37.968,4.8748,fallback_mean,Coenzyme B Biosynthesis
 rxn10433_LSQBKT_c0_RSQBKT_,43.011,4.8748,dltkcat,Coenzyme B Biosynthesis
-rxn10595_LSQBKT_c0_RSQBKT_,63.323,0.1145,dltkcat,Coenzyme B Biosynthesis
+rxn10595_LSQBKT_c0_RSQBKT_,63.323,1.0,dltkcat_floored,Coenzyme B Biosynthesis
 rxn10468_LSQBKT_c0_RSQBKT_,63.323,44.6597,dltkcat,Coenzyme B Biosynthesis
 rxn10610_LSQBKT_c0_RSQBKT_,37.968,7.0383,dltkcat,Coenzyme B Biosynthesis
 rxn10435_LSQBKT_c0_RSQBKT_,43.011,4.8748,dltkcat,Coenzyme B Biosynthesis
-rxn10596_LSQBKT_c0_RSQBKT_,63.323,0.0516,dltkcat,Coenzyme B Biosynthesis
+rxn10596_LSQBKT_c0_RSQBKT_,63.323,1.0,dltkcat_floored,Coenzyme B Biosynthesis
 rxn10469_LSQBKT_c0_RSQBKT_,63.323,28.8725,dltkcat,Coenzyme B Biosynthesis
 rxn10611_LSQBKT_c0_RSQBKT_,37.968,37.2187,dltkcat,Coenzyme B Biosynthesis
-MptA,35.607,0.0293,dltkcat,Tetrahydromethanopterin Biosynthesis
+MptA,35.607,1.0,dltkcat_floored,Tetrahydromethanopterin Biosynthesis
 rxn10490_LSQBKT_c0_RSQBKT_,26.006,4.8748,fallback_mean,Tetrahydromethanopterin Biosynthesis
-rxn02504_LSQBKT_c0_RSQBKT_,14.101,0.0822,dltkcat,Tetrahydromethanopterin Biosynthesis
+rxn02504_LSQBKT_c0_RSQBKT_,14.101,1.0,dltkcat_floored,Tetrahydromethanopterin Biosynthesis
 rxn02503_LSQBKT_c0_RSQBKT_,26.828,4.8748,fallback_mean,Tetrahydromethanopterin Biosynthesis
 rxn10446_LSQBKT_c0_RSQBKT_,35.348,23.8037,dltkcat,Tetrahydromethanopterin Biosynthesis
 ADTHs,29.418,4.8748,fallback_mean,Tetrahydromethanopterin Biosynthesis
 ADTHOR,40.003,22.6884,dltkcat,Tetrahydromethanopterin Biosynthesis
 rxn00529_LSQBKT_c0_RSQBKT_,43.145,6.9651,dltkcat,Methanofuran Biosynthesis
 MfnD,34.398,2.6139,dltkcat,Methanofuran Biosynthesis
-MfnB,25.114,0.0558,dltkcat,Methanofuran Biosynthesis
+MfnB,25.114,1.0,dltkcat_floored,Methanofuran Biosynthesis
 MfnC,41.781,4.8748,fallback_mean,Methanofuran Biosynthesis
-F1Pp,23.331,0.1456,dltkcat,Methanofuran Biosynthesis
+F1Pp,23.331,1.0,dltkcat_floored,Methanofuran Biosynthesis
 F1PPc,35.908,8.2951,dltkcat,Methanofuran Biosynthesis
 rxn00097_LSQBKT_c0_RSQBKT_,21.094,4.8748,fallback_mean,Purine Conversions
 rxn10499_LSQBKT_c0_RSQBKT_,77.863,4.8748,fallback_mean,Coenzyme F420 Biosynthesis
 rxn01053_LSQBKT_c0_RSQBKT_,50.981,169.863,dltkcat,Coenzyme F420 Biosynthesis
-rxn10567_LSQBKT_c0_RSQBKT_,24.709,0.5381,dltkcat,Coenzyme F420 Biosynthesis
-rxn10566_LSQBKT_c0_RSQBKT_,34.679,0.7813,dltkcat,Coenzyme F420 Biosynthesis
+rxn10567_LSQBKT_c0_RSQBKT_,24.709,1.0,dltkcat_floored,Coenzyme F420 Biosynthesis
+rxn10566_LSQBKT_c0_RSQBKT_,34.679,1.0,dltkcat_floored,Coenzyme F420 Biosynthesis
 rxn10525_LSQBKT_c0_RSQBKT_,26.989,4.8748,fallback_mean,Coenzyme F420 Biosynthesis
 rxn10526_LSQBKT_c0_RSQBKT_,26.989,4.8748,fallback_mean,Coenzyme F420 Biosynthesis
 rxn10527_LSQBKT_c0_RSQBKT_,32.127,4.8748,fallback_mean,Coenzyme F420 Biosynthesis
@@ -486,11 +486,11 @@ Mot,83.24,19.29,dltkcat,Transport
 HcyS,70.422,4.8748,fallback_mean,Methionine Biosynthesis
 MetS,34.83,114.5936,dltkcat,Methionine Biosynthesis
 H4MPTdUMPm,56.797,827.5927,dltkcat,Pyrimidine Conversions
-rxn02377_LSQBKT_c0_RSQBKT_,47.252,0.3322,dltkcat,None
+rxn02377_LSQBKT_c0_RSQBKT_,47.252,1.0,dltkcat_floored,None
 rxn00298_LSQBKT_c0_RSQBKT_,47.615,27.7365,dltkcat,Archaellin Synthesis
 UGAor,34.363,1.1495,dltkcat,Archaellin Synthesis
 UGNAa,40.899,4.8748,fallback_mean,Archaellin Synthesis
-UGNAna,21.588,0.4936,dltkcat,Archaellin Synthesis
+UGNAna,21.588,1.0,dltkcat_floored,Archaellin Synthesis
 UGNAe,40.851,4.8748,fallback_mean,Archaellin Synthesis
 UMNAat,93.441,4.8748,fallback_mean,Archaellin Synthesis
 2NACmt,25.799,4.8748,fallback_mean,Archaellin Synthesis
@@ -509,7 +509,7 @@ rxn05166_LSQBKT_c0_RSQBKT_,39.827,9146.4978,dltkcat,Transport
 rxn10447_LSQBKT_c0_RSQBKT_,93.941,4.8748,fallback_mean,Transport
 F6PG3Pl,33.942,4.8748,fallback_mean,Methylglyoxal Metabolism
 2OPs,18.11,4.8748,fallback_mean,Methylglyoxal Metabolism
-DKFPs1,33.942,0.9189,dltkcat,Methylglyoxal Metabolism
+DKFPs1,33.942,1.0,dltkcat_floored,Methylglyoxal Metabolism
 DKFPs2,33.942,4.8748,fallback_mean,Methylglyoxal Metabolism
 GLYPs,55.78,66.2192,dltkcat,Methylglyoxal Metabolism
 rxn09249_LSQBKT_c0_RSQBKT_,59.587,4.8748,fallback_mean,Selenocysteine metabolism
@@ -523,6 +523,6 @@ IPk,29.08,4.8748,fallback_mean,Isoprenoid Biosynthesis; Archaeal Lipids
 rxn11998_LSQBKT_c0_RSQBKT_,27.801,4.8748,fallback_mean,Archaeal Lipids
 rxn03114_LSQBKT_c0_RSQBKT_,31.204,4.8748,fallback_mean,Archaeal Lipids
 rxn14345_LSQBKT_c0_RSQBKT_,19.831,4.8748,fallback_mean,Archaeal Lipids
-ARCSs,22.482,0.4645,dltkcat,Archaeal Lipids
+ARCSs,22.482,1.0,dltkcat_floored,Archaeal Lipids
 CDPDGGR,42.545,21.5809,dltkcat,Archaeal Lipids
 ASDGGR,42.545,5.8193,dltkcat,Archaeal Lipids

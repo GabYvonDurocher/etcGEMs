@@ -32,6 +32,14 @@ def main():
         fid = full_id(m, r.rxn_base)
         if fid: core_kcat[fid] = float(r.kcat_s)
 
+    # M2b literature/BRENDA overrides for the flagged high-pool offenders (PFOR, OGOR...)
+    OVR = f"{HERE}/dltkcat/kcat_overrides.csv"
+    override_kcat = {}
+    if os.path.exists(OVR):
+        for _, r in pd.read_csv(OVR).iterrows():
+            fid = full_id(m, r.rxn_base)
+            if fid: override_kcat[fid] = float(r.kcat_s)
+
     # DLTKcat predictions: rxn_id -> kcat (10^pred_log10kcat), averaged if duplicates
     dlt = {}
     if os.path.exists(PRED):
@@ -41,8 +49,15 @@ def main():
     dlt_vals = [v for v in dlt.values() if np.isfinite(v) and v > 0]
     fallback = float(np.median(dlt_vals)) if dlt_vals else 25.0
 
+    # M2b (PART C) documented floor for the untrustworthy DLTKcat archaeal-underprediction
+    # tail: 1.0/s = the lower bound of physiologically-plausible central-metabolic turnover
+    # (the measured methanogen core spans 9-290/s; BRENDA central-C kcats rarely < 1/s).
+    # Applied ONLY to DLTKcat predictions (not to measured/literature/fallback), so genuine
+    # slow measured values (e.g. Mcr, Fwd) are never floored.
+    FLOOR = 1.0
+
     rows, n_core = [], 0
-    n_dlt = n_fb = 0
+    n_dlt = n_fb = n_ovr = n_floored = 0
     for rid, info in mw.items():
         if info.get("mw_kDa") is None:
             continue
@@ -50,8 +65,15 @@ def main():
         grp = _subsys(m, rid)
         if rid in core_kcat:
             kcat, src = core_kcat[rid], "measured_core"; n_core += 1
+        elif rid in override_kcat:
+            kcat, src = override_kcat[rid], "literature_override"; n_ovr += 1
         elif rid in dlt and np.isfinite(dlt[rid]) and dlt[rid] > 0:
-            kcat, src = float(dlt[rid]), "dltkcat"; n_dlt += 1
+            kcat = float(dlt[rid])
+            if kcat < FLOOR:
+                kcat, src = FLOOR, "dltkcat_floored"; n_floored += 1
+            else:
+                src = "dltkcat"
+            n_dlt += 1
         else:
             kcat, src = fallback, "fallback_mean"; n_fb += 1
         rows.append(dict(rxn_id=rid, mw_kDa=round(mwk, 3), kcat_s=round(kcat, 4),
@@ -59,9 +81,10 @@ def main():
     df = pd.DataFrame(rows)
     df.to_csv(OUT, index=False)
     print(f"kcat table: {len(df)} enzymatic reactions -> {OUT}")
-    print(f"  measured_core : {n_core}")
-    print(f"  dltkcat       : {n_dlt}")
-    print(f"  fallback_mean : {n_fb}  (median DLTKcat kcat = {fallback:.2f} 1/s)")
+    print(f"  measured_core       : {n_core}")
+    print(f"  literature_override : {n_ovr}")
+    print(f"  dltkcat             : {n_dlt}  (of which {n_floored} floored to {FLOOR}/s)")
+    print(f"  fallback_mean       : {n_fb}  (median DLTKcat kcat = {fallback:.2f} 1/s)")
     print(f"  kcat 1/s: median={df.kcat_s.median():.2f} "
           f"p10={df.kcat_s.quantile(.1):.2f} p90={df.kcat_s.quantile(.9):.2f}")
 

@@ -1,0 +1,3 @@
+rxn_base,enzyme,mw_kDa,SA_U_mg,kcat_s,citation,was_kcat,was_source
+rxn05938,Pyruvate:ferredoxin oxidoreductase (PFOR/Por),136.5,7.4,16.83,"BRENDA EC 1.2.7.1 (pyruvate synthase, ferredoxin): SA ~7.4 U/mg pyruvate+CoA",0.26,dltkcat
+rxn05939,2-oxoglutarate:ferredoxin oxidoreductase (OGOR/Kor),96.4,7.46,11.99,Aeropyrum pernix (archaeon) Ape1473/1472 Vmax 7.46 U/mg (Nishizawa 2005 FEBS Lett; BRENDA EC 1.2.7.3),0.23,dltkcat

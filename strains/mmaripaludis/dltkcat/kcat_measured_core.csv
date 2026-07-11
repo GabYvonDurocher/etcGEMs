@@ -1,5 +1,5 @@
 rxn_base,enzyme,mw_kDa,SA_U_mg,kcat_s,source,flag
-rxn03127,Mcr methyl-CoM reductase,176.8,3.0,8.84,Mcr famously slow terminal enzyme; representative purified mesophile SA (Thauer/Goenrich reviews),HIGH-UNCERTAINTY / Ea-hypothesis target; range 1-10 U/mg (~3-30 1/s)
+rxn03127,Mcr methyl-CoM reductase,176.8,20.0,58.92,"mature Mcr average SA 20 U/mg (Methanothermobacter; Thauer/ACS Biochem 2019, Nat 2025). U=umol CH4/min/mg",Ea TARGET; SA range 1-100 U/mg (kcat ~3-294/s); thermophile source -> mesophile uncertainty; sensitivity reported
 rxn03020,Mtr methyl-H4MPT:CoM methyltransferase,186.6,20.0,62.19,classic biochemistry (Na+-pumping methyltransferase),representative
 rxn11938,Fwd/Fmd formylmethanofuran dehydrogenase,34.1,15.0,8.53,classic biochemistry (W/Mo-formylMF DH),representative; slow
 rxn02431,Ftr formyl-MF:H4MPT formyltransferase,32.1,100.0,53.48,classic biochemistry (fast transferase),representative
