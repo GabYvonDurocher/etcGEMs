@@ -1,0 +1,66 @@
+{
+  "medium": "H2/CO2 defined (4 required precursors open, acetate+octadecenoate closed, CH4 freed)",
+  "note": "plain FBA, no enzyme/maintenance ceiling",
+  "scenarios": [
+    {
+      "name": "H2/CO2 (baseline)",
+      "status": "optimal",
+      "mu": 0.5469,
+      "ch4": 242.702,
+      "h2_uptake": 1000.0,
+      "co2_uptake": 257.266,
+      "formate_uptake": -0.0,
+      "ch4_per_biomass": 443.75
+    },
+    {
+      "name": "CO2 only (no H2)",
+      "status": "infeasible",
+      "mu": 0.0,
+      "ch4": 0.0,
+      "h2_uptake": -0.0,
+      "co2_uptake": -0.0,
+      "formate_uptake": -0.0,
+      "ch4_per_biomass": null
+    },
+    {
+      "name": "H2 only (no CO2)",
+      "status": "infeasible",
+      "mu": 0.0,
+      "ch4": 0.0,
+      "h2_uptake": -0.0,
+      "co2_uptake": -0.0,
+      "formate_uptake": -0.0,
+      "ch4_per_biomass": null
+    },
+    {
+      "name": "formate only",
+      "status": "infeasible",
+      "mu": 0.0,
+      "ch4": 0.0,
+      "h2_uptake": -0.0,
+      "co2_uptake": -0.0,
+      "formate_uptake": -0.0,
+      "ch4_per_biomass": null
+    },
+    {
+      "name": "formate/CO2",
+      "status": "infeasible",
+      "mu": 0.0,
+      "ch4": 0.0,
+      "h2_uptake": -0.0,
+      "co2_uptake": -0.0,
+      "formate_uptake": -0.0,
+      "ch4_per_biomass": null
+    },
+    {
+      "name": "H2/CO2 + formate",
+      "status": "optimal",
+      "mu": 0.5492,
+      "ch4": 243.694,
+      "h2_uptake": 1000.0,
+      "co2_uptake": 254.23,
+      "formate_uptake": 4.089,
+      "ch4_per_biomass": 443.71
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "mu_max": 0.5469,
+  "ch4": 242.702,
+  "h2_uptake": 1000.0,
+  "co2_uptake": 257.266,
+  "ch4_per_biomass": 443.75,
+  "H2_per_CH4": 4.12,
+  "CO2_per_CH4": 1.06
+}
