@@ -1,14 +1,16 @@
-# PLACEHOLDER TPC for M. maripaludis (H2/CO2). NOT digitised — approximate values
-# consistent with Jones, Paynter & Gupta 1983 (Arch Microbiol 135:91-97, Fig 2):
-# optimum ~38 C, range ~18-47 C, mu_max ~0.18-0.19/h. Replace in M2 (see
-# sources/jones1983_archmicrobiol/SOURCE.md). Every row flagged PLACEHOLDER.
+# PLACEHOLDER TPC for M. maripaludis (H2/CO2). NOT digitised — approximate values,,,,
+# consistent with Jones, Paynter & Gupta 1983 (Arch Microbiol 135:91-97, Fig 2):,,
+# optimum ~38 C, range ~18-47 C, mu_max ~0.18-0.19/h. Replace in M2 (see,,
+# sources/jones1983_archmicrobiol/SOURCE.md). Every row flagged PLACEHOLDER.,,,,
 temp_C,mu_per_h,source,medium,flag
-18,0.02,jones1983_placeholder,H2CO2_defined,PLACEHOLDER
-22,0.05,jones1983_placeholder,H2CO2_defined,PLACEHOLDER
-26,0.08,jones1983_placeholder,H2CO2_defined,PLACEHOLDER
-30,0.12,jones1983_placeholder,H2CO2_defined,PLACEHOLDER
-34,0.16,jones1983_placeholder,H2CO2_defined,PLACEHOLDER
-38,0.19,jones1983_placeholder,H2CO2_defined,PLACEHOLDER
-41,0.17,jones1983_placeholder,H2CO2_defined,PLACEHOLDER
-44,0.10,jones1983_placeholder,H2CO2_defined,PLACEHOLDER
-47,0.02,jones1983_placeholder,H2CO2_defined,PLACEHOLDER
+15.01165501,0.0003663,jones1983_placeholder,H2CO2_defined,Digitized
+18.04195804,0.005840396,jones1983_placeholder,H2CO2_defined,Digitized
+24.56876457,0.086826077,jones1983_placeholder,H2CO2_defined,Digitized
+26.8997669,0.107059607,jones1983_placeholder,H2CO2_defined,Digitized
+29.93006993,0.148478403,jones1983_placeholder,H2CO2_defined,Digitized
+32.84382284,0.17008368,jones1983_placeholder,H2CO2_defined,Digitized
+37.03962704,0.180605416,jones1983_placeholder,H2CO2_defined,Digitized
+39.37062937,0.177336642,jones1983_placeholder,H2CO2_defined,Digitized
+42.75058275,0.129348071,jones1983_placeholder,H2CO2_defined,Digitized
+45.8974359,0.077216332,jones1983_placeholder,H2CO2_defined,Digitized
+51.72494172,0.000771272,jones1983_placeholder,H2CO2_defined,Digitized
