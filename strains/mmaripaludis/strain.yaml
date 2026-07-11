@@ -1,0 +1,45 @@
+# Strain: Methanococcus maripaludis (hydrogenotrophic methanogen). ORGANISM ONLY.
+#
+# Foundation phase (M1): this strain carries the base genome-scale model iMR539
+# (Richards et al. 2016, BioModels BIOMD0000001099) solved by PLAIN FBA. The
+# enzyme-constrained (ecModel) layer, the thermal layer and calibration are added in
+# phases M2+; the provider `type` below will switch from `fba` (a placeholder for
+# now — M1 loads the model directly with cobra) to an enzyme-constrained provider
+# (sMOMENT-style, reusing src/etcgem/enzyme_cost, or GECKO) once the ecModel is built.
+#
+# Organism: Methanococcus maripaludis S2. Hydrogenotrophic: CO2 + 4 H2 -> CH4 + 2 H2O
+# via the Wolfe cycle, terminating in methyl-coenzyme-M reductase (Mcr). Mesophile,
+# growth optimum ~38 C (range ~18-47 C; Jones, Paynter & Gupta 1983). Slow-growing
+# (mu_max ~0.18-0.23 /h, ~10x slower than E. coli) with unusual energetics: no
+# cytochrome electron transport chain; energy conserved by a single membrane step
+# (Mtr, Na+ translocation) driving an A1A0 ATP synthase, with Hdr electron
+# bifurcation setting electron flow. See docs/METHANOGEN_ETCGEM_PLAN.md.
+
+organism:
+  name: Methanococcus maripaludis S2
+  metabolism: hydrogenotrophic methanogen (CO2 + H2 -> CH4, Wolfe cycle)
+  Topt_C: 38                  # growth optimum (Jones 1983)
+  Trange_C: [18, 47]
+
+provider:
+  type: fba                   # PLACEHOLDER (M1): base GEM, plain FBA. -> enzyme-constrained in M2.
+  model_file: iMR539.xml      # file under strains/mmaripaludis/model/
+  biomass_rxn: biomass0
+  # ModelSEED-style SBML (cpd/rxn IDs, [c0]/[e0] compartments); no fbc package
+  # (bounds/objective in the legacy COBRA notes). Loaded with cobra directly in M1.
+
+T0_C: 30
+
+temperature_grid:
+  start_C: 5
+  stop_C: 55
+  n: 51
+
+# Defined H2/CO2 minimal medium (availability, not pinned uptake): the exchanges
+# opened in M1 (resolved by ID at run time; see media/H2CO2_medium note).
+medium:
+  name: H2CO2_defined
+  electron_donor: H2 (cpd11640)
+  carbon_source: CO2 (cpd00011)
+  nitrogen: ammonia (cpd00013)
+  products: CH4 (cpd01024)
