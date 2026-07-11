@@ -15,7 +15,15 @@
     "residual_nonlinear_SS": -0.1784,
     "SS_growth_law_off": 0.8045,
     "SS_ngam_flat": 0.6735,
-    "closure_check": 0.6784
+    "closure_check": 0.6784,
+    "named_terms_eV": {
+      "control_weighting": 0.1063,
+      "allocation": -0.1295,
+      "maintenance": 0.0049,
+      "aggregation": -0.1749
+    },
+    "SS_kinetic_backbone": 0.803,
+    "closure_check_named": 0.6784
   },
   "glucose_minimal": {
     "Ea_org_SS_E": 0.8898,

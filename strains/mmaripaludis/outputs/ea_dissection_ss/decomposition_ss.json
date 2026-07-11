@@ -1,0 +1,206 @@
+{
+  "organism": "M. maripaludis",
+  "operating_point": "calibrated (M4 medians), H2/CO2, single sMOMENT pool, no growth law",
+  "tuned_medians": {
+    "kcat_scale": 7.2235,
+    "dTopt": -2.7178,
+    "topt_scale": 0.9139,
+    "dCp_scale": 1.2876,
+    "dTm": 2.3054,
+    "tm_scale": 0.9463,
+    "ngam_scale": 1.2374,
+    "ngam_steepness": 1.0188,
+    "sigma_disc": 0.0062
+  },
+  "Ea_org_SS_E": 1.0558,
+  "SS_fit_r2": 0.9653,
+  "SS_Eh_eV": 2.516,
+  "SS_Th_C": 36.8,
+  "windowed_slope_crosscheck": 1.0812,
+  "window_C": [
+    19.0,
+    33.0
+  ],
+  "T_control_C": 28.0,
+  "sum_C_i": 1.189,
+  "n_flux_enzymes": 252,
+  "unweighted_mean_kcat_E": 0.5118,
+  "mass_weighted_mean_kcat_E": 0.7001,
+  "control_weighted_mean_kcat_E": 0.8545,
+  "  fN_contribution": -0.0,
+  "SS_kinetic_backbone": 1.0721,
+  "named_terms_eV": {
+    "control_weighting": 0.3427,
+    "allocation": 0.0,
+    "maintenance": -0.0164,
+    "aggregation": 0.2177
+  },
+  "closure_check": 1.0558,
+  "allocation_note": "0 by the single sMOMENT pool (no growth law / sectors). Grounded in slow growth (~10x slower than E. coli): the Scott growth-law buffer is weak; a sector layer would make the comparison exactly symmetric (deferred).",
+  "backbone_attribution": {
+    "backbone_contrib_sum": 0.9011,
+    "total_contrib_sum": 1.0156,
+    "backbone_fraction_of_control_term": 0.887,
+    "backbone_enzymes": [
+      {
+        "label": "Fwd",
+        "gene_rxn": "rxn11938",
+        "C_i": 0.3171,
+        "Ea_kcat_E": 1.064,
+        "contrib": 0.3374,
+        "E_above_proteome_mean": 0.5522
+      },
+      {
+        "label": "Mcr",
+        "gene_rxn": "rxn03127",
+        "C_i": 0.2699,
+        "Ea_kcat_E": 1.1274,
+        "contrib": 0.3043,
+        "E_above_proteome_mean": 0.6156
+      },
+      {
+        "label": "Mtr",
+        "gene_rxn": "rxn03020",
+        "C_i": 0.1117,
+        "Ea_kcat_E": 0.6227,
+        "contrib": 0.0696,
+        "E_above_proteome_mean": 0.1109
+      },
+      {
+        "label": "Mer",
+        "gene_rxn": "rxn03085",
+        "C_i": 0.0766,
+        "Ea_kcat_E": 0.8335,
+        "contrib": 0.0638,
+        "E_above_proteome_mean": 0.3217
+      },
+      {
+        "label": "ATPsyn",
+        "gene_rxn": "ATPS",
+        "C_i": 0.0549,
+        "Ea_kcat_E": 0.8861,
+        "contrib": 0.0486,
+        "E_above_proteome_mean": 0.3743
+      },
+      {
+        "label": "Mch",
+        "gene_rxn": "rxn02480",
+        "C_i": 0.0399,
+        "Ea_kcat_E": 1.1694,
+        "contrib": 0.0467,
+        "E_above_proteome_mean": 0.6575
+      },
+      {
+        "label": "Ftr",
+        "gene_rxn": "rxn02431",
+        "C_i": 0.0231,
+        "Ea_kcat_E": 0.6437,
+        "contrib": 0.0149,
+        "E_above_proteome_mean": 0.1319
+      },
+      {
+        "label": "Hmd",
+        "gene_rxn": "rxn06696",
+        "C_i": 0.025,
+        "Ea_kcat_E": 0.4667,
+        "contrib": 0.0117,
+        "E_above_proteome_mean": -0.0451
+      },
+      {
+        "label": "Hdr",
+        "gene_rxn": "HdrABC",
+        "C_i": 0.033,
+        "Ea_kcat_E": 0.1246,
+        "contrib": 0.0041,
+        "E_above_proteome_mean": -0.3872
+      }
+    ],
+    "proteome_mean_kcat_E": 0.5118
+  },
+  "top_contributors": [
+    {
+      "rxn": "rxn11938",
+      "backbone": "Fwd",
+      "C_i": 0.3171,
+      "Ea_kcat_E": 1.064,
+      "contrib": 0.3374
+    },
+    {
+      "rxn": "rxn03127",
+      "backbone": "Mcr",
+      "C_i": 0.2699,
+      "Ea_kcat_E": 1.1274,
+      "contrib": 0.3043
+    },
+    {
+      "rxn": "rxn03020",
+      "backbone": "Mtr",
+      "C_i": 0.1117,
+      "Ea_kcat_E": 0.6227,
+      "contrib": 0.0696
+    },
+    {
+      "rxn": "rxn03085",
+      "backbone": "Mer",
+      "C_i": 0.0766,
+      "Ea_kcat_E": 0.8335,
+      "contrib": 0.0638
+    },
+    {
+      "rxn": "ATPS",
+      "backbone": "ATPsyn",
+      "C_i": 0.0549,
+      "Ea_kcat_E": 0.8861,
+      "contrib": 0.0486
+    },
+    {
+      "rxn": "rxn02480",
+      "backbone": "Mch",
+      "C_i": 0.0399,
+      "Ea_kcat_E": 1.1694,
+      "contrib": 0.0467
+    },
+    {
+      "rxn": "rxn00782",
+      "backbone": "",
+      "C_i": 0.033,
+      "Ea_kcat_E": 1.1546,
+      "contrib": 0.0381
+    },
+    {
+      "rxn": "CODH",
+      "backbone": "",
+      "C_i": 0.0504,
+      "Ea_kcat_E": -0.6814,
+      "contrib": -0.0343
+    },
+    {
+      "rxn": "ACS",
+      "backbone": "",
+      "C_i": 0.0344,
+      "Ea_kcat_E": 0.9287,
+      "contrib": 0.032
+    },
+    {
+      "rxn": "rxn00187",
+      "backbone": "",
+      "C_i": 0.017,
+      "Ea_kcat_E": 1.3301,
+      "contrib": 0.0227
+    },
+    {
+      "rxn": "rxn02431",
+      "backbone": "Ftr",
+      "C_i": 0.0231,
+      "Ea_kcat_E": 0.6437,
+      "contrib": 0.0149
+    },
+    {
+      "rxn": "rxn07191",
+      "backbone": "",
+      "C_i": 0.0226,
+      "Ea_kcat_E": 0.5959,
+      "contrib": 0.0135
+    }
+  ]
+}
