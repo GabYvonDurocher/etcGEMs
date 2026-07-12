@@ -1,0 +1,8 @@
+descriptor,value,unit,note
+Topt_C,35.0,degC,"growth-rate optimum under saturating light (Zavrel et al. 2015, Eng. Life Sci. 15:122)"
+Q10_rising,1.70,dimensionless,"rising-limb Q10 of growth rate (Zavrel 2015)"
+E_rising_eV,0.420,eV,"window-independent SS-E implied by Q10=1.70 across the rising limb (E = kB ln Q10 / (1/T-1/(T+10)) at ~25-35 C); a LOW activation energy"
+CTmax_C,44.0,degC,"growth inhibition by ~44 C (Zavrel 2015)"
+Trange_low_C,15.0,degC,"approximate lower growth bound"
+light_umol_m2_s,"220-360",umol_photon_m2_s,"SATURATING red light, no photoinhibition to 660 (Zavrel 2015 methods) -> light-saturated regime"
+source,"Zavrel, Sinetova, Cerveny, Ludwig, Cerveny (2015) Eng. Life Sci. 15:122-132",,"digitised descriptors; exact figure point-cloud to be dropped in by the user to replace this reference"

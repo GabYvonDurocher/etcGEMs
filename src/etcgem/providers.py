@@ -230,8 +230,9 @@ def from_gecko(model_path: str, T0: float = 303.15,
                target_fraction: Optional[float] = None,
                pool_scale: float = 1.0,
                thermal_model: str = "mmrt", ngam_temperature: bool = False,
-               ngam_rxn: Optional[str] = None,
+               ngam_rxn: Optional[str] = None, ngam_base_scale: float = 1.0,
                enzyme_params: Optional[str] = None,
+               enzyme_params_key: str = "enzyme_id",
                budget_override: Optional[float] = None,
                enzyme_params_use_dCpt: bool = True,
                dcp_prior_kJ: float = -4.0,
@@ -336,7 +337,7 @@ def from_gecko(model_path: str, T0: float = 303.15,
     # model precomputes its unfolding thermodynamics; report coverage.
     if thermal_model == "unfolding" and enzyme_params:
         params_df = load_enzyme_thermal_params(enzyme_params)
-        n_match, n_tot = apply_thermal_params(table, params_df, key="enzyme_id",
+        n_match, n_tot = apply_thermal_params(table, params_df, key=enzyme_params_key,
                                               use_dCpt=enzyme_params_use_dCpt)
         print(f"[from_gecko] unfolding mode: matched grounded Topt/Tm for "
               f"{n_match}/{n_tot} enzymes ({100*n_match/max(1,n_tot):.1f}%); "
@@ -346,6 +347,7 @@ def from_gecko(model_path: str, T0: float = 303.15,
                                 group_budgets=group_budgets,
                                 thermal_model=thermal_model,
                                 ngam_temperature=ngam_temperature, ngam_rxn=ngam_rxn,
+                                ngam_base_scale=ngam_base_scale,
                                 unfold_means={"dCpt": dcp_prior_kJ * 1000.0})
     ec.model.objective = biomass_rxn
     # P1c: reconcile the two redundant enzyme-mass pools into ONE proteome budget.
