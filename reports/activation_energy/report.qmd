@@ -276,7 +276,125 @@ and heat capacities in J mol⁻¹ K⁻¹, temperatures in kelvin, $R=8.314$ J mo
 equations mirror the implementation (`enzyme_cost.py`, `mmrt.py`, `unfolding.py`, `sectors.py`,
 `sharpe_schoolfield.py`, `ea_dissection.py`).
 
-## The etc-GEM framework {#sec-methods-fw}
+## The complete model, in four layers
+
+In plain terms, each etc-GEM turns a genome plus enzyme parameters into a predicted growth rate
+at any temperature, in four stacked layers common to both organisms. The first says growth
+requires enzymes and the cell has a limited budget of them. The second makes each enzyme's
+efficiency temperature-dependent — enzymes speed up with warming, then unfold and fail when hot.
+The third fixes how the enzyme budget is split among broad functional groups, using measured
+proteome data, including how that split shifts with growth rate. The fourth is the epistemic
+stance: the emergent model is a genuine forward prediction — every number grounded in independent
+data, nothing fit to the growth curve — with any calibration kept as a separate, labelled inverse
+step. Where the two taxa differ within a layer is flagged as a *departure*, and the departures are
+collected in @tbl-departures.
+
+**Layer 1 — metabolic network with an enzyme budget.** We start from a manually curated
+genome-scale reconstruction (reaction stoichiometry and gene–protein–reaction rules) solved by
+flux-balance analysis with cobrapy [@Ebrahim2013], made **enzyme-constrained**: running reaction
+$i$ at flux $v_i$ requires an amount of enzyme $v_i/k_{\text{cat},i}$, where $k_{\text{cat},i}$ is
+the turnover number, and the total enzyme mass is capped by a shared **proteome pool**, so the
+cell must allocate a finite protein budget across reactions (@eq-cap, @eq-pool). *Departure.* For
+*E. coli* the base is iML1515 [@Monk2017] as the pre-built GECKO ecModel eciML1515 [@Sanchez2017;
+@Domenzain2022], carrying reference turnovers for 2,560 enzymes; for *M. maripaludis* we build the
+sMOMENT enzyme layer here on the plain iMR539 reconstruction [@richards2016], mapping 527
+enzymatic reactions to UniProt masses. A **curation** step differs likewise: *E. coli* required
+closing four reactions that consume O₂ at negligible enzyme cost — two quinol/menaquinol
+monooxygenases, a malate oxidase and a cuprous oxidase — which otherwise form a futile O₂ cycle
+(≈75% of gross O₂ turnover at the rich-medium optimum) that scrambles the respiratory read-out;
+closing them routes O₂ through the enzyme-costed terminal oxidase at ≈0.3% growth cost (catalase
+and superoxide dismutase, whose high turnover makes their low cost correct, are retained). *M.
+maripaludis* required a carbon-honest autotroph curation instead: folding the dispensable
+archaellum glycoprotein out of biomass, repairing a selenocysteinyl-tRNA recycling gap, closing
+organic-carbon leaks and freeing the pinned methane exchange, giving growth with 99.98% of biomass
+carbon from CO₂.
+
+**Layer 2 — a temperature-dependent enzyme envelope.** Each enzyme's turnover rises with
+temperature following macromolecular rate theory (MMRT) [@Hobbs2013] — an Arrhenius law whose
+activation energy itself changes with temperature (a heat-capacity term), giving a curved,
+single-peaked response — and above a threshold the enzyme unfolds, modelled by a two-state
+native↔unfolded equilibrium (after @Li2021), the **native fraction** $f_{N,i}(T)$, which collapses
+around the enzyme's melting temperature $T_m$. The effective per-flux cost combines both effects
+(@eq-cost), rising both when turnover is slow (cold) and when the enzyme denatures (hot); keying
+the collapse on $T_m$ ties the upper thermal limit to protein *stability*, distinct from the
+rising-limb activation energy. *Departure.* The provenance of the per-enzyme thermal parameters
+differs by organism: for *E. coli* the melting temperatures come from the measured melting proteome
+[@Leuenberger2017] and the optima from a sequence-based predictor [@LiEngqvist2019] (~90% grounded,
+rest at dataset means), refined by DLTKcat [@Qiu2024]; for *M. maripaludis* the energy-core
+turnovers are measured specific activities [@milton2018] converted to $k_\text{cat}$, but the optima
+and melting temperatures are a documented mesophile prior (the sequence/meltome predictors were not
+run for the archaeon).
+
+**Layer 3 — proteome allocation.** The enzyme budget is split into three broad measured **proteome
+sectors** [@Basan2015; @Scott2010] — metabolic (enzymes carrying flux), biosynthesis (dominated by
+ribosomes, with a translation cap on growth), and maintenance (housekeeping and stress) — with a
+temperature-dependent non-growth maintenance NGAM($T$) that lifts the hot-side ATP burden and rounds
+the optimum, and an optional growth law that couples the ribosomal fraction to growth rate
+(@eq-pool–@eq-growthlaw). *Departure — the scientifically load-bearing one.* The allocation **law**
+differs between the taxa and is one of the two terms that explain the activation-energy difference:
+*E. coli* follows the bacterial Scott growth law, in which the ribosomal fraction *rises* with growth
+rate (slope $s\approx0.33$), shrinking the metabolic sector at higher temperature and buffering the
+activation energy down; *M. maripaludis* instead maintains a **constant** ribosomal fraction and full
+methanogenesis capacity across growth rate [@muller2021] — a documented alternative allocation
+strategy — so its slope is flat ($s=0$) and the buffer vanishes. Maintenance is grounded per organism
+too: an *E. coli* NGAM amplitude for the bacterium, the **measured** *M. maripaludis* maintenance
+energy [@goyal2015] for the methanogen.
+
+**Layer 4 — an emergent a-priori prediction, with calibration kept separate.** For both organisms
+the design stance has two distinct parts. *The emergent model is the prediction*: every input is
+grounded in independent data (the per-enzyme thermal parameters of Layer 2, the measured sector
+allocation of Layer 3, and the literature magnitude scalars $P^{\text{lit}}$ and $\sigma$), and
+nothing is fit to the growth curve, so both the rate magnitude and the whole-organism activation
+energy **emerge and can be tested** against an independent benchmark. *Calibration is a separate,
+labelled step*: a Bayesian inverse analysis (@eq-lik; the global correction scalars are tabulated in the Supplement) then asks what corrections the
+measured curve *demands* of the few borrowed or uncertain global scalars — it does not re-fit the
+grounded per-enzyme parameters — and the emergent prediction and the tuned posterior are kept
+distinct, so the a-priori gap is quantified rather than papered over.
+
+## Inputs and data provenance: what the model uses for each enzyme
+
+Each model is **per-enzyme**: every modelled enzyme (≈2,560 for *E. coli*; 527 for *M. maripaludis*)
+carries its own inputs, applied individually rather than as one global response shared across the
+proteome. For each enzyme the model uses four things:
+
+- **Flux** — *not an input but a predicted output* of the flux-balance optimisation.
+- **Turnover $k_\text{cat}(T)$** — a reference turnover shaped by an MMRT temperature response. For
+  *E. coli* the reference is the GECKO ecModel value [@Sanchez2017; @Domenzain2022], refined by
+  DLTKcat [@Qiu2024] where a fit exists; for *M. maripaludis* the reference is set by source priority
+  — measured specific activities for the energy-conserving core [@milton2018], DLTKcat for the
+  biosynthetic bulk (corrected for a systematic archaeal underprediction with cited literature/BRENDA
+  overrides for the highest-cost offenders and a 1 s⁻¹ floor), and a dataset-mean fallback.
+- **Thermal optimum $T_\text{opt}$ and curvature $\Delta C^{\ddagger}_p$** — the optimum is
+  sequence/ML-predicted per enzyme for *E. coli* [@LiEngqvist2019] and a mesophile prior for *M.
+  maripaludis*; the curvature is, for both, a single independent literature MMRT prior
+  (−4 kJ mol⁻¹ K⁻¹ [@Hobbs2013]), deliberately not fitted, so the activation energy emerges.
+- **Melting temperature $T_m$** (setting the native fraction) — from the measured *E. coli* melting
+  proteome [@Leuenberger2017] for the bacterium and a mesophile prior for the archaeon.
+
+Only the pool budget scalars ($P^{\text{lit}}$, $\sigma$) and the sector fractions are whole-cell
+quantities; everything else is per enzyme. Per-enzyme grounding coverage is high but honest: for *E.
+coli* ~90% of enzymes have data-grounded optima and melting temperatures (the rest at dataset means);
+for *M. maripaludis* every enzymatic reaction maps to a UniProt mass, the energy core (11 reactions)
+carries measured kinetics, 293 reactions carry DLTKcat predictions and 223 a mean fallback, while the
+optima/melting temperatures are the mesophile prior throughout — a stated limitation refined by the
+calibration's envelope knobs.
+
+## Enzyme abundance and the compensation question
+
+For both models, per-enzyme **abundances are not measured or set individually**: each enzyme's
+proteome-mass usage is $\text{flux}/k_\text{cat}(T)\times\text{MW}$, drawn from the shared proteome
+pool that the optimiser allocates across all enzymes, with measured fractions supplied only at the
+coarse sector level. Per-enzyme abundance is therefore an **optimisation outcome, not an input** — a
+structural property of the GECKO/sMOMENT pool common to both taxa. This has a consequence worth
+stating plainly: as temperature rises and an enzyme's $k_\text{cat}$ falls, or the enzyme begins to
+unfold, carrying the same flux costs more enzyme mass, so the optimiser draws more of the pool toward
+those steps — an implicit, mass-balance "compensation" — until the pool binds and growth is
+throttled. But this is **least-cost allocation under a fixed budget, not regulatory sensing**: no
+mechanism detects a falling product and up-regulates a gene. The models therefore capture the
+*demand* side of thermal compensation (more enzyme needed when catalysis is poor) but not active
+feedback regulation — a genuine limitation of both.
+
+## Governing equations {#sec-methods-fw}
 
 **Enzyme-constrained flux balance.** Growth is the biomass flux $v_\text{bio}$ found by linear
 programming under mass balance and enzyme capacity. At steady state
@@ -398,6 +516,61 @@ $E$ of the kinetic-backbone aggregate curve minus the control-weighted per-enzym
 organisms are analysed on the calibrated model at their operating point, each carrying its own
 sector/growth-law layer, with the uncosted energy side-reactions closed. For Figure 1 the saved
 calibration draws were propagated through @eq-ssf to obtain the $E_a$ posteriors.
+
+## Model hierarchy: how the components link
+
+The model is a hierarchy that turns grounded per-enzyme thermal parameters into an organismal curve,
+each level feeding only the next, identically for both taxa. **(i)** Every enzyme carries three
+grounded thermal parameters — its optimum $T_{\text{opt},i}$, its melting temperature $T_{m,i}$ and
+its turnover curvature $\Delta C^{\ddagger}_{p,i}$. **(ii)** These set the two per-enzyme temperature
+responses: the optimum-anchored turnover $\widehat{k}_i(T)$ (@eq-kcat) and the native fraction
+$f_{N,i}(T)$ (@eq-fn). **(iii)** The two combine into an effective per-flux enzyme cost $c_i(T)$
+(@eq-cost). **(iv)** The costs enter the sector-partitioned proteome constraints — metabolic pool,
+biosynthesis cap and temperature-dependent maintenance (@eq-pool, @eq-ngam) — optionally coupled
+through the growth law (@eq-growthlaw). **(v)** FBA maximises biomass flux at each temperature,
+tracing the TPC $\mu(T)$. **(vi)** The curve is reduced to descriptors and the Sharpe–Schoolfield
+activation energy (@eq-ssf). **(vii)** For calibration and the decomposition, the global correction
+knobs (Supplement) deform the whole per-enzyme distribution at level (i). The forward chain is thus
+*grounded parameters → per-enzyme responses → cost → sector constraints + growth law + NGAM(T) → FBA
+growth → descriptors*, with no growth-curve information entering anywhere in the emergent model.
+
+## Relationship to the Li et al. 2021 yeast etc-GEM
+
+Both models are direct descendants of the yeast etc-GEM of @Li2021, and we **follow it for the
+thermal core**: the transition-state turnover $k_{\text{cat}}(T)$ (@eq-kcat), the two-state
+native-fraction denaturation keyed on $T_m$ (@eq-fn), a temperature-dependent maintenance term, and
+the enzyme-constrained proteome-pool idea. We **depart from and upgrade** it in five deliberate ways.
+First, **organism**: rather than *S. cerevisiae*, we build a bacterium and an archaeon — to our
+knowledge the first etc-GEMs of their kind for either taxon — with the archaeon requiring the sMOMENT
+enzyme layer built here rather than a pre-existing GECKO ecModel. Second, **grounded not fitted
+per-enzyme parameters**: we fix each enzyme's $T_\text{opt}$, $T_m$ and curvature from independent
+data, so the TPC is an a-priori forward prediction, whereas Li et al. infer the per-enzyme thermal
+parameters by fitting the growth data — the opposite epistemic stance, and grounding is what lets us
+*test* the emergent activation energy against an independent benchmark. Third, a **sector-partitioned
+proteome** with an explicit translation cap, replacing the single undivided pool, which makes
+allocation an attributable control on the rate. Fourth, an **organism-specific allocation law** — the
+Scott rising-ribosome law for *E. coli*, the Müller constant-ribosome strategy for *M. maripaludis* —
+rather than a single fixed coupling. Fifth, **inference by likelihood, not ABC**: we calibrate a
+low-dimensional set of global correction knobs by likelihood-based ensemble MCMC (emcee), kept as a
+separate inverse layer on top of the emergent prior, exploiting the fact that the etc-GEM is a
+deterministic simulator with a Gaussian residual model; keeping the emergent prediction and the tuned
+posterior separate is what lets us report an honest a-priori gap. For quantifying the activation
+energy we further add the window-independent Sharpe–Schoolfield $E$ (@eq-ssf) and the control-weighted
+$E_a$ decomposition (@eq-decomp), neither of which appears in the yeast model.
+
+## Validation
+
+For each organism the emergent (nothing-fit) model is first tested a-priori against an independent
+exact-strain growth TPC, and only then calibrated. *E. coli* is validated against the K-12 MG1655
+rich-medium (BHI) curve of @vanderlinden2012 over 7–46 °C; *M. maripaludis* against the type-strain
+H₂/CO₂ curve of @jones1983 over 15–52 °C. The reported activation energy is the window-independent
+Sharpe–Schoolfield $E$ of @eq-ssf, applied identically to model and observed curves; the test is
+whether the *modelled* $E$ matches the *observed* $E$, and whether it lands near the "universal"
+~0.65 eV benchmark for the respiring bacterium. It does for both: after calibration the *E. coli*
+model gives $E_a=0.68$ eV against an observed 0.56 (on the benchmark), and *M. maripaludis* gives 1.06
+against an observed 1.04, with the two calibration posteriors cleanly separated (Results, @sec-fig1,
+@sec-valid). Because the per-enzyme activation energies are model inputs, this agreement on the
+organism-level value is a genuine prediction rather than a recovered fit.
 
 ## Taxon-specific construction and departures {#sec-methods-departures}
 
