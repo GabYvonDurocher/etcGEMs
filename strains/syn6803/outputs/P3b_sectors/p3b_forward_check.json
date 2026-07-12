@@ -1,0 +1,51 @@
+{
+  "sector_fractions": {
+    "f_metab": 0.5,
+    "f_bio": 0.16999999999999998,
+    "f_maint": 0.33,
+    "P_total_backed_out": 0.52,
+    "growth_law_slope": 0.39,
+    "f_bio_0": 0.133,
+    "translation_coeff": 0.9,
+    "mu_nominal": 0.0829
+  },
+  "single_pool_P3": {
+    "rmax": 0.0944,
+    "Topt_C": 35.0,
+    "CTmax_C": 46.78,
+    "SS_E_eV": 0.563
+  },
+  "sectored_growth_law_ON": {
+    "rmax": 0.0903,
+    "Topt_C": 35.0,
+    "CTmax_C": 46.78,
+    "SS_E_eV": 0.573,
+    "carbon_fixation_SS_E": 0.573
+  },
+  "sectored_growth_law_OFF_slope0": {
+    "SS_E_eV": 0.592
+  },
+  "allocation_buffer_eV": -0.0188,
+  "deltas_vs_single_pool": {
+    "d_rmax": -0.0041,
+    "d_Topt_C": 0.0,
+    "d_CTmax_C": -0.0,
+    "d_SS_E": 0.0104,
+    "max_abs_dmu": 0.00436
+  },
+  "zavrel_refit_residual_pct": [
+    4.6,
+    5.7,
+    3.8,
+    -2.0,
+    -7.2,
+    -0.2
+  ],
+  "photon_shadow_max": 0.0,
+  "recalibration_needed": false,
+  "cross_org_allocation_buffer": {
+    "E_coli": -0.13,
+    "methanogen": 0.0,
+    "phototroph": -0.0188
+  }
+}
