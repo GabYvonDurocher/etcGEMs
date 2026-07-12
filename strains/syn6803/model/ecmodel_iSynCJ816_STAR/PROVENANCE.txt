@@ -1,0 +1,2 @@
+PROVENANCE: cloned from https://github.com/FraserAndrews7/iSynCJ816- (Andrews; AUTOPACMEN sMOMENT on iSynCJ816 STAR)
+repo commit: 78449d224356d737b9387631ac2afd76fc394f99

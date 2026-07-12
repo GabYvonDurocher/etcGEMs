@@ -1,0 +1,5206 @@
+All nan kcats were given a value of 6.5
+
+***
+Reaction: ATPM
+Forward kcat: 1.5
+Reverse kcat: 18.5
+
+***
+Reaction: CRBNTD
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: NH3c
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MGDGE160
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MGDGE161
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MGDGE180
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MGDGE181
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MGDGE181_9
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MGDGE182_9_12
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MGDGE183_6_9_12
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MGDGE183_9_12_15
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MGDGE184_6_9_12_15
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: HSERTA
+Forward kcat: 16.3
+Reverse kcat: 1.9
+
+***
+Reaction: DDPA
+Forward kcat: 1.6
+Reverse kcat: 1.7
+
+***
+Reaction: AHSERL2
+Forward kcat: 96.65
+Reverse kcat: 96.65
+
+***
+Reaction: DHQS
+Forward kcat: 1.7
+Reverse kcat: 1.7
+
+***
+Reaction: DHQTi
+Forward kcat: 42.480000000000004
+Reverse kcat: 15.13
+
+***
+Reaction: ADMDC
+Forward kcat: 0.0481
+Reverse kcat: 0.7041
+
+***
+Reaction: G5SADs
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: HPPK
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GOPP
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PAPSR
+Forward kcat: 0.219
+Reverse kcat: 0.219
+
+***
+Reaction: BPNT2
+Forward kcat: 3.4250000000000003
+Reverse kcat: 3.4250000000000003
+
+***
+Reaction: ASNS1
+Forward kcat: 2.455
+Reverse kcat: 1.47
+
+***
+Reaction: SHK3Dr
+Forward kcat: 48.0
+Reverse kcat: 8.2
+
+***
+Reaction: SHKK
+Forward kcat: 35.0
+Reverse kcat: 35.0
+
+***
+Reaction: BIOMASS_Ec_SynAuto_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: BPNT
+Forward kcat: 3.4250000000000003
+Reverse kcat: 3.4250000000000003
+
+***
+Reaction: BIOMASS_Ec_SynMixo_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: BIOMASS_Ec_SynHetero_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PSCVT
+Forward kcat: 26.4
+Reverse kcat: 28.3
+
+***
+Reaction: SULR_syn
+Forward kcat: 3.65
+Reverse kcat: 3.65
+
+***
+Reaction: CHORS
+Forward kcat: 0.43915
+Reverse kcat: 0.43915
+
+***
+Reaction: ORNTA
+Forward kcat: 4.449999999999999
+Reverse kcat: 4.449999999999999
+
+***
+Reaction: GHMT2r
+Forward kcat: 0.0017
+Reverse kcat: 0.0017
+
+***
+Reaction: ANPRT
+Forward kcat: 0.33
+Reverse kcat: 0.33
+
+***
+Reaction: ANS
+Forward kcat: 0.375
+Reverse kcat: 0.26
+
+***
+Reaction: PRAIi
+Forward kcat: 35.25
+Reverse kcat: 35.25
+
+***
+Reaction: IGPS
+Forward kcat: 0.71
+Reverse kcat: 0.67
+
+***
+Reaction: PHCD
+Forward kcat: 1.6
+Reverse kcat: 1.6
+
+***
+Reaction: GLYCLa
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GLYCLb
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: HPROb
+Forward kcat: 363.65
+Reverse kcat: 363.65
+
+***
+Reaction: CHORM
+Forward kcat: 144950.0
+Reverse kcat: 141000.0
+
+***
+Reaction: GLYCLc
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PPNDH
+Forward kcat: 0.11
+Reverse kcat: 0.33
+
+***
+Reaction: ACGK
+Forward kcat: 40.4
+Reverse kcat: 40.4
+
+***
+Reaction: METS
+Forward kcat: 5.0
+Reverse kcat: 5.0
+
+INFO: No entry for EC number 1.2.1.38
+
+***
+Reaction: TRPS3_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PPND
+Forward kcat: 27.0
+Reverse kcat: 6.8
+
+***
+Reaction: AHCi
+Forward kcat: 32.05
+Reverse kcat: 9.7
+
+***
+Reaction: ACOTA
+Forward kcat: 1.185
+Reverse kcat: 1.185
+
+***
+Reaction: GLUN_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: OCBT
+Forward kcat: 83.8
+Reverse kcat: 83.8
+
+***
+Reaction: ARGSL
+Forward kcat: 15.5
+Reverse kcat: 15.5
+
+***
+Reaction: DNAMTn3r
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: METAT
+Forward kcat: 0.43
+Reverse kcat: 1.075
+
+***
+Reaction: GLUSx
+Forward kcat: 51.0
+Reverse kcat: 51.0
+
+***
+Reaction: GLNS_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GLUDy_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: HPYRRy
+Forward kcat: 8.7
+Reverse kcat: 44.5
+
+***
+Reaction: GLU5K
+Forward kcat: 12.25
+Reverse kcat: 12.25
+
+INFO: No entry for EC number 6.3.4.5
+
+***
+Reaction: CBMK4
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SPT_syn
+Forward kcat: 6.4
+Reverse kcat: 6.4
+
+***
+Reaction: GLYTA
+Forward kcat: 35.0
+Reverse kcat: 46.8
+
+***
+Reaction: NAR_syn
+Forward kcat: 585.0
+Reverse kcat: 585.0
+
+***
+Reaction: PUTA3
+Forward kcat: 1.6
+Reverse kcat: 1.6
+
+INFO: No entry for EC number 1.2.1.41
+
+***
+Reaction: NOR_syn_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GLYCK2
+Forward kcat: 3.6
+Reverse kcat: 3.6
+
+***
+Reaction: GLMS_syn
+Forward kcat: 70.335
+Reverse kcat: 70.335
+
+***
+Reaction: P5CD
+Forward kcat: 1.6
+Reverse kcat: 1.6
+
+***
+Reaction: P5CR
+Forward kcat: 67.65
+Reverse kcat: 363.65
+
+***
+Reaction: ACGS
+Forward kcat: 3.333333
+Reverse kcat: 3.333333
+
+***
+Reaction: TRSARyr
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.3.1.35
+
+***
+Reaction: TRSARr
+Forward kcat: 44.5
+Reverse kcat: 44.5
+
+***
+Reaction: ACODA
+Forward kcat: 1100.0
+Reverse kcat: 1100.0
+
+***
+Reaction: GLXCL
+Forward kcat: 18.9
+Reverse kcat: 18.9
+
+INFO: No entry for EC number 1.2.3.5
+
+***
+Reaction: OMCDC
+Forward kcat: 6.0
+Reverse kcat: 6.0
+
+***
+Reaction: GLYALDDr
+Forward kcat: 0.4333333
+Reverse kcat: 0.4333333
+
+***
+Reaction: PSTA
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ACLSa_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PSP_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ENO
+Forward kcat: 29.75
+Reverse kcat: 29.75
+
+***
+Reaction: PGI
+Forward kcat: 1440.0
+Reverse kcat: 1675.0
+
+***
+Reaction: HEX1
+Forward kcat: 141.195
+Reverse kcat: 3.5
+
+***
+Reaction: TPI
+Forward kcat: 1666.0
+Reverse kcat: 1666.0
+
+***
+Reaction: FBP
+Forward kcat: 10.5
+Reverse kcat: 12.65
+
+***
+Reaction: PFK
+Forward kcat: 60.0
+Reverse kcat: 112.0
+
+***
+Reaction: FBA
+Forward kcat: 12.6
+Reverse kcat: 3.625
+
+***
+Reaction: GAPDi_nadp
+Forward kcat: 61.0
+Reverse kcat: 61.0
+
+***
+Reaction: GAPD
+Forward kcat: 83.8
+Reverse kcat: 83.8
+
+***
+Reaction: PGK
+Forward kcat: 24.0
+Reverse kcat: 437.0
+
+INFO: No entry for EC number 5.4.2.1
+
+***
+Reaction: PGM
+Forward kcat: 2.78
+Reverse kcat: 82.5
+
+INFO: No entry for EC number 5.4.2.5
+
+***
+Reaction: PGMT
+Forward kcat: 36.25
+Reverse kcat: 36.25
+
+***
+Reaction: HEX7
+Forward kcat: 6.64
+Reverse kcat: 3.5
+
+***
+Reaction: MAN6PI
+Forward kcat: 1371.0
+Reverse kcat: 1371.0
+
+***
+Reaction: MAN1PT
+Forward kcat: 109.0
+Reverse kcat: 109.0
+
+***
+Reaction: PMANM
+Forward kcat: 15.165
+Reverse kcat: 15.165
+
+***
+Reaction: G1PTT
+Forward kcat: 1.5499999999999998
+Reverse kcat: 1.5499999999999998
+
+INFO: No entry for EC number 2.7.7.22
+
+INFO: No entry for EC number 2.7.7.33
+
+***
+Reaction: UDG4EP
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: TDPDRR_2
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: UDPG4E
+Forward kcat: 21.0
+Reverse kcat: 83.5
+
+***
+Reaction: TDPGDH_2
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: TDPDRE_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GALUi
+Forward kcat: 196.0
+Reverse kcat: 1.9
+
+***
+Reaction: ALCD19y
+Forward kcat: 5.125
+Reverse kcat: 13.3
+
+***
+Reaction: GLYK
+Forward kcat: 1670.0
+Reverse kcat: 1670.0
+
+INFO: No entry for EC number 1.1.1.94
+
+***
+Reaction: G3PD1ir
+Forward kcat: 240.0
+Reverse kcat: 240.0
+
+***
+Reaction: G3PDau
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ARGDI_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ARGOXu
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 4.1.3.42
+
+***
+Reaction: DDPGA
+Forward kcat: 9.8
+Reverse kcat: 9.8
+
+***
+Reaction: GUDBUTNAH
+Forward kcat: 553.35
+Reverse kcat: 553.35
+
+INFO: No entry for EC number 1.14.11
+
+***
+Reaction: PROAKGOX1
+Forward kcat: 0.835
+Reverse kcat: 0.835
+
+***
+Reaction: THRD_L_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ARGDC
+Forward kcat: 4.800000000000001
+Reverse kcat: 2.7
+
+***
+Reaction: HSK
+Forward kcat: 13.6
+Reverse kcat: 13.6
+
+***
+Reaction: THRS
+Forward kcat: 0.8
+Reverse kcat: 0.8
+
+***
+Reaction: HSDy
+Forward kcat: 0.97
+Reverse kcat: 20.939999999999998
+
+***
+Reaction: ASAD
+Forward kcat: 160.0
+Reverse kcat: 245.0
+
+***
+Reaction: ASPK
+Forward kcat: 13.2
+Reverse kcat: 6.2
+
+***
+Reaction: DHDPS
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 1.3.1.26
+
+***
+Reaction: LDAPAT
+Forward kcat: 1.6
+Reverse kcat: 1.6
+
+***
+Reaction: DAPE
+Forward kcat: 75.5
+Reverse kcat: 75.5
+
+***
+Reaction: DAPDC
+Forward kcat: 7.55
+Reverse kcat: 7.55
+
+***
+Reaction: LTHRK
+Forward kcat: 0.22535
+Reverse kcat: 0.22535
+
+***
+Reaction: ASNN_1
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 4.1.1.81
+
+INFO: No entry for EC number 2.5.1.99
+
+INFO: No entry for EC number 2.5.1.32
+
+***
+Reaction: PHYTES2
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PHYTEDH2
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PHYTFDH2
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 5.5.1.19
+
+***
+Reaction: ZCAROTDH1
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 5.5.1.19
+
+***
+Reaction: ECHINH
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: BCAROHX11
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: BCAROHX21
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 1.14.99
+
+INFO: No entry for EC number 1.13.99
+
+***
+Reaction: GLUTRS
+Forward kcat: 1.285
+Reverse kcat: 2.2
+
+***
+Reaction: GLUTRR
+Forward kcat: 0.15
+Reverse kcat: 0.15
+
+***
+Reaction: G1SAT
+Forward kcat: 0.47
+Reverse kcat: 0.47
+
+***
+Reaction: PPBNGS
+Forward kcat: 9.3
+Reverse kcat: 9.3
+
+***
+Reaction: HMBS_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: UPP3S
+Forward kcat: 30.0
+Reverse kcat: 30.0
+
+***
+Reaction: UPPDC1
+Forward kcat: 0.317
+Reverse kcat: 0.317
+
+***
+Reaction: CPPPGO
+Forward kcat: 0.021835
+Reverse kcat: 0.021835
+
+***
+Reaction: MPOMT
+Forward kcat: 0.028999999999999998
+Reverse kcat: 0.028999999999999998
+
+***
+Reaction: CPPPGO2
+Forward kcat: 0.03
+Reverse kcat: 0.03
+
+***
+Reaction: PPPGO
+Forward kcat: 0.0032849999999999997
+Reverse kcat: 0.0032849999999999997
+
+***
+Reaction: DVOCHR
+Forward kcat: 0.0074
+Reverse kcat: 0.0074
+
+INFO: No entry for EC number 2.4.1.14
+
+***
+Reaction: SPP
+Forward kcat: 35.699999999999996
+Reverse kcat: 35.699999999999996
+
+INFO: No entry for EC number 4.99.1.1
+
+INFO: No entry for EC number 2.5.1.-
+
+INFO: No entry for EC number 1.3
+
+INFO: No entry for EC number 3.6.1.31
+
+***
+Reaction: ATPPRT
+Forward kcat: 0.94
+Reverse kcat: 0.94
+
+***
+Reaction: PRMICI
+Forward kcat: 3.92
+Reverse kcat: 3.92
+
+***
+Reaction: IGPDH
+Forward kcat: 1000.0
+Reverse kcat: 1000.0
+
+INFO: No entry for EC number 4.3.2.M2
+
+***
+Reaction: HISTP
+Forward kcat: 88.8
+Reverse kcat: 29.0
+
+***
+Reaction: POR_1
+Forward kcat: 0.038500000000000006
+Reverse kcat: 0.038500000000000006
+
+INFO: No entry for EC number 1.14.13.81
+
+INFO: No entry for EC number 1.14.13.81
+
+***
+Reaction: PCHR
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: CYSST
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.5.1.62
+
+***
+Reaction: MTHFR2
+Forward kcat: 63.0
+Reverse kcat: 63.0
+
+***
+Reaction: KARI_23dhmp_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: HISTDa_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: KARA1
+Forward kcat: 0.3
+Reverse kcat: 0.21150000000000002
+
+***
+Reaction: GOX
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: KARI_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DHAD1
+Forward kcat: 5.7
+Reverse kcat: 5.7
+
+***
+Reaction: GOR1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DHAD2
+Forward kcat: 5.7
+Reverse kcat: 5.7
+
+***
+Reaction: MTHFR3
+Forward kcat: 63.0
+Reverse kcat: 63.0
+
+***
+Reaction: GLUCYS
+Forward kcat: 15.15
+Reverse kcat: 22.4
+
+***
+Reaction: GTPCI
+Forward kcat: 0.0026
+Reverse kcat: 0.0026
+
+INFO: No entry for EC number 2.6.1.6
+
+INFO: No entry for EC number 2.6.1.67
+
+***
+Reaction: LEUTA
+Forward kcat: 118.0
+Reverse kcat: 8.555
+
+***
+Reaction: GTHS
+Forward kcat: 26.0
+Reverse kcat: 26.9
+
+INFO: No entry for EC number 2.6.1.6
+
+***
+Reaction: VALTA
+Forward kcat: 80.75
+Reverse kcat: 8.555
+
+***
+Reaction: IPMD
+Forward kcat: 6.0
+Reverse kcat: 6.0
+
+***
+Reaction: MM3OR1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DNTPPA
+Forward kcat: 2.4
+Reverse kcat: 2.4
+
+INFO: No entry for EC number 3.6.1.54
+
+***
+Reaction: MMS
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 3.4.19
+
+***
+Reaction: GTHRDH_syn
+Forward kcat: 12.45
+Reverse kcat: 12.45
+
+***
+Reaction: IPPS
+Forward kcat: 2.16
+Reverse kcat: 2.16
+
+***
+Reaction: IPPMIa
+Forward kcat: 3.2
+Reverse kcat: 3.2
+
+***
+Reaction: MMHL
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SBP
+Forward kcat: 7.35
+Reverse kcat: 7.35
+
+***
+Reaction: DPR
+Forward kcat: 21.4
+Reverse kcat: 21.4
+
+***
+Reaction: AMPTASECG
+Forward kcat: 15.0
+Reverse kcat: 15.0
+
+***
+Reaction: FBA3
+Forward kcat: 3.625
+Reverse kcat: 3.625
+
+***
+Reaction: MI1PP
+Forward kcat: 3.6
+Reverse kcat: 3.6
+
+INFO: No entry for EC number 2.3.1.86
+
+***
+Reaction: ACOATA
+Forward kcat: 1.9
+Reverse kcat: 7.2
+
+***
+Reaction: PHOTON_E1
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.3.1.86
+
+***
+Reaction: KAS14
+Forward kcat: 7.2
+Reverse kcat: 7.2
+
+INFO: No entry for EC number 2.3.1.86
+
+INFO: No entry for EC number 2.3.1.0
+
+***
+Reaction: MCOATA
+Forward kcat: 6.65
+Reverse kcat: 6.65
+
+***
+Reaction: ACCOAC
+Forward kcat: 10.1
+Reverse kcat: 10.1
+
+***
+Reaction: 3HAD40_2
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.3.1.86
+
+INFO: No entry for EC number 4.2.1.58
+
+INFO: No entry for EC number 2.3.1.86
+
+***
+Reaction: 3HAD60
+Forward kcat: 6.65
+Reverse kcat: 6.65
+
+INFO: No entry for EC number 4.2.1.58
+
+INFO: No entry for EC number 2.3.1.86
+
+INFO: No entry for EC number 4.2.1.61
+
+***
+Reaction: 3HAD80
+Forward kcat: 6.65
+Reverse kcat: 6.65
+
+INFO: No entry for EC number 2.3.1.86
+
+***
+Reaction: PHOTON680
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.3.1.86
+
+***
+Reaction: 3OAR40_2
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.3.1.86
+
+***
+Reaction: 3OAR60
+Forward kcat: 167.95
+Reverse kcat: 6.65
+
+***
+Reaction: PHOTON700
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.3.1.86
+
+***
+Reaction: 3OAR80
+Forward kcat: 167.95
+Reverse kcat: 6.65
+
+***
+Reaction: RPE
+Forward kcat: 840.0
+Reverse kcat: 840.0
+
+***
+Reaction: PSIb
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PSIa
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ORPT
+Forward kcat: 0.79
+Reverse kcat: 4.2
+
+***
+Reaction: OMPDC
+Forward kcat: 19.0
+Reverse kcat: 17.0
+
+INFO: No entry for EC number 4.2.1.58
+
+INFO: No entry for EC number 4.2.1.60
+
+INFO: No entry for EC number 2.3.1.86
+
+INFO: No entry for EC number 4.2.1.61
+
+***
+Reaction: 3HAD100
+Forward kcat: 6.65
+Reverse kcat: 6.65
+
+INFO: No entry for EC number 4.2.1.58
+
+INFO: No entry for EC number 4.2.1.60
+
+INFO: No entry for EC number 2.3.1.86
+
+INFO: No entry for EC number 4.2.1.61
+
+***
+Reaction: 3HAD120
+Forward kcat: 6.65
+Reverse kcat: 6.65
+
+INFO: No entry for EC number 2.3.1.86
+
+INFO: No entry for EC number 4.2.1.61
+
+***
+Reaction: 3HAD140
+Forward kcat: 6.65
+Reverse kcat: 6.65
+
+INFO: No entry for EC number 2.3.1.86
+
+INFO: No entry for EC number 4.2.1.61
+
+***
+Reaction: 3HAD160
+Forward kcat: 6.65
+Reverse kcat: 6.65
+
+INFO: No entry for EC number 4.2.1.61
+
+***
+Reaction: MEHLER
+Forward kcat: 6.2
+Reverse kcat: 6.2
+
+***
+Reaction: TALA
+Forward kcat: 13.86
+Reverse kcat: 13.86
+
+***
+Reaction: FNOR
+Forward kcat: 187.0
+Reverse kcat: 48.65
+
+INFO: No entry for EC number 1.8.7.2
+
+INFO: No entry for EC number 2.3.1.86
+
+INFO: No entry for EC number 2.3.1.86
+
+***
+Reaction: EAR160y
+Forward kcat: 1.005
+Reverse kcat: 1.005
+
+***
+Reaction: SOPSII
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EAR180y
+Forward kcat: 1.005
+Reverse kcat: 1.005
+
+INFO: No entry for EC number 2.7.1.19
+
+INFO: No entry for EC number 2.3.1.86
+
+INFO: No entry for EC number 2.3.1.86
+
+INFO: No entry for EC number 2.3.1.86
+
+***
+Reaction: NDPK2
+Forward kcat: 143.5
+Reverse kcat: 143.5
+
+***
+Reaction: NDPK3
+Forward kcat: 143.5
+Reverse kcat: 143.5
+
+***
+Reaction: CTPS1_2
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.3.1.86
+
+***
+Reaction: CTPS2
+Forward kcat: 6.18
+Reverse kcat: 6.9
+
+***
+Reaction: RBPC_1
+Forward kcat: 11.2625
+Reverse kcat: 11.2625
+
+***
+Reaction: DES2_C16
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DES2_9
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: 5DOAN
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PRPPS
+Forward kcat: 40.65
+Reverse kcat: 40.65
+
+***
+Reaction: ABTA
+Forward kcat: 47.4
+Reverse kcat: 2.7
+
+***
+Reaction: DES2_12
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DES2_6
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DES2_6B
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DES2_15
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: UAGAAT
+Forward kcat: 9.83
+Reverse kcat: 9.83
+
+***
+Reaction: UHGADA
+Forward kcat: 0.405
+Reverse kcat: 0.405
+
+***
+Reaction: ALDD2x
+Forward kcat: 13.16667
+Reverse kcat: 0.5666666499999999
+
+***
+Reaction: OXGDC
+Forward kcat: 1.6
+Reverse kcat: 1.6
+
+***
+Reaction: U23GAAT
+Forward kcat: 23.0
+Reverse kcat: 23.0
+
+***
+Reaction: MGSA
+Forward kcat: 220.0
+Reverse kcat: 220.0
+
+***
+Reaction: ASPO6
+Forward kcat: 0.2235
+Reverse kcat: 0.2235
+
+***
+Reaction: LGTHL
+Forward kcat: 1131.6665
+Reverse kcat: 1060.0
+
+INFO: No entry for EC number 2.4.1.182
+
+***
+Reaction: PKETF
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.5.1.72
+
+***
+Reaction: CBFCub
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: NNDPR
+Forward kcat: 6.0
+Reverse kcat: 6.0
+
+***
+Reaction: CYO1b2_syn_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: NDH2_syn
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: NADS2
+Forward kcat: 1.6
+Reverse kcat: 1.6
+
+***
+Reaction: NAMPRT
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: NDH2_1p
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: NADK
+Forward kcat: 31.5
+Reverse kcat: 3.4
+
+***
+Reaction: CYO1b2pp_syn_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MOHMT
+Forward kcat: 0.78
+Reverse kcat: 0.78
+
+***
+Reaction: ASP1DC
+Forward kcat: 0.57
+Reverse kcat: 0.57
+
+***
+Reaction: CBFCuc
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PANTS
+Forward kcat: 2.94
+Reverse kcat: 3.4
+
+***
+Reaction: PNTK
+Forward kcat: 1.7166665
+Reverse kcat: 1.5
+
+***
+Reaction: CYTBDpp_2
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PPCDC
+Forward kcat: 1.86666665
+Reverse kcat: 1.86666665
+
+***
+Reaction: CBFCua
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PPNCL3
+Forward kcat: 2.71
+Reverse kcat: 2.71
+
+***
+Reaction: PPNCL2
+Forward kcat: 1.89166665
+Reverse kcat: 1.89166665
+
+***
+Reaction: DHORDfum
+Forward kcat: 10.55
+Reverse kcat: 10.55
+
+***
+Reaction: PTPATi
+Forward kcat: 4.853
+Reverse kcat: 4.853
+
+***
+Reaction: CYTBDu_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DPCOAK
+Forward kcat: 1.4449999999999998
+Reverse kcat: 1.4449999999999998
+
+***
+Reaction: SPMS
+Forward kcat: 1.9
+Reverse kcat: 1.9
+
+***
+Reaction: GF6PTA
+Forward kcat: 14.4
+Reverse kcat: 0.0123
+
+***
+Reaction: PGAMT
+Forward kcat: 0.1
+Reverse kcat: 0.1
+
+***
+Reaction: G1PACT
+Forward kcat: 735.0
+Reverse kcat: 22.1
+
+***
+Reaction: UAGDP
+Forward kcat: 21.0
+Reverse kcat: 24.0
+
+***
+Reaction: UAGCVT
+Forward kcat: 3.0
+Reverse kcat: 1.4649999999999999
+
+***
+Reaction: SPMSy
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: UAPGR
+Forward kcat: 36.0
+Reverse kcat: 36.0
+
+***
+Reaction: UAMAS
+Forward kcat: 15.8
+Reverse kcat: 15.8
+
+***
+Reaction: UAMAGS
+Forward kcat: 1.816667
+Reverse kcat: 1.816667
+
+***
+Reaction: AHMMPDPT
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: UAAGDS
+Forward kcat: 3.33
+Reverse kcat: 3.33
+
+***
+Reaction: GLUR
+Forward kcat: 7.515000000000001
+Reverse kcat: 5.95
+
+***
+Reaction: ALCD2y
+Forward kcat: 89.05
+Reverse kcat: 103.666665
+
+***
+Reaction: Htex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ALAR
+Forward kcat: 46.795
+Reverse kcat: 5.525
+
+***
+Reaction: ALAALAr
+Forward kcat: 8.373333500000001
+Reverse kcat: 1.4083335
+
+***
+Reaction: ASPO5_2
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: O2tex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GLUDC
+Forward kcat: 0.858
+Reverse kcat: 3.965
+
+***
+Reaction: UGMDDS
+Forward kcat: 508.5
+Reverse kcat: 508.5
+
+***
+Reaction: PAPPT3
+Forward kcat: 5.33
+Reverse kcat: 5.33
+
+***
+Reaction: UAGPT3
+Forward kcat: 0.72
+Reverse kcat: 0.72
+
+***
+Reaction: ACS
+Forward kcat: 95.1
+Reverse kcat: 66.6
+
+***
+Reaction: UDCPDP
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: CO2tex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PPTGS_Syn_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PYK
+Forward kcat: 15.3
+Reverse kcat: 51.8
+
+***
+Reaction: CO2tpp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ATPS4rpp_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ATPSu_1
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 1.2.1
+
+INFO: No entry for EC number 1.2.1.51
+
+***
+Reaction: PDH
+Forward kcat: 205.0
+Reverse kcat: 205.0
+
+***
+Reaction: G6PDH2r
+Forward kcat: 59.55
+Reverse kcat: 521.83335
+
+***
+Reaction: PGL
+Forward kcat: 14.3
+Reverse kcat: 14.3
+
+***
+Reaction: GND
+Forward kcat: 31.865
+Reverse kcat: 21.15
+
+***
+Reaction: TKT2
+Forward kcat: 52500.0
+Reverse kcat: 1.35
+
+***
+Reaction: H2Otex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: RPI
+Forward kcat: 540.0
+Reverse kcat: 540.0
+
+***
+Reaction: TKT1
+Forward kcat: 47.0
+Reverse kcat: 1.35
+
+***
+Reaction: ALCD2ir
+Forward kcat: 16.7
+Reverse kcat: 4.916667
+
+***
+Reaction: O2tl
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: IPDDI
+Forward kcat: 0.6299999999999999
+Reverse kcat: 0.6299999999999999
+
+***
+Reaction: PEPC
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: HCO3tex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: TMPPP
+Forward kcat: 999.0
+Reverse kcat: 999.0
+
+***
+Reaction: NAtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MDH
+Forward kcat: 2770.0
+Reverse kcat: 960.0
+
+***
+Reaction: PPS
+Forward kcat: 11.9
+Reverse kcat: 11.9
+
+***
+Reaction: NDPK4
+Forward kcat: 143.5
+Reverse kcat: 143.5
+
+***
+Reaction: ACONTa_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GLCtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GLNtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ARGtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ACONTb_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: RNDR4
+Forward kcat: 0.275
+Reverse kcat: 0.275
+
+***
+Reaction: ICDHyr
+Forward kcat: 80.5
+Reverse kcat: 3.5
+
+***
+Reaction: GLUtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DCTPD_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: HIStex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: UREAtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: FUM
+Forward kcat: 650.0
+Reverse kcat: 200.0
+
+***
+Reaction: SUCOAS
+Forward kcat: 27.85
+Reverse kcat: 19.8
+
+***
+Reaction: DCTPD2_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: NO3tex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: NH4tex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SUCDu_syn
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SUCDyy_syn
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.3.3.3
+
+***
+Reaction: CS
+Forward kcat: 23.0
+Reverse kcat: 23.0
+
+***
+Reaction: LDH_D
+Forward kcat: 1895.0
+Reverse kcat: 1066.5
+
+***
+Reaction: PItex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MNtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: Ktex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ME2
+Forward kcat: 71.6
+Reverse kcat: 57.0
+
+***
+Reaction: PTAr
+Forward kcat: 29.6
+Reverse kcat: 1500.0
+
+INFO: No entry for EC number 2.7.4.13
+
+***
+Reaction: URIDK2r
+Forward kcat: 0.49
+Reverse kcat: 0.49
+
+***
+Reaction: ACKr
+Forward kcat: 545.0
+Reverse kcat: 1000.0
+
+***
+Reaction: PGLYCP
+Forward kcat: 4.8
+Reverse kcat: 4.8
+
+***
+Reaction: POR_syn
+Forward kcat: 15.0
+Reverse kcat: 15.0
+
+***
+Reaction: Zn2tex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: NI2tex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: COBALT2tex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: CU2tex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: OXADC
+Forward kcat: 54.0
+Reverse kcat: 54.0
+
+***
+Reaction: MOBDtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: FDH6_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: TMDS3
+Forward kcat: 0.6663333
+Reverse kcat: 0.6663333
+
+***
+Reaction: FE3tex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SSALy
+Forward kcat: 3.7
+Reverse kcat: 3.7
+
+INFO: No entry for EC number 2.5.1.115
+
+INFO: No entry for EC number 2.4.2.14
+
+***
+Reaction: GLYCLTDx
+Forward kcat: 65.0
+Reverse kcat: 47500.0
+
+***
+Reaction: PTRCtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SPMDtex
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 5.5.1.24
+
+***
+Reaction: DRIBtex_1
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 5.5.1.24
+
+***
+Reaction: DRU1Ptex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PRAGSr
+Forward kcat: 4.8
+Reverse kcat: 4.8
+
+***
+Reaction: GARFT
+Forward kcat: 0.102
+Reverse kcat: 0.102
+
+***
+Reaction: CRESOLtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PRFGS
+Forward kcat: 499.525
+Reverse kcat: 499.525
+
+INFO: No entry for EC number 2.1.1.95
+
+INFO: No entry for EC number 6.3.3.1
+
+***
+Reaction: AIRCra
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: AIRCrb
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: COt_1
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 6.3.2.6
+
+***
+Reaction: Htx
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.1.1.95
+
+***
+Reaction: ADSL2r
+Forward kcat: 1.72
+Reverse kcat: 1.72
+
+***
+Reaction: ADSL1r
+Forward kcat: 1.72
+Reverse kcat: 1.72
+
+***
+Reaction: CHRPL
+Forward kcat: 0.82
+Reverse kcat: 0.82
+
+***
+Reaction: AICART
+Forward kcat: 5.734999999999999
+Reverse kcat: 5.734999999999999
+
+***
+Reaction: IMPC
+Forward kcat: 4.3
+Reverse kcat: 4.3
+
+***
+Reaction: O2tp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: HCO3t2cax
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ADSS
+Forward kcat: 1.1
+Reverse kcat: 1.0
+
+***
+Reaction: HBZNPT
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ADPT
+Forward kcat: 4.425
+Reverse kcat: 6.045
+
+***
+Reaction: NDPK1
+Forward kcat: 143.5
+Reverse kcat: 143.5
+
+***
+Reaction: RBPt2cax
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PQBS1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: RNDR2
+Forward kcat: 0.275
+Reverse kcat: 0.275
+
+***
+Reaction: PQBS2
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: NTPP2
+Forward kcat: 1.08333315
+Reverse kcat: 1.08333315
+
+***
+Reaction: DAMPPH
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: 3PGtx
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: 2PGLYCtx
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SHCHCS3
+Forward kcat: 147.0
+Reverse kcat: 147.0
+
+***
+Reaction: GLCt2pp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: NTD7
+Forward kcat: 5.415
+Reverse kcat: 5.415
+
+***
+Reaction: SEPHCHCS
+Forward kcat: 0.28
+Reverse kcat: 0.28
+
+***
+Reaction: NDPK8
+Forward kcat: 143.5
+Reverse kcat: 143.5
+
+***
+Reaction: NDPK5
+Forward kcat: 143.5
+Reverse kcat: 143.5
+
+***
+Reaction: H2CO3_NAt_syn
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: UREAabcpp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: IMPD
+Forward kcat: 2.7
+Reverse kcat: 2.6
+
+INFO: No entry for EC number 3.6.3.21
+
+***
+Reaction: ICHORS
+Forward kcat: 2.88
+Reverse kcat: 2.34
+
+***
+Reaction: GLUt4pp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: NH4tpp_1
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 3.6.3.26
+
+***
+Reaction: SO4tex
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 3.6.3.25
+
+***
+Reaction: GMPS2
+Forward kcat: 2.3
+Reverse kcat: 2.3
+
+***
+Reaction: GK1
+Forward kcat: 80.0
+Reverse kcat: 74.25
+
+***
+Reaction: GART
+Forward kcat: 2.1
+Reverse kcat: 2.1
+
+***
+Reaction: NTPP8
+Forward kcat: 1.08333315
+Reverse kcat: 1.08333315
+
+***
+Reaction: ASPCT
+Forward kcat: 52.316665
+Reverse kcat: 57.4
+
+***
+Reaction: ADK1
+Forward kcat: 417.5
+Reverse kcat: 683.0
+
+INFO: No entry for EC number 2.7.4.11
+
+INFO: No entry for EC number 2.7.4.13
+
+***
+Reaction: DADK
+Forward kcat: 238.5
+Reverse kcat: 683.0
+
+***
+Reaction: FECHEabcpp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SUCBZS
+Forward kcat: 120.0
+Reverse kcat: 120.0
+
+INFO: No entry for EC number 3.6.3.35
+
+***
+Reaction: DHORTS
+Forward kcat: 25.0
+Reverse kcat: 6.883333499999999
+
+***
+Reaction: SUCBZL
+Forward kcat: 53.81
+Reverse kcat: 53.81
+
+***
+Reaction: PQ9tu
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 3.6.3.10
+
+INFO: No entry for EC number 3.6.3.12
+
+***
+Reaction: NPHSa
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ZNabcpp
+Forward kcat: 300.0
+Reverse kcat: 300.0
+
+***
+Reaction: NAKt2pp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: O2tpp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: NPHSb
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PQ9tm
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: FE2Gabcpp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: E4POR1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DHNAPHT1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: 4PEOR
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 3.6.3.24
+
+***
+Reaction: PHTHAT
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ZN2abcpp
+Forward kcat: 300.0
+Reverse kcat: 300.0
+
+***
+Reaction: PDX5PSb
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.1.1.163
+
+***
+Reaction: R05217_nad
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: FE2abcpp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: COBALT2abcpp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: FE2tex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: CA2t3pp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GLCGLYCtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SUCRtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: 34HPPOR
+Forward kcat: 6.8
+Reverse kcat: 6.8
+
+INFO: No entry for EC number 1.16.8.1
+
+***
+Reaction: MG2tex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MG2uabcpp
+Forward kcat: 22.5
+Reverse kcat: 22.5
+
+***
+Reaction: H2Otpp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GTPCII
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PDX5PSa
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PDX5PSc
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: CA2abcpp
+Forward kcat: 96.5
+Reverse kcat: 96.5
+
+***
+Reaction: DHPPDA_2
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: CA2tex
+Forward kcat: 96.5
+Reverse kcat: 96.5
+
+INFO: No entry for EC number 3.6.3.30
+
+***
+Reaction: PDX5POi
+Forward kcat: 0.185
+Reverse kcat: 0.76
+
+***
+Reaction: UPP3MT
+Forward kcat: 0.01055556
+Reverse kcat: 0.01055556
+
+***
+Reaction: PMDPHT
+Forward kcat: 0.8833333
+Reverse kcat: 0.8833333
+
+***
+Reaction: NAt3pp
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.1.1.130
+
+INFO: No entry for EC number 3.6.3.4
+
+INFO: No entry for EC number 2.1.1.131
+
+***
+Reaction: RBFSa
+Forward kcat: 0.056
+Reverse kcat: 0.056
+
+INFO: No entry for EC number 2.1.1.133
+
+INFO: No entry for EC number 3.6.3.29
+
+INFO: No entry for EC number 3.6.3.31
+
+INFO: No entry for EC number 2.1.1.152
+
+***
+Reaction: RBFSb
+Forward kcat: 0.14700000000000002
+Reverse kcat: 0.14700000000000002
+
+INFO: No entry for EC number 1.3.1.54
+
+INFO: No entry for EC number 3.6.3.31
+
+***
+Reaction: RBFK
+Forward kcat: 2.67
+Reverse kcat: 2.67
+
+***
+Reaction: H2Otly
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PC8XM
+Forward kcat: 0.00142
+Reverse kcat: 0.00142
+
+INFO: No entry for EC number 2.1.1.132
+
+***
+Reaction: R05224_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: CYRDAAT
+Forward kcat: 0.13
+Reverse kcat: 0.0225
+
+***
+Reaction: FMNAT
+Forward kcat: 0.0128
+Reverse kcat: 0.091
+
+INFO: No entry for EC number 6.6.1.2
+
+***
+Reaction: TRNFE
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: FMNRx2
+Forward kcat: 28.0
+Reverse kcat: 28.0
+
+***
+Reaction: APTRS
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ADCYRS
+Forward kcat: 3.6
+Reverse kcat: 3.6
+
+***
+Reaction: PACL
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.4.1.213
+
+INFO: No entry for EC number 6.3.1.10
+
+***
+Reaction: PHOtex_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ACBIPGT
+Forward kcat: 1.8
+Reverse kcat: 1.8
+
+***
+Reaction: DMBZS1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: NPRT
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ACtex
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 3.1.3.69
+
+***
+Reaction: ADOCBLS
+Forward kcat: 41.985
+Reverse kcat: 41.985
+
+***
+Reaction: ACt2rpp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: LYSDC
+Forward kcat: 0.615
+Reverse kcat: 0.615
+
+***
+Reaction: AKGtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: THRTRS
+Forward kcat: 19.5
+Reverse kcat: 24.0
+
+***
+Reaction: ALATRS
+Forward kcat: 0.44
+Reverse kcat: 0.44
+
+***
+Reaction: AKGt2rpp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MTAP
+Forward kcat: 9.6
+Reverse kcat: 9.6
+
+***
+Reaction: ALAtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: CITtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: CITt_kt
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: NTPTP1
+Forward kcat: 4000.0
+Reverse kcat: 4000.0
+
+***
+Reaction: UPPRT
+Forward kcat: 0.505
+Reverse kcat: 0.505
+
+***
+Reaction: ASNTRS
+Forward kcat: 1.9000000000000001
+Reverse kcat: 1.9000000000000001
+
+***
+Reaction: PHETRS
+Forward kcat: 8.27
+Reverse kcat: 0.19
+
+***
+Reaction: MTRI
+Forward kcat: 13.0
+Reverse kcat: 13.0
+
+***
+Reaction: ARGTRS
+Forward kcat: 2.4
+Reverse kcat: 0.215
+
+***
+Reaction: CYNTt2pp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: CYNTtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GLGC
+Forward kcat: 43.32
+Reverse kcat: 47.5
+
+***
+Reaction: SQLS
+Forward kcat: 0.478
+Reverse kcat: 0.478
+
+***
+Reaction: ADNCYC
+Forward kcat: 0.4943
+Reverse kcat: 0.4943
+
+***
+Reaction: AMID3_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: AMID_2
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: AMID2_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: LEUTRS
+Forward kcat: 5.05
+Reverse kcat: 4.9
+
+***
+Reaction: EX_ac_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_akg_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_ala__L_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_ca2_e
+Forward kcat: 96.5
+Reverse kcat: 96.5
+
+***
+Reaction: ADPRDP
+Forward kcat: 4.9
+Reverse kcat: 4.9
+
+***
+Reaction: GFUCS
+Forward kcat: 0.75
+Reverse kcat: 0.75
+
+***
+Reaction: GLBRAN2
+Forward kcat: 500.075
+Reverse kcat: 500.075
+
+***
+Reaction: HOXG
+Forward kcat: 0.18915
+Reverse kcat: 0.18915
+
+***
+Reaction: EX_cit_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GMAND
+Forward kcat: 5.0
+Reverse kcat: 5.0
+
+***
+Reaction: ACACT1r
+Forward kcat: 309.5
+Reverse kcat: 40.1
+
+***
+Reaction: ILETRS
+Forward kcat: 3.2
+Reverse kcat: 3.7813499999999998
+
+***
+Reaction: AACOAR_syn
+Forward kcat: 9.0
+Reverse kcat: 9.0
+
+***
+Reaction: PROTRS
+Forward kcat: 14.0
+Reverse kcat: 1.09
+
+***
+Reaction: GLNTRAT
+Forward kcat: 0.3
+Reverse kcat: 0.3
+
+***
+Reaction: EX_co_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_co2_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GLCP2
+Forward kcat: 51.25
+Reverse kcat: 51.25
+
+***
+Reaction: EX_cobalt2_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MALT
+Forward kcat: 14.0
+Reverse kcat: 14.0
+
+***
+Reaction: GLCP
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DRPA
+Forward kcat: 16.5
+Reverse kcat: 16.5
+
+***
+Reaction: FMETTRS
+Forward kcat: 12.600000000000001
+Reverse kcat: 12.600000000000001
+
+***
+Reaction: HISTRS
+Forward kcat: 7.0
+Reverse kcat: 2.04
+
+***
+Reaction: EX_cu2_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_cynt_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GLYTRS
+Forward kcat: 0.73
+Reverse kcat: 0.73
+
+***
+Reaction: EX_fe2_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: CYPHYS
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_fe3_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DBTS
+Forward kcat: 11.75
+Reverse kcat: 11.75
+
+***
+Reaction: VALTRS
+Forward kcat: 4.2
+Reverse kcat: 1.7
+
+***
+Reaction: PHBS_syn_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GLCGLYCabcpp_syn
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: UAG2EMA_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_fru_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_fum_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_glc__D_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_glcglyc_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_gln__L_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_glu__L_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_gly_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: UAG2EMA
+Forward kcat: 7.1
+Reverse kcat: 82.3
+
+***
+Reaction: METTRS
+Forward kcat: 0.2
+Reverse kcat: 2.87
+
+***
+Reaction: CYPHYC
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: CYNTAH_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_h_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_h2_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DXPS
+Forward kcat: 4.9
+Reverse kcat: 0.6
+
+***
+Reaction: EX_h2o_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: AOXSr
+Forward kcat: 0.0175
+Reverse kcat: 0.3
+
+***
+Reaction: CYSTRS
+Forward kcat: 3.185
+Reverse kcat: 5.8
+
+***
+Reaction: EX_hco3_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DXPRIi
+Forward kcat: 33.0
+Reverse kcat: 37.5
+
+***
+Reaction: EX_his__L_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_k_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GLYCDx
+Forward kcat: 11.649999999999999
+Reverse kcat: 11.649999999999999
+
+***
+Reaction: TYRTRS
+Forward kcat: 4.6
+Reverse kcat: 3.85
+
+***
+Reaction: CSND_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_leu__L_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MEPCT
+Forward kcat: 48.4
+Reverse kcat: 38.45
+
+***
+Reaction: EX_lys__L_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: BTS4
+Forward kcat: 0.001075
+Reverse kcat: 0.001075
+
+***
+Reaction: LYSTRS
+Forward kcat: 3.6
+Reverse kcat: 5.8
+
+***
+Reaction: EX_mal__L_e
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.7.1.148
+
+***
+Reaction: EX_mg2_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_mn2_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SERTRS
+Forward kcat: 0.98
+Reverse kcat: 1.065
+
+***
+Reaction: ASPTRS
+Forward kcat: 0.133
+Reverse kcat: 0.124
+
+***
+Reaction: MECDPS
+Forward kcat: 2.5
+Reverse kcat: 2.5
+
+***
+Reaction: EX_mobd_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_na1_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_nh4_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_ni2_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_no3_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: TRPTRS
+Forward kcat: 0.9
+Reverse kcat: 0.065
+
+***
+Reaction: EX_o2_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MECDPDH3_syn
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_photon_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_ptrc_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_pi_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_pyr_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: IPDPS_syn
+Forward kcat: 3.11
+Reverse kcat: 3.11
+
+***
+Reaction: EX_ser__L_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_pro__L_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ACP1_FMN
+Forward kcat: 25.0
+Reverse kcat: 25.0
+
+***
+Reaction: EX_so4_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DMATT
+Forward kcat: 0.4
+Reverse kcat: 0.4
+
+***
+Reaction: EX_spmd_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_succ_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: RBCh_2
+Forward kcat: 11.2625
+Reverse kcat: 11.2625
+
+***
+Reaction: EX_sucr_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GRTT
+Forward kcat: 3.8583335
+Reverse kcat: 3.8583335
+
+***
+Reaction: EX_urea_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SQLC
+Forward kcat: 0.86
+Reverse kcat: 0.86
+
+INFO: No entry for EC number 4.2.1.129
+
+***
+Reaction: NORx
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_zn2_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: FRUtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ATPADT
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: FUMtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: UDPDPS
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: FUMtpp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GLYtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: NTP3
+Forward kcat: 0.041499999999999995
+Reverse kcat: 7.3
+
+INFO: No entry for EC number 1.3.1.83
+
+***
+Reaction: LEUtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: LYStex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GRDPTT7
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MALtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MALtpp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PROtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PTRCt2pp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PGMT_B
+Forward kcat: 17.0
+Reverse kcat: 17.0
+
+***
+Reaction: FTHFCL
+Forward kcat: 0.99
+Reverse kcat: 1.0
+
+***
+Reaction: GDH2
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ARSNR
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PYRtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PYRt2rpp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DCPLD1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GRDPTT5
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PHYCBNORr
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SULFT
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SERtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SPMDt2pp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MPPST
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: AHMMPS
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PALMCL
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: AMPD2
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SUCCtex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SUCCtpp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: CYSTL
+Forward kcat: 1.9
+Reverse kcat: 1.9
+
+***
+Reaction: PROVITS
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: Cotpp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: AHMMPS2
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ETAK
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DHPTNR2
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: THZPSN2
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DRBK
+Forward kcat: 9.8
+Reverse kcat: 9.8
+
+***
+Reaction: FTHFLi
+Forward kcat: 6.08
+Reverse kcat: 6.08
+
+***
+Reaction: TMPK
+Forward kcat: 0.063
+Reverse kcat: 0.063
+
+***
+Reaction: GALKr
+Forward kcat: 8.7
+Reverse kcat: 8.7
+
+***
+Reaction: PYNP1
+Forward kcat: 9.265
+Reverse kcat: 9.265
+
+***
+Reaction: IACAH
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: NADN
+Forward kcat: 53.6
+Reverse kcat: 53.6
+
+***
+Reaction: MTHFtURAMT
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PUNP1
+Forward kcat: 6.9
+Reverse kcat: 24.7
+
+***
+Reaction: MALTHG
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: TRNAUMT
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 4.1.1.87
+
+***
+Reaction: MACPD
+Forward kcat: 0.0006666667
+Reverse kcat: 0.0006666667
+
+***
+Reaction: 4HTHBPNDH
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PGPP160
+Forward kcat: 24.0
+Reverse kcat: 24.0
+
+***
+Reaction: HPROa
+Forward kcat: 363.65
+Reverse kcat: 363.65
+
+***
+Reaction: HSDxi
+Forward kcat: 8.34
+Reverse kcat: 0.97
+
+***
+Reaction: NMNAT
+Forward kcat: 0.082
+Reverse kcat: 6.9
+
+***
+Reaction: BAMPPALDOX
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: NABTNO
+Forward kcat: 0.4333333
+Reverse kcat: 0.4333333
+
+***
+Reaction: PGPP161
+Forward kcat: 24.0
+Reverse kcat: 24.0
+
+***
+Reaction: RBK
+Forward kcat: 9.8
+Reverse kcat: 9.8
+
+***
+Reaction: PGPP180
+Forward kcat: 24.0
+Reverse kcat: 24.0
+
+***
+Reaction: PGPP181
+Forward kcat: 24.0
+Reverse kcat: 24.0
+
+***
+Reaction: PGPP181_9
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: FOMETRi
+Forward kcat: 16.4
+Reverse kcat: 16.4
+
+***
+Reaction: FDH6pp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SDPDS
+Forward kcat: 200.0
+Reverse kcat: 140.0
+
+***
+Reaction: GLYCK
+Forward kcat: 275.0
+Reverse kcat: 275.0
+
+***
+Reaction: HIBDkt
+Forward kcat: 155.0
+Reverse kcat: 155.0
+
+***
+Reaction: PGPP182_9_12
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PGPP183_6_9_12
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: T2DECAI
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PGPP183_9_12_15
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PGPP184_6_9_12_15
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GLUK_syn
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: THDPS
+Forward kcat: 43.33333
+Reverse kcat: 43.33333
+
+***
+Reaction: G3PD
+Forward kcat: 33.3
+Reverse kcat: 33.3
+
+***
+Reaction: PHACA
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: HPHACA
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PHEOR
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: FBA2
+Forward kcat: 1.4666665
+Reverse kcat: 3.625
+
+***
+Reaction: MTHFD2i
+Forward kcat: 4.015000000000001
+Reverse kcat: 4.015000000000001
+
+***
+Reaction: DM_5mdru1p_c
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.7.1.89
+
+***
+Reaction: DM_cyanphy_c
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SK_dna5mtc_c
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: KAS15
+Forward kcat: 7.2
+Reverse kcat: 7.2
+
+***
+Reaction: NMNS
+Forward kcat: 0.00767
+Reverse kcat: 0.00767
+
+***
+Reaction: G6PBDH
+Forward kcat: 521.83335
+Reverse kcat: 521.83335
+
+***
+Reaction: UGLT
+Forward kcat: 80.0
+Reverse kcat: 80.0
+
+***
+Reaction: DNADRAIN
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SK_glycogen_c
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SK_phb_c
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SK_precyanphy_c
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SK_rdmbzi_c
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ARGN
+Forward kcat: 203.0
+Reverse kcat: 0.94
+
+***
+Reaction: NADH5
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PDHa
+Forward kcat: 0.48
+Reverse kcat: 0.48
+
+***
+Reaction: LALDO
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: CYTDH
+Forward kcat: 4.455
+Reverse kcat: 4.455
+
+***
+Reaction: ALCD19
+Forward kcat: 13.95
+Reverse kcat: 13.95
+
+***
+Reaction: HPYRRx
+Forward kcat: 111.0
+Reverse kcat: 4.515
+
+***
+Reaction: AMPN
+Forward kcat: 60.0
+Reverse kcat: 60.0
+
+***
+Reaction: ADPT2
+Forward kcat: 3.85
+Reverse kcat: 3.85
+
+***
+Reaction: EX_arg__L_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GLYCTO1
+Forward kcat: 3.6
+Reverse kcat: 3.6
+
+***
+Reaction: NTD4
+Forward kcat: 5.415
+Reverse kcat: 5.415
+
+***
+Reaction: NDPK9
+Forward kcat: 143.5
+Reverse kcat: 143.5
+
+***
+Reaction: DPGM
+Forward kcat: 1.5899999999999999
+Reverse kcat: 1.5899999999999999
+
+***
+Reaction: CBFC2ub
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PGSA181_9
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: NDPK10
+Forward kcat: 143.5
+Reverse kcat: 143.5
+
+***
+Reaction: CYO1b_syn_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GMPS
+Forward kcat: 2.3
+Reverse kcat: 2.3
+
+***
+Reaction: PHYTEDH1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: NTPP4
+Forward kcat: 1.08333315
+Reverse kcat: 1.08333315
+
+***
+Reaction: CYO1bpp_syn_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: 34DHOXPEGOX
+Forward kcat: 21.75
+Reverse kcat: 4.3
+
+***
+Reaction: UPPDC2
+Forward kcat: 0.317
+Reverse kcat: 0.317
+
+***
+Reaction: NTPP9
+Forward kcat: 1.08333315
+Reverse kcat: 1.08333315
+
+INFO: No entry for EC number 2.7.8.5
+
+***
+Reaction: THFGLUS
+Forward kcat: 0.1305
+Reverse kcat: 0.1305
+
+INFO: No entry for EC number 2.7.8.5
+
+INFO: No entry for EC number 2.7.8.5
+
+INFO: No entry for EC number 2.7.8.5
+
+***
+Reaction: PGSA182_9_12
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PGSA183_6_9_12
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: OXGDC2
+Forward kcat: 1.6
+Reverse kcat: 1.6
+
+INFO: No entry for EC number 4.1.1.98
+
+***
+Reaction: MECDPDH_syn
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: FRUt3
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GLUt2rpp
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 3.6.3.21
+
+***
+Reaction: MNt2pp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PGSA183_9_12_15
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PGSA184_6_9_12_15
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: AGTi
+Forward kcat: 20.5
+Reverse kcat: 19.9
+
+***
+Reaction: PAPA184_6_9_12_15
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 3.1.3.4
+
+***
+Reaction: PAPA161
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: Kt2pp
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 6.3.1.10
+
+***
+Reaction: BILIRED
+Forward kcat: 6.35
+Reverse kcat: 6.35
+
+***
+Reaction: PAPA180
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 3.6.3.4
+
+***
+Reaction: CU2abcu_syn
+Forward kcat: 0.002833333
+Reverse kcat: 0.002833333
+
+***
+Reaction: PAPA181
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PAPA181_9
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.6.1.3
+
+***
+Reaction: CYSTA
+Forward kcat: 148.0
+Reverse kcat: 55.9
+
+***
+Reaction: G6PI3
+Forward kcat: 852.0
+Reverse kcat: 1675.0
+
+***
+Reaction: NNATr
+Forward kcat: 6.9
+Reverse kcat: 6.9
+
+***
+Reaction: HSTPT
+Forward kcat: 0.046333335
+Reverse kcat: 0.046333335
+
+***
+Reaction: PAPA182_9_12
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PAPA183_6_9_12
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PAPA183_9_12_15
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.6.1.23
+
+INFO: No entry for EC number 2.7.1.144
+
+INFO: No entry for EC number 2.7.1.56
+
+***
+Reaction: PFK_2
+Forward kcat: 112.0
+Reverse kcat: 112.0
+
+***
+Reaction: PHETA1
+Forward kcat: 180.0
+Reverse kcat: 1.19
+
+***
+Reaction: SQD2_160
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SQD2_161
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: TYRTA
+Forward kcat: 37.35
+Reverse kcat: 85.0
+
+***
+Reaction: ASPTA
+Forward kcat: 181.5
+Reverse kcat: 279.0
+
+***
+Reaction: ANSN
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: TRPS2_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PROD5u
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SQD2_180
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SQD2_181
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SQD2_181_9
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SQD2_182_9_12
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SQD2_183_6_9_12
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PROD5p
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SQD2_183_9_12_15
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PROD2
+Forward kcat: 9.8
+Reverse kcat: 9.8
+
+***
+Reaction: 3OAR121
+Forward kcat: 167.95
+Reverse kcat: 187.3
+
+***
+Reaction: SQD2_184_6_9_12_15
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: P5CRx
+Forward kcat: 139.65
+Reverse kcat: 340.0
+
+***
+Reaction: 3OAS121
+Forward kcat: 0.96
+Reverse kcat: 0.96
+
+***
+Reaction: CBPS
+Forward kcat: 4.79
+Reverse kcat: 2.9
+
+***
+Reaction: ARGOXp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: AGMT
+Forward kcat: 1.516
+Reverse kcat: 1.516
+
+***
+Reaction: TRDR
+Forward kcat: 0.9125000000000001
+Reverse kcat: 19.33333
+
+***
+Reaction: HCO3E1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PPA
+Forward kcat: 330.0
+Reverse kcat: 140.0
+
+***
+Reaction: UREA_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: 3OAR141
+Forward kcat: 167.95
+Reverse kcat: 187.3
+
+***
+Reaction: SER_AL
+Forward kcat: 55.795
+Reverse kcat: 34.59
+
+***
+Reaction: PPK2
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PPK
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: 3OAR161
+Forward kcat: 167.95
+Reverse kcat: 187.3
+
+INFO: No entry for EC number 1.6.1.3
+
+***
+Reaction: NADTRHD
+Forward kcat: 167.9
+Reverse kcat: 167.9
+
+***
+Reaction: SOR
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PHYTFDH1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ZCAROTDH2
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: 3OAR181
+Forward kcat: 167.95
+Reverse kcat: 187.3
+
+***
+Reaction: MPML
+Forward kcat: 0.0074
+Reverse kcat: 0.0074
+
+***
+Reaction: CAT
+Forward kcat: 175.5
+Reverse kcat: 69.0
+
+***
+Reaction: GTHPi
+Forward kcat: 47.1
+Reverse kcat: 35.78
+
+INFO: No entry for EC number 1.14.13.81
+
+***
+Reaction: DNMPPA
+Forward kcat: 0.011099999999999999
+Reverse kcat: 0.011099999999999999
+
+***
+Reaction: DHNPA_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MMHTASE
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: GTHOr
+Forward kcat: 265.83335
+Reverse kcat: 1.1
+
+***
+Reaction: SQD1
+Forward kcat: 0.050835000000000005
+Reverse kcat: 0.050835000000000005
+
+***
+Reaction: 12MGDG181_9
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: 12MGDG182_9_12
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 1.2.1.21
+
+INFO: No entry for EC number 4.2.1.61
+
+***
+Reaction: 12MGDG183_6_9_12
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: 12MGDG183_9_12_15
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: IMACTD
+Forward kcat: 0.4333333
+Reverse kcat: 0.4333333
+
+***
+Reaction: 12MGDG184_6_9_12_15
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 4.2.1.61
+
+***
+Reaction: 12MGDG160
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 1.1.1.77
+
+***
+Reaction: ABUTD
+Forward kcat: 3.35
+Reverse kcat: 3.35
+
+***
+Reaction: 12MGDG161
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 4.2.1.61
+
+***
+Reaction: 12MGDG180
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ALDD20x
+Forward kcat: 0.4333333
+Reverse kcat: 0.4333333
+
+***
+Reaction: DHFR
+Forward kcat: 12.6
+Reverse kcat: 25.0
+
+***
+Reaction: 12MGDG181
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 4.2.1.61
+
+***
+Reaction: MGDG160
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MGDG161
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: FOLD3
+Forward kcat: 0.0887
+Reverse kcat: 0.0887
+
+***
+Reaction: EAR161y
+Forward kcat: 1.005
+Reverse kcat: 1.005
+
+***
+Reaction: DHPS
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MGDG180
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MGDG181
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MGDG181_9
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 4.1.3.38
+
+***
+Reaction: MGDG182_9_12
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ADCS
+Forward kcat: 0.23
+Reverse kcat: 0.056
+
+***
+Reaction: DHFS
+Forward kcat: 0.155
+Reverse kcat: 0.155
+
+***
+Reaction: PTHPS
+Forward kcat: 499.516
+Reverse kcat: 499.516
+
+INFO: No entry for EC number 3.5.1.10
+
+***
+Reaction: MTHFC
+Forward kcat: 13.9
+Reverse kcat: 13.9
+
+***
+Reaction: MGDG183_6_9_12
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MGDG183_9_12_15
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MGDG184_6_9_12_15
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MTHFD
+Forward kcat: 13.2
+Reverse kcat: 13.2
+
+***
+Reaction: EAR181y
+Forward kcat: 1.005
+Reverse kcat: 1.005
+
+***
+Reaction: EAR121y
+Forward kcat: 1.005
+Reverse kcat: 1.005
+
+***
+Reaction: 3OAS180
+Forward kcat: 0.96
+Reverse kcat: 0.96
+
+***
+Reaction: 3OAS141
+Forward kcat: 0.96
+Reverse kcat: 0.96
+
+***
+Reaction: GGGT_PALM_PALM_4_c
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MGT161
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EAR141y
+Forward kcat: 1.005
+Reverse kcat: 1.005
+
+***
+Reaction: MGT180
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: 3OAS161
+Forward kcat: 0.96
+Reverse kcat: 0.96
+
+***
+Reaction: 3OAS181
+Forward kcat: 0.023
+Reverse kcat: 0.023
+
+***
+Reaction: MGT181
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.3.1.86
+
+***
+Reaction: 3OAR100
+Forward kcat: 167.95
+Reverse kcat: 6.65
+
+***
+Reaction: PPNCL
+Forward kcat: 1.89166665
+Reverse kcat: 1.89166665
+
+INFO: No entry for EC number 2.3.1.86
+
+***
+Reaction: 3OAR120
+Forward kcat: 148.6
+Reverse kcat: 6.65
+
+***
+Reaction: MGT181_9
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MGT182_9_12
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.3.1.86
+
+***
+Reaction: 3OAR140
+Forward kcat: 167.95
+Reverse kcat: 6.65
+
+***
+Reaction: MGT183_6_9_12
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 5.4.2
+
+***
+Reaction: PPM
+Forward kcat: 75.3
+Reverse kcat: 75.3
+
+***
+Reaction: MGT183_9_12_15
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MGT184_6_9_12_15
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.3.1.86
+
+***
+Reaction: 3OAR160
+Forward kcat: 167.95
+Reverse kcat: 6.65
+
+***
+Reaction: 3OAR180
+Forward kcat: 167.95
+Reverse kcat: 187.3
+
+***
+Reaction: CYTK1
+Forward kcat: 103.0
+Reverse kcat: 41.0
+
+***
+Reaction: GLYOX
+Forward kcat: 437.0
+Reverse kcat: 560.95
+
+***
+Reaction: PKETX
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: NDH1_3u_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DGDG160
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DGDG161
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DGDG180
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DGDG181
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DGDG181_9
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DGDG182_9_12
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: NDH1_4pp_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: UMPK
+Forward kcat: 130.0
+Reverse kcat: 73.0
+
+***
+Reaction: DGDG183_6_9_12
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: UGLDDS2_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DGDG183_9_12_15
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DGDG184_6_9_12_15
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: AALACPTD
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: NDH1_1p_1
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.3.1.168
+
+***
+Reaction: PDHbr
+Forward kcat: 2.4
+Reverse kcat: 2.4
+
+INFO: No entry for EC number 3.6.3.21
+
+***
+Reaction: FQRa
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: CBFCue
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: H2tex
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: H2tpp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: NDH1_1u_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: CBFCuf
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SERAT
+Forward kcat: 17.31
+Reverse kcat: 1100.0
+
+***
+Reaction: CYSS
+Forward kcat: 130.0
+Reverse kcat: 8.0
+
+***
+Reaction: SADT
+Forward kcat: 10.8
+Reverse kcat: 13.7
+
+***
+Reaction: ADSK
+Forward kcat: 4.7
+Reverse kcat: 4.7
+
+***
+Reaction: PGCD
+Forward kcat: 115.1
+Reverse kcat: 21.2
+
+***
+Reaction: ALAD_L2
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 1.12.1.5
+
+INFO: No entry for EC number 1.12.1.3
+
+***
+Reaction: GLCS1
+Forward kcat: 284.0
+Reverse kcat: 284.0
+
+***
+Reaction: RPDMBZIP
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DMPPS_syn
+Forward kcat: 3.11
+Reverse kcat: 3.11
+
+***
+Reaction: PFK_3
+Forward kcat: 112.0
+Reverse kcat: 112.0
+
+INFO: No entry for EC number 1.8.1
+
+***
+Reaction: PDHcr
+Forward kcat: 205.0
+Reverse kcat: 205.0
+
+***
+Reaction: G3PDap
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PRAMPC
+Forward kcat: 3.345
+Reverse kcat: 3.345
+
+***
+Reaction: FRTT
+Forward kcat: 76.0
+Reverse kcat: 76.0
+
+***
+Reaction: BCT1_syn
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: HISTDb_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PYK5
+Forward kcat: 98.5
+Reverse kcat: 51.8
+
+***
+Reaction: GUACYC
+Forward kcat: 24.35
+Reverse kcat: 20.0
+
+***
+Reaction: PYK2
+Forward kcat: 58.4
+Reverse kcat: 51.8
+
+INFO: No entry for EC number 3.6.3.27
+
+***
+Reaction: IPPMIb
+Forward kcat: 3.2
+Reverse kcat: 3.2
+
+***
+Reaction: ACLSb_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ACHBS2
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ILETA
+Forward kcat: 168.5
+Reverse kcat: 8.555
+
+***
+Reaction: ASNTRAT
+Forward kcat: 3.55
+Reverse kcat: 3.55
+
+***
+Reaction: ALAabcpp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PROabcpp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SERabcpp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MI1PS
+Forward kcat: 0.107
+Reverse kcat: 0.107
+
+INFO: No entry for EC number 2.3.1.86
+
+INFO: No entry for EC number 3.6.3.21
+
+***
+Reaction: SUCRabcpp_syn
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.3.1.86
+
+***
+Reaction: SUCDi
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.3.1.86
+
+***
+Reaction: GLYabcpp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: LEUabcpp
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: TMDK1
+Forward kcat: 0.1
+Reverse kcat: 0.1
+
+***
+Reaction: Cobalt2abcppI
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: CBFCpb
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: CBFCpc
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: TMDS
+Forward kcat: 5.5
+Reverse kcat: 5.5
+
+***
+Reaction: FQRb
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PYDXNO
+Forward kcat: 0.76
+Reverse kcat: 0.76
+
+***
+Reaction: CBFCpa
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: G3PAT181
+Forward kcat: 0.01022
+Reverse kcat: 0.01022
+
+***
+Reaction: G3PAT181_9
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: G3PAT182_9_12
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: G3PAT180
+Forward kcat: 0.01022
+Reverse kcat: 0.01022
+
+***
+Reaction: T6PGD
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MPOMC2
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SHCHCS2
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: CBFC2pb
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: G3PAT183_6_9_12
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: G3PAT183_9_12_15
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: G3PAT184_6_9_12_15
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: CBFCud
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PPOR
+Forward kcat: 6.8
+Reverse kcat: 6.8
+
+***
+Reaction: CBFCpd
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: CBFCpe
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: CBFCpf
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PSI_2a
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SOPSI
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PSIIa
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PSIIb
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PSIIc
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: AMYLS
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: OECc
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: OECd
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: OECe
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DPPS
+Forward kcat: 0.0695
+Reverse kcat: 0.0695
+
+***
+Reaction: OECb
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: RNDR3
+Forward kcat: 0.275
+Reverse kcat: 0.275
+
+***
+Reaction: RNDR1
+Forward kcat: 0.275
+Reverse kcat: 0.275
+
+***
+Reaction: NDPK7
+Forward kcat: 143.5
+Reverse kcat: 143.5
+
+***
+Reaction: NDPK6
+Forward kcat: 143.5
+Reverse kcat: 143.5
+
+INFO: No entry for EC number 2.7.4.13
+
+INFO: No entry for EC number 2.7.4.12
+
+***
+Reaction: DTMPK
+Forward kcat: 3.4
+Reverse kcat: 3.23
+
+***
+Reaction: OECa
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.1.1.295
+
+***
+Reaction: THZSN_1
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 4.1.99.12
+
+***
+Reaction: APRAUR
+Forward kcat: 0.3083333
+Reverse kcat: 0.3083333
+
+***
+Reaction: PYDXO
+Forward kcat: 0.76
+Reverse kcat: 0.76
+
+***
+Reaction: PYAM5PO
+Forward kcat: 0.76
+Reverse kcat: 0.76
+
+***
+Reaction: PPTGF_Syn_1
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: MPOMMM2
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: SDPTA
+Forward kcat: 24.0
+Reverse kcat: 24.0
+
+***
+Reaction: MPOMOR2_1
+Forward kcat: nan
+Reverse kcat: nan
+
+INFO: No entry for EC number 2.3.1.51
+
+INFO: No entry for EC number 2.3.1.51
+
+***
+Reaction: G3PAT160
+Forward kcat: 0.01022
+Reverse kcat: 0.01022
+
+***
+Reaction: G3PAT161
+Forward kcat: 0.01022
+Reverse kcat: 0.01022
+
+INFO: No entry for EC number 2.3.1.51
+
+INFO: No entry for EC number 2.3.1.51
+
+***
+Reaction: AGPAT181_9
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: AGPAT182_9_12
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: AGPAT183_6_9_12
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: AGPAT183_9_12_16
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: AGPAT184_6_9_12_15
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DASYN160
+Forward kcat: 5.6
+Reverse kcat: 5.6
+
+***
+Reaction: DASYN161
+Forward kcat: 5.6
+Reverse kcat: 5.6
+
+***
+Reaction: DASYN180
+Forward kcat: 5.6
+Reverse kcat: 5.6
+
+***
+Reaction: DASYN181
+Forward kcat: 5.6
+Reverse kcat: 5.6
+
+***
+Reaction: DASYN181_9
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DASYN182_9_12
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DASYN183_6_9_12
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DASYN183_9_12_15
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: DASYN184_6_9_12_15
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: HCO3E2
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ETOHt
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: PYRDC
+Forward kcat: 486.0
+Reverse kcat: 486.0
+
+***
+Reaction: EX_etoh_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: LDH_L_NADPH
+Forward kcat: 166.0
+Reverse kcat: 166.0
+
+***
+Reaction: LDH_L
+Forward kcat: 166.0
+Reverse kcat: 166.0
+
+***
+Reaction: LACLt
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_lac__L_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EFE
+Forward kcat: 100.0
+Reverse kcat: 100.0
+
+***
+Reaction: EFEt
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: M02035t
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_M02035_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_ethe_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: 3MOBDC
+Forward kcat: 100.0
+Reverse kcat: 100.0
+
+***
+Reaction: IBDH_NADPH
+Forward kcat: 100.0
+Reverse kcat: 100.0
+
+***
+Reaction: IBDH_NADH
+Forward kcat: 100.0
+Reverse kcat: 100.0
+
+***
+Reaction: 2MPPALt
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_2mpa_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: HBD
+Forward kcat: 100.0
+Reverse kcat: 100.0
+
+***
+Reaction: CRT
+Forward kcat: 100.0
+Reverse kcat: 100.0
+
+***
+Reaction: TER
+Forward kcat: 100.0
+Reverse kcat: 100.0
+
+***
+Reaction: BTCOARx
+Forward kcat: 100.0
+Reverse kcat: 100.0
+
+***
+Reaction: BTS
+Forward kcat: 100.0
+Reverse kcat: 100.0
+
+***
+Reaction: BTOHt
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_btoh_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: FARNESENEs
+Forward kcat: 0.1
+Reverse kcat: 0.1
+
+***
+Reaction: FARNESENEt
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_farnesene_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: LIMONENEs
+Forward kcat: 0.082
+Reverse kcat: 0.082
+
+***
+Reaction: LIMNENt
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_limnen_e
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: ACLS
+Forward kcat: 100
+Reverse kcat: 100
+
+***
+Reaction: ACLDC
+Forward kcat: 100
+Reverse kcat: 100
+
+***
+Reaction: BTDD_RR
+Forward kcat: 100
+Reverse kcat: 100
+
+***
+Reaction: 23BTDLt
+Forward kcat: nan
+Reverse kcat: nan
+
+***
+Reaction: EX_23btdl_e
+Forward kcat: nan
+Reverse kcat: nan

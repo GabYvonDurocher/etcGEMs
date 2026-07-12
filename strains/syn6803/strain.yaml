@@ -1,0 +1,85 @@
+# Strain: Synechocystis sp. PCC 6803 (oxygenic phototroph / cyanobacterium). ORGANISM ONLY.
+#
+# The LOW-Ea third point of the Yvon-Durocher 2014 ordering (CH4 > respiration >
+# photosynthesis). Chosen regime (locked by the user): LIGHT-SATURATED, so the rate is
+# set by carbon fixation (RuBisCO / Calvin-cycle kcat(T)) and the organism stays fully
+# IN-MECHANISM -- the SAME control-weighted, enzyme-cost decomposition used for E. coli
+# and M. maripaludis, with NO new light-supply layer. Under saturating light the photon
+# exchange is non-binding (slack) and the enzyme pool binds (verified P1).
+#
+# P1 (this phase): scaffold + QC'd base GEM under a light-saturated autotrophic medium,
+# PLAIN FBA only. The thermal layer (kcat(T)/unfolding), the enzyme layer read-through
+# and calibration are P2+. The `provider.type` below is a placeholder for P1 (the base
+# GEM is loaded directly with cobra); P2 switches it to the enzyme-constrained provider
+# reusing the PRE-BUILT ecModel iSynCJ816_STAR (see below) -- NOT a from-scratch sMOMENT
+# build. See docs/PHOTOTROPH_ETCGEM_PLAN.md and outputs/P1_scaffold_and_base.md.
+#
+# Organism: Synechocystis sp. PCC 6803 (glucose-tolerant model cyanobacterium).
+# Oxygenic photoautotroph: light -> PSII/PSI -> ATP/NADPH; CO2/HCO3- fixed by RuBisCO
+# (RBPC_1) in the Calvin-Benson-Bassham cycle; photorespiration via RuBisCO oxygenase
+# (RBCh_2). Mesophile, growth optimum ~35 C (Zavrel et al. 2015).
+
+organism:
+  name: Synechocystis sp. PCC 6803
+  metabolism: oxygenic photoautotroph (light-saturated; CO2/HCO3- fixed by RuBisCO, Calvin cycle)
+  regime: light-saturated (carbon-fixation-limited; in-mechanism, no new light layer)
+  Topt_C: 35                  # growth optimum under saturating light (Zavrel et al. 2015)
+  Trange_C: [15, 44]          # rising limb to inhibition ~44 C (Zavrel 2015)
+
+provider:
+  # P1: PLAIN FBA on the base GEM (type is a placeholder; P1 loads the model directly).
+  # P2: switch to the enzyme-constrained provider (smoment_gem-style) reading the PRE-BUILT
+  # ecModel iSynCJ816_STAR -- the enzyme pool + kcats already exist, so P2 adds only the
+  # thermal layer + calibration, NOT a from-scratch enzyme build.
+  type: fba
+  model_file: model/iSynCJ816.xml      # base GEM (Joshi et al. 2020; BiGG), plain FBA in P1
+  biomass_rxn: BIOMASS_Ec_SynAuto_1    # AUTOTROPHIC biomass (Syn{Auto,Mixo,Hetero} available)
+
+  # --- P2 route (CONFIRMED, pre-built): enzyme-constrained ecModel ---
+  # iSynCJ816_STAR (Andrews; AUTOPACMEN sMOMENT pipeline, Bekiaris & Klamt 2020) built on
+  # iSynCJ816. Repo: https://github.com/FraserAndrews7/iSynCJ816- (commit 78449d2, 2024-05-20).
+  # Local copy: model/ecmodel_iSynCJ816_STAR/{iSynCJ816_STAR.xml,.json, mass mapping, kcats}.
+  # Structure: prot_pool pseudo-metabolite; enzyme budget = reaction ER_pool_TG_ (UB 0.26
+  # g/gDW); 409 sMOMENT-split (_TG_) arm reactions; kcats from BRENDA + SABIO-RK. Under
+  # pure autotrophy + saturating light the pool BINDS and photon is slack (in-mechanism).
+  ecmodel_file: model/ecmodel_iSynCJ816_STAR/iSynCJ816_STAR.xml
+  ecmodel_pool_reaction: ER_pool_TG_    # sMOMENT enzyme-budget supply (P_metab); UB 0.26 g/gDW
+  ecmodel_pool_metabolite: prot_pool
+
+T0_C: 35                      # reference temperature (Zavrel 2015 optimum)
+
+temperature_grid:
+  start_C: 5
+  stop_C: 50
+  n: 46
+
+# --- calibration / validation TPC (P2+; NOT used in P1) ---
+# Zavrel et al. 2015 (Eng. Life Sci. 15:122): growth rate vs temperature for glucose-
+# tolerant Synechocystis 6803 in a flat-panel photobioreactor under DOCUMENTED SATURATING
+# red light (220-360 umol m^-2 s^-1; no photoinhibition to 660). Topt ~35 C, Q10 ~1.70 on
+# the rising limb, inhibition by ~44 C. Digitise the temperature response for P2 validation
+# (the light-saturated growth-rate TPC is the PRIMARY, symmetric target across all three
+# organisms; a carbon-fixation-flux TPC is a SECONDARY descriptor for the cleanest
+# comparison to Yvon-Durocher 2014's photosynthesis-flux Ea).
+
+# --- P2 thermal layer inputs (TO DO in P2; not present yet) ---
+# Topt: Li-Engqvist sequence predictor on the 6803 proteome (portable). Tm: mesophile
+# prior (6803 absent from the Meltome Atlas), same route as the methanogen. Curvature:
+# literature MMRT dCp prior -4 kJ/mol/K (Hobbs 2013). kcats: already in the ecModel
+# (RuBisCO/Calvin turnovers are well-measured, unlike the archaeal core -- a de-risking
+# vs the methanogen).
+
+# --- P3 allocation layer inputs (TO DO later; the CYANO'S OWN strategy) ---
+# Zavrel et al. 2019 (eLife e42508, cyanobacterial cell economy); Jahn et al. 2018 (Cell
+# Rep 25:478, growth limited by light + carbon-assimilation proteins); temperature-
+# dependent cyanobacterial growth-law (npj Syst Biol Appl 2021). The phototroph analog of
+# Scott 2010 (E. coli) / Muller 2021 (methanogen).
+
+# Photoautotrophic light-saturated medium (availability, not pinned uptake):
+medium:
+  name: BG11_photoautotrophic_light_saturated   # see media/BG11_photoautotrophic_light_saturated.md
+  energy: SATURATING light (EX_photon_e non-limiting -> slack in enzyme model)
+  inorganic_carbon: CO2 (EX_co2_e) + bicarbonate (EX_hco3_e, CCM)
+  nitrogen: nitrate (EX_no3_e)
+  organic_carbon: CLOSED (EX_glc__D_e = 0; forces true autotrophy)
+  products: O2 (net efflux, photosynthetic)
