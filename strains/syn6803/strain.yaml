@@ -46,6 +46,21 @@ provider:
   ecmodel_pool_reaction: ER_pool_TG_    # sMOMENT enzyme-budget supply (P_metab); UB 0.26 g/gDW
   ecmodel_pool_metabolite: prot_pool
 
+  # --- P2 thermal envelope (WIRED; entry point run_p2_thermal.py) ---
+  # providers.from_gecko route-B on iSynCJ816_STAR (base_cost = prot_pool coeff = MW/kcat),
+  # thermal_model=unfolding: cost(T) = base_cost / (rel_kcat(T)*f_N(T)). The etcgem enzyme_pool
+  # (budget_override 0.26, the STAR sMOMENT budget = emergent P_metab) is the sole enzyme-mass
+  # constraint; STAR's own ER_pool_TG_ is relaxed. Nothing fit to Zavrel. See outputs/P2_thermal.md.
+  thermal_model: unfolding
+  enzyme_params: thermal/enzyme_thermal_params.csv   # 1066 rxns; mesophile Topt+Tm prior (rxn_id key)
+  enzyme_params_key: rxn_id
+  budget_override: 0.26        # STAR grounded sMOMENT enzyme budget (emergent, not fit)
+  dcp_prior_kJ: -4.0          # literature MMRT dCp prior (Hobbs 2013); Ea EMERGES
+  ngam_temperature: true      # temperature-dependent maintenance NGAM(T)
+  ngam_reaction: ATPM
+  ngam_base_scale: 0.548      # anchors NGAM(35C)=3.12 mmol ATP/gDW/h (Touloupakis 2015 measured maintenance)
+  close_free_o2_sinks: false  # cyano: no E. coli O2-sink curation
+
 T0_C: 35                      # reference temperature (Zavrel 2015 optimum)
 
 temperature_grid:

@@ -1,0 +1,35 @@
+{
+  "emergent_growth": {
+    "Topt_C": 36.0,
+    "rmax": 0.06709703057849989,
+    "CTmin_C": 12.874145060436227,
+    "CTmax_C": 45.69884051327479,
+    "niche_width_C": 32.82469545283856,
+    "B80_C": 11.966349828591763,
+    "Ea_eV": 0.9773290368891349,
+    "Ea_kJmol": 94.29759212424818,
+    "skewness": -0.4992232094424746,
+    "rmax_per_h": 0.06709703057849989,
+    "SS_E_eV": 0.7714371939671633,
+    "SS_E_R2": 0.9555459754854503,
+    "SS_ok": true,
+    "SS_Th_C": 39.0385423689649
+  },
+  "emergent_carbon_fixation": {
+    "SS_E_eV": 0.7645524362017846,
+    "SS_E_R2": 0.9552483036002095,
+    "SS_ok": true,
+    "Topt_C": 36.0
+  },
+  "zavrel2015": {
+    "Topt_C": 35.0,
+    "SS_E_eV": 0.42,
+    "Q10_rising": 1.7,
+    "CTmax_C": 44.0,
+    "light_umol_m2_s": "220-360 (saturating)"
+  },
+  "photon_nonbinding_maxabs_shadow": 0.0,
+  "ngam_base_scale": 0.5475965141078981,
+  "pool_budget_gDW": 0.26,
+  "n_thermal_enzymes": 1066
+}
