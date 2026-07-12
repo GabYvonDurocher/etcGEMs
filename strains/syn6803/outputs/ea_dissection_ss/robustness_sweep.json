@@ -1,0 +1,39 @@
+{
+  "baseline_SS_E": 0.573,
+  "dCp_curvature_sweep_kJ": {
+    "-2_kJ": 0.2922,
+    "-3_kJ": 0.4342,
+    "-4_kJ": 0.573,
+    "-5_kJ": 0.6816,
+    "-6_kJ": 0.7871
+  },
+  "rubisco_kcat_sweep": {
+    "kcat_x0.5": 0.5714,
+    "kcat_x0.75": 0.5725,
+    "kcat_x1.0": 0.573,
+    "kcat_x1.5": 0.5736,
+    "kcat_x2.0": 0.5739,
+    "kcat_x4.0": 0.5744
+  },
+  "calvin_backbone_kcat_sweep": {
+    "kcat_x0.5": 0.5769,
+    "kcat_x0.75": 0.5735,
+    "kcat_x1.0": 0.573,
+    "kcat_x1.5": 0.5729,
+    "kcat_x2.0": 0.5651
+  },
+  "SS_E_range_carbon_fixation_kcat": [
+    0.5651,
+    0.5769
+  ],
+  "SS_E_range_dCp_prior": [
+    0.2922,
+    0.7871
+  ],
+  "ordering_robust_to_carbon_fixation_kcat": true,
+  "low_Ea_insensitive_to_kcat": true,
+  "dCp_is_shared_prior": true,
+  "ordering_note": "CARBON-FIXATION KCAT (the phototroph's key uncertainty, analog of the methanogen Mcr sweep): SS-E stays in [0.565, 0.577] across RuBisCO 0.5-4x and Calvin 0.5-2x -- essentially INVARIANT (<0.03 eV), and always well below E. coli (0.6784) and the methanogen (1.0558). So the low phototroph Ea is a curvature/SHAPE property of its low-E controlling enzymes, NOT a kcat-level artefact -> ORDERING (photosynthesis < respiration < methanogenesis) is ROBUST to the phototroph's own kinetic uncertainty. The MMRT dCp prior (-2..-6 kJ/mol/K -> SS-E 0.29..0.79) is the SHARED Hobbs-2013 curvature applied to ALL THREE organisms; it scales the whole comparison together and is a common systematic, not a reordering lever (breaking the order would need a phototroph-SPECIFIC curvature steepening, which is unmotivated).",
+  "vs_ecoli": 0.6784,
+  "vs_methanogen": 1.0558
+}
