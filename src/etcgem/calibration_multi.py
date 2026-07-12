@@ -160,6 +160,47 @@ def _build_pm_syn6803(strain):
     return pm
 
 
+# Synechocystis 6803 proteome-sector / allocation layer (P3b). Grounded in the organism's
+# OWN allocation physiology (Jahn et al. 2018, Cell Reports 25:478; Zavrel et al. 2019, eLife
+# 8:e42508; Faizi et al. 2018 framework; Suzuki et al. 2006 heat-shock for the maintenance-T
+# note) -- NOT the bacterial Scott law, NOT the methanogen's flat law. From Jahn 2018 Fig 2A
+# (seven sectors vs mu over 0.016-0.106/h): MAI ~33% (maintenance/regulation/hypothetical),
+# RIB 16.5-16.9% (ribosome/translation, INCREASING with mu = the coupling slope), and the
+# flux-carrying LHC(~15-19.6%)+PSET(~13%)+CBM(~14%)+GLM+LPB ~50% (light-harvesting -> metabolic
+# mapping). Total cellular protein is invariant across growth (Jahn/Du/Touloupakis).
+SYN6803_SECTOR_CFG = {
+    "enabled": True,
+    "P_total": None,          # back out from the P3 metabolic budget (0.26/0.50=0.52 g/gDW);
+                              # Zavrel 2019 measured total protein ~0.402 g/gDW (corroboration)
+    "f_metab": 0.50,          # LHC+PSET+CBM+GLM+LPB (Jahn 2018 Fig 2A; light-harvesting->metabolic)
+    "f_maint": 0.33,          # MAI (Jahn 2018; "did not exceed 33%")
+    "sigma_nom": 0.45,
+    "atpm_reaction": "ATPM",
+    "biosynthesis_growth_law": True,
+    "growth_law_slope": 0.39,  # RIB rising limb, Jahn 2018 Fig 2A (per 1/h). Comparable per-mu to
+                               # E. coli, but SMALL in absolute terms over the phototroph's tiny mu
+                               # range (<=0.11/h) -> a small allocation buffer (to be measured).
+    "growth_law_f_bio0": 0.133,  # RIB intercept = f_bio_nom(0.17) - slope*mu_op(~0.094)
+    "nominal_kcat_scale": 1.22,  # P3 posterior-median kcat_scale (sector co-limit at operating point)
+    "translation_coeff": 0.9,    # ribosome cap PINNED non-binding (as M6): Jahn's RIB is nearly
+                                 # constant (16.5->16.9%), so the metabolic pool stays the binding
+                                 # constraint (kcat(T)-limited, preserving Topt/the P3 fit) and the
+                                 # small allocation buffer comes from the metabolic-sector shrinkage
+                                 # (the +slope*P*v_bio growth-law term), not a clipping ribosome cap.
+}
+
+
+def _build_pm_syn6803_sectored(strain, cfg=None):
+    """Phototroph provider (as _build_pm_syn6803) with the P3b cyanobacterial proteome-sector +
+    coupled growth-law layer attached (reuses sectors.add_proteome_sectors; no fork). The
+    metabolic pool stays at the P3-calibrated budget (P_total backed out), so the layer is
+    additive; the RIB growth-law slope introduces the (small) allocation buffer."""
+    from .sectors import add_proteome_sectors
+    pm = _build_pm_syn6803(strain)
+    add_proteome_sectors(pm, cfg or SYN6803_SECTOR_CFG)
+    return pm
+
+
 def load_zavrel(strain):
     """Load the digitised Zavrel 2015 light-saturated growth TPC, raw absolute rate (1/h)."""
     path = os.path.join("strains", strain, "thermal", "zavrel2015_tpc.csv")

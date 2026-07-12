@@ -84,11 +84,35 @@ temperature_grid:
 # (RuBisCO/Calvin turnovers are well-measured, unlike the archaeal core -- a de-risking
 # vs the methanogen).
 
-# --- P3 allocation layer inputs (TO DO later; the CYANO'S OWN strategy) ---
-# Zavrel et al. 2019 (eLife e42508, cyanobacterial cell economy); Jahn et al. 2018 (Cell
-# Rep 25:478, growth limited by light + carbon-assimilation proteins); temperature-
-# dependent cyanobacterial growth-law (npj Syst Biol Appl 2021). The phototroph analog of
-# Scott 2010 (E. coli) / Muller 2021 (methanogen).
+# --- P3b proteome-sector / allocation layer (WIRED; the CYANO'S OWN strategy) ---
+# Grounded in Jahn et al. 2018 (Cell Rep 25:478) Fig 2A: seven proteome sectors vs mu over
+# 0.016-0.106/h, total protein invariant. Mapped onto our three sectors (light-harvesting ->
+# metabolic): f_metab = LHC+PSET+CBM+GLM+LPB ~0.50; f_maint = MAI ~0.33 ("did not exceed 33%");
+# f_bio = RIB 0.17 (ribosome/translation, INCREASING with mu = the coupling slope). Corroborated
+# by Zavrel et al. 2019 (eLife e42508: translation up / light-harvesting down with mu; total
+# protein ~402 mg/gDW; Faizi 2018 coarse-grained T/M/R/P/LHC framework). Suzuki et al. 2006
+# (J Exp Bot 57:1573) heat-shock chaperones (GroESL/HtpG/HspA) inform the maintenance-sector
+# rise near the upper thermal limit. Wired via calibration_multi.SYN6803_SECTOR_CFG /
+# _build_pm_syn6803_sectored (reuses sectors.py; entry point run_p3b_sectors.py).
+# Result (P3b_sectors/): NEAR-NEUTRAL (Topt 35, CTmax preserved, rmax -4%, max|dmu| 0.004, no
+# re-fit); allocation buffer -0.019 eV (E. coli -0.13 | methanogen 0.00 | phototroph -0.019) ->
+# the low phototroph Ea is KINETIC (shallow Calvin kcat(T)), not allocation-set, on a symmetric footing.
+proteome_sectors:
+  enabled: true               # single-pool P3 model remains available (enabled: false)
+  P_total: null               # back out from the P3 metabolic budget (0.26/0.50 = 0.52 g/gDW);
+                              # Zavrel 2019 measured ~0.402 g/gDW total protein (corroboration)
+  f_metab: 0.50               # LHC+PSET+CBM+GLM+LPB (Jahn 2018; light-harvesting -> metabolic)
+  f_maint: 0.33               # MAI (Jahn 2018)
+  sigma_nom: 0.45
+  atpm_reaction: ATPM
+  biosynthesis_growth_law: true
+  growth_law_slope: 0.39      # RIB rising limb (Jahn 2018 Fig 2A, per 1/h); SMALL in absolute
+                              # terms over mu<=0.11/h -> small buffer (vs E. coli Scott 0.33 over mu~2)
+  growth_law_f_bio0: 0.133    # RIB intercept = f_bio_nom(0.17) - slope*mu_op(~0.094)
+  translation_coeff: 0.9      # ribosome cap PINNED non-binding (M6-style; Jahn RIB nearly constant)
+                              # -> metabolic pool stays binding (kcat(T)-limited); buffer from the
+                              # metabolic-sector shrinkage term only, preserving Topt/the P3 fit
+  nominal_kcat_scale: 1.22    # P3 posterior-median kcat_scale (sector co-limit at operating point)
 
 # Photoautotrophic light-saturated medium (availability, not pinned uptake):
 medium:
