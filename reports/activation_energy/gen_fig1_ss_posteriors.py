@@ -68,30 +68,41 @@ def main():
     import matplotlib; matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     order = ["methanogen", "ecoli", "phototroph"]
+    OBS_SSE = {"methanogen": 1.042, "ecoli": 0.558, "phototroph": 0.52}  # phototroph = Inoue flux (robust)
     fig = plt.figure(figsize=(15, 4.2))
     gs = fig.add_gridspec(1, 4, width_ratios=[1, 1, 1, 1.05], wspace=0.32)
     for j, k in enumerate(order):
         ax = fig.add_subplot(gs[0, j]); d = np.load(PP[k]); mt = META[k]
-        ax.fill_between(d["temps_C"], d["lo"], d["hi"], color=mt["color"], alpha=0.20, lw=0)
-        ax.plot(d["temps_C"], d["med"], color=mt["color"], lw=2, label="posterior median")
-        ax.plot(d["obs_T"], d["obs"], "o", color="k", ms=4.5, label=f"observed ({mt['study']})")
-        ax.set_xlabel("temperature (°C)"); ax.set_xlim(5, 52)
+        # data-bounded x-range: start near the lowest observed T, end just beyond the highest
+        obsT = d["obs_T"]; xlo = float(obsT.min()) - 1.0; xhi = float(obsT.max()) + 2.5
+        T = d["temps_C"]; m = (T >= xlo) & (T <= xhi)   # drop extrapolated model tails
+        ax.fill_between(T[m], d["lo"][m], d["hi"][m], color=mt["color"], alpha=0.20, lw=0)
+        ax.plot(T[m], d["med"][m], color=mt["color"], lw=2, label="posterior median")
+        ax.plot(obsT, d["obs"], "o", color="k", ms=4.5, label=f"observed ({mt['study']})")
+        ax.set_xlabel("temperature (°C)"); ax.set_xlim(xlo, xhi)
         ax.set_ylabel("growth rate (1/h)")
         ax.set_title(f"{mt['title']}\n{mt['sub']}", fontsize=10)
         ax.legend(fontsize=6.5, loc="upper left", frameon=False)
         for sp in ("top", "right"): ax.spines[sp].set_visible(False)
-    # SS-E posterior panel
+    # SS-E posterior panel — VIOLINS on a shared Ea axis (Ea on y so the ordering is obvious)
     axp = fig.add_subplot(gs[0, 3])
-    for k in order:
-        mt = META[k]; draws = np.array(post[k]["SS_E_draws"])
-        axp.hist(draws, bins=28, density=True, color=mt["color"], alpha=0.55,
-                 label=f"{mt['title']} {post[k]['median']:.2f}")
-        axp.axvline(post[k]["median"], color=mt["color"], lw=1.6)
-    axp.axvline(0.65, color="0.4", ls=":", lw=1.2)
-    axp.text(0.65, axp.get_ylim()[1] * 0.96, " ~0.65 eV\n benchmark", fontsize=6.5, color="0.4", va="top")
-    axp.set_xlabel("Sharpe–Schoolfield $E_a$ (eV)"); axp.set_ylabel("posterior density")
-    axp.set_title("Activation-energy posteriors\n(separated, correctly ordered)", fontsize=10)
-    axp.legend(fontsize=7, frameon=False, loc="upper right")
+    data = [np.array(post[k]["SS_E_draws"]) for k in order]
+    pos = np.arange(1, len(order) + 1)
+    vp = axp.violinplot(data, positions=pos, showextrema=False, widths=0.8)
+    for body, k in zip(vp["bodies"], order):
+        body.set_facecolor(META[k]["color"]); body.set_alpha(0.55); body.set_edgecolor(META[k]["color"])
+    for x, k in zip(pos, order):
+        med = post[k]["median"]
+        axp.hlines(med, x - 0.34, x + 0.34, color=META[k]["color"], lw=2.2, zorder=4)
+        axp.plot(x, OBS_SSE[k], "_", color="k", ms=14, mew=2, zorder=5)
+        axp.text(x + 0.40, med, f"{med:.2f}", ha="left", va="center", fontsize=8,
+                 color=META[k]["color"], fontweight="bold")
+    axp.axhline(0.65, color="0.4", ls=":", lw=1.2)
+    axp.text(pos[-1] + 0.5, 0.65, "~0.65 eV\nbenchmark", fontsize=6.5, color="0.4", va="center")
+    axp.set_xticks(pos); axp.set_xticklabels([META[k]["title"] for k in order], fontsize=8)
+    axp.set_ylabel("Sharpe–Schoolfield $E_a$ (eV)")
+    axp.set_title("Activation-energy posteriors\n(violins; medians —, observed −)", fontsize=10)
+    axp.set_xlim(0.4, pos[-1] + 1.1)
     for sp in ("top", "right"): axp.spines[sp].set_visible(False)
     fig.suptitle("Three metabolic strategies reproduce the Yvon-Durocher 2014 ordering at the cellular scale: "
                  "methanogenesis > respiration > photosynthesis", fontsize=11.5, y=1.02)
