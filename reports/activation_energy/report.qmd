@@ -263,128 +263,203 @@ replaced by a mechanistic, organism-specific, and predictive account of thermal 
 
 # Methods
 
-## The enzyme- and temperature-constrained genome-scale model framework {#sec-methods-fw}
+We represent each organism by the same layered enzyme- and temperature-constrained
+genome-scale model (etc-GEM), and write out the full constraint system below before describing
+where the two taxa depart. The thermal core follows the yeast etc-GEM of @Li2021; we take from
+existing work the GECKO/sMOMENT enzyme constraint [@Sanchez2017; @Domenzain2022], macromolecular
+rate theory [@Hobbs2013], and the proteome-sector growth law [@Basan2015; @Scott2010], and add:
+application to two new taxa; measured- and machine-learning-grounded per-enzyme parameters; an
+**organism-specific** allocation law; an exact-likelihood Bayesian calibration (rather than
+approximate Bayesian computation); the window-independent Sharpe–Schoolfield activation energy;
+and the mechanistic, control-weighted $E_a$ decomposition. Energies are in J mol⁻¹, entropies
+and heat capacities in J mol⁻¹ K⁻¹, temperatures in kelvin, $R=8.314$ J mol⁻¹ K⁻¹; the written
+equations mirror the implementation (`enzyme_cost.py`, `mmrt.py`, `unfolding.py`, `sectors.py`,
+`sharpe_schoolfield.py`, `ea_dissection.py`).
 
-Each organism is represented by a genome-scale metabolic network solved by flux-balance analysis
-(FBA) with cobrapy [@Ebrahim2013] and the Gurobi solver, augmented with an enzyme-mass budget
-and a temperature layer. Building on the yeast thermal-etcGEM of @Li2021, we extend the framework
-in four ways developed here: to two new taxa; with measured- and machine-learning-grounded
-per-enzyme parameters; with a proteome-sector partition carrying an **organism-specific**
-allocation law; and with an exact-likelihood Bayesian calibration and a window-independent
-activation-energy metric.
+## The etc-GEM framework {#sec-methods-fw}
 
-**Enzyme constraint.** Metabolic flux is limited by a shared proteome pool: each catalysed
-reaction $i$ consumes enzyme mass $\text{MW}_i/k_{\text{cat},i}$ per unit flux from a budget
-$P_\text{metab}$, following the GECKO [@Sanchez2017; @Domenzain2022] and sMOMENT formalisms. The
-budget is set from independent data as $P_\text{metab}=\sigma\,f_\text{metab}\,P^{\text{lit}}$,
-with literature total protein $P^{\text{lit}}$, the measured metabolic proteome fraction
-$f_\text{metab}$, and the average in-vivo enzyme saturation $\sigma$ (~0.45, carried with its
-0.4–0.5 literature range) [@Davidi2016; @Heckmann2020] — not the growth-calibrated pool, so the
-predicted growth-rate magnitude is emergent.
+**Enzyme-constrained flux balance.** Growth is the biomass flux $v_\text{bio}$ found by linear
+programming under mass balance and enzyme capacity. At steady state
+$$\mathbf{S}\,\mathbf{v}=\mathbf{0},$$ {#eq-fba}
+where $\mathbf{S}$ is the stoichiometric matrix and $\mathbf{v}$ the flux vector
+(mmol gDW⁻¹ h⁻¹) with lower/upper bounds encoding reversibility and medium availability. Each
+reaction is limited by the amount of catalytically competent (native) enzyme,
+$$0\le v_i \le k_{\text{cat},i}(T)\,f_{N,i}(T)\,[E]_i,$$ {#eq-cap}
+with turnover $k_{\text{cat},i}(T)$ (@eq-kcat), total enzyme $[E]_i$, and native fraction
+$f_{N,i}(T)\in[0,1]$ (@eq-fn) — only folded protein catalyses, while denatured protein still
+occupies the budget. Rather than an enzyme variable per reaction, we impose the equivalent
+**sMOMENT** total-protein-pool form: a shared, sector-partitioned budget bounds the summed
+per-flux enzyme demand (@eq-pool).
 
-**Temperature layer.** Each enzyme's turnover follows macromolecular rate theory (MMRT)
-[@Hobbs2013]: $\ln k_\text{cat}(T)$ is quadratic in temperature through a heat capacity of
-activation $\Delta C_p$, anchored at a per-enzyme optimum $T_\text{opt}$. Optima are predicted
-per enzyme from sequence with a TOME-style predictor after @LiEngqvist2019 and refined, where the
-fit is good, by DLTKcat, a deep-learning predictor of temperature-dependent $k_\text{cat}$
-[@Qiu2024]; $\Delta C_p$ is a single independent literature prior (−4 kJ mol⁻¹ K⁻¹ [@Hobbs2013]),
-deliberately not fitted, so the activation energy emerges rather than being imposed. The
-high-temperature collapse is set by protein denaturation: a two-state native/unfolded equilibrium
-gives a native fraction $f_{N,i}(T)$ keyed on a per-enzyme melting temperature $T_m$, and the
-effective per-flux cost is $\text{MW}_i/\!\big(k_{\text{cat},i}(T)\,f_{N,i}(T)\big)$. A
-temperature-dependent non-growth maintenance demand, NGAM($T$), rises with temperature and
-rounds the optimum.
+**Temperature-dependent turnover.** Each enzyme's turnover follows transition-state (Eyring)
+theory with a macromolecular-rate-theory heat-capacity term [@Hobbs2013],
+$$k_{\text{cat},i}(T)=\frac{k_B T}{h}\exp\!\Big(\!-\frac{\Delta G^{\ddagger}_i(T)}{RT}\Big),\;
+\Delta G^{\ddagger}_i(T)=\Delta H^{\ddagger}_i+\Delta C^{\ddagger}_{p,i}(T-T_0)
+-T\big(\Delta S^{\ddagger}_i+\Delta C^{\ddagger}_{p,i}\ln(T/T_0)\big),$$ {#eq-kcat}
+with Boltzmann and Planck constants $k_B,h$, reference $T_0$, and per-enzyme activation
+enthalpy, entropy and heat capacity $\Delta H^{\ddagger}_i,\Delta S^{\ddagger}_i,
+\Delta C^{\ddagger}_{p,i}$. A negative $\Delta C^{\ddagger}_p$ makes $\ln k_\text{cat}$
+single-peaked, so the **rising-limb activation energy emerges from @eq-kcat** rather than being
+imposed. Turnover is carried relative to its value at each enzyme's optimum $T_{\text{opt},i}$,
+$\widehat{k}_i(T)=k_{\text{cat},i}(T)/k_{\text{cat},i}(T_{\text{opt},i})$, with
+$\Delta H^{\ddagger}_i$ fixed by the peak condition $\mathrm d\ln k_\text{cat}/\mathrm dT=0$ at
+$T_{\text{opt},i}$.
 
-**Proteome sectors and the growth law.** The total protein is partitioned into three coarse
-sectors [@Basan2015; @Scott2010] summing to one — metabolic ($f_\text{metab}$),
-biosynthesis/ribosomal ($f_\text{bio}$) and maintenance/housekeeping ($f_\text{maint}$) — giving
-the metabolic pool above and a translation cap $\propto f_\text{bio}$ on growth. An optional
-coupled growth law lets the ribosomal fraction scale with growth rate; crucially, its slope is
-set from **each organism's own** proteome data rather than assumed, and this is where the two
-organisms differ physiologically (below).
+**Two-state unfolding and the effective cost.** The high-temperature collapse is set by
+denaturation: a native$\leftrightarrow$unfolded equilibrium keyed on the melting temperature
+$T_{m,i}$,
+$$f_{N,i}(T)=\frac{1}{1+\exp\!\big(-\Delta G_{u,i}(T)/RT\big)},\;
+\Delta G_{u,i}(T)=\Delta H_{TH,i}+\Delta C_{p,u,i}(T-T_H)-T\Delta S_{TS,i}-T\Delta C_{p,u,i}\ln(T/T_S),$$ {#eq-fn}
+with universal convergence temperatures $T_H=373.5$ K, $T_S=385$ K, and unfolding parameters
+solved from $T_{m,i}$ (with $T_{90}$ or protein length) via $\Delta G_{u,i}(T_{m,i})=0$ and
+$\Delta G_{u,i}(T_{90})=-RT_{90}\ln 9$. Combining anchored turnover and native fraction, the
+per-flux enzyme cost is
+$$c_i(T)=\frac{\text{base}_i}{\widehat{k}_i(T)\,f_{N,i}(T)\,\lambda_k},\qquad
+\text{base}_i=\frac{\text{MW}_i}{k_{\text{cat},i}(T_{\text{opt},i})\cdot 3600},$$ {#eq-cost}
+with enzyme mass $\text{MW}_i$ (kDa $=$ g mmol⁻¹), the factor 3600 converting s⁻¹ to h⁻¹, and a
+global turnover-level multiplier $\lambda_k$ (`kcat_scale`, nominal 1). Denatured enzyme still
+occupies the budget but does not catalyse, so cost is inflated by $1/f_{N,i}$ — the origin of the
+falling limb, keyed on stability $T_m$ and thus decoupled from the rising-limb $E_a$.
 
-## The *E. coli* respiration etc-GEM {#sec-methods-ecoli}
+**Proteome sectors, the pool budget, and the growth law.** The total modelled protein
+$P_\text{tot}$ is split into coarse sectors [@Basan2015; @Scott2010] summing to one — metabolic
+$f_\text{metab}$, biosynthesis/ribosomal $f_\text{bio}$, and maintenance $f_\text{maint}$ — and
+growth maximises $v_\text{bio}$ under a metabolic-pool bound and a biosynthesis (translation)
+cap,
+$$\sum_i c_i(T)\,(v_i^{+}+v_i^{-})\le f_\text{metab}\,P_\text{tot},\qquad
+\kappa\,v_\text{bio}\le f_\text{bio}\,P_\text{tot},$$ {#eq-pool}
+where $v_i^{\pm}\ge 0$ are forward/reverse fluxes and $\kappa$ (`translation_coeff`) is the
+ribosomal demand per unit biomass flux, auto-calibrated once at build so the two caps co-limit
+at the nominal split (enabling sectors does not move nominal growth). The metabolic budget is
+grounded independently,
+$$P_\text{metab}=f_\text{metab}\,P_\text{tot},\qquad P_\text{tot}=\sigma\,P^{\text{lit}},$$ {#eq-alloc}
+with in-vivo saturation $\sigma$ and literature total protein $P^{\text{lit}}$. Optionally the
+sectors follow a proteome-conserving growth law in which the ribosomal and metabolic fractions
+move with growth rate at a common slope $s$, $f_\text{bio}(\mu)=f_{\text{bio},0}+s\mu$ and
+$f_\text{metab}(\mu)=f_{\text{metab},0}-s\mu$ ($\mu=v_\text{bio}$), keeping both caps linear,
+$$(\kappa-sP_\text{tot})\,v_\text{bio}\le f_{\text{bio},0}P_\text{tot},\qquad
+\sum_i c_i(T)(v_i^{+}+v_i^{-})+sP_\text{tot}\,v_\text{bio}\le f_{\text{metab},0}P_\text{tot}.$$ {#eq-growthlaw}
+The slope $s$ is the scientifically load-bearing organism-specific quantity: it is set from each
+organism's own proteome data (below), and its value is the origin of the allocation term in the
+$E_a$ decomposition.
 
-The base network is iML1515, the manually curated *E. coli* K-12 MG1655 reconstruction
-[@Monk2017], converted to the enzyme-constrained ecModel eciML1515 with GECKO [@Sanchez2017;
-@Domenzain2022]. A model-quality correction was required: four reactions consume O₂ at negligible
-enzyme cost — two quinol/menaquinol monooxygenases and a malate:O₂ oxidoreductase and a cuprous
-oxidase — and form a futile O₂ cycle that short-circuits the costed respiratory chain; closing
-these four uncosted sinks (a documented, reversible default) routes O₂ through genuine, enzyme-
-costed cytochrome oxidase, at negligible cost to growth, so that control is attributed to real
-respiration. Per-enzyme $T_\text{opt}$ and $T_m$ were grounded from sequence/meltome predictors
-for ~90% of enzymes (the remainder set to dataset means), and the proteome-sector fractions from
-a growth-condition-matched measured *E. coli* proteome. The coupled growth law uses the bacterial
-Scott slope [@Scott2010], under which the ribosomal fraction rises with growth rate. The model
-was validated against, and then Bayesian-calibrated to, the rich-medium (BHI) growth TPC of
-@vanderlinden2012.
+**Maintenance.** A temperature-dependent non-growth maintenance ATP demand rises with
+temperature [@Madkaikar2023],
+$$\text{NGAM}(T)=a_\text{m}\Big(1-b\exp\!\big[\tfrac{-E_m}{k_B}\big(\tfrac1{T_\text{ref}}-\tfrac1T\big)\big]\Big),\quad\text{floored at }T_\text{ref},$$ {#eq-ngam}
+with amplitude $a_\text{m}$, $b\approx0.62$, apparent activation energy $E_m\approx0.5$ eV,
+$T_\text{ref}=298.15$ K and $k_B=8.617\times10^{-5}$ eV K⁻¹, imposed as
+$v_\text{ATPM}\ge\text{NGAM}(T)\,f_\text{maint}/f_\text{maint}^{\text{nom}}$; the growth-associated
+maintenance (GAM) is the ATP demand carried in the biomass reaction. At each grid temperature FBA
+maximises $\mu(T)=\max_{\mathbf v}v_\text{bio}$ subject to @eq-fba, @eq-pool and the maintenance
+floor, tracing the organismal TPC.
 
-## The *M. maripaludis* methanogenesis etc-GEM {#sec-methods-methanogen}
+**The activation energy.** From $\mu(T)$ we read standard descriptors — the optimum
+$T_\text{opt}=\arg\max_T\mu$, the maximum rate $r_\text{max}$, the critical limits
+$CT_\text{min}/CT_\text{max}$ (where $\mu$ falls to 5% of $r_\text{max}$), and the niche width.
+The naive Boltzmann–Arrhenius activation energy — the slope of $\ln\mu$ against $-1/(k_BT)$ over
+a rising-limb window — is window-dependent (Results, @sec-valid), so we report instead the
+**window-independent Sharpe–Schoolfield $E$** [@schoolfield1981], the rising-limb activation
+energy of the high-temperature-inactivation model
+$$\mu(T)=r_{T_\text{ref}}\,\frac{\exp[(E/k_B)(1/T_\text{ref}-1/T)]}{1+\exp[(E_h/k_B)(1/T_h-1/T)]},$$ {#eq-ssf}
+fit to the whole calibrated curve by nonlinear least squares at a fixed $T_\text{ref}=20$ °C,
+where $E$ is the reported $E_a$ and $E_h,T_h$ describe the high-$T$ deactivation. The same fit is
+applied identically to model and observed curves and to both organisms.
 
-The base network is iMR539, the *M. maripaludis* reconstruction with explicit hydrogenotrophic
-methanogenesis and central electron bifurcation [@richards2016]. It was first curated into a
-carbon-honest H2/CO2 autotroph: three biomass precursors that fed only the dispensable archaellum
-glycoprotein were folded out of biomass, a selenocysteinyl-tRNA recycling gap was repaired,
-organic-carbon leaks were closed and the pinned methane exchange freed, yielding growth with
-99.98% of biomass carbon derived from CO₂ (two vitamin cofactors lacking biosynthesis are
-supplied as documented trace supplements). An sMOMENT enzyme-cost layer was then parameterised
-with per-reaction turnovers by source priority: measured specific activities for the
-energy-conserving core (the electron-bifurcation hydrogenase/heterodisulfide-reductase complexes
-[@milton2018], with classic biochemistry for the remaining Wolfe-cycle steps), converted to
-$k_\text{cat}$ via the complex molecular weights; DLTKcat predictions [@Qiu2024] for the
-biosynthetic bulk, corrected for a systematic archaeal underprediction with cited
-literature/BRENDA overrides for the highest-cost offenders and a documented turnover floor; and a
-dataset-mean fallback. Mcr, the terminal enzyme and the target of the mechanistic hypothesis, was
-sourced explicitly (mature-Mcr specific activity, giving $k_\text{cat}\approx59$ s⁻¹ with a
-3–294 s⁻¹ uncertainty range that is propagated in @sec-mcr). The temperature layer uses the same
-MMRT/unfolding machinery with a documented mesophile $T_m$ prior. Maintenance, NGAM($T$), is
-anchored on the **measured** *M. maripaludis* maintenance energy [@goyal2015]. The proteome-sector
-layer is grounded in the organism's own allocation physiology: @muller2021 report that *M.
-maripaludis* holds a **constant** ribosomal proteome fraction across growth rate — the opposite of
-the bacterial growth law — so its growth-law slope is flat, giving the vanishing allocation buffer
-central to the comparison. The model was Bayesian-calibrated to the digitised growth TPC of
-@jones1983.
+**Bayesian calibration.** Each model is calibrated to one measured growth TPC with a
+gradient-free ensemble sampler (emcee), warm-started at the posterior mode and run to an
+autocorrelation-based stop. The deterministic simulator $\theta\mapsto\mu(T)$ is combined with a
+Gaussian discrepancy likelihood
+$$\ln L(\theta)=-\tfrac12\sum_t\Big[\frac{(\mu^{\text{obs}}_t-\mu(T_t;\theta))^2}{\text{sd}_t^2+\sigma_\text{disc}^2}+\ln\big(2\pi(\text{sd}_t^2+\sigma_\text{disc}^2)\big)\Big],$$ {#eq-lik}
+with per-point measurement SD $\text{sd}_t$ (zero where none is reported) and a free
+model-discrepancy scale $\sigma_\text{disc}$. Only a small set of **global scalars** is freed —
+$\{\lambda_k$ (`kcat_scale`), $\sigma$, $dT_\text{opt}$, `topt_scale`, `dCp_scale`, $dT_m$,
+`tm_scale`, $f_\text{metab}$, $f_\text{maint}$, `ngam_scale`, `ngam_steepness`,
+$\sigma_\text{disc}\}$ — each transforming the *whole* grounded per-enzyme distribution while
+preserving its shape (a uniform shift, stretch or rescale), never a per-enzyme free parameter.
+Positive-only parameters are sampled in log space; priors are provenance-based (measured sector
+fractions tight; the in-vivo saturation a broad Normal on 0.45; magnitude and envelope levers
+LogNormal about their nominal). The emergent (nothing-fit) model and the calibrated posterior are
+kept distinct throughout.
 
-## Activation energy and its decomposition {#sec-methods-decomp}
-
-We quantify the organism-level activation energy as the **Sharpe–Schoolfield $E$**
-[@schoolfield1981], the rising-limb activation energy of the high-temperature-inactivation model
-
-$$
-\text{rate}(T) = r_{T_\text{ref}}\;
-  \frac{\exp[(E/k_B)(1/T_\text{ref}-1/T)]}{1 + \exp[(E_h/k_B)(1/T_h-1/T)]},
-$$ {#eq-ss}
-
-fit to the whole calibrated TPC with a fixed reference temperature. Because $E$ is read from the
-entire shape rather than an arbitrary window, it is stable where the naive Boltzmann–Arrhenius
-slope is not (@sec-valid), and it makes the modelled and observed values directly comparable. The
-same fit is applied identically to model and observed curves and to both organisms; the windowed
-slope is retained only as a deprecated cross-check.
-
-We decompose the Sharpe–Schoolfield $E_a$, by metabolic control analysis, into a control-weighted
-mean of the per-enzyme rising-limb activation energies and four named couplings, relative to the
-naive (unweighted) enzyme mean:
-
-$$
-E_a^\text{org} = \overline{E_i}
-  + \underbrace{(\textstyle\sum_i \hat C_i E_i - \overline{E_i})}_{\text{control weighting}}
-  + \Delta_\text{alloc} + \Delta_\text{maint} + \Delta_\text{agg}.
-$$ {#eq-decomp}
-
+**The control-weighted activation-energy decomposition.** To ask what sets each $E_a$ we
+decompose the Sharpe–Schoolfield $E$, by metabolic control analysis, into a control-weighted mean
+of the per-enzyme rising-limb activation energies and four named couplings relative to the naive
+(unweighted) enzyme mean:
+$$E_a^\text{org}=\overline{E_i}+\underbrace{\big(\textstyle\sum_i\hat C_iE_i-\overline{E_i}\big)}_{\text{control weighting}}+\Delta_\text{alloc}+\Delta_\text{maint}+\Delta_\text{agg}.$$ {#eq-decomp}
 The construction is non-circular: the per-enzyme $E_i$ — the rising-limb Arrhenius activation
-energy of each enzyme's turnover $k_{\text{cat},i}(T)$ alone (the folding term is the
-high-temperature deactivation, and its contribution to the rising $E$ is negligible, −0.008 eV
-control-weighted) — are model inputs, and the result is how the organism value aggregates and
-departs from them. The growth flux-control coefficients $\hat C_i=\partial\ln\mu/\partial\ln
-k_{\text{cat},i}$ are computed by symmetric perturbation and re-solve and normalised over the
-controlling set. The **allocation** term is isolated by disabling the growth-law coupling, the
-**maintenance** term by flattening NGAM($T$), and the **aggregation** term is computed directly
-as the Sharpe–Schoolfield $E$ of the kinetic-backbone aggregate curve minus the control-weighted
-per-enzyme mean. Both organisms are analysed on their calibrated model at their operating point,
-each carrying its own sector/growth-law layer, with the uncosted energy side-reactions closed.
-For Figure 1 the calibration posteriors (the saved Markov-chain draws) were propagated through
-the Sharpe–Schoolfield fitter to obtain the $E_a$ posterior distributions. Full construction,
-parameter tables, data provenance and robustness analyses are in the Supplement.
+energy of each enzyme's turnover $k_{\text{cat},i}(T)$ alone (the folding term is the high-$T$
+deactivation, contributing a negligible $-0.008$ eV control-weighted) — are model *inputs*, and
+the result is how the organism value aggregates and departs from them. The growth flux-control
+coefficients $\hat C_i=\partial\ln\mu/\partial\ln k_{\text{cat},i}$ are computed by symmetric
+perturbation and re-solve and normalised over the controlling set. The **allocation** term is
+isolated by disabling the growth-law coupling (@eq-growthlaw), the **maintenance** term by
+flattening NGAM($T$), and the **aggregation** term is computed directly as the Sharpe–Schoolfield
+$E$ of the kinetic-backbone aggregate curve minus the control-weighted per-enzyme mean. Both
+organisms are analysed on the calibrated model at their operating point, each carrying its own
+sector/growth-law layer, with the uncosted energy side-reactions closed. For Figure 1 the saved
+calibration draws were propagated through @eq-ssf to obtain the $E_a$ posteriors.
+
+## Taxon-specific construction and departures {#sec-methods-departures}
+
+The two models instantiate the same framework but differ, layer by layer, in ways that are
+either technical (base reconstruction, parameter provenance) or scientifically load-bearing (the
+allocation law). @tbl-departures summarises the contrasts; the two most consequential are the
+kcat provenance for the energy core and — the term that carries part of the $E_a$ difference —
+the allocation law.
+
+**Base network and enzyme layer.** *E. coli* starts from iML1515 [@Monk2017] as a pre-built GECKO
+ecModel (eciML1515) [@Sanchez2017; @Domenzain2022] carrying reference turnovers and masses for
+2,560 enzymes; *M. maripaludis* starts from the plain iMR539 reconstruction [@richards2016], onto
+which we build the sMOMENT enzyme layer here (527 enzymatic reactions mapped to UniProt masses).
+
+**Curation.** *E. coli* required closing four uncosted O₂-sink reactions (two quinol
+monooxygenases, a malate:O₂ oxidoreductase, a cuprous oxidase) that form a futile O₂ cycle. *M.
+maripaludis* required a carbon-honest autotroph curation: folding the dispensable archaellum
+glycoprotein out of biomass, repairing a selenocysteinyl-tRNA recycling gap, closing organic-
+carbon leaks and freeing the pinned methane exchange, and supplying two non-synthesisable vitamin
+cofactors as trace supplements.
+
+**Turnover provenance.** *E. coli* uses the GECKO built-in $k_\text{cat}$ refined by DLTKcat
+[@Qiu2024]. For *M. maripaludis* the energy-conserving core was set from measured specific
+activities (the electron-bifurcation hydrogenase/heterodisulfide-reductase complexes [@milton2018],
+converted to $k_\text{cat}$ via complex masses), the biosynthetic bulk from DLTKcat corrected for a
+systematic archaeal underprediction (28% of predictions below 1 s⁻¹) with cited literature/BRENDA
+overrides for the highest-cost offenders and a documented 1 s⁻¹ floor, and a mean fallback; Mcr —
+the $E_a$ target — was sourced explicitly ($k_\text{cat}\approx59$ s⁻¹, 3–294 s⁻¹ range, swept in
+@sec-mcr).
+
+**Optima and stability.** *E. coli* $T_{\text{opt},i}$ and $T_{m,i}$ are grounded per enzyme
+(sequence-based optimum predictor [@LiEngqvist2019]; measured melting proteome [@Leuenberger2017])
+for ~90% of enzymes. For *M. maripaludis* these predictors were not run; both use a documented
+mesophile prior (a flagged limitation refined by M4's $dT_\text{opt}$/$dT_m$).
+
+**The allocation law (load-bearing departure).** *E. coli* uses the bacterial Scott growth law
+[@Scott2010]: the ribosomal fraction *rises* with growth rate (slope $s\approx0.33$), which
+shrinks the metabolic sector at higher temperature and buffers $E_a$ downward. *M. maripaludis*
+holds a **constant** ribosomal fraction across growth rate [@muller2021] — a documented
+alternative allocation strategy — so its slope $s=0$ (a flat law), and the allocation buffer
+vanishes. This physiological difference, not a modelling choice, is one of the two terms that
+explain the $E_a$ difference (Results, @sec-decomp).
+
+**Maintenance, medium and saturation.** Maintenance NGAM($T$) uses an *E. coli* amplitude for the
+bacterium and the **measured** *M. maripaludis* maintenance energy [@goyal2015] for the methanogen.
+Validation/calibration is against BHI-rich growth (Van Derlinden 2012 [@vanderlinden2012]) for *E.
+coli* and H₂/CO₂ growth (Jones 1983 [@jones1983]) for the methanogen. Both take the in-vivo
+saturation $\sigma$ from the same literature range [@Davidi2016; @Heckmann2020]. Full per-model
+construction, parameter and provenance tables, and robustness analyses are in the Supplement.
+
+| Layer | *E. coli* (respiration) | *M. maripaludis* (methanogenesis) |
+|---|---|---|
+| Base GEM | iML1515 [@Monk2017] → GECKO eciML1515 | iMR539 [@richards2016] → our sMOMENT layer |
+| Curation | 4 uncosted O₂ sinks closed | carbon-honest autotroph (archaellin/SeCys/leaks) |
+| $k_\text{cat}$ | ecModel built-in + DLTKcat | measured core [@milton2018] + DLTKcat + overrides + floor |
+| $T_\text{opt}/T_m$ | sequence/meltome-grounded (~90%) | mesophile prior |
+| **Allocation law** | **Scott: ribosome fraction rises with $\mu$ ($s\!\approx\!0.33$)** | **Müller: constant ribosome fraction ($s=0$)** |
+| Maintenance | *E. coli* NGAM($T$) | measured NGAM [@goyal2015] |
+| Medium / curve | BHI rich, Van Derlinden 2012 | H₂/CO₂, Jones 1983 |
+| Saturation $\sigma$ | 0.45 (0.4–0.5) [@Davidi2016; @Heckmann2020] | 0.45 (0.4–0.5) [@Davidi2016; @Heckmann2020] |
+
+: Where the two etc-GEMs depart, by model layer. The allocation-law row (Scott rising vs Müller constant ribosome fraction) is the scientifically load-bearing difference. {#tbl-departures}
 
 # Data and code availability
 
