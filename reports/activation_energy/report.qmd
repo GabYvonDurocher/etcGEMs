@@ -1,28 +1,32 @@
 ---
-title: "The cellular mechanism of the higher thermal sensitivity of methanogenesis relative to respiration"
+title: "Three cellular routes to a thermal-sensitivity ordering: how metabolic architecture sets the activation energy of methanogenesis, respiration and photosynthesis"
 date: last-modified
 abstract: |
-  The thermal sensitivity of methane production is higher than that of respiration, and
-  remarkably this holds consistently from individual methanogen cultures to whole ecosystems
-  [@yvondurocher2014] — implying the pattern originates at the cellular scale. Yet the
-  cellular mechanism is unknown, and more generally it is unresolved whether the activation
-  energy ($E_a$) of a metabolic rate reflects one rate-limiting enzyme, an aggregate of the
-  proteome, or a biophysical constant. We address this with mechanistic enzyme- and
-  temperature-constrained genome-scale models (etc-GEMs) — the first for their taxa — of a
-  respiring bacterium (*Escherichia coli*) and a hydrogenotrophic methanogen (*Methanococcus
-  maripaludis*), each calibrated to a measured growth thermal performance curve. Quantifying
-  $E_a$ with the window-independent Sharpe–Schoolfield $E$, both models reproduce the observed
-  value (*E. coli* 0.68 eV vs observed 0.56, on the "universal" ~0.65 eV benchmark; *M.
-  maripaludis* 1.06 vs 1.04), and the two calibration posteriors are cleanly separated —
-  reproducing the empirical pattern at the cellular scale. A non-circular, control-weighted
-  decomposition shows the +0.38 eV difference is **structural, not thermodynamic**: the
-  methanogen's enzymes are on average *less* temperature-sensitive (0.51 vs 0.87 eV), but its
-  growth control concentrates on the high-$E_a$ methanogenesis backbone (+0.34 vs +0.11 eV),
-  and its constant-ribosome allocation strategy lacks the proteome buffer that lowers *E.
-  coli*'s $E_a$ (+0.00 vs −0.13 eV). Both terms are grounded in each organism's own measured
-  allocation physiology. The higher thermal sensitivity of methanogenesis is thus a property
-  of metabolic architecture and resource allocation — the same control-weighted aggregation
-  acting on a narrow, unbuffered energy backbone — providing a concrete cellular origin for a
+  The thermal sensitivity of methane production exceeds that of respiration, which in turn
+  exceeds that of photosynthesis, and remarkably this ordering holds consistently from
+  individual cultures to whole ecosystems [@yvondurocher2014] — implying it originates at the
+  cellular scale. Yet the cellular mechanism is unknown, and more generally it is unresolved
+  whether the activation energy ($E_a$) of a metabolic rate reflects one rate-limiting enzyme,
+  an aggregate of the proteome, or a biophysical constant. We address this with mechanistic
+  enzyme- and temperature-constrained genome-scale models (etc-GEMs) — the first for their taxa
+  — of all three strategies: a hydrogenotrophic methanogen (*Methanococcus maripaludis*), a
+  respiring heterotroph (*Escherichia coli*) and an oxygenic phototroph (*Synechocystis* sp. PCC
+  6803), each calibrated to a measured growth thermal performance curve. Quantifying $E_a$ with
+  the window-independent Sharpe–Schoolfield $E$, all three reproduce the observed value and the
+  full ordering — methanogenesis 1.06 eV (observed 1.04) > respiration 0.68 (observed 0.56, on
+  the "universal" ~0.65 eV benchmark) > photosynthesis 0.57 (observed photosynthesis-flux 0.52).
+  A non-circular, control-weighted decomposition shows the ordering is **not one mechanism
+  scaled but three distinct routes** to a position in the $E_a$ range. Methanogenesis is high
+  because growth control concentrates (89%) on a high-$E_a$ energy backbone with no allocation
+  buffer; respiration is intermediate because a high average enzyme $E_a$ is buffered down by
+  the Scott ribosome-allocation law (−0.13 eV); photosynthesis is low because control sits on an
+  intrinsically **low-$E_a$ carbon-fixation (Calvin) backbone** (mean 0.63 vs proteome 0.68 eV)
+  with only a small buffer — the mirror image of the methanogen. Each organism's allocation term
+  is grounded in its own measured strategy (Scott rising-ribosome, Müller constant-ribosome,
+  Jahn shallow-ribosome), and each result carries its explicit kinetic sensitivity. The
+  "universal" activation energy is therefore an organism-specific, control-weighted,
+  allocation-modulated aggregate whose value depends on *where* growth control sits (high- vs
+  low-$E_a$ enzymes) and *how much* allocation buffers it — a concrete cellular origin for a
   pattern that propagates across scales.
 format:
   pdf:
@@ -48,51 +52,62 @@ aggregate over many enzymes, or by a shared thermodynamic constraint? The distin
 because only a mechanistic account can explain the systematic *departures* from the universal
 value that are also observed.
 
-The most consequential such departure concerns methane. @yvondurocher2014 showed empirically
-that the thermal sensitivity of methane flux is substantially higher than that of respiration
-(and of photosynthesis), and — critically — that this ordering is **consistent from individual
-methanogen cultures through microbial communities to whole ecosystems**. Cross-scale
-consistency of an activation energy is a strong clue: it implies that the pattern is not an
-emergent property of ecological aggregation but originates at the **cellular and enzymatic
-scale** and propagates upward. What that cellular mechanism is, however, has remained unknown.
-Why should the growth of a methanogen be more thermally sensitive than that of a respiring
-bacterium — is it a more temperature-sensitive enzymatic machinery, or something about how that
-machinery is organised and deployed?
+The most consequential such departures concern the major energy metabolisms. @yvondurocher2014
+showed empirically that the thermal sensitivity of metabolic fluxes follows a systematic
+**ordering — methanogenesis > respiration > photosynthesis** — and, critically, that this
+ordering is **consistent from individual cultures through microbial communities to whole
+ecosystems**. Cross-scale consistency of an activation energy is a strong clue: it implies that
+the pattern is not an emergent property of ecological aggregation but originates at the
+**cellular and enzymatic scale** and propagates upward. What that cellular mechanism is, however,
+has remained unknown. Why should the growth of a methanogen be more thermally sensitive than that
+of a respiring bacterium, and that in turn more than a phototroph — is it a more or less
+temperature-sensitive enzymatic machinery, or something about how that machinery is organised and
+deployed? And is the ordering one underlying mechanism scaled up and down, or genuinely different
+mechanisms in each strategy?
 
 Answering this requires a model in which the organism-level $E_a$ can be traced back to
 individual enzymes. Enzyme- and temperature-constrained genome-scale models (etc-GEMs) provide
 exactly this: they impose a temperature-dependent turnover on every enzyme and a shared
 proteome budget, and predict the whole growth thermal performance curve (TPC) from
 enzyme-constrained flux balance analysis. Building on a yeast thermal-etcGEM framework
-[@Li2021], we construct etc-GEMs — to our knowledge the first for either taxon — of *E. coli*
-(aerobic respiration, a complete electron transport chain) and *M. maripaludis* (hydrogenotrophic
-methanogenesis, whose *only* energy-conserving pathway is the Wolfe-cycle backbone terminating
-in the notoriously slow methyl-coenzyme-M reductase, Mcr). We calibrate each to a measured
-growth TPC, quantify $E_a$ with a window-independent metric, and decompose it non-circularly
-into a control-weighted aggregate of the per-enzyme activation energies plus named physiological
-couplings. The answer, previewed here, is that the higher thermal sensitivity of methanogenesis
-is **structural**: not a more temperature-sensitive enzyme set, but the concentration of growth
-control on a single high-sensitivity energy backbone together with the absence of the
-proteome-allocation buffer that dampens the respiring bacterium's $E_a$.
+[@Li2021], we construct etc-GEMs — to our knowledge the first of their kind for these taxa — of
+all three metabolic strategies: *M. maripaludis* (hydrogenotrophic methanogenesis, whose *only*
+energy-conserving pathway is the Wolfe-cycle backbone terminating in the notoriously slow
+methyl-coenzyme-M reductase, Mcr), *E. coli* (aerobic respiration, a complete electron transport
+chain), and *Synechocystis* sp. PCC 6803 (oxygenic photosynthesis, carbon fixed through the
+Calvin–Benson–Bassham cycle under light-saturated, carbon-fixation-limited conditions). We
+calibrate each to a measured growth TPC, quantify $E_a$ with a window-independent metric, and
+decompose it non-circularly into a control-weighted aggregate of the per-enzyme activation
+energies plus named physiological couplings. The answer, previewed here, is that the ordering is
+**not one mechanism scaled but three distinct routes** to a position in the $E_a$ range: a
+methanogen sits high because growth control concentrates on a single high-sensitivity energy
+backbone with no allocation buffer; a respiring bacterium sits mid because a high average enzyme
+sensitivity is buffered down by its ribosome-allocation law; and a phototroph sits low because
+growth control instead sits on an intrinsically *low*-sensitivity carbon-fixation backbone — the
+mirror image of the methanogen — with only a small buffer.
 
 # Results
 
-## Two etc-GEMs reproduce two separated activation energies {#sec-fig1}
+## Three etc-GEMs reproduce the full activation-energy ordering {#sec-fig1}
 
-Each etc-GEM was calibrated by Bayesian inference to its organism's measured growth TPC — *E.
-coli* on rich Brain–Heart-Infusion broth over 7–46 °C [@vanderlinden2012], and *M. maripaludis*
-on H2/CO2 defined medium over 15–52 °C [@jones1983]. Both reproduce their data: the
-posterior-predictive median and 90% band pass through the observed points (@fig-scene, left and
-centre), and the two curves differ visibly in the steepness of their rising limbs. Propagating
-each calibration posterior through the Sharpe–Schoolfield fitter (Methods) yields the posterior
-distribution of $E_a$ for each organism. These are **cleanly separated** — *M. maripaludis* at
-~1.0 eV and *E. coli* at ~0.6 eV, with non-overlapping 90% credible intervals ([0.88, 1.16]
-versus [0.60, 0.80]; @fig-scene, right). The empirical pattern of @yvondurocher2014 — higher
-thermal sensitivity for methanogenesis than for respiration — is thus reproduced at the
-cellular scale by two independent mechanistic models, and is robust to Bayesian parameter
-uncertainty rather than an artefact of a point estimate. The remainder of the paper asks *why*.
+Each etc-GEM was calibrated by Bayesian inference to its organism's measured growth TPC — *M.
+maripaludis* on H₂/CO₂ defined medium over 15–52 °C [@jones1983], *E. coli* on rich
+Brain–Heart-Infusion broth over 7–46 °C [@vanderlinden2012], and *Synechocystis* 6803 under
+light-saturated photoautotrophic growth over 23–38 °C [@zavrel2015]. All three reproduce their
+data: the posterior-predictive median and 90% band pass through the observed points (@fig-scene),
+and the curves differ in the steepness of their rising limbs. Propagating each calibration
+posterior through the Sharpe–Schoolfield fitter (Methods) yields the posterior distribution of
+$E_a$ for each organism (@fig-scene, right). They reproduce the **full @yvondurocher2014
+ordering**: methanogenesis is highest at ~1.0 eV and cleanly separated (90% CI [0.88, 1.16]),
+while respiration (~0.69 eV, [0.60, 0.80]) and photosynthesis (~0.64 eV, [0.47, 0.93]) sit lower
+and near the "universal" ~0.65 eV benchmark, with photosynthesis's posterior median below
+respiration's. Photosynthesis and respiration are close — as they are empirically — so their
+posteriors overlap, whereas methanogenesis is unambiguously separated from both. The ordering of
+@yvondurocher2014 is thus reproduced at the cellular scale by three independent mechanistic
+models, robustly to Bayesian parameter uncertainty. The remainder of the paper asks *why* — and
+finds three different answers.
 
-![**Two organisms, two activation energies, reproduced mechanistically.** Calibrated (Bayesian) growth thermal performance curves for *E. coli* respiration (rich BHI) and *M. maripaludis* methanogenesis (H₂/CO₂): posterior-predictive median and 90% band with the observed data [@vanderlinden2012; @jones1983]. Right: the Sharpe–Schoolfield $E_a$ posteriors, propagated from the calibration draws, are separated (methanogen ~1.0 vs *E. coli* ~0.6 eV; dashed lines, observed values).](assets/fig1/fig1_scene_setter.png){#fig-scene fig-pos="H" width=100%}
+![**Three metabolic strategies reproduce the Yvon-Durocher 2014 activation-energy ordering at the cellular scale.** Calibrated (Bayesian) growth thermal performance curves for *M. maripaludis* methanogenesis (H₂/CO₂), *E. coli* respiration (rich BHI) and *Synechocystis* 6803 photosynthesis (light-saturated autotrophy): posterior-predictive median and 90% band with the observed data [@jones1983; @vanderlinden2012; @zavrel2015]. Right: the Sharpe–Schoolfield $E_a$ posteriors, propagated from the calibration draws, are correctly ordered — methanogenesis ~1.04 clearly separated above respiration ~0.69 and photosynthesis ~0.64, which cluster near the ~0.65 eV benchmark (dotted).](assets/fig1/fig1_scene_setter.png){#fig-scene fig-pos="H" width=100%}
 
 ## Both models predict the observed activation energy {#sec-valid}
 
