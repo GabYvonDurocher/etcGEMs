@@ -18,10 +18,12 @@ MM = os.path.join(ROOT, "strains", "mmaripaludis", "outputs")
 FIG_DIR = os.path.join(HERE, "assets", "figures")
 TBL_DIR = os.path.join(HERE, "assets", "tables")
 
+SY = os.path.join(ROOT, "strains", "syn6803", "outputs")
+
 # (source_path, dest_dir, dest_name)
 COPIES = [
-    # main-paper figures
-    (os.path.join(XORG, "cross_organism_signed_contributions.png"), FIG_DIR, "cross_organism_signed_contributions.png"),
+    # main-paper figures (three-way)
+    (os.path.join(XORG, "cross_organism_signed_contributions_3way.png"), FIG_DIR, "cross_organism_signed_contributions_3way.png"),
     # supplement figures
     (os.path.join(MM, "calibration_jones", "prior_vs_posterior_tpc.png"), FIG_DIR, "methanogen_calibration_jones.png"),
     (os.path.join(MM, "calibration_jones", "corner.png"), FIG_DIR, "methanogen_corner.png"),
@@ -29,8 +31,15 @@ COPIES = [
     (os.path.join(ROOT, "strains", "eciML1515", "outputs", "calibration_vanderlinden", "prior_vs_posterior_tpc.png"), FIG_DIR, "ecoli_calibration_vdl.png"),
     (os.path.join(ROOT, "strains", "eciML1515", "outputs", "calibration_vanderlinden", "corner.png"), FIG_DIR, "ecoli_corner.png"),
     (os.path.join(AUDIT, "ss_fits_overlay.png"), FIG_DIR, "ss_fits_overlay.png"),
-    # main-paper tables
-    (os.path.join(XORG, "comparison_table_final.csv"), TBL_DIR, "comparison_table_final.csv"),
+    # phototroph supplement figures
+    (os.path.join(SY, "P2_thermal", "emergent_tpc_vs_zavrel.png"), FIG_DIR, "phototroph_emergent_tpc.png"),
+    (os.path.join(SY, "calibration_zavrel", "prior_vs_posterior_tpc.png"), FIG_DIR, "phototroph_calibration_zavrel.png"),
+    (os.path.join(SY, "calibration_zavrel", "corner.png"), FIG_DIR, "phototroph_corner.png"),
+    (os.path.join(SY, "calibration_zavrel", "inoue_crosschecks.png"), FIG_DIR, "phototroph_inoue_crosschecks.png"),
+    (os.path.join(SY, "P3b_sectors", "sectored_vs_singlepool_tpc.png"), FIG_DIR, "phototroph_sectored_tpc.png"),
+    (os.path.join(SY, "ea_dissection_ss", "robustness_sweep.png"), FIG_DIR, "phototroph_robustness_sweep.png"),
+    # main-paper tables (three-way)
+    (os.path.join(XORG, "comparison_table_3way.csv"), TBL_DIR, "comparison_table_3way.csv"),
     (os.path.join(AUDIT, "window_sensitivity.csv"), TBL_DIR, "window_sensitivity.csv"),
     (os.path.join(AUDIT, "sharpe_schoolfield_fits.csv"), TBL_DIR, "sharpe_schoolfield_fits.csv"),
     (os.path.join(MM, "ea_dissection_ss", "mcr_sweep.csv"), TBL_DIR, "mcr_sweep.csv"),

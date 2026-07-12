@@ -111,23 +111,28 @@ finds three different answers.
 
 ## Both models predict the observed activation energy {#sec-valid}
 
-Before decomposing the difference we establish that the modelled $E_a$ is a genuine prediction.
+Before decomposing the ordering we establish that the modelled $E_a$ is a genuine prediction.
 This test requires a stable metric, because the naive Boltzmann–Arrhenius slope is not one: the
 rising limb is curved (enzyme kinetics are not log-linear in inverse temperature), so the fitted
 slope depends on the arbitrary temperature window. Recomputed under five window conventions, the
-slope $E_a$ of these very curves spans **0.42–1.41 eV per curve** — larger than the
-cross-organism differences we seek to explain, and enough that under one window the two
-organisms appear comparable while under another they are far apart (@tbl-window). We therefore
-quantify $E_a$ throughout as the window-independent **Sharpe–Schoolfield $E$** [@schoolfield1981],
-fit to the entire curve shape (Methods); the windowed slope is retained only as a deprecated
-cross-check.
+slope $E_a$ of these curves spans **0.42–1.41 eV per curve** — larger than the cross-organism
+differences we seek to explain, and enough that under one window two organisms appear comparable
+while under another they are far apart (@tbl-window). We therefore quantify $E_a$ throughout as
+the window-independent **Sharpe–Schoolfield $E$** [@schoolfield1981], fit to the entire curve
+shape (Methods); the windowed slope is retained only as a deprecated cross-check.
 
-Under this metric the models agree with the data. The *E. coli* model gives $E_a = 0.68$ eV
-against an observed 0.56 eV, sitting on the "universal" ~0.65 eV metabolic benchmark; the *M.
-maripaludis* model gives 1.06 eV against an observed 1.04 (@tbl-comp). Because the per-enzyme
-activation energies are model *inputs* (below), this agreement is a prediction of the
-organism-level value, not a fitted output — and the methanogen genuinely sits ~1.6-fold above
-the respiring bacterium.
+Under this metric all three models agree with the data (@tbl-comp). The *M. maripaludis* model
+gives $E_a = 1.06$ eV against an observed 1.04; the *E. coli* model gives 0.68 against an observed
+0.56, sitting on the "universal" ~0.65 eV metabolic benchmark; and the *Synechocystis* model
+gives 0.57. The phototroph's observed anchor deserves a word: its six-point light-saturated growth
+TPC yields a Sharpe–Schoolfield $E$ of 0.44 but this is fragile (a ±5% perturbation of the rate
+points spans a 90% range [0.32, 1.00], because six points over a narrow window under-determine the
+metric), so we take as the robust benchmark the independent, well-sampled *photosynthesis-flux*
+TPC of @inoue2001 (O₂ evolution, 25–52 °C), whose $E$ of 0.52 the model's carbon-fixation-flux
+$E$ (0.56) matches directly. Because the per-enzyme activation energies are model *inputs* (below),
+this agreement on each organism-level value is a prediction, not a fitted output — and the three
+land in the correct order, with the methanogen ~1.6-fold above the respiring bacterium and the
+phototroph the lowest of the three.
 
 ```{python}
 #| label: tbl-window
@@ -148,74 +153,87 @@ for k,lab in label.items():
 print(pd.DataFrame(rows).to_markdown(index=False))
 ```
 
-## The difference is structural: control weighting and allocation, not enzyme thermodynamics {#sec-decomp}
+## Three distinct routes, not one mechanism scaled {#sec-decomp}
 
 To find what sets each $E_a$ we decompose it, by metabolic control analysis, into a
 control-weighted aggregate of the per-enzyme activation energies and four named physiological
-couplings (Methods, @eq-decomp). The framing is deliberately non-circular: the per-enzyme
-activation energies $E_i$ are grounded model inputs, so we do not ask "what is $E_a$" but how
-the organism-level value aggregates them and departs from their naive mean. @fig-decomp and
-@tbl-comp give the result for both organisms on the same terms.
+couplings (Methods, @eq-decomp), applied identically to all three organisms — each on its own
+sectored, calibrated model. The framing is deliberately non-circular: the per-enzyme activation
+energies $E_i$ are grounded model inputs, so we do not ask "what is $E_a$" but how the
+organism-level value aggregates them and departs from their naive mean. @fig-decomp and @tbl-comp
+give the result. The striking outcome is that the three organisms reach their three positions by
+**three different routes** — no single term is scaled up and down to move along the ordering.
 
-The central finding is counter-intuitive. The methanogen's enzymes are, on average, *less*
-temperature-sensitive than the respiring bacterium's: the unweighted mean of the per-enzyme
-activation energies is 0.51 eV in *M. maripaludis* versus 0.87 eV in *E. coli*. Intrinsic
-enzyme thermodynamics alone would therefore predict the *opposite* ordering to the one observed.
-The higher methanogen $E_a$ arises instead from how growth control is distributed and how the
-proteome is allocated.
+**Methanogenesis (highest, 1.06 eV): narrow control on a high-$E_a$ backbone.** Counter-intuitively,
+the methanogen's enzymes are on average the *least* temperature-sensitive of the three (naive mean
+0.51 eV). Its high $E_a$ arises because energy metabolism *is* growth in a hydrogenotroph:
+essentially all catabolism flows through the Wolfe cycle, so a small set of energy enzymes —
+formylmethanofuran dehydrogenase (Fwd), the methyltransferase (Mtr), Mcr, the
+methylene-tetrahydromethanopterin reductase (Mer), the heterodisulfide reductase (Hdr) and the
+hydrogenases — carries **89% of the control term**, and these are themselves high-$E_a$ (mean 0.77
+vs the 0.51 proteome mean). This concentration lifts the effective enzyme activation energy by
+**+0.34 eV**, with a further **+0.22 eV** from aggregation (its narrow, synchronised control
+steepens the composite curve) and **no allocation buffer** (below).
 
-First, growth control concentrates on the high-$E_a$ methanogenesis backbone. In a
-hydrogenotroph, energy metabolism *is* growth: essentially all catabolism flows through the
-Wolfe cycle, so a small set of energy enzymes — formylmethanofuran dehydrogenase (Fwd), the
-methyltransferase (Mtr), Mcr, the methylene-tetrahydromethanopterin reductase (Mer), the
-heterodisulfide reductase (Hdr) and the hydrogenases — carries **89% of the control term**, and
-these enzymes are themselves high-$E_a$ (mean 0.77 eV against a proteome mean of 0.51). This
-concentration lifts the effective enzyme activation energy by **+0.34 eV**. In *E. coli*, by
-contrast, growth control is spread across a broad biosynthetic proteome, and the analogous
-control-weighting term adds only **+0.11 eV**.
+**Respiration (intermediate, 0.68 eV): a high enzyme sensitivity, buffered down.** *E. coli* has by
+far the *highest* naive enzyme mean (0.87 eV), but it is pulled to the benchmark by two negative
+terms. Growth control is broad (no single backbone; control weighting only +0.11 eV), and the
+Scott-type growth law reallocates proteome toward ribosomes as growth accelerates, shrinking the
+metabolic sector at higher temperature and pulling $E_a$ down by **−0.13 eV**; aggregation, with
+control spread across many enzymes, flattens rather than steepens (**−0.17 eV**). Respiration
+lands near the "universal" value not because its enzymes are typical but because a high baseline is
+allocation-buffered.
 
-Second, the methanogen lacks the proteome-allocation buffer that lowers *E. coli*'s $E_a$. In
-*E. coli*, the Scott-type growth law reallocates proteome toward ribosomes as growth accelerates,
-which shrinks the metabolic sector at higher temperature and pulls the organism $E_a$ down by
-**−0.13 eV**. *M. maripaludis*, which maintains a **constant ribosomal proteome fraction** and
-full methanogenesis capacity across growth rate [@muller2021], applies no such buffer: its
-allocation term, measured on its own sectored model, is **+0.00 eV**. Both allocation terms are
-therefore grounded in each organism's own measured allocation strategy, making the comparison
-symmetric rather than an artefact of model structure.
+**Photosynthesis (lowest, 0.57 eV): control on a low-$E_a$ carbon-fixation backbone.** The
+phototroph is the **mirror image of the methanogen**. Its naive mean is intermediate (0.68 eV), but
+— the key contrast — control does *not* concentrate on high-$E_a$ enzymes (control weighting ≈ 0,
+−0.02 eV). The carbon-fixation/Calvin-cycle enzymes that carry the flux (transketolase,
+fructose-bisphosphate aldolase, RuBisCO, phosphoribulokinase, fructose-1,6-bisphosphatase — **34%
+of the control term**) sit at a mean activation energy of **0.63 eV, below the 0.68 proteome mean**,
+and the remaining control is on ATP synthase (low-$E_a$) and the photosystems. With only small
+buffers — allocation −0.02 eV (its shallow ribosome-allocation law, below), maintenance −0.03 eV
+and aggregation −0.05 eV — the intermediate baseline **stays low**. Where the methanogen puts control
+on high-$E_a$ chemistry, the phototroph puts it on intrinsically low-$E_a$ carbon-fixation chemistry.
 
-Together these two structural terms — the control-weighting difference (+0.24 eV) and the
-allocation asymmetry (+0.13 eV) — account for essentially the entire +0.38 eV gap in organism
-$E_a$. The two remaining terms nearly cancel: the methanogen's lower average enzyme activation
-energy (−0.36 eV) is offset by a larger **aggregation** term (+0.39 eV), the tendency of its
-narrow, synchronised control on a few backbone enzymes to steepen the composite growth curve
-where *E. coli*'s broad control flattens it. We note that although the aggregation term is the
-largest single contribution, it is also the most sensitive to the details of the metric; the
-robust conclusion — that the difference is set by control weighting and allocation — does not
-depend on it.
+The allocation term is grounded per organism (@tbl-comp): *E. coli*'s Scott rising-ribosome law
+(−0.13 eV), the methanogen's constant-ribosome strategy [@muller2021] (+0.00 eV), and the
+phototroph's shallow rising-ribosome law [@jahn2018] (−0.02 eV, small because *Synechocystis*
+reallocates only weakly across its narrow growth-rate range). Each is measured on the organism's own
+sectored model, so the comparison is symmetric rather than an artefact of model structure. The
+aggregation term, though it can be the largest single contribution (for the methanogen), is also the
+most metric-sensitive; the robust conclusions — the ordering and the high-$E_a$-backbone /
+low-$E_a$-backbone contrast — do not depend on it.
 
-![**What moves the organism $E_a$ away from the naive enzyme mean.** Signed contribution of each named term (Sharpe–Schoolfield $E$; both organisms carrying a proteome-sector layer), sign-coloured. The higher methanogen $E_a$ is driven by control weighting (+0.11 vs +0.34 eV) and the allocation asymmetry (−0.13 vs +0.00 eV), not by higher intrinsic enzyme temperature-sensitivity (naive mean 0.87 vs 0.51 eV).](assets/figures/cross_organism_signed_contributions.png){#fig-decomp fig-pos="H" width=100%}
+![**Three distinct routes to the Yvon-Durocher 2014 ordering.** Signed contribution of each named term to the Sharpe–Schoolfield $E_a$ (deviation from the naive enzyme mean; all three organisms carrying their own measured proteome-sector layer), sign-coloured. Methanogenesis is high via strong positive control weighting (+0.34) and aggregation (+0.22) on a high-$E_a$ backbone; respiration is buffered down from a high baseline by the Scott allocation term (−0.13) and aggregation (−0.17); photosynthesis stays low because control sits on a low-$E_a$ carbon-fixation backbone (all four terms small/negative). The methanogen and phototroph are mirror images (high- vs low-$E_a$ controlling backbone).](assets/figures/cross_organism_signed_contributions_3way.png){#fig-decomp fig-pos="H" width=100%}
 
 ```{python}
 #| label: tbl-comp
-#| tbl-cap: "Symmetric cross-organism decomposition of the Sharpe-Schoolfield activation energy. Both organisms carry a proteome-sector/growth-law layer, so the allocation term is measured for each (E. coli Scott growth law; M. maripaludis constant-ribosome flat law). The +0.38 eV difference is set by control-weighting and allocation, not by a higher intrinsic enzyme Ea (naive mean 0.87 vs 0.51). Both models match the observed SS-E."
+#| tbl-cap: "Three-way decomposition of the Sharpe-Schoolfield activation energy. All three organisms carry their own measured proteome-sector/growth-law layer, so the allocation term is measured for each (methanogen constant-ribosome flat law; E. coli Scott rising-ribosome law; phototroph Jahn shallow-ribosome law). The full ordering (methanogenesis 1.06 > respiration 0.68 > photosynthesis 0.57) arises from three distinct routes: narrow high-Ea-backbone control (methanogen), allocation-buffered high enzyme Ea (E. coli), and low-Ea carbon-fixation-backbone control (phototroph). All three match their observed SS-E."
 #| output: asis
 import pandas as pd
-print(pd.read_csv("assets/tables/comparison_table_final.csv").to_markdown(index=False))
+print(pd.read_csv("assets/tables/comparison_table_3way.csv").to_markdown(index=False))
 ```
 
-## The ordering is robust to the uncertain Mcr turnover {#sec-mcr}
+## The ordering is robust to each organism's kinetic uncertainty {#sec-mcr}
 
-The turnover number of the terminal methanogenesis enzyme, Mcr, is uncertain for a mesophile —
-the literature spans roughly 3–294 s⁻¹. Because Mcr is a candidate rate-controller, we swept its
-$k_\text{cat}$ across this range and repeated the analysis (@tbl-mcr). The organism $E_a$ remains
-between 1.01 and 1.27 eV throughout, always well above the *E. coli* value of 0.68, and the
-methanogenesis backbone carries 83–103% of the control term across the whole range. The ordering
-and the backbone-control finding are therefore robust to this uncertainty. What does change is
-the identity of the single leading enzyme: Mcr dominates when it is slow (a low turnover makes it
-expensive in enzyme mass and thus high in control), Fwd leads when Mcr is fast, and the two
-co-lead at the calibrated value. The classic expectation that Mcr specifically sets the
-methanogen $E_a$ therefore holds only when Mcr is slow; the robust statement is that the *energy
-backbone as a whole*, not any single enzyme, carries the high thermal sensitivity.
+Each attribution rests on kinetic parameters with organism-specific uncertainty, which we sweep.
+For the **methanogen**, the turnover of the terminal enzyme Mcr is uncertain for a mesophile — the
+literature spans roughly 3–294 s⁻¹. Sweeping its $k_\text{cat}$ across this range (@tbl-mcr), the
+organism $E_a$ stays between 1.01 and 1.27 eV, always well above the *E. coli* value, and the
+methanogenesis backbone carries 83–103% of the control term throughout. What changes is only the
+identity of the single leading enzyme — Mcr dominates when slow (a low turnover makes it expensive
+in enzyme mass and thus high in control), Fwd leads when Mcr is fast — so the robust statement is
+that the *energy backbone as a whole*, not any single enzyme, carries the high thermal sensitivity.
+
+For the **phototroph**, the analogous uncertainty is the carbon-fixation turnover (RuBisCO is a
+famously slow, much-debated enzyme). Sweeping RuBisCO $k_\text{cat}$ over 0.5–4× and the whole
+Calvin backbone over 0.5–2× leaves the organism $E_a$ essentially unchanged (0.565–0.577 eV),
+always well below respiration: the low photosynthesis $E_a$ is a **shape property** of its
+low-$E_a$ controlling enzymes, not an artefact of a particular (level) turnover value — a stronger
+robustness than the methanogen's, whose leading-enzyme identity does move. The one shared lever is
+the macromolecular-rate-theory curvature prior ($\Delta C^{\ddagger}_p$), which sets the rising-limb
+steepness for *all* enzymes in *all three* organisms; varying it (−2 to −6 kJ mol⁻¹ K⁻¹) scales the
+whole comparison together and is a common systematic rather than a re-ordering lever (Supplement).
 
 ```{python}
 #| label: tbl-mcr
@@ -229,52 +247,66 @@ print(m.to_markdown(index=False))
 
 # Discussion
 
-The higher thermal sensitivity of methanogenesis relative to respiration [@yvondurocher2014] has
-a concrete cellular mechanism, and it is not the intuitive one. The methanogen's enzymes are not
-individually more temperature-sensitive — on average they are less so. Instead the organism-level
-activation energy is a **control-weighted, allocation-modulated aggregate** of the per-enzyme
-activation energies, and two structural features of methanogenic physiology raise it. Because a
-hydrogenotroph conserves energy through a single narrow pathway, growth control concentrates
-almost entirely on that high-activation-energy energy backbone, rather than being diluted across
-a broad biosynthetic proteome as in a respiring heterotroph. And because *M. maripaludis*
-maintains a constant ribosomal fraction and full methanogenesis capacity across growth rate
-[@muller2021], it lacks the growth-law proteome reallocation that buffers *E. coli*'s activation
-energy downward. Each term is grounded in the organism's own measured allocation strategy, so the
-comparison reflects biology rather than a modelling choice.
+The thermal-sensitivity ordering of @yvondurocher2014 has a concrete cellular mechanism, and it is
+not one mechanism scaled but **three distinct routes** to a position in the activation-energy
+range. In no case does the organism-level $E_a$ simply track the average temperature-sensitivity
+of the organism's enzymes: methanogenesis is highest yet has the *lowest* average enzyme $E_a$,
+and respiration has the *highest* average enzyme $E_a$ yet sits in the middle. What sets each value
+is instead **where growth control sits and how much allocation buffers it**. A hydrogenotroph
+conserves energy through a single narrow pathway, so control concentrates on that
+high-activation-energy backbone and, maintaining a constant ribosomal fraction across growth rate
+[@muller2021], it applies no buffer — hence a high $E_a$. A respiring heterotroph has an
+intrinsically high-$E_a$ enzyme set but spreads control broadly and reallocates proteome toward
+ribosomes as it grows faster [@Scott2010], buffering $E_a$ down to the benchmark. An oxygenic
+phototroph places control on the Calvin-cycle carbon-fixation enzymes, which are intrinsically
+*low*-$E_a$, and reallocates only weakly across its narrow growth-rate range [@jahn2018] — hence a
+low $E_a$, the mirror image of the methanogen. Each term is grounded in the organism's own measured
+allocation strategy, so the contrast reflects biology, not a modelling choice.
 
-This reframes the "universal" metabolic activation energy. Its approximate constancy need not
-imply a conserved enzyme or a fixed biophysical constant; the same control-weighted-aggregation
-mechanism, acting on a **different controlling set** and modulated by a **different allocation
-strategy**, produces systematically different organism-level values. A respiring bacterium lands
-near the benchmark because its control is broad and allocation-buffered; a methanogen sits well
-above it because its control is narrow and unbuffered. The corollary is a link, to our knowledge
-not previously drawn, between **proteome-allocation strategy and thermal sensitivity**: how an
-organism partitions and couples its proteome is a determinant of how steeply its growth responds
-to temperature. This connection is significant precisely because of the cross-scale consistency
-that motivated the question — if the cellular mechanism is control concentration on a
-high-$E_a$, unbuffered energy pathway, then that mechanism is what propagates the methanogenesis
-signal from cultures up to the ecosystem fluxes of @yvondurocher2014.
+This reframes the "universal" metabolic activation energy. Its approximate constancy need not imply
+a conserved enzyme or a fixed biophysical constant; the same control-weighted-aggregation mechanism,
+acting on a **different controlling set** and modulated by a **different allocation strategy**,
+produces systematically different organism-level values across the ordering. The corollary is a
+link, to our knowledge not previously drawn, between the **intrinsic $E_a$ of the controlling
+pathway and the resource-allocation strategy on one hand, and organism thermal sensitivity on the
+other**: how an organism partitions and couples its proteome, together with *which* enzymes its
+growth control falls on, sets how steeply its growth responds to temperature. This connection is
+significant precisely because of the cross-scale consistency that motivated the question — if the
+cellular mechanism is control concentration on a high- or low-$E_a$ pathway, modulated by
+allocation, then that mechanism is what propagates each strategy's thermal signal from cultures up
+to the ecosystem fluxes of @yvondurocher2014.
 
-Several caveats bound these conclusions. The aggregation term, though the largest single
-contribution to the cross-organism difference, is the most sensitive to the definition of the
-activation-energy metric; we have therefore rested the mechanistic conclusion on the
-control-weighting and allocation terms, which alone account for the observed gap. The mesophilic
-turnover of Mcr is the dominant single-parameter uncertainty: the ordering and the
-backbone-control result are robust across its plausible range, but the identity of the single
-most rate-controlling enzyme is not, and a direct measurement of mesophilic Mcr $k_\text{cat}$
-would sharpen the attribution. The per-enzyme activation energies are grounded inputs (from
-macromolecular rate theory, sequence-based optima, a melting proteome, and — for the methanogen —
-a deep-learning turnover predictor corrected against literature kinetics), so the result is an
-attribution given those inputs rather than an ab-initio prediction of the numerical value.
-Finally, this is a two-organism comparison; the mechanism is a hypothesis that a broader survey
-should test.
+Two scope boundaries specific to the phototroph must be stated. First, our result is for the
+**light-saturated, carbon-fixation-limited regime**, in which the temperature-insensitive light
+reactions are non-limiting (confirmed in the model by a zero photon shadow price at all
+temperatures) so that Calvin-cycle enzyme kinetics set the rate — the regime that keeps the
+phototroph *within* the shared enzyme-kinetic mechanism. Under light *limitation*, a
+temperature-insensitive photon supply co-limits growth and lowers $E_a$ further for a reason
+*outside* the enzyme mechanism: the same *Synechocystis* strain grown light-limited peaks at ~25 °C
+rather than ~35 °C [@inoue2001]. Field and ecosystem photosynthesis, often light- or CO₂-limited,
+may therefore have an even lower $E_a$ than our light-saturated value, partly through this
+non-enzymatic route — a boundary of the present mechanism and a target for a future
+light-supply layer. Second, under ambient (non-saturating) CO₂ the rising thermal sensitivity of
+RuBisCO's oxygenation (photorespiration) would add a further temperature term we do not model; under
+the CO₂-replete conditions of the calibration curve it is suppressed (zero net oxygenase flux at the
+optimum), so the emergent growth $E_a$ is Calvin-kinetics-dominated as intended.
 
-The natural next test is the third process in the @yvondurocher2014 ordering. Photosynthesis has
-an even lower thermal sensitivity than respiration, and a cyanobacterial etc-GEM — with its
-light-driven energy metabolism and distinct proteome economy — would provide a demanding,
-directional test of whether the control-and-allocation framework generalises across all three
-metabolic strategies. If it does, a phenomenological "universal" activation energy will have been
-replaced by a mechanistic, organism-specific, and predictive account of thermal sensitivity.
+Further caveats bound all three results. The aggregation term, though it can be the largest single
+contribution (for the methanogen), is the most sensitive to the definition of the activation-energy
+metric; we have therefore rested the mechanistic conclusions on the naive-mean, control-weighting
+and allocation terms. Each organism carries a kinetic sensitivity — the mesophilic turnover of Mcr
+for the methanogen (the ordering and backbone-control result are robust, but the single leading
+enzyme's identity is not), and the carbon-fixation turnover for the phototroph (to which the $E_a$
+is essentially invariant). The per-enzyme activation energies are grounded inputs (macromolecular
+rate theory, sequence-based or prior optima, measured or prior melting temperatures, and
+measured/ML turnovers), so each result is an attribution given those inputs rather than an ab-initio
+prediction of the numerical value; the archaeal and cyanobacterial optima and melting temperatures
+in particular rest on mesophile priors. Finally, three organisms are three strategies, not a
+phylogeny: the mechanism is a hypothesis about metabolic architecture that a broader survey —
+including within-strategy diversity such as thermophiles — should test. If it holds, a
+phenomenological "universal" activation energy will have been replaced by a mechanistic,
+organism-specific and predictive account of thermal sensitivity across the major metabolic
+strategies.
 
 # Methods
 
