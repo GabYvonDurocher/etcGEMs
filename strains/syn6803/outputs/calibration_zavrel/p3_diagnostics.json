@@ -1,0 +1,58 @@
+{
+  "observed_zavrel": {
+    "SS_E_eV": 0.435,
+    "SS_E_sd": 0.023,
+    "SS_E_95CI": [
+      0.389,
+      0.481
+    ],
+    "R2": 0.999,
+    "n": 6,
+    "rmax": 0.097223796,
+    "Topt_C": 35.0017175,
+    "window_C": [
+      23,
+      38
+    ]
+  },
+  "rising_limb_SS_E_window23_38": {
+    "emergent": 1.192,
+    "posterior_median": 0.85,
+    "observed": 0.435,
+    "reaches_observed_within_CI": false
+  },
+  "posterior_full_range_descriptors": {
+    "Topt_C": 35.0,
+    "rmax": 0.0944,
+    "CTmax_C": 46.78
+  },
+  "Ea_lever_diagnostic": {
+    "dCp_scale_median": 0.848,
+    "dCp_scale_90CI": [
+      0.43,
+      1.298
+    ],
+    "effective_curvature_kJ_per_mol_K": -3.39,
+    "prior_curvature_kJ_per_mol_K": -4.0,
+    "kcat_scale_median": 1.218,
+    "topt_scale_median": 0.881,
+    "rails_dCp_floor": false
+  },
+  "carbon_fixation_flux": {
+    "posterior_SS_E_eV": 0.563,
+    "posterior_Topt_C": 35.0,
+    "inoue2001_O2evol_SS_E_eV": 0.52,
+    "inoue2001_O2evol_SS_E_sd": 0.117
+  },
+  "posterior_median_params": {
+    "kcat_scale": 1.2184,
+    "dTopt": 0.1127,
+    "topt_scale": 0.8811,
+    "dCp_scale": 0.8483,
+    "dTm": 0.4906,
+    "tm_scale": 0.9709,
+    "ngam_scale": 0.9718,
+    "ngam_steepness": 0.9385,
+    "sigma_disc": 0.0043
+  }
+}
