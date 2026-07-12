@@ -1,0 +1,233 @@
+{
+  "organism": "Synechocystis sp. PCC 6803",
+  "operating_point": "calibrated (P3 medians) + SECTORED (P3b, Jahn 2018), light-saturated autotrophy",
+  "tuned_medians": {
+    "kcat_scale": 1.2184,
+    "dTopt": 0.1127,
+    "topt_scale": 0.8811,
+    "dCp_scale": 0.8483,
+    "dTm": 0.4906,
+    "tm_scale": 0.9709,
+    "ngam_scale": 0.9718,
+    "ngam_steepness": 0.9385,
+    "sigma_disc": 0.0043
+  },
+  "Ea_org_SS_E": 0.573,
+  "SS_fit_r2": 0.9371,
+  "SS_Eh_eV": 2.974,
+  "SS_Th_C": 39.41,
+  "windowed_slope_crosscheck": 0.7753,
+  "window_C": [
+    11.0,
+    30.0
+  ],
+  "T_control_C": 24.0,
+  "sum_C_i": 1.029,
+  "n_flux_enzymes": 483,
+  "unweighted_mean_kcat_E": 0.6837,
+  "mass_weighted_mean_kcat_E": 0.5834,
+  "control_weighted_mean_kcat_E": 0.6681,
+  "  fN_contribution": -0.0001,
+  "SS_kinetic_backbone": 0.6185,
+  "SS_no_maint": 0.5997,
+  "named_terms_eV": {
+    "control_weighting": -0.0157,
+    "allocation": -0.0188,
+    "maintenance": -0.0267,
+    "aggregation": -0.0495
+  },
+  "closure_check": 0.573,
+  "allocation_note": "MEASURED -0.0188 on the sectored model (Jahn 2018 shallow RIB growth law; ngam-off isolation); P3b ngam-on cross-check -0.0188. Small, between E. coli's -0.130 (Scott) and the methanogen's 0.000 (Muller-flat).",
+  "calvin_backbone_attribution": {
+    "calvin_contrib_sum": 0.231,
+    "total_contrib_sum": 0.6873,
+    "calvin_fraction_of_control": 0.336,
+    "proteome_mean_kcat_E": 0.6837,
+    "calvin_enzymes": [
+      {
+        "label": "TKT",
+        "rxn": "TKT2",
+        "C_i": 0.137,
+        "Ea_kcat_E": 1.025,
+        "contrib": 0.1405,
+        "E_vs_proteome_mean": 0.3413
+      },
+      {
+        "label": "FBA",
+        "rxn": "FBA",
+        "C_i": 0.0429,
+        "Ea_kcat_E": 0.8628,
+        "contrib": 0.0371,
+        "E_vs_proteome_mean": 0.1791
+      },
+      {
+        "label": "TKT",
+        "rxn": "TKT1",
+        "C_i": 0.0537,
+        "Ea_kcat_E": 0.3863,
+        "contrib": 0.0207,
+        "E_vs_proteome_mean": -0.2974
+      },
+      {
+        "label": "RuBisCO",
+        "rxn": "RBPC_1",
+        "C_i": 0.0227,
+        "Ea_kcat_E": 0.6522,
+        "contrib": 0.0148,
+        "E_vs_proteome_mean": -0.0315
+      },
+      {
+        "label": "PRK",
+        "rxn": "PRUK",
+        "C_i": 0.0214,
+        "Ea_kcat_E": 0.6315,
+        "contrib": 0.0135,
+        "E_vs_proteome_mean": -0.0522
+      },
+      {
+        "label": "FBPase",
+        "rxn": "FBP",
+        "C_i": 0.007,
+        "Ea_kcat_E": 0.3281,
+        "contrib": 0.0023,
+        "E_vs_proteome_mean": -0.3556
+      },
+      {
+        "label": "TAL",
+        "rxn": "TALA",
+        "C_i": 0.0038,
+        "Ea_kcat_E": 0.5463,
+        "contrib": 0.0021,
+        "E_vs_proteome_mean": -0.1375
+      },
+      {
+        "label": "RPE",
+        "rxn": "RPE",
+        "C_i": 0.0001,
+        "Ea_kcat_E": 0.7555,
+        "contrib": 0.0001,
+        "E_vs_proteome_mean": 0.0718
+      },
+      {
+        "label": "TPI",
+        "rxn": "TPI",
+        "C_i": 0.0,
+        "Ea_kcat_E": 0.4684,
+        "contrib": 0.0,
+        "E_vs_proteome_mean": -0.2153
+      }
+    ]
+  },
+  "top_contributors": [
+    {
+      "rxn": "TKT2",
+      "calvin": "TKT",
+      "C_i": 0.137,
+      "Ea_kcat_E": 1.025,
+      "contrib": 0.1405
+    },
+    {
+      "rxn": "ATPSu_1",
+      "calvin": "",
+      "C_i": 0.2046,
+      "Ea_kcat_E": 0.399,
+      "contrib": 0.0816
+    },
+    {
+      "rxn": "PSIIa",
+      "calvin": "",
+      "C_i": 0.0541,
+      "Ea_kcat_E": 1.0341,
+      "contrib": 0.0559
+    },
+    {
+      "rxn": "FBA",
+      "calvin": "FBA",
+      "C_i": 0.0429,
+      "Ea_kcat_E": 0.8628,
+      "contrib": 0.0371
+    },
+    {
+      "rxn": "TKT1",
+      "calvin": "TKT",
+      "C_i": 0.0537,
+      "Ea_kcat_E": 0.3863,
+      "contrib": 0.0207
+    },
+    {
+      "rxn": "OECb",
+      "calvin": "",
+      "C_i": 0.0181,
+      "Ea_kcat_E": 1.0069,
+      "contrib": 0.0182
+    },
+    {
+      "rxn": "H2CO3_NAt_syn",
+      "calvin": "",
+      "C_i": 0.0271,
+      "Ea_kcat_E": 0.6665,
+      "contrib": 0.0181
+    },
+    {
+      "rxn": "CBFCua",
+      "calvin": "",
+      "C_i": 0.0261,
+      "Ea_kcat_E": 0.6299,
+      "contrib": 0.0165
+    },
+    {
+      "rxn": "ACCOAC_TG_forward",
+      "calvin": "",
+      "C_i": 0.0141,
+      "Ea_kcat_E": 1.152,
+      "contrib": 0.0163
+    },
+    {
+      "rxn": "RBPC_1",
+      "calvin": "RuBisCO",
+      "C_i": 0.0227,
+      "Ea_kcat_E": 0.6522,
+      "contrib": 0.0148
+    },
+    {
+      "rxn": "MPOMT",
+      "calvin": "",
+      "C_i": 0.01,
+      "Ea_kcat_E": 1.4015,
+      "contrib": 0.014
+    },
+    {
+      "rxn": "PRUK",
+      "calvin": "PRK",
+      "C_i": 0.0214,
+      "Ea_kcat_E": 0.6315,
+      "contrib": 0.0135
+    },
+    {
+      "rxn": "OECd",
+      "calvin": "",
+      "C_i": 0.0138,
+      "Ea_kcat_E": 0.903,
+      "contrib": 0.0125
+    },
+    {
+      "rxn": "NAt3pp_TG_forward",
+      "calvin": "",
+      "C_i": 0.0224,
+      "Ea_kcat_E": 0.468,
+      "contrib": 0.0105
+    },
+    {
+      "rxn": "OECa",
+      "calvin": "",
+      "C_i": 0.0117,
+      "Ea_kcat_E": 0.8391,
+      "contrib": 0.0098
+    }
+  ],
+  "low_Ea_split": {
+    "naive_mean_vs_0.65": 0.0337,
+    "control_weighting": -0.0157,
+    "aggregation": -0.0495
+  }
+}
