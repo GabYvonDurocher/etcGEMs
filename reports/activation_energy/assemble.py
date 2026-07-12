@@ -24,7 +24,10 @@ COPIES = [
     (os.path.join(XORG, "cross_organism_signed_contributions.png"), FIG_DIR, "cross_organism_signed_contributions.png"),
     # supplement figures
     (os.path.join(MM, "calibration_jones", "prior_vs_posterior_tpc.png"), FIG_DIR, "methanogen_calibration_jones.png"),
+    (os.path.join(MM, "calibration_jones", "corner.png"), FIG_DIR, "methanogen_corner.png"),
     (os.path.join(MM, "M3_thermal", "emergent_tpc_vs_jones.png"), FIG_DIR, "methanogen_emergent_tpc.png"),
+    (os.path.join(ROOT, "strains", "eciML1515", "outputs", "calibration_vanderlinden", "prior_vs_posterior_tpc.png"), FIG_DIR, "ecoli_calibration_vdl.png"),
+    (os.path.join(ROOT, "strains", "eciML1515", "outputs", "calibration_vanderlinden", "corner.png"), FIG_DIR, "ecoli_corner.png"),
     (os.path.join(AUDIT, "ss_fits_overlay.png"), FIG_DIR, "ss_fits_overlay.png"),
     # main-paper tables
     (os.path.join(XORG, "comparison_table_final.csv"), TBL_DIR, "comparison_table_final.csv"),

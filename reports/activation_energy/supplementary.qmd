@@ -1,5 +1,5 @@
 ---
-title: "Supplement — Construction of the *Methanococcus maripaludis* etc-GEM, the Sharpe–Schoolfield $E_a$ audit, and robustness"
+title: "Supplement — Construction of the *Escherichia coli* and *Methanococcus maripaludis* etc-GEMs, the Sharpe–Schoolfield $E_a$ audit, and robustness"
 date: last-modified
 format:
   pdf:
@@ -10,12 +10,54 @@ bibliography: references.bib
 csl: nature-communications.csl
 ---
 
-This Supplement documents the construction of the *M. maripaludis* methanogenesis etc-GEM
-(the *E. coli* respiration model is described in the companion report `reports/ecoli_tpc/`),
-the window-independence audit that motivates the Sharpe–Schoolfield $E$, and the robustness
-analyses. Numbers are model outputs; honest caveats are stated throughout.
+This Supplement documents the full construction of **both** etc-GEMs — the *E. coli*
+respiration model and the *M. maripaludis* methanogenesis model, each the first published for
+its taxon — together with the window-independence audit that motivates the Sharpe–Schoolfield
+$E$, the calibration diagnostics, and the robustness analyses. Numbers are model outputs;
+honest caveats are stated throughout.
 
-# Building the methanogen etc-GEM (M1–M6)
+# Building the *E. coli* respiration etc-GEM
+
+**Base network and enzyme constraint.** The base is iML1515, the manually curated *E. coli*
+K-12 MG1655 genome-scale reconstruction (2,712 reactions, 1,877 metabolites, 1,516 genes)
+[@Monk2017], converted to the enzyme-constrained ecModel **eciML1515** with the GECKO method
+[@Sanchez2017; @Domenzain2022], which adds a protein-usage pseudo-metabolite per reaction drawn
+from a shared pool. The metabolic pool is set from independent data
+($P_\text{metab}=\sigma\,f_\text{metab}\,P^{\text{lit}}$; literature protein content
+$P^{\text{lit}}=0.5$ g gDW⁻¹, measured metabolic fraction, in-vivo saturation $\sigma=0.45$
+[@Davidi2016; @Heckmann2020]), so the growth-rate magnitude is emergent, not fit.
+
+**Model curation — uncosted O₂ sinks.** Four reactions in eciML1515 consume O₂ at negligible
+enzyme cost — two quinol/menaquinol monooxygenases (QMO2, QMO3), a malate:O₂ oxidoreductase
+(MOX) and a cuprous oxidase (CU1Opp) — forming a futile O₂ cycle that at low temperature can
+carry the majority of gross O₂ turnover and short-circuits the enzyme-costed cytochrome oxidase.
+Closing these four (a documented, reversible default) routes O₂ through the genuine respiratory
+chain at ~−0.3% growth, so control is attributed to real respiration. Catalase and superoxide
+dismutase are real enzymes and are deliberately *not* closed.
+
+**Thermal + allocation layers.** Per-enzyme $T_\text{opt}$ and $T_m$ were grounded from a
+sequence-based optimum predictor [@LiEngqvist2019] and meltome/length relations for ~90% of
+enzymes (the rest at dataset means), with DLTKcat [@Qiu2024] refining $T_\text{opt}$ where it
+fits; $k_\text{cat}(T)$ follows MMRT [@Hobbs2013] with a literature $\Delta C_p$ prior, and the
+high-$T$ collapse follows a two-state unfolding native fraction keyed on $T_m$. The proteome was
+partitioned into metabolic/biosynthesis/maintenance sectors [@Basan2015; @Scott2010] from a
+growth-condition-matched measured *E. coli* proteome, with the coupled bacterial growth law
+(Scott slope) under which the ribosomal fraction rises with growth rate. Maintenance is a
+temperature-dependent NGAM($T$).
+
+**Validation and calibration.** The emergent model was validated against, then Bayesian-
+calibrated (emcee, exact Gaussian discrepancy likelihood) to, the rich-medium (BHI) growth TPC
+of @vanderlinden2012 (7–46 °C, $r_\text{max}=2.40$ h⁻¹ at 40 °C). The calibration frees only a
+few global scalars (the grounded per-enzyme parameters are not re-fit) and closes ~89% of the
+magnitude gap; the posterior in-vivo saturation railed toward its physical ceiling
+($\sigma=0.867$ [0.671, 0.986], above the 0.4–0.5 literature range — a genuine residual, kept
+distinct rather than papered over), with a melting-temperature shift ($dT_m=-5.6$ K) pulling the
+hot collapse to the data (@fig-ecoli-cal). The calibrated $E_a$ holds near the metabolic
+benchmark. This is the calibrated model dissected in the main text.
+
+![Prior (emergent) vs posterior *E. coli* TPC against the Van Derlinden 2012 BHI data.](assets/figures/ecoli_calibration_vdl.png){#fig-ecoli-cal width=80%}
+
+# Building the *M. maripaludis* methanogenesis etc-GEM (M1–M6)
 
 The model was built in six phases, each committed and validated (build records in
 `strains/mmaripaludis/outputs/M*.md`).
@@ -130,3 +172,25 @@ import pandas as pd
 m = pd.read_csv("assets/tables/mcr_sweep.csv")
 print(m.round(3).to_markdown(index=False))
 ```
+
+# Calibration diagnostics
+
+Both models were calibrated by ensemble Markov-chain Monte Carlo (emcee) with an exact Gaussian
+discrepancy likelihood, magnitude-first initialisation and autocorrelation-based early stopping;
+the grounded per-enzyme parameters are held fixed and only a small set of global scalars is
+freed. @fig-corners shows the posterior corner plots. For *E. coli* the fit demands a large
+in-vivo saturation ($\sigma\to$ its physical ceiling) and a modest melting-temperature shift;
+for *M. maripaludis* it demands a several-fold turnover magnitude correction (kcat_scale ≈ 7,
+absorbing the in-vitro→in-vivo gap and the residual archaeal-kcat underprediction on the single
+sMOMENT pool), while the maintenance multiplier stays near one — confirming the Goyal-measured
+NGAM. In both cases the posterior-predictive curve passes through the observed data (Fig. 4 and
+the main-text Figure 1), and the resulting Sharpe–Schoolfield $E_a$ matches the observed value.
+
+::: {layout-ncol=2}
+![*E. coli* (Van Derlinden 2012).](assets/figures/ecoli_corner.png){#fig-corner-ec width=100%}
+
+![*M. maripaludis* (Jones 1983).](assets/figures/methanogen_corner.png){#fig-corner-mm width=100%}
+:::
+::: {#fig-corners}
+Posterior corner plots for the two calibrations.
+:::
