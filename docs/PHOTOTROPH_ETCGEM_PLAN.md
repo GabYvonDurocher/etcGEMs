@@ -8,6 +8,35 @@ temperature-*insensitive* energy input (the light reactions) well enough that a 
 emerges for the **right mechanistic reason**. Mirrors `docs/METHANOGEN_ETCGEM_PLAN.md`. No model
 built, no strain directory, no `src/etcgem` changes.
 
+---
+
+> **UPDATE (P1 — phase-0 decisions LOCKED, build started).** The user chose the
+> **LIGHT-SATURATED / in-mechanism regime**, which collapses the decisive gate: under saturating
+> light the photon supply is non-limiting and **carbon fixation (RuBisCO / Calvin-cycle kcat(T))
+> sets the rate**, so the framework needs **no new light-supply layer**. This is now confirmed
+> in-silico. **Gate 4 → GREEN**, **Gate 1 upgraded** (a pre-built enzyme-constrained ecModel was
+> obtained), **Gate 3 target-rate resolved** (growth primary; carbon-fixation-flux secondary).
+> Locked decisions:
+> - **Strain:** *Synechocystis* sp. PCC 6803.
+> - **Base GEM:** iSynCJ816 (Joshi et al. 2020). **Enzyme layer (P2 route, pre-built, not
+>   from-scratch):** `iSynCJ816_STAR` — AUTOPACMEN **sMOMENT** on iSynCJ816
+>   (`github.com/FraserAndrews7/iSynCJ816-`, commit `78449d2`); `prot_pool` budget `ER_pool_TG_`
+>   UB 0.26 g/gDW, 409 arm reactions, BRENDA+SABIO-RK kcats. Same enzyme-cost family as the
+>   methanogen sMOMENT — P2 adds only the thermal layer + calibration.
+> - **Validation TPC:** Zavrel et al. 2015 (*Eng. Life Sci.* 15:122), growth-vs-T under
+>   **documented saturating red light 220–360 µmol m⁻² s⁻¹** (no photoinhibition to 660); Topt ~35 °C.
+> - **Target rate:** growth-rate TPC (Sharpe–Schoolfield E) primary; carbon-fixation-flux TPC
+>   secondary for the 2014 comparison.
+> - **In-silico confirmation:** on the ecModel under pure autotrophy + saturating light, growth
+>   **saturates** (μ = 0.094 above ~51 photon units), the **photon exchange is non-binding**
+>   (shadow price 0) and the **enzyme pool binds** (0.26/0.26) — carbon-fixation-capacity limited,
+>   i.e. in-mechanism. (The plain GEM is photon-linear by construction, as expected.)
+>
+> Full record: `strains/syn6803/outputs/P1_scaffold_and_base.md`. The build now proceeds
+> (§5 is superseded from GO-WITH-CAVEATS to **GO**).
+
+---
+
 ## 1. Why this matters, and the gate that could sink it
 
 The two-organism paper (`reports/activation_energy/`) explains the higher thermal sensitivity of
@@ -26,10 +55,10 @@ not cover). This is Gate 4, and it is the crux.
 
 | Gate | Status | Detail | Sources |
 |---|---|---|---|
-| **1. Base GEM (+ ecModel)** | **GREEN** | Well-curated GEMs exist for *Synechocystis* sp. PCC 6803: iJN678 (Nogales 2012) and the updated **iSynCJ816** (816 genes, 1045 reactions; Joshi et al.). An **enzyme-constrained** cyanobacterial model already exists ("Upgrading a cyanobacterial GEM by inclusion of enzymatic constraints", 2024), and GECKO 2.0 provides a route from any GEM; sMOMENT (as built here for iMR539) is the fallback. Model size (~1000 reactions) is comparable to iMR539 — small enough for clean $E_a$ attribution. *Synechococcus elongatus* PCC 7942 / UTEX 2973 (fast grower) and PCC 7002 are alternatives if a faster grower or a specific TPC is preferred. | Nogales 2012; Joshi et al. (iSynCJ816); enzyme-constrained cyanobacterial GEM (Sci. rep./ScienceDirect 2024); GECKO 2.0 (Chen 2022) |
+| **1. Base GEM (+ ecModel)** | **GREEN (P1: confirmed + pulled)** | Base **iSynCJ816** (Joshi et al. 2020; 816 genes, 1044 reactions) pulled + QC'd; grows autotrophically on `BIOMASS_Ec_SynAuto_1` with RuBisCO `RBPC_1` carrying flux. A **pre-built enzyme-constrained ecModel** was obtained: **`iSynCJ816_STAR`** (AUTOPACMEN sMOMENT; `github.com/FraserAndrews7/iSynCJ816-`) — 1303 reactions, `prot_pool` budget (`ER_pool_TG_`, UB 0.26 g/gDW), 409 arm reactions, BRENDA+SABIO-RK kcats — the **same enzyme-cost family as the methanogen sMOMENT**, so P2 adds only thermal + calibration (no from-scratch build). *Decision: use the pre-built ecModel.* | Joshi et al. 2020 (iSynCJ816); Andrews `iSynCJ816_STAR` (AUTOPACMEN, Bekiaris & Klamt 2020, BMC Bioinf. 10.1186/s12859-019-3329-9) |
 | **2. Topt / Tm** | **AMBER** | **Topt**: the Li–Engqvist sequence predictor is proteome-portable and applies to a cyanobacterial proteome — same status as E. coli/methanogen. **Tm**: the Meltome Atlas (Jarzab 2020, 13 species archaea→human) does **not** include a cyanobacterium, so — exactly as for the methanogen — Tm is a **mesophile prior** for a mesophilic strain (*Synechocystis* Topt ~30–35 °C). A thermophilic anchor (*Thermosynechococcus*) exists if a higher-Topt reference helps. Precedent (methanogen) makes this tractable, not a blocker. | Jarzab 2020 (Nat. Methods 17:495); Li–Engqvist 2019 |
-| **3. Calibration/validation TPC** | **AMBER** | Cyanobacterial growth TPCs are published: marine *Synechococcus* thermal ecotypes give Topt ~25–33 °C with digitisable µ-vs-T curves; hot-spring *Synechococcus* extend the range. **Caveat that matters for the claim**: the 2014 photosynthesis $E_a$ refers to a **photosynthesis flux** (gross production / O₂ evolution / C-fixation), *not* growth. For a hydrogenotroph growth ≈ CH₄ so a growth TPC sufficed; for a phototroph, growth-$E_a$ and photosynthesis-$E_a$ can differ, so we must decide whether to target a **growth TPC** (what the framework predicts) or a **photosynthesis-flux TPC** (what 2014 measured) — and ideally use a strain with both. | *Synechococcus* thermal ecotypes (bioRxiv 2020; PMC5029218); marine *Synechococcus* warming (PMC12976987); Yvon-Durocher 2014 |
-| **4. Light reactions / T-independent energy input (DECISIVE)** | **AMBER** | The framework **can** represent both regimes, but which one sets $E_a$ — and whether it is the framework's mechanism — depends on the light regime (see §3). Not RED (no reframe that breaks the shared framework), not GREEN (needs a documented new light-supply layer + a target-rate decision). | Farquhar/von Caemmerer Vcmax/Jmax T-dependence; RuBisCO/electron-transport co-limitation (PMC10192301); carboxysome CO₂-concentrating (bioRxiv 2020) |
+| **3. Calibration/validation TPC** | **GREEN (P1: resolved)** | **Anchor locked: Zavrel et al. 2015** (*Eng. Life Sci.* 15:122) — glucose-tolerant 6803 growth-vs-T under **documented saturating red light (220–360 µmol m⁻² s⁻¹, no photoinhibition to 660)**; Topt ~35 °C, rising-limb Q10 ~1.70, inhibition ~44 °C; digitise in P2. **Target-rate decision (resolved):** because the regime is light-saturated, growth-$E_a$ reflects carbon-fixation kcat(T) and IS in-mechanism, so **growth TPC is primary** (symmetric with E. coli + methanogen); a **carbon-fixation-flux TPC** read off the same model is the **secondary** descriptor for the cleanest comparison to the 2014 photosynthesis-flux $E_a$. | Zavrel et al. 2015 (Eng. Life Sci. 15:122); Yvon-Durocher 2014 |
+| **4. Light reactions / T-independent energy input (DECISIVE)** | **GREEN (P1: light-saturated ⇒ in-mechanism, confirmed in-silico)** | The user chose the **light-saturated regime**: photon supply set non-limiting, so **carbon fixation sets the rate** — the same kcat(T)-limited mechanism as the other two organisms, **no new light-supply layer**. Confirmed on the ecModel under pure autotrophy: growth **saturates** (μ = 0.094 above ~51 photon units), **photon exchange non-binding** (shadow price 0), **enzyme pool binds** (0.26/0.26). Structurally impossible in the plain GEM (photon-linear, as expected) and appears immediately with the enzyme pool — the layer P2 builds on. | This work (P1 forward-check, `strains/syn6803/outputs/P1_scaffold_and_base.md`); Zavrel et al. 2015 (light saturation) |
 
 ## 3. Gate 4 in depth — can we represent the temperature-independent energy input?
 
@@ -89,6 +118,13 @@ So the phototroph is scientifically the **most interesting** of the three (it ca
 requires a **new (if modest) model layer** and a careful **rate-target decision**.
 
 ## 5. Recommendation — GO WITH CAVEATS, as a follow-up
+
+> **SUPERSEDED by P1 → GO.** The light-saturated regime (chosen by the user) collapses the decisive
+> Gate 4 caveat below: no new light layer is needed, and the pre-built ecModel removes the enzyme-
+> build risk. The recommendation is now an unconditional **GO** (see the P1 banner at the top and
+> `strains/syn6803/outputs/P1_scaffold_and_base.md`). The original caveated reasoning is retained
+> below for the record.
+
 
 **GO WITH CAVEATS**, as a **separate follow-up study**, not part of the current two-organism paper
 (which already frames the cyanobacterium as future work). Reasoning: all three technical gates
