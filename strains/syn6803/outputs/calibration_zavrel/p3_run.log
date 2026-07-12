@@ -1,0 +1,163 @@
+[solver] gurobi
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+[from_gecko] unfolding mode: matched grounded Topt/Tm for 1066/1066 enzymes (100.0%); the rest use dataset-mean fallbacks
+[from_gecko] reconciled proteome pools: relaxed base pool supply 'ER_pool_TG_' (0.26 -> inf); the etcgem sMOMENT/sector pool is now the sole enzyme-mass budget.
+[preflight] solve OK on gurobi: rmax(35C)=0.0669, single-solve=19.1 ms; photon shadow price=0.00e+00 (~0 => light-saturated / in-mechanism)
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+[from_gecko] unfolding mode: matched grounded Topt/Tm for 1066/1066 enzymes (100.0%); the rest use dataset-mean fallbacks
+[from_gecko] reconciled proteome pools: relaxed base pool supply 'ER_pool_TG_' (0.26 -> inf); the etcgem sMOMENT/sector pool is now the sole enzyme-mass budget.
+[from_gecko] unfolding mode: matched grounded Topt/Tm for 1066/1066 enzymes (100.0%); the rest use dataset-mean fallbacks
+[from_gecko] reconciled proteome pools: relaxed base pool supply 'ER_pool_TG_' (0.26 -> inf); the etcgem sMOMENT/sector pool is now the sole enzyme-mass budget.
+[from_gecko] unfolding mode: matched grounded Topt/Tm for 1066/1066 enzymes (100.0%); the rest use dataset-mean fallbacks
+[from_gecko] reconciled proteome pools: relaxed base pool supply 'ER_pool_TG_' (0.26 -> inf); the etcgem sMOMENT/sector pool is now the sole enzyme-mass budget.
+[from_gecko] unfolding mode: matched grounded Topt/Tm for 1066/1066 enzymes (100.0%); the rest use dataset-mean fallbacks
+[from_gecko] reconciled proteome pools: relaxed base pool supply 'ER_pool_TG_' (0.26 -> inf); the etcgem sMOMENT/sector pool is now the sole enzyme-mass budget.
+[from_gecko] unfolding mode: matched grounded Topt/Tm for 1066/1066 enzymes (100.0%); the rest use dataset-mean fallbacks
+[from_gecko] reconciled proteome pools: relaxed base pool supply 'ER_pool_TG_' (0.26 -> inf); the etcgem sMOMENT/sector pool is now the sole enzyme-mass budget.
+Warning: environment still referenced so free is deferred (Continue to use WLS)
+[from_gecko] unfolding mode: matched grounded Topt/Tm for 1066/1066 enzymes (100.0%); the rest use dataset-mean fallbacks
+[from_gecko] reconciled proteome pools: relaxed base pool supply 'ER_pool_TG_' (0.26 -> inf); the etcgem sMOMENT/sector pool is now the sole enzyme-mass budget.
+[from_gecko] unfolding mode: matched grounded Topt/Tm for 1066/1066 enzymes (100.0%); the rest use dataset-mean fallbacks
+[from_gecko] reconciled proteome pools: relaxed base pool supply 'ER_pool_TG_' (0.26 -> inf); the etcgem sMOMENT/sector pool is now the sole enzyme-mass budget.
+[from_gecko] unfolding mode: matched grounded Topt/Tm for 1066/1066 enzymes (100.0%); the rest use dataset-mean fallbacks
+[from_gecko] reconciled proteome pools: relaxed base pool supply 'ER_pool_TG_' (0.26 -> inf); the etcgem sMOMENT/sector pool is now the sole enzyme-mass budget.
+[from_gecko] unfolding mode: matched grounded Topt/Tm for 1066/1066 enzymes (100.0%); the rest use dataset-mean fallbacks
+[from_gecko] reconciled proteome pools: relaxed base pool supply 'ER_pool_TG_' (0.26 -> inf); the etcgem sMOMENT/sector pool is now the sole enzyme-mass budget.
+Warning: environment still referenced so free is deferred (Continue to use WLS)
+Warning: environment still referenced so free is deferred (Continue to use WLS)
+[from_gecko] unfolding mode: matched grounded Topt/Tm for 1066/1066 enzymes (100.0%); the rest use dataset-mean fallbacks
+[from_gecko] reconciled proteome pools: relaxed base pool supply 'ER_pool_TG_' (0.26 -> inf); the etcgem sMOMENT/sector pool is now the sole enzyme-mass budget.
+Warning: environment still referenced so free is deferred (Continue to use WLS)
+Warning: environment still referenced so free is deferred (Continue to use WLS)
+Warning: environment still referenced so free is deferred (Continue to use WLS)
+Warning: environment still referenced so free is deferred (Continue to use WLS)
+Warning: environment still referenced so free is deferred (Continue to use WLS)
+Warning: environment still referenced so free is deferred (Continue to use WLS)
+Warning: environment still referenced so free is deferred (Continue to use WLS)
+[warm-start] DE mode found in 8s (-logpost=-14.4, 12 gens)
+[emcee] step 200: tau_max=21.0 chain/tau=9.5 (need >50) min n_eff~119 (need >=400)
+[emcee] step 400: tau_max=37.7 chain/tau=10.6 (need >50) min n_eff~331 (need >=400)
+[emcee] step 600: tau_max=57.0 chain/tau=10.5 (need >50) min n_eff~395 (need >=400)
+[emcee] step 800: tau_max=74.8 chain/tau=10.7 (need >50) min n_eff~435 (need >=400)
+[emcee] step 1000: tau_max=91.5 chain/tau=10.9 (need >50) min n_eff~446 (need >=400)
+[emcee] step 1200: tau_max=104.3 chain/tau=11.5 (need >50) min n_eff~476 (need >=400)
+[emcee] step 1400: tau_max=120.0 chain/tau=11.7 (need >50) min n_eff~484 (need >=400)
+[emcee] step 1600: tau_max=131.9 chain/tau=12.1 (need >50) min n_eff~507 (need >=400)
+[emcee] step 1800: tau_max=141.8 chain/tau=12.7 (need >50) min n_eff~535 (need >=400)
+[emcee] step 2000: tau_max=149.1 chain/tau=13.4 (need >50) min n_eff~571 (need >=400)
+[emcee] step 2200: tau_max=161.9 chain/tau=13.6 (need >50) min n_eff~580 (need >=400)
+[emcee] step 2400: tau_max=172.8 chain/tau=13.9 (need >50) min n_eff~595 (need >=400)
+[emcee] step 2600: tau_max=186.8 chain/tau=13.9 (need >50) min n_eff~596 (need >=400)
+[emcee] step 2800: tau_max=198.1 chain/tau=14.1 (need >50) min n_eff~607 (need >=400)
+[emcee] step 3000: tau_max=210.0 chain/tau=14.3 (need >50) min n_eff~615 (need >=400)
+[emcee] step 3200: tau_max=218.5 chain/tau=14.6 (need >50) min n_eff~632 (need >=400)
+[emcee] step 3400: tau_max=227.8 chain/tau=14.9 (need >50) min n_eff~646 (need >=400)
+[emcee] step 3600: tau_max=235.1 chain/tau=15.3 (need >50) min n_eff~666 (need >=400)
+[emcee] step 3800: tau_max=240.2 chain/tau=15.8 (need >50) min n_eff~691 (need >=400)
+[emcee] step 4000: tau_max=242.3 chain/tau=16.5 (need >50) min n_eff~725 (need >=400)
+[P3] emcee done in 1178s; n_eff=725.4 stop=n_steps_max (4000)
+[from_gecko] unfolding mode: matched grounded Topt/Tm for 1066/1066 enzymes (100.0%); the rest use dataset-mean fallbacks
+[from_gecko] reconciled proteome pools: relaxed base pool supply 'ER_pool_TG_' (0.26 -> inf); the etcgem sMOMENT/sector pool is now the sole enzyme-mass budget.
+[P3] diagnostics:
+{
+  "observed_zavrel": {
+    "SS_E_eV": 0.435,
+    "SS_E_sd": 0.023,
+    "SS_E_95CI": [
+      0.389,
+      0.481
+    ],
+    "R2": 0.999,
+    "n": 6,
+    "rmax": 0.097223796,
+    "Topt_C": 35.0017175,
+    "window_C": [
+      23,
+      38
+    ]
+  },
+  "rising_limb_SS_E_window23_38": {
+    "emergent": 1.192,
+    "posterior_median": 0.85,
+    "observed": 0.435,
+    "reaches_observed_within_CI": false
+  },
+  "posterior_full_range_descriptors": {
+    "Topt_C": 35.0,
+    "rmax": 0.0944,
+    "CTmax_C": 46.78
+  },
+  "Ea_lever_diagnostic": {
+    "dCp_scale_median": 0.848,
+    "dCp_scale_90CI": [
+      0.43,
+      1.298
+    ],
+    "effective_curvature_kJ_per_mol_K": -3.39,
+    "prior_curvature_kJ_per_mol_K": -4.0,
+    "kcat_scale_median": 1.218,
+    "topt_scale_median": 0.881,
+    "rails_dCp_floor": false
+  },
+  "carbon_fixation_flux": {
+    "posterior_SS_E_eV": 0.563,
+    "posterior_Topt_C": 35.0,
+    "inoue2001_O2evol_SS_E_eV": 0.52,
+    "inoue2001_O2evol_SS_E_sd": 0.117
+  },
+  "posterior_median_params": {
+    "kcat_scale": 1.2184,
+    "dTopt": 0.1127,
+    "topt_scale": 0.8811,
+    "dCp_scale": 0.8483,
+    "dTm": 0.4906,
+    "tm_scale": 0.9709,
+    "ngam_scale": 0.9718,
+    "ngam_steepness": 0.9385,
+    "sigma_disc": 0.0043
+  }
+}
+[P3] wrote strains/syn6803/outputs/calibration_zavrel/p3_diagnostics.json + inoue_crosschecks.png
+Warning: environment still referenced so free is deferred (Continue to use WLS)

@@ -1,0 +1,10 @@
+parameter,emergent,posterior_median,ci5,ci95,demanded_correction,constrained_by_curve
+kcat_scale,1.0,1.2184,1.0986,1.3876,x1.22,True
+dTopt,0.0,0.1127,-1.8981,1.5203,+0.1 K,True
+topt_scale,1.0,0.8811,0.6765,1.0929,x0.88,False
+dCp_scale,1.0,0.8483,0.4296,1.2977,x0.85,True
+dTm,0.0,0.4906,-3.9157,6.8057,+0.5 K,False
+tm_scale,1.0,0.9709,0.7749,1.2071,x0.97,False
+ngam_scale,1.0,0.9718,0.5968,1.5681,x0.97,False
+ngam_steepness,1.0,0.9385,0.4954,1.8094,x0.94,False
+sigma_disc,,0.0043,0.0021,0.0118,x0.00,

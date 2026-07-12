@@ -1,0 +1,148 @@
+{
+  "strain": "syn6803",
+  "curve": {
+    "curve_id": "Zavrel2015_6803_lightsat",
+    "study": "Zavrel et al. 2015 (Eng. Life Sci. 15:122)",
+    "strain": "Synechocystis sp. PCC 6803 (GT)",
+    "medium": "photoautotrophic, light-saturated",
+    "n": 6,
+    "temp_min_C": 22.98052559,
+    "temp_max_C": 37.99517484,
+    "obs_rmax": 0.097223796,
+    "obs_Topt_C": 35.0017175,
+    "units": "1/h",
+    "has_sd": false
+  },
+  "medium": "photoautotrophic light-saturated",
+  "operating_point": "syn6803 light-saturated autotrophy, thermal ecModel (unfolding+NGAM(T)), single sMOMENT pool, growth law OFF",
+  "solver": "gurobi",
+  "preflight_single_solve_ms": 19.1,
+  "preflight_photon_shadow_price": 0.0,
+  "sampler": {
+    "n_walkers": 50,
+    "n_steps": 4000,
+    "n_steps_max": 4000,
+    "burn": 484,
+    "thin": 121,
+    "warm_started": true,
+    "stop_reason": "n_steps_max (4000)",
+    "acceptance_fraction": 0.299,
+    "autocorr_time_max": 242.3,
+    "n_eff": 725.4,
+    "wall_time_s": 1146.4,
+    "n_proc": 10,
+    "seed": 1
+  },
+  "posterior": {
+    "kcat_scale": {
+      "emergent": 1.0,
+      "posterior_median": 1.2184,
+      "posterior_90CI": [
+        1.0986,
+        1.3876
+      ],
+      "demanded_correction": "x1.22",
+      "constrained_by_curve": true
+    },
+    "dTopt": {
+      "emergent": 0.0,
+      "posterior_median": 0.1127,
+      "posterior_90CI": [
+        -1.8981,
+        1.5203
+      ],
+      "demanded_correction": "+0.1 K",
+      "constrained_by_curve": true
+    },
+    "topt_scale": {
+      "emergent": 1.0,
+      "posterior_median": 0.8811,
+      "posterior_90CI": [
+        0.6765,
+        1.0929
+      ],
+      "demanded_correction": "x0.88",
+      "constrained_by_curve": false
+    },
+    "dCp_scale": {
+      "emergent": 1.0,
+      "posterior_median": 0.8483,
+      "posterior_90CI": [
+        0.4296,
+        1.2977
+      ],
+      "demanded_correction": "x0.85",
+      "constrained_by_curve": true
+    },
+    "dTm": {
+      "emergent": 0.0,
+      "posterior_median": 0.4906,
+      "posterior_90CI": [
+        -3.9157,
+        6.8057
+      ],
+      "demanded_correction": "+0.5 K",
+      "constrained_by_curve": false
+    },
+    "tm_scale": {
+      "emergent": 1.0,
+      "posterior_median": 0.9709,
+      "posterior_90CI": [
+        0.7749,
+        1.2071
+      ],
+      "demanded_correction": "x0.97",
+      "constrained_by_curve": false
+    },
+    "ngam_scale": {
+      "emergent": 1.0,
+      "posterior_median": 0.9718,
+      "posterior_90CI": [
+        0.5968,
+        1.5681
+      ],
+      "demanded_correction": "x0.97",
+      "constrained_by_curve": false
+    },
+    "ngam_steepness": {
+      "emergent": 1.0,
+      "posterior_median": 0.9385,
+      "posterior_90CI": [
+        0.4954,
+        1.8094
+      ],
+      "demanded_correction": "x0.94",
+      "constrained_by_curve": false
+    },
+    "sigma_disc": {
+      "emergent": null,
+      "posterior_median": 0.0043,
+      "posterior_90CI": [
+        0.0021,
+        0.0118
+      ],
+      "demanded_correction": "x0.00",
+      "constrained_by_curve": null
+    }
+  },
+  "descriptors": {
+    "observed": {
+      "rmax": 0.097,
+      "Topt_C": 35.002,
+      "Ea_eV": 0.405,
+      "CTmax_C": 37.995
+    },
+    "emergent_prior": {
+      "rmax": 0.067,
+      "Topt_C": 35.323,
+      "Ea_eV": 0.985,
+      "CTmax_C": 45.747
+    },
+    "posterior_median": {
+      "rmax": 0.094,
+      "Topt_C": 35.323,
+      "Ea_eV": 0.747,
+      "CTmax_C": 46.973
+    }
+  }
+}
