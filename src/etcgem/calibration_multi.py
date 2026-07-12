@@ -94,6 +94,198 @@ def build_methanogen_specs() -> List[PSpec]:
     ]
 
 
+def build_syn6803_specs() -> List[PSpec]:
+    """Free set for the Synechocystis 6803 Zavrel-2015 fit (P3). The P2 phototroph ecModel
+    is a SINGLE sMOMENT pool (iSynCJ816_STAR) with NGAM(T) and NO sectors/growth-law, so —
+    exactly as for the methanogen — the E. coli allocation levers (f_metab/f_maint/sigma_sat)
+    have NO independent effect and are EXCLUDED (they become real levers only in P3b, the
+    cyanobacterial allocation layer). SHAPE-FIRST (the opposite of the methanogen): the
+    a-priori magnitude is already realistic (emergent rmax 0.067 vs Zavrel 0.097), so
+    ``kcat_scale`` is a LogNormal centred on 1 (NOT the Davidi 4x) — it doubles as the
+    'borrowed ecModel pool budget' check. The ENVELOPE knobs do the work of lowering the
+    rising-limb SS-E 0.77 -> ~0.44: ``dCp_scale`` gets a BROAD LogNormal about 1 (the prime
+    Ea lever — flatter MMRT curvature -> shallower rising limb) and ``topt_scale`` a moderate
+    one (per-enzyme Topt heterogeneity, a legitimate aggregation route). dTopt/dTm are small
+    (Topt 36->35, CTmax 45.7->44). Maintenance multipliers stay near 1 (Touloupakis 2015
+    anchored). sigma_disc MUST stay last."""
+    return [
+        PSpec("kcat_scale",    "log", "lognormal", 0.40, 1.0,  0.3, 4.0, "kcat_scale", 1.0),
+        PSpec("dTopt",         "add", "normal",    4.0,  0.0, -12.0, 12.0, "dTopt", 0.0),
+        PSpec("topt_scale",    "log", "lognormal", 0.20, 0.0,  0.4, 2.2, "topt_scale", 1.0),
+        PSpec("dCp_scale",     "log", "lognormal", 0.55, 0.0,  0.2, 4.0, "dCp_scale", 1.0),
+        PSpec("dTm",           "add", "normal",    4.0,  0.0, -12.0, 12.0, "dTm", 0.0),
+        PSpec("tm_scale",      "log", "lognormal", 0.15, 0.0,  0.4, 2.2, "tm_scale", 1.0),
+        PSpec("ngam_scale",    "log", "lognormal", 0.30, 0.0,  0.3, 3.0, "ngam_scale", 1.0),
+        PSpec("ngam_steepness","log", "lognormal", 0.40, 0.0,  0.2, 4.0, "ngam_steepness", 1.0),
+        PSpec("sigma_disc",    "log", "halfnormal", 0.50, 0.0, 1e-4, 5.0, None, None),
+    ]
+
+
+def _syn6803_light_saturated_medium(model):
+    """P1/P2 medium: photon non-limiting (light-saturated), inorganic C available,
+    organic C closed -> carbon fixation limits, photon stays slack (in-mechanism)."""
+    ids = {r.id for r in model.reactions}
+    if "EX_glc__D_e" in ids:
+        model.reactions.get_by_id("EX_glc__D_e").lower_bound = 0.0
+    for oc in ("EX_ac_e", "EX_pyr_e", "EX_succ_e", "EX_glcglyc_e"):
+        if oc in ids:
+            model.reactions.get_by_id(oc).lower_bound = 0.0
+    model.reactions.get_by_id("EX_co2_e").lower_bound = -1000.0
+    model.reactions.get_by_id("EX_photon_e").lower_bound = -999999.0
+    model.objective = "BIOMASS_Ec_SynAuto_1"
+
+
+def _build_pm_syn6803(strain):
+    """Provider at the Synechocystis 6803 light-saturated autotrophic operating point: the
+    P2 thermal ecModel (from_gecko route-B on iSynCJ816_STAR, unfolding kcat(T)+f_N(T),
+    NGAM(T) anchored on Touloupakis 2015), single sMOMENT pool (budget 0.26), NO sectors/
+    growth law. Mirrors strains/syn6803/run_p2_thermal.py so calibration fits the same model."""
+    from .providers import from_gecko
+    from . import unfolding as U
+    base = os.path.join("strains", strain)
+    star = os.path.join(base, "model", "ecmodel_iSynCJ816_STAR", "iSynCJ816_STAR.xml")
+    params = os.path.join(base, "thermal", "enzyme_thermal_params.csv")
+    ngam_base_scale = 3.12 / U.ngam_T(273.15 + 35.0, scale=1.0)   # Touloupakis 2015 anchor
+    pm = from_gecko(
+        star, T0=273.15 + 35.0, thermal_model="unfolding",
+        enzyme_params=params, enzyme_params_key="rxn_id", budget_override=0.26,
+        ngam_temperature=True, ngam_rxn="ATPM", ngam_base_scale=ngam_base_scale,
+        dcp_prior_kJ=-4.0, close_free_o2_sinks=False,
+        prot_prefix="prot_", pool_id="prot_pool", biomass_rxn="BIOMASS_Ec_SynAuto_1")
+    _syn6803_light_saturated_medium(pm.ec.model)
+    try:
+        pm.ec.model.solver.configuration.timeout = 2
+    except Exception:
+        pass
+    return pm
+
+
+def load_zavrel(strain):
+    """Load the digitised Zavrel 2015 light-saturated growth TPC, raw absolute rate (1/h)."""
+    path = os.path.join("strains", strain, "thermal", "zavrel2015_tpc.csv")
+    df = pd.read_csv(path, comment="#").sort_values("temperature_c")
+    temps = df["temperature_c"].to_numpy(float)
+    rates = df["growth_h"].to_numpy(float)
+    meta = {"curve_id": "Zavrel2015_6803_lightsat", "study": "Zavrel et al. 2015 (Eng. Life Sci. 15:122)",
+            "strain": "Synechocystis sp. PCC 6803 (GT)", "medium": "photoautotrophic, light-saturated",
+            "n": int(len(df)), "temp_min_C": float(temps.min()), "temp_max_C": float(temps.max()),
+            "obs_rmax": float(rates.max()), "obs_Topt_C": float(temps[int(np.argmax(rates))]),
+            "units": "1/h", "has_sd": False}
+    return temps, rates, meta
+
+
+def _winit_syn6803(strain, solver_pref="gurobi", timeout=30.0):
+    global _PM, _T, _OBS, _SPECS
+    _set_default_solver(solver_pref)
+    _PM = _build_pm_syn6803(strain)
+    try:
+        _PM.ec.model.solver.configuration.timeout = timeout
+    except Exception:
+        pass
+    _T, _OBS, _ = load_zavrel(strain)
+    _SPECS = build_syn6803_specs()
+
+
+def run_syn6803(strain, out_dir, *, n_walkers=40, n_steps_max=6000, n_burn=150, seed=1,
+                n_proc=0, check_every=200, target_neff=400, tau_factor=50,
+                allow_glpk=False, warm_start=True, progress=True) -> Dict:
+    """Emcee calibration of the Synechocystis 6803 thermal ecModel to the Zavrel 2015
+    light-saturated growth TPC (single pool + NGAM(T), growth law OFF). SHAPE-FIRST. Same
+    machinery as run_methanogen (warm-start, autocorr early-stop) at the phototroph
+    operating point / curve / free set."""
+    import emcee
+    os.makedirs(out_dir, exist_ok=True)
+    np.random.seed(seed)
+    specs = build_syn6803_specs()
+    ndim = len(specs)
+
+    solver = _set_default_solver("gurobi")
+    if solver != "gurobi":
+        if not allow_glpk:
+            raise SystemExit("[solver] Gurobi NOT active - stopping (set ALLOW_GLPK to override).")
+        print("[solver] GLPK - slow; install gurobipy + academic licence (ALLOW_GLPK override)")
+    else:
+        print("[solver] gurobi")
+
+    pm = _build_pm_syn6803(strain)
+    try:
+        pm.ec.model.solver.configuration.timeout = 30.0
+    except Exception:
+        pass
+    temps, obs, meta = load_zavrel(strain)
+
+    # pre-flight: the emergent point must grow and stay light-saturated (photon non-binding)
+    pm.ec.set_temperature(35 + 273.15, Perturbation())
+    t_pf = time.time(); g_pf = pm.ec.model.slim_optimize(); pf_ms = (time.time() - t_pf) * 1000
+    status = getattr(pm.ec.model.solver, "status", "?")
+    if g_pf is None or not np.isfinite(g_pf) or status != "optimal" or g_pf <= 0:
+        raise SystemExit(f"[preflight] syn6803 ecModel did not grow at emergent point "
+                         f"(status={status}, g={g_pf}).")
+    sol = pm.ec.model.optimize()
+    ph_shadow = abs(sol.reduced_costs.get("EX_photon_e", 0.0))
+    print(f"[preflight] solve OK on {solver}: rmax(35C)={g_pf:.4f}, single-solve={pf_ms:.1f} ms; "
+          f"photon shadow price={ph_shadow:.2e} (~0 => light-saturated / in-mechanism)")
+
+    n_proc = n_proc or max(1, min(10, (os.cpu_count() or 2) - 2))
+    n_walkers = int(np.ceil(max(n_walkers, 2 * ndim + 2) / n_proc)) * n_proc
+
+    from multiprocessing import Pool
+    pool = Pool(processes=n_proc, initializer=_winit_syn6803, initargs=(strain, solver, 30.0))
+    t0 = time.time()
+    try:
+        if warm_start:
+            p0, mode = _warm_start(specs, n_walkers, seed, pool, progress)
+        else:
+            p0, mode = init_walkers(specs, n_walkers, np.random.default_rng(seed)), None
+        sampler = emcee.EnsembleSampler(n_walkers, ndim, _wlogprob, pool=pool)
+        state = p0; done = 0; tau_max = float("nan")
+        stop_reason = f"n_steps_max ({n_steps_max})"
+        while done < n_steps_max:
+            n = min(check_every, n_steps_max - done)
+            state = sampler.run_mcmc(state, n, progress=progress)
+            done += n
+            try:
+                tau = sampler.get_autocorr_time(tol=0); tau_max = float(np.nanmax(tau))
+            except Exception:
+                tau_max = float("nan")
+            if np.isfinite(tau_max) and tau_max > 0:
+                burn_now = min(int(max(n_burn, 2 * tau_max)), done - 10)
+                n_eff_min = n_walkers * (done - burn_now) / tau_max
+                need = tau_factor * tau_max
+                print(f"[emcee] step {done}: tau_max={tau_max:.1f} chain/tau={done/tau_max:.1f} "
+                      f"(need >{tau_factor}) min n_eff~{n_eff_min:.0f} (need >={target_neff})")
+                if done > need and n_eff_min >= target_neff:
+                    stop_reason = (f"converged: chain {done} > {tau_factor}*tau_max={need:.0f} "
+                                   f"AND min n_eff {n_eff_min:.0f} >= {target_neff}")
+                    break
+            else:
+                print(f"[emcee] step {done}: autocorr not yet estimable")
+    finally:
+        pool.close(); pool.join()
+    wall = time.time() - t0
+
+    burn = min(int(n_burn if not np.isfinite(tau_max) else max(n_burn, 2 * tau_max)), done - 10)
+    thin = max(1, int(tau_max / 2)) if np.isfinite(tau_max) else 1
+    flat = sampler.get_chain(discard=burn, thin=thin, flat=True)
+    accept = float(np.mean(sampler.acceptance_fraction))
+    n_eff = flat.shape[0] if not np.isfinite(tau_max) else float(n_walkers * (done - burn) / tau_max)
+
+    result = {
+        "strain": strain, "curve": meta, "medium": "photoautotrophic light-saturated",
+        "operating_point": "syn6803 light-saturated autotrophy, thermal ecModel (unfolding+NGAM(T)), single sMOMENT pool, growth law OFF",
+        "solver": solver, "preflight_single_solve_ms": round(pf_ms, 1),
+        "preflight_photon_shadow_price": round(float(ph_shadow), 6),
+        "sampler": {"n_walkers": n_walkers, "n_steps": done, "n_steps_max": n_steps_max,
+                    "burn": burn, "thin": thin, "warm_started": bool(mode is not None),
+                    "stop_reason": stop_reason, "acceptance_fraction": round(accept, 3),
+                    "autocorr_time_max": None if not np.isfinite(tau_max) else round(tau_max, 1),
+                    "n_eff": round(float(n_eff), 1), "wall_time_s": round(wall, 1),
+                    "n_proc": n_proc, "seed": seed},
+    }
+    _finalise(out_dir, flat, pm, temps, obs, meta, specs, result)
+    return result
+
+
 def _build_pm_methanogen(strain):
     """Provider at the methanogen H2/CO2 operating point: the M3 thermal ecModel (unfolding
     kcat(T)+f_N(T), NGAM(T) anchored on Goyal 2015), single sMOMENT pool, NO sectors/growth
