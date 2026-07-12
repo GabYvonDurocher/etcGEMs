@@ -1,0 +1,46 @@
+{
+  "ecoli": {
+    "SS_E": 0.6784,
+    "obs_SS_E": 0.558,
+    "route": "broad control + Scott allocation buffer",
+    "named_terms": {
+      "control_weighting": 0.1063,
+      "allocation": -0.1295,
+      "maintenance": 0.0049,
+      "aggregation": -0.1749
+    },
+    "naive": 0.8716
+  },
+  "methanogen": {
+    "SS_E": 1.0558,
+    "obs_SS_E": 1.042,
+    "route": "narrow control on high-E methanogenesis backbone",
+    "named_terms": {
+      "control_weighting": 0.3427,
+      "allocation": 0.0,
+      "maintenance": -0.0164,
+      "aggregation": 0.2177
+    },
+    "naive": 0.5118,
+    "sensitivity": "Mcr kcat 3-294/s"
+  },
+  "phototroph": {
+    "SS_E": 0.573,
+    "obs_SS_E_growth_fragile": 0.435,
+    "obs_SS_E_flux": 0.52,
+    "route": "control on low-E carbon-fixation backbone + small buffers",
+    "named_terms": {
+      "control_weighting": -0.0157,
+      "allocation": -0.0188,
+      "maintenance": -0.0267,
+      "aggregation": -0.0495
+    },
+    "naive": 0.6837,
+    "calvin_fraction_of_control": 0.336,
+    "calvin_mean_E": 0.633,
+    "sensitivity": "carbon-fixation kcat SS-E range [0.5651, 0.5769]; dCp shared prior"
+  },
+  "ordering": "methanogenesis 1.06 > respiration 0.68 > photosynthesis 0.57 (three distinct routes)",
+  "all_validated_vs_observed": true,
+  "ecoli_on_065_benchmark": true
+}
