@@ -312,7 +312,7 @@ strategies.
 
 We represent each organism by the same layered enzyme- and temperature-constrained
 genome-scale model (etc-GEM), and write out the full constraint system below before describing
-where the two taxa depart. The thermal core follows the yeast etc-GEM of @Li2021; we take from
+where the three taxa depart. The thermal core follows the yeast etc-GEM of @Li2021; we take from
 existing work the GECKO/sMOMENT enzyme constraint [@Sanchez2017; @Domenzain2022], macromolecular
 rate theory [@Hobbs2013], and the proteome-sector growth law [@Basan2015; @Scott2010], and add:
 application to two new taxa; measured- and machine-learning-grounded per-enzyme parameters; an
@@ -326,7 +326,7 @@ equations mirror the implementation (`enzyme_cost.py`, `mmrt.py`, `unfolding.py`
 ## The complete model, in four layers
 
 In plain terms, each etc-GEM turns a genome plus enzyme parameters into a predicted growth rate
-at any temperature, in four stacked layers common to both organisms. The first says growth
+at any temperature, in four stacked layers common to all three organisms. The first says growth
 requires enzymes and the cell has a limited budget of them. The second makes each enzyme's
 efficiency temperature-dependent — enzymes speed up with warming, then unfold and fail when hot.
 The third fixes how the enzyme budget is split among broad functional groups, using measured
@@ -354,7 +354,15 @@ and superoxide dismutase, whose high turnover makes their low cost correct, are 
 maripaludis* required a carbon-honest autotroph curation instead: folding the dispensable
 archaellum glycoprotein out of biomass, repairing a selenocysteinyl-tRNA recycling gap, closing
 organic-carbon leaks and freeing the pinned methane exchange, giving growth with 99.98% of biomass
-carbon from CO₂.
+carbon from CO₂. *Synechocystis* 6803 starts from the iSynCJ816 reconstruction [@joshi2020] and,
+like *E. coli*, uses a **pre-built** enzyme-constrained ecModel — iSynCJ816\_STAR [@andrews2024],
+an AUTOPACMEN sMOMENT layer (the same total-protein-pool form built by hand for the methanogen) —
+so no enzyme layer is built here. Its curation is the choice of operating **regime**: we set a
+light-**saturated** photoautotrophic medium (photon supply non-limiting, CO₂/bicarbonate available,
+organic carbon closed) so that carbon fixation, not the temperature-insensitive light reactions,
+sets the rate — confirmed by a zero photon shadow price at every temperature. No futile-cycle
+closure was needed (unlike *E. coli*), and net RuBisCO oxygenase (photorespiration) flux is zero at
+the optimum under the CO₂-replete conditions, so the growth $E_a$ is Calvin-kinetics-dominated.
 
 **Layer 2 — a temperature-dependent enzyme envelope.** Each enzyme's turnover rises with
 temperature following macromolecular rate theory (MMRT) [@Hobbs2013] — an Arrhenius law whose
@@ -370,7 +378,10 @@ differs by organism: for *E. coli* the melting temperatures come from the measur
 rest at dataset means), refined by DLTKcat [@Qiu2024]; for *M. maripaludis* the energy-core
 turnovers are measured specific activities [@milton2018] converted to $k_\text{cat}$, but the optima
 and melting temperatures are a documented mesophile prior (the sequence/meltome predictors were not
-run for the archaeon).
+run for the archaeon). For *Synechocystis* the turnovers are the ecModel's own (BRENDA/SABIO-RK)
+values — including the well-measured RuBisCO/Calvin kinetics — while the optima and melting
+temperatures use the same documented mesophile prior as the methanogen (6803 is a mesophile absent
+from the sequence/meltome training sets); the curvature is again the single literature MMRT prior.
 
 **Layer 3 — proteome allocation.** The enzyme budget is split into three broad measured **proteome
 sectors** [@Basan2015; @Scott2010] — metabolic (enzymes carrying flux), biosynthesis (dominated by
@@ -383,11 +394,16 @@ differs between the taxa and is one of the two terms that explain the activation
 rate (slope $s\approx0.33$), shrinking the metabolic sector at higher temperature and buffering the
 activation energy down; *M. maripaludis* instead maintains a **constant** ribosomal fraction and full
 methanogenesis capacity across growth rate [@muller2021] — a documented alternative allocation
-strategy — so its slope is flat ($s=0$) and the buffer vanishes. Maintenance is grounded per organism
-too: an *E. coli* NGAM amplitude for the bacterium, the **measured** *M. maripaludis* maintenance
-energy [@goyal2015] for the methanogen.
+strategy — so its slope is flat ($s=0$) and the buffer vanishes. *Synechocystis* follows a third,
+intermediate law: its ribosomal (RIB) proteome fraction *rises* with growth rate [@jahn2018], but
+only weakly in absolute terms over its narrow growth-rate range ($\mu_\text{max}\approx0.1$ h⁻¹,
+~10–20× smaller than *E. coli*'s), so the allocation buffer is small (−0.02 eV). Maintenance is
+grounded per organism too: an *E. coli* NGAM amplitude for the bacterium, the **measured** *M.
+maripaludis* maintenance energy [@goyal2015] for the methanogen, and the **measured**
+photon-maintenance coefficient of @touloupakis2015 for the phototroph (with the cyanobacterial
+heat-shock proteome response [@suzuki2006] informing the hot-side maintenance sector).
 
-**Layer 4 — an emergent a-priori prediction, with calibration kept separate.** For both organisms
+**Layer 4 — an emergent a-priori prediction, with calibration kept separate.** For all three organisms
 the design stance has two distinct parts. *The emergent model is the prediction*: every input is
 grounded in independent data (the per-enzyme thermal parameters of Layer 2, the measured sector
 allocation of Layer 3, and the literature magnitude scalars $P^{\text{lit}}$ and $\sigma$), and
@@ -400,9 +416,10 @@ distinct, so the a-priori gap is quantified rather than papered over.
 
 ## Inputs and data provenance: what the model uses for each enzyme
 
-Each model is **per-enzyme**: every modelled enzyme (≈2,560 for *E. coli*; 527 for *M. maripaludis*)
-carries its own inputs, applied individually rather than as one global response shared across the
-proteome. For each enzyme the model uses four things:
+Each model is **per-enzyme**: every modelled enzyme (≈2,560 for *E. coli*; 527 for *M. maripaludis*;
+~1,066 flux-costed reactions for *Synechocystis*) carries its own inputs, applied individually
+rather than as one global response shared across the proteome. For each enzyme the model uses four
+things:
 
 - **Flux** — *not an input but a predicted output* of the flux-balance optimisation.
 - **Turnover $k_\text{cat}(T)$** — a reference turnover shaped by an MMRT temperature response. For
@@ -413,7 +430,7 @@ proteome. For each enzyme the model uses four things:
   overrides for the highest-cost offenders and a 1 s⁻¹ floor), and a dataset-mean fallback.
 - **Thermal optimum $T_\text{opt}$ and curvature $\Delta C^{\ddagger}_p$** — the optimum is
   sequence/ML-predicted per enzyme for *E. coli* [@LiEngqvist2019] and a mesophile prior for *M.
-  maripaludis*; the curvature is, for both, a single independent literature MMRT prior
+  maripaludis*; the curvature is, for all three, a single independent literature MMRT prior
   (−4 kJ mol⁻¹ K⁻¹ [@Hobbs2013]), deliberately not fitted, so the activation energy emerges.
 - **Melting temperature $T_m$** (setting the native fraction) — from the measured *E. coli* melting
   proteome [@Leuenberger2017] for the bacterium and a mesophile prior for the archaeon.
@@ -428,18 +445,18 @@ calibration's envelope knobs.
 
 ## Enzyme abundance and the compensation question
 
-For both models, per-enzyme **abundances are not measured or set individually**: each enzyme's
+For all three models, per-enzyme **abundances are not measured or set individually**: each enzyme's
 proteome-mass usage is $\text{flux}/k_\text{cat}(T)\times\text{MW}$, drawn from the shared proteome
 pool that the optimiser allocates across all enzymes, with measured fractions supplied only at the
 coarse sector level. Per-enzyme abundance is therefore an **optimisation outcome, not an input** — a
-structural property of the GECKO/sMOMENT pool common to both taxa. This has a consequence worth
+structural property of the GECKO/sMOMENT pool common to all three taxa. This has a consequence worth
 stating plainly: as temperature rises and an enzyme's $k_\text{cat}$ falls, or the enzyme begins to
 unfold, carrying the same flux costs more enzyme mass, so the optimiser draws more of the pool toward
 those steps — an implicit, mass-balance "compensation" — until the pool binds and growth is
 throttled. But this is **least-cost allocation under a fixed budget, not regulatory sensing**: no
 mechanism detects a falling product and up-regulates a gene. The models therefore capture the
 *demand* side of thermal compensation (more enzyme needed when catalysis is poor) but not active
-feedback regulation — a genuine limitation of both.
+feedback regulation — a genuine limitation of all three.
 
 ## Governing equations {#sec-methods-fw}
 
@@ -528,7 +545,7 @@ energy of the high-temperature-inactivation model
 $$\mu(T)=r_{T_\text{ref}}\,\frac{\exp[(E/k_B)(1/T_\text{ref}-1/T)]}{1+\exp[(E_h/k_B)(1/T_h-1/T)]},$$ {#eq-ssf}
 fit to the whole calibrated curve by nonlinear least squares at a fixed $T_\text{ref}=20$ °C,
 where $E$ is the reported $E_a$ and $E_h,T_h$ describe the high-$T$ deactivation. The same fit is
-applied identically to model and observed curves and to both organisms.
+applied identically to model and observed curves and to all three organisms.
 
 **Bayesian calibration.** Each model is calibrated to one measured growth TPC with a
 gradient-free ensemble sampler (emcee), warm-started at the posterior mode and run to an
@@ -559,15 +576,16 @@ coefficients $\hat C_i=\partial\ln\mu/\partial\ln k_{\text{cat},i}$ are computed
 perturbation and re-solve and normalised over the controlling set. The **allocation** term is
 isolated by disabling the growth-law coupling (@eq-growthlaw), the **maintenance** term by
 flattening NGAM($T$), and the **aggregation** term is computed directly as the Sharpe–Schoolfield
-$E$ of the kinetic-backbone aggregate curve minus the control-weighted per-enzyme mean. Both
+$E$ of the kinetic-backbone aggregate curve minus the control-weighted per-enzyme mean. All three
 organisms are analysed on the calibrated model at their operating point, each carrying its own
-sector/growth-law layer, with the uncosted energy side-reactions closed. For Figure 1 the saved
-calibration draws were propagated through @eq-ssf to obtain the $E_a$ posteriors.
+sector/growth-law layer (and, for the phototroph, under the light-saturated medium with the photon
+supply non-binding). For Figure 1 the saved calibration draws were propagated through @eq-ssf to
+obtain the $E_a$ posteriors.
 
 ## Model hierarchy: how the components link
 
 The model is a hierarchy that turns grounded per-enzyme thermal parameters into an organismal curve,
-each level feeding only the next, identically for both taxa. **(i)** Every enzyme carries three
+each level feeding only the next, identically for all three taxa. **(i)** Every enzyme carries three
 grounded thermal parameters — its optimum $T_{\text{opt},i}$, its melting temperature $T_{m,i}$ and
 its turnover curvature $\Delta C^{\ddagger}_{p,i}$. **(ii)** These set the two per-enzyme temperature
 responses: the optimum-anchored turnover $\widehat{k}_i(T)$ (@eq-kcat) and the native fraction
@@ -587,17 +605,20 @@ Both models are direct descendants of the yeast etc-GEM of @Li2021, and we **fol
 thermal core**: the transition-state turnover $k_{\text{cat}}(T)$ (@eq-kcat), the two-state
 native-fraction denaturation keyed on $T_m$ (@eq-fn), a temperature-dependent maintenance term, and
 the enzyme-constrained proteome-pool idea. We **depart from and upgrade** it in five deliberate ways.
-First, **organism**: rather than *S. cerevisiae*, we build a bacterium and an archaeon — to our
-knowledge the first etc-GEMs of their kind for either taxon — with the archaeon requiring the sMOMENT
-enzyme layer built here rather than a pre-existing GECKO ecModel. Second, **grounded not fitted
+First, **organism**: rather than *S. cerevisiae*, we build a bacterium, an archaeon and a
+cyanobacterium — to our knowledge the first etc-GEMs of their kind for these taxa — spanning the
+three energy metabolisms of the @yvondurocher2014 ordering, with the archaeon requiring the sMOMENT
+enzyme layer built here (the bacterium and cyanobacterium use pre-built enzyme-constrained models).
+Second, **grounded not fitted
 per-enzyme parameters**: we fix each enzyme's $T_\text{opt}$, $T_m$ and curvature from independent
 data, so the TPC is an a-priori forward prediction, whereas Li et al. infer the per-enzyme thermal
 parameters by fitting the growth data — the opposite epistemic stance, and grounding is what lets us
 *test* the emergent activation energy against an independent benchmark. Third, a **sector-partitioned
 proteome** with an explicit translation cap, replacing the single undivided pool, which makes
 allocation an attributable control on the rate. Fourth, an **organism-specific allocation law** — the
-Scott rising-ribosome law for *E. coli*, the Müller constant-ribosome strategy for *M. maripaludis* —
-rather than a single fixed coupling. Fifth, **inference by likelihood, not ABC**: we calibrate a
+Scott rising-ribosome law for *E. coli*, the Müller constant-ribosome strategy for *M. maripaludis*,
+and the Jahn shallow-ribosome law for *Synechocystis* — rather than a single fixed coupling.
+Fifth, **inference by likelihood, not ABC**: we calibrate a
 low-dimensional set of global correction knobs by likelihood-based ensemble MCMC (emcee), kept as a
 separate inverse layer on top of the emergent prior, exploiting the fact that the etc-GEM is a
 deterministic simulator with a Gaussian residual model; keeping the emergent prediction and the tuned
@@ -610,34 +631,43 @@ $E_a$ decomposition (@eq-decomp), neither of which appears in the yeast model.
 For each organism the emergent (nothing-fit) model is first tested a-priori against an independent
 exact-strain growth TPC, and only then calibrated. *E. coli* is validated against the K-12 MG1655
 rich-medium (BHI) curve of @vanderlinden2012 over 7–46 °C; *M. maripaludis* against the type-strain
-H₂/CO₂ curve of @jones1983 over 15–52 °C. The reported activation energy is the window-independent
-Sharpe–Schoolfield $E$ of @eq-ssf, applied identically to model and observed curves; the test is
-whether the *modelled* $E$ matches the *observed* $E$, and whether it lands near the "universal"
-~0.65 eV benchmark for the respiring bacterium. It does for both: after calibration the *E. coli*
-model gives $E_a=0.68$ eV against an observed 0.56 (on the benchmark), and *M. maripaludis* gives 1.06
-against an observed 1.04, with the two calibration posteriors cleanly separated (Results, @sec-fig1,
-@sec-valid). Because the per-enzyme activation energies are model inputs, this agreement on the
-organism-level value is a genuine prediction rather than a recovered fit.
+H₂/CO₂ curve of @jones1983 over 15–52 °C; and *Synechocystis* 6803 against the light-saturated
+photoautotrophic growth curve of @zavrel2015 over 23–38 °C, with the independent
+photosynthesis-flux (O₂-evolution) TPC of @inoue2001 as a second, non-fitted cross-check. The
+reported activation energy is the window-independent Sharpe–Schoolfield $E$ of @eq-ssf, applied
+identically to model and observed curves. It agrees for all three: the *E. coli* model gives
+$E_a=0.68$ eV against an observed 0.56 (on the ~0.65 eV benchmark), *M. maripaludis* gives 1.06
+against 1.04, and *Synechocystis* gives 0.57, whose carbon-fixation-flux $E$ (0.56) matches the
+independent Inoue photosynthesis-flux value (0.52); the three calibration posteriors reproduce the
+full ordering (Results, @sec-fig1, @sec-valid). Because the per-enzyme activation energies are model
+inputs, this agreement on each organism-level value is a genuine prediction rather than a recovered
+fit.
 
 ## Taxon-specific construction and departures {#sec-methods-departures}
 
-The two models instantiate the same framework but differ, layer by layer, in ways that are
+The three models instantiate the same framework but differ, layer by layer, in ways that are
 either technical (base reconstruction, parameter provenance) or scientifically load-bearing (the
-allocation law). @tbl-departures summarises the contrasts; the two most consequential are the
-kcat provenance for the energy core and — the term that carries part of the $E_a$ difference —
-the allocation law.
+allocation law and the controlling pathway). @tbl-departures summarises the contrasts; the most
+consequential are the kcat provenance for the energy core, the operating regime for the phototroph,
+and — the term that carries part of the $E_a$ ordering — the allocation law.
 
 **Base network and enzyme layer.** *E. coli* starts from iML1515 [@Monk2017] as a pre-built GECKO
 ecModel (eciML1515) [@Sanchez2017; @Domenzain2022] carrying reference turnovers and masses for
 2,560 enzymes; *M. maripaludis* starts from the plain iMR539 reconstruction [@richards2016], onto
-which we build the sMOMENT enzyme layer here (527 enzymatic reactions mapped to UniProt masses).
+which we build the sMOMENT enzyme layer here (527 enzymatic reactions mapped to UniProt masses);
+*Synechocystis* starts from iSynCJ816 [@joshi2020] with the pre-built AUTOPACMEN sMOMENT ecModel
+iSynCJ816\_STAR [@andrews2024] (~1,066 flux-costed reactions), the cyanobacterial analog of the
+pre-built *E. coli* ecModel.
 
 **Curation.** *E. coli* required closing four uncosted O₂-sink reactions (two quinol
 monooxygenases, a malate:O₂ oxidoreductase, a cuprous oxidase) that form a futile O₂ cycle. *M.
 maripaludis* required a carbon-honest autotroph curation: folding the dispensable archaellum
 glycoprotein out of biomass, repairing a selenocysteinyl-tRNA recycling gap, closing organic-
 carbon leaks and freeing the pinned methane exchange, and supplying two non-synthesisable vitamin
-cofactors as trace supplements.
+cofactors as trace supplements. *Synechocystis* required no futile-cycle closure; its "curation" is
+the choice of the **light-saturated** operating regime (photon non-limiting, organic carbon closed),
+which keeps the temperature-insensitive light reactions non-binding so carbon-fixation kinetics set
+the rate (verified by a zero photon shadow price across the TPC).
 
 **Turnover provenance.** *E. coli* uses the GECKO built-in $k_\text{cat}$ refined by DLTKcat
 [@Qiu2024]. For *M. maripaludis* the energy-conserving core was set from measured specific
@@ -646,44 +676,52 @@ converted to $k_\text{cat}$ via complex masses), the biosynthetic bulk from DLTK
 systematic archaeal underprediction (28% of predictions below 1 s⁻¹) with cited literature/BRENDA
 overrides for the highest-cost offenders and a documented 1 s⁻¹ floor, and a mean fallback; Mcr —
 the $E_a$ target — was sourced explicitly ($k_\text{cat}\approx59$ s⁻¹, 3–294 s⁻¹ range, swept in
-@sec-mcr).
+@sec-mcr). *Synechocystis* uses the ecModel's own BRENDA/SABIO-RK turnovers, including the
+well-measured RuBisCO/Calvin-cycle kinetics; the carbon-fixation turnover is swept for robustness
+(@sec-mcr, Supplement) as the phototroph analog of the Mcr sweep.
 
 **Optima and stability.** *E. coli* $T_{\text{opt},i}$ and $T_{m,i}$ are grounded per enzyme
 (sequence-based optimum predictor [@LiEngqvist2019]; measured melting proteome [@Leuenberger2017])
-for ~90% of enzymes. For *M. maripaludis* these predictors were not run; both use a documented
-mesophile prior (a flagged limitation refined by M4's $dT_\text{opt}$/$dT_m$).
+for ~90% of enzymes. For *M. maripaludis* and *Synechocystis* these predictors were not run (both
+are mesophiles absent from the training sets); both use a documented mesophile prior (a flagged
+limitation refined by the calibration's $dT_\text{opt}$/$dT_m$ envelope knobs).
 
-**The allocation law (load-bearing departure).** *E. coli* uses the bacterial Scott growth law
-[@Scott2010]: the ribosomal fraction *rises* with growth rate (slope $s\approx0.33$), which
-shrinks the metabolic sector at higher temperature and buffers $E_a$ downward. *M. maripaludis*
-holds a **constant** ribosomal fraction across growth rate [@muller2021] — a documented
-alternative allocation strategy — so its slope $s=0$ (a flat law), and the allocation buffer
-vanishes. This physiological difference, not a modelling choice, is one of the two terms that
-explain the $E_a$ difference (Results, @sec-decomp).
+**The allocation law (load-bearing departure).** Each organism uses its **own measured** law. *E.
+coli* uses the bacterial Scott growth law [@Scott2010]: the ribosomal fraction *rises* with growth
+rate (slope $s\approx0.33$), shrinking the metabolic sector at higher temperature and buffering
+$E_a$ downward (−0.13 eV). *M. maripaludis* holds a **constant** ribosomal fraction across growth
+rate [@muller2021] ($s=0$, a flat law), so the buffer vanishes (+0.00 eV). *Synechocystis* rises
+weakly: its RIB sector increases with growth rate [@jahn2018] but over a ~10–20× smaller growth-rate
+range, so the absolute reallocation — and the buffer — is small (−0.02 eV). These physiological
+differences, not modelling choices, are among the terms that set the $E_a$ ordering (Results,
+@sec-decomp).
 
 **Maintenance, medium and saturation.** Maintenance NGAM($T$) uses an *E. coli* amplitude for the
-bacterium and the **measured** *M. maripaludis* maintenance energy [@goyal2015] for the methanogen.
-Validation/calibration is against BHI-rich growth (Van Derlinden 2012 [@vanderlinden2012]) for *E.
-coli* and H₂/CO₂ growth (Jones 1983 [@jones1983]) for the methanogen. Both take the in-vivo
-saturation $\sigma$ from the same literature range [@Davidi2016; @Heckmann2020]. Full per-model
-construction, parameter and provenance tables, and robustness analyses are in the Supplement.
+bacterium, the **measured** *M. maripaludis* maintenance energy [@goyal2015] for the methanogen, and
+the **measured** *Synechocystis* photon-maintenance coefficient [@touloupakis2015] for the phototroph
+(its heat-shock proteome response [@suzuki2006] informing the hot-side sector). Validation/calibration
+is against BHI-rich growth [@vanderlinden2012] for *E. coli*, H₂/CO₂ growth [@jones1983] for the
+methanogen, and light-saturated autotrophic growth [@zavrel2015] (with the Inoue flux TPC
+[@inoue2001] as a cross-check) for the phototroph. All take the in-vivo saturation $\sigma$ from the
+same literature range [@Davidi2016; @Heckmann2020]. Full per-model construction, parameter and
+provenance tables, and robustness analyses are in the Supplement.
 
-| Layer | *E. coli* (respiration) | *M. maripaludis* (methanogenesis) |
-|---|---|---|
-| Base GEM | iML1515 [@Monk2017] → GECKO eciML1515 | iMR539 [@richards2016] → our sMOMENT layer |
-| Curation | 4 uncosted O₂ sinks closed | carbon-honest autotroph (archaellin/SeCys/leaks) |
-| $k_\text{cat}$ | ecModel built-in + DLTKcat | measured core [@milton2018] + DLTKcat + overrides + floor |
-| $T_\text{opt}/T_m$ | sequence/meltome-grounded (~90%) | mesophile prior |
-| **Allocation law** | **Scott: ribosome fraction rises with $\mu$ ($s\!\approx\!0.33$)** | **Müller: constant ribosome fraction ($s=0$)** |
-| Maintenance | *E. coli* NGAM($T$) | measured NGAM [@goyal2015] |
-| Medium / curve | BHI rich, Van Derlinden 2012 | H₂/CO₂, Jones 1983 |
-| Saturation $\sigma$ | 0.45 (0.4–0.5) [@Davidi2016; @Heckmann2020] | 0.45 (0.4–0.5) [@Davidi2016; @Heckmann2020] |
+| Layer | *M. maripaludis* (methanogenesis) | *E. coli* (respiration) | *Synechocystis* 6803 (photosynthesis) |
+|---|---|---|---|
+| Base GEM | iMR539 [@richards2016] → our sMOMENT | iML1515 [@Monk2017] → GECKO eciML1515 | iSynCJ816 [@joshi2020] → sMOMENT ecModel [@andrews2024] |
+| Curation | carbon-honest autotroph | 4 uncosted O₂ sinks closed | light-saturated regime (photon non-limiting) |
+| $k_\text{cat}$ | measured core [@milton2018] + DLTKcat + floor | ecModel built-in + DLTKcat | ecModel BRENDA/SABIO-RK (RuBisCO/Calvin measured) |
+| $T_\text{opt}/T_m$ | mesophile prior | sequence/meltome-grounded (~90%) | mesophile prior |
+| **Allocation law** | **Müller: constant ribosome ($s=0$)** | **Scott: ribosome rises ($s\!\approx\!0.33$)** | **Jahn: weak rise, small range ($s$ small)** |
+| Controlling backbone | methanogenesis (high-$E_a$) | broad (no single backbone) | Calvin/carbon fixation (low-$E_a$) |
+| Maintenance | measured NGAM [@goyal2015] | *E. coli* NGAM($T$) | measured photon-maint. [@touloupakis2015] |
+| Medium / curve | H₂/CO₂, Jones 1983 | BHI rich, Van Derlinden 2012 | light-sat. autotrophy, Zavrel 2015 (+ Inoue 2001) |
 
-: Where the two etc-GEMs depart, by model layer. The allocation-law row (Scott rising vs Müller constant ribosome fraction) is the scientifically load-bearing difference. {#tbl-departures}
+: Where the three etc-GEMs depart, by model layer. The allocation-law and controlling-backbone rows are the scientifically load-bearing differences: each organism's activation energy is set by *where* its growth control sits (high- vs low-$E_a$ backbone) and its *own measured* allocation strategy. Saturation $\sigma$ is 0.45 (0.4–0.5) [@Davidi2016; @Heckmann2020] for all three. {#tbl-departures}
 
 # Data and code availability
 
-All figures and tables are generated from the analysis outputs of the two etc-GEMs and their
-cross-organism comparison. The complete model construction for both organisms, the parameter and
-data-source tables, the window-sensitivity audit, the calibration diagnostics, and the robustness
-analyses are provided in the Supplement.
+All figures and tables are generated from the analysis outputs of the three etc-GEMs and their
+cross-organism comparison. The complete model construction for all three organisms, the parameter
+and data-source tables, the window-sensitivity audit, the calibration diagnostics, and the
+robustness analyses are provided in the Supplement.

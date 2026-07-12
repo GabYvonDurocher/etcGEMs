@@ -1,5 +1,5 @@
 ---
-title: "Supplement — Construction of the *Escherichia coli* and *Methanococcus maripaludis* etc-GEMs, the Sharpe–Schoolfield $E_a$ audit, and robustness"
+title: "Supplement — Construction of the *Methanococcus maripaludis*, *Escherichia coli* and *Synechocystis* sp. PCC 6803 etc-GEMs, the Sharpe–Schoolfield $E_a$ audit, and robustness"
 date: last-modified
 format:
   pdf:
@@ -10,11 +10,11 @@ bibliography: references.bib
 csl: nature-communications.csl
 ---
 
-This Supplement documents the full construction of **both** etc-GEMs — the *E. coli*
-respiration model and the *M. maripaludis* methanogenesis model, each the first published for
-its taxon — together with the window-independence audit that motivates the Sharpe–Schoolfield
-$E$, the calibration diagnostics, and the robustness analyses. Numbers are model outputs;
-honest caveats are stated throughout.
+This Supplement documents the full construction of **all three** etc-GEMs — the *M. maripaludis*
+methanogenesis model, the *E. coli* respiration model and the *Synechocystis* 6803 photosynthesis
+model, each the first published for its taxon — together with the window-independence audit that
+motivates the Sharpe–Schoolfield $E$, the calibration diagnostics, and the robustness analyses.
+Numbers are model outputs; honest caveats are stated throughout.
 
 # Building the *E. coli* respiration etc-GEM
 
@@ -134,11 +134,107 @@ Topt** are mesophile priors (no archaeal sequence predictor). (iv) The **sector 
 grounded but approximate; the flat slope is the robust, cited quantity. The main-text
 conclusions are shown robust to the parameter that matters most (Mcr; @sec-mcr).
 
+# Building the *Synechocystis* 6803 photosynthesis etc-GEM (P1–P4)
+
+The phototroph was built in four phases (build records in `strains/syn6803/outputs/P*.md`),
+in the **light-saturated, carbon-fixation-limited** regime chosen so that the temperature-
+insensitive light reactions are non-limiting and Calvin-cycle enzyme kinetics set the rate —
+keeping the phototroph *within* the shared enzyme-kinetic mechanism rather than requiring a new
+light-supply layer.
+
+## P1 — scaffold + light-saturated autotrophic base
+The base reconstruction iSynCJ816 [@joshi2020] (1,044 reactions / 928 metabolites / 816 genes;
+BiGG) was acquired and a **pre-built enzyme-constrained ecModel**, iSynCJ816\_STAR [@andrews2024]
+— an AUTOPACMEN sMOMENT total-protein-pool layer (`prot_pool`, budget 0.26 g gDW⁻¹, 1,066
+flux-costed reactions, BRENDA/SABIO-RK kcats) — was adopted as the enzyme layer (the cyanobacterial
+analog of the pre-built *E. coli* ecModel, so no enzyme layer is built by hand). The medium was set
+photoautotrophic and **light-saturated**: photon uptake non-limiting, CO₂/bicarbonate available,
+organic carbon closed, objective the autotrophic biomass reaction. A decisive check confirmed the
+in-mechanism regime: in the enzyme-constrained model, growth **saturates** against photon supply
+and the **photon shadow price is zero** (carbon-fixation capacity, not light, is limiting), with
+RuBisCO carrying flux and zero net photorespiration — impossible in a plain (non-enzyme) model,
+which is photon-linear.
+
+## P2 — thermal envelope + measured maintenance
+The temperature-dependent envelope — kcat($T$) (MMRT/Eyring) × native fraction $f_N(T)$ (two-state
+unfolding keyed on $T_m$) — was attached to iSynCJ816\_STAR by the same machinery as the other two
+models. Per-enzyme optima and melting temperatures use the documented **mesophile prior** (6803 is
+a mesophile absent from the sequence/meltome training sets; the same route as the methanogen), the
+curvature the literature MMRT prior. Maintenance NGAM($T$) is anchored on the **measured**
+*Synechocystis* photon-maintenance coefficient (3.12 mmol gDW⁻¹ h⁻¹; Touloupakis et al. 2015
+[@touloupakis2015]) — a photon-based coefficient, reflecting that maintenance ATP is met by
+photophosphorylation. The emergent (nothing-fit) TPC already matches shape and magnitude a-priori
+(Topt 36 °C vs observed ~35; CTmax 46 °C; $r_\text{max}$ 0.067 h⁻¹, realistic for 6803; @fig-photo-emergent),
+with one clear residual — the rising-limb $E$ ran to 0.77 eV versus the observed ~0.5 — which the
+calibration then addresses.
+
+![Emergent (nothing-fit) *Synechocystis* TPC vs Zavrel 2015 (light-saturated growth): shape and magnitude match a-priori; the rising-limb Ea is calibrated in P3.](assets/figures/phototroph_emergent_tpc.png){#fig-photo-emergent width=95%}
+
+## P3 — Bayesian calibration to Zavrel 2015 (shape-first)
+The thermal ecModel was calibrated to the digitised @zavrel2015 light-saturated growth TPC by
+ensemble MCMC (emcee; the same machinery as the other two), **shape-first**: the a-priori magnitude
+is already realistic, so `kcat_scale` was centred on 1 (not the methanogen's Davidi-4× prior) and
+the envelope knobs did the work. The posterior reproduces the curve (@fig-photo-calib; $r_\text{max}$
+0.094 vs 0.097 h⁻¹, Topt 35 °C) with **modest, plausible** corrections — `kcat_scale` ×1.22 and a
+curvature `dCp_scale` ×0.85 (i.e. −3.4 vs the −4 kJ mol⁻¹ K⁻¹ prior; **not** railed to an implausible
+floor). The **Ea-lever diagnostic** is the key P3 result: the low photosynthesis $E_a$ is achieved
+with the curvature knob at essentially its prior and **no allocation buffer needed**, so it is
+genuinely **shallow Calvin-cycle kinetics**, not an artefact. The observed Zavrel growth-$E$ (0.44)
+is fragile — a ±5% rate perturbation spans a 90% range [0.32, 1.00], because six points over a
+narrow window under-determine the metric — so the robust anchor is the window-independent model $E$
+(0.57) and the independent Inoue photosynthesis-flux $E$ (0.52), which the model's carbon-fixation
+flux $E$ (0.56) matches (@fig-photo-inoue). The Inoue *light-limited* growth curve (Topt ~25 °C) is
+shown as the light-limitation-scope cross-check, not a fit target.
+
+![Prior (emergent) vs posterior *Synechocystis* TPC against Zavrel 2015.](assets/figures/phototroph_calibration_zavrel.png){#fig-photo-calib width=85%}
+
+![Independent cross-checks: the calibrated carbon-fixation-flux Ea matches the Inoue 2001 O₂-evolution flux Ea (0.56 vs 0.52; right), and the Inoue light-limited growth curve peaks lower (Topt ~25 °C), illustrating the light-limitation scope boundary (left).](assets/figures/phototroph_inoue_crosschecks.png){#fig-photo-inoue width=95%}
+
+## P3b — the phototroph's own allocation layer
+A proteome-sector/growth-law layer was added, grounded in the cyanobacterium's **own** allocation
+physiology: Jahn et al. 2018 [@jahn2018] resolve seven proteome sectors versus growth rate (total
+protein invariant), which map onto our three as $f_\text{metab}$ 0.50 (light-harvesting + photosystems
++ carbon fixation + metabolism), $f_\text{maint}$ 0.33 (MAI), $f_\text{bio}$ 0.17 (RIB, rising with
+growth rate = the coupling slope), corroborated by Zavrel et al. 2019 [@zavrel2019] and the Faizi et
+al. 2018 optimal-allocation framework [@faizi2018], with the heat-shock response [@suzuki2006]
+informing the hot-side maintenance sector. Because *Synechocystis*'s ribosome fraction is nearly
+constant and its growth-rate range is ~10–20× narrower than *E. coli*'s, the ribosome cap is pinned
+non-binding and the small allocation buffer comes from the metabolic-sector shrinkage. Forward-check:
+with the layer on and the P3 posterior, the TPC is near-identical (Topt/CTmax preserved,
+$r_\text{max}$ −4%, max\|$\Delta\mu$\| 0.004; @fig-photo-sect), so no re-calibration was needed. The
+directly-measured allocation buffer is **−0.019 eV** — small, between *E. coli*'s −0.13 (Scott) and
+the methanogen's 0.00 (Müller-flat), confirming on a measured footing that the low photosynthesis
+$E_a$ is kinetic, not allocation-set.
+
+![Sectored vs single-pool *Synechocystis* TPC: the Jahn shallow-ribosome allocation layer is near-neutral (allocation buffer −0.02 eV).](assets/figures/phototroph_sectored_tpc.png){#fig-photo-sect width=80%}
+
+## P4 — dissection + robustness
+The calibrated, sectored SS-E (0.573 eV) was decomposed identically to the other two organisms
+(main text @sec-decomp): naive 0.684 + control −0.016 + allocation −0.019 + maintenance −0.027 +
+aggregation −0.050. The carbon-fixation/Calvin enzymes (transketolase, aldolase, RuBisCO,
+phosphoribulokinase, fructose-bisphosphatase) carry 34% of the control term at mean $E$ 0.63, below
+the 0.68 proteome mean — a **low-$E_a$ controlling backbone**, the mirror image of the methanogen.
+Robustness (@fig-photo-robust): sweeping RuBisCO $k_\text{cat}$ (0.5–4×) and the whole Calvin
+backbone (0.5–2×) leaves the SS-E within [0.565, 0.577] — the low $E_a$ is a curvature/shape
+property, not a kcat-level artefact — while the shared MMRT curvature prior (−2 to −6 kJ mol⁻¹ K⁻¹)
+scales all three organisms together.
+
+![Robustness of the phototroph SS-E to the carbon-fixation kcat (invariant) and the shared dCp prior; the ordering below E. coli and the methanogen is robust to the phototroph's own kinetic uncertainty.](assets/figures/phototroph_robustness_sweep.png){#fig-photo-robust width=95%}
+
+**Honest caveats carried into the analysis.** (i) The observed **Zavrel growth-$E$ is fragile**
+(6 points, narrow window); the robust anchor is the model $E$ (0.57) and the independent Inoue flux
+$E$ (0.52). (ii) **Topt and $T_m$** are mesophile priors (no cyanobacterial sequence/meltome
+predictor run). (iii) The result is for the **light-saturated** regime; light limitation lowers the
+$E_a$ further through a non-enzymatic (photon-supply) route outside the present mechanism (Discussion).
+(iv) **Photorespiration** temperature-dependence is not modelled (suppressed under the CO₂-replete
+calibration conditions). (v) The **sector fractions** are grounded but approximate; the small buffer
+is the robust, cited quantity.
+
 # Parameter provenance and the global correction knobs
 
 Every per-enzyme and whole-cell input is grounded in independent data or a stated literature
-value; nothing is fit to the growth curve in the emergent model. @tbl-prov-ecoli and
-@tbl-prov-methanogen give the provenance for each organism, and @tbl-knobs the global scalars
+value; nothing is fit to the growth curve in the emergent model. @tbl-prov-ecoli,
+@tbl-prov-methanogen and @tbl-prov-phototroph give the provenance for each organism, and @tbl-knobs the global scalars
 freed in calibration (each transforms the whole grounded per-enzyme distribution while
 preserving its shape; all are no-ops at their nominal).
 
@@ -170,6 +266,20 @@ preserving its shape; all are no-ops at their nominal).
 | validation | growth TPC | type strain JJ, H₂/CO₂ [@jones1983] | 1 curve |
 
 : *M. maripaludis* parameter provenance. The measured energy-core kinetics, the measured maintenance, and the constant-ribosome allocation law are the organism-specific grounded inputs. {#tbl-prov-methanogen}
+
+| Symbol | Quantity | Source | Coverage / value |
+|---|---|---|---|
+| $\text{MW}_i,k_{\text{cat,ref},i}$ | enzyme mass, reference turnover | pre-built ecModel iSynCJ816\_STAR (AUTOPACMEN sMOMENT) [@andrews2024; @joshi2020] | 1,066 flux-costed reactions; BRENDA/SABIO-RK |
+| $k_\text{cat}$(RuBisCO/Calvin) | carbon-fixation core | ecModel (well-measured); swept for robustness | RuBisCO 0.5–4×, Calvin 0.5–2× |
+| $T_{\text{opt},i},T_{m,i}$ | optimum, stability | mesophile prior (sequence/meltome predictors not run) | $T_\text{opt}$ ~39 °C, $T_m$ ~55.6 °C |
+| $\Delta C^{\ddagger}_{p,i}$ | turnover curvature | literature MMRT prior [@Hobbs2013] | −4 kJ mol⁻¹ K⁻¹ |
+| $f_\text{metab}/f_\text{bio}/f_\text{maint}$ | sector fractions | Jahn 2018 [@jahn2018] + Zavrel 2019 [@zavrel2019] + Faizi 2018 [@faizi2018] | 0.50/0.17/0.33 |
+| $s$ | growth-law slope | Jahn 2018 RIB vs $\mu$ [@jahn2018] | weak rise, small over $\mu\le0.11$ h⁻¹ |
+| $P^{\text{lit}},\sigma$ | total protein, saturation | Zavrel 2019 [@zavrel2019]; [@Davidi2016; @Heckmann2020] | ~0.4 g gDW⁻¹, 0.45 |
+| NGAM($T$) | maintenance | **measured** photon-maintenance [@touloupakis2015]; heat-shock [@suzuki2006] | 3.12 mmol gDW⁻¹ h⁻¹ |
+| validation | growth + flux TPC | light-sat. autotrophy [@zavrel2015]; O₂-evolution flux [@inoue2001] | 2 curves |
+
+: *Synechocystis* 6803 parameter provenance. The pre-built ecModel kinetics (with well-measured RuBisCO/Calvin turnovers), the measured photon-maintenance, and the Jahn shallow-ribosome allocation law are the organism-specific grounded inputs. {#tbl-prov-phototroph}
 
 | Knob | Transformation | Effect |
 |---|---|---|
@@ -227,22 +337,27 @@ print(m.round(3).to_markdown(index=False))
 
 # Calibration diagnostics
 
-Both models were calibrated by ensemble Markov-chain Monte Carlo (emcee) with an exact Gaussian
-discrepancy likelihood, magnitude-first initialisation and autocorrelation-based early stopping;
-the grounded per-enzyme parameters are held fixed and only a small set of global scalars is
-freed. @fig-corners shows the posterior corner plots. For *E. coli* the fit demands a large
-in-vivo saturation ($\sigma\to$ its physical ceiling) and a modest melting-temperature shift;
-for *M. maripaludis* it demands a several-fold turnover magnitude correction (kcat_scale ≈ 7,
-absorbing the in-vitro→in-vivo gap and the residual archaeal-kcat underprediction on the single
-sMOMENT pool), while the maintenance multiplier stays near one — confirming the Goyal-measured
-NGAM. In both cases the posterior-predictive curve passes through the observed data (Fig. 4 and
-the main-text Figure 1), and the resulting Sharpe–Schoolfield $E_a$ matches the observed value.
+All three models were calibrated by ensemble Markov-chain Monte Carlo (emcee) with an exact
+Gaussian discrepancy likelihood and autocorrelation-based early stopping; the grounded per-enzyme
+parameters are held fixed and only a small set of global scalars is freed. @fig-corners shows the
+posterior corner plots. For *E. coli* the fit demands a large in-vivo saturation ($\sigma\to$ its
+physical ceiling) and a modest melting-temperature shift; for *M. maripaludis* it demands a
+several-fold turnover magnitude correction (kcat_scale ≈ 7, absorbing the in-vitro→in-vivo gap and
+the residual archaeal-kcat underprediction on the single sMOMENT pool), while the maintenance
+multiplier stays near one — confirming the Goyal-measured NGAM; for *Synechocystis* the
+calibration is **shape-first** (magnitude already realistic), demanding only a small kcat_scale
+(×1.2) and a modest curvature reduction (dCp_scale ×0.85, not railed), the diagnostic that the low
+photosynthesis $E_a$ is genuinely shallow Calvin-cycle kinetics. In all three the
+posterior-predictive curve passes through the observed data (the main-text Figure 1), and the
+resulting Sharpe–Schoolfield $E_a$ matches the observed value.
 
-::: {layout-ncol=2}
+::: {layout-ncol=3}
+![*M. maripaludis* (Jones 1983).](assets/figures/methanogen_corner.png){#fig-corner-mm width=100%}
+
 ![*E. coli* (Van Derlinden 2012).](assets/figures/ecoli_corner.png){#fig-corner-ec width=100%}
 
-![*M. maripaludis* (Jones 1983).](assets/figures/methanogen_corner.png){#fig-corner-mm width=100%}
+![*Synechocystis* 6803 (Zavrel 2015).](assets/figures/phototroph_corner.png){#fig-corner-ph width=100%}
 :::
 ::: {#fig-corners}
-Posterior corner plots for the two calibrations.
+Posterior corner plots for the three calibrations.
 :::
