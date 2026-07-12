@@ -134,6 +134,58 @@ Topt** are mesophile priors (no archaeal sequence predictor). (iv) The **sector 
 grounded but approximate; the flat slope is the robust, cited quantity. The main-text
 conclusions are shown robust to the parameter that matters most (Mcr; @sec-mcr).
 
+# Parameter provenance and the global correction knobs
+
+Every per-enzyme and whole-cell input is grounded in independent data or a stated literature
+value; nothing is fit to the growth curve in the emergent model. @tbl-prov-ecoli and
+@tbl-prov-methanogen give the provenance for each organism, and @tbl-knobs the global scalars
+freed in calibration (each transforms the whole grounded per-enzyme distribution while
+preserving its shape; all are no-ops at their nominal).
+
+| Symbol | Quantity | Source | Coverage / value |
+|---|---|---|---|
+| $\text{MW}_i,k_{\text{cat,ref},i}$ | enzyme mass, reference turnover | GECKO ecModel of iML1515 [@Sanchez2017; @Domenzain2022; @Monk2017] | 2,560 enzymes |
+| $T_{\text{opt},i}$ | catalytic optimum | sequence predictor [@LiEngqvist2019] + DLTKcat [@Qiu2024] | ~90% grounded |
+| $T_{m,i}$ | melting temperature | measured *E. coli* meltome [@Leuenberger2017] | ~90% grounded; rest 55.6 °C |
+| $\Delta C^{\ddagger}_{p,i}$ | turnover curvature | literature MMRT prior [@Hobbs2013] | −4 kJ mol⁻¹ K⁻¹ |
+| $f_\text{metab}/f_\text{bio}/f_\text{maint}$ | sector fractions | measured proteome per medium & $T$ [@Wang2026] | 0.48/0.19/0.33 (glucose 30 °C) |
+| $s$ | growth-law slope | Scott 2010 [@Scott2010] | 0.33 (rising ribosome fraction) |
+| $P^{\text{lit}},\sigma$ | total protein, saturation | literature [@Davidi2016; @Heckmann2020] | 0.5 g gDW⁻¹, 0.45 |
+| NGAM($T$) | maintenance | *E. coli* maintenance port [@Madkaikar2023] | $a_\text{m}$ 8.5, $E_m$ 0.5 eV |
+| validation | growth TPC | K-12 MG1655, BHI, 7–46 °C [@vanderlinden2012] | 1 curve |
+
+: *E. coli* parameter provenance — grounded in independent data, never fit to growth. {#tbl-prov-ecoli}
+
+| Symbol | Quantity | Source | Coverage / value |
+|---|---|---|---|
+| $\text{MW}_i$ | enzyme mass | UniProt proteome UP000000590 (from GPRs) | 527/527 enzymatic reactions |
+| $k_{\text{cat},i}$ | turnover | measured core [@milton2018] + DLTKcat [@Qiu2024] + literature overrides + 1 s⁻¹ floor | 11 core / 293 DLTKcat / 223 fallback |
+| $k_\text{cat}$(Mcr) | terminal enzyme | mature-Mcr specific activity | 58.9 s⁻¹ (range 3–294; swept) |
+| $T_{\text{opt},i},T_{m,i}$ | optimum, stability | mesophile prior (sequence/meltome predictors not run) | $T_\text{opt}$ ~39 °C, $T_m$ ~55.6 °C |
+| $\Delta C^{\ddagger}_{p,i}$ | turnover curvature | literature MMRT prior [@Hobbs2013] | −4 kJ mol⁻¹ K⁻¹ |
+| $f_\text{metab}/f_\text{bio}/f_\text{maint}$ | sector fractions | Xia/Müller proteome [@muller2021] | 0.55/0.15/0.30 |
+| $s$ | growth-law slope | Müller 2021 constant ribosome fraction [@muller2021] | 0 (flat law) |
+| $P^{\text{lit}},\sigma$ | total protein, saturation | literature [@Davidi2016; @Heckmann2020] | 0.5 g gDW⁻¹, 0.45 |
+| NGAM($T$) | maintenance | **measured** *M. maripaludis* [@goyal2015] | 7.836 mmol ATP gDW⁻¹ h⁻¹ @ 37 °C |
+| validation | growth TPC | type strain JJ, H₂/CO₂ [@jones1983] | 1 curve |
+
+: *M. maripaludis* parameter provenance. The measured energy-core kinetics, the measured maintenance, and the constant-ribosome allocation law are the organism-specific grounded inputs. {#tbl-prov-methanogen}
+
+| Knob | Transformation | Effect |
+|---|---|---|
+| $dT_\text{opt}$ | $T_{\text{opt},i}\to T_{\text{opt},i}+dT_\text{opt}$ | uniform shift of every optimum |
+| `topt_scale` | $T_{\text{opt},i}\to T_0+\texttt{topt\_scale}(T_{\text{opt},i}-T_0)$ | spread of optima |
+| `dCp_scale` | $\Delta C^{\ddagger}_{p,i}\to\texttt{dCp\_scale}\,\Delta C^{\ddagger}_{p,i}$ | turnover curvature / breadth |
+| $dT_m$ | evaluate $f_{N,i}$ at $T-dT_m$ | uniform melting shift ($+$ raises $CT_\text{max}$) |
+| `tm_scale` | $T_{m,i}\to\bar T_m+\texttt{tm\_scale}(T_{m,i}-\bar T_m)$ | spread of melting temperatures |
+| `kcat_scale` ($\lambda_k$) | $c_i\to c_i/\lambda_k$ | global turnover level → $r_\text{max}$ |
+| $f_\text{metab},f_\text{maint}$ | set the sector simplex | proteome allocation |
+| `ngam_scale`, `ngam_steepness` | scale $a_\text{m}$, $E_m$ | maintenance amplitude / steepness |
+| $\sigma$ | scale both sector caps | in-vivo saturation (magnitude) |
+| $\sigma_\text{disc}$ | likelihood variance | model-discrepancy noise (nuisance) |
+
+: Global correction knobs freed in calibration — each is one scalar acting on the whole per-enzyme distribution. {#tbl-knobs}
+
 # Why Sharpe–Schoolfield $E$: the window-sensitivity audit
 
 The naive Boltzmann–Arrhenius slope of the rising limb depends on the fitting window because
