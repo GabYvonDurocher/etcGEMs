@@ -69,8 +69,8 @@ def main():
     import matplotlib.pyplot as plt
     order = ["methanogen", "ecoli", "phototroph"]
     OBS_SSE = {"methanogen": 1.042, "ecoli": 0.558, "phototroph": 0.52}  # phototroph = Inoue flux (robust)
-    fig = plt.figure(figsize=(15, 4.2))
-    gs = fig.add_gridspec(1, 4, width_ratios=[1, 1, 1, 1.05], wspace=0.32)
+    fig = plt.figure(figsize=(15.5, 4.4))
+    gs = fig.add_gridspec(1, 4, width_ratios=[1, 1, 1, 1.35], wspace=0.34)
     for j, k in enumerate(order):
         ax = fig.add_subplot(gs[0, j]); d = np.load(PP[k]); mt = META[k]
         # data-bounded x-range: start near the lowest observed T, end just beyond the highest
@@ -97,12 +97,14 @@ def main():
         axp.plot(x, OBS_SSE[k], "_", color="k", ms=14, mew=2, zorder=5)
         axp.text(x + 0.40, med, f"{med:.2f}", ha="left", va="center", fontsize=8,
                  color=META[k]["color"], fontweight="bold")
-    axp.axhline(0.65, color="0.4", ls=":", lw=1.2)
-    axp.text(pos[-1] + 0.5, 0.65, "~0.65 eV\nbenchmark", fontsize=6.5, color="0.4", va="center")
-    axp.set_xticks(pos); axp.set_xticklabels([META[k]["title"] for k in order], fontsize=8)
+    # benchmark line spans the panel; label at the LEFT end, clear of the violins + median labels
+    axp.axhline(0.65, color="0.5", ls=":", lw=1.2)
+    axp.text(0.5, 0.655, "~0.65 eV benchmark", fontsize=6.5, color="0.5", va="bottom", ha="left")
+    axp.set_xticks(pos)
+    axp.set_xticklabels([META[k]["title"] for k in order], fontsize=8, rotation=32, ha="right")
     axp.set_ylabel("Sharpe–Schoolfield $E_a$ (eV)")
     axp.set_title("Activation-energy posteriors\n(violins; medians —, observed −)", fontsize=10)
-    axp.set_xlim(0.4, pos[-1] + 1.1)
+    axp.set_xlim(0.3, pos[-1] + 1.0)
     for sp in ("top", "right"): axp.spines[sp].set_visible(False)
     fig.suptitle("Three metabolic strategies reproduce the Yvon-Durocher 2014 ordering at the cellular scale: "
                  "methanogenesis > respiration > photosynthesis", fontsize=11.5, y=1.02)
