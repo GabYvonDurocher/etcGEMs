@@ -1,0 +1,53 @@
+{
+  "note": "E_a(observed): SS-E fit to the calibration data points (+/-5% resample 90% CI). E_a(model): SS-E of the calibrated sectored model at posterior-median params = the control-weighted decomposition target (the CANONICAL model number). The Fig-1 posterior median differs from E_a(model) because the SS-E posterior is right-skewed (largest for the phototroph, the widest parameter posterior); mark the POINT E_a(model) on the violin and report the posterior median/CI as spread. Phototroph Zavrel-growth observed SS-E is fragile (6 points, CI [0.34,0.92]) so it must always appear WITH its CI; the model 0.57 sits well inside it. Inoue flux (0.52) is an independent cross-check, NOT the observed value.",
+  "rows": [
+    {
+      "organism": "methanogen",
+      "study_observed": "Jones 1983 (H2/CO2 growth)",
+      "E_a_observed": 1.042,
+      "E_a_observed_CI90_lo": 0.928,
+      "E_a_observed_CI90_hi": 1.168,
+      "observed_fit_R2": 0.95,
+      "n_observed_points": 11,
+      "E_a_model": 1.056,
+      "E_a_model_posterior_median": 1.043,
+      "E_a_model_posterior_CI90_lo": 0.879,
+      "E_a_model_posterior_CI90_hi": 1.156,
+      "model_inside_observed_CI": true
+    },
+    {
+      "organism": "ecoli",
+      "study_observed": "Van Derlinden 2012 (BHI growth)",
+      "E_a_observed": 0.558,
+      "E_a_observed_CI90_lo": 0.529,
+      "E_a_observed_CI90_hi": 0.592,
+      "observed_fit_R2": 0.973,
+      "n_observed_points": 17,
+      "E_a_model": 0.678,
+      "E_a_model_posterior_median": 0.692,
+      "E_a_model_posterior_CI90_lo": 0.602,
+      "E_a_model_posterior_CI90_hi": 0.801,
+      "model_inside_observed_CI": false
+    },
+    {
+      "organism": "phototroph",
+      "study_observed": "Zavrel 2015 (light-saturated growth)",
+      "E_a_observed": 0.435,
+      "E_a_observed_CI90_lo": 0.337,
+      "E_a_observed_CI90_hi": 1.007,
+      "observed_fit_R2": 0.999,
+      "n_observed_points": 6,
+      "E_a_model": 0.573,
+      "E_a_model_posterior_median": 0.64,
+      "E_a_model_posterior_CI90_lo": 0.472,
+      "E_a_model_posterior_CI90_hi": 0.925,
+      "model_inside_observed_CI": true,
+      "E_a_Inoue_flux_crosscheck": 0.52,
+      "E_a_Inoue_flux_CI90": [
+        0.447,
+        0.599
+      ],
+      "model_carbon_fixation_flux_SS_E": 0.563
+    }
+  ]
+}
