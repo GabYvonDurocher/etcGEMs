@@ -1,7 +1,7 @@
 term,M. maripaludis (H2/CO2),E. coli (rich BHI),Synechocystis 6803 (light-sat)
 organism SS-E Ea (eV),1.0558,0.6784,0.573
-observed SS-E (eV),1.042,0.558,0.52
-model − observed,0.014,0.12,0.053
+observed SS-E (eV),1.042,0.558,0.435
+model − observed,0.014,0.12,0.138
 Topt (°C),35.3,38.4,35.0
 CTmax (°C),48.8,46.0,46.8
 naive (unweighted) enzyme-E mean,0.5118,0.8716,0.6837

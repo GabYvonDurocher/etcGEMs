@@ -43,8 +43,10 @@ def main():
     comp2 = json.load(open(f"{OUT}/comparison.json"))
     ecn, mmn, phn = ec["named_terms_eV"], mm["named_terms_eV"], ph["named_terms_eV"]
     ec_obs, mm_obs = comp2["ecoli"]["obs_SS_E"], comp2["methanogen"]["obs_SS_E"]
-    ph_obs_growth = 0.435   # Zavrel 6-pt growth (fragile; 90% CI [0.32,1.00])
-    ph_obs_flux = 0.52      # Inoue O2-evolution flux (robust; model flux SS-E 0.56)
+    # canonical observed = the Zavrel GROWTH SS-E (symmetric with the other two organisms), fragile
+    # 90% CI [0.34, 1.01]; the Inoue light-saturated FLUX SS-E (0.52) is an independent cross-check.
+    ph_obs_growth = 0.435   # Zavrel 6-pt growth SS-E (canonical observed; 90% CI [0.34, 1.01])
+    ph_obs_flux = 0.52      # Inoue O2-evolution flux (cross-check; model flux SS-E 0.56)
 
     # --- signed-contribution figure (3 panels; NOT a waterfall) ---
     fig, ax = plt.subplots(1, 3, figsize=(15, 4.0))
@@ -77,7 +79,7 @@ def main():
         "term": idx,
         "M. maripaludis (H2/CO2)": col(mm, mmn, mm_obs, comp2["methanogen"]["Topt_C"], comp2["methanogen"]["CTmax_C"], comp2["methanogen"]["backbone_fraction_of_control"]),
         "E. coli (rich BHI)": col(ec, ecn, ec_obs, comp2["ecoli"]["Topt_C"], comp2["ecoli"]["CTmax_C"], "n/a (broad)"),
-        "Synechocystis 6803 (light-sat)": col(ph, phn, ph_obs_flux, 35.0, 46.8, f"{ph['calvin_backbone_attribution']['calvin_fraction_of_control']} (Calvin)"),
+        "Synechocystis 6803 (light-sat)": col(ph, phn, ph_obs_growth, 35.0, 46.8, f"{ph['calvin_backbone_attribution']['calvin_fraction_of_control']} (Calvin)"),
     })
     df.to_csv(f"{OUT}/comparison_table_3way.csv", index=False)
 

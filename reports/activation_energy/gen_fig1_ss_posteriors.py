@@ -68,7 +68,8 @@ def main():
     import matplotlib; matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     order = ["methanogen", "ecoli", "phototroph"]
-    OBS_SSE = {"methanogen": 1.042, "ecoli": 0.558, "phototroph": 0.52}  # phototroph = Inoue flux (robust)
+    # canonical numbers (single source of truth): mark E_a(model) point; observed marker + CI error bar
+    CAN = {r["organism"]: r for r in json.load(open("outputs/ea_cross_organism/ss_e_canonical.json"))["rows"]}
     fig = plt.figure(figsize=(15.5, 4.4))
     gs = fig.add_gridspec(1, 4, width_ratios=[1, 1, 1, 1.35], wspace=0.34)
     for j, k in enumerate(order):
@@ -92,19 +93,30 @@ def main():
     for body, k in zip(vp["bodies"], order):
         body.set_facecolor(META[k]["color"]); body.set_alpha(0.55); body.set_edgecolor(META[k]["color"])
     for x, k in zip(pos, order):
-        med = post[k]["median"]
-        axp.hlines(med, x - 0.34, x + 0.34, color=META[k]["color"], lw=2.2, zorder=4)
-        axp.plot(x, OBS_SSE[k], "_", color="k", ms=14, mew=2, zorder=5)
-        axp.text(x + 0.40, med, f"{med:.2f}", ha="left", va="center", fontsize=8,
+        c = CAN[k]
+        # canonical E_a(model) point = the marked central value + label (matches table + decomposition)
+        emod = c["E_a_model"]
+        axp.hlines(emod, x - 0.34, x + 0.34, color=META[k]["color"], lw=2.6, zorder=4)
+        axp.text(x + 0.40, emod, f"{emod:.2f}", ha="left", va="center", fontsize=8.5,
                  color=META[k]["color"], fontweight="bold")
-    # benchmark line spans the panel; label at the LEFT end, clear of the violins + median labels
+        # observed E_a with a CI error bar (esp. the phototroph's wide [0.34,1.01] — so the model
+        # point reads as lying INSIDE the observed interval, not as a discrepancy)
+        eobs = c["E_a_observed"]; lo, hi = c["E_a_observed_CI90_lo"], c["E_a_observed_CI90_hi"]
+        axp.errorbar(x - 0.42, eobs, yerr=[[eobs - lo], [hi - eobs]], fmt="_", color="k",
+                     ms=13, mew=2, elinewidth=1.3, capsize=3, zorder=5)
+        # phototroph: Inoue light-saturated FLUX SS-E as a separate, labelled cross-check
+        if "E_a_Inoue_flux_crosscheck" in c:
+            axp.plot(x - 0.42, c["E_a_Inoue_flux_crosscheck"], "D", color="0.35", ms=4.5, zorder=6)
+            axp.annotate("Inoue\nflux", (x - 0.42, c["E_a_Inoue_flux_crosscheck"]),
+                         textcoords="offset points", xytext=(-16, -2), fontsize=5.8, color="0.35",
+                         ha="right", va="center")
     axp.axhline(0.65, color="0.5", ls=":", lw=1.2)
-    axp.text(0.5, 0.655, "~0.65 eV benchmark", fontsize=6.5, color="0.5", va="bottom", ha="left")
+    axp.text(0.45, 0.655, "~0.65 eV benchmark", fontsize=6.5, color="0.5", va="bottom", ha="left")
     axp.set_xticks(pos)
     axp.set_xticklabels([META[k]["title"] for k in order], fontsize=8, rotation=32, ha="right")
     axp.set_ylabel("Sharpe–Schoolfield $E_a$ (eV)")
-    axp.set_title("Activation-energy posteriors\n(violins; medians —, observed −)", fontsize=10)
-    axp.set_xlim(0.3, pos[-1] + 1.0)
+    axp.set_title("Activation-energy: model (violins;\n— model $E_a$) vs observed (− with 90% CI)", fontsize=9.5)
+    axp.set_xlim(0.25, pos[-1] + 1.0)
     for sp in ("top", "right"): axp.spines[sp].set_visible(False)
     fig.suptitle("Three metabolic strategies reproduce the Yvon-Durocher 2014 ordering at the cellular scale: "
                  "methanogenesis > respiration > photosynthesis", fontsize=11.5, y=1.02)

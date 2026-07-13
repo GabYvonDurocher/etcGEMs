@@ -180,7 +180,7 @@ curvature `dCp_scale` ×0.85 (i.e. −3.4 vs the −4 kJ mol⁻¹ K⁻¹ prior; 
 floor). The **Ea-lever diagnostic** is the key P3 result: the low photosynthesis $E_a$ is achieved
 with the curvature knob at essentially its prior and **no allocation buffer needed**, so it is
 genuinely **shallow Calvin-cycle kinetics**, not an artefact. The observed Zavrel growth-$E$ (0.44)
-is fragile — a ±5% rate perturbation spans a 90% range [0.32, 1.00], because six points over a
+is fragile — a ±5% rate perturbation spans a 90% range [0.34, 1.01], because six points over a
 narrow window under-determine the metric — so the robust anchor is the window-independent model $E$
 (0.57) and the independent Inoue photosynthesis-flux $E$ (0.52), which the model's carbon-fixation
 flux $E$ (0.56) matches (@fig-photo-inoue). The Inoue *light-limited* growth curve (Topt ~25 °C) is

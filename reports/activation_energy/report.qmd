@@ -14,7 +14,8 @@ abstract: |
   6803), each calibrated to a measured growth thermal performance curve. Quantifying $E_a$ with
   the window-independent Sharpe–Schoolfield $E$, all three reproduce the observed value and the
   full ordering — methanogenesis 1.06 eV (observed 1.04) > respiration 0.68 (observed 0.56, on
-  the "universal" ~0.65 eV benchmark) > photosynthesis 0.57 (observed photosynthesis-flux 0.52).
+  the "universal" ~0.65 eV benchmark) > photosynthesis 0.57 (observed growth 0.44, 90% CI
+  [0.34, 1.01]; independent light-saturated flux cross-check 0.52).
   A non-circular, control-weighted decomposition shows the ordering is **not one mechanism
   scaled but three distinct routes** to a position in the $E_a$ range. Methanogenesis is high
   because growth control concentrates (89%) on a high-$E_a$ energy backbone with no allocation
@@ -97,17 +98,19 @@ light-saturated photoautotrophic growth over 23–38 °C [@zavrel2015]. All thre
 data: the posterior-predictive median and 90% band pass through the observed points (@fig-scene),
 and the curves differ in the steepness of their rising limbs. Propagating each calibration
 posterior through the Sharpe–Schoolfield fitter (Methods) yields the posterior distribution of
-$E_a$ for each organism (@fig-scene, right). They reproduce the **full @yvondurocher2014
-ordering**: methanogenesis is highest at ~1.0 eV and cleanly separated (90% CI [0.88, 1.16]),
-while respiration (~0.69 eV, [0.60, 0.80]) and photosynthesis (~0.64 eV, [0.47, 0.93]) sit lower
-and near the "universal" ~0.65 eV benchmark, with photosynthesis's posterior median below
-respiration's. Photosynthesis and respiration are close — as they are empirically — so their
-posteriors overlap, whereas methanogenesis is unambiguously separated from both. The ordering of
-@yvondurocher2014 is thus reproduced at the cellular scale by three independent mechanistic
-models, robustly to Bayesian parameter uncertainty. The remainder of the paper asks *why* — and
-finds three different answers.
+$E_a$ for each organism (@fig-scene, right). The calibrated model $E_a$ — the value the
+decomposition below sums to — reproduces the **full @yvondurocher2014 ordering**: methanogenesis
+$E_a = 1.06$ eV, clearly separated above respiration 0.68 and photosynthesis 0.57, the latter two
+near the "universal" ~0.65 eV benchmark. The posterior spread confirms the ordering is robust to
+parameter uncertainty (posterior medians 1.04, 0.69, 0.64 with 90% CIs [0.88, 1.16], [0.60, 0.80]
+and [0.47, 0.93]; the median exceeds the point value most for photosynthesis because its SS-E
+posterior is the most right-skewed, being the widest parameter posterior). Photosynthesis and
+respiration are close — as they are empirically — so their posteriors overlap, whereas
+methanogenesis is unambiguously separated from both. The ordering of @yvondurocher2014 is thus
+reproduced at the cellular scale by three independent mechanistic models. The remainder of the
+paper asks *why* — and finds three different answers.
 
-![**Three metabolic strategies reproduce the Yvon-Durocher 2014 activation-energy ordering at the cellular scale.** Calibrated (Bayesian) growth thermal performance curves for *M. maripaludis* methanogenesis (H₂/CO₂), *E. coli* respiration (rich BHI) and *Synechocystis* 6803 photosynthesis (light-saturated autotrophy): posterior-predictive median and 90% band with the observed data [@jones1983; @vanderlinden2012; @zavrel2015]. Right: the Sharpe–Schoolfield $E_a$ posteriors, propagated from the calibration draws, are correctly ordered — methanogenesis ~1.04 clearly separated above respiration ~0.69 and photosynthesis ~0.64, which cluster near the ~0.65 eV benchmark (dotted).](assets/fig1/fig1_scene_setter.png){#fig-scene fig-pos="H" width=100%}
+![**Three metabolic strategies reproduce the Yvon-Durocher 2014 activation-energy ordering at the cellular scale.** Calibrated (Bayesian) growth thermal performance curves for *M. maripaludis* methanogenesis (H₂/CO₂), *E. coli* respiration (rich BHI) and *Synechocystis* 6803 photosynthesis (light-saturated autotrophy): posterior-predictive median and 90% band with the observed data [@jones1983; @vanderlinden2012; @zavrel2015]. Right: the Sharpe–Schoolfield $E_a$ — violins show the posterior spread, the coloured line and label the model $E_a$ (the decomposition target: 1.06 / 0.68 / 0.57 eV); black markers are the observed $E_a$ with 90% CI (Jones 1.04, Van Derlinden 0.56, Zavrel-growth 0.44 — the phototroph's wide interval reflects only six rising-limb points, and the model value lies inside it). The grey diamond is the phototroph's independent Inoue light-saturated *flux* $E_a$ (0.52), a cross-check, not the observed growth value. The model $E_a$ are correctly ordered, with methanogenesis separated above respiration and photosynthesis near the ~0.65 eV benchmark (dotted).](assets/fig1/fig1_scene_setter.png){#fig-scene fig-pos="H" width=100%}
 
 ## Both models predict the observed activation energy {#sec-valid}
 
@@ -124,12 +127,14 @@ shape (Methods); the windowed slope is retained only as a deprecated cross-check
 Under this metric all three models agree with the data (@tbl-comp). The *M. maripaludis* model
 gives $E_a = 1.06$ eV against an observed 1.04; the *E. coli* model gives 0.68 against an observed
 0.56, sitting on the "universal" ~0.65 eV metabolic benchmark; and the *Synechocystis* model
-gives 0.57. The phototroph's observed anchor deserves a word: its six-point light-saturated growth
-TPC yields a Sharpe–Schoolfield $E$ of 0.44 but this is fragile (a ±5% perturbation of the rate
-points spans a 90% range [0.32, 1.00], because six points over a narrow window under-determine the
-metric), so we take as the robust benchmark the independent, well-sampled *photosynthesis-flux*
-TPC of @inoue2001 (O₂ evolution, 25–52 °C), whose $E$ of 0.52 the model's carbon-fixation-flux
-$E$ (0.56) matches directly. Because the per-enzyme activation energies are model *inputs* (below),
+gives 0.57 against an observed growth $E$ of 0.44. The phototroph's observed anchor deserves a
+word: its six-point light-saturated growth TPC yields a Sharpe–Schoolfield $E$ of 0.44 but this is
+fragile (a ±5% perturbation of the rate points spans a 90% range [0.34, 1.01], because six points
+over a narrow window under-determine the metric), so the model's 0.57 lies comfortably *inside*
+the observed interval rather than overshooting it. As a robust, independent cross-check we also fit
+the well-sampled *photosynthesis-flux* TPC of @inoue2001 (O₂ evolution, 25–52 °C), whose $E$ of
+0.52 the model's carbon-fixation-flux $E$ (0.56) matches directly. Because the per-enzyme
+activation energies are model *inputs* (below),
 this agreement on each organism-level value is a prediction, not a fitted output — and the three
 land in the correct order, with the methanogen ~1.6-fold above the respiring bacterium and the
 phototroph the lowest of the three.
@@ -208,7 +213,7 @@ low-$E_a$-backbone contrast — do not depend on it.
 
 ```{python}
 #| label: tbl-comp
-#| tbl-cap: "Three-way decomposition of the Sharpe-Schoolfield activation energy. All three organisms carry their own measured proteome-sector/growth-law layer, so the allocation term is measured for each (methanogen constant-ribosome flat law; E. coli Scott rising-ribosome law; phototroph Jahn shallow-ribosome law). The full ordering (methanogenesis 1.06 > respiration 0.68 > photosynthesis 0.57) arises from three distinct routes: narrow high-Ea-backbone control (methanogen), allocation-buffered high enzyme Ea (E. coli), and low-Ea carbon-fixation-backbone control (phototroph). All three match their observed SS-E."
+#| tbl-cap: "Three-way decomposition of the Sharpe-Schoolfield activation energy. All three organisms carry their own measured proteome-sector/growth-law layer, so the allocation term is measured for each (methanogen constant-ribosome flat law; E. coli Scott rising-ribosome law; phototroph Jahn shallow-ribosome law). The full ordering (methanogenesis 1.06 > respiration 0.68 > photosynthesis 0.57) arises from three distinct routes: narrow high-Ea-backbone control (methanogen), allocation-buffered high enzyme Ea (E. coli), and low-Ea carbon-fixation-backbone control (phototroph). Each model E_a matches its observed SS-E within uncertainty: methanogen 1.06 vs 1.04, E. coli 0.68 vs 0.56 (a small offset, on the ~0.65 eV benchmark), phototroph 0.57 vs a fragile six-point growth value 0.44 (90% CI [0.34, 1.01], so the model sits inside it; independent flux cross-check 0.52)."
 #| output: asis
 import pandas as pd
 print(pd.read_csv("assets/tables/comparison_table_3way.csv").to_markdown(index=False))
@@ -637,8 +642,9 @@ photosynthesis-flux (O₂-evolution) TPC of @inoue2001 as a second, non-fitted c
 reported activation energy is the window-independent Sharpe–Schoolfield $E$ of @eq-ssf, applied
 identically to model and observed curves. It agrees for all three: the *E. coli* model gives
 $E_a=0.68$ eV against an observed 0.56 (on the ~0.65 eV benchmark), *M. maripaludis* gives 1.06
-against 1.04, and *Synechocystis* gives 0.57, whose carbon-fixation-flux $E$ (0.56) matches the
-independent Inoue photosynthesis-flux value (0.52); the three calibration posteriors reproduce the
+against 1.04, and *Synechocystis* gives 0.57 against a fragile six-point observed growth value of
+0.44 (90% CI [0.34, 1.01], so the model lies inside it) — with its carbon-fixation-flux $E$ (0.56)
+independently matching the Inoue photosynthesis-flux value (0.52); the three calibration posteriors reproduce the
 full ordering (Results, @sec-fig1, @sec-valid). Because the per-enzyme activation energies are model
 inputs, this agreement on each organism-level value is a genuine prediction rather than a recovered
 fit.
