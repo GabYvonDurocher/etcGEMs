@@ -25,6 +25,14 @@ search over pairs and triples found nothing crossing detection).
 Conclusion as it stands: **within this model class, sequence-predicted enzyme thermal properties
 are far too similar between these species to reproduce the observed divergence.**
 
+**Revised by K2 (2026-09-07).** Under the core's mechanistic thermal form the required separation
+falls from 32.5 °C to **13.8 °C** — so the conclusion is form-independent *in kind* (13.8 °C is
+still ~26× the sequence-predicted 0.52 °C, and stable to 0.3 °C across every rung of the ladder),
+but **the standalone's ~63× was inflated roughly 2.4× by the choice of thermal form alone**. The
+fold-gaps to quote are the core's: ~26× against the sequence prediction, 8.6× against the measured
+*S. cerevisiae*/*S. uvarum* benchmark. This is the single most important reason K2 was worth doing
+before anything downstream.
+
 ## 2. What Ilgaz has already closed
 
 Recorded here so these are not re-proposed. His `gem/audits/` covers more than the emails suggest.
@@ -44,6 +52,17 @@ Recorded here so these are not re-proposed. His `gem/audits/` covers more than t
 - **Seq2Tm padding artefact** (commit `55c2520`): checked, does not inflate Fig 4B.
 - **Network confounding** (`common_network.py`): each species' enzyme profile run on the identical
   *auris* scaffold. **Its result is not recorded in the notes — get the number from Ilgaz.**
+
+**Two defects K2 found in the standalone, neither of which Ilgaz's audits caught in the model
+script.** (i) *C. parapsilosis*'s `ATP_Maintenance__cyto` ships REVERSIBLE at (−3.9, 3.9), so the
+solver can synthesise ATP from ADP + Pi. Ilgaz found this in `ngam_falsification.py` and corrected
+it there, but the correction never reached `18_build_etcgem_tpc.py`. Uncorrected, *C. parapsilosis*
+is **unreachable by any Tm shift** — no finite value crosses detection — and its fit is R² = −0.323,
+worse than a flat line. Corrected: 32.64 °C required, R² = +0.042. One of the four species in the
+published counterfactual was structurally incapable of being killed by the mechanism under test.
+(ii) The pool constraint row spans 8.2×10⁸ at 22 °C, and GLPK makes a ~0.4 % error at the cold end
+of the draft models as a result — numerical, not alternate optima, established three ways. A
+conditioning problem worth fixing in the framework.
 
 **The general lesson.** Any mechanism whose species-specificity is *sourced from* Seq2Tm/Seq2Topt
 is already answered, whatever layer it is routed through. Mechanisms sourced from measurement are
@@ -66,25 +85,35 @@ model contains. If two-state unfolding is the only thing that can produce a hot 
 decomposition will assign the collapse to unfolding whether or not that is what kills real cells.
 Membrane fluidity, proton leak and ROS receive zero share by construction, not by evidence.
 
-## 4. The convergence that makes this bigger than Candida
+## 4. The unfolding ceiling across seven strains
 
-Both models over-predict the upper thermal limit, in the same direction:
+_Rewritten 2026-09-07 after K2. The earlier version of this section generalised from two organisms
+and was wrong; K2 PART C2 measured it properly across all seven strains._
 
-| | predicted CT_max | observed | gap |
-|---|---|---|---|
-| *E. coli* (emergent, **measured** Tm from the meltome) | ~52 °C | 46 °C | **+6** |
-| *C. auris* | 54.1 °C | ~45 °C | **+9** |
-| the three relatives | ~53–54 °C | ~40 °C | **+13–14** |
+| strain | gap (predicted CT_max − observed limit) |
+|---|---|
+| *M. maripaludis* | **−0.2 °C** |
+| *Synechocystis* | **+1.7 °C** |
+| *E. coli* (measured meltome Tm) | **+5.9 °C** |
+| the four *Candida* | **+9.6 to +15.8 °C** |
 
-E. coli's Bayesian calibration had to pull Tm down by **−5.6 K [−7.2, −2.8]** to match the observed
-collapse — with a *measured* meltome, so this is not a predictor artefact. Ilgaz reached the same
-place independently.
+**The over-prediction is not universal.** The archaeon is essentially exact and the cyanobacterium
+close; only *E. coli* and the yeasts over-predict, and the yeasts by two to three times as much as
+*E. coli*. The earlier claim — that bulk enzyme unfolding sets a systematically-too-high ceiling —
+does not survive contact with four organism types.
 
-Read together: **bulk enzyme unfolding sets a ceiling that is systematically too high, in a
-bacterium and in a yeast, with measured and predicted Tm alike. Something kills cells before their
-enzymes denature.** This is a stronger and more general statement than "the Candida etcGEM failed",
-it is supported by two organisms rather than one, and it is the framework-level question the merge
-makes askable across all seven strains.
+What remains, and is more specific: **in the two organisms where the ceiling is wrong, it is wrong
+in the same direction and by an amount that scales with how badly the model misses the phenotype.**
+E. coli's Bayesian calibration independently had to pull Tm down by −5.6 K [−7.2, −2.8] to match the
+observed collapse — consistent with its +5.9 °C gap, and with a *measured* meltome, so not a
+predictor artefact. Candida needs a larger uniform shift still; under one, *C. auris*'s CT_max lands
+on 44.6 °C against ~45 °C observed and the fit rises to R² 0.674.
+
+So the open question is no longer "why is the unfolding ceiling always too high" but **"why is it
+right in a methanogen and a cyanobacterium and wrong in a bacterium and four yeasts?"** That is a
+sharper question, it is only askable because the seven strains now share a code base, and it should
+be resolved before the membrane hypothesis (§6a) is treated as the leading explanation — whatever
+explains the pattern must also explain the two organisms where nothing is wrong.
 
 ## 5. Coverage: what the model actually sees
 
@@ -136,7 +165,17 @@ between species with near-identical proteomes, i.e. not sourced from sequence pr
 consistent with §4 — a membrane mechanism is exactly what failure *below* the unfolding ceiling
 looks like from inside a model that only has enzymes.
 
-**(b) Proteome allocation, with measured sector fractions.** E. coli's model carries measured,
+**(b) Proteome allocation, with measured sector fractions — and a warning from K2.** K2 rung B4
+enabled sectors with literature yeast fractions, identical across species, and the result was worse
+than inert: the **temperature-independent translation cap removes the optimum rather than shifting
+it**, leaving a flat curve, so T_opt becomes the argmax of a tie and any apparent species ordering
+is an ordering of plateau heights. Fit fell from R² 0.254 to 0.111 (E. coli's ablation, for
+comparison, was 0.74 → 0.49). **Sectors should not be a Candida default until measured
+temperature-dependent allocation exists.** Worth establishing whether E. coli escapes this only
+because `allocation_from_data` makes its cap temperature-dependent — if so, that is a framework-level
+precondition for enabling the sector layer at all, not a Candida quirk.
+
+The original point stands otherwise: E. coli's model carries measured,
 temperature- and medium-dependent sector fractions (f_metab 0.483, f_bio 0.191, **f_chaperone
 0.057**, f_other 0.269) from temperature proteomics; the non-metabolic proteome enters as mass
 competing for the same budget. Candida has no sector layer at all. Adding it with literature yeast
@@ -192,7 +231,11 @@ is far too small". That converts an unbounded claim into a bounded one. Both pro
 and Seq2Tm is already installed.
 
 *(ii) The spread.* For each predictor, report the interspecies spread it produces across the four
-Candida species, so the three channels can be compared on one scale.
+Candida species, so the three channels can be compared on one scale. K2 has already established the
+other half of this arithmetic: the model-side requirement is 13.8 °C, not 33 °C, so the gap to close
+is ~26× rather than ~63×. If A1 finds Seq2Tm compresses by ~8×, the two corrections together bring
+predicted and required within ~3× of one another — still a failure, but a very different statement
+from the one currently in the figure.
 
 *(iii) DLTKcat, run here rather than bolted onto K2.* **Deliberately excluded from K2**, for three
 reasons worth recording. It improves the *wrong half of the curve*: it predicts kcat(T), and the
@@ -258,7 +301,8 @@ reconstructed from the repository.
 ## 9. Sequencing
 
     K1  port the four species onto the core (DONE - 57/57, mu to 0.000000 h^-1)
-    K2  the core's thermal layer, one component per rung (prompt written)
+    K2  the core's thermal layer, one component per rung (DONE - gate now 79/79; required
+        separation 32.5 -> 13.8 C; ceiling measured on all seven strains; sink audit added)
     A1  predictor calibration: Seq2Tm, Seq2Topt, DLTKcat against the S. cerevisiae/S. uvarum
         benchmark - run AFTER K2, when it is known whether the form matters
     A3  gene-content screen (cheap, independent of the above, can run any time)
@@ -273,3 +317,11 @@ One caveat carried forward from the K1 result: the two draft models (*C. haemulo
 Fig 4 behaviour (good for the conclusion), but neither can they be tested there, and the
 common-network control (A2) is close to a no-op for those two. Only *C. parapsilosis*, with an
 independently curated model (2,162 reactions, 1,606 costed), can show a network effect at all.
+
+**Added after K2, not yet action points.** Three items fell out of the K2 report and need a home:
+the pool-row conditioning problem (spans 8.2x10^8 at 22 C; causes a ~0.4% GLPK error at the cold end
+of the draft models) should be fixed in the framework rather than pinned around; the sector
+translation cap needs to be temperature-dependent before sectors are enabled anywhere without
+measured allocation (SS6b); and the emergent Candida model under-predicts C. auris growth by 7.6x
+against E. coli's ~2.3x, with R^2 0.205 - a grounded eukaryote budget that binds far too tightly,
+which is a finding about the framework's transferability to eukaryotes rather than about Candida.
