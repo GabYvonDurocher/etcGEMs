@@ -79,3 +79,39 @@ task ("Do NOT fetch new annotations").
 **Reversible:** yes. **Review:** someone should confirm the keyword list is the right reading
 of the Xiao et al. candidates; FTR1 and SIT1 matched nothing in any proteome and are reported
 as unanswerable rather than absent.
+
+## D5 — TASK 2: the fixture holds every expected value, including the two prose-sourced ones
+
+**Decided.** `standalone_expected.json` carries the calibration, the 48-value mu table and
+the counterfactual results read from the standalone's tables, **and also** the two numbers
+that were hard-coded in the script: the 52.7–54.5 °C thermal-limit range (from the prose of
+`gem/FIG4_LOCKED.md`) and the 2.045 / 0.758 pool-binding pair (from
+`gem/notes/POOL_BINDING_RESULT.md`). Each carries its `source` string.
+
+**Why.** Otherwise the gate would have two kinds of expected value with two kinds of
+provenance, one of them invisible. Now every expected number has one home and one recorded
+origin, and the fixture is the complete statement of what the port is being held to.
+
+**Alternatives.** Leave the two transcribed numbers as constants — simpler, but it would
+mean `--refresh-fixture` silently does not refresh them.
+
+**Reversible:** yes. **Review:** the two transcribed values are still transcriptions; if
+anyone re-runs `22_thermal_sensitivity.py` or `16_pool_binding_test.py` and gets different
+numbers, the fixture will not notice, because the standalone does not write them to a file.
+
+## D6 — TASK 2: with --candidas-root, the LIVE values are used and drift is reported
+
+**Decided.** When `--candidas-root` is given, the gate reads the standalone, prints any
+difference from the committed fixture, and then evaluates against the **live** values.
+
+**Why.** The alternative — evaluating against the fixture and only warning — would let the
+gate pass while the thing it claims to reproduce had moved. Reporting drift and using the
+live values means a changed standalone shows up as a changed verdict, which is the point of
+a gate.
+
+**Alternatives.** Always use the fixture and treat drift as a separate check; or fail on any
+drift. The second is too brittle for a file that will legitimately change if the standalone
+is ever re-run.
+
+**Reversible:** yes. **Review:** nobody, unless the standalone is re-run — then someone
+should look at the drift report before `--refresh-fixture`.

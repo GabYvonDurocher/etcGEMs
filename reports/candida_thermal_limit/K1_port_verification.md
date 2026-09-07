@@ -202,8 +202,15 @@ prediction (Seq2* drops sequences over 2000 aa); those genes are listed per stra
 
 ## Exact commands
 
+Since N1 TASK 2 the gate is **self-contained**: every expected value is frozen in the
+committed fixture `standalone_expected.json` (Candidas commit `f123bc7`, with the md5 of
+each source file), so it runs with no Candidas repository present. `--candidas-root` still
+reads the standalone directly and reports any drift from the fixture first.
+
 ```bash
-export CANDIDAS_ROOT=".../Candidas"      # read only
+python3 reports/candida_thermal_limit/gate_table.py            # from the fixture; exit 0 = PASS
+
+export CANDIDAS_ROOT=".../Candidas"      # read only, optional
 
 # inputs (already committed; re-running reproduces them byte for byte)
 python3 tools/reconstruction/to_strain_inputs.py --species all
@@ -216,7 +223,7 @@ etcgem fba --strain cauris_iRV973 --experiment candida_pool_unconstrained --temp
 etcgem fba --strain cauris_iRV973 --experiment candida_pool_binding --temp 30
 
 # the comparison
-python3 reports/candida_thermal_limit/gate_table.py           # writes gate_table.csv; exit 0 = PASS
+python3 reports/candida_thermal_limit/gate_table.py --candidas-root "$CANDIDAS_ROOT"   # + drift check
 ```
 
 ## Existing strains unchanged
