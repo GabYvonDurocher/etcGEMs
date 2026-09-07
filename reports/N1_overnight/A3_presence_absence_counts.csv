@@ -1,0 +1,13 @@
+present_in,absent_from,n_proteome,no_rbh,no_hit_e10,no_hit_e3,pct_no_hit_e3
+C. auris (clade I),C. haemulonii,5424,569,209,172,3.17
+C. auris (clade I),C. duobushaemulonii,5424,624,244,205,3.78
+C. auris (clade I),C. parapsilosis,5424,803,594,462,8.52
+C. haemulonii,C. auris (clade I),5249,394,240,189,3.6
+C. haemulonii,C. duobushaemulonii,5249,531,206,159,3.03
+C. haemulonii,C. parapsilosis,5249,882,631,511,9.74
+C. duobushaemulonii,C. auris (clade I),5173,373,208,171,3.31
+C. duobushaemulonii,C. haemulonii,5173,455,164,122,2.36
+C. duobushaemulonii,C. parapsilosis,5173,846,601,468,9.05
+C. parapsilosis,C. auris (clade I),5777,1156,748,602,10.42
+C. parapsilosis,C. haemulonii,5777,1410,784,620,10.73
+C. parapsilosis,C. duobushaemulonii,5777,1450,816,647,11.2

@@ -1,0 +1,221 @@
+candidate,found_in,query_gene,searched,best_hit,pident,evalue,present,hit_in_model
+alternative oxidase (AOX),C. auris (clade I),XP_085454255.1,C. auris (clade I),XP_085454255.1,100.0,5.12e-247,True,False
+alternative oxidase (AOX),C. duobushaemulonii,XP_025338419.1,C. auris (clade I),XP_085454255.1,84.1,8.49e-211,True,False
+alternative oxidase (AOX),C. parapsilosis,XP_036668250.1,C. auris (clade I),XP_085454255.1,58.3,2.22e-129,True,False
+alternative oxidase (AOX),C. parapsilosis,XP_036668251.1,C. auris (clade I),XP_085454255.1,58.3,4.79e-126,True,False
+glutaredoxin (GRX5 family),C. auris (clade I),XP_085451995.1,C. auris (clade I),XP_085451995.1,100.0,5.39e-113,True,False
+glutaredoxin (GRX5 family),C. auris (clade I),XP_085452177.1,C. auris (clade I),XP_085452177.1,100.0,1.78e-160,True,False
+glutaredoxin (GRX5 family),C. auris (clade I),XP_085453897.1,C. auris (clade I),XP_085453897.1,100.0,0.0,True,False
+glutaredoxin (GRX5 family),C. auris (clade I),XP_085454274.1,C. auris (clade I),XP_085454274.1,100.0,1.48e-72,True,False
+glutaredoxin (GRX5 family),C. haemulonii,XP_025341096.1,C. auris (clade I),XP_085454274.1,83.7,4.34e-60,True,False
+glutaredoxin (GRX5 family),C. haemulonii,XP_025342742.1,C. auris (clade I),XP_085451995.1,90.0,4.4e-103,True,False
+glutaredoxin (GRX5 family),C. haemulonii,XP_025343739.1,C. auris (clade I),XP_085452177.1,85.6,6.16e-142,True,False
+glutaredoxin (GRX5 family),C. duobushaemulonii,XP_025336058.1,C. auris (clade I),XP_085452177.1,86.3,4.88e-143,True,False
+glutaredoxin (GRX5 family),C. duobushaemulonii,XP_025337240.1,C. auris (clade I),XP_085451995.1,91.3,1.79e-102,True,False
+glutaredoxin (GRX5 family),C. duobushaemulonii,XP_025338437.1,C. auris (clade I),XP_085454274.1,79.8,2.82e-58,True,False
+glutaredoxin (GRX5 family),C. parapsilosis,XP_036663723.1,C. auris (clade I),XP_085454274.1,58.7,1.26e-39,True,False
+glutaredoxin (GRX5 family),C. parapsilosis,XP_036664315.1,C. auris (clade I),XP_085454274.1,49.5,3.72e-33,True,False
+glutaredoxin (GRX5 family),C. parapsilosis,XP_036666401.1,C. auris (clade I),XP_085451995.1,72.5,2.42e-72,True,False
+glutaredoxin (GRX5 family),C. parapsilosis,XP_036667368.1,C. auris (clade I),XP_085452177.1,68.5,1.79e-111,True,False
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. auris (clade I),XP_085450767.1,C. auris (clade I),XP_085450767.1,100.0,3.73e-117,True,True
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. auris (clade I),XP_085453338.1,C. auris (clade I),XP_085453338.1,100.0,0.0,True,False
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. haemulonii,XP_025340021.1,C. auris (clade I),XP_085453338.1,87.7,0.0,True,False
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. haemulonii,XP_025341880.1,C. auris (clade I),XP_085450767.1,82.0,2.37e-76,True,True
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. duobushaemulonii,XP_025335224.1,C. auris (clade I),XP_085453338.1,86.2,0.0,True,False
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. duobushaemulonii,XP_025339253.1,C. auris (clade I),XP_085450767.1,70.0,2.76e-69,True,True
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. parapsilosis,XP_036663127.1,C. auris (clade I),XP_085453338.1,64.8,2.03e-295,True,False
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. parapsilosis,XP_036664420.1,C. auris (clade I),XP_085450767.1,69.7,9.52e-56,True,True
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085451468.1,C. auris (clade I),XP_085451468.1,100.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085451639.1,C. auris (clade I),XP_085451639.1,100.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085452765.1,C. auris (clade I),XP_085452765.1,100.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085452849.1,C. auris (clade I),XP_085452849.1,100.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085453244.1,C. auris (clade I),XP_085453244.1,100.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085453595.1,C. auris (clade I),XP_085453595.1,100.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085453882.1,C. auris (clade I),XP_085453882.1,100.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085455715.1,C. auris (clade I),XP_085455715.1,100.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. haemulonii,XP_025339647.1,C. auris (clade I),XP_085453595.1,71.2,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. haemulonii,XP_025342000.1,C. auris (clade I),XP_085452849.1,77.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. haemulonii,XP_025343028.1,C. auris (clade I),XP_085455715.1,78.4,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. haemulonii,XP_025343267.1,C. auris (clade I),XP_085453882.1,67.9,8.5e-265,True,False
+iron uptake: ferric reductase (FRE-like),C. haemulonii,XP_025344296.1,C. auris (clade I),XP_085452765.1,59.0,1.91e-296,True,False
+iron uptake: ferric reductase (FRE-like),C. haemulonii,XP_025344423.1,C. auris (clade I),XP_085451468.1,78.7,8.66e-242,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025335271.1,C. auris (clade I),XP_085453388.1,62.6,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025335341.1,C. auris (clade I),XP_085453244.1,76.5,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025335668.1,C. auris (clade I),XP_085452849.1,75.8,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025336627.1,C. auris (clade I),XP_085452765.1,64.6,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025336900.1,C. auris (clade I),XP_085451639.1,64.7,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025337752.1,C. auris (clade I),XP_085453595.1,73.2,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025337889.1,C. auris (clade I),XP_085455715.1,78.9,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025338073.1,C. auris (clade I),XP_085453882.1,62.8,1.03e-250,True,False
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036664251.1,C. auris (clade I),XP_085452849.1,44.9,4.44e-177,True,False
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036664252.1,C. auris (clade I),XP_085452849.1,42.8,3.76e-171,True,False
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036665108.1,C. auris (clade I),XP_085455715.1,46.1,4.09e-209,True,False
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036665434.1,C. auris (clade I),XP_085451468.1,41.5,1.24e-192,True,False
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036665435.1,C. auris (clade I),XP_085451468.1,41.9,1.78e-200,True,False
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036666533.1,C. auris (clade I),XP_085451468.1,42.8,1.9e-200,True,False
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036666534.1,C. auris (clade I),XP_085452765.1,33.6,6.03e-134,True,False
+alternative oxidase (AOX),C. auris (clade I),XP_085454255.1,C. haemulonii,XP_025341079.1,85.3,2.97e-214,True,False
+alternative oxidase (AOX),C. duobushaemulonii,XP_025338419.1,C. haemulonii,XP_025341079.1,86.4,2.37e-217,True,False
+alternative oxidase (AOX),C. parapsilosis,XP_036668250.1,C. haemulonii,XP_025341079.1,57.3,1.55e-129,True,False
+alternative oxidase (AOX),C. parapsilosis,XP_036668251.1,C. haemulonii,XP_025341079.1,57.6,1.45e-127,True,False
+glutaredoxin (GRX5 family),C. auris (clade I),XP_085451995.1,C. haemulonii,XP_025342742.1,90.0,9.14e-103,True,False
+glutaredoxin (GRX5 family),C. auris (clade I),XP_085452177.1,C. haemulonii,XP_025343739.1,85.9,1.16e-144,True,False
+glutaredoxin (GRX5 family),C. auris (clade I),XP_085453897.1,C. haemulonii,XP_025343253.1,53.4,0.0,True,False
+glutaredoxin (GRX5 family),C. auris (clade I),XP_085454274.1,C. haemulonii,XP_025341096.1,83.7,3.91e-60,True,False
+glutaredoxin (GRX5 family),C. haemulonii,XP_025341096.1,C. haemulonii,XP_025341096.1,100.0,3.35e-83,True,False
+glutaredoxin (GRX5 family),C. haemulonii,XP_025342742.1,C. haemulonii,XP_025342742.1,100.0,2.35e-114,True,False
+glutaredoxin (GRX5 family),C. haemulonii,XP_025343739.1,C. haemulonii,XP_025343739.1,100.0,3.48e-168,True,False
+glutaredoxin (GRX5 family),C. duobushaemulonii,XP_025336058.1,C. haemulonii,XP_025343739.1,94.1,1.61e-152,True,False
+glutaredoxin (GRX5 family),C. duobushaemulonii,XP_025337240.1,C. haemulonii,XP_025342742.1,94.4,9.93e-107,True,False
+glutaredoxin (GRX5 family),C. duobushaemulonii,XP_025338437.1,C. haemulonii,XP_025341096.1,86.6,1.26e-71,True,False
+glutaredoxin (GRX5 family),C. parapsilosis,XP_036663723.1,C. haemulonii,XP_025341096.1,60.6,1.01e-39,True,False
+glutaredoxin (GRX5 family),C. parapsilosis,XP_036664315.1,C. haemulonii,XP_025341096.1,46.1,2.94e-33,True,False
+glutaredoxin (GRX5 family),C. parapsilosis,XP_036666401.1,C. haemulonii,XP_025342742.1,71.7,8.7e-73,True,False
+glutaredoxin (GRX5 family),C. parapsilosis,XP_036667368.1,C. haemulonii,XP_025343739.1,71.4,2.37e-118,True,False
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. auris (clade I),XP_085450767.1,C. haemulonii,XP_025341880.1,72.7,1e-75,True,True
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. auris (clade I),XP_085453338.1,C. haemulonii,XP_025340021.1,87.5,0.0,True,False
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. haemulonii,XP_025340021.1,C. haemulonii,XP_025340021.1,100.0,0.0,True,False
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. haemulonii,XP_025341880.1,C. haemulonii,XP_025341880.1,100.0,6.41e-115,True,True
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. duobushaemulonii,XP_025335224.1,C. haemulonii,XP_025340021.1,91.4,0.0,True,False
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. duobushaemulonii,XP_025339253.1,C. haemulonii,XP_025341880.1,72.5,4.86e-72,True,True
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. parapsilosis,XP_036663127.1,C. haemulonii,XP_025340021.1,64.8,2.33e-299,True,False
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. parapsilosis,XP_036664420.1,C. haemulonii,XP_025341880.1,71.4,7.49e-55,True,True
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085451468.1,C. haemulonii,XP_025344423.1,78.7,1.57e-241,True,False
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085451639.1,C. haemulonii,XP_025342273.1,66.6,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085452765.1,C. haemulonii,XP_025344296.1,59.0,1.19e-296,True,False
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085452849.1,C. haemulonii,XP_025342000.1,77.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085453244.1,C. haemulonii,XP_025340126.1,79.1,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085453595.1,C. haemulonii,XP_025339647.1,71.2,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085453882.1,C. haemulonii,XP_025343267.1,67.9,1.49e-264,True,False
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085455715.1,C. haemulonii,XP_025343028.1,78.4,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. haemulonii,XP_025339647.1,C. haemulonii,XP_025339647.1,100.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. haemulonii,XP_025342000.1,C. haemulonii,XP_025342000.1,100.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. haemulonii,XP_025343028.1,C. haemulonii,XP_025343028.1,100.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. haemulonii,XP_025343267.1,C. haemulonii,XP_025343267.1,100.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. haemulonii,XP_025344296.1,C. haemulonii,XP_025344296.1,100.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. haemulonii,XP_025344423.1,C. haemulonii,XP_025344423.1,100.0,4.13e-307,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025335271.1,C. haemulonii,XP_025340063.1,73.2,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025335341.1,C. haemulonii,XP_025340126.1,79.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025335668.1,C. haemulonii,XP_025342000.1,82.2,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025336627.1,C. haemulonii,XP_025344296.1,59.2,1.13e-294,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025336900.1,C. haemulonii,XP_025342273.1,80.7,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025337752.1,C. haemulonii,XP_025339647.1,77.3,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025337889.1,C. haemulonii,XP_025343028.1,85.5,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025338073.1,C. haemulonii,XP_025343267.1,71.5,6.8e-233,True,False
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036664251.1,C. haemulonii,XP_025342000.1,45.4,2.21e-177,True,False
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036664252.1,C. haemulonii,XP_025342000.1,42.7,1.77e-166,True,False
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036665108.1,C. haemulonii,XP_025343028.1,47.4,2.4e-209,True,False
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036665434.1,C. haemulonii,XP_025340126.1,38.8,6.84e-155,True,False
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036665435.1,C. haemulonii,XP_025342148.1,36.5,6.7e-163,True,False
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036666533.1,C. haemulonii,XP_025342148.1,39.0,3.1e-165,True,False
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036666534.1,C. haemulonii,XP_025342148.1,35.9,5.51e-125,True,False
+alternative oxidase (AOX),C. auris (clade I),XP_085454255.1,C. duobushaemulonii,XP_025338419.1,84.1,8.06e-209,True,False
+alternative oxidase (AOX),C. duobushaemulonii,XP_025338419.1,C. duobushaemulonii,XP_025338419.1,100.0,6.89e-248,True,False
+alternative oxidase (AOX),C. parapsilosis,XP_036668250.1,C. duobushaemulonii,XP_025338419.1,56.4,1.71e-130,True,False
+alternative oxidase (AOX),C. parapsilosis,XP_036668251.1,C. duobushaemulonii,XP_025338419.1,57.9,2.27e-128,True,False
+glutaredoxin (GRX5 family),C. auris (clade I),XP_085451995.1,C. duobushaemulonii,XP_025337240.1,91.3,4.33e-103,True,False
+glutaredoxin (GRX5 family),C. auris (clade I),XP_085452177.1,C. duobushaemulonii,XP_025336058.1,86.3,4.4e-146,True,False
+glutaredoxin (GRX5 family),C. auris (clade I),XP_085453897.1,C. duobushaemulonii,XP_025338088.1,47.8,4.16e-305,True,False
+glutaredoxin (GRX5 family),C. auris (clade I),XP_085454274.1,C. duobushaemulonii,XP_025338437.1,79.8,2.44e-58,True,False
+glutaredoxin (GRX5 family),C. haemulonii,XP_025341096.1,C. duobushaemulonii,XP_025338437.1,86.6,2.45e-71,True,False
+glutaredoxin (GRX5 family),C. haemulonii,XP_025342742.1,C. duobushaemulonii,XP_025337240.1,94.4,1.15e-107,True,False
+glutaredoxin (GRX5 family),C. haemulonii,XP_025343739.1,C. duobushaemulonii,XP_025336058.1,94.1,7.7e-153,True,False
+glutaredoxin (GRX5 family),C. duobushaemulonii,XP_025336058.1,C. duobushaemulonii,XP_025336058.1,100.0,7.85e-166,True,False
+glutaredoxin (GRX5 family),C. duobushaemulonii,XP_025337240.1,C. duobushaemulonii,XP_025337240.1,100.0,4.36e-112,True,False
+glutaredoxin (GRX5 family),C. duobushaemulonii,XP_025338437.1,C. duobushaemulonii,XP_025338437.1,100.0,2.97e-83,True,False
+glutaredoxin (GRX5 family),C. parapsilosis,XP_036663723.1,C. duobushaemulonii,XP_025338437.1,61.5,3.99e-41,True,False
+glutaredoxin (GRX5 family),C. parapsilosis,XP_036664315.1,C. duobushaemulonii,XP_025338437.1,46.1,2.22e-32,True,False
+glutaredoxin (GRX5 family),C. parapsilosis,XP_036666401.1,C. duobushaemulonii,XP_025337240.1,73.2,3.38e-72,True,False
+glutaredoxin (GRX5 family),C. parapsilosis,XP_036667368.1,C. duobushaemulonii,XP_025336058.1,71.1,4.04e-116,True,False
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. auris (clade I),XP_085450767.1,C. duobushaemulonii,XP_025339253.1,74.8,1.21e-70,True,True
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. auris (clade I),XP_085453338.1,C. duobushaemulonii,XP_025335224.1,86.1,0.0,True,False
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. haemulonii,XP_025340021.1,C. duobushaemulonii,XP_025335224.1,91.4,0.0,True,False
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. haemulonii,XP_025341880.1,C. duobushaemulonii,XP_025339253.1,72.5,2.9e-73,True,True
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. duobushaemulonii,XP_025335224.1,C. duobushaemulonii,XP_025335224.1,100.0,0.0,True,False
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. duobushaemulonii,XP_025339253.1,C. duobushaemulonii,XP_025339253.1,100.0,9.12e-110,True,True
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. parapsilosis,XP_036663127.1,C. duobushaemulonii,XP_025335224.1,66.0,1.82e-303,True,False
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. parapsilosis,XP_036664420.1,C. duobushaemulonii,XP_025339253.1,62.3,2.28e-57,True,True
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085451468.1,C. duobushaemulonii,XP_025335691.1,80.8,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085451639.1,C. duobushaemulonii,XP_025336900.1,64.7,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085452765.1,C. duobushaemulonii,XP_025336627.1,64.6,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085452849.1,C. duobushaemulonii,XP_025335668.1,75.8,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085453244.1,C. duobushaemulonii,XP_025335341.1,76.3,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085453595.1,C. duobushaemulonii,XP_025337752.1,73.2,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085453882.1,C. duobushaemulonii,XP_025338073.1,62.8,5.64e-252,True,False
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085455715.1,C. duobushaemulonii,XP_025337889.1,78.9,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. haemulonii,XP_025339647.1,C. duobushaemulonii,XP_025337752.1,77.3,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. haemulonii,XP_025342000.1,C. duobushaemulonii,XP_025335668.1,82.2,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. haemulonii,XP_025343028.1,C. duobushaemulonii,XP_025337889.1,85.5,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. haemulonii,XP_025343267.1,C. duobushaemulonii,XP_025338073.1,71.5,2.61e-235,True,False
+iron uptake: ferric reductase (FRE-like),C. haemulonii,XP_025344296.1,C. duobushaemulonii,XP_025336627.1,59.2,2.94e-296,True,False
+iron uptake: ferric reductase (FRE-like),C. haemulonii,XP_025344423.1,C. duobushaemulonii,XP_025335691.1,77.7,1.12e-231,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025335271.1,C. duobushaemulonii,XP_025335271.1,100.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025335341.1,C. duobushaemulonii,XP_025335341.1,100.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025335668.1,C. duobushaemulonii,XP_025335668.1,100.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025336627.1,C. duobushaemulonii,XP_025336627.1,100.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025336900.1,C. duobushaemulonii,XP_025336900.1,100.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025337752.1,C. duobushaemulonii,XP_025337752.1,100.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025337889.1,C. duobushaemulonii,XP_025337889.1,100.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025338073.1,C. duobushaemulonii,XP_025338073.1,100.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036664251.1,C. duobushaemulonii,XP_025335668.1,45.7,4.6e-179,True,False
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036664252.1,C. duobushaemulonii,XP_025335668.1,43.8,2.03e-170,True,False
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036665108.1,C. duobushaemulonii,XP_025337889.1,47.5,3.14e-209,True,False
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036665434.1,C. duobushaemulonii,XP_025335691.1,39.9,4.06e-187,True,False
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036665435.1,C. duobushaemulonii,XP_025335691.1,41.9,8.97e-200,True,False
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036666533.1,C. duobushaemulonii,XP_025335691.1,43.0,3e-201,True,False
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036666534.1,C. duobushaemulonii,XP_025336627.1,36.1,4.36e-143,True,False
+alternative oxidase (AOX),C. auris (clade I),XP_085454255.1,C. parapsilosis,CPAR2_700940,58.3,1.15e-121,True,False
+alternative oxidase (AOX),C. duobushaemulonii,XP_025338419.1,C. parapsilosis,CPAR2_700940,57.3,1.93e-124,True,False
+alternative oxidase (AOX),C. parapsilosis,XP_036668250.1,C. parapsilosis,CPAR2_700940,100.0,5.4e-284,True,False
+alternative oxidase (AOX),C. parapsilosis,XP_036668251.1,C. parapsilosis,CPAR2_700950,100.0,2.11e-281,True,False
+glutaredoxin (GRX5 family),C. auris (clade I),XP_085451995.1,C. parapsilosis,CPAR2_208780,70.9,6.55e-71,True,False
+glutaredoxin (GRX5 family),C. auris (clade I),XP_085452177.1,C. parapsilosis,CPAR2_400070,68.8,2.41e-114,True,False
+glutaredoxin (GRX5 family),C. auris (clade I),XP_085453897.1,C. parapsilosis,CPAR2_603000,32.1,3.51e-88,True,False
+glutaredoxin (GRX5 family),C. auris (clade I),XP_085454274.1,C. parapsilosis,CPAR2_105790,58.7,3.34e-40,True,False
+glutaredoxin (GRX5 family),C. haemulonii,XP_025341096.1,C. parapsilosis,CPAR2_105790,60.6,2.97e-40,True,False
+glutaredoxin (GRX5 family),C. haemulonii,XP_025342742.1,C. parapsilosis,CPAR2_208780,72.7,5.63e-72,True,False
+glutaredoxin (GRX5 family),C. haemulonii,XP_025343739.1,C. parapsilosis,CPAR2_400070,71.4,1.67e-118,True,False
+glutaredoxin (GRX5 family),C. duobushaemulonii,XP_025336058.1,C. parapsilosis,CPAR2_400070,71.1,1.71e-115,True,False
+glutaredoxin (GRX5 family),C. duobushaemulonii,XP_025337240.1,C. parapsilosis,CPAR2_208780,74.3,1.32e-70,True,False
+glutaredoxin (GRX5 family),C. duobushaemulonii,XP_025338437.1,C. parapsilosis,CPAR2_105790,61.5,1.22e-41,True,False
+glutaredoxin (GRX5 family),C. parapsilosis,XP_036663723.1,C. parapsilosis,CPAR2_105790,100.0,5.33e-71,True,False
+glutaredoxin (GRX5 family),C. parapsilosis,XP_036664315.1,C. parapsilosis,CPAR2_301260,100.0,7.98e-84,True,False
+glutaredoxin (GRX5 family),C. parapsilosis,XP_036666401.1,C. parapsilosis,CPAR2_208780,100.0,3.06e-105,True,False
+glutaredoxin (GRX5 family),C. parapsilosis,XP_036667368.1,C. parapsilosis,CPAR2_400070,100.0,4.6e-176,True,False
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. auris (clade I),XP_085450767.1,C. parapsilosis,CPAR2_302320,69.2,1.43e-55,True,True
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. auris (clade I),XP_085453338.1,C. parapsilosis,CPAR2_603600,64.7,5.3e-296,True,True
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. haemulonii,XP_025340021.1,C. parapsilosis,CPAR2_603600,64.8,1.86e-296,True,True
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. haemulonii,XP_025341880.1,C. parapsilosis,CPAR2_302320,71.4,1.88e-55,True,True
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. duobushaemulonii,XP_025335224.1,C. parapsilosis,CPAR2_603600,65.1,5.32e-301,True,True
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. duobushaemulonii,XP_025339253.1,C. parapsilosis,CPAR2_302320,62.3,7.74e-56,True,True
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. parapsilosis,XP_036663127.1,C. parapsilosis,CPAR2_603600,100.0,0.0,True,True
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. parapsilosis,XP_036664420.1,C. parapsilosis,CPAR2_302320,100.0,7.46e-119,True,True
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085451468.1,C. parapsilosis,CPAR2_808120,41.9,3.71e-200,True,True
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085451639.1,C. parapsilosis,CPAR2_808120,34.8,1.49e-137,True,True
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085452765.1,C. parapsilosis,CPAR2_808120,41.3,6.44e-189,True,True
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085452849.1,C. parapsilosis,CPAR2_300620,44.5,5.75e-181,True,True
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085453244.1,C. parapsilosis,CPAR2_210110,38.3,1.26e-153,True,True
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085453595.1,C. parapsilosis,CPAR2_808110,26.8,2.51e-46,True,True
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085453882.1,C. parapsilosis,CPAR2_211430,25.5,2.93e-39,True,False
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),XP_085455715.1,C. parapsilosis,CPAR2_804840,45.9,3.74e-210,True,False
+iron uptake: ferric reductase (FRE-like),C. haemulonii,XP_025339647.1,C. parapsilosis,CPAR2_210110,24.3,5.82e-42,True,True
+iron uptake: ferric reductase (FRE-like),C. haemulonii,XP_025342000.1,C. parapsilosis,CPAR2_300620,45.4,2.05e-178,True,True
+iron uptake: ferric reductase (FRE-like),C. haemulonii,XP_025343028.1,C. parapsilosis,CPAR2_804840,47.5,1.95e-208,True,False
+iron uptake: ferric reductase (FRE-like),C. haemulonii,XP_025343267.1,C. parapsilosis,CPAR2_211430,27.7,7.19e-43,True,False
+iron uptake: ferric reductase (FRE-like),C. haemulonii,XP_025344296.1,C. parapsilosis,CPAR2_808120,33.4,2.8e-127,True,True
+iron uptake: ferric reductase (FRE-like),C. haemulonii,XP_025344423.1,C. parapsilosis,CPAR2_808120,39.5,6.07e-96,True,True
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025335271.1,C. parapsilosis,CPAR2_401740,35.9,2.4e-132,True,True
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025335341.1,C. parapsilosis,CPAR2_210110,38.0,4.77e-156,True,True
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025335668.1,C. parapsilosis,CPAR2_300620,45.7,1.32e-184,True,True
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025336627.1,C. parapsilosis,CPAR2_808120,40.8,5.98e-180,True,True
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025336900.1,C. parapsilosis,CPAR2_808120,33.8,8.35e-123,True,True
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025337752.1,C. parapsilosis,CPAR2_210110,25.2,6.66e-43,True,True
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025337889.1,C. parapsilosis,CPAR2_804840,47.5,4.71e-209,True,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,XP_025338073.1,C. parapsilosis,CPAR2_211430,27.5,4.46e-35,True,False
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036664251.1,C. parapsilosis,CPAR2_300620,100.0,0.0,True,True
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036664252.1,C. parapsilosis,CPAR2_300630,100.0,0.0,True,True
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036665108.1,C. parapsilosis,CPAR2_804840,100.0,0.0,True,False
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036665434.1,C. parapsilosis,CPAR2_808110,100.0,0.0,True,True
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036665435.1,C. parapsilosis,CPAR2_808120,100.0,0.0,True,True
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036666533.1,C. parapsilosis,CPAR2_210110,100.0,0.0,True,True
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,XP_036666534.1,C. parapsilosis,CPAR2_210120,100.0,0.0,True,True

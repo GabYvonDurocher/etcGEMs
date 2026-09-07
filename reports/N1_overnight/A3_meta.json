@@ -1,0 +1,15 @@
+{
+  "proteome_sizes": {
+    "auris": 5424,
+    "haemulonii": 5249,
+    "duobushaemulonii": 5173,
+    "parapsilosis": 5777
+  },
+  "model_gene_counts": {
+    "auris": 709,
+    "haemulonii": 696,
+    "duobushaemulonii": 674,
+    "parapsilosis": 1003
+  },
+  "workdir": "/private/tmp/claude-502/-Users-g-yvon-durocher-Library-CloudStorage-OneDrive-UniversityofExeter-Documents-work-MICROADAPT-etcGEMs/40c30d0f-fbc1-4eec-9d50-700e09b4b332/scratchpad/a3"
+}
