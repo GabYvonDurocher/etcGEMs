@@ -122,6 +122,15 @@ def build_provider(cfg: Dict[str, Any]):
     p = cfg["provider"]
     T0 = (cfg.get("T0_C", 30.0)) + 273.15
     kind = p["type"]
+    # Optional explicit LP solver. Absent (every strain before the Candida port) ->
+    # cobra's own default is used and nothing changes. The Candida strains pin
+    # `solver: glpk` because that is what the standalone implementation solved with,
+    # and on the two draft models Gurobi and GLPK disagree by ~0.4% at the coldest
+    # (numerically hardest) point of the sweep. Set before the model is loaded, since
+    # cobra fixes a model's interface at construction.
+    if cfg.get("solver"):
+        import cobra
+        cobra.Configuration().solver = str(cfg["solver"])
     if kind == "toy":
         pm = providers.toy_ecoli_core(
             T0=T0, seed=p.get("seed", 0),
@@ -189,10 +198,23 @@ def build_provider(cfg: Dict[str, Any]):
             cand = os.path.join(strain_dir(cfg["_strain"]), enzyme_params)
             if os.path.exists(cand):
                 enzyme_params = cand
+        # medium given as an exchange table (Candida route); resolved against the
+        # strain's media/ folder. The methanogen's medium is baked into its SBML.
+        medium_csv = (cfg.get("medium") or {}).get("exchange_csv")
+        if medium_csv and not os.path.isabs(medium_csv) and cfg.get("_strain"):
+            for cand in (os.path.join(strain_dir(cfg["_strain"]), medium_csv),
+                         os.path.join(strain_dir(cfg["_strain"]), "media", medium_csv)):
+                if os.path.exists(cand):
+                    medium_csv = cand
+                    break
         p_total = p.get("p_total")
         sigma = p.get("sigma", 0.45)
         budget_override = None
-        if p_total is not None:
+        # An explicitly given pool budget (the Candida route: P is a fitted global of
+        # the standalone, frozen in strain.yaml) wins over the grounded product.
+        if p.get("pool_budget") is not None:
+            budget_override = float(p["pool_budget"])
+        elif p_total is not None:
             # f_metab from the provider block (M2 base ecModel is sector-free; sectors are M3)
             f_metab = p.get("f_metab", (cfg.get("proteome_sectors") or {}).get("f_metab", 0.5))
             budget_override = float(p_total) * float(sigma) * float(f_metab)
@@ -211,8 +233,15 @@ def build_provider(cfg: Dict[str, Any]):
             ngam_rxn=p.get("ngam_reaction"),
             ngam_base_scale=p.get("ngam_base_scale", 1.0),
             dcp_prior_kJ=p.get("dcp_prior_kJ", -4.0),
+            medium_csv=medium_csv,
+            pin_at_ub=p.get("pin_at_ub"),
+            pheno_sigma=p.get("pheno_sigma", 10.0),
+            pheno_w=p.get("pheno_w", 5.0),
         )
-        if budget_override is not None:
+        if budget_override is not None and p.get("pool_budget") is not None:
+            print(f"[pool] pool budget = {budget_override:.4g} g/gDW "
+                  f"(provider.pool_budget, taken as given)")
+        elif budget_override is not None:
             print(f"[emergent] pool budget = P_total({p_total}) x f_metab({f_metab}) "
                   f"x sigma({sigma}) = {budget_override:.4g} g/gDW (not growth-calibrated)")
         cfg["closed_free_o2_sinks"] = list(pm.closed_free_o2_sinks)

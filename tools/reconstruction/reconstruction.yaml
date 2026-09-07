@@ -1,0 +1,66 @@
+# reconstruction.yaml -- the taxon set and directory layout for tools/reconstruction/.
+#
+# This replaces the hard-coded species map and layout of the standalone's gempaths.py.
+# Every script in this directory reads it (see paths.py) and every path can be
+# overridden on the command line with --work / --external / --proteomes / --out-strain.
+#
+# The values below reproduce the standalone Candida run, so that the four strains under
+# strains/ can be rebuilt from proteomes if that is ever needed. NOTHING in this file is
+# read at model-run time: the strains carry their own inputs (see strains/<name>/).
+#
+# To add a taxon: give it a proteome, a scaffold model + medium, and a name. Then run the
+# pipeline in the order set out in README.md.
+
+name: candida
+
+# work_dir holds inputs/, models/, tables/, notes/ -- everything the pipeline writes.
+# Default (unset): tools/reconstruction/work/<name>/
+work_dir: null
+
+# Third-party code, trained weights and databases. Gitignored; fetch_external.sh fills it.
+external_dir: null            # default tools/reconstruction/external/
+
+# One FASTA (or UniProt TSV) per taxon.
+proteomes_dir: null           # default <work_dir>/proteomes/
+
+# Where to_strain_inputs.py writes populated strain folders.
+strain_out_dir: null          # default <project root>/strains/
+
+# The scaffold whose reaction network the drafts are projected onto (06_build_drafts.py),
+# and the taxon it belongs to (also the reference for 07_rbh_orthologs.py).
+scaffold_model: auris_iRV973.xml
+scaffold_taxon: auris
+
+# KofamScan KO tables, one per taxon that needs a draft (04_kofam_annotate.sh writes them
+# into <work>/inputs/kofam/ and 06_build_drafts.py reads them).
+kofam_dir: inputs/kofam
+
+taxa:
+  auris:
+    model: auris_iRV973_rekeyed.xml       # re-keyed by 06 from the curated auris_iRV973.xml
+    medium: medium_iRV973_auris.csv
+    proteome: auris_cladeI.faa            # RefSeq B8441, XP_ ids
+    kofam: auris_ko.txt
+    strain: cauris_iRV973
+    curated: true
+  haemulonii:
+    model: haemulonii_draft.xml
+    medium: medium_iRV973_auris.csv
+    proteome: haemulonii.faa
+    kofam: hae_ko.txt
+    strain: chaemulonii_draft
+    curated: false
+  duobushaemulonii:
+    model: duobushaemulonii_draft.xml
+    medium: medium_iRV973_auris.csv
+    proteome: duobushaemulonii.faa
+    kofam: duo_ko.txt
+    strain: cduobushaemulonii_draft
+    curated: false
+  parapsilosis:
+    model: parapsilosis_iDC1003.xml       # curated, used as published
+    medium: medium_iDC1003_parapsilosis.csv
+    proteome: parap_uniprot.tsv           # UniProt UP000005221; CPAR2_ ordered-locus tags
+    kofam: null                           # keeps its own curated GPRs; no draft built
+    strain: cparapsilosis_iDC1003
+    curated: true

@@ -40,17 +40,25 @@ etcGEMs/
 │   ├── examples/                self-contained example configs (toy, gecko)
 │   └── experiments/             method overlays (sweep/decompose/control/... variants)
 ├── src/etcgem/                  the Python package (see the module map below)
+├── tools/reconstruction/        build a strain's INPUTS from a proteome (shared; see its README)
 ├── strains/
-│   └── eciML1515/
-│       ├── strain.yaml          the organism descriptor (provider block + biophysics)
-│       ├── model/               GECKO ecModel (eciML1515_batch.xml)
-│       ├── media/               medium definitions (LB / BHI component lists)
-│       ├── thermal/             per-enzyme Topt/Tm (BestParamsTopt.csv) + measured TPCs
-│       ├── proteomics/          measured per-medium/temperature proteome (Wang 2026)
-│       ├── dltkcat/             DLTKcat kcat(T) inputs/outputs/fits
-│       └── outputs/             one folder per run (resolved_config.yaml + results)
-│           └── _archive/        superseded / quick / diagnostic runs (on disk, gitignored)
+│   ├── eciML1515/
+│   │   ├── strain.yaml          the organism descriptor (provider block + biophysics)
+│   │   ├── model/               GECKO ecModel (eciML1515_batch.xml)
+│   │   ├── media/               medium definitions (LB / BHI component lists)
+│   │   ├── thermal/             per-enzyme Topt/Tm (BestParamsTopt.csv) + measured TPCs
+│   │   ├── proteomics/          measured per-medium/temperature proteome (Wang 2026)
+│   │   ├── dltkcat/             DLTKcat kcat(T) inputs/outputs/fits
+│   │   └── outputs/             one folder per run (resolved_config.yaml + results)
+│   │       └── _archive/        superseded / quick / diagnostic runs (on disk, gitignored)
+│   ├── mmaripaludis/            Methanococcus maripaludis (sMOMENT on a plain GEM)
+│   ├── syn6803/                 Synechocystis sp. PCC 6803
+│   ├── cauris_iRV973/           Candidozyma auris        ─┐  the four Candida strains (K1):
+│   ├── chaemulonii_draft/       C. haemulonii (DRAFT)     │  same layout, sMOMENT on a plain
+│   ├── cduobushaemulonii_draft/ C. duobushaemulonii (DRAFT)│  GEM, thermal_model
+│   └── cparapsilosis_iDC1003/   C. parapsilosis          ─┘  phenomenological
 ├── reports/ecoli_tpc/              report.qmd, supplementary.qmd, assemble.py, assets/
+├── reports/candida_thermal_limit/  K1 port verification + the machine-checked gate table
 ├── prompts/                     README index + the current prompt; archive/ = executed
 ├── docs/                        RUNBOOK.md (step-by-step), correspondence/, proposals
 ├── pyproject.toml               package metadata; console entry point `etcgem`
@@ -90,13 +98,15 @@ root `defaults.yaml` / `experiments/` locations are still honoured as a fallback
 
 Installing the package exposes the `etcgem` console command (`etcgem.cli:main`). Every run
 writes into `strains/NAME/outputs/<tag>/`. Strain-only commands need just `--strain`;
-analysis commands also take an `--experiment` overlay.
+analysis commands also take an `--experiment` overlay. `transfer` is the one command that
+is not per strain: the experiment names the strains it calibrates on and predicts.
 
 | command | what it does | key args | writes to `outputs/…` |
 |---------|--------------|----------|-----------------------|
 | `build` | build the strain's provider; print + save a model summary | `--strain` | `build/` |
 | `tpc` | nominal TPC + descriptors + plot | `--strain [--fits]` | `tpc/` |
-| `fba` | single enzyme-constrained solve at one temperature | `--strain --temp C` | `fba/` |
+| `fba` | single enzyme-constrained solve at one temperature | `--strain --temp C [--experiment]` | `fba[_<exp>]/` |
+| `transfer` | **multi-strain**: fit the experiment's global parameters on its `calibrate_on` strain, freeze them, sweep every strain in `predict` | `--experiment [--out-root]` | per strain `transfer_<exp>/`, plus `outputs/transfer_<exp>/summary.csv` |
 | `calibrate-dcp` | *(legacy)* pick `provider.default_dCp` for a target rising-limb Eₐ; not used by the emergent model | `--strain --target-ea` | *(updates strain.yaml)* |
 | `sweep` | LHS TPC sensitivity sweep | `--strain --experiment [--fits --resume --seconds N --no-plots]` | `sweep_<exp>/` |
 | `decompose` | allocation-vs-envelope variance decomposition | `--strain --experiment` | `decompose_<exp>/` |
@@ -118,6 +128,9 @@ etcgem sweep     --strain eciML1515 --experiment sectors
 etcgem validate  --strain eciML1515                  # a-priori emergent validation
 etcgem calibrate --strain eciML1515 --vdl            # Bayesian tuning (Van Derlinden, rich BHI)
 etcgem dissect   --strain eciML1515                  # sensitivity + decomposition + identifiability on the tuned model
+
+etcgem tpc       --strain cauris_iRV973              # a Candida strain on its own
+etcgem transfer  --experiment transfer_candida       # fit on C. auris, freeze, predict the other three
 ```
 
 The current canonical outputs the report renders from are already committed; during the
@@ -133,6 +146,7 @@ Every module under `src/etcgem/`:
 |--------|------|
 | `mmrt` | Macromolecular Rate Theory: temperature response of enzyme `kcat(T)` |
 | `unfolding` | two-state native↔unfolded thermal model — folded fraction `f_N(T)` keyed on `Tm`, and NGAM(T) maintenance (after Li 2021 / the MRes) |
+| `transfer` | **multi-strain** experiment kind: fit global parameters on one strain, freeze, predict others (`etcgem transfer`) |
 | `dltkcat` | turn DLTKcat temperature-dependent `kcat` predictions into per-enzyme MMRT (`Topt`, `dCp`) parameters |
 | `providers` | load a genome-scale model → `(cobra model, enzyme cost table)`; set the medium (availability, incl. BHI); reconcile the proteome pool |
 | `enzyme_cost` | the enzyme-constraint layer: the temperature-dependent proteome-pool budget and the `Perturbation` knob-set |
@@ -151,6 +165,20 @@ Every module under `src/etcgem/`:
 | `config` | config resolution (`resolve`) + provider dispatch (`build_provider`) |
 | `cli` | the `etcgem` command-line entry point |
 
+**`provider.thermal_model` — the three interchangeable thermal forms.** Selectable per
+strain and per run; all three set `kcat_i(T)`, and the pool constraint around them is
+unchanged:
+
+| value | form | per-enzyme parameters | global parameters |
+|---|---|---|---|
+| `mmrt` | peak-normalised Macromolecular Rate Theory (Eyring + ΔCp curvature) | `Topt`, `dCp` | — |
+| `unfolding` | MMRT turnover × two-state native fraction `f_N(T)`; the falling limb is set by each enzyme's `Tm`, with optional NGAM(T) maintenance | `Topt`, `Tm`, `Length`, `dCpt` | — |
+| `phenomenological` | Gaussian peak at `Topt` × logistic cut-off at `Tm`: `act(T) = exp(−(T−Topt)²/2σ²) / (1 + exp((T−Tm)/w))`, floored at 1e-6 | `Topt`, `Tm` | `pheno_sigma` (σ), `pheno_w` (w) — shared by every enzyme and calibratable |
+
+`phenomenological` is the form of the standalone Candida etcGEM and is what the four
+Candida strains use; it is a per-run switch, so any strain can take it. See
+`reports/candida_thermal_limit/K1_port_verification.md`.
+
 Data flow (arrows follow the actual imports):
 
 ```mermaid
@@ -168,6 +196,7 @@ flowchart TD
   tpc --> sensitivity["sensitivity / elasticity"]
   tpc --> decomposition["decomposition"]
   tpc --> control["control / identifiability"]
+  tpc --> transfer["transfer: fit on one strain, predict others"]
   tpc --> calmulti["calibration_multi / calibration: emcee"]
   tpc --> validation["validation"]
   calmulti --> dissect["dissect: tuned-model analyses"]

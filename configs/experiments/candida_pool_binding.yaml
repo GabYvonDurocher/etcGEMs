@@ -1,0 +1,24 @@
+# candida_pool_binding.yaml -- the standalone's pool-binding precondition test.
+#
+# gem/16_pool_binding_test.py, ported as a configuration rather than a script. It asks
+# whether a literature-sized protein budget is load-bearing, using GENERIC, untuned
+# EC-class prior kcats -- deliberately not the DLKcat kcats, because the point is that
+# the pool binds before any species-specific turnover number is brought in.
+#
+#   etcgem fba --strain cauris_iRV973 --experiment candida_pool_binding --temp 30
+#
+# Expected (standalone, notes/POOL_BINDING_RESULT.md): 0.758 /h at P = 0.25, against a
+# plain-GEM 2.045 /h and a measured C. auris mu_max of about 0.80 /h.
+#
+# Three switches away from the strain default, all of them 16's own choices:
+#   kcat_csv     the EC-class prior table (tools/reconstruction/to_strain_inputs.py
+#                --ec-class-kcat), not the DLKcat one
+#   pool_budget  0.25 g enzyme/gDW, the literature metabolic-protein figure 16 uses,
+#                not the 0.357 the later calibration fits
+#   thermal_model  mmrt with Topt pinned to T0 and no enzyme_params: no thermal layer at
+#                all, evaluated at T0, so cost = MW/(kcat*3600) exactly as in 16
+provider:
+  kcat_csv: dltkcat/kcat_table_ecclass.csv
+  thermal_model: mmrt
+  enzyme_params: null
+  pool_budget: 0.25

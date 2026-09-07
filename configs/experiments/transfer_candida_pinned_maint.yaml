@@ -1,0 +1,69 @@
+# transfer_candida_pinned_maint.yaml -- transfer_candida with ONE change: the maintenance
+# reaction pinned at its own upper bound in every strain.
+#
+# Why this variant exists. The standalone is not internally consistent on this point.
+# gem/18_build_etcgem_tpc.py -- which produced the locked calibration and the locked
+# per-temperature predictions -- does NOT pin maintenance. gem/22_thermal_sensitivity.py --
+# which produced the locked "model-predicted thermal limit 52.7-54.5 C across the four
+# species" -- DOES, with the comment "parapsilosis fix, as everywhere else":
+#
+#     MAINT = ('ATP_maintenance_NGAM__cyto', 'ATP_Maintenance__cyto')
+#     for rid in MAINT:
+#         if rid in m.reactions:
+#             r = m.reactions.get_by_id(rid); v = abs(r.upper_bound); r.bounds = (v, v)
+#
+# It matters for exactly one model. In the three iRV973-derived models
+# ATP_maintenance_NGAM__cyto is already fixed at (3.89, 3.89), so pinning is a no-op. In
+# iDC1003, ATP_Maintenance__cyto is REVERSIBLE at (-3.9, 3.9), so without the pin the LP
+# may run maintenance backwards and generate ATP for free.
+#
+# So this file, not transfer_candida.yaml, is the configuration the locked THERMAL LIMITS
+# were produced under; transfer_candida.yaml is the one the locked mu table was produced
+# under. K1 runs both and reports each locked number against the run that matches its
+# producing script. Neither side is "fixed" to agree with the other.
+
+kind: transfer
+
+calibrate_on: cauris_iRV973
+predict:
+  - chaemulonii_draft
+  - cduobushaemulonii_draft
+  - cparapsilosis_iDC1003
+
+globals: [pheno_sigma, pheno_w, pool_budget]
+objective: measured_tpc
+growth_scale: peak_match
+
+optimizer:
+  method: nelder-mead
+  multistart: 4
+  starts:
+    - [8,  3, 0.20]
+    - [12, 5, 0.25]
+    - [6,  2, 0.15]
+    - [15, 8, 0.30]
+  options:
+    maxiter: 120
+    xatol: 0.3
+    fatol: 1.0e-4
+  penalty: 1000.0
+
+lower_bounds:
+  pheno_sigma: 1.0
+  pheno_w: 0.3
+  pool_budget: 0.02
+
+detection_floor_h: 0.05
+thermal_limit:
+  lo_C: 20.0
+  hi_C: 90.0
+  tol_C: 0.02
+
+# THE ONE CHANGE. Applied to every strain, as 22_thermal_sensitivity.py applies it; only
+# iDC1003 is actually affected. NOTE that 22 also holds sigma, w and P fixed at the values
+# 18 fitted WITHOUT the pin, so the fit below is expected to reproduce them: the pin does
+# not change C. auris (its maintenance is already fixed), and C. auris is what is fitted.
+provider:
+  pin_at_ub:
+    - ATP_maintenance_NGAM__cyto
+    - ATP_Maintenance__cyto

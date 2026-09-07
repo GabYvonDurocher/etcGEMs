@@ -1,0 +1,32 @@
+{
+  "species": "parapsilosis",
+  "strain": "cparapsilosis_iDC1003",
+  "model": "parapsilosis_iDC1003.xml",
+  "medium": "medium_iDC1003_parapsilosis.csv",
+  "source_repo": "Candidas",
+  "source_dir": "gem",
+  "source_commit": "f123bc7489cc4f8a1d0e198a93725034c9f347e6",
+  "reactions_in_model": 2162,
+  "skipped_exchange_or_boundary": 358,
+  "skipped_biomass": 1,
+  "skipped_no_gene": 197,
+  "skipped_no_mw": 0,
+  "enzyme_costed_reactions": 1606,
+  "with_dlkcat_kcat": 1313,
+  "at_default_kcat_13_7": 293,
+  "with_predicted_Topt": 1305,
+  "with_predicted_Tm": 1305,
+  "at_species_median_thermal": 301,
+  "species_median_Topt_C": 33.6485,
+  "species_median_Tm_C": 54.2069,
+  "genes_with_mw": 1003,
+  "genes_with_Topt": 997,
+  "genes_with_Tm": 997,
+  "kcat_table_rows_in_source": 1313,
+  "best_gene_without_prediction": [
+    "CPAR2_203160",
+    "CPAR2_206810",
+    "CPAR2_302650"
+  ],
+  "measured_tpc_rows": 12
+}

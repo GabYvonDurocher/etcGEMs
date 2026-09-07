@@ -1,0 +1,52 @@
+{
+  "experiment": "transfer_candida_pinned_maint",
+  "calibrate_on": "cauris_iRV973",
+  "predict": [
+    "chaemulonii_draft",
+    "cduobushaemulonii_draft",
+    "cparapsilosis_iDC1003"
+  ],
+  "globals": [
+    "pheno_sigma",
+    "pheno_w",
+    "pool_budget"
+  ],
+  "fitted": {
+    "pheno_sigma": 10.231397335263933,
+    "pheno_w": 8.788454874341648,
+    "pool_budget": 0.3569742369684501
+  },
+  "growth_scale": "peak_match",
+  "scale": 2.0741244879538137,
+  "detection_floor_h": 0.05,
+  "mse": 0.0035915068066869303,
+  "n_eval": 486,
+  "method": "nelder-mead",
+  "starts": [
+    [
+      8.0,
+      3.0,
+      0.2
+    ],
+    [
+      12.0,
+      5.0,
+      0.25
+    ],
+    [
+      6.0,
+      2.0,
+      0.15
+    ],
+    [
+      15.0,
+      8.0,
+      0.3
+    ]
+  ],
+  "options": {
+    "maxiter": 120,
+    "xatol": 0.3,
+    "fatol": 0.0001
+  }
+}

@@ -1,0 +1,1313 @@
+rxn_id,mw_kDa,kcat_s,source,group
+R00894__cyto,86.15,10.7577,dlkcat,Glutathione metabolism
+R03416__mito,232.64,13.7,default_13.7,Glycerophospholipid metabolism
+R03936__cyto,50.6,2.965,dlkcat,Tryptophan metabolism
+R00658__cyto,46.97,15.6434,dlkcat,Biosynthesis of antibiotics
+R00763__cyto,81.812857,17.5541,dlkcat,
+R12120__cyto,59.6,2.3249,dlkcat,
+R08657__mito,71.88,13.6046,dlkcat,
+R04355__cyto,124.9,13.7,default_13.7,Fatty acid biosynthesis
+R04591__cyto,34.99,19.1185,dlkcat,Biosynthesis of antibiotics
+R02485__cyto,32.08,226.6256,dlkcat,Pyrimidine metabolism
+R00527__cyto,31.74,10.2899,dlkcat,Microbial metabolism in diverse environments
+R02590__cyto,49.89,1.2496,dlkcat,Phosphonate and phosphinate metabolism
+R01351__cyto,61.085,13.7,default_13.7,Glycerolipid metabolism
+R11104__pero,47.68,13.7,default_13.7,
+R03893__cyto,33.52,147.8275,dlkcat,Chlorocyclohexane and chlorobenzene degradation
+R00489__cyto,59.86,2.9708,dlkcat,Pantothenate and CoA biosynthesis
+R03352__cyto,46.67,26.8523,dlkcat,
+R04726__pero,124.9,13.7,default_13.7,Fatty acid biosynthesis
+R00848__mito,71.88,13.6046,dlkcat,Glycerophospholipid metabolism
+R07895__cyto,43.63,0.4195,dlkcat,alpha-Linolenic acid metabolism
+R01072__cyto,59.04,5.9984,dlkcat,Biosynthesis of antibiotics
+R01187__cyto,81.812857,11.4647,dlkcat,Biosynthesis of antibiotics
+R02464__cyto,65.45,16.5003,dlkcat,Sphingolipid metabolism
+R00548__cyto,51.93,84.7469,dlkcat,Riboflavin metabolism
+R00768__cyto,74.14,0.0946,dlkcat,Biosynthesis of antibiotics
+R00243__cyto,120.26,3.1364,dlkcat,D-Glutamine and D-glutamate metabolism
+R03293__cyto,28.97,24.4865,dlkcat,Arginine and proline metabolism
+R04639__cyto,32.03,3.2831,dlkcat,Spontaneous
+R03657__cyto,111.545,5.1793,dlkcat,Aminoacyl-tRNA biosynthesis
+R01466__cyto,57.67,5.265,dlkcat,"Glycine, serine and threonine metabolism"
+R03652__cyto,90.53,1.0005,dlkcat,Aminoacyl-tRNA biosynthesis
+R02295__cyto,33.13,2.2779,dlkcat,Nicotinate and nicotinamide metabolism
+R09419__cyto,37.565,0.5379,dlkcat,
+R09076__cyto,52.32,7.592,dlkcat,Arginine and proline metabolism
+R07764__cyto,74.243333,13.7,default_13.7,Fatty acid biosynthesis
+R00827__cyto,48.620714,16.6612,dlkcat,
+R02249__cyto,81.812857,13.7,default_13.7,
+R03357__cyto,39.772857,71.4458,dlkcat,
+R02874__cyto,55.24,6.1642,dlkcat,Biosynthesis of antibiotics
+R00248__cyto,141.605,17.3267,dlkcat,D-Glutamine and D-glutamate metabolism
+R01372__cyto,53.38,28.2676,dlkcat,Phenylalanine metabolism
+R08310__cyto,47.68,130.6363,dlkcat,Drug metabolism - cytochrome P450
+R02003__cyto,39.24,0.2157,dlkcat,Biosynthesis of antibiotics
+R04955__cyto,41.33,13.7,default_13.7,Fatty acid biosynthesis
+R00674__cyto,74.3,3.5452,dlkcat,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+R07070__cyto,32.915,43.3824,dlkcat,Metabolism of xenobiotics by cytochrome P450
+R02849__cyto,147.8575,50.6207,dlkcat,
+R02413__cyto,235.91,4.4121,dlkcat,Biosynthesis of antibiotics
+R01398__cyto,37.31,96.693,dlkcat,Biosynthesis of antibiotics
+R04208__cyto,83.77,3.7794,dlkcat,Biosynthesis of antibiotics
+R12366__cyto,44.01,6.9096,dlkcat,
+R01030__cyto,144.72,3.6859,dlkcat,Glycerophospholipid metabolism
+R08306__mito,47.68,83.0846,dlkcat,Drug metabolism - cytochrome P450
+R00264__cyto,55.203333,106.7581,dlkcat,Ascorbate and aldarate metabolism
+R03416__cyto,232.64,13.7,default_13.7,Glycerophospholipid metabolism
+R08551__cyto,97.41,13.7,default_13.7,
+R01956__cyto,49.02,208.6766,dlkcat,Non enzymatic
+R02722__cyto,74.3,3.7148,dlkcat,Biosynthesis of antibiotics
+R00220__pero,88.56,11.6792,dlkcat,Biosynthesis of antibiotics
+R02549__cyto,55.203333,29.8275,dlkcat,Arginine and proline metabolism
+R02029__mito,24.04,13.7,default_13.7,Glycerophospholipid metabolism
+R02739__cyto,47.875,106.4921,dlkcat,Biosynthesis of antibiotics
+R08221__cyto,32.08,215.3992,dlkcat,Drug metabolism - other enzymes
+R00351__pero,51.15,158.9636,dlkcat,2-Oxocarboxylic acid metabolism
+R08310__mito,47.68,130.6363,dlkcat,Drug metabolism - cytochrome P450
+R01330__cyto,147.8575,41.9897,dlkcat,
+R01626__mito,227.86,3.681,dlkcat,Fatty acid biosynthesis
+R05801__cyto,63.41,56.544,dlkcat,Inositol phosphate metabolism
+R00227__cyto,43.78,1.3581,dlkcat,Pyruvate metabolism
+R01220__mito,198.965,36.4672,dlkcat,Carbon fixation pathways in prokaryotes
+R02439__mito,63.41,62.8842,dlkcat,Pentose and glucuronate interconversions
+R02746__pero,232.64,13.7,default_13.7,Glycerophospholipid metabolism
+R01288__cyto,66.65,15.0484,dlkcat,Cysteine and methionine metabolism
+R07396__cyto,55.18,14.706,dlkcat,Cysteine and methionine metabolism
+R04566__cyto,152.01,13.7,default_13.7,Fatty acid biosynthesis
+R02853__cyto,63.41,249.8153,dlkcat,
+R03036__cyto,83.995,21.1897,dlkcat,Pantothenate and CoA biosynthesis
+R08162__cyto,43.78,13.7,default_13.7,Fatty acid biosynthesis
+R05002__cyto,68.024815,31.4946,dlkcat,
+R01960__cyto,52.89,12.2946,dlkcat,Tryptophan metabolism
+R11216__cyto,38.9,13.7,default_13.7,
+R02113__cyto,76.110741,31.9878,dlkcat,
+R01051__cyto,34.47,59.2346,dlkcat,Pentose phosphate pathway
+R00974__cyto,180.99,3.4366,dlkcat,Pyrimidine metabolism
+R03661__cyto,67.285,18.7844,dlkcat,Aminoacyl-tRNA biosynthesis
+R00344__mito,129.56,6.2501,dlkcat,Carbon fixation pathways in prokaryotes
+R07024__cyto,32.915,43.3824,dlkcat,Metabolism of xenobiotics by cytochrome P450
+R00278__cyto,30.735,1.4882,dlkcat,Vitamin B6 metabolism
+R04430__cyto,103.506667,13.7,default_13.7,Fatty acid biosynthesis
+R07084__cyto,32.915,43.3824,dlkcat,Metabolism of xenobiotics by cytochrome P450
+R01965__cyto,40.48,242.1024,dlkcat,
+R02558__cyto,114.54,0.6755,dlkcat,Cyanoamino acid metabolism
+R02017__cyto,81.16,13.7,default_13.7,Purine metabolism
+R00602__cyto,54.73,214.0214,dlkcat,
+R04964__cyto,152.01,13.7,default_13.7,Fatty acid biosynthesis
+R01736__cyto,29.17,91.3257,dlkcat,Pyruvate metabolism
+R01626__cyto,227.86,3.681,dlkcat,Fatty acid biosynthesis
+R05733__cyto,36.925,0.7121,dlkcat,
+R04969__cyto,41.33,13.7,default_13.7,Fatty acid biosynthesis
+R01209__mito,63.0,1.0432,dlkcat,
+R00316__cyto,75.385,15.7793,dlkcat,Pyruvate metabolism
+R00328__cyto,76.04,13.7,default_13.7,Purine metabolism
+R03601__cyto,47.75,14.3325,dlkcat,
+R08120__cyto,33.52,1.6614,dlkcat,Microbial metabolism in diverse environments
+R00390__cyto,77.35,13.7,default_13.7,Fatty acid biosynthesis
+R01600__cyto,176.006667,41.9897,dlkcat,Biosynthesis of antibiotics
+R01710__cyto,30.735,1.0491,dlkcat,Microbial metabolism in diverse environments
+R03217__cyto,66.65,3.436,dlkcat,Biosynthesis of antibiotics
+R07134__cyto,29.94,1.8596,dlkcat,Pentose and glucuronate interconversions
+R12188__cyto,43.97,13.7,default_13.7,
+R02670__cyto,54.73,9.4337,dlkcat,Non enzymatic
+R04533__cyto,152.01,13.7,default_13.7,Fatty acid biosynthesis
+R02024__cyto,81.16,13.7,default_13.7,Pyrimidine metabolism
+R04859__cyto,47.75,14.3325,dlkcat,
+R00988__cyto,28.65,0.0905,dlkcat,Tryptophan metabolism
+R10065__cyto,63.41,50.2,dlkcat,
+R11216__mito,38.9,13.7,default_13.7,
+R04371__cyto,72.8,1.2978,dlkcat,2-Oxocarboxylic acid metabolism
+R07091__cyto,32.915,43.3824,dlkcat,Metabolism of xenobiotics by cytochrome P450
+R01431__cyto,32.615,5.2893,dlkcat,Pentose and glucuronate interconversions
+R01321__cyto,32.86,5.8683,dlkcat,Glycerophospholipid metabolism
+R07406__cyto,45.3625,8.9805,dlkcat,Spontaneous
+R09882__mito,83.995,15.6983,dlkcat,
+R00227__mito,43.78,1.3581,dlkcat,Pyruvate metabolism
+R10928__cyto,151.85,13.7,default_13.7,Inositol phosphate metabolism
+R03648__cyto,58.905,3.6764,dlkcat,Aminoacyl-tRNA biosynthesis
+R05616__cyto,43.61,0.372,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R01799__mito,47.69,81.3557,dlkcat,Glycerophospholipid metabolism
+R09376__cyto,31.61,2.536,dlkcat,Riboflavin metabolism
+R11101__cyto,88.56,18.5993,dlkcat,Spontaneous
+R00772__cyto,48.58,14.2038,dlkcat,
+R02059__cyto,44.15,4.1558,dlkcat,Biosynthesis of antibiotics
+R01698__mito,51.85,12.9522,dlkcat,
+R04751__cyto,79.816667,9.8367,dlkcat,Fatty acid metabolism
+R00937__mito,23.39,183.8702,dlkcat,One carbon pool by folate
+R11312__cyto,54.51,1.4094,dlkcat,
+R02404__mito,33.78,1.7682,dlkcat,C5-Branched dibasic acid metabolism
+R05510__cyto,33.52,6.176,dlkcat,Chlorocyclohexane and chlorobenzene degradation
+R09477__cyto,35.8,5.2893,dlkcat,Pentose and glucuronate interconversions
+R04430__mito,103.506667,13.7,default_13.7,Fatty acid biosynthesis
+R05168__cyto,33.855,10.9925,dlkcat,Galactose metabolism
+R04920__cyto,32.86,6.4647,dlkcat,Phosphonate and phosphinate metabolism
+R02235__mito,23.39,414.7758,dlkcat,One carbon pool by folate
+R05506__cyto,74.11,11.3507,dlkcat,Degradation of aromatic compounds
+R04144__cyto,83.77,5.7075,dlkcat,Biosynthesis of antibiotics
+R03758__cyto,45.3625,10.8687,dlkcat,"Glycine, serine and threonine metabolism"
+R00708__cyto,64.57,1.9585,dlkcat,Arginine and proline metabolism
+R01279__pero,79.816667,8.5951,dlkcat,Fatty acid metabolism
+R10170__cyto,85.72,7.7968,dlkcat,2-Oxocarboxylic acid metabolism
+R05234__cyto,47.68,47.8315,dlkcat,Microbial metabolism in diverse environments
+R03158__cyto,52.45,0.1901,dlkcat,Propanoate metabolism
+R00159__cyto,76.04,13.7,default_13.7,Pyrimidine metabolism
+R00662__cyto,83.995,13.7,default_13.7,Pyrimidine metabolism
+R12404__cyto,38.6,0.4204,dlkcat,Biosynthesis of antibiotics
+R10115__cyto,44.99,13.7,default_13.7,Biotin metabolism
+R02668__cyto,50.6,2.6602,dlkcat,Tryptophan metabolism
+R10548__cyto,84.8,7.6003,dlkcat,
+R12399__cyto,44.092,1.9477,dlkcat,Steroid biosynthesis
+R03492__cyto,62.863333,13.7,default_13.7,
+R00332__cyto,20.51,0.4507,dlkcat,Purine metabolism
+R12024__mito,37.01,37.1049,dlkcat,
+R01752__cyto,55.203333,20.514,dlkcat,Glycerolipid metabolism
+R04582__cyto,75.48,0.8994,dlkcat,
+R04967__mito,103.506667,13.7,default_13.7,Fatty acid biosynthesis
+R02617__cyto,74.855455,32.8779,dlkcat,
+R01086__cyto,51.86,3.1185,dlkcat,Biosynthesis of antibiotics
+R10056__cyto,51.314286,16.0293,dlkcat,
+R02396__cyto,85.22,11.196,dlkcat,
+R00756__cyto,105.195,21.8188,dlkcat,Microbial metabolism in diverse environments
+R04863__cyto,249.62,4.6107,dlkcat,Lysine biosynthesis
+R10827__cyto,26.53,13.7,default_13.7,Fatty acid elongation
+R07497__cyto,24.36,32.5409,dlkcat,Biosynthesis of antibiotics
+R01663__cyto,30.1,8.5515,dlkcat,Pyrimidine metabolism
+R04941__cyto,43.97,0.6343,dlkcat,Selenocompound metabolism
+R11099__pero,16.63,1.5119,dlkcat,Spontaneous
+R05046__cyto,32.03,2.6034,dlkcat,Folate biosynthesis
+R00582__cyto,34.01,196.0973,dlkcat,Biosynthesis of antibiotics
+R04536__cyto,152.01,13.7,default_13.7,Fatty acid biosynthesis
+R11005__mito,55.85,13.7,default_13.7,
+R00405__mito,33.78,0.2515,dlkcat,Biosynthesis of antibiotics
+R00770__cyto,91.266667,37.2784,dlkcat,
+R08281__mito,47.68,23.3037,dlkcat,Drug metabolism - cytochrome P450
+R02731__cyto,81.812857,17.5541,dlkcat,Fructose and mannose metabolism
+R04946__cyto,66.65,3.9329,dlkcat,Selenocompound metabolism
+R00014__mito,52.196667,15.0941,dlkcat,Pyruvate metabolism
+R00177__cyto,41.93,30.3999,dlkcat,Cysteine and methionine metabolism
+R11220__cyto,50.115385,13.7,default_13.7,
+R00209__mito,46.52,101.1607,dlkcat,Biosynthesis of antibiotics
+R01279__cyto,79.816667,8.5951,dlkcat,Fatty acid metabolism
+R04962__mito,103.506667,13.7,default_13.7,Fatty acid biosynthesis
+R02326__cyto,17.08,41.6579,dlkcat,Pyrimidine metabolism
+R00904__cyto,55.203333,25.5733,dlkcat,beta-Alanine metabolism
+R11005__cyto,55.85,13.7,default_13.7,
+R00515__cyto,83.995,22.3123,dlkcat,Pyrimidine metabolism
+R03450__mito,76.216667,13.7,default_13.7,
+R00341__cyto,61.27,4.0902,dlkcat,Biosynthesis of antibiotics
+R08281__cyto,47.68,23.3037,dlkcat,Drug metabolism - cytochrome P450
+R00925__cyto,75.385,4.3574,dlkcat,
+R03970__cyto,63.94,10.533,dlkcat,Cyanoamino acid metabolism
+R00086__cyto,76.04,13.7,default_13.7,Purine metabolism
+R03259__cyto,137.96,13.7,default_13.7,
+R00236__cyto,75.385,64.3238,dlkcat,Pyruvate metabolism
+R04962__cyto,103.506667,13.7,default_13.7,Fatty acid biosynthesis
+R02731__mito,81.812857,17.5541,dlkcat,Fructose and mannose metabolism
+R11220__mito,50.115385,13.7,default_13.7,
+R08964__cyto,129.47,24.3813,dlkcat,
+R01274__cyto,30.03,6.9232,dlkcat,Fatty acid elongation
+R09510__cyto,56.92,16.0293,dlkcat,
+R04557__cyto,41.33,26.7047,dlkcat,
+R00751__cyto,41.315,5.0157,dlkcat,Biosynthesis of antibiotics
+R00513__cyto,53.24,1.0669,dlkcat,Pyrimidine metabolism
+R03313__cyto,47.25,8.0031,dlkcat,Biosynthesis of antibiotics
+R02026__cyto,57.2,7.6192,dlkcat,Cysteine and methionine metabolism
+R04355__pero,124.9,13.7,default_13.7,Fatty acid biosynthesis
+R04922__cyto,32.86,5.9118,dlkcat,Phosphonate and phosphinate metabolism
+R04037__cyto,92.31,1.3666,dlkcat,Histidine metabolism
+R04779__cyto,105.195,21.8188,dlkcat,Biosynthesis of antibiotics
+R04726__cyto,124.9,13.7,default_13.7,Fatty acid biosynthesis
+R02109__cyto,171.06,13.7,default_13.7,
+R02340__cyto,74.3,3.7148,dlkcat,Benzoxazinoid biosynthesis
+R03066__cyto,83.16,5.3158,dlkcat,Folate biosynthesis
+R01574__cyto,38.2,17.111,dlkcat,
+R03777__pero,79.816667,9.5138,dlkcat,Fatty acid metabolism
+R10951__cyto,323.98,13.7,default_13.7,
+R00287__cyto,83.995,17.345,dlkcat,Pyrimidine metabolism
+R04301__cyto,29.19,18.6178,dlkcat,Betalain biosynthesis
+R02106__cyto,85.86,11.5606,dlkcat,Microbial metabolism in diverse environments
+R01880__cyto,58.325,27.5252,dlkcat,Pyrimidine metabolism
+R01708__cyto,45.3625,9.0775,dlkcat,Microbial metabolism in diverse environments
+R01317__cyto,105.0,13.7,default_13.7,Arachidonic acid metabolism
+R01818__cyto,28.52,5.5454,dlkcat,Biosynthesis of antibiotics
+R02061__cyto,38.05,0.1141,dlkcat,Biosynthesis of antibiotics
+R02687__cyto,68.84,13.7,default_13.7,Glycerolipid metabolism
+R04206__cyto,67.425,145.63,dlkcat,
+R07888__cyto,79.816667,8.0096,dlkcat,alpha-Linolenic acid metabolism
+R9737__mito,48.909286,13.7,default_13.7,Ubiquinone and other terpenoid-quinone biosynthesis
+R12329__cyto,30.92,13.7,default_13.7,Fatty acid biosynthesis
+R00257__cyto,53.03,33.0528,dlkcat,Nicotinate and nicotinamide metabolism
+R04426__cyto,39.55,7.1165,dlkcat,2-Oxocarboxylic acid metabolism
+R03013__cyto,36.36,14.7092,dlkcat,Histidine metabolism
+R08244__cyto,58.48,4.1291,dlkcat,Drug metabolism - other enzymes
+R00424__cyto,32.03,13.7,default_13.7,
+R10288__cyto,65.22,82.9966,dlkcat,
+R01926__cyto,52.8,2.4045,dlkcat,Sphingolipid metabolism
+R01706__cyto,70.756667,13.7,default_13.7,Fatty acid biosynthesis
+R04866__cyto,94.743333,13.7,default_13.7,Lysine degradation
+R00014__cyto,52.196667,15.0941,dlkcat,Pyruvate metabolism
+R03425__mito,112.2,0.9209,dlkcat,"Glycine, serine and threonine metabolism"
+R00754__cyto,47.68,296.7547,dlkcat,Biosynthesis of antibiotics
+R03197__cyto,41.0,4.8403,dlkcat,Porphyrin and chlorophyll metabolism
+R03643__cyto,23.81,13.7,default_13.7,
+R02746__mito,232.64,13.7,default_13.7,Glycerophospholipid metabolism
+R10953__cyto,63.41,57.393,dlkcat,
+R01054__cyto,23.24,16.252,dlkcat,Purine metabolism
+R01290__cyto,53.93,0.9555,dlkcat,Biosynthesis of antibiotics
+R02715__mito,62.63,29.5978,dlkcat,
+R04559__cyto,54.21,20.9817,dlkcat,Biosynthesis of antibiotics
+R02324__cyto,26.51,4.509,dlkcat,Nicotinate and nicotinamide metabolism
+R00754__mito,47.68,296.7547,dlkcat,Biosynthesis of antibiotics
+R07505__cyto,44.195,14.9624,dlkcat,Biosynthesis of antibiotics
+R04506__cyto,55.203333,16.141,dlkcat,
+R03348__mito,32.4,0.0994,dlkcat,Nicotinate and nicotinamide metabolism
+R04428__cyto,132.035,13.7,default_13.7,Fatty acid biosynthesis
+R08575__cyto,35.62,78.1841,dlkcat,
+R07762__pero,40.04,13.7,default_13.7,Fatty acid biosynthesis
+R01007__cyto,135.855,10.8294,dlkcat,
+R04444__mito,64.57,2.211,dlkcat,Arginine and proline metabolism
+R00897__cyto,47.75,47.0688,dlkcat,Biosynthesis of antibiotics
+R10147__cyto,32.26,24.8607,dlkcat,Biosynthesis of antibiotics
+R12657__mito,50.115385,18.5647,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R08639__cyto,65.49,55.2936,dlkcat,Biosynthesis of antibiotics
+R02872__cyto,50.36,0.7474,dlkcat,Biosynthesis of antibiotics
+R10700__cyto,227.86,13.7,default_13.7,Fatty acid biosynthesis
+R01021__cyto,62.49,2.6328,dlkcat,Glycerophospholipid metabolism
+R07389__cyto,32.86,5.8683,dlkcat,Ether lipid metabolism
+R10089__cyto,28.78,130.0602,dlkcat,Vitamin B6 metabolism
+R11166__cyto,29.33,13.7,default_13.7,
+R08306__cyto,47.68,83.0846,dlkcat,Drug metabolism - cytochrome P450
+R02091__cyto,58.325,46.3595,dlkcat,Pyrimidine metabolism
+R02746__cyto,232.64,13.7,default_13.7,Glycerophospholipid metabolism
+R03361__cyto,128.133333,13.7,default_13.7,Inositol phosphate metabolism
+R07330__cyto,48.620714,16.6612,dlkcat,
+R00126__cyto,87.6,13.7,default_13.7,Purine metabolism
+R05578__cyto,57.85,16.0485,dlkcat,Porphyrin and chlorophyll metabolism
+R04887__cyto,29.19,0.0693,dlkcat,Tyrosine metabolism
+R03530__cyto,17.08,9.6625,dlkcat,Purine metabolism
+R04221__cyto,38.965,12.8068,dlkcat,Arginine and proline metabolism
+R04001__cyto,85.72,7.7968,dlkcat,2-Oxocarboxylic acid metabolism
+R07116__cyto,32.915,43.3824,dlkcat,Metabolism of xenobiotics by cytochrome P450
+R02098__cyto,23.68,2.695,dlkcat,Pyrimidine metabolism
+R03471__cyto,62.66,1.4119,dlkcat,Thiamine metabolism
+R01775__cyto,45.3625,5.5167,dlkcat,Biosynthesis of antibiotics
+R00086__mito,76.04,13.7,default_13.7,Purine metabolism
+R02096__cyto,58.325,46.3595,dlkcat,Pyrimidine metabolism
+R02101__cyto,33.45,40.5489,dlkcat,Pyrimidine metabolism
+R01070__cyto,39.22,0.2182,dlkcat,Biosynthesis of antibiotics
+R11945__mito,41.93,37.3302,dlkcat,Oxidative Phosphorilation
+R03409__cyto,44.12,13.0852,dlkcat,Purine metabolism
+R02748__cyto,33.13,1.6741,dlkcat,Purine metabolism
+R01496__cyto,78.464286,4.3664,dlkcat,Sphingolipid metabolism
+R00239__cyto,48.18,15.4731,dlkcat,Biosynthesis of antibiotics
+R10035__cyto,114.54,0.2699,dlkcat,Cyanoamino acid metabolism
+R06516__cyto,65.45,19.3081,dlkcat,Sphingolipid metabolism
+R00995__pero,88.46,5.0063,dlkcat,C5-Branched dibasic acid metabolism
+R02093__cyto,17.08,26.8758,dlkcat,Pyrimidine metabolism
+R01056__cyto,25.35,7.1805,dlkcat,Biosynthesis of antibiotics
+R02047__mito,45.3625,1.1761,dlkcat,
+R01665__cyto,34.66,0.7614,dlkcat,Pyrimidine metabolism
+R01059__cyto,62.48,8.1551,dlkcat,Fructose and mannose metabolism
+R00129__cyto,65.22,81.1225,dlkcat,
+R02372__cyto,58.325,46.3595,dlkcat,Pyrimidine metabolism
+R08359__cyto,52.595,3.9769,dlkcat,Glutathione metabolism
+R02094__cyto,23.68,3.36,dlkcat,Pyrimidine metabolism
+R01724__cyto,47.57,17.894,dlkcat,Nicotinate and nicotinamide metabolism
+R08091__cyto,74.11,24.1363,dlkcat,Geraniol degradation
+R00191__cyto,65.12,4.5859,dlkcat,Purine metabolism
+R03018__cyto,63.41,28.3042,dlkcat,Pantothenate and CoA biosynthesis
+R07113__cyto,32.915,345.9257,dlkcat,Metabolism of xenobiotics by cytochrome P450
+R11945__cyto,41.93,37.3302,dlkcat,Oxidative Phosphorilation
+R00569__cyto,76.04,5.2613,dlkcat,Pyrimidine metabolism
+R03238__cyto,105.195,21.8188,dlkcat,Galactose metabolism
+R07003__cyto,32.915,43.3824,dlkcat,Metabolism of xenobiotics by cytochrome P450
+R07384__cyto,32.86,8.6552,dlkcat,Ether lipid metabolism
+R03348__cyto,32.4,0.0994,dlkcat,Nicotinate and nicotinamide metabolism
+R07274__cyto,47.75,57.3007,dlkcat,Cysteine and methionine metabolism
+R05639__cyto,41.33,0.2939,dlkcat,Biosynthesis of antibiotics
+R07494__cyto,38.6,0.7949,dlkcat,Biosynthesis of antibiotics
+R03458__cyto,45.3625,10.2013,dlkcat,Riboflavin metabolism
+R10828__mito,41.33,13.7,default_13.7,Fatty acid elongation
+R07896__pero,79.816667,8.3366,dlkcat,alpha-Linolenic acid metabolism
+R02030__mito,66.86,13.7,default_13.7,Glycerophospholipid metabolism
+R01857__cyto,17.08,1.3054,dlkcat,Purine metabolism
+R12173__cyto,60.645,51.2305,dlkcat,Biosynthesis of unsaturated fatty acids
+R00710__cyto,55.203333,13.3463,dlkcat,Biosynthesis of antibiotics
+R04420__cyto,44.14,30.7148,dlkcat,Cysteine and methionine metabolism
+R02568__cyto,39.22,0.2136,dlkcat,Microbial metabolism in diverse environments
+R03304__cyto,29.19,43.7843,dlkcat,Tyrosine metabolism
+R00026__cyto,114.54,9.4286,dlkcat,
+R02250__cyto,68.84,13.7,default_13.7,Glycerolipid metabolism
+R00590__pero,81.05,11.6792,dlkcat,Cysteine and methionine metabolism
+R10633__cyto,45.81,13.7,default_13.7,Nicotinate and nicotinamide metabolism
+R01324__mito,74.243333,53.1485,dlkcat,2-Oxocarboxylic acid metabolism
+R03422__cyto,130.226,13.7,default_13.7,
+R00275__cyto,27.31,35.4527,dlkcat,
+R07394__cyto,27.42,1.1883,dlkcat,Cysteine and methionine metabolism
+R00964__cyto,53.24,1.1043,dlkcat,Pyrimidine metabolism
+R11218__cyto,50.115385,13.7,default_13.7,
+R00939__mito,23.39,183.8702,dlkcat,One carbon pool by folate
+R09087__cyto,84.8,7.8097,dlkcat,
+R12119__cyto,59.6,2.2947,dlkcat,
+R02850__cyto,147.8575,41.9897,dlkcat,
+R00621__mito,114.37,10.2999,dlkcat,Citrate cycle (TCA cycle)
+R03084__cyto,125.73,6.8131,dlkcat,Biosynthesis of antibiotics
+R00867__cyto,176.006667,57.9861,dlkcat,Fructose and mannose metabolism
+R07491__cyto,42.41,14.9624,dlkcat,Steroid biosynthesis
+R01083__cyto,54.21,16.9644,dlkcat,"Alanine, aspartate and glutamate metabolism"
+R02978__cyto,36.07,2.0732,dlkcat,Sphingolipid metabolism
+R02035__cyto,32.765,6.677,dlkcat,Biosynthesis of antibiotics
+R12427__mito,78.464286,13.7,default_13.7,Lipoic acid metabolism
+R00342__mito,34.47,43.3529,dlkcat,Biosynthesis of antibiotics
+R00428__cyto,32.03,13.7,default_13.7,Folate biosynthesis
+R12152__cyto,148.93,17.7137,dlkcat,
+R02694__cyto,78.464286,13.7,default_13.7,
+R04725__cyto,103.506667,13.7,default_13.7,Fatty acid biosynthesis
+R03363__cyto,90.5675,13.7,default_13.7,Inositol phosphate metabolism
+R00651__cyto,47.75,15.7089,dlkcat,
+R07509__cyto,36.925,0.3399,dlkcat,Biosynthesis of antibiotics
+R04945__cyto,66.65,3.436,dlkcat,
+R02665__cyto,19.56,0.0497,dlkcat,Tryptophan metabolism
+R00402__cyto,41.33,0.1368,dlkcat,Carbon fixation pathways in prokaryotes
+R00782__cyto,43.315,29.5944,dlkcat,Cysteine and methionine metabolism
+R07981__cyto,85.86,1.6135,dlkcat,Microbial metabolism in diverse environments
+R09877__cyto,83.995,1.7059,dlkcat,
+R00870__cyto,45.3625,6.8266,dlkcat,Fructose and mannose metabolism
+R00127__mito,28.005,13.7,default_13.7,Biosynthesis of antibiotics
+R03650__cyto,85.27,0.3566,dlkcat,Aminoacyl-tRNA biosynthesis
+R00342__cyto,34.47,43.3529,dlkcat,Biosynthesis of antibiotics
+R07762__cyto,40.04,13.7,default_13.7,Fatty acid biosynthesis
+R06590__cyto,73.78,5.8038,dlkcat,Biosynthesis of antibiotics
+R01899__mito,46.66,5.3952,dlkcat,2-Oxocarboxylic acid metabolism
+R04953__cyto,152.01,13.7,default_13.7,Fatty acid biosynthesis
+R03921__cyto,57.07,20.2167,dlkcat,Starch and sucrose metabolism
+R02408__cyto,43.315,50.9296,dlkcat,Cysteine and methionine metabolism
+R09420__cyto,44.018333,25.134,dlkcat,Metabolism of xenobiotics by cytochrome P450
+R00778__cyto,25.51,1.2496,dlkcat,Microbial metabolism in diverse environments
+R04543__cyto,152.01,13.7,default_13.7,Fatty acid biosynthesis
+R12152__mito,148.93,17.7137,dlkcat,
+R03968__cyto,85.72,4.0368,dlkcat,2-Oxocarboxylic acid metabolism
+R00181__cyto,87.67,13.7,default_13.7,Biosynthesis of antibiotics
+R02297__cyto,33.13,1.388,dlkcat,Purine metabolism
+R03469__cyto,63.41,13.7,default_13.7,Inositol phosphate metabolism
+R00702__cyto,50.36,0.2959,dlkcat,Biosynthesis of antibiotics
+R01954__cyto,46.16,7.6932,dlkcat,Biosynthesis of antibiotics
+R00529__cyto,34.04,3.4938,dlkcat,Biosynthesis of antibiotics
+R11218__mito,50.115385,13.7,default_13.7,
+R00710__mito,55.203333,13.3463,dlkcat,Biosynthesis of antibiotics
+R04762__cyto,29.19,0.1617,dlkcat,Steroid hormone biosynthesis
+R03528__cyto,43.97,13.7,default_13.7,
+R01074__cyto,75.48,3.1411,dlkcat,Biotin metabolism
+R03596__cyto,36.43,2.2522,dlkcat,Selenocompound metabolism
+R07951__pero,74.243333,121.8242,dlkcat,Fatty acid metabolism
+R12085__cyto,78.464286,17.6018,dlkcat,Arginine and proline metabolism
+R00494__cyto,63.94,19.7452,dlkcat,Glutathione metabolism
+R06366__cyto,55.203333,15.6297,dlkcat,Limonene and pinene degradation
+R06527__cyto,46.215,23.3286,dlkcat,Sphingolipid metabolism
+R00114__cyto,234.24,17.3267,dlkcat,Biosynthesis of antibiotics
+R03654__cyto,73.78,2.06,dlkcat,Aminoacyl-tRNA biosynthesis
+R09644__cyto,81.812857,13.7,default_13.7,
+R03772__cyto,38.25,44.8516,dlkcat,Microbial metabolism in diverse environments
+R04483__cyto,44.01,5.868,dlkcat,
+R00927__cyto,43.63,0.4195,dlkcat,Biosynthesis of antibiotics
+R04952__pero,124.9,13.7,default_13.7,Fatty acid biosynthesis
+R00719__cyto,76.04,5.2482,dlkcat,Purine metabolism
+R03050__mito,52.78,11.0355,dlkcat,
+R04949__cyto,114.54,13.7,default_13.7,
+R03659__cyto,144.23,9.386,dlkcat,Aminoacyl-tRNA biosynthesis
+R04911__cyto,28.65,0.1679,dlkcat,Tryptophan metabolism
+R04960__pero,124.9,13.7,default_13.7,Fatty acid biosynthesis
+R11319__cyto,27.46,22.6963,dlkcat,Thiamine metabolism
+R04360__mito,32.32,13.7,default_13.7,Ether lipid metabolism
+R00122__cyto,76.04,13.7,default_13.7,Purine metabolism
+R07948__cyto,79.816667,4.8381,dlkcat,Non enzymatic
+R01354__cyto,75.385,44.7664,dlkcat,Propanoate metabolism
+R00330__cyto,17.08,13.7,default_13.7,Purine metabolism
+R01082__cyto,52.26,6.6617,dlkcat,Biosynthesis of antibiotics
+R00994__cyto,39.55,22.2558,dlkcat,2-Oxocarboxylic acid metabolism
+R00335__cyto,76.04,13.7,default_13.7,Purine metabolism
+R04360__cyto,32.32,13.7,default_13.7,Ether lipid metabolism
+R05069__mito,44.36,2.3511,dlkcat,2-Oxocarboxylic acid metabolism
+R09365__cyto,85.98,1.2496,dlkcat,Selenocompound metabolism
+R01320__cyto,22.93,13.7,default_13.7,Glycerophospholipid metabolism
+R03096__cyto,61.255,1.8865,dlkcat,Tryptophan metabolism
+R04957__cyto,124.9,13.7,default_13.7,Fatty acid biosynthesis
+R04586__cyto,62.863333,13.7,default_13.7,
+R01899__cyto,46.66,5.3952,dlkcat,2-Oxocarboxylic acid metabolism
+R12026__cyto,51.03,4.1115,dlkcat,Thiamine metabolism
+R07238__cyto,50.856429,12.6487,dlkcat,
+R07364__cyto,21.27,1.841,dlkcat,Cysteine and methionine metabolism
+R03646__cyto,224.95,15.961,dlkcat,Aminoacyl-tRNA biosynthesis
+R00115__cyto,53.2,153.6419,dlkcat,Glutathione metabolism
+R09099__cyto,64.27,8.2437,dlkcat,Microbial metabolism in diverse environments
+R11319__mito,27.46,22.6963,dlkcat,Thiamine metabolism
+R03992__cyto,75.0125,59.6966,dlkcat,
+R00926__cyto,75.385,44.7664,dlkcat,Propanoate metabolism
+T_ATP_synthase__mito,41.93,13.7,default_13.7,Oxidative Phosphorilation
+R09366__cyto,42.66,0.7572,dlkcat,Selenocompound metabolism
+R02124__cyto,47.68,47.9372,dlkcat,Retinol metabolism
+R00271__cyto,47.495,5.4685,dlkcat,2-Oxocarboxylic acid metabolism
+R01579__cyto,30.423333,15.8464,dlkcat,D-Glutamine and D-glutamate metabolism
+R08121__cyto,33.52,3.3516,dlkcat,Microbial metabolism in diverse environments
+R00156__cyto,17.08,13.7,default_13.7,Pyrimidine metabolism
+R03552__cyto,85.033077,12.4485,dlkcat,
+R00217__mito,50.274,63.3217,dlkcat,Pyruvate metabolism
+R02410__cyto,57.07,20.2425,dlkcat,Galactose metabolism
+R00707__cyto,64.57,1.9585,dlkcat,Arginine and proline metabolism
+R01959__cyto,28.65,0.1879,dlkcat,Tryptophan metabolism
+R11527__cyto,72.848,13.7,default_13.7,Glycerolipid metabolism
+R00409__pero,61.35,4.6992,dlkcat,Propanoate metabolism
+R07892__pero,79.816667,8.1596,dlkcat,alpha-Linolenic acid metabolism
+R01201__cyto,63.41,35.0454,dlkcat,Amino sugar and nucleotide sugar metabolism
+R10828__cyto,41.33,13.7,default_13.7,Fatty acid elongation
+R01858__cyto,55.58,21.5762,dlkcat,Purine metabolism
+R04958__cyto,41.33,13.7,default_13.7,Fatty acid biosynthesis
+R05724__cyto,43.2,2.3636,dlkcat,
+R05071__cyto,44.36,2.3793,dlkcat,2-Oxocarboxylic acid metabolism
+R00876__cyto,147.8575,57.9861,dlkcat,
+R09375__cyto,31.61,2.536,dlkcat,Riboflavin metabolism
+R01920__cyto,52.595,4.6443,dlkcat,Glutathione metabolism
+R00494__mito,63.94,19.7452,dlkcat,Glutathione metabolism
+R00217__cyto,50.274,63.3217,dlkcat,Pyruvate metabolism
+R05064__cyto,52.45,26.8523,dlkcat,"Valine, leucine and isoleucine degradation"
+R00715__cyto,40.41,0.1287,dlkcat,Biosynthesis of antibiotics
+R07140__cyto,51.726,4.5344,dlkcat,
+R01138__cyto,55.58,19.6507,dlkcat,Purine metabolism
+R01641__cyto,73.78,7.4872,dlkcat,Biosynthesis of antibiotics
+R05068__mito,44.36,2.984,dlkcat,2-Oxocarboxylic acid metabolism
+R00472__pero,62.32,4.9463,dlkcat,Pyruvate metabolism
+R00875__cyto,40.74,7.2693,dlkcat,Fructose and mannose metabolism
+R03875__cyto,94.743333,13.7,default_13.7,Lysine degradation
+R00274__cyto,18.32,907.0942,dlkcat,Glutathione metabolism
+R00714__cyto,54.125,4.9113,dlkcat,"Alanine, aspartate and glutamate metabolism"
+R03655__cyto,57.73,16.6291,dlkcat,Aminoacyl-tRNA biosynthesis
+R00158__cyto,34.66,13.7,default_13.7,Pyrimidine metabolism
+R03435__cyto,156.17,13.7,default_13.7,Inositol phosphate metabolism
+R07136__cyto,34.47,336.3165,dlkcat,Cysteine and methionine metabolism
+R01139__cyto,147.8575,41.9897,dlkcat,
+R04480__cyto,68.39,13.7,default_13.7,Glycerophospholipid metabolism
+R02940__cyto,55.203333,43.719,dlkcat,
+R01175__cyto,79.816667,12.7879,dlkcat,Fatty acid metabolism
+R02199__mito,41.27,2.1219,dlkcat,Glucosinolate biosynthesis
+R03098__cyto,249.62,1.138,dlkcat,Lysine biosynthesis
+R02530__cyto,43.0,80.5168,dlkcat,Pyruvate metabolism
+R04954__cyto,132.035,13.7,default_13.7,Fatty acid biosynthesis
+R01799__cyto,47.69,81.3557,dlkcat,Glycerophospholipid metabolism
+R00342__pero,34.47,43.3529,dlkcat,Biosynthesis of antibiotics
+R04988__mito,50.115385,7.8429,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R06154__cyto,77.315,33.8416,dlkcat,
+R03991__cyto,43.63,0.4195,dlkcat,Fatty acid elongation
+R04544__cyto,132.035,13.7,default_13.7,Fatty acid biosynthesis
+R03332__cyto,34.16,13.7,default_13.7,Inositol phosphate metabolism
+R00185__cyto,37.83,1.1151,dlkcat,Purine metabolism
+R11098__cyto,16.63,2.2513,dlkcat,Spontaneous
+R01397__cyto,244.07,5.2909,dlkcat,Pyrimidine metabolism
+R07763__cyto,99.21,13.7,default_13.7,Fatty acid biosynthesis
+R05196__cyto,109.102222,9.5136,dlkcat,Starch and sucrose metabolism
+R03774__cyto,47.13,5.3482,dlkcat,Microbial metabolism in diverse environments
+R07393__cyto,74.74125,16.4009,dlkcat,Cysteine and methionine metabolism
+R01108__cyto,40.0,31.0265,dlkcat,Glutathione metabolism
+R02382__cyto,77.315,130.8146,dlkcat,Tyrosine metabolism
+R00965__cyto,88.46,4.7819,dlkcat,Pyrimidine metabolism
+R11219__cyto,38.9,13.7,default_13.7,
+R00619__cyto,33.57,2.5349,dlkcat,Thiamine metabolism
+R12118__cyto,59.6,2.2947,dlkcat,
+R06830__cyto,45.3625,8.2421,dlkcat,Spontaneous
+R01518__cyto,28.87,27.973,dlkcat,Biosynthesis of antibiotics
+R00022__cyto,107.63,1.3285,dlkcat,Amino sugar and nucleotide sugar metabolism
+R01234__cyto,65.12,2.9173,dlkcat,Purine metabolism
+R01049__cyto,39.325,23.1043,dlkcat,Biosynthesis of antibiotics
+R00999__cyto,66.65,3.9329,dlkcat,Cysteine and methionine metabolism
+R07237__cyto,50.856429,21.8158,dlkcat,
+R04014__cyto,43.78,13.7,default_13.7,Biosynthesis of antibiotics
+R02750__cyto,34.47,34.3245,dlkcat,Pentose phosphate pathway
+R07896__cyto,79.816667,8.3366,dlkcat,alpha-Linolenic acid metabolism
+R06835__cyto,33.52,1.6627,dlkcat,Chlorocyclohexane and chlorobenzene degradation
+R03527__cyto,114.54,13.7,default_13.7,Starch and sucrose metabolism
+R04956__mito,103.506667,13.7,default_13.7,Fatty acid biosynthesis
+R07395__cyto,25.24,2.4394,dlkcat,Cysteine and methionine metabolism
+R02222__cyto,60.645,49.664,dlkcat,Fatty acid metabolism
+R11217__cyto,38.9,13.7,default_13.7,
+R04764__cyto,29.19,0.4325,dlkcat,Steroid hormone biosynthesis
+R03804__cyto,30.92,5.9779,dlkcat,
+R04952__cyto,124.9,13.7,default_13.7,Fatty acid biosynthesis
+R01513__cyto,50.85,15.0407,dlkcat,Biosynthesis of antibiotics
+R02473__cyto,33.72,1.5203,dlkcat,Pantothenate and CoA biosynthesis
+R01325__cyto,74.243333,53.1485,dlkcat,2-Oxocarboxylic acid metabolism
+R07235__mito,50.115385,18.5647,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R03613__cyto,152.01,13.7,default_13.7,
+R04983__cyto,48.909286,21.1265,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R07953__cyto,43.63,0.6265,dlkcat,Fatty acid metabolism
+R00836__cyto,70.952143,31.9878,dlkcat,
+R02251__cyto,78.464286,13.7,default_13.7,Glycerolipid metabolism
+R07760__cyto,26.53,0.3052,dlkcat,Fatty acid metabolism
+R08163__cyto,43.78,13.7,default_13.7,Fatty acid biosynthesis
+R00968__cyto,53.24,1.1043,dlkcat,Pyrimidine metabolism
+R01325__mito,74.243333,53.1485,dlkcat,2-Oxocarboxylic acid metabolism
+R07859__cyto,105.0,13.7,default_13.7,alpha-Linolenic acid metabolism
+R04957__pero,124.9,13.7,default_13.7,Fatty acid biosynthesis
+R07015__cyto,41.33,37.9918,dlkcat,Metabolism of xenobiotics by cytochrome P450
+R02848__cyto,147.8575,41.9897,dlkcat,
+R01676__cyto,52.69,10.4598,dlkcat,Purine metabolism
+R00650__cyto,36.28,1.0615,dlkcat,Cysteine and methionine metabolism
+R01896__cyto,40.74,7.6288,dlkcat,Pentose and glucuronate interconversions
+R00430__cyto,55.58,19.6507,dlkcat,Purine metabolism
+R03681__cyto,54.95,3.1699,dlkcat,
+R04604__cyto,75.48,0.8994,dlkcat,
+R01230__cyto,58.48,2.8706,dlkcat,Purine metabolism
+R07761__cyto,41.33,34.0653,dlkcat,Fatty acid metabolism
+R04325__cyto,24.1,0.1239,dlkcat,Biosynthesis of antibiotics
+R01326__cyto,176.006667,41.9897,dlkcat,Fructose and mannose metabolism
+R01827__cyto,35.62,78.1841,dlkcat,Biosynthesis of antibiotics
+R00524__cyto,47.46,0.8287,dlkcat,Cyanoamino acid metabolism
+R07892__cyto,79.816667,8.1596,dlkcat,alpha-Linolenic acid metabolism
+R03777__cyto,79.816667,9.5138,dlkcat,Fatty acid metabolism
+R06522__cyto,74.243333,13.7,default_13.7,Sphingolipid metabolism
+R03118__cyto,219.026667,11.9927,dlkcat,Starch and sucrose metabolism
+R01548__cyto,58.325,46.3595,dlkcat,Pyrimidine metabolism
+R03180__cyto,61.255,2.4667,dlkcat,Arginine and proline metabolism
+R00308__cyto,50.946667,13.7,default_13.7,Starch and sucrose metabolism
+R00967__cyto,58.325,27.5252,dlkcat,Pyrimidine metabolism
+R08198__cyto,46.46,3.9824,dlkcat,
+R07950__cyto,79.816667,12.9571,dlkcat,Fatty acid metabolism
+R04730__cyto,79.41,22.5048,dlkcat,
+R02909__cyto,50.8,3.5261,dlkcat,Tryptophan metabolism
+R01547__cyto,28.005,14.787,dlkcat,Purine metabolism
+R03778__cyto,43.63,0.4195,dlkcat,Fatty acid elongation
+R01177__cyto,42.665,16.5391,dlkcat,Fatty acid elongation
+R00742__mito,246.24,5.4488,dlkcat,Biosynthesis of antibiotics
+R10852__cyto,28.5,1.3733,dlkcat,
+R04673__mito,52.78,14.8592,dlkcat,
+R07891__cyto,43.63,0.4195,dlkcat,alpha-Linolenic acid metabolism
+R12428__mito,78.464286,13.7,default_13.7,Lipoic acid metabolism
+R01268__cyto,21.15,0.0099,dlkcat,Nicotinate and nicotinamide metabolism
+R01015__cyto,26.65,52.3191,dlkcat,Biosynthesis of antibiotics
+R01731__cyto,55.18,13.6651,dlkcat,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+R00028__cyto,40.48,140.5454,dlkcat,Starch and sucrose metabolism
+R10851__cyto,28.5,1.3733,dlkcat,"Glycine, serine and threonine metabolism"
+R08193__cyto,60.72,0.7764,dlkcat,Biosynthesis of antibiotics
+R02164__mito,30.422,12.5526,dlkcat,Oxidative Phosphorilation
+R07486__cyto,42.41,4.9298,dlkcat,Steroid biosynthesis
+R04326__cyto,24.1,0.1239,dlkcat,One carbon pool by folate
+R01986__cyto,55.203333,29.8275,dlkcat,Arginine and proline metabolism
+R12205__cyto,45.98,4.8493,dlkcat,Fatty acid metabolism
+R01327__cyto,147.8575,50.6207,dlkcat,
+R07324__cyto,57.46,11.3961,dlkcat,Biosynthesis of antibiotics
+R03460__cyto,235.91,6.9707,dlkcat,Biosynthesis of antibiotics
+R03245__cyto,47.24,6.9574,dlkcat,Biosynthesis of antibiotics
+R06838__cyto,33.52,147.8275,dlkcat,Chlorocyclohexane and chlorobenzene degradation
+R11063__cyto,36.28,1.0615,dlkcat,
+R07766__mito,78.464286,13.7,default_13.7,
+R07765__cyto,41.33,13.7,default_13.7,Fatty acid biosynthesis
+R01395__cyto,184.385,0.321,dlkcat,Nitrogen metabolism
+R07392__cyto,28.04,88.0861,dlkcat,Cysteine and methionine metabolism
+R05000__mito,43.61,0.4012,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R10634__cyto,45.81,13.7,default_13.7,Nicotinate and nicotinamide metabolism
+R00963__cyto,36.62,13.7,default_13.7,Pyrimidine metabolism
+R01549__cyto,58.325,27.5252,dlkcat,Pyrimidine metabolism
+R02315__cyto,49.03,16.367,dlkcat,Biosynthesis of antibiotics
+R01010__cyto,71.910909,17.7323,dlkcat,
+R00802__cyto,57.07,20.7684,dlkcat,
+R00189__cyto,53.03,19.7496,dlkcat,Nicotinate and nicotinamide metabolism
+R10040__cyto,114.54,7.6481,dlkcat,Cyanoamino acid metabolism
+R01011__mito,62.48,6.2403,dlkcat,Microbial metabolism in diverse environments
+R01826__cyto,35.86,1.7399,dlkcat,Biosynthesis of antibiotics
+R01013__cyto,74.855455,21.0557,dlkcat,Glycerophospholipid metabolism
+R02534__cyto,29.19,0.0304,dlkcat,Tyrosine metabolism
+R01730__cyto,48.94,13.5373,dlkcat,Biosynthesis of antibiotics
+R02756__mito,32.32,13.7,default_13.7,Glycerophospholipid metabolism
+R02038__cyto,39.33,6.7765,dlkcat,Glycerophospholipid metabolism
+R04390__cyto,249.62,13.7,default_13.7,Lysine biosynthesis
+R02814__cyto,43.78,13.7,default_13.7,Fatty acid biosynthesis
+R01923__pero,78.464286,14.0354,dlkcat,Fatty acid metabolism
+R03243__cyto,43.81,5.7767,dlkcat,Histidine metabolism
+R00188__cyto,39.41,41.4156,dlkcat,
+R00961__cyto,76.04,13.7,default_13.7,Purine metabolism
+R04672__mito,52.78,11.0355,dlkcat,
+R02756__cyto,32.32,13.7,default_13.7,Glycerophospholipid metabolism
+R01829__cyto,39.22,5.3479,dlkcat,Microbial metabolism in diverse environments
+R06521__cyto,68.542727,11.9604,dlkcat,Sphingolipid metabolism
+R07606__cyto,78.464286,13.9381,dlkcat,
+R02976__cyto,52.8,2.3224,dlkcat,Sphingolipid metabolism
+R04328__cyto,41.61375,5.0278,dlkcat,
+R02161__mito,41.93,13.7,default_13.7,Oxidative Phosphorilation
+R00742__cyto,246.24,5.4488,dlkcat,Biosynthesis of antibiotics
+R03522__cyto,35.276667,43.3824,dlkcat,Glutathione metabolism
+R01231__cyto,58.48,4.1291,dlkcat,Purine metabolism
+R04391__cyto,63.41,2.2634,dlkcat,Pantothenate and CoA biosynthesis
+R06740__cyto,77.315,33.1276,dlkcat,Biosynthesis of secondary metabolites
+R00962__cyto,58.325,46.3595,dlkcat,Pyrimidine metabolism
+R07489__cyto,52.96,3.4307,dlkcat,Steroid biosynthesis
+R00187__cyto,83.995,15.4292,dlkcat,Purine metabolism
+R01013__mito,74.855455,21.0557,dlkcat,Glycerophospholipid metabolism
+R03024__cyto,34.515,2.2134,dlkcat,Aminobenzoate degradation
+R01890__cyto,49.89,1.2496,dlkcat,Glycerophospholipid metabolism
+R00801__cyto,57.07,20.7684,dlkcat,Galactose metabolism
+R00245__cyto,64.57,1.5727,dlkcat,Arginine and proline metabolism
+R01011__cyto,62.48,6.2403,dlkcat,Microbial metabolism in diverse environments
+R04171__cyto,49.02,208.6766,dlkcat,Tryptophan metabolism
+R06520__cyto,57.11,11.6665,dlkcat,Sphingolipid metabolism
+R00235__cyto,75.385,15.7793,dlkcat,Biosynthesis of antibiotics
+R00940__mito,23.39,183.8702,dlkcat,One carbon pool by folate
+R01512__cyto,44.59,95.9216,dlkcat,Biosynthesis of antibiotics
+R07477__cyto,37.95,8.094,dlkcat,
+R02236__cyto,23.39,414.7758,dlkcat,One carbon pool by folate
+R05066__cyto,45.3625,1.1761,dlkcat,"Valine, leucine and isoleucine degradation"
+R00256__mito,184.385,5.9206,dlkcat,D-Glutamine and D-glutamate metabolism
+R06517__cyto,46.215,23.0411,dlkcat,Sphingolipid metabolism
+R00104__cyto,55.16,13.7,default_13.7,Nicotinate and nicotinamide metabolism
+R02472__cyto,36.35,3.0864,dlkcat,Pantothenate and CoA biosynthesis
+R03239__cyto,105.195,21.8188,dlkcat,Galactose metabolism
+R10952__cyto,156.17,13.7,default_13.7,
+R06927__cyto,47.68,52.3008,dlkcat,Degradation of aromatic compounds
+R10711__cyto,68.659615,25.2496,dlkcat,Thiamine metabolism
+R00197__cyto,83.915,67.6488,dlkcat,Pyruvate metabolism
+R04173__cyto,42.76,29.144,dlkcat,Biosynthesis of antibiotics
+R01325__pero,74.243333,53.1485,dlkcat,2-Oxocarboxylic acid metabolism
+R00087__cyto,83.995,13.7,default_13.7,Purine metabolism
+R00814__cyto,41.33,302.8686,dlkcat,
+R02100__cyto,16.19,2.8568,dlkcat,Pyrimidine metabolism
+R08770__mito,52.1,5.7916,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R02088__cyto,31.315,29.181,dlkcat,Purine metabolism
+R00709__mito,39.05,40.9193,dlkcat,2-Oxocarboxylic acid metabolism
+R00945__mito,64.27,8.5127,dlkcat,Biosynthesis of antibiotics
+R10783__cyto,46.52125,132.9814,dlkcat,alpha-Linolenic acid metabolism
+R04558__mito,148.93,19.9229,dlkcat,Histidine metabolism
+R09511__cyto,56.92,16.0293,dlkcat,
+R00214__cyto,69.92,9.3194,dlkcat,Pyruvate metabolism
+R07215__cyto,42.41,17.838,dlkcat,Steroid biosynthesis
+R05640__cyto,59.6,2.2576,dlkcat,Biosynthesis of antibiotics
+R11097__cyto,52.96,5.6468,dlkcat,Steroid biosynthesis
+R07105__cyto,47.68,43.2219,dlkcat,Metabolism of xenobiotics by cytochrome P450
+R01969__cyto,33.13,1.216,dlkcat,Purine metabolism
+R00514__cyto,76.04,13.7,default_13.7,Pyrimidine metabolism
+R00497__cyto,55.21,1.8859,dlkcat,Glutathione metabolism
+R01392__pero,45.3625,44.5606,dlkcat,"Glycine, serine and threonine metabolism"
+R02920__cyto,29.19,0.1296,dlkcat,Tyrosine metabolism
+R04216__cyto,83.78,13.7,default_13.7,
+R01402__cyto,36.33,71.77,dlkcat,Cysteine and methionine metabolism
+R08280__cyto,32.915,43.3824,dlkcat,Drug metabolism - cytochrome P450
+R04457__cyto,18.09,140.0155,dlkcat,Riboflavin metabolism
+R04998__cyto,114.54,8.8723,dlkcat,Phenylpropanoid biosynthesis
+R00425__cyto,34.43,13.7,default_13.7,Riboflavin metabolism
+R08280__mito,32.915,43.3824,dlkcat,Drug metabolism - cytochrome P450
+R00996__cyto,88.56,18.6228,dlkcat,Biosynthesis of antibiotics
+R04867__cyto,94.743333,13.7,default_13.7,Lysine degradation
+R07400__cyto,38.965,13.2712,dlkcat,Biosynthesis of antibiotics
+R01018__cyto,67.07,0.5361,dlkcat,N-Glycan biosynthesis
+R02282__cyto,46.21,109.2207,dlkcat,2-Oxocarboxylic acid metabolism
+R11896__cyto,16.19,2.4943,dlkcat,Drug metabolism - other enzymes
+R00835__cyto,57.22,7.9342,dlkcat,
+R02971__cyto,63.41,76.9512,dlkcat,Pantothenate and CoA biosynthesis
+R05691__cyto,44.092,4.9864,dlkcat,
+R04558__cyto,148.93,19.9229,dlkcat,Histidine metabolism
+R07100__cyto,32.915,43.3824,dlkcat,Metabolism of xenobiotics by cytochrome P450
+R04321__cyto,32.86,5.8683,dlkcat,Ether lipid metabolism
+R02472__mito,36.35,3.0864,dlkcat,Pantothenate and CoA biosynthesis
+R03665__cyto,120.08,16.9364,dlkcat,Aminoacyl-tRNA biosynthesis
+R07456__cyto,28.78,130.0602,dlkcat,Vitamin B6 metabolism
+R02493__cyto,34.515,0.4275,dlkcat,Vitamin B6 metabolism
+R01790__cyto,184.96,13.7,default_13.7,Galactose metabolism
+R06863__cyto,73.78,4.8278,dlkcat,
+R00214__mito,69.92,9.3194,dlkcat,Pyruvate metabolism
+R11861__mito,28.27,23.5813,dlkcat,Glutathione metabolism
+R04537__cyto,132.035,13.7,default_13.7,Fatty acid biosynthesis
+R08539__cyto,97.41,13.7,default_13.7,
+R00725__cyto,147.8575,50.6207,dlkcat,
+R04300__cyto,77.315,95.1237,dlkcat,Isoquinoline alkaloid biosynthesis
+R00256__cyto,184.385,5.9206,dlkcat,D-Glutamine and D-glutamate metabolism
+R02747__mito,232.64,13.7,default_13.7,Glycerophospholipid metabolism
+R00755__cyto,62.23,2.2556,dlkcat,Glycolysis / Gluconeogenesis
+R01318__cyto,68.39,13.7,default_13.7,Glycerophospholipid metabolism
+R00066__cyto,32.17,236.0386,dlkcat,Riboflavin metabolism
+R03424__cyto,22.93,13.7,default_13.7,Glycerophospholipid metabolism
+R09832__cyto,75.348,0.9935,dlkcat,
+R02142__cyto,24.6,1.8866,dlkcat,Purine metabolism
+R00945__cyto,64.27,8.5127,dlkcat,Biosynthesis of antibiotics
+R06364__cyto,32.86,8.7395,dlkcat,Ether lipid metabolism
+R00479__pero,61.35,4.609,dlkcat,Microbial metabolism in diverse environments
+R01648__cyto,53.515,8.5501,dlkcat,"Alanine, aspartate and glutamate metabolism"
+R07316__cyto,52.333333,46.0398,dlkcat,Spontaneous
+R04427__cyto,42.63,0.39,dlkcat,Biosynthesis of antibiotics
+R01868__cyto,46.13,14.9724,dlkcat,Pyrimidine metabolism
+R05551__cyto,61.255,2.6228,dlkcat,Styrene degradation
+R11765__mito,23.39,271.7855,dlkcat,Folate biosynthesis
+R00713__cyto,54.125,4.9113,dlkcat,"Alanine, aspartate and glutamate metabolism"
+R10057__cyto,36.925,0.5919,dlkcat,
+R03269__cyto,71.245,0.3343,dlkcat,Pantothenate and CoA biosynthesis
+R02878__cyto,46.52125,64.5908,dlkcat,
+R07481__cyto,42.63,1.5142,dlkcat,Steroid biosynthesis
+R01137__cyto,17.08,13.7,default_13.7,Purine metabolism
+R11193__cyto,50.638571,13.7,default_13.7,
+R02135__cyto,54.5825,61.7982,dlkcat,Thiamine metabolism
+R00987__cyto,50.6,3.8226,dlkcat,Tryptophan metabolism
+R01039__cyto,45.3625,13.6908,dlkcat,Glycerolipid metabolism
+R09372__cyto,36.43,1.5701,dlkcat,Selenocompound metabolism
+R07092__cyto,32.915,43.3824,dlkcat,Metabolism of xenobiotics by cytochrome P450
+R00155__cyto,76.04,13.7,default_13.7,Pyrimidine metabolism
+R02294__cyto,33.13,2.4379,dlkcat,Nicotinate and nicotinamide metabolism
+R00391__cyto,74.11,13.7,default_13.7,Fatty acid elongation
+R04963__cyto,124.9,13.7,default_13.7,Fatty acid biosynthesis
+R09220__cyto,33.52,12.2813,dlkcat,Microbial metabolism in diverse environments
+R00010__cyto,130.3,22.5346,dlkcat,Biosynthesis of secondary metabolites
+R01639__cyto,75.7,63.4055,dlkcat,Pentose and glucuronate interconversions
+R10052__cyto,39.55,7.1165,dlkcat,2-Oxocarboxylic acid metabolism
+R08159__cyto,43.78,13.7,default_13.7,Fatty acid biosynthesis
+R11034__cyto,74.243333,54.8204,dlkcat,Spontaneous
+R01373__cyto,74.243333,125.3797,dlkcat,Biosynthesis of antibiotics
+R00670__cyto,51.33,4.3364,dlkcat,Glutathione metabolism
+R11861__cyto,28.27,23.5813,dlkcat,Glutathione metabolism
+R04956__cyto,103.506667,13.7,default_13.7,Fatty acid biosynthesis
+R00277__cyto,30.735,0.341,dlkcat,Vitamin B6 metabolism
+R05329__cyto,37.95,8.094,dlkcat,
+R00549__cyto,63.41,83.7479,dlkcat,Riboflavin metabolism
+R02923__pero,38.965,24.7217,dlkcat,D-Arginine and D-ornithine metabolism
+R08548__cyto,74.80125,1.0695,dlkcat,
+R01870__cyto,23.76,2.8901,dlkcat,Pyrimidine metabolism
+R00057__cyto,23.265,13.7,default_13.7,
+R03051__mito,44.36,2.3793,dlkcat,
+R00996__mito,88.56,18.6228,dlkcat,Biosynthesis of antibiotics
+R03438__cyto,78.464286,13.7,default_13.7,Ether lipid metabolism
+R02058__cyto,16.65,57.8557,dlkcat,Amino sugar and nucleotide sugar metabolism
+R04968__cyto,124.9,13.7,default_13.7,Fatty acid biosynthesis
+R05734__cyto,36.925,0.6233,dlkcat,
+R10116__cyto,99.21,13.7,default_13.7,Biotin metabolism
+R05070__mito,63.0,1.0847,dlkcat,2-Oxocarboxylic acid metabolism
+R05286__cyto,55.203333,1.4882,dlkcat,Microbial metabolism in diverse environments
+R07362__cyto,45.28,25.9278,dlkcat,
+R04959__mito,103.506667,13.7,default_13.7,Fatty acid biosynthesis
+R02016__cyto,36.43,13.7,default_13.7,
+R01529__cyto,25.09,2418.6742,dlkcat,Biosynthesis of antibiotics
+R01039__mito,45.3625,13.6908,dlkcat,Glycerolipid metabolism
+R01526__cyto,81.86,1.2496,dlkcat,Pentose and glucuronate interconversions
+R00221__cyto,45.36,0.196,dlkcat,"Glycine, serine and threonine metabolism"
+R07025__cyto,32.915,43.3824,dlkcat,Metabolism of xenobiotics by cytochrome P450
+R00767__cyto,91.266667,49.0398,dlkcat,
+R07899__cyto,43.63,0.4195,dlkcat,alpha-Linolenic acid metabolism
+R04972__cyto,41.0,4.8403,dlkcat,Porphyrin and chlorophyll metabolism
+R06875__cyto,90.5675,13.7,default_13.7,
+R01964__cyto,147.8575,95.8019,dlkcat,
+R10994__cyto,55.21,4.745,dlkcat,Cysteine and methionine metabolism
+R00052__cyto,30.69,5.2541,dlkcat,
+R02557__cyto,33.13,2.279,dlkcat,Purine metabolism
+R03222__cyto,56.75,0.4243,dlkcat,Porphyrin and chlorophyll metabolism
+R12403__cyto,36.925,0.2289,dlkcat,Biosynthesis of antibiotics
+R00006__mito,52.78,5.5572,dlkcat,
+R01863__cyto,33.13,1.377,dlkcat,Purine metabolism
+R01177__pero,42.665,16.5391,dlkcat,Fatty acid elongation
+R02887__cyto,114.54,11.9398,dlkcat,Starch and sucrose metabolism
+R03220__cyto,36.85,5.6538,dlkcat,Porphyrin and chlorophyll metabolism
+R11674__pero,41.33,39.1816,dlkcat,
+R00551__cyto,34.29,56.7363,dlkcat,Biosynthesis of antibiotics
+R00830__mito,157.14,0.7464,dlkcat,Porphyrin and chlorophyll metabolism
+R02236__mito,23.39,414.7758,dlkcat,One carbon pool by folate
+R03319__cyto,65.49,55.2936,dlkcat,
+R03990__cyto,79.816667,8.7743,dlkcat,Fatty acid metabolism
+R10120__cyto,99.21,13.7,default_13.7,Biotin metabolism
+R05615__cyto,43.61,0.3934,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R00709__cyto,39.05,40.9193,dlkcat,2-Oxocarboxylic acid metabolism
+R07083__cyto,32.915,43.3824,dlkcat,Metabolism of xenobiotics by cytochrome P450
+R04959__cyto,103.506667,13.7,default_13.7,Fatty acid biosynthesis
+R05725__cyto,43.2,2.3636,dlkcat,
+R00936__mito,23.39,183.8702,dlkcat,One carbon pool by folate
+R03660__cyto,58.52,66.4647,dlkcat,Aminoacyl-tRNA biosynthesis
+R10826__cyto,45.3625,13.7,default_13.7,Fatty acid elongation
+R03869__cyto,55.203333,2.256,dlkcat,"Valine, leucine and isoleucine degradation"
+R02894__cyto,38.965,28.5266,dlkcat,Arginine and proline metabolism
+R02291__cyto,39.04,17.0113,dlkcat,2-Oxocarboxylic acid metabolism
+R03330__cyto,90.5675,15.4119,dlkcat,Inositol phosphate metabolism
+R12405__cyto,39.01,0.0842,dlkcat,Biosynthesis of antibiotics
+R00771__cyto,61.27,11.0694,dlkcat,Biosynthesis of secondary metabolites
+R07034__cyto,18.32,428.5944,dlkcat,Arachidonic acid metabolism
+R04968__pero,124.9,13.7,default_13.7,Fatty acid biosynthesis
+R00842__mito,41.19,3.9251,dlkcat,Glycerophospholipid metabolism
+R01004__cyto,21.24,53.6831,dlkcat,N-Glycan biosynthesis
+R00678__cyto,50.8,3.3888,dlkcat,Tryptophan metabolism
+R01057__cyto,65.49,64.5169,dlkcat,Pentose phosphate pathway
+R04509__cyto,62.66,1.2862,dlkcat,Thiamine metabolism
+R10208__cyto,36.21,13.7,default_13.7,Fatty acid biosynthesis
+R00465__pero,45.3625,23.9301,dlkcat,Microbial metabolism in diverse environments
+R02412__cyto,235.91,4.4121,dlkcat,Biosynthesis of antibiotics
+R02508__cyto,66.65,3.1997,dlkcat,
+R01135__cyto,47.75,3.2228,dlkcat,"Alanine, aspartate and glutamate metabolism"
+R04035__cyto,92.31,0.954,dlkcat,Histidine metabolism
+R02543__cyto,78.464286,16.4776,dlkcat,Sphingolipid metabolism
+R07460__mito,51.59,9.327,dlkcat,Thiamine metabolism
+R03656__cyto,117.06,2.0594,dlkcat,Aminoacyl-tRNA biosynthesis
+R02985__cyto,114.54,7.5516,dlkcat,Cyanoamino acid metabolism
+R04963__pero,124.9,13.7,default_13.7,Fatty acid biosynthesis
+R04209__cyto,61.01,6.7399,dlkcat,Purine metabolism
+R00847__mito,98.78,0.2988,dlkcat,Glycerolipid metabolism
+R02760__mito,71.952,13.7,default_13.7,
+R04724__cyto,41.33,13.7,default_13.7,Fatty acid biosynthesis
+R09030__cyto,25.35,6.5891,dlkcat,Microbial metabolism in diverse environments
+R01130__cyto,56.03,3.4346,dlkcat,Purine metabolism
+R00289__cyto,55.82,2.7007,dlkcat,Biosynthesis of antibiotics
+R00659__cyto,59.495,59.053,dlkcat,
+R02527__cyto,45.3625,12.9068,dlkcat,Pyruvate metabolism
+R01315__cyto,105.0,13.7,default_13.7,Glycerophospholipid metabolism
+R00769__cyto,91.266667,37.2784,dlkcat,
+R01009__cyto,150.91,5.4919,dlkcat,N-Glycan biosynthesis
+R02133__cyto,62.66,1.2391,dlkcat,Thiamine metabolism
+R01071__cyto,66.22,22.3452,dlkcat,Histidine metabolism
+R01800__cyto,30.21,4.6866,dlkcat,"Glycine, serine and threonine metabolism"
+R07149__cyto,44.01,5.868,dlkcat,
+R01352__cyto,61.085,13.7,default_13.7,
+R03658__cyto,108.43,43.3522,dlkcat,Aminoacyl-tRNA biosynthesis
+R00694__cyto,52.186667,12.1787,dlkcat,2-Oxocarboxylic acid metabolism
+R01961__cyto,176.006667,95.8019,dlkcat,Amino sugar and nucleotide sugar metabolism
+R02964__cyto,23.81,1.1828,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R07506__cyto,59.94,13.7,default_13.7,Biosynthesis of antibiotics
+R00009__pero,54.73,214.0214,dlkcat,Biosynthesis of antibiotics
+R08632__cyto,42.66,0.3327,dlkcat,
+R12356__cyto,79.816667,11.5065,dlkcat,Propanoate metabolism
+R02090__cyto,20.51,0.2254,dlkcat,Purine metabolism
+R02245__cyto,45.98,2.9804,dlkcat,Biosynthesis of antibiotics
+R00842__cyto,41.19,3.9251,dlkcat,Glycerophospholipid metabolism
+R01221__cyto,56.6625,12.934,dlkcat,Biosynthesis of antibiotics
+R01073__cyto,39.5,1.5061,dlkcat,Biosynthesis of antibiotics
+R04960__cyto,124.9,13.7,default_13.7,Fatty acid biosynthesis
+R05802__cyto,323.98,13.7,default_13.7,Inositol phosphate metabolism
+R05764__cyto,34.76,166.5513,dlkcat,
+R05048__cyto,32.03,3.0149,dlkcat,Spontaneous
+R12400__cyto,59.495,10.4193,dlkcat,Steroid biosynthesis
+R03283__cyto,55.203333,60.8199,dlkcat,Lysine degradation
+R04072__cyto,88.712,14.8369,dlkcat,
+R05800__cyto,63.41,50.2,dlkcat,Inositol phosphate metabolism
+R12121__cyto,59.6,2.339,dlkcat,
+R01411__cyto,180.99,1.0867,dlkcat,Pyrimidine metabolism
+R04440__mito,44.36,2.9212,dlkcat,2-Oxocarboxylic acid metabolism
+R00893__cyto,26.88,0.8114,dlkcat,Taurine and hypotaurine metabolism
+R10455__cyto,45.5,13.7,default_13.7,
+R01682__cyto,59.86,5.8598,dlkcat,Taurine and hypotaurine metabolism
+R10039__cyto,114.54,7.2,dlkcat,Cyanoamino acid metabolism
+R01221__mito,56.6625,12.934,dlkcat,Biosynthesis of antibiotics
+R01462__cyto,74.296667,13.7,default_13.7,Steroid biosynthesis
+R01978__cyto,49.4,2.4143,dlkcat,Biosynthesis of antibiotics
+R06861__cyto,73.78,4.6299,dlkcat,
+R01132__cyto,24.6,1.6109,dlkcat,Purine metabolism
+R07004__cyto,32.915,43.3824,dlkcat,Metabolism of xenobiotics by cytochrome P450
+R01055__mito,82.11,10.4495,dlkcat,Pyrimidine metabolism
+R00127__cyto,28.005,13.7,default_13.7,Biosynthesis of antibiotics
+R03035__cyto,89.933333,28.4183,dlkcat,Pantothenate and CoA biosynthesis
+R01771__cyto,38.13,3.8195,dlkcat,"Glycine, serine and threonine metabolism"
+R05577__cyto,69.88,4.2384,dlkcat,Aminoacyl-tRNA biosynthesis
+R07759__cyto,45.3625,19.8287,dlkcat,Fatty acid metabolism
+R04929__cyto,34.04,1.4418,dlkcat,Selenocompound metabolism
+R02540__cyto,61.255,10.6608,dlkcat,Styrene degradation
+R03920__cyto,176.006667,57.9861,dlkcat,Amino sugar and nucleotide sugar metabolism
+R00517__cyto,53.24,1.0669,dlkcat,Pyrimidine metabolism
+R00084__cyto,39.4,0.0855,dlkcat,Porphyrin and chlorophyll metabolism
+R00036__cyto,37.11,0.2681,dlkcat,Porphyrin and chlorophyll metabolism
+R01618__cyto,87.6,3.4656,dlkcat,Purine metabolism
+R02097__cyto,63.41,29.342,dlkcat,Pyrimidine metabolism
+R01776__cyto,163.36,17.3164,dlkcat,Biosynthesis of antibiotics
+R03347__cyto,26.51,7.8387,dlkcat,Nicotinate and nicotinamide metabolism
+R11165__cyto,33.83,13.7,default_13.7,
+R02371__cyto,58.325,46.3595,dlkcat,Pyrimidine metabolism
+R03237__cyto,105.195,27.0606,dlkcat,Galactose metabolism
+R00238__cyto,42.665,16.5391,dlkcat,Biosynthesis of antibiotics
+R05799__cyto,129.47,24.1127,dlkcat,
+R01001__cyto,42.66,0.3327,dlkcat,Biosynthesis of antibiotics
+R00348__cyto,32.41,9.1233,dlkcat,"Alanine, aspartate and glutamate metabolism"
+R00908__cyto,53.515,8.5501,dlkcat,Propanoate metabolism
+R04429__cyto,41.33,13.7,default_13.7,Fatty acid biosynthesis
+R02156__cyto,38.2,0.198,dlkcat,
+R01229__cyto,24.6,0.3975,dlkcat,Purine metabolism
+R10845__cyto,55.18,6.1907,dlkcat,
+R00253__cyto,41.3,36.7677,dlkcat,"Alanine, aspartate and glutamate metabolism"
+R03990__pero,79.816667,8.7743,dlkcat,Fatty acid metabolism
+R01819__cyto,48.58,14.2038,dlkcat,Biosynthesis of antibiotics
+R04881__cyto,29.19,0.0628,dlkcat,Tyrosine metabolism
+R00970__cyto,58.325,34.4625,dlkcat,Pyrimidine metabolism
+R03236__cyto,105.195,21.8188,dlkcat,Galactose metabolism
+R03083__cyto,235.91,2.9204,dlkcat,Biosynthesis of antibiotics
+R06519__cyto,42.67,13.7,default_13.7,Sphingolipid metabolism
+R02688__cyto,63.67,13.7,default_13.7,
+R04944__cyto,66.65,5.163,dlkcat,Selenocompound metabolism
+R03362__cyto,108.23,13.7,default_13.7,Inositol phosphate metabolism
+R02092__cyto,76.04,5.5349,dlkcat,Pyrimidine metabolism
+R07168__cyto,70.755,5.7633,dlkcat,Carbon fixation pathways in prokaryotes
+R03194__cyto,60.49,8.5627,dlkcat,Porphyrin and chlorophyll metabolism
+R04928__cyto,63.41,26.2611,dlkcat,
+R11100__pero,81.05,2.8106,dlkcat,Spontaneous
+R04880__cyto,47.68,12.1338,dlkcat,Tyrosine metabolism
+R00734__cyto,52.186667,11.551,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R04990__cyto,48.909286,19.8024,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R04770__cyto,42.66,1.4882,dlkcat,Selenocompound metabolism
+R08095__cyto,74.11,19.8313,dlkcat,Geraniol degradation
+R02747__cyto,232.64,13.7,default_13.7,Glycerophospholipid metabolism
+R09698__pero,74.243333,13.7,default_13.7,
+R03067__cyto,83.16,6.9719,dlkcat,Folate biosynthesis
+R04502__cyto,68.077407,31.4946,dlkcat,
+R03628__cyto,50.8,5.9245,dlkcat,Tryptophan metabolism
+R01830__cyto,73.78,7.4872,dlkcat,Biosynthesis of antibiotics
+R00085__cyto,81.343333,13.7,default_13.7,
+R00776__pero,23.24,4.5276,dlkcat,Purine metabolism
+R00251__cyto,274.95,16.4688,dlkcat,Glutathione metabolism
+R02760__cyto,71.952,13.7,default_13.7,
+R05590__cyto,61.255,2.2821,dlkcat,Aminobenzoate degradation
+R04445__mito,64.57,2.211,dlkcat,Arginine and proline metabolism
+R09844__cyto,41.225,0.1828,dlkcat,Biosynthesis of antibiotics
+R07385__cyto,205.92,13.7,default_13.7,Ether lipid metabolism
+R01388__cyto,45.3625,44.5606,dlkcat,Biosynthesis of antibiotics
+R03459__cyto,32.08,213.0032,dlkcat,Riboflavin metabolism
+R01664__cyto,31.315,42.9755,dlkcat,Pyrimidine metabolism
+R04494__cyto,67.02037,29.1141,dlkcat,
+R04725__mito,103.506667,13.7,default_13.7,Fatty acid biosynthesis
+R03457__cyto,74.243333,63.3764,dlkcat,Histidine metabolism
+R00519__cyto,41.4,3.3369,dlkcat,Microbial metabolism in diverse environments
+R00190__cyto,20.06,2.4854,dlkcat,Purine metabolism
+R00530__cyto,87.6,3.1005,dlkcat,Microbial metabolism in diverse environments
+R00959__cyto,65.49,55.2936,dlkcat,Biosynthesis of antibiotics
+R00516__cyto,58.325,46.3595,dlkcat,Pyrimidine metabolism
+R03899__cyto,52.32,8.8827,dlkcat,
+R00691__cyto,74.243333,67.3635,dlkcat,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+R01224__cyto,69.47,3.0139,dlkcat,One carbon pool by folate
+R00626__cyto,71.910909,13.7,default_13.7,
+R02529__cyto,77.315,34.1247,dlkcat,"Glycine, serine and threonine metabolism"
+R00200__cyto,55.58,19.6507,dlkcat,Biosynthesis of antibiotics
+R02484__cyto,42.08,1.3789,dlkcat,Pyrimidine metabolism
+R07495__cyto,39.01,0.0689,dlkcat,Biosynthesis of antibiotics
+R07168__mito,70.755,5.7633,dlkcat,Carbon fixation pathways in prokaryotes
+R04773__cyto,144.23,1.1986,dlkcat,Selenocompound metabolism
+R01226__cyto,34.39,4.8389,dlkcat,Pantothenate and CoA biosynthesis
+R07002__cyto,32.915,43.3824,dlkcat,Metabolism of xenobiotics by cytochrome P450
+R09736__mito,33.23,0.5761,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R00627__cyto,29.98,11.5525,dlkcat,
+R11337__cyto,46.46,3.9824,dlkcat,
+R02095__cyto,76.04,2.2798,dlkcat,Pyrimidine metabolism
+R02102__cyto,31.315,30.4007,dlkcat,Pyrimidine metabolism
+R04496__cyto,26.62,13.7,default_13.7,Biosynthesis of antibiotics
+R00192__cyto,48.81,2.626,dlkcat,Cysteine and methionine metabolism
+R02918__cyto,54.855,6.577,dlkcat,Aminoacyl-tRNA biosynthesis
+R00310__mito,43.66,0.1583,dlkcat,Porphyrin and chlorophyll metabolism
+R03516__cyto,131.822,13.7,default_13.7,
+R00847__cyto,98.78,0.2988,dlkcat,Glycerolipid metabolism
+R02457__pero,38.965,18.8919,dlkcat,D-Arginine and D-ornithine metabolism
+R01497__cyto,52.13,5.4879,dlkcat,Sphingolipid metabolism
+R03012__cyto,92.31,3.8607,dlkcat,Histidine metabolism
+R03858__cyto,43.63,0.4195,dlkcat,Fatty acid elongation
+R07094__cyto,32.915,43.3824,dlkcat,Metabolism of xenobiotics by cytochrome P450
+R04961__cyto,41.33,13.7,default_13.7,Fatty acid biosynthesis
+R11893__mito,72.695,105.4466,dlkcat,Drug metabolism - other enzymes
+R03038__cyto,105.59,4.9448,dlkcat,Aminoacyl-tRNA biosynthesis
+R02732__mito,111.04,2.0085,dlkcat,Fructose and mannose metabolism
+R01214__mito,41.27,1.3939,dlkcat,Glucosinolate biosynthesis
+R04556__cyto,41.33,26.7047,dlkcat,
+R04023__cyto,131.822,13.7,default_13.7,
+R04966__cyto,41.33,13.7,default_13.7,Fatty acid biosynthesis
+R02737__cyto,100.755,7.1877,dlkcat,Biosynthesis of secondary metabolites
+R08558__cyto,46.52125,529.8585,dlkcat,"Glycine, serine and threonine metabolism"
+R03971__cyto,63.94,10.533,dlkcat,Cyanoamino acid metabolism
+R10920__cyto,51.314286,16.0293,dlkcat,
+R07888__pero,79.816667,8.0096,dlkcat,alpha-Linolenic acid metabolism
+R11323__cyto,83.995,13.8385,dlkcat,Pyrimidine metabolism
+R03443__cyto,95.28,13.292,dlkcat,2-Oxocarboxylic acid metabolism
+R00178__cyto,48.1,13.7,default_13.7,Arginine and proline metabolism
+R03417__pero,232.64,13.7,default_13.7,Glycerophospholipid metabolism
+R02678__cyto,55.203333,19.4662,dlkcat,Tryptophan metabolism
+R02868__cyto,147.8575,20.0347,dlkcat,
+R04441__cyto,63.0,1.0432,dlkcat,2-Oxocarboxylic acid metabolism
+R08769__mito,50.115385,16.9789,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R10088__cyto,28.78,130.0602,dlkcat,
+R01286__cyto,43.97,15.1343,dlkcat,Cysteine and methionine metabolism
+R07035__cyto,18.32,432.0968,dlkcat,Arachidonic acid metabolism
+R00160__cyto,83.995,13.7,default_13.7,Riboflavin metabolism
+R03004__cyto,47.68,0.5348,dlkcat,Nicotinate and nicotinamide metabolism
+R05085__cyto,42.76,5.9853,dlkcat,Vitamin B6 metabolism
+R03663__cyto,125.49,1.2998,dlkcat,Aminoacyl-tRNA biosynthesis
+R08240__cyto,56.03,2.8683,dlkcat,Drug metabolism - other enzymes
+R01280__pero,77.35,3.1745,dlkcat,Fatty acid biosynthesis
+R01214__cyto,41.27,1.3939,dlkcat,Glucosinolate biosynthesis
+R04404__cyto,124.76,13.7,default_13.7,Inositol phosphate metabolism
+R04162__cyto,68.542727,13.7,default_13.7,Ether lipid metabolism
+R02957__cyto,55.203333,43.51,dlkcat,Ascorbate and aldarate metabolism
+R01801__mito,32.86,7.5063,dlkcat,Glycerophospholipid metabolism
+R03451__cyto,45.76,0.9509,dlkcat,Lysine degradation
+R09881__cyto,83.995,15.6904,dlkcat,
+R04535__cyto,132.035,13.7,default_13.7,Fatty acid biosynthesis
+R01126__cyto,44.765,34.9746,dlkcat,Purine metabolism
+R02056__cyto,60.335,13.7,default_13.7,Glycerophospholipid metabolism
+R02111__cyto,136.615,13.7,default_13.7,Biosynthesis of secondary metabolites
+R00943__cyto,198.965,35.0752,dlkcat,Carbon fixation pathways in prokaryotes
+R07758__cyto,37.565,0.651,dlkcat,Fatty acid metabolism
+R09409__cyto,32.915,43.3824,dlkcat,Metabolism of xenobiotics by cytochrome P450
+R01624__cyto,227.86,6.4311,dlkcat,Fatty acid biosynthesis
+R01654__cyto,51.505,1.7047,dlkcat,
+R04125__cyto,42.96,4.6888,dlkcat,"Glycine, serine and threonine metabolism"
+R00259__cyto,46.21,64.0371,dlkcat,2-Oxocarboxylic acid metabolism
+R02019__cyto,81.16,13.7,default_13.7,Purine metabolism
+R08237__cyto,37.815,1.472,dlkcat,Drug metabolism - other enzymes
+R01163__cyto,92.31,3.0767,dlkcat,Histidine metabolism
+R02335__cyto,115.5125,25.9708,dlkcat,Amino sugar and nucleotide sugar metabolism
+R03942__cyto,26.96,3.4761,dlkcat,Microbial metabolism in diverse environments
+R00570__cyto,17.08,13.7,default_13.7,Pyrimidine metabolism
+R03815__mito,51.85,13.7,default_13.7,"Glycine, serine and threonine metabolism"
+R00508__cyto,39.41,38.4106,dlkcat,Microbial metabolism in diverse environments
+R09222__cyto,33.52,1.7413,dlkcat,Microbial metabolism in diverse environments
+R01244__cyto,39.97,12.1649,dlkcat,Purine metabolism
+R08245__cyto,37.815,0.3999,dlkcat,Drug metabolism - other enzymes
+R01933__cyto,50.1,13.4805,dlkcat,Biosynthesis of antibiotics
+R04433__mito,71.05,3.2844,dlkcat,
+R06171__cyto,41.315,5.0157,dlkcat,"Glycine, serine and threonine metabolism"
+R00321__cyto,42.756,6.1908,dlkcat,
+R00512__cyto,34.66,1.4795,dlkcat,Pyrimidine metabolism
+R09827__cyto,124.76,13.7,default_13.7,Inositol phosphate metabolism
+R00258__mito,56.13,0.1196,dlkcat,2-Oxocarboxylic acid metabolism
+R03950__cyto,50.856429,2.758,dlkcat,
+R00760__cyto,176.006667,57.9861,dlkcat,Biosynthesis of secondary metabolites
+R08772__mito,93.21,13.7,default_13.7,Ubiquinone and other terpenoid-quinone biosynthesis
+R02327__cyto,58.325,43.2786,dlkcat,Pyrimidine metabolism
+R02767__cyto,99.21,13.7,default_13.7,Fatty acid biosynthesis
+R02466__cyto,59.86,2.7747,dlkcat,Taurine and hypotaurine metabolism
+R11957__cyto,78.464286,15.2807,dlkcat,
+R11679__cyto,249.62,1.138,dlkcat,Biosynthesis of amino acids
+R01184__cyto,39.14,2.7199,dlkcat,Ascorbate and aldarate metabolism
+R04247__cyto,39.33,1.4665,dlkcat,Phosphonate and phosphinate metabolism
+R12402__cyto,44.092,6.2537,dlkcat,
+R01185__cyto,81.812857,11.4647,dlkcat,Inositol phosphate metabolism
+R08549__mito,71.523333,15.7152,dlkcat,Biosynthesis of antibiotics
+R04463__cyto,147.16,7.7393,dlkcat,Biosynthesis of antibiotics
+R01248__cyto,28.97,54.3003,dlkcat,Biosynthesis of antibiotics
+R00174__cyto,34.515,25.2374,dlkcat,Vitamin B6 metabolism
+R03199__cyto,54.49,8.5824,dlkcat,Biosynthesis of antibiotics
+R02057__cyto,32.86,8.7395,dlkcat,Glycerophospholipid metabolism
+R01528__cyto,55.69,43.4866,dlkcat,Glutathione metabolism
+R02239__cyto,45.32,13.7,default_13.7,Glycerophospholipid metabolism
+R04903__cyto,55.203333,18.4901,dlkcat,Tryptophan metabolism
+R02115__cyto,64.688182,13.7,default_13.7,
+R08178__cyto,43.78,1.1407,dlkcat,Biosynthesis of unsaturated fatty acids
+R00512__mito,34.66,1.4795,dlkcat,Pyrimidine metabolism
+R04184__cyto,62.863333,128.7754,dlkcat,
+R00829__cyto,74.11,12.4485,dlkcat,Microbial metabolism in diverse environments
+R03503__cyto,83.16,5.3158,dlkcat,Folate biosynthesis
+R05238__cyto,55.203333,6.1735,dlkcat,Microbial metabolism in diverse environments
+R00220__cyto,88.56,11.6792,dlkcat,Biosynthesis of antibiotics
+R07349__cyto,41.33,13.7,default_13.7,
+R04747__cyto,43.63,0.4195,dlkcat,Fatty acid elongation
+R08549__cyto,71.523333,15.7152,dlkcat,Biosynthesis of antibiotics
+R01802__cyto,23.93,9.6511,dlkcat,Inositol phosphate metabolism
+R03223__cyto,54.51,0.9467,dlkcat,Thiamine metabolism
+R00004__cyto,67.128333,13.7,default_13.7,Oxidative Phosphorilation
+R07069__cyto,32.915,43.3824,dlkcat,Metabolism of xenobiotics by cytochrome P450
+R03321__cyto,61.27,11.0694,dlkcat,Biosynthesis of antibiotics
+R06223__cyto,50.36,0.2959,dlkcat,
+R00224__cyto,70.973333,6.9188,dlkcat,
+R03662__cyto,51.555,5.461,dlkcat,Aminoacyl-tRNA biosynthesis
+R00161__cyto,30.71,12.0779,dlkcat,Riboflavin metabolism
+R05237__cyto,55.203333,6.1735,dlkcat,Microbial metabolism in diverse environments
+R12401__cyto,44.092,1.9718,dlkcat,Steroid biosynthesis
+R06917__cyto,47.68,80.1655,dlkcat,Degradation of aromatic compounds
+R04754__cyto,79.816667,9.2341,dlkcat,Fatty acid metabolism
+R00220__mito,88.56,11.6792,dlkcat,Biosynthesis of antibiotics
+R03857__pero,79.816667,8.9897,dlkcat,Fatty acid metabolism
+R00942__cyto,57.68,1.8718,dlkcat,Folate biosynthesis
+R01251__cyto,28.97,26.7855,dlkcat,Biosynthesis of antibiotics
+R00267__mito,46.66,5.3952,dlkcat,2-Oxocarboxylic acid metabolism
+R04534__cyto,152.01,13.7,default_13.7,Fatty acid biosynthesis
+R04742__cyto,43.63,0.4195,dlkcat,Fatty acid elongation
+R02521__cyto,53.38,15.8323,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R02018__cyto,81.16,13.7,default_13.7,Pyrimidine metabolism
+R07023__cyto,32.915,43.3824,dlkcat,Metabolism of xenobiotics by cytochrome P450
+R11043__cyto,46.94,4.6807,dlkcat,Fatty acid metabolism
+R01430__cyto,45.3625,12.851,dlkcat,Pentose and glucuronate interconversions
+R04965__cyto,132.035,13.7,default_13.7,Fatty acid biosynthesis
+R10991__cyto,41.27,2.5216,dlkcat,Cysteine and methionine metabolism
+R00986__cyto,135.12,11.78,dlkcat,Biosynthesis of antibiotics
+R02740__cyto,61.27,11.0694,dlkcat,Biosynthesis of antibiotics
+R01909__cyto,34.515,5.261,dlkcat,Vitamin B6 metabolism
+R08557__cyto,46.52125,529.8585,dlkcat,"Glycine, serine and threonine metabolism"
+R04027__cyto,77.315,29.5613,dlkcat,Biosynthesis of secondary metabolites
+R01090__cyto,41.27,1.4399,dlkcat,Glucosinolate biosynthesis
+R12406__cyto,44.01,6.9096,dlkcat,
+R02300__cyto,42.96,4.3306,dlkcat,One carbon pool by folate
+R00267__cyto,46.66,5.3952,dlkcat,2-Oxocarboxylic acid metabolism
+R04970__mito,103.506667,13.7,default_13.7,Fatty acid biosynthesis
+R03816__cyto,23.81,1.2234,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R10121__cyto,74.243333,13.7,default_13.7,Biotin metabolism
+R08231__cyto,37.395,3.0605,dlkcat,Drug metabolism - other enzymes
+R02241__cyto,59.665,13.7,default_13.7,Glycerophospholipid metabolism
+R07026__cyto,32.915,43.3824,dlkcat,Metabolism of xenobiotics by cytochrome P450
+R02021__cyto,27.78,85.3254,dlkcat,Microbial metabolism in diverse environments
+R08557__mito,46.52125,529.8585,dlkcat,"Glycine, serine and threonine metabolism"
+R00765__cyto,27.62,22.1664,dlkcat,Amino sugar and nucleotide sugar metabolism
+R02241__mito,59.665,13.7,default_13.7,Glycerophospholipid metabolism
+R00985__cyto,135.12,3.7333,dlkcat,Biosynthesis of antibiotics
+R06983__cyto,77.18,4.2293,dlkcat,Microbial metabolism in diverse environments
+R01468__cyto,64.43,4.3595,dlkcat,Glycerophospholipid metabolism
+R05779__mito,71.37,202.0019,dlkcat,
+R08232__cyto,53.24,1.1956,dlkcat,Drug metabolism - other enzymes
+R08558__mito,46.52125,529.8585,dlkcat,"Glycine, serine and threonine metabolism"
+R05731__cyto,59.6,2.0445,dlkcat,Steroid biosynthesis
+R04970__cyto,103.506667,13.7,default_13.7,Fatty acid biosynthesis
+R00004__mito,67.128333,13.7,default_13.7,Oxidative Phosphorilation
+R00268__cyto,46.66,3.0973,dlkcat,2-Oxocarboxylic acid metabolism
+R02732__cyto,111.04,2.0085,dlkcat,Fructose and mannose metabolism
+R05233__cyto,47.68,47.8315,dlkcat,Microbial metabolism in diverse environments
+R05511__cyto,33.52,43.495,dlkcat,Chlorocyclohexane and chlorobenzene degradation
+R10993__cyto,86.15,10.7577,dlkcat,Cysteine and methionine metabolism
+R02237__mito,51.505,2.7471,dlkcat,Folate biosynthesis
+R01280__cyto,77.35,3.1745,dlkcat,Fatty acid biosynthesis
+R01968__cyto,31.315,8.0792,dlkcat,Purine metabolism
+R05086__cyto,57.67,3.069,dlkcat,Vitamin B6 metabolism
+R03916__cyto,63.94,13.7,default_13.7,Glutathione metabolism
+R00137__cyto,41.46,17.0826,dlkcat,Nicotinate and nicotinamide metabolism
+R03005__cyto,41.46,17.8858,dlkcat,Nicotinate and nicotinamide metabolism
+R03664__cyto,44.76,4.1362,dlkcat,Aminoacyl-tRNA biosynthesis
+R02613__cyto,77.315,164.9793,dlkcat,Phenylalanine metabolism
+R01218__cyto,38.57,2.7546,dlkcat,One carbon pool by folate
+R02953__cyto,43.97,13.7,default_13.7,
+R01872__cyto,36.69,1.023,dlkcat,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+R02082__cyto,110.54,21.3593,dlkcat,Biosynthesis of antibiotics
+R04405__cyto,85.98,1.2496,dlkcat,Cysteine and methionine metabolism
+R03482__cyto,31.665,13.7,default_13.7,
+R02055__mito,99.08,13.7,default_13.7,Glycerophospholipid metabolism
+R05333__cyto,173.69,13.7,default_13.7,Glycerolipid metabolism
+R03416__pero,232.64,13.7,default_13.7,Glycerophospholipid metabolism
+R04780__cyto,37.42,0.4433,dlkcat,Biosynthesis of antibiotics
+R10685__cyto,35.48,1.7297,dlkcat,Thiamine metabolism
+R02867__cyto,147.8575,50.6207,dlkcat,
+R01213__mito,65.65,27.2626,dlkcat,2-Oxocarboxylic acid metabolism
+R08176__cyto,43.78,1.2672,dlkcat,Biosynthesis of unsaturated fatty acids
+R07937__cyto,43.63,0.7114,dlkcat,Fatty acid metabolism
+R01310__cyto,205.92,13.7,default_13.7,Glycerophospholipid metabolism
+R04563__cyto,75.48,0.8994,dlkcat,
+R02736__cyto,57.22,7.9342,dlkcat,Glutathione metabolism
+R04967__cyto,103.506667,13.7,default_13.7,Fatty acid biosynthesis
+R00268__mito,46.66,3.0973,dlkcat,2-Oxocarboxylic acid metabolism
+R01714__cyto,40.58,8.5611,dlkcat,Biosynthesis of antibiotics
+R08512__cyto,35.276667,43.3824,dlkcat,
+R02237__cyto,51.505,2.7471,dlkcat,Folate biosynthesis
+R00722__cyto,17.08,13.7,default_13.7,Purine metabolism
+R03449__cyto,119.27,13.7,default_13.7,
+R01934__cyto,40.35,0.2452,dlkcat,2-Oxocarboxylic acid metabolism
+R00416__cyto,49.73,5.7752,dlkcat,Biosynthesis of antibiotics
+R02457__cyto,38.965,18.8919,dlkcat,D-Arginine and D-ornithine metabolism
+R00485__cyto,41.24,1.7148,dlkcat,"Alanine, aspartate and glutamate metabolism"
+R00103__cyto,47.68,13.7,default_13.7,Nicotinate and nicotinamide metabolism
+R10117__cyto,74.243333,13.7,default_13.7,Biotin metabolism
+R05861__cyto,38.965,15.0645,dlkcat,
+R00132__cyto,33.19,17453.7506,dlkcat,
+R03417__mito,232.64,13.7,default_13.7,Glycerophospholipid metabolism
+R00946__cyto,50.115385,24.6383,dlkcat,One carbon pool by folate
+R01287__cyto,47.75,47.0688,dlkcat,Cysteine and methionine metabolism
+R01470__cyto,144.72,4.4163,dlkcat,Glycerophospholipid metabolism
+R10712__cyto,54.51,1.01,dlkcat,Thiamine metabolism
+R00130__cyto,26.47,92.8916,dlkcat,Pantothenate and CoA biosynthesis
+R00100__cyto,33.0,13.7,default_13.7,Amino sugar and nucleotide sugar metabolism
+R08771__mito,50.115385,13.7,default_13.7,Ubiquinone and other terpenoid-quinone biosynthesis
+R03635__cyto,57.07,19.9757,dlkcat,Galactose metabolism
+R02144__cyto,44.57,5.0828,dlkcat,Histidine metabolism
+R04568__cyto,132.035,13.7,default_13.7,Fatty acid biosynthesis
+R00261__cyto,59.86,3.357,dlkcat,"Alanine, aspartate and glutamate metabolism"
+R00858__cyto,157.81,4.0688,dlkcat,Microbial metabolism in diverse environments
+R00762__cyto,37.42,0.4433,dlkcat,Microbial metabolism in diverse environments
+R01569__cyto,31.315,27.467,dlkcat,Pyrimidine metabolism
+R10463__cyto,40.06,7.4274,dlkcat,
+R08774__mito,48.909286,13.7,default_13.7,Ubiquinone and other terpenoid-quinone biosynthesis
+R03444__cyto,87.31,24.8399,dlkcat,2-Oxocarboxylic acid metabolism
+R04711__cyto,50.115385,10.2047,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R00885__cyto,40.0,14.1898,dlkcat,Fructose and mannose metabolism
+R00226__cyto,52.78,11.8141,dlkcat,2-Oxocarboxylic acid metabolism
+R01068__cyto,39.22,0.2182,dlkcat,Microbial metabolism in diverse environments
+R00480__cyto,58.39,12.5505,dlkcat,2-Oxocarboxylic acid metabolism
+R01652__cyto,44.2,10.515,dlkcat,2-Oxocarboxylic acid metabolism
+R00724__cyto,59.495,59.053,dlkcat,
+R01843__cyto,91.266667,37.1506,dlkcat,
+R00483__cyto,66.865,6.8607,dlkcat,"Alanine, aspartate and glutamate metabolism"
+R02053__cyto,105.0,13.7,default_13.7,Glycerophospholipid metabolism
+R07093__cyto,32.915,43.3824,dlkcat,Metabolism of xenobiotics by cytochrome P450
+R10119__cyto,44.99,13.7,default_13.7,Biotin metabolism
+R01845__cyto,76.26375,13.8955,dlkcat,Microbial metabolism in diverse environments
+R08238__cyto,37.815,3.104,dlkcat,Drug metabolism - other enzymes
+R03139__cyto,77.315,81.135,dlkcat,beta-Alanine metabolism
+R03417__cyto,232.64,13.7,default_13.7,Glycerophospholipid metabolism
+R02332__cyto,58.325,31.2482,dlkcat,Pyrimidine metabolism
+R00667__cyto,46.58,2.4571,dlkcat,Biosynthesis of antibiotics
+R03504__cyto,83.16,4.5832,dlkcat,Folate biosynthesis
+R03857__cyto,79.816667,8.9897,dlkcat,Fatty acid metabolism
+R01655__mito,198.965,26.051,dlkcat,Carbon fixation pathways in prokaryotes
+R01786__cyto,176.006667,41.9897,dlkcat,Biosynthesis of antibiotics
+R08707__cyto,33.445,13.7,default_13.7,
+R01127__cyto,64.29,0.1929,dlkcat,Biosynthesis of antibiotics
+R01931__cyto,33.23,7.5371,dlkcat,Microbial metabolism in diverse environments
+R02055__cyto,99.08,13.7,default_13.7,Glycerophospholipid metabolism
+R03260__cyto,66.65,3.9329,dlkcat,Cysteine and methionine metabolism
+R02747__pero,232.64,13.7,default_13.7,Glycerophospholipid metabolism
+R04930__cyto,42.66,0.741,dlkcat,
+R02331__cyto,17.08,29.883,dlkcat,Pyrimidine metabolism
+R00851__cyto,68.54,32.8779,dlkcat,Glycerophospholipid metabolism
+R02649__cyto,95.28,7.4321,dlkcat,2-Oxocarboxylic acid metabolism
+R07280__cyto,81.812857,9.3097,dlkcat,Riboflavin metabolism
+R01404__cyto,103.506667,13.7,default_13.7,Fatty acid biosynthesis
+R00009__cyto,54.73,214.0214,dlkcat,Biosynthesis of antibiotics
+R00668__cyto,46.58,2.4571,dlkcat,
+R01067__cyto,73.78,7.4872,dlkcat,Microbial metabolism in diverse environments
+R04751__pero,79.816667,9.8367,dlkcat,Fatty acid metabolism
+R00351__mito,51.15,158.9636,dlkcat,2-Oxocarboxylic acid metabolism
+R02422__cyto,38.19,900.1378,dlkcat,Microbial metabolism in diverse environments
+R03291__cyto,28.97,24.4865,dlkcat,Arginine and proline metabolism
+R02053__mito,105.0,13.7,default_13.7,Glycerophospholipid metabolism
+R00572__cyto,59.495,59.053,dlkcat,
+R04378__cyto,20.06,1.493,dlkcat,Purine metabolism
+R01900__mito,63.41,19.5124,dlkcat,2-Oxocarboxylic acid metabolism
+R01716__cyto,84.42,1.4882,dlkcat,Folate biosynthesis
+R01158__cyto,92.31,3.8607,dlkcat,Biosynthesis of amino acids
+R09136__cyto,33.52,1.4882,dlkcat,Chlorocyclohexane and chlorobenzene degradation
+R10688__cyto,76.423333,12.8422,dlkcat,"Alanine, aspartate and glutamate metabolism"
+R01658__cyto,39.24,1.422,dlkcat,Biosynthesis of antibiotics
+R01061__cyto,35.33,84.4411,dlkcat,Biosynthesis of antibiotics
+R11896__mito,16.19,2.4943,dlkcat,Drug metabolism - other enzymes
+R00571__cyto,64.13,13.7,default_13.7,Pyrimidine metabolism
+R02051__cyto,205.92,13.7,default_13.7,Glycerophospholipid metabolism
+R01900__cyto,63.41,19.5124,dlkcat,2-Oxocarboxylic acid metabolism
+R00578__cyto,66.865,13.5532,dlkcat,"Alanine, aspartate and glutamate metabolism"
+R04125__mito,42.96,4.6888,dlkcat,"Glycine, serine and threonine metabolism"
+R10092__cyto,33.19,2563.5035,dlkcat,Nitrogen metabolism
+R11399__cyto,88.712,14.8369,dlkcat,
+R09944__cyto,35.04,112.9695,dlkcat,Glycerophospholipid metabolism
+R09077__cyto,52.32,11.0417,dlkcat,Arginine and proline metabolism
+R00351__cyto,51.15,158.9636,dlkcat,2-Oxocarboxylic acid metabolism
+R00139__cyto,17.08,29.4612,dlkcat,Pyrimidine metabolism
+R04065__cyto,55.203333,12.9672,dlkcat,Histidine metabolism
+R00299__cyto,176.006667,41.9897,dlkcat,Biosynthesis of antibiotics
+R01404__mito,103.506667,13.7,default_13.7,Fatty acid biosynthesis
+R00509__cyto,63.41,37.4384,dlkcat,Microbial metabolism in diverse environments
+R03947__cyto,27.12,0.0729,dlkcat,Porphyrin and chlorophyll metabolism
+R05641__cyto,53.66,6.4535,dlkcat,Biosynthesis of antibiotics
+R11895__cyto,17.08,23.4632,dlkcat,Drug metabolism - other enzymes
+R08648__mito,52.78,14.8592,dlkcat,2-Oxocarboxylic acid metabolism
+R01715__cyto,30.14,42.3109,dlkcat,Biosynthesis of antibiotics
+R05050__cyto,55.203333,20.6059,dlkcat,Arginine and proline metabolism
+R03508__cyto,60.24,6.1316,dlkcat,Biosynthesis of antibiotics
+R11891__mito,34.66,1.5077,dlkcat,Drug metabolism - other enzymes
+R04620__cyto,62.54,2.3572,dlkcat,Folate biosynthesis
+R10687__cyto,76.423333,13.1323,dlkcat,"Alanine, aspartate and glutamate metabolism"
+R02587__cyto,74.80125,14.4524,dlkcat,
+R01561__cyto,33.13,1.2039,dlkcat,Purine metabolism
+R01281__cyto,61.41,7.0357,dlkcat,Sphingolipid metabolism
+R11892__mito,34.66,1.0732,dlkcat,Drug metabolism - other enzymes
+R07934__cyto,79.816667,14.4997,dlkcat,Fatty acid metabolism
+R02147__cyto,33.13,1.4134,dlkcat,Purine metabolism
+R00390__pero,77.35,13.7,default_13.7,Fatty acid biosynthesis
+R01123__cyto,158.29,1.9741,dlkcat,Biosynthesis of antibiotics
+R01939__cyto,55.18,4.9827,dlkcat,2-Oxocarboxylic acid metabolism
+R11894__cyto,17.08,30.405,dlkcat,Drug metabolism - other enzymes
+R02702__cyto,50.8,3.9388,dlkcat,Tryptophan metabolism
+R01878__cyto,32.08,338.3562,dlkcat,Pyrimidine metabolism
+R00573__cyto,64.13,65.0761,dlkcat,Pyrimidine metabolism
+R09074__cyto,52.32,7.724,dlkcat,
+R08146__cyto,55.203333,14.4532,dlkcat,Insect hormone biosynthesis
+R04439__cyto,44.36,2.3793,dlkcat,Pantothenate and CoA biosynthesis
+R02864__cyto,27.12,0.0329,dlkcat,Porphyrin and chlorophyll metabolism
+R04560__cyto,64.29,0.1868,dlkcat,Biosynthesis of antibiotics
+R00078__mito,18.41,9.0341,dlkcat,Porphyrin and chlorophyll metabolism
+R11893__cyto,72.695,105.4466,dlkcat,Drug metabolism - other enzymes
+R02425__cyto,73.33,519.0404,dlkcat,Microbial metabolism in diverse environments
+R04754__pero,79.816667,9.2341,dlkcat,Fatty acid metabolism
+R02923__cyto,38.965,24.7217,dlkcat,D-Arginine and D-ornithine metabolism
+R10686__cyto,38.77,24.4786,dlkcat,Thiamine metabolism
+R05586__cyto,74.11,20.3385,dlkcat,Microbial metabolism in diverse environments
+R02865__cyto,147.8575,20.0347,dlkcat,
+R01121__cyto,66.86,4.7708,dlkcat,Biosynthesis of antibiotics
