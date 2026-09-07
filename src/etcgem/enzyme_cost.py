@@ -208,7 +208,8 @@ class EnzymeConstrainedModel:
                  ngam_rxn: Optional[str] = None,
                  unfold_means: Optional[Dict[str, float]] = None,
                  ngam_base_scale: float = 1.0,
-                 pheno_sigma: float = 10.0, pheno_w: float = 5.0):
+                 pheno_sigma: float = 10.0, pheno_w: float = 5.0,
+                 topt_tm_min_gap: Optional[float] = None):
         self.model = model
         self.table = EnzymeCostTable(
             [e for e in table.entries if e.rxn_id in model.reactions]
@@ -233,6 +234,10 @@ class EnzymeConstrainedModel:
         # enzyme and calibratable (Perturbation.pheno_sigma / pheno_w override them).
         self.pheno_sigma = float(pheno_sigma)
         self.pheno_w = float(pheno_w)
+        # Admissibility floor on Tm - Topt for the UNFOLDING form (K; None = off).
+        # See _build_unfolding for why the unfolding form needs one and the others do not.
+        self.topt_tm_min_gap = (None if topt_tm_min_gap is None else float(topt_tm_min_gap))
+        self.n_topt_clamped = 0
         self.ngam_temperature = bool(ngam_temperature)
         # Base multiplier on the NGAM(T) amplitude (default 1.0 = E. coli ngam_T baseline).
         # Anchors the maintenance amplitude on an organism-specific measured NGAM (e.g. the
@@ -272,9 +277,44 @@ class EnzymeConstrainedModel:
     def _build_unfolding(self):
         """Precompute per-enzyme two-state unfolding thermodynamics (dHTH, dSTS,
         dCpu in J) from Tm/T90/length, plus the transition-state dCpt, applying
-        dataset-mean fallbacks for enzymes without measured values."""
+        dataset-mean fallbacks for enzymes without measured values.
+
+        Admissibility (``topt_tm_min_gap``, K). The transition-state turnover factor
+        ``unfolding.rel_kcat`` is anchored at each enzyme's Topt through the free energy of
+        unfolding AT THAT TEMPERATURE, dGu(Topt). An enzyme whose Topt sits at or above its
+        own Tm is already unfolded at its supposed catalytic optimum: dGu(Topt) <= 0, the
+        activation enthalpy dHt jumps from ~1e5 to ~1e6 J/mol, and its relative turnover
+        collapses by ten orders of magnitude a few degrees below Topt. One such enzyme on an
+        essential reaction crushes the whole pool.
+
+        Nothing in the model creates that state; it comes in through the inputs. Where Topt
+        and Tm are measured (eciML1515's meltome: minimum Tm - Topt = +0.57 K) or where Topt
+        is derived from Tm (mmaripaludis: +2.00 K), it cannot arise. Where they come from two
+        INDEPENDENT sequence predictors with no joint constraint -- Seq2Topt and Seq2Tm, as
+        in the Candida strains -- it does, for ~1-2% of enzymes.
+
+        Setting the gap clamps Topt to Tm - gap for those enzymes, keeping Tm and moving
+        Topt. That direction is not arbitrary: Seq2Tm is the better-validated of the two
+        (reported test R^2 0.76, RMSE 7.6 C, against Seq2Topt's 0.57 and 12.3 C), so the
+        weaker prediction is the one that gives way, and by less than its own RMSE. None
+        (the default) leaves the parameters untouched, so every strain that had no such
+        enzyme is unaffected."""
         from . import unfolding as U
         ents = self.table.entries
+        if self.topt_tm_min_gap is not None:
+            tm_arr = np.array(
+                [e.Tm if (e.Tm is not None and np.isfinite(e.Tm)) else self._unfold_mean_Tm
+                 for e in ents], float)
+            ceiling = tm_arr - float(self.topt_tm_min_gap)
+            bad = self._Topt > ceiling
+            self.n_topt_clamped = int(bad.sum())
+            if self.n_topt_clamped:
+                worst = float(np.max(self._Topt[bad] - ceiling[bad]))
+                self._Topt = np.where(bad, ceiling, self._Topt)
+                print(f"[enzyme_cost] unfolding admissibility: clamped Topt to "
+                      f"Tm - {self.topt_tm_min_gap:g} K for {self.n_topt_clamped}/{len(ents)} "
+                      f"enzymes ({100*self.n_topt_clamped/max(1,len(ents)):.1f}%); largest "
+                      f"move {worst:.2f} K")
         hth, sts, cpu, cpt, tms = [], [], [], [], []
         for e in ents:
             Tm = e.Tm if e.Tm is not None and np.isfinite(e.Tm) else self._unfold_mean_Tm

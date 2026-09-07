@@ -237,6 +237,7 @@ def build_provider(cfg: Dict[str, Any]):
             pin_at_ub=p.get("pin_at_ub"),
             pheno_sigma=p.get("pheno_sigma", 10.0),
             pheno_w=p.get("pheno_w", 5.0),
+            topt_tm_min_gap=p.get("topt_tm_min_gap_C"),
         )
         if budget_override is not None and p.get("pool_budget") is not None:
             print(f"[pool] pool budget = {budget_override:.4g} g/gDW "

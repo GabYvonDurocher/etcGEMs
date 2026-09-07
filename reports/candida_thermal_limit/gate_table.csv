@@ -52,7 +52,7 @@ C. auris calibration MSE,gem/tables/etcgem_calib.json (18_build_etcgem_tpc.py),0
 "predicted mu, parapsilosis at 40 C",gem/tables/etcgem_tpc_pred.csv,0.6662,0.6662,1e-3 /h or 1%,PASS,
 "predicted mu, parapsilosis at 42 C",gem/tables/etcgem_tpc_pred.csv,0.5652,0.5652,1e-3 /h or 1%,PASS,
 "predicted mu, parapsilosis at 44 C",gem/tables/etcgem_tpc_pred.csv,0.4496,0.4496,1e-3 /h or 1%,PASS,
-"model-predicted thermal limit, lowest of the four species (C)",gem/FIG4_LOCKED.md (22_thermal_sensitivity.py),52.7,52.72,0.2 C,PASS,"transfer_candida (maintenance corrected, as 22 does); 18 does not"
+"model-predicted thermal limit, lowest of the four species (C)",gem/FIG4_LOCKED.md (22_thermal_sensitivity.py),52.7,52.71,0.2 C,PASS,"transfer_candida (maintenance corrected, as 22 does); 18 does not"
 "model-predicted thermal limit, highest of the four species (C)",gem/FIG4_LOCKED.md (22_thermal_sensitivity.py),54.5,54.53,0.2 C,PASS,"transfer_candida (maintenance corrected, as 22 does); 18 does not"
 "corrected-maintenance mu, auris at 34 C",gem/tables/counterfactual_results.json (19_etcgem_counterfactual.py),0.7988,0.7988,1e-3 /h or 1%,PASS,
 "corrected-maintenance mu, auris at 40 C",gem/tables/counterfactual_results.json (19_etcgem_counterfactual.py),0.6635,0.6635,1e-3 /h or 1%,PASS,

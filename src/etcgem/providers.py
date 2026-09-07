@@ -599,7 +599,8 @@ def from_gem_smoment(model_path: str, kcat_csv: str, T0: float = 310.15,
                      medium_csv: Optional[str] = None,
                      pin_at_ub: Optional[List[str]] = None,
                      pheno_sigma: float = 10.0,
-                     pheno_w: float = 5.0) -> ProvidedModel:
+                     pheno_w: float = 5.0,
+                     topt_tm_min_gap: Optional[float] = None) -> ProvidedModel:
     """Attach a temperature-INDEPENDENT sMOMENT total-protein pool to a plain GEM.
 
     This is the methanogen route: the base GEM (iMR539_curated) carries no GECKO
@@ -624,7 +625,9 @@ def from_gem_smoment(model_path: str, kcat_csv: str, T0: float = 310.15,
     is baked into its curated SBML, so it leaves this None. ``pin_at_ub`` fixes listed
     reactions at their own upper bound (the parapsilosis maintenance fix).
     ``pheno_sigma``/``pheno_w`` are the two global shape parameters of the
-    ``phenomenological`` thermal form; they are inert under ``mmrt``/``unfolding``."""
+    ``phenomenological`` thermal form; they are inert under ``mmrt``/``unfolding``.
+    ``topt_tm_min_gap`` (K) is the unfolding form's admissibility floor on Tm - Topt; see
+    ``EnzymeConstrainedModel._build_unfolding``. None (default) leaves it off."""
     model = _load_any(model_path)
     if biomass_rxn is None:
         biomass_rxn = _find_biomass(model)
@@ -692,7 +695,8 @@ def from_gem_smoment(model_path: str, kcat_csv: str, T0: float = 310.15,
                                 ngam_temperature=ngam_temperature, ngam_rxn=ngam_rxn,
                                 ngam_base_scale=ngam_base_scale,
                                 unfold_means={"dCpt": dcp_prior_kJ * 1000.0},
-                                pheno_sigma=pheno_sigma, pheno_w=pheno_w)
+                                pheno_sigma=pheno_sigma, pheno_w=pheno_w,
+                                topt_tm_min_gap=topt_tm_min_gap)
     ec.model.objective = biomass_rxn
     return ProvidedModel(ec=ec, T0=T0, biomass_rxn=biomass_rxn,
                          name=f"smoment_gem:{model.id}", closed_free_o2_sinks=closed_sinks)

@@ -1,0 +1,40 @@
+{
+  "experiment": "candida_B1s_fit_dTm",
+  "calibrate_on": "cauris_iRV973",
+  "predict": [
+    "chaemulonii_draft",
+    "cduobushaemulonii_draft",
+    "cparapsilosis_iDC1003"
+  ],
+  "globals": [
+    "dTm"
+  ],
+  "fitted": {
+    "dTm": -9.165624999999999
+  },
+  "growth_scale": "peak_match",
+  "scale": 1.9237855931470493,
+  "detection_floor_h": 0.05,
+  "mse": 0.011806908289571335,
+  "n_eval": 64,
+  "method": "nelder-mead",
+  "starts": [
+    [
+      0.0
+    ],
+    [
+      -4.0
+    ],
+    [
+      -8.0
+    ],
+    [
+      -14.0
+    ]
+  ],
+  "options": {
+    "maxiter": 200,
+    "xatol": 0.05,
+    "fatol": 1e-06
+  }
+}

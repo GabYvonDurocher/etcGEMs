@@ -103,7 +103,15 @@ def thermal_limit(pm, pert, scale: float, floor: float,
     """Highest temperature at which the scaled prediction still reaches the detection
     floor, by bisection. NaN if the model is already below the floor at ``lo``; inf if it
     is still above it at ``hi``. Same definition and defaults as the standalone's
-    ``gem/22_thermal_sensitivity.py``."""
+    ``gem/22_thermal_sensitivity.py``.
+
+    ``lo`` must be a temperature at which the model is still above the floor, i.e. the
+    bracket has to start on the warm side of the rising limb. The caller passes the strain's
+    own peak temperature for that reason: the standalone's fixed 20 C works for a Gaussian
+    rising limb but not for the unfolding form, whose cold limb is Arrhenius and can be
+    below the detection floor at 20 C while the curve peaks perfectly well at 36 C. Starting
+    from the peak gives the same answer wherever both brackets are valid (growth is monotone
+    above the peak) and a valid one where the fixed bracket is not."""
     def mu(T):
         return float(_growth(pm, [T], pert)[0]) * scale
     if mu(lo) < floor:
@@ -346,12 +354,12 @@ def run(experiment: str, out_root: str = "outputs", verbose: bool = True,
         os.makedirs(s_out, exist_ok=True)
         per.to_csv(os.path.join(s_out, "tpc.csv"), index=False)
         dump_resolved(cfgs[s], s_out)
-        limit = thermal_limit(pms[s], pert, scale, floor,
-                              lo=float(lim.get("lo_C", 20.0)),
-                              hi=float(lim.get("hi_C", 90.0)),
-                              tol=float(lim.get("tol_C", 0.02)))
         i_peak = int(np.argmax(g))
         peak_T = float(temps[i_peak])
+        limit = thermal_limit(pms[s], pert, scale, floor,
+                              lo=max(float(lim.get("lo_C", 20.0)), peak_T),
+                              hi=float(lim.get("hi_C", 90.0)),
+                              tol=float(lim.get("tol_C", 0.02)))
         # does the pool still bind, at this strain's own peak?
         mu_cfg, mu_free, binds = pool_binds(pms[s], pert, peak_T)
         row = dict(strain=s, role=("calibrate_on" if s == cal else "predict"),
