@@ -139,8 +139,12 @@ def cmd_build(args):
 
 
 def cmd_tpc(args):
-    cfg = resolve(args.strain)
-    out_dir = _out_dir(args.strain, "tpc")
+    # an optional experiment overlay, as `fba` already has. Absent -> exactly the previous
+    # behaviour. It exists so that a strain whose strain.yaml carries a placeholder provider
+    # (syn6803: `type: fba`, a P1 placeholder) can still produce a nominal TPC through the
+    # shared command, via the overlay that builds its real model.
+    cfg = resolve(args.strain, getattr(args, "experiment", None))
+    out_dir = _out_dir(args.strain, _run_tag("tpc", getattr(args, "experiment", None)))
     os.makedirs(out_dir, exist_ok=True)
     fits = _fits_path(args.strain, args.fits)
     pm = _build_pm(cfg, fits)
@@ -888,6 +892,9 @@ def build_parser():
 
     t = sub.add_parser("tpc", help="nominal TPC + descriptors for a strain")
     t.add_argument("--strain", required=True)
+    t.add_argument("--experiment", default=None,
+                   help="optional method overlay (configs/experiments/EXP.yaml); the run's "
+                        "outputs go to outputs/tpc_<EXP>/")
     t.add_argument("--fits", nargs="?", const=_FITS_DEFAULT, default=None)
     t.add_argument("--key", default="rxn_id", choices=["rxn_id", "enzyme_id"])
     t.add_argument("--no-plots", action="store_true")

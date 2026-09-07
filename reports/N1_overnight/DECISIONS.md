@@ -208,3 +208,57 @@ mmaripaludis runs changed, and its committed outputs are byte-identical.
 **Reversible:** n/a. **Review:** whoever owns mmaripaludis may want to know that its
 translation cap is temperature-independent; it has not mattered so far because its analyses
 run at a calibrated `kcat_scale` where the metabolic pool binds.
+
+## D12 — TASK 5: every strain commits its nominal TPC; scratch is everything a report does not read
+
+**Decided.** The rule is "every strain commits `outputs/tpc/`; beyond that an output
+directory is committed when a committed report, README or verification script reads it".
+Applied to all seven strains (eight folders including `_toy`); documented in `README.md`.
+
+**Why this and not the opposite rule.** Treating the nominal TPC as scratch and gitignoring
+it everywhere is cleaner in one respect — nothing committed can go stale — but applying it
+would mean removing `eciML1515`'s and `_toy`'s committed copies, and the standing rules for
+this night forbid deleting committed evidence. The chosen rule adds files and deletes none,
+and it has a property the other lacks: a committed nominal TPC that stops reproducing is a
+signal. `eciML1515`'s already is one.
+
+**Alternatives.** (i) gitignore everywhere — forbidden by the deletion rule. (ii) Leave the
+inconsistency — the task exists because that is not acceptable.
+
+**Reversible:** yes, entirely; these are new files. **Review:** the rule itself is worth a
+sentence of agreement or disagreement from the project owner, since it now sits in README.md.
+
+## D13 — TASK 5: `etcgem tpc` gains an optional `--experiment`, so syn6803 can be included
+
+**Decided.** Add `--experiment` to `etcgem tpc`, mirroring `etcgem fba`, which has had it
+since K1. `syn6803`'s nominal TPC is then produced through the shared command via the K2
+overlay and lands in `outputs/tpc_syn6803_ecmodel/`.
+
+**Why.** `syn6803`'s `strain.yaml` carries `provider.type: fba` as a P1 placeholder, so the
+plain command cannot build its real model and the strain could not be brought under the rule
+at all. The alternative was to declare syn6803 an exception, which is the inconsistency the
+task exists to remove.
+
+**Alternatives.** Fix `syn6803/strain.yaml` to describe its real provider — the right long-term
+answer, but it changes how another strain is configured and could change its committed
+results, which the standing rules put out of bounds tonight.
+
+**Reversible:** yes. Verified that with no `--experiment` the command is byte-for-byte
+unchanged (eciML1515 and mmaripaludis, all three files each).
+
+**Review:** whoever owns syn6803 should decide whether `strain.yaml` ought to describe the
+enzyme-constrained model directly instead of relying on an overlay.
+
+## D14 — TASK 5: three further inconsistencies listed, not fixed
+
+**Decided.** Record rather than act on: (i) `eciML1515/outputs/tpc/` no longer reproduces;
+(ii) six `*_quick` / `*_v2` directories are committed under `eciML1515/outputs/`; (iii) sixteen
+Python files live in strain folders against the project's own rule.
+
+**Why.** Each would change or remove a committed artefact of a strain other than the Candida
+four. (iii) in particular is load-bearing — `syn6803/run_p2_thermal.py` is the only way that
+strain's real model gets built — and moving it is its own piece of work.
+
+**Reversible:** n/a, nothing was done. **Review:** all three; (i) is the one that matters,
+because a committed result that does not reproduce is either a stale file or a regression and
+nobody currently knows which.
