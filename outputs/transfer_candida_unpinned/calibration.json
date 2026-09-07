@@ -1,5 +1,5 @@
 {
-  "experiment": "transfer_candida_pinned_maint",
+  "experiment": "transfer_candida_unpinned",
   "calibrate_on": "cauris_iRV973",
   "predict": [
     "chaemulonii_draft",

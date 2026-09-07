@@ -25,9 +25,7 @@ provider:
   pheno_w: 8.788454874341648
   pool_budget: 0.3569742369684501
   dcp_prior_kJ: -4.0
-  pin_at_ub:
-  - ATP_maintenance_NGAM__cyto
-  - ATP_Maintenance__cyto
+  pin_at_ub: null
   model_path: /Users/g.yvon-durocher/Library/CloudStorage/OneDrive-UniversityofExeter/Documents/work/MICROADAPT/etcGEMs/strains/cauris_iRV973/model/auris_iRV973_rekeyed.xml
 solver: glpk
 T0_C: 30
@@ -94,5 +92,5 @@ thermal_limit:
   hi_C: 90.0
   tol_C: 0.02
 _strain: cauris_iRV973
-_experiment: transfer_candida_pinned_maint
+_experiment: transfer_candida_unpinned
 closed_free_o2_sinks: []

@@ -1,0 +1,7 @@
+experiment,strain,param,required,permissive_preserved,permissive_growth,permissive_baseline,baseline_fail,note
+transfer_candida,chaemulonii_draft,dTm,,,,,0.5884,cannot fall below 0.05 at 40.0 C within -35.0 C of dTm
+transfer_candida,chaemulonii_draft,dTopt,15.76,False,0.2059,0.7305,0.5884,
+transfer_candida,cduobushaemulonii_draft,dTm,32.44,False,0.1116,0.5537,0.4346,
+transfer_candida,cduobushaemulonii_draft,dTopt,14.94,False,0.1803,0.5537,0.4346,
+transfer_candida,cparapsilosis_iDC1003,dTm,32.64,False,0.1185,0.6717,0.5914,
+transfer_candida,cparapsilosis_iDC1003,dTopt,15.62,False,0.2132,0.6717,0.5914,

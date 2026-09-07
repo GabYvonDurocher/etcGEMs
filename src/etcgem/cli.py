@@ -166,7 +166,8 @@ def cmd_transfer(args):
     freeze them, and sweep every strain in predict. The strains come from the experiment,
     so there is no --strain."""
     from .transfer import run
-    return run(args.experiment, out_root=args.out_root, verbose=not args.quiet)
+    return run(args.experiment, out_root=args.out_root, verbose=not args.quiet,
+               solver=args.solver, tag=args.tag)
 
 
 def cmd_fba(args):
@@ -873,6 +874,12 @@ def build_parser():
                     help="a configs/experiments/EXP.yaml with kind: transfer")
     tr.add_argument("--out-root", dest="out_root", default="outputs",
                     help="where transfer_<EXP>/summary.csv is written (default outputs/)")
+    tr.add_argument("--solver", default=None,
+                    help="override the LP solver for this run (e.g. glpk, gurobi), so the "
+                         "same experiment can be run under two solvers and compared")
+    tr.add_argument("--tag", default=None,
+                    help="override the output-folder name (default transfer_<EXP>); use it "
+                         "when running one experiment twice, e.g. under two solvers")
     tr.add_argument("--quiet", action="store_true")
     tr.set_defaults(func=cmd_transfer)
 
