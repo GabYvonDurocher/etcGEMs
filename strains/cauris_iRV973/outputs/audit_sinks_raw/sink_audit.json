@@ -1,0 +1,623 @@
+{
+  "model": "smoment_gem:auris_iRV973_rekeyed",
+  "biomass": "e_Biomass__cyto",
+  "n_reactions": 2863,
+  "n_costed": 1314,
+  "n_uncosted": 1549,
+  "class_A_uncosted_energy_producing": [
+    {
+      "reaction": "R04889__mito",
+      "name": "3-Methoxy-4-hydroxyphenylacetaldehyde + NADP+ + H2O <=> Homovanillate + NADPH + H+",
+      "produces": "NADPH",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00001__mito + C00006__mito + C05581__mito <=> C00005__mito + C00080__mito + C05582__mito"
+    },
+    {
+      "reaction": "T00485__mito",
+      "name": "3 ATP (mito) + ADP (cyto) + H+ (cyto) <=> 3 ATP (cyto) + ADP (mito) + H+ (mito)",
+      "produces": "ATP",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "3.0 C00002__mito + C00008__cyto + C00080__cyto <=> 3.0 C00002__cyto + C00008__mito + C00080__mito"
+    },
+    {
+      "reaction": "R04882__mito",
+      "name": "3,4-Dihydroxymandelaldehyde + NAD+ + H2O <=> 3,4-Dihydroxymandelate + NADH + H+",
+      "produces": "NADH",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00001__mito + C00003__mito + C05577__mito <=> C00004__mito + C00080__mito + C05580__mito"
+    },
+    {
+      "reaction": "R08282__mito",
+      "name": "Aldophosphamide + NAD+ + H2O <=> Carboxyphosphamide + NADH + H+",
+      "produces": "NADH",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00001__mito + C00003__mito + C07645__mito <=> C00004__mito + C00080__mito + C07646__mito"
+    },
+    {
+      "reaction": "R00900__cyto",
+      "name": "L-Cysteine + Glutathione + NADP+ <=> S-Glutathionyl-L-cysteine + NADPH",
+      "produces": "NADPH",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00006__cyto + C00051__cyto + C00097__cyto <=> C00005__cyto + C00080__cyto + C05526__cyto"
+    },
+    {
+      "reaction": "R08283__mito",
+      "name": "Aldophosphamide + NADP+ + H2O <=> Carboxyphosphamide + NADPH + H+",
+      "produces": "NADPH",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00001__mito + C00006__mito + C07645__mito <=> C00005__mito + C00080__mito + C07646__mito"
+    },
+    {
+      "reaction": "R00711__mito",
+      "name": "Acetaldehyde + NADP+ + H2O <=> Acetate + NADPH + H+",
+      "produces": "NADPH",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00001__mito + C00006__mito + C00084__mito <=> C00005__mito + C00033__mito + C00080__mito"
+    },
+    {
+      "reaction": "TO2903034_PLAS__plas",
+      "name": "1.0 IDP (cyto) + 1.0 GTP (extr) => 1.0 IDP (extr) + 1.0 GTP (cyto)",
+      "produces": "GTP",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00044__extr + C00104__cyto --> C00044__cyto + C00104__extr"
+    },
+    {
+      "reaction": "R02695__mito",
+      "name": "4-Hydroxyphenylacetaldehyde + NAD+ + H2O => 4-Hydroxyphenylacetate + NADH + H+",
+      "produces": "NADH",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00001__mito + C00003__mito + C03765__mito --> C00004__mito + C00080__mito + C00642__mito"
+    },
+    {
+      "reaction": "R03300__mito",
+      "name": "3,4-Dihydroxyphenylacetaldehyde + NAD+ + H2O <=> 3,4-Dihydroxyphenylacetate + NADH + H+",
+      "produces": "NADH",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00001__mito + C00003__mito + C04043__mito <=> C00004__mito + C00080__mito + C01161__mito"
+    },
+    {
+      "reaction": "R00711__cyto",
+      "name": "Acetaldehyde + NADP+ + H2O <=> Acetate + NADPH + H+",
+      "produces": "NADPH",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00001__cyto + C00006__cyto + C00084__cyto <=> C00005__cyto + C00033__cyto + C00080__cyto"
+    },
+    {
+      "reaction": "R07104__mito",
+      "name": "Chloral hydrate + NAD+ <=> Trichloroacetate + NADH + H+",
+      "produces": "NADH",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00003__mito + C06899__mito <=> C00004__mito + C00080__mito + C11150__mito"
+    },
+    {
+      "reaction": "R02697__mito",
+      "name": "4-Hydroxyphenylacetaldehyde + NADP+ + H2O <=> 4-Hydroxyphenylacetate + NADPH + H+",
+      "produces": "NADPH",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00001__mito + C00006__mito + C03765__mito <=> C00005__mito + C00080__mito + C00642__mito"
+    },
+    {
+      "reaction": "R12429__mito",
+      "name": "ATP + Octanoic acid + Lipoyl-carrier protein E2 <=> [Lipoyl-carrier protein E2]-N6-octanoyl-L-lysine + AMP + Diphosphate",
+      "produces": "ATP",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00002__mito + C06423__mito + C22158__mito <=> C00013__mito + C00020__mito + C22160__mito"
+    },
+    {
+      "reaction": "R03302__mito",
+      "name": "3,4-Dihydroxyphenylacetaldehyde + NADP+ + H2O <=> 3,4-Dihydroxyphenylacetate + NADPH + H+",
+      "produces": "NADPH",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00001__mito + C00006__mito + C04043__mito <=> C00005__mito + C00080__mito + C01161__mito"
+    },
+    {
+      "reaction": "R03300__cyto",
+      "name": "3,4-Dihydroxyphenylacetaldehyde + NAD+ + H2O <=> 3,4-Dihydroxyphenylacetate + NADH + H+",
+      "produces": "NADH",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00001__cyto + C00003__cyto + C04043__cyto <=> C00004__cyto + C00080__cyto + C01161__cyto"
+    },
+    {
+      "reaction": "R02695__cyto",
+      "name": "4-Hydroxyphenylacetaldehyde + NAD+ + H2O => 4-Hydroxyphenylacetate + NADH + H+",
+      "produces": "NADH",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00001__cyto + C00003__cyto + C03765__cyto --> C00004__cyto + C00080__cyto + C00642__cyto"
+    },
+    {
+      "reaction": "R04892__mito",
+      "name": "3-Methoxy-4-hydroxyphenylglycolaldehyde + NADP+ + H2O <=> 3-Methoxy-4-hydroxymandelate + NADPH + H+",
+      "produces": "NADPH",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00001__mito + C00006__mito + C05583__mito <=> C00005__mito + C00080__mito + C05584__mito"
+    },
+    {
+      "reaction": "R02536__cyto",
+      "name": "Phenylacetaldehyde + NAD+ + H2O <=> Phenylacetic acid + NADH + H+",
+      "produces": "NADH",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00001__cyto + C00003__cyto + C00601__cyto <=> C00004__cyto + C00080__cyto + C07086__cyto"
+    },
+    {
+      "reaction": "R02537__mito",
+      "name": "Phenylacetaldehyde + NADP+ + H2O <=> Phenylacetic acid + NADPH + H+",
+      "produces": "NADPH",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00001__mito + C00006__mito + C00601__mito <=> C00005__mito + C00080__mito + C07086__mito"
+    },
+    {
+      "reaction": "R04891__mito",
+      "name": "3-Methoxy-4-hydroxyphenylglycolaldehyde + NAD+ + H2O <=> 3-Methoxy-4-hydroxymandelate + NADH + H+",
+      "produces": "NADH",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00001__mito + C00003__mito + C05583__mito <=> C00004__mito + C00080__mito + C05584__mito"
+    },
+    {
+      "reaction": "R03103__cyto",
+      "name": "L-2-Aminoadipate 6-semialdehyde + NADP+ + H2O => L-2-Aminoadipate + NADPH + H+",
+      "produces": "NADPH",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00001__cyto + C00006__cyto + C04076__cyto --> C00005__cyto + C00080__cyto + C00956__cyto"
+    },
+    {
+      "reaction": "TI2903719_PLAS__plas",
+      "name": "1.0 ATP (cyto) + 1.0 ADP (extr) => 1.0 ATP (extr) + 1.0 ADP (cyto)",
+      "produces": "ATP",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00002__cyto + C00008__extr --> C00002__extr + C00008__cyto"
+    },
+    {
+      "reaction": "R12433__mito",
+      "name": "ATP + (R)-Lipoate + Glycine cleavage system H <=> Lipoylprotein + AMP + Diphosphate",
+      "produces": "ATP",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00002__mito + C16241__mito + C22157__mito <=> C00013__mito + C00020__mito + C02051__mito"
+    },
+    {
+      "reaction": "R02536__mito",
+      "name": "Phenylacetaldehyde + NAD+ + H2O <=> Phenylacetic acid + NADH + H+",
+      "produces": "NADH",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00001__mito + C00003__mito + C00601__mito <=> C00004__mito + C00080__mito + C07086__mito"
+    },
+    {
+      "reaction": "R04883__mito",
+      "name": "3,4-Dihydroxymandelaldehyde + NADP+ + H2O <=> 3,4-Dihydroxymandelate + NADPH + H+",
+      "produces": "NADPH",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00001__mito + C00006__mito + C05577__mito <=> C00005__mito + C00080__mito + C05580__mito"
+    },
+    {
+      "reaction": "R11875__cyto",
+      "name": "L-Carnitine + NADH + H+ + Oxygen <=> (3R)-3-Hydroxy-4-oxobutanoate + Trimethylamine + NAD+ + H2O",
+      "produces": "NADH",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00004__cyto + C00007__cyto + C00080__cyto + C00318__cyto <=> C00001__cyto + C00003__cyto + C00565__cyto + C21761__cyto"
+    },
+    {
+      "reaction": "R00434__cyto",
+      "name": "GTP <=> 3',5'-Cyclic GMP + Diphosphate",
+      "produces": "GTP",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00044__cyto <=> C00013__cyto + C00942__cyto"
+    },
+    {
+      "reaction": "T_ATP_ADP_Antiport__mito",
+      "name": "ATP (mito) + ADP (cyto) => ATP (cyto) + ADP (mito)",
+      "produces": "ATP",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00002__mito + C00008__cyto --> C00002__cyto + C00008__mito"
+    },
+    {
+      "reaction": "TO2000002_PLAS__plas",
+      "name": "1.0 ATP (extr) + 1.0 H+ (cyto) => 1.0 ATP (cyto) + 1.0 H+ (extr)",
+      "produces": "ATP",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00002__extr + C00080__cyto --> C00002__cyto + C00080__extr"
+    },
+    {
+      "reaction": "TI2903793_PLAS__plas",
+      "name": "1.0 GDP (cyto) + 1.0 GTP (extr) => 1.0 GDP (extr) + 1.0 GTP (cyto)",
+      "produces": "GTP",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00035__cyto + C00044__extr --> C00035__extr + C00044__cyto"
+    },
+    {
+      "reaction": "TO2903032_PLAS__plas",
+      "name": "1.0 ITP (cyto) + 1.0 GTP (extr) => 1.0 GTP (cyto) + 1.0 ITP (extr)",
+      "produces": "GTP",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00044__extr + C00081__cyto --> C00044__cyto + C00081__extr"
+    },
+    {
+      "reaction": "R11911__cyto",
+      "name": "L-Carnitine + NADPH + H+ + Oxygen <=> (3R)-3-Hydroxy-4-oxobutanoate + Trimethylamine + NADP+ + H2O",
+      "produces": "NADPH",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00005__cyto + C00007__cyto + C00080__cyto + C00318__cyto <=> C00001__cyto + C00006__cyto + C00565__cyto + C21761__cyto"
+    },
+    {
+      "reaction": "R07350__cyto",
+      "name": "n-Alkanal + NADP+ <=> Alk-2-enal + NADPH + H+",
+      "produces": "NADPH",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00006__cyto + C00080__cyto + C15596__cyto <=> C00005__cyto + C15597__cyto"
+    },
+    {
+      "reaction": "R07770__mito",
+      "name": "ATP + (R)-Lipoate <=> Diphosphate + Lipoyl-AMP",
+      "produces": "ATP",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00002__mito + C16241__mito <=> C00013__mito + C16238__mito"
+    },
+    {
+      "reaction": "R08307__mito",
+      "name": "3-Carbamoyl-2-phenylpropionaldehyde + NAD+ + H2O <=> 3-Carbamoyl-2-phenylpropionic acid + NADH + H+",
+      "produces": "NADH",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00001__mito + C00003__mito + C16587__mito <=> C00004__mito + C00080__mito + C16591__mito"
+    },
+    {
+      "reaction": "R04996__mito",
+      "name": "Methylimidazole acetaldehyde + NAD+ + H2O <=> Methylimidazoleacetic acid + NADH + H+",
+      "produces": "NADH",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00001__mito + C00003__mito + C05827__mito <=> C00004__mito + C00080__mito + C05828__mito"
+    },
+    {
+      "reaction": "R04888__mito",
+      "name": "3-Methoxy-4-hydroxyphenylacetaldehyde + NAD+ + H2O <=> Homovanillate + NADH + H+",
+      "produces": "NADH",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00001__mito + C00003__mito + C05581__mito <=> C00004__mito + C00080__mito + C05582__mito"
+    },
+    {
+      "reaction": "R12449__mito",
+      "name": "ATP + (R)-Lipoate + Lipoyl-carrier protein E2 <=> Enzyme N6-(lipoyl)lysine + AMP + Diphosphate",
+      "produces": "ATP",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00002__mito + C16241__mito + C22158__mito <=> C00013__mito + C00020__mito + C15972__mito"
+    },
+    {
+      "reaction": "R01598__cyto",
+      "name": "ATP + Arachidonate + CoA <=> AMP + Diphosphate + Arachidonyl-CoA",
+      "produces": "ATP",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00002__cyto + C00010__cyto + C00219__cyto <=> C00013__cyto + C00020__cyto + C02249__cyto"
+    }
+  ],
+  "class_A_count": 44,
+  "class_B_reversible_maintenance": [],
+  "class_B_count": 0,
+  "class_C_pinned_uncosted": [
+    {
+      "reaction": "ATP_maintenance_NGAM__cyto",
+      "name": "ATP + H2O => Orthophosphate + ADP",
+      "lower_bound": 3.89,
+      "upper_bound": 3.89,
+      "fixed": true,
+      "reaction_string": "C00001__cyto + C00002__cyto --> C00008__cyto + C00009__cyto"
+    }
+  ],
+  "class_C_count": 1,
+  "class_D_uncosted_acceptor_sinks": [
+    {
+      "reaction": "Oxygen_O2_transport_reaction__plas",
+      "name": "R_Oxygen-O2 transport reaction",
+      "consumes": "O2",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00007__extr <=> C00007__cyto"
+    },
+    {
+      "reaction": "R00081__mito",
+      "name": "Oxygen + 4 Ferrocytochrome c + 6 H+ => 4 Ferricytochrome c + 2 H2O + 6 H+",
+      "consumes": "O2",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00007__mito + 6.0 C00080__mito + 4.0 C00126__mito --> 2.0 C00001__mito + 6.0 C00080__cyto + 4.0 C00125__mito"
+    },
+    {
+      "reaction": "T_Fumarate_Succinate_Antiport_MitoCyto__mito",
+      "name": "Fumarate (Mito) + Succinate (Cyto) <=> Fumarate (Cyto) + Succinate (Mito)",
+      "consumes": "fumarate",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00042__cyto + C00122__mito <=> C00042__mito + C00122__cyto"
+    },
+    {
+      "reaction": "R05487__mito",
+      "name": "Phenylacetic acid + [Reduced NADPH---hemoprotein reductase] + Oxygen <=> 2-Hydroxyphenylacetate + [Oxidized NADPH---hemoprotein reductase] + H2O",
+      "consumes": "O2",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00007__mito + 2.0 C00080__mito + C03024__mito + C07086__mito <=> C00001__mito + C03161__mito + C05852__mito"
+    },
+    {
+      "reaction": "R04501__cyto",
+      "name": "4,4-Dimethyl-5alpha-cholest-7-en-3beta-ol + 2 Ferrocytochrome b5 + Oxygen + 2 H+ <=> 4alpha-Hydroxymethyl-4beta-methyl-5alpha-cholest-7-en-3beta-ol + 2 Ferricytochrome b5 + H2O",
+      "consumes": "O2",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00007__cyto + 2.0 C00080__cyto + 2.0 C00999__cyto + C04530__cyto <=> C00001__cyto + 2.0 C00996__cyto + C04814__cyto"
+    },
+    {
+      "reaction": "TI2903796_PLAS__plas",
+      "name": "1.0 Fumarate (extr) + 1.0 Succinate (cyto) => 1.0 Fumarate (cyto) + 1.0 Succinate (extr)",
+      "consumes": "fumarate",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00042__cyto + C00122__extr --> C00042__extr + C00122__cyto"
+    },
+    {
+      "reaction": "R04982__cyto",
+      "name": "2-Hexaprenyl-6-methoxyphenol + Oxygen <=> 2-Hexaprenyl-6-methoxy-1,4-benzoquinone + H2O",
+      "consumes": "O2",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00007__cyto + C05802__cyto <=> C00001__cyto + C05803__cyto"
+    },
+    {
+      "reaction": "T_Fumarate_c00122_CytoMito__mito",
+      "name": "Fumarate (cyto) <=> Fumarate (mito)",
+      "consumes": "fumarate",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00122__cyto <=> C00122__mito"
+    },
+    {
+      "reaction": "T_O2_c00007_MitoCyto__mito",
+      "name": "O2 (Mito) <=> O2 (Cyto)",
+      "consumes": "O2",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00007__mito <=> C00007__cyto"
+    },
+    {
+      "reaction": "R00082__mito",
+      "name": "Oxygen + 4 Ferrocytochrome c2 <=> 2 H2O + 4 Ferricytochrome c2",
+      "consumes": "O2",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00007__mito + 4.0 C01000__mito <=> 2.0 C00001__mito + 4.0 C00997__mito"
+    },
+    {
+      "reaction": "R07198__cyto",
+      "name": "Liquiritigenin + [Reduced NADPH---hemoprotein reductase] + Oxygen <=> Licodione + [Oxidized NADPH---hemoprotein reductase] + H2O",
+      "consumes": "O2",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00007__cyto + 2.0 C00080__cyto + C03024__cyto + C09762__cyto <=> C00001__cyto + C01592__cyto + C03161__cyto"
+    },
+    {
+      "reaction": "TZ2900038_PLAS__plas",
+      "name": "2.0 Nitrate (cyto) + 1.0 H+ (extr) <=> 2.0 Nitrate (extr) + 1.0 H+ (cyto)",
+      "consumes": "NO3",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00080__extr + 2.0 C00244__cyto <=> C00080__cyto + 2.0 C00244__extr"
+    },
+    {
+      "reaction": "R11875__cyto",
+      "name": "L-Carnitine + NADH + H+ + Oxygen <=> (3R)-3-Hydroxy-4-oxobutanoate + Trimethylamine + NAD+ + H2O",
+      "consumes": "O2",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00004__cyto + C00007__cyto + C00080__cyto + C00318__cyto <=> C00001__cyto + C00003__cyto + C00565__cyto + C21761__cyto"
+    },
+    {
+      "reaction": "R08775__cyto",
+      "name": "2-Polyprenyl-3-methyl-6-methoxy-1,4-benzoquinone + Oxygen <=> 2-Polyprenyl-3-methyl-5-hydroxy-6-methoxy-1,4-benzoquinone + Acceptor + H2O",
+      "consumes": "O2",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00007__cyto + 2.0 C00080__cyto + C17561__cyto <=> C00001__cyto + C17562__cyto"
+    },
+    {
+      "reaction": "T_O2_c00007_CytoMito__mito",
+      "name": "O2 (Cyto) <=> O2 (Mito)",
+      "consumes": "O2",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00007__cyto <=> C00007__mito"
+    },
+    {
+      "reaction": "R11911__cyto",
+      "name": "L-Carnitine + NADPH + H+ + Oxygen <=> (3R)-3-Hydroxy-4-oxobutanoate + Trimethylamine + NADP+ + H2O",
+      "consumes": "O2",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00005__cyto + C00007__cyto + C00080__cyto + C00318__cyto <=> C00001__cyto + C00006__cyto + C00565__cyto + C21761__cyto"
+    },
+    {
+      "reaction": "R12658__mito",
+      "name": "2-methoxy-6-(all-trans-nonaprenyl)phenol + Oxygen + NADPH => NADP+ + H2O + 2-Methoxy-6-all-trans-nonaprenyl-1,4-benzoquinone + H2O",
+      "consumes": "O2",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00005__mito + C00007__mito + C00080__mito + M8415__mito --> C00001__mito + C00006__mito + M8416__mito"
+    },
+    {
+      "reaction": "R00082__cyto",
+      "name": "Oxygen + 4 Ferrocytochrome c2 <=> 2 H2O + 4 Ferricytochrome c2",
+      "consumes": "O2",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00007__cyto + 4.0 C00999__mito <=> 2.0 C00001__cyto + 4.0 C00996__mito"
+    },
+    {
+      "reaction": "R11572__cyto",
+      "name": "(1R)-1,4,5,10-Tetrahydrophenazine-1-carboxylate + Oxygen <=> 5,10-Dihydrophenazine + Hydrogen peroxide + CO2",
+      "consumes": "O2",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00007__cyto + C21413__cyto <=> C00011__cyto + C00027__cyto + C21475__cyto"
+    },
+    {
+      "reaction": "R08773__cyto",
+      "name": "2-Polyprenyl-6-methoxyphenol + Oxygen <=> 2-Polyprenyl-6-methoxy-1,4-benzoquinone + H2O",
+      "consumes": "O2",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00007__cyto + C17552__cyto <=> C00001__cyto + C17560__cyto"
+    },
+    {
+      "reaction": "R08020__cyto",
+      "name": "4 4-Hydroxylamino-2,6-dinitrotoluene + Oxygen <=> 2 2,2',6,6'-Tetranitro-4,4'-azoxytoluene + 4 H2O",
+      "consumes": "O2",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00007__cyto + 4.0 C16392__cyto <=> 4.0 C00001__cyto + 2.0 C16413__cyto"
+    },
+    {
+      "reaction": "TI2903744_PLAS__plas",
+      "name": "1.0 Fumarate (extr) + 1.0 Orthophosphate (cyto) => 1.0 Fumarate (cyto) + 1.0 Orthophosphate (extr)",
+      "consumes": "fumarate",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00009__cyto + C00122__extr --> C00009__extr + C00122__cyto"
+    },
+    {
+      "reaction": "R05334__cyto",
+      "name": "N-Methylputrescine + Oxygen + H2O <=> 4-Methylaminobutanal + Hydrogen peroxide + Ammonia",
+      "consumes": "O2",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00001__cyto + C00007__cyto + C02723__cyto <=> C00014__cyto + C00027__cyto + C10974__cyto"
+    },
+    {
+      "reaction": "R08773__mito",
+      "name": "2-Polyprenyl-6-methoxyphenol + Oxygen <=> 2-Polyprenyl-6-methoxy-1,4-benzoquinone + H2O",
+      "consumes": "O2",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00007__mito + C17552__mito <=> C00001__mito + C17560__mito"
+    },
+    {
+      "reaction": "TR0000209_PLAS__plas",
+      "name": "1.0 Nitrate (cyto) <=> 1.0 Nitrate (extr)",
+      "consumes": "NO3",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00244__cyto <=> C00244__extr"
+    },
+    {
+      "reaction": "Oxygen_transport_reaction_CytoPero__pero",
+      "name": "Oxygen (cyto) <=> Oxygen (pero)",
+      "consumes": "O2",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "C00007__cyto <=> C00007__pero"
+    }
+  ],
+  "class_D_count": 26,
+  "strain": "cauris_iRV973",
+  "experiment": null,
+  "raw": true
+}

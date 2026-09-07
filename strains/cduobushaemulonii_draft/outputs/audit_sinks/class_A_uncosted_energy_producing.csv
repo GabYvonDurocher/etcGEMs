@@ -1,0 +1,41 @@
+reaction,name,produces,lower_bound,upper_bound,has_gpr,reaction_string
+R04889__mito,3-Methoxy-4-hydroxyphenylacetaldehyde + NADP+ + H2O <=> Homovanillate + NADPH + H+,NADPH,-999999.0,999999.0,False,C00001__mito + C00006__mito + C05581__mito <=> C00005__mito + C00080__mito + C05582__mito
+T00485__mito,3 ATP (mito) + ADP (cyto) + H+ (cyto) <=> 3 ATP (cyto) + ADP (mito) + H+ (mito),ATP,-999999.0,999999.0,False,3.0 C00002__mito + C00008__cyto + C00080__cyto <=> 3.0 C00002__cyto + C00008__mito + C00080__mito
+R04882__mito,"3,4-Dihydroxymandelaldehyde + NAD+ + H2O <=> 3,4-Dihydroxymandelate + NADH + H+",NADH,-999999.0,999999.0,False,C00001__mito + C00003__mito + C05577__mito <=> C00004__mito + C00080__mito + C05580__mito
+R08282__mito,Aldophosphamide + NAD+ + H2O <=> Carboxyphosphamide + NADH + H+,NADH,-999999.0,999999.0,False,C00001__mito + C00003__mito + C07645__mito <=> C00004__mito + C00080__mito + C07646__mito
+R00900__cyto,L-Cysteine + Glutathione + NADP+ <=> S-Glutathionyl-L-cysteine + NADPH,NADPH,-999999.0,999999.0,False,C00006__cyto + C00051__cyto + C00097__cyto <=> C00005__cyto + C00080__cyto + C05526__cyto
+R08283__mito,Aldophosphamide + NADP+ + H2O <=> Carboxyphosphamide + NADPH + H+,NADPH,-999999.0,999999.0,False,C00001__mito + C00006__mito + C07645__mito <=> C00005__mito + C00080__mito + C07646__mito
+R05724__cyto,2 Nitric oxide + 2 Oxygen + NADH + H+ <=> 2 Nitrate + NAD+,NADH,-999999.0,999999.0,False,C00004__cyto + 2.0 C00007__cyto + C00080__cyto + 2.0 C00533__cyto <=> C00003__cyto + 2.0 C00244__cyto
+R00711__mito,Acetaldehyde + NADP+ + H2O <=> Acetate + NADPH + H+,NADPH,-999999.0,999999.0,False,C00001__mito + C00006__mito + C00084__mito <=> C00005__mito + C00033__mito + C00080__mito
+TO2903034_PLAS__plas,1.0 IDP (cyto) + 1.0 GTP (extr) => 1.0 IDP (extr) + 1.0 GTP (cyto),GTP,0.0,999999.0,False,C00044__extr + C00104__cyto --> C00044__cyto + C00104__extr
+R02695__mito,4-Hydroxyphenylacetaldehyde + NAD+ + H2O => 4-Hydroxyphenylacetate + NADH + H+,NADH,0.0,999999.0,False,C00001__mito + C00003__mito + C03765__mito --> C00004__mito + C00080__mito + C00642__mito
+R03300__mito,"3,4-Dihydroxyphenylacetaldehyde + NAD+ + H2O <=> 3,4-Dihydroxyphenylacetate + NADH + H+",NADH,-999999.0,999999.0,False,C00001__mito + C00003__mito + C04043__mito <=> C00004__mito + C00080__mito + C01161__mito
+R00711__cyto,Acetaldehyde + NADP+ + H2O <=> Acetate + NADPH + H+,NADPH,-999999.0,999999.0,False,C00001__cyto + C00006__cyto + C00084__cyto <=> C00005__cyto + C00033__cyto + C00080__cyto
+R07104__mito,Chloral hydrate + NAD+ <=> Trichloroacetate + NADH + H+,NADH,-999999.0,999999.0,False,C00003__mito + C06899__mito <=> C00004__mito + C00080__mito + C11150__mito
+R02697__mito,4-Hydroxyphenylacetaldehyde + NADP+ + H2O <=> 4-Hydroxyphenylacetate + NADPH + H+,NADPH,-999999.0,999999.0,False,C00001__mito + C00006__mito + C03765__mito <=> C00005__mito + C00080__mito + C00642__mito
+R12429__mito,ATP + Octanoic acid + Lipoyl-carrier protein E2 <=> [Lipoyl-carrier protein E2]-N6-octanoyl-L-lysine + AMP + Diphosphate,ATP,-999999.0,999999.0,False,C00002__mito + C06423__mito + C22158__mito <=> C00013__mito + C00020__mito + C22160__mito
+R03302__mito,"3,4-Dihydroxyphenylacetaldehyde + NADP+ + H2O <=> 3,4-Dihydroxyphenylacetate + NADPH + H+",NADPH,-999999.0,999999.0,False,C00001__mito + C00006__mito + C04043__mito <=> C00005__mito + C00080__mito + C01161__mito
+R03300__cyto,"3,4-Dihydroxyphenylacetaldehyde + NAD+ + H2O <=> 3,4-Dihydroxyphenylacetate + NADH + H+",NADH,-999999.0,999999.0,False,C00001__cyto + C00003__cyto + C04043__cyto <=> C00004__cyto + C00080__cyto + C01161__cyto
+R02695__cyto,4-Hydroxyphenylacetaldehyde + NAD+ + H2O => 4-Hydroxyphenylacetate + NADH + H+,NADH,0.0,999999.0,False,C00001__cyto + C00003__cyto + C03765__cyto --> C00004__cyto + C00080__cyto + C00642__cyto
+R04892__mito,3-Methoxy-4-hydroxyphenylglycolaldehyde + NADP+ + H2O <=> 3-Methoxy-4-hydroxymandelate + NADPH + H+,NADPH,-999999.0,999999.0,False,C00001__mito + C00006__mito + C05583__mito <=> C00005__mito + C00080__mito + C05584__mito
+R02536__cyto,Phenylacetaldehyde + NAD+ + H2O <=> Phenylacetic acid + NADH + H+,NADH,-999999.0,999999.0,False,C00001__cyto + C00003__cyto + C00601__cyto <=> C00004__cyto + C00080__cyto + C07086__cyto
+R02537__mito,Phenylacetaldehyde + NADP+ + H2O <=> Phenylacetic acid + NADPH + H+,NADPH,-999999.0,999999.0,False,C00001__mito + C00006__mito + C00601__mito <=> C00005__mito + C00080__mito + C07086__mito
+R04891__mito,3-Methoxy-4-hydroxyphenylglycolaldehyde + NAD+ + H2O <=> 3-Methoxy-4-hydroxymandelate + NADH + H+,NADH,-999999.0,999999.0,False,C00001__mito + C00003__mito + C05583__mito <=> C00004__mito + C00080__mito + C05584__mito
+R03103__cyto,L-2-Aminoadipate 6-semialdehyde + NADP+ + H2O => L-2-Aminoadipate + NADPH + H+,NADPH,0.0,999999.0,False,C00001__cyto + C00006__cyto + C04076__cyto --> C00005__cyto + C00080__cyto + C00956__cyto
+TI2903719_PLAS__plas,1.0 ATP (cyto) + 1.0 ADP (extr) => 1.0 ATP (extr) + 1.0 ADP (cyto),ATP,0.0,999999.0,False,C00002__cyto + C00008__extr --> C00002__extr + C00008__cyto
+R12433__mito,ATP + (R)-Lipoate + Glycine cleavage system H <=> Lipoylprotein + AMP + Diphosphate,ATP,-999999.0,999999.0,False,C00002__mito + C16241__mito + C22157__mito <=> C00013__mito + C00020__mito + C02051__mito
+R02536__mito,Phenylacetaldehyde + NAD+ + H2O <=> Phenylacetic acid + NADH + H+,NADH,-999999.0,999999.0,False,C00001__mito + C00003__mito + C00601__mito <=> C00004__mito + C00080__mito + C07086__mito
+R04883__mito,"3,4-Dihydroxymandelaldehyde + NADP+ + H2O <=> 3,4-Dihydroxymandelate + NADPH + H+",NADPH,-999999.0,999999.0,False,C00001__mito + C00006__mito + C05577__mito <=> C00005__mito + C00080__mito + C05580__mito
+R11875__cyto,L-Carnitine + NADH + H+ + Oxygen <=> (3R)-3-Hydroxy-4-oxobutanoate + Trimethylamine + NAD+ + H2O,NADH,-999999.0,999999.0,False,C00004__cyto + C00007__cyto + C00080__cyto + C00318__cyto <=> C00001__cyto + C00003__cyto + C00565__cyto + C21761__cyto
+R00434__cyto,"GTP <=> 3',5'-Cyclic GMP + Diphosphate",GTP,-999999.0,999999.0,False,C00044__cyto <=> C00013__cyto + C00942__cyto
+T_ATP_ADP_Antiport__mito,ATP (mito) + ADP (cyto) => ATP (cyto) + ADP (mito),ATP,0.0,999999.0,False,C00002__mito + C00008__cyto --> C00002__cyto + C00008__mito
+TO2000002_PLAS__plas,1.0 ATP (extr) + 1.0 H+ (cyto) => 1.0 ATP (cyto) + 1.0 H+ (extr),ATP,0.0,999999.0,False,C00002__extr + C00080__cyto --> C00002__cyto + C00080__extr
+R05725__cyto,2 Nitric oxide + 2 Oxygen + NADPH + H+ <=> 2 Nitrate + NADP+,NADPH,-999999.0,999999.0,False,C00005__cyto + 2.0 C00007__cyto + C00080__cyto + 2.0 C00533__cyto <=> C00006__cyto + 2.0 C00244__cyto
+TI2903793_PLAS__plas,1.0 GDP (cyto) + 1.0 GTP (extr) => 1.0 GDP (extr) + 1.0 GTP (cyto),GTP,0.0,999999.0,False,C00035__cyto + C00044__extr --> C00035__extr + C00044__cyto
+TO2903032_PLAS__plas,1.0 ITP (cyto) + 1.0 GTP (extr) => 1.0 GTP (cyto) + 1.0 ITP (extr),GTP,0.0,999999.0,False,C00044__extr + C00081__cyto --> C00044__cyto + C00081__extr
+R11911__cyto,L-Carnitine + NADPH + H+ + Oxygen <=> (3R)-3-Hydroxy-4-oxobutanoate + Trimethylamine + NADP+ + H2O,NADPH,-999999.0,999999.0,False,C00005__cyto + C00007__cyto + C00080__cyto + C00318__cyto <=> C00001__cyto + C00006__cyto + C00565__cyto + C21761__cyto
+R07350__cyto,n-Alkanal + NADP+ <=> Alk-2-enal + NADPH + H+,NADPH,-999999.0,999999.0,False,C00006__cyto + C00080__cyto + C15596__cyto <=> C00005__cyto + C15597__cyto
+R07770__mito,ATP + (R)-Lipoate <=> Diphosphate + Lipoyl-AMP,ATP,-999999.0,999999.0,False,C00002__mito + C16241__mito <=> C00013__mito + C16238__mito
+R08307__mito,3-Carbamoyl-2-phenylpropionaldehyde + NAD+ + H2O <=> 3-Carbamoyl-2-phenylpropionic acid + NADH + H+,NADH,-999999.0,999999.0,False,C00001__mito + C00003__mito + C16587__mito <=> C00004__mito + C00080__mito + C16591__mito
+R04996__mito,Methylimidazole acetaldehyde + NAD+ + H2O <=> Methylimidazoleacetic acid + NADH + H+,NADH,-999999.0,999999.0,False,C00001__mito + C00003__mito + C05827__mito <=> C00004__mito + C00080__mito + C05828__mito
+R04888__mito,3-Methoxy-4-hydroxyphenylacetaldehyde + NAD+ + H2O <=> Homovanillate + NADH + H+,NADH,-999999.0,999999.0,False,C00001__mito + C00003__mito + C05581__mito <=> C00004__mito + C00080__mito + C05582__mito

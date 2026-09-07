@@ -1,0 +1,8 @@
+reaction,name,produces,lower_bound,upper_bound,has_gpr,reaction_string
+PSIa,Photosystem I,Fdred,0.0,999999.0,True,e700_u + fdxo_2_2_c + p700_u --> fdxrd_c + p700p_u
+PDH,Pyruvate dehydrogenase,NADH,0.0,999999.0,True,coa_c + nad_c + pyr_c --> accoa_c + co2_c + nadh_c
+E4POR1,D-erythrose 4-phosphate oxidoreductase (NAD),NADH,0.0,999999.0,False,e4p_c + h2o_c + nad_c --> 4pen_c + 2.0 h_c + nadh_c
+4PEOR,4-phospho-D-erythronate 2-oxidoreductase (NAD),NADH,0.0,999999.0,False,4pen_c + nad_c --> 2o3h4pbut_c + h_c + nadh_c
+FNOR_TG_forward,Ferredoxin---NADP+ reductase,NADPH,0.0,999999.0,True,2.0 fdxrd_c + h_c + nadp_c --> 2.0 fdxo_2_2_c + nadph_c
+FNOR_TG_reverse,Ferredoxin---NADP+ reductase,Fdred,0.0,999999.0,True,2.0 fdxo_2_2_c + nadph_c --> 2.0 fdxrd_c + h_c + nadp_c
+GLYCLTDx_TG_reverse,Glycolate dehydrogenase (NAD),NADH,0.0,999999.0,True,glyclt_c + nad_c --> glx_c + h_c + nadh_c

@@ -1,0 +1,11 @@
+reaction,name,produces,lower_bound,upper_bound,has_gpr,reaction_string
+ALDD4,"Aldehyde dehydrogenase (butanal, NAD)",NADH,0.0,1000.0,False,btal_c[c] + h2o_c[c] + nad_c[c] --> but_c[c] + 2.0 h_c[c] + nadh_c[c]
+GTPtex,GTP transport via diffusion (extracellular to periplasm),GTP,0.0,1000.0,True,gtp_e[e] --> gtp_p[p]
+NADPHQR2,NADPH Quinone Reductase (Ubiquinone-8),QH2,0.0,1000.0,True,h_c[c] + nadph_c[c] + q8_c[c] --> nadp_c[c] + q8h2_c[c]
+NADPHQR3,NADPH Quinone Reductase (Menaquinone-8),QH2,0.0,1000.0,True,h_c[c] + mqn8_c[c] + nadph_c[c] --> mql8_c[c] + nadp_c[c]
+PDX5PO2,Pyridoxine 5'-phosphate oxidase (anaerboic,NADH,0.0,1000.0,False,nad_c[c] + pdx5p_c[c] --> h_c[c] + nadh_c[c] + pydx5p_c[c]
+DSBAO1,DsbA protein reoxidation reaction (aerobic),QH2,0.0,1000.0,True,dsbard_p[p] + q8_c[c] --> dsbaox_p[p] + q8h2_c[c]
+DSBAO2,DsbA protein reoxidation reaction (anaerobic),QH2,0.0,1000.0,True,dsbard_p[p] + mqn8_c[c] --> dsbaox_p[p] + mql8_c[c]
+OMMBLHX3,"2-Octaprenyl-3-methyl-6-methoxy-1,4-benzoquinol hydroxylase (anaerobic)",NADH,0.0,1000.0,False,2ommbl_c[c] + 2.0 atp_c[c] + 3.0 h2o_c[c] + nad_c[c] --> 2omhmbl_c[c] + 2.0 adp_c[c] + 3.0 h_c[c] + nadh_c[c] + 2.0 pi_c[c]
+OPHHX3,2-Octaprenylphenol hydroxylase (anaerobic),NADH,0.0,1000.0,False,2oph_c[c] + 2.0 atp_c[c] + 3.0 h2o_c[c] + nad_c[c] --> 2ohph_c[c] + 2.0 adp_c[c] + 3.0 h_c[c] + nadh_c[c] + 2.0 pi_c[c]
+GTPtex_REV,GTP transport via diffusion (extracellular to periplasm) (reversible),GTP,0.0,1000.0,True,gtp_p[p] --> gtp_e[e]

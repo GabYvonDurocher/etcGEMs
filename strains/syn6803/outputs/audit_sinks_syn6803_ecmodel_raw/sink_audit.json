@@ -1,0 +1,245 @@
+{
+  "model": "gecko:iSynCJ816",
+  "biomass": "BIOMASS_Ec_SynAuto_1",
+  "n_reactions": 1303,
+  "n_costed": 1066,
+  "n_uncosted": 237,
+  "class_A_uncosted_energy_producing": [
+    {
+      "reaction": "PSIa",
+      "name": "Photosystem I",
+      "produces": "Fdred",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": true,
+      "reaction_string": "e700_u + fdxo_2_2_c + p700_u --> fdxrd_c + p700p_u"
+    },
+    {
+      "reaction": "PDH",
+      "name": "Pyruvate dehydrogenase",
+      "produces": "NADH",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": true,
+      "reaction_string": "coa_c + nad_c + pyr_c --> accoa_c + co2_c + nadh_c"
+    },
+    {
+      "reaction": "E4POR1",
+      "name": "D-erythrose 4-phosphate oxidoreductase (NAD)",
+      "produces": "NADH",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "e4p_c + h2o_c + nad_c --> 4pen_c + 2.0 h_c + nadh_c"
+    },
+    {
+      "reaction": "4PEOR",
+      "name": "4-phospho-D-erythronate 2-oxidoreductase (NAD)",
+      "produces": "NADH",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "4pen_c + nad_c --> 2o3h4pbut_c + h_c + nadh_c"
+    },
+    {
+      "reaction": "FNOR_TG_forward",
+      "name": "Ferredoxin---NADP+ reductase",
+      "produces": "NADPH",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": true,
+      "reaction_string": "2.0 fdxrd_c + h_c + nadp_c --> 2.0 fdxo_2_2_c + nadph_c"
+    },
+    {
+      "reaction": "FNOR_TG_reverse",
+      "name": "Ferredoxin---NADP+ reductase",
+      "produces": "Fdred",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": true,
+      "reaction_string": "2.0 fdxo_2_2_c + nadph_c --> 2.0 fdxrd_c + h_c + nadp_c"
+    },
+    {
+      "reaction": "GLYCLTDx_TG_reverse",
+      "name": "Glycolate dehydrogenase (NAD)",
+      "produces": "NADH",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": true,
+      "reaction_string": "glyclt_c + nad_c --> glx_c + h_c + nadh_c"
+    }
+  ],
+  "class_A_count": 7,
+  "class_B_reversible_maintenance": [],
+  "class_B_count": 0,
+  "class_C_pinned_uncosted": [
+    {
+      "reaction": "ATPM",
+      "name": "ATP maintenance requirement",
+      "lower_bound": 5.6976257511114055,
+      "upper_bound": 999999.0,
+      "fixed": false,
+      "reaction_string": "atp_c + h2o_c --> adp_c + h_c + pi_c"
+    }
+  ],
+  "class_C_count": 1,
+  "class_D_uncosted_acceptor_sinks": [
+    {
+      "reaction": "CYO1b2_syn_1",
+      "name": "Cytochrome c oxidase, synechocystis (2 protons)",
+      "consumes": "O2",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": true,
+      "reaction_string": "4.0 h_c + 0.5 o2_l + 2.0 pcrd_l --> h2o_l + 2.0 h_l + 2.0 pcox_l"
+    },
+    {
+      "reaction": "CYO1b2pp_syn_1",
+      "name": "Cytochrome c oxidase, synechocystis (2 protons periplasm)",
+      "consumes": "O2",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": true,
+      "reaction_string": "4.0 h_c + 0.5 o2_c + 2.0 pcrd_p --> h2o_c + 2.0 h_p + 2.0 pcox_p"
+    },
+    {
+      "reaction": "O2tex",
+      "name": "Oxygen transport via diffusion (extracellular to periplasm)",
+      "consumes": "O2",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "o2_e <=> o2_p"
+    },
+    {
+      "reaction": "O2tl",
+      "name": "Oxygen transport via diffusion (thylakoid)",
+      "consumes": "O2",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "o2_l <=> o2_c"
+    },
+    {
+      "reaction": "NO3tex",
+      "name": "Nitrate transport via diffusion (extracellular to periplasm)",
+      "consumes": "NO3",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "no3_e <=> no3_p"
+    },
+    {
+      "reaction": "O2tp",
+      "name": "O2 transport glycosome",
+      "consumes": "O2",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "o2_c --> o2_x"
+    },
+    {
+      "reaction": "NO3abcpp",
+      "name": "Nitrate transport via ABC system (periplasm)",
+      "consumes": "NO3",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": true,
+      "reaction_string": "atp_c + h2o_c + no3_p --> adp_c + h_c + no3_c + pi_c"
+    },
+    {
+      "reaction": "O2tpp",
+      "name": "O2 transport via diffusion (periplasm)",
+      "consumes": "O2",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "o2_p <=> o2_c"
+    },
+    {
+      "reaction": "R05217_nad",
+      "name": "Precorrin 3A + Oxygen <=> Precorrin 3B (NAD)",
+      "consumes": "O2",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "2.0 h_c + nadh_c + o2_c + pre3a_c --> h2o_c + nad_c + pre3b_c"
+    },
+    {
+      "reaction": "FUMtex",
+      "name": "Fumarate transport via diffusion (extracellular to periplasm)",
+      "consumes": "fumarate",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "fum_e <=> fum_p"
+    },
+    {
+      "reaction": "FUMtpp",
+      "name": "Fumarate transport via diffusion (periplasm to cytosol)",
+      "consumes": "fumarate",
+      "lower_bound": -999999.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "fum_p + h_p <=> fum_c + h_c"
+    },
+    {
+      "reaction": "HPHACA",
+      "name": "2--hydroxyphenylacetate hydroxylase",
+      "consumes": "O2",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "2hyoxplac_c + h_c + nadh_c + o2_c --> h2o_c + hgentis_c + nad_c"
+    },
+    {
+      "reaction": "PHEOR",
+      "name": "L-phenylalanine oxidoreductase (decarboxylating)",
+      "consumes": "O2",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": false,
+      "reaction_string": "o2_c + phe__L_c --> co2_c + h2o_c + pad_c"
+    },
+    {
+      "reaction": "GLYCTO1",
+      "name": "Glycolate oxidase",
+      "consumes": "O2",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": true,
+      "reaction_string": "glyclt_c + o2_c --> glx_c + h2o2_c"
+    },
+    {
+      "reaction": "CYO1b_syn_1",
+      "name": "Cytochrome c oxidase, synechocystis (2 protons)",
+      "consumes": "O2",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": true,
+      "reaction_string": "2.0 focytc6_l + 4.0 h_c + 0.5 o2_l --> 2.0 ficytc6_l + h2o_l + 2.0 h_l"
+    },
+    {
+      "reaction": "CYO1bpp_syn_1",
+      "name": "Cytochrome c oxidase, synechocystis (2 protons)",
+      "consumes": "O2",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": true,
+      "reaction_string": "2.0 focytc6_p + 4.0 h_c + 0.5 o2_c --> 2.0 ficytc6_p + h2o_c + 2.0 h_p"
+    },
+    {
+      "reaction": "SOPSI",
+      "name": "Superoxide at PSI",
+      "consumes": "O2",
+      "lower_bound": 0.0,
+      "upper_bound": 999999.0,
+      "has_gpr": true,
+      "reaction_string": "e700_u + o2_l + p700_u --> o2_c + p700p_u"
+    }
+  ],
+  "class_D_count": 17,
+  "strain": "syn6803",
+  "experiment": "syn6803_ecmodel",
+  "raw": true
+}

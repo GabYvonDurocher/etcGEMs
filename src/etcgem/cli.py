@@ -170,6 +170,54 @@ def cmd_transfer(args):
                solver=args.solver, tag=args.tag)
 
 
+def cmd_audit_sinks(args):
+    """Report uncosted free-energy sinks for a built strain. Reports; fixes nothing."""
+    from .sink_audit import audit_sinks
+    cfg = resolve(args.strain, args.experiment)
+    tag = _run_tag("audit_sinks", args.experiment)
+    if args.raw:
+        # Build WITHOUT the strain's configured sink corrections, so the audit reports the
+        # reconstruction as published. Otherwise a strain that already carries a fix shows a
+        # clean bill of health and the audit cannot be checked against the cases it was
+        # written from (E. coli's closed O2 sinks, the methanogen's relaxed ATP drain, the
+        # Candida maintenance pin) -- all three are applied at build time.
+        for k in ("close_free_sinks", "relax_pinned", "pin_at_ub"):
+            cfg["provider"][k] = None
+        cfg["close_free_o2_sinks"] = False
+        tag += "_raw"
+    out_dir = _out_dir(args.strain, tag)
+    os.makedirs(out_dir, exist_ok=True)
+    pm = _build_pm(cfg)
+    rep = audit_sinks(pm, max_report=args.max_report)
+    rep["strain"] = args.strain
+    rep["experiment"] = args.experiment
+    rep["raw"] = bool(args.raw)
+    with open(os.path.join(out_dir, "sink_audit.json"), "w") as fh:
+        json.dump(rep, fh, indent=2)
+    for label, key, count_key in (
+            ("A  uncosted, can produce a free-energy carrier",
+             "class_A_uncosted_energy_producing", "class_A_count"),
+            ("B  reversible maintenance/ATPM",
+             "class_B_reversible_maintenance", "class_B_count"),
+            ("C  hard-pinned uncosted drain",
+             "class_C_pinned_uncosted", "class_C_count"),
+            ("D  uncosted consumer of a terminal electron acceptor",
+             "class_D_uncosted_acceptor_sinks", "class_D_count")):
+        print(f"\n[{args.strain}] class {label}: {rep[count_key]} found")
+        for r in rep[key][:args.max_report]:
+            print(f"   {r['reaction']:34s} [{r['lower_bound']:.4g}, {r['upper_bound']:.4g}] "
+                  f"{(r.get('produces') or r.get('consumes') or ''):14s} "
+                  f"{(r.get('name') or '')[:44]}")
+    pd.DataFrame(rep["class_A_uncosted_energy_producing"]).to_csv(
+        os.path.join(out_dir, "class_A_uncosted_energy_producing.csv"), index=False)
+    dump_resolved(cfg, out_dir)
+    print(f"\n[audit-sinks] {args.strain}: {rep['n_costed']} costed of "
+          f"{rep['n_reactions']} reactions; A={rep['class_A_count']} "
+          f"B={rep['class_B_count']} C={rep['class_C_count']} D={rep['class_D_count']}")
+    print(f"[audit-sinks] wrote {out_dir}")
+    return out_dir
+
+
 def cmd_fba(args):
     # an optional experiment overlay, so a single solve can be run under a method variant
     # (e.g. the Candida pool-binding precondition) without a second command
@@ -852,6 +900,19 @@ def build_parser():
                     help="optional method overlay (configs/experiments/EXP.yaml); the run's\n"
                          "outputs go to outputs/fba_<EXP>/")
     fb.set_defaults(func=cmd_fba)
+
+    au = sub.add_parser("audit-sinks",
+                        help="report uncosted free-energy sinks: reactions that move ATP or "
+                             "reducing equivalents without paying enzyme cost, reversible "
+                             "maintenance, and hard-pinned uncosted drains")
+    au.add_argument("--strain", required=True)
+    au.add_argument("--experiment", default=None,
+                    help="optional overlay, so the audit sees the model a given run builds")
+    au.add_argument("--max-report", dest="max_report", type=int, default=40)
+    au.add_argument("--raw", action="store_true",
+                    help="audit the reconstruction as published: build without the strain's "
+                         "own sink corrections (close_free_sinks / relax_pinned / pin_at_ub)")
+    au.set_defaults(func=cmd_audit_sinks)
 
     cd = sub.add_parser("calibrate-dcp",
                         help="[DEPRECATED — not used by the emergent model] choose "
