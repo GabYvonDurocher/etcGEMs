@@ -1,0 +1,26 @@
+reaction,name,produces,lower_bound,upper_bound,has_gpr,reaction_string
+2_oxoglutarate_Dehydro_Complex__mito,2-oxoglutarate + CoA + NAD+ => Succinyl-CoA + CO2 + NADH,NADH,0.0,999999.0,False,C00003__mito + C00010__mito + C00026__mito --> C00004__mito + C00011__mito + C00091__mito
+R03856__cyto,Lauroyl-CoA + NADP+ <=> 2-trans-Dodecenoyl-CoA + NADPH + H+,NADPH,-999999.0,999999.0,False,C00006__cyto + C01832__cyto <=> C00005__cyto + C00080__cyto + C03221__cyto
+T_NADPh_c00005_MitoCyto__plas,NADPH (Cyto) <=> NADPH (Mito),NADPH,-999999.0,999999.0,False,C00005__mito <=> C00005__cyto
+R04753__cyto,Decanoyl-CoA + NADP+ <=> trans-Dec-2-enoyl-CoA + NADPH + H+,NADPH,-999999.0,999999.0,False,C00006__cyto + C05274__cyto <=> C00005__cyto + C00080__cyto + C05275__cyto
+R02434__cyto,L-Cysteate + NADH + H+ <=> 3-Sulfino-L-alanine + H2O + NAD+,NADH,-999999.0,999999.0,False,C00004__cyto + C00080__cyto + C00506__cyto <=> C00001__cyto + C00003__cyto + C00606__cyto
+R01058__cyto,D-Glyceraldehyde 3-phosphate + NADP+ + H2O => 3-Phospho-D-glycerate + NADPH + H+,NADPH,0.0,999999.0,False,C00001__cyto + C00006__cyto + C00118__cyto --> C00005__cyto + C00080__cyto + C00197__cyto
+R00900__cyto,L-Cysteine + Glutathione + NADP+ <=> S-Glutathionyl-L-cysteine + NADPH,NADPH,-999999.0,999999.0,False,C00006__cyto + C00051__cyto + C00097__cyto <=> C00005__cyto + C00080__cyto + C05526__cyto
+T_ATP_ADP_Mito_Antiporter__mito,ADP (Cyto) + ATP (Mito) + H+ (Cyto) => ATP (Cyto) + ADP (Mito) + H+ (Mito),ATP,0.0,999999.0,False,C00002__mito + C00008__cyto + C00080__cyto --> C00002__cyto + C00008__mito + C00080__mito
+R03776__cyto,Octanoyl-CoA + NADP+ <=> trans-Oct-2-enoyl-CoA + NADPH + H+,NADPH,-999999.0,999999.0,False,C00006__cyto + C01944__cyto <=> C00005__cyto + C00080__cyto + C05276__cyto
+R00104__cyto,ATP + NAD+ <=> ADP + NADP+,ATP,-999999.0,999999.0,False,C00002__cyto + C00003__cyto <=> C00006__cyto + C00008__cyto
+R05068_Mito__mito,"(R)-2,3-Dihydroxy-3-methylpentanoate + NADP+ <=> (R)-3-Hydroxy-3-methyl-2-oxopentanoate + NADPH + H+",NADPH,-999999.0,999999.0,False,C00006__mito + C06007__mito <=> C00005__mito + C00080__mito + C14463__mito
+R00214__cyto,(S)-Malate + NAD+ => Pyruvate + CO2 + NADH + H+,NADH,0.0,999999.0,False,C00003__cyto + C00149__cyto --> C00004__cyto + C00011__cyto + C00022__cyto + C00080__cyto
+ATP_Maintenance__cyto,NGAM,ATP,-3.9,3.9,False,C00001__cyto + C00002__cyto <=> C00008__cyto + C00009__cyto
+R00835__cyto,"D-Glucose 6-phosphate + NADP+ => D-Glucono-1,5-lactone 6-phosphate + NADPH + H+",NADPH,0.0,999999.0,False,C00006__cyto + C00092__cyto --> C00005__cyto + C00080__cyto + C01236__cyto
+R06985__cyto,trans-Hex-2-enoyl-CoA + NADPH + H+ <=> Hexanoyl-CoA + NADP+,NADPH,-999999.0,999999.0,False,C00005__cyto + C00080__cyto + C05271__cyto <=> C00006__cyto + C05270__cyto
+R01465__cyto,L-Threonine + NAD+ <=> L-2-Amino-3-oxobutanoic acid + NADH + H+,NADH,-999999.0,999999.0,False,C00003__cyto + C00188__cyto <=> C00004__cyto + C00080__cyto + C03508__cyto
+R10116__cyto,3-Ketoglutaryl-[acp] methyl ester + NADPH + H+ <=> 3-Hydroxyglutaryl-[acp] methyl ester + NADP+,NADPH,-999999.0,999999.0,False,C00005__cyto + C00080__cyto + C20372__cyto <=> C00006__cyto + C20373__cyto
+R04440__cyto,"(R)-2,3-Dihydroxy-3-methylbutanoate + NADP+ <=> 3-Hydroxy-3-methyl-2-oxobutanoic acid + NADPH + H+",NADPH,-999999.0,999999.0,False,C00006__cyto + C04272__cyto <=> C00005__cyto + C00080__cyto + C04181__cyto
+R01224__cyto,"5-Methyltetrahydrofolate + NADP+ <=> 5,10-Methylenetetrahydrofolate + NADPH + H+",NADPH,-999999.0,999999.0,False,C00006__cyto + C00440__cyto <=> C00005__cyto + C00080__cyto + C00143__cyto
+R01278__cyto,Palmitoyl-CoA + NADP+ <=> trans-Hexadec-2-enoyl-CoA + NADPH + H+,NADPH,-999999.0,999999.0,False,C00006__cyto + C00154__cyto <=> C00005__cyto + C00080__cyto + C05272__cyto
+R03989__cyto,Tetradecanoyl-CoA + NADP+ <=> trans-Tetradec-2-enoyl-CoA + NADPH + H+,NADPH,-999999.0,999999.0,False,C00006__cyto + C02593__cyto <=> C00005__cyto + C00080__cyto + C05273__cyto
+R01933__cyto,2-Oxoadipate + CoA + NAD+ <=> Glutaryl-CoA + CO2 + NADH + H+,NADH,-999999.0,999999.0,False,C00003__cyto + C00010__cyto + C00322__cyto <=> C00004__cyto + C00011__cyto + C00080__cyto + C00527__cyto
+R02736__cyto,"beta-D-Glucose 6-phosphate + NADP+ => D-Glucono-1,5-lactone 6-phosphate + NADPH + H+",NADPH,0.0,999999.0,False,C00006__cyto + C01172__cyto --> C00005__cyto + C00080__cyto + C01236__cyto
+R05641__cyto,"Ergosterol + NADP+ <=> Ergosta-5,7,22,24(28)-tetraen-3beta-ol + NADPH + H+",NADPH,-999999.0,999999.0,False,C00006__cyto + C01694__cyto <=> C00005__cyto + C00080__cyto + C05440__cyto
+R04439__cyto,"(R)-2,3-Dihydroxy-3-methylbutanoate + NADP+ <=> (S)-2-Acetolactate + NADPH + H+",NADPH,-999999.0,999999.0,False,C00006__cyto + C04272__cyto <=> C00005__cyto + C00080__cyto + C06010__cyto

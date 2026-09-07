@@ -1,0 +1,84 @@
+# transfer_candida_unpinned.yaml -- transfer_candida with ONE change: the maintenance
+# correction switched OFF, i.e. the maintenance reaction left exactly as each SBML ships it.
+#
+# This is the LABELLED SENSITIVITY, not the baseline. Since K2 PART A the corrected
+# (irreversible, obligate) maintenance is the strain default, so `transfer_candida` is the
+# corrected run and this file is the uncorrected one.
+#
+# It is kept for one reason: it is the configuration that gem/18_build_etcgem_tpc.py used,
+# and therefore the one K1's gate compares against the standalone's locked per-temperature
+# mu table (reports/candida_thermal_limit/gate_table.py reads its outputs).
+#
+# What the correction is, and why 18 needed it. gem/22_thermal_sensitivity.py and
+# gem/19_etcgem_counterfactual.py pin these two reactions at their own upper bound;
+# 18_build_etcgem_tpc.py does not. It matters for one model. In the three iRV973-derived
+# models ATP_maintenance_NGAM__cyto already ships fixed at (3.89, 3.89), so pinning is a
+# no-op. In iDC1003, ATP_Maintenance__cyto ships REVERSIBLE at (-3.9, 3.9), and the solver
+# takes the reverse direction at every temperature: C. parapsilosis pays no maintenance AND
+# collects 3.9 mmol ATP/gDW/h from ADP + Pi. Ilgaz records exactly this in the setup_pool
+# comment of 19_etcgem_counterfactual.py.
+#
+# So the uncorrected numbers below are the ones to compare with 18, and nothing else.
+
+kind: transfer
+
+calibrate_on: cauris_iRV973
+predict:
+  - chaemulonii_draft
+  - cduobushaemulonii_draft
+  - cparapsilosis_iDC1003
+
+globals: [pheno_sigma, pheno_w, pool_budget]
+objective: measured_tpc
+growth_scale: peak_match
+
+optimizer:
+  method: nelder-mead
+  multistart: 4
+  starts:
+    - [8,  3, 0.20]
+    - [12, 5, 0.25]
+    - [6,  2, 0.15]
+    - [15, 8, 0.30]
+  options:
+    maxiter: 120
+    xatol: 0.3
+    fatol: 1.0e-4
+  penalty: 1000.0
+
+lower_bounds:
+  pheno_sigma: 1.0
+  pheno_w: 0.3
+  pool_budget: 0.02
+
+detection_floor_h: 0.05
+thermal_limit:
+  lo_C: 20.0
+  hi_C: 90.0
+  tol_C: 0.02
+
+# The K2 diagnostics, so this run is comparable with the ladder's rungs. They are read-only
+# -- descriptors on a wider grid and the Figure-4 counterfactual -- and change nothing the
+# gate compares.
+descriptor_grid:
+  start_C: 15
+  stop_C: 75
+  n: 121
+crit_frac: 0.05
+
+counterfactual:
+  params: [dTm, dTopt]
+  fail_T_C: 40.0
+  permissive_T_C: 34.0
+  threshold_h: 0.05
+  permissive_frac: 0.7
+  lo: -35.0
+  tol: 0.1
+
+# THE ONE CHANGE, relative to the strain default: switch the maintenance correction OFF.
+provider:
+  pin_at_ub: null
+
+# ... and the solver held at the standalone's, since exact reproduction is this file's only
+# job. Everything else in K2 runs under Gurobi (see any strain.yaml, `solver`).
+solver: glpk

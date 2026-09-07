@@ -1,0 +1,7 @@
+experiment,strain,param,required,permissive_preserved,permissive_growth,permissive_baseline,baseline_fail
+candida_B3_ngamT,chaemulonii_draft,dTm,13.5,True,0.5665,0.5686,0.684
+candida_B3_ngamT,chaemulonii_draft,dTopt,23.07,False,0.1623,0.5686,0.684
+candida_B3_ngamT,cduobushaemulonii_draft,dTm,14.05,True,0.5539,0.5581,0.5353
+candida_B3_ngamT,cduobushaemulonii_draft,dTopt,21.84,False,0.1442,0.5581,0.5353
+candida_B3_ngamT,cparapsilosis_iDC1003,dTm,13.64,True,0.6244,0.6295,0.6368
+candida_B3_ngamT,cparapsilosis_iDC1003,dTopt,19.11,False,0.2313,0.6295,0.6368

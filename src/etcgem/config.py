@@ -237,6 +237,7 @@ def build_provider(cfg: Dict[str, Any]):
             pin_at_ub=p.get("pin_at_ub"),
             pheno_sigma=p.get("pheno_sigma", 10.0),
             pheno_w=p.get("pheno_w", 5.0),
+            topt_tm_min_gap=p.get("topt_tm_min_gap_C"),
         )
         if budget_override is not None and p.get("pool_budget") is not None:
             print(f"[pool] pool budget = {budget_override:.4g} g/gDW "
@@ -269,16 +270,26 @@ def build_provider(cfg: Dict[str, Any]):
         # thread the emergent in-vivo saturation (budget = P_total x f_metab x sigma)
         # so a free sigma_sat perturbation can scale both sector caps by sigma/sigma_nom
         ps.setdefault("sigma_nom", float(p.get("sigma", 0.45)))
-        add_proteome_sectors(pm, ps)
+        # The sector layer's maintenance reaction defaults to the provider's, so a strain
+        # names its NGAM reaction once (in strain.yaml) rather than once per layer. Applied
+        # on a COPY, not on cfg: the resolved_config.yaml a run records must stay exactly
+        # what was written, and for a strain whose reaction the sector auto-detect already
+        # finds (eciML1515: ATPM) this is a no-op in behaviour either way.
+        ps_call = dict(ps)
+        if ps_call.get("atpm_reaction") is None and p.get("ngam_reaction"):
+            ps_call["atpm_reaction"] = p["ngam_reaction"]
+        add_proteome_sectors(pm, ps_call)
         # Fix the sector NGAM anchor for a temperature-dependent maintenance reaction: the
         # sector branch scales atpm_nom_lb by ngam_T(T)/ngam_T(25C), so atpm_nom_lb must be
         # the 25C NGAM value. At sector-build the reaction's lb was NGAM(ref_T) (e.g. 37C),
-        # which would double-scale; reset it to the 25C anchor.
+        # which would double-scale; reset it to the 25C anchor. (Written for the methanogen,
+        # applies to any smoment_gem strain running NGAM(T) with sectors -- the Candida
+        # strains do so from K2 ladder rung B4.)
         if kind == "smoment_gem" and p.get("ngam_temperature") and pm.ec._sectors and pm.ec._sectors.get("atpm_rxn") is not None:
             from .unfolding import ngam_T
             anchor25 = ngam_T(273.15 + 25.0, scale=1.0) * float(p.get("ngam_base_scale", 1.0))
             pm.ec._sectors["atpm_nom_lb"] = float(anchor25)
-            print(f"[sectors] reset methanogen NGAM anchor atpm_nom_lb -> {anchor25:.3f} "
+            print(f"[sectors] reset NGAM(T) sector anchor atpm_nom_lb -> {anchor25:.3f} "
                   f"(25C NGAM; the sector branch rescales it to ~{anchor25*ngam_T(310.15)/ngam_T(298.15):.2f} at 37C)")
 
         # Opt-in temperature-dependent allocation from measured proteomics. Only

@@ -1,0 +1,24 @@
+reaction,name,produces,lower_bound,upper_bound,has_gpr,reaction_string
+rxn10954_LSQBKT_c0_RSQBKT_,C180SN c0,NADPH,0.0,1000.0,False,8.0 cpd00001_c0 + 16.0 cpd00006_c0 + 7.0 cpd00011_c0 + 7.0 cpd11493_c0 + cpd15268_c0 --> 16.0 cpd00005_c0 + 23.0 cpd00067_c0 + cpd11488_c0 + 7.0 cpd11492_c0
+rxn01068_LSQBKT_c0_RSQBKT_,L-Threonine NAD oxidoreductase c0,NADH,0.0,1000.0,False,cpd00003_c0 + cpd00161_c0 --> cpd00004_c0 + cpd00067_c0 + cpd02211_c0
+rxn02831_LSQBKT_c0_RSQBKT_,O-Succinylbenzoate CoA ligase AMP-forming c0,ATP,-1000.0,1000.0,False,cpd00002_c0 + cpd00010_c0 + cpd00067_c0 + cpd01772_c0 <=> cpd00012_c0 + cpd00018_c0 + cpd02021_c0
+rxn08349_LSQBKT_c0_RSQBKT_,2 3-diketo-5-methylthio-1-phosphopentane degradation reaction c0,NADH,0.0,1000.0,False,3.0 cpd00001_c0 + 2.0 cpd00003_c0 + cpd11295_c0 --> 2.0 cpd00004_c0 + cpd00009_c0 + cpd00047_c0 + 5.0 cpd00067_c0 + cpd00869_c0
+rxn10424_LSQBKT_c0_RSQBKT_,7-mercaptoheptanoate synthase,NADH,-1000.0,1000.0,False,cpd00004_c0 + cpd00067_c0 + cpd00084_c0 + cpd15829_c0 <=> cpd00003_c0 + cpd00054_c0 + cpd15827_c0
+rxn10425_LSQBKT_c0_RSQBKT_,7-mercaptoheptanoylthreonine synthase,ATP,-1000.0,1000.0,False,cpd00002_c0 + cpd00161_c0 + cpd15827_c0 <=> cpd00008_c0 + cpd00009_c0 + cpd00067_c0 + cpd15828_c0
+rxn10475_LSQBKT_c0_RSQBKT_,Coenzyme B synthase,ATP,-1000.0,1000.0,False,cpd00002_c0 + cpd15828_c0 <=> cpd00008_c0 + cpd02817_c0
+H4MPTs,Tetrahydromethanopterin synthase,ATP+NADH,-1000.0,1000.0,False,cpd00001_c0 + 2.0 cpd00002_c0 + 2.0 cpd00004_c0 + 2.0 cpd00017_c0 + cpd00103_c0 + cpd02041_c0 + cpd15851_c0 <=> 2.0 cpd00003_c0 + 2.0 cpd00008_c0 + cpd00009_c0 + 2.0 cpd00012_c0 + 2.0 cpd00019_c0 + cp
+rxn10432_LSQBKT_c0_RSQBKT_,(S)-alpha-hydroxyglutarate dehydrogenase,NADH,-1000.0,1000.0,False,cpd00004_c0 + cpd00024_c0 + cpd00067_c0 <=> cpd00003_c0 + cpd02041_c0
+4ASDH,4-aminoshikimate dehydrogenase,NADH,-1000.0,1000.0,False,4A3DHS_c0 + cpd00004_c0 + cpd00067_c0 <=> 4ASKM_c0 + cpd00003_c0
+rxn00979_LSQBKT_c0_RSQBKT_,Glycolaldehyde:NAD+ oxidoreductase,NADH,-1000.0,1000.0,False,cpd00001_c0 + cpd00003_c0 + cpd00229_c0 <=> cpd00004_c0 + 2.0 cpd00067_c0 + cpd00139_c0
+rxn00512_LSQBKT_c0_RSQBKT_,Glycolate:NAD+ oxidoreductase,NADH,-1000.0,1000.0,False,cpd00003_c0 + cpd00139_c0 <=> cpd00004_c0 + cpd00040_c0 + cpd00067_c0
+rxn10508_LSQBKT_c0_RSQBKT_,coenzyme F430 precursor synthase 1 (aminase),ATP,-1000.0,1000.0,False,2.0 cpd00001_c0 + 2.0 cpd00002_c0 + 2.0 cpd00053_c0 + cpd00244_c0 + cpd01620_c0 <=> 2.0 cpd00008_c0 + 2.0 cpd00009_c0 + 2.0 cpd00023_c0 + 4.0 cpd00067_c0 + cpd15873_c0
+rxn10509_LSQBKT_c0_RSQBKT_,coenzyme F430 precursor synthase 2 (reduction),NADH,-1000.0,1000.0,False,cpd00004_c0 + 2.0 cpd00067_c0 + cpd15873_c0 <=> cpd00003_c0 + cpd15874_c0
+rxn10510_LSQBKT_c0_RSQBKT_,coenzyme F430 precursor synthase 3 (reduction),NADH,-1000.0,1000.0,False,cpd00004_c0 + cpd00067_c0 + cpd15874_c0 <=> cpd00003_c0 + cpd15875_c0
+rxn10420_LSQBKT_c0_RSQBKT_,2-phospho-L-lactate synthase,GTP,-1000.0,1000.0,False,cpd00038_c0 + cpd00159_c0 <=> cpd00031_c0 + cpd00067_c0 + cpd15809_c0
+rxn05734_LSQBKT_c0_RSQBKT_,"aldehyde dehydrogenase (glyoxylate, NAD)",NADH,-1000.0,1000.0,False,cpd00001_c0 + cpd00003_c0 + cpd00040_c0 <=> cpd00004_c0 + 2.0 cpd00067_c0 + cpd00180_c0
+rxn02430_LSQBKT_c0_RSQBKT_,Dihydromethanopterin reductase,NADPH,-1000.0,1000.0,False,cpd00005_c0 + cpd00067_c0 + cpd03523_c0 <=> cpd00006_c0 + cpd00895_c0
+HPAr,Hydroxypyruvaldehyde phosphate reductase,NADH,-1000.0,1000.0,False,cpd00004_c0 + cpd17158_c0 <=> cpd00003_c0 + cpd00102_c0
+rxn01618_LSQBKT_c0_RSQBKT_,(S)-Lactaldehyde:NADP+ oxidoreductase,NADPH,-1000.0,1000.0,False,cpd00006_c0 + cpd00334_c0 <=> cpd00005_c0 + cpd00067_c0 + cpd00428_c0
+rxn00149_LSQBKT_c0_RSQBKT_,Pyruvaldehyde:NAD+ oxidoreductase,NADH,0.0,1000.0,False,cpd00001_c0 + cpd00003_c0 + cpd00428_c0 --> cpd00004_c0 + cpd00020_c0 + 2.0 cpd00067_c0
+rxn00150_LSQBKT_c0_RSQBKT_,Pyruvaldehyde:NADP+ oxidoreductase,NADPH,0.0,1000.0,False,cpd00001_c0 + cpd00006_c0 + cpd00428_c0 --> cpd00005_c0 + cpd00020_c0 + 2.0 cpd00067_c0
+rxn07210_LSQBKT_c0_RSQBKT_,Selenite:NADP+ oxidoreductase,NADPH,-1000.0,1000.0,False,cpd00001_c0 + cpd00006_c0 + cpd03387_c0 <=> cpd00005_c0 + cpd03396_c0

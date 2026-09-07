@@ -52,7 +52,29 @@ C. auris calibration MSE,gem/tables/etcgem_calib.json (18_build_etcgem_tpc.py),0
 "predicted mu, parapsilosis at 40 C",gem/tables/etcgem_tpc_pred.csv,0.6662,0.6662,1e-3 /h or 1%,PASS,
 "predicted mu, parapsilosis at 42 C",gem/tables/etcgem_tpc_pred.csv,0.5652,0.5652,1e-3 /h or 1%,PASS,
 "predicted mu, parapsilosis at 44 C",gem/tables/etcgem_tpc_pred.csv,0.4496,0.4496,1e-3 /h or 1%,PASS,
-"model-predicted thermal limit, lowest of the four species (C)",gem/FIG4_LOCKED.md (22_thermal_sensitivity.py),52.7,52.72,0.2 C,PASS,"transfer_candida_pinned_maint: 22 pins maintenance, 18 does not"
-"model-predicted thermal limit, highest of the four species (C)",gem/FIG4_LOCKED.md (22_thermal_sensitivity.py),54.5,54.53,0.2 C,PASS,"transfer_candida_pinned_maint: 22 pins maintenance, 18 does not"
+"model-predicted thermal limit, lowest of the four species (C)",gem/FIG4_LOCKED.md (22_thermal_sensitivity.py),52.7,52.71,0.2 C,PASS,"transfer_candida (maintenance corrected, as 22 does); 18 does not"
+"model-predicted thermal limit, highest of the four species (C)",gem/FIG4_LOCKED.md (22_thermal_sensitivity.py),54.5,54.53,0.2 C,PASS,"transfer_candida (maintenance corrected, as 22 does); 18 does not"
+"corrected-maintenance mu, auris at 34 C",gem/tables/counterfactual_results.json (19_etcgem_counterfactual.py),0.7988,0.7988,1e-3 /h or 1%,PASS,
+"corrected-maintenance mu, auris at 40 C",gem/tables/counterfactual_results.json (19_etcgem_counterfactual.py),0.6635,0.6635,1e-3 /h or 1%,PASS,
+"corrected-maintenance mu, auris at 42 C",gem/tables/counterfactual_results.json (19_etcgem_counterfactual.py),0.5599,0.5599,1e-3 /h or 1%,PASS,
+"corrected-maintenance mu, auris at 44 C",gem/tables/counterfactual_results.json (19_etcgem_counterfactual.py),0.4474,0.4474,1e-3 /h or 1%,PASS,
+"corrected-maintenance mu, haemulonii at 34 C",gem/tables/counterfactual_results.json (19_etcgem_counterfactual.py),0.7305,0.7305,1e-3 /h or 1%,PASS,
+"corrected-maintenance mu, haemulonii at 40 C",gem/tables/counterfactual_results.json (19_etcgem_counterfactual.py),0.5884,0.5884,1e-3 /h or 1%,PASS,
+"corrected-maintenance mu, haemulonii at 42 C",gem/tables/counterfactual_results.json (19_etcgem_counterfactual.py),0.4891,0.4891,1e-3 /h or 1%,PASS,
+"corrected-maintenance mu, haemulonii at 44 C",gem/tables/counterfactual_results.json (19_etcgem_counterfactual.py),0.3833,0.3833,1e-3 /h or 1%,PASS,
+"corrected-maintenance mu, duobushaemulonii at 34 C",gem/tables/counterfactual_results.json (19_etcgem_counterfactual.py),0.5537,0.5537,1e-3 /h or 1%,PASS,
+"corrected-maintenance mu, duobushaemulonii at 40 C",gem/tables/counterfactual_results.json (19_etcgem_counterfactual.py),0.4346,0.4346,1e-3 /h or 1%,PASS,
+"corrected-maintenance mu, duobushaemulonii at 42 C",gem/tables/counterfactual_results.json (19_etcgem_counterfactual.py),0.3611,0.3611,1e-3 /h or 1%,PASS,
+"corrected-maintenance mu, duobushaemulonii at 44 C",gem/tables/counterfactual_results.json (19_etcgem_counterfactual.py),0.2843,0.2843,1e-3 /h or 1%,PASS,
+"corrected-maintenance mu, parapsilosis at 34 C",gem/tables/counterfactual_results.json (19_etcgem_counterfactual.py),0.6717,0.6717,1e-3 /h or 1%,PASS,
+"corrected-maintenance mu, parapsilosis at 40 C",gem/tables/counterfactual_results.json (19_etcgem_counterfactual.py),0.5914,0.5914,1e-3 /h or 1%,PASS,
+"corrected-maintenance mu, parapsilosis at 42 C",gem/tables/counterfactual_results.json (19_etcgem_counterfactual.py),0.4973,0.4973,1e-3 /h or 1%,PASS,
+"corrected-maintenance mu, parapsilosis at 44 C",gem/tables/counterfactual_results.json (19_etcgem_counterfactual.py),0.3906,0.3906,1e-3 /h or 1%,PASS,
+"required Tm separation, haemulonii (C)",gem/tables/counterfactual_results.json (19_etcgem_counterfactual.py),,,0.2 C,PASS,both None = neither can be pushed below detection at 40 C
+"required Tm separation, duobushaemulonii (C)",gem/tables/counterfactual_results.json (19_etcgem_counterfactual.py),32.44,32.44,0.2 C,PASS,
+"required Tm separation, parapsilosis (C)",gem/tables/counterfactual_results.json (19_etcgem_counterfactual.py),32.64,32.64,0.2 C,PASS,
+"required Topt separation, haemulonii (C)",gem/tables/counterfactual_results.json (19_etcgem_counterfactual.py),15.76,15.76,0.2 C,PASS,
+"required Topt separation, duobushaemulonii (C)",gem/tables/counterfactual_results.json (19_etcgem_counterfactual.py),14.94,14.94,0.2 C,PASS,
+"required Topt separation, parapsilosis (C)",gem/tables/counterfactual_results.json (19_etcgem_counterfactual.py),15.62,15.62,0.2 C,PASS,
 "C. auris maximum, pool removed (plain GEM) /h",gem/notes/POOL_BINDING_RESULT.md (16_pool_binding_test.py),2.045,2.045,1e-3 /h or 1%,PASS,
 "C. auris maximum, pool at P=0.25 with EC-class kcats /h",gem/notes/POOL_BINDING_RESULT.md (16_pool_binding_test.py),0.758,0.7579,1e-3 /h or 1%,PASS,

@@ -10,6 +10,18 @@
 # (Candidas repository, gem/18_build_etcgem_tpc.py, commit f123bc7). This experiment
 # exists so that the core reproduces that implementation's locked numbers; it decides
 # nothing scientific. See reports/candida_thermal_limit/K1_port_verification.md.
+#
+# K2 PART A. This file is unchanged, but what it now runs is the BASELINE-CORRECTED
+# configuration, because the strain default changed under it: maintenance is now an
+# obligate, irreversible drain in every Candida strain (see any strain.yaml,
+# provider.pin_at_ub). Under that correction this run reproduces
+# gem/19_etcgem_counterfactual.py's recorded baseline exactly -- 19 applies the same
+# correction. The UNCORRECTED run, which is what gem/18_build_etcgem_tpc.py did and what
+# K1's locked mu table is compared against, is now
+# configs/experiments/transfer_candida_unpinned.yaml.
+#
+# This is rung B0 of the K2 ladder: the standalone's thermal form, the core's own
+# machinery still off, maintenance corrected.
 
 kind: transfer
 
@@ -60,3 +72,25 @@ thermal_limit:
   lo_C: 20.0
   hi_C: 90.0
   tol_C: 0.02
+
+# --- K2 additions: diagnostics computed on every rung of the ladder ---
+# Descriptors on a WIDE grid. The strain grid stops at 44 C, the top of the assay range and
+# far below any model CTmax, so Topt/rmax/CTmax read off it would be truncated.
+descriptor_grid:
+  start_C: 15
+  stop_C: 75
+  n: 121                      # 0.5 C steps
+crit_frac: 0.05               # CTmax = the crossing at 5% of rmax, the project convention
+
+# The Figure-4 counterfactual, asked of each PREDICTED strain with the frozen globals:
+# how far must this strain's enzymes move, uniformly, before the model puts it below
+# detection at 40 C -- and does it still grow at the permissive temperature afterwards?
+# Definitions are gem/19_etcgem_counterfactual.py's.
+counterfactual:
+  params: [dTm, dTopt]
+  fail_T_C: 40.0
+  permissive_T_C: 34.0
+  threshold_h: 0.05
+  permissive_frac: 0.7
+  lo: -35.0
+  tol: 0.1

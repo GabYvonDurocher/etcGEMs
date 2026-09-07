@@ -1,0 +1,92 @@
+# K2 LADDER RUNG B1 -- the thermal form.
+#
+# CHANGE FROM B0 (transfer_candida), and the only one:
+#     thermal_model: phenomenological  ->  unfolding
+#
+# B0 is the standalone's form: a Gaussian peak at each enzyme's Topt times a logistic
+# cut-off at its Tm, with two global shape parameters (sigma, w) fitted to C. auris.
+# B1 is this repository's own form, the one eciML1515, mmaripaludis and syn6803 use:
+#
+#     cost_i(T) = base_cost_i / ( rel_kcat_i(T) * f_N_i(T) )
+#
+# rel_kcat_i is transition-state (MMRT/Eyring) turnover anchored at the enzyme's own Topt,
+# and f_N_i is the two-state native fraction, which goes to zero above the enzyme's own Tm
+# and sets the falling limb (src/etcgem/unfolding.py, after Li et al. 2021 / the MRes).
+# dCp comes from the SHARED LITERATURE PRIOR (provider.dcp_prior_kJ = -4.0 kJ/mol/K,
+# Hobbs 2013), written into thermal/enzyme_thermal_params.csv by the K1 converter. It is
+# NOT fitted, here or anywhere else in this project.
+#
+# WHAT THIS DOES TO THE FREE PARAMETERS, which is the substance of this rung. Under B0 the
+# curve's shape was fitted: sigma set its breadth and w the sharpness of its collapse.
+# Under B1 there is no sigma and no w. The breadth is set by the dCp prior and the collapse
+# by each enzyme's own Tm, so the SHAPE becomes a prediction. Nothing is fitted at this
+# rung: the pool budget stays at the value B0 fitted (0.3569742369684501 g/gDW, the strain
+# default), so that the ONLY thing that changes between B0 and B1 is the thermal form. B2
+# then replaces that carried-over budget with a grounded one, and from there on the model
+# has no fitted parameter at all. The ladder is therefore also a ladder of decreasing fitted
+# freedom: 3, then 0.
+#
+# (An earlier draft of this rung left pool_budget free. It is unidentifiable here: with the
+# growth scale matched to the measured peak, the objective depends on the curve's SHAPE, and
+# the shape is nearly independent of the budget once the pool binds, so the optimiser
+# wandered. Fitting a parameter the data cannot see is worse than not fitting it, and it
+# would have changed two things in one rung. Recorded because it is the kind of mistake a
+# ladder is built to catch.)
+
+kind: transfer
+
+calibrate_on: cauris_iRV973
+predict:
+  - chaemulonii_draft
+  - cduobushaemulonii_draft
+  - cparapsilosis_iDC1003
+
+objective: measured_tpc
+growth_scale: peak_match   # one profile scale onto the CALIBRATION strain's measured peak,
+                           # frozen and applied to all four. The summary reports growth in
+                           # MODEL units as well (model_mu_*C, peak_mu_model), so a rung that
+                           # changes the magnitude is visible despite the peak match.
+
+detection_floor_h: 0.05
+thermal_limit:
+  lo_C: 20.0
+  hi_C: 90.0
+  tol_C: 0.02
+
+descriptor_grid:
+  start_C: 15
+  stop_C: 75
+  n: 121
+crit_frac: 0.05
+
+counterfactual:
+  params: [dTm, dTopt]
+  fail_T_C: 40.0
+  permissive_T_C: 34.0
+  threshold_h: 0.05
+  permissive_frac: 0.7
+  lo: -35.0
+  tol: 0.1
+
+globals: []                # nothing fitted: the pool budget carries over from B0
+
+provider:
+  thermal_model: unfolding
+
+  # ADMISSIBILITY, and the first thing this rung found. Seq2Topt and Seq2Tm are INDEPENDENT
+  # predictors with no joint constraint, and for ~1-2% of enzymes they return Topt >= Tm --
+  # an enzyme whose catalytic optimum is above its own melting temperature. The
+  # phenomenological form does not notice (peak and death are both bounded in [0,1]); the
+  # unfolding form cannot represent it at all, because it anchors turnover on dGu(Topt),
+  # which is then <= 0: the activation enthalpy jumps by an order of magnitude and relative
+  # turnover collapses by ~1e10 a few degrees below Topt. One such enzyme on an essential
+  # reaction crushes the pool, and unguarded this rung gave peak growth of 1e-4 model units
+  # with the growth scale absorbing a factor of 8000.
+  #
+  # 2.0 K is not chosen to make a number come out: it is the minimum Tm - Topt that already
+  # exists in this project's other strains (mmaripaludis 2.00 K; eciML1515, with a MEASURED
+  # meltome, 0.57 K; neither has a single inverted enzyme). Tm is kept and Topt gives way,
+  # because Seq2Tm is the better-validated predictor (test R^2 0.76, RMSE 7.6 C, against
+  # Seq2Topt's 0.57 and 12.3 C) and the move is far inside Seq2Topt's own error.
+  # The number clamped per strain is printed at build and recorded in the K2 report.
+  topt_tm_min_gap_C: 2.0

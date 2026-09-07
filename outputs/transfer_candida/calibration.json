@@ -17,10 +17,10 @@
     "pool_budget": 0.3569742369684501
   },
   "growth_scale": "peak_match",
-  "scale": 2.0741244879538137,
+  "scale": 2.074124487953964,
   "detection_floor_h": 0.05,
-  "mse": 0.0035915068066869303,
-  "n_eval": 486,
+  "mse": 0.0035915068066824166,
+  "n_eval": 113,
   "method": "nelder-mead",
   "starts": [
     [

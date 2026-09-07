@@ -1,0 +1,34 @@
+# syn6803_ecmodel.yaml -- build Synechocystis' ENZYME-CONSTRAINED model through the shared
+# config path, rather than through its own strain-folder script.
+#
+# strains/syn6803/strain.yaml carries `provider.type: fba` as a P1 placeholder and points
+# `model_file` at the plain GEM, so `etcgem <verb> --strain syn6803` cannot build the model
+# its P2+ results were produced from: that build lives in
+# strains/syn6803/run_p2_thermal.py, as a direct providers.from_gecko call. This overlay
+# reproduces that call's arguments so shared commands can reach the same model.
+#
+# Added in K2 for one purpose: `etcgem audit-sinks --strain syn6803 --experiment
+# syn6803_ecmodel`, so Synechocystis appears in the seven-strain audit table on the same
+# footing as the others. It does NOT reproduce P2's medium (light-saturated autotrophy,
+# set in that script) and is not a substitute for it -- the audit reads reaction bounds and
+# the enzyme cost table, neither of which the medium changes. Nothing here is used by any
+# other result, and no committed syn6803 output is affected.
+#
+# Every value is copied from run_p2_thermal.py's from_gecko(...) call and from
+# strains/syn6803/strain.yaml.
+provider:
+  type: gecko
+  model_file: ecmodel_iSynCJ816_STAR/iSynCJ816_STAR.xml   # relative to strains/syn6803/model/
+  biomass_rxn: BIOMASS_Ec_SynAuto_1
+  thermal_model: unfolding
+  enzyme_params: thermal/enzyme_thermal_params.csv
+  enzyme_params_key: rxn_id
+  prot_prefix: prot_
+  pool_id: prot_pool
+  ngam_temperature: true
+  ngam_reaction: ATPM
+  ngam_base_scale: 0.548        # anchors NGAM(35 C) = 3.12 mmol ATP/gDW/h (Touloupakis 2015)
+  dcp_prior_kJ: -4.0
+  target_fraction: null         # keep the ecModel's own pool bound; the audit does not use it
+
+close_free_o2_sinks: false      # cyano: no E. coli O2-sink curation

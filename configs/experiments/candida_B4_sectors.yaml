@@ -1,0 +1,97 @@
+# K2 LADDER RUNG B4 -- proteome sectors.
+#
+# CHANGE FROM B3, and the only one: the single metabolic pool becomes a three-sector
+# partition of the whole proteome (Basan 2015 / Scott 2010; src/etcgem/sectors.py),
+#
+#     f_metab : metabolic enzymes      -> the pool bound, as before
+#     f_bio   : biosynthesis/ribosomes -> a translation cap, linear in growth rate
+#     f_maint : maintenance/housekeeping -> proteome overhead + the maintenance ATP bound
+#
+# so the non-metabolic proteome is mass competing for the same budget, a translation cap
+# exists, and maintenance scales with its own sector. eciML1515 and mmaripaludis both carry
+# one; the standalone Candida model has none.
+#
+# THE FRACTIONS, identical across the four species and sourced, not tuned:
+#   f_metab 0.4461  the same GECKO `f` for S. cerevisiae used in B2 -- the mass fraction of
+#           the proteome that is enzymes carried in the metabolic model.
+#   f_maint 0.354   the remainder, 1 - f_metab - f_bio.
+#   f_bio   0.200   (implied) the biosynthesis/translation sector of exponentially growing
+#           S. cerevisiae -- ribosomal proteins, elongation factors, tRNA synthetases.
+#   For comparison, E. coli's MEASURED split in this repository is 0.483 / 0.191 / 0.326,
+#   which is close on all three.
+#
+# IDENTICAL ACROSS SPECIES, DELIBERATELY. No measured per-species, temperature-resolved
+# Candida proteome allocation exists (docs/CANDIDA_DISCUSSION_2026-09-07.md section 7), so
+# this layer adds STRUCTURAL REALISM and cannot carry species signal. It is not a candidate
+# explanation for the interspecies divergence and is not offered as one.
+#
+# THE ABLATION COST. E. coli's experience is that grounding allocation COSTS fit (R2 0.74 ->
+# 0.49) and was kept for proteome realism and attributability. The K2 report gives the same
+# number here: fit R2 with sectors (this rung) against without (B3).
+
+kind: transfer
+
+calibrate_on: cauris_iRV973
+predict:
+  - chaemulonii_draft
+  - cduobushaemulonii_draft
+  - cparapsilosis_iDC1003
+
+objective: measured_tpc
+growth_scale: peak_match   # one profile scale onto the CALIBRATION strain's measured peak,
+                           # frozen and applied to all four. The summary reports growth in
+                           # MODEL units as well (model_mu_*C, peak_mu_model), so a rung that
+                           # changes the magnitude is visible despite the peak match.
+
+detection_floor_h: 0.05
+thermal_limit:
+  lo_C: 20.0
+  hi_C: 90.0
+  tol_C: 0.02
+
+descriptor_grid:
+  start_C: 15
+  stop_C: 75
+  n: 121
+crit_frac: 0.05
+
+counterfactual:
+  params: [dTm, dTopt]
+  fail_T_C: 40.0
+  permissive_T_C: 34.0
+  threshold_h: 0.05
+  permissive_frac: 0.7
+  lo: -35.0
+  tol: 0.1
+
+globals: []                # nothing fitted: the pool budget carries over from B0
+
+globals: []                # nothing is fitted from B2 on
+
+provider:
+  thermal_model: unfolding
+  topt_tm_min_gap_C: 2.0     # as B1; see candida_B1_unfolding.yaml for why
+
+  pool_budget: null          # <- THE CHANGE: stop using B0's fitted pool budget ...
+  p_total: 0.46              # ... and build it from literature instead (see the header)
+  sigma: 0.45
+  f_metab: 0.4461
+
+  ngam_temperature: true     # <- THE CHANGE. The reaction and the anchor are per strain
+                             # (provider.ngam_reaction / ngam_base_scale in each strain.yaml)
+                             # because which reaction carries maintenance is organism data.
+
+proteome_sectors:
+  enabled: true              # <- THE CHANGE
+  P_total: null              # backed out from the pool bound so the nominal point does not
+                             # move: P_total = (p_total x sigma) = 0.207 g/gDW, the
+                             # saturation-discounted proteome
+  f_metab: 0.4461            # see the header for all three
+  f_maint: 0.354             # -> f_bio = 0.200
+  atpm_reaction: null        # null -> the provider's ngam_reaction (per strain)
+  translation_coeff: auto    # auto -> translation cap and metabolic pool co-limit at the
+                             # nominal point and T0, so switching sectors on does not by
+                             # itself move nominal growth; what changes is that the cap and
+                             # the maintenance sector now exist
+  sigma_nom: 0.45
+  biosynthesis_growth_law: false   # off, as in eciML1515's default

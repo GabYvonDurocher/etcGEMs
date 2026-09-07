@@ -1,0 +1,7 @@
+experiment,strain,param,required,permissive_preserved,permissive_growth,permissive_baseline,baseline_fail
+candida_B2_grounded_budget,chaemulonii_draft,dTm,13.5,True,0.5634,0.5655,0.6859
+candida_B2_grounded_budget,chaemulonii_draft,dTopt,23.75,False,0.148,0.5655,0.6859
+candida_B2_grounded_budget,cduobushaemulonii_draft,dTm,14.12,True,0.5508,0.5552,0.5371
+candida_B2_grounded_budget,cduobushaemulonii_draft,dTopt,22.46,False,0.1337,0.5552,0.5371
+candida_B2_grounded_budget,cparapsilosis_iDC1003,dTm,13.71,True,0.6462,0.6516,0.6875
+candida_B2_grounded_budget,cparapsilosis_iDC1003,dTopt,20.68,False,0.1924,0.6516,0.6875

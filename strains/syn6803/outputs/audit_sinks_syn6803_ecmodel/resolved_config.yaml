@@ -1,0 +1,59 @@
+solver_timeout: 10
+crit_frac: 0.05
+close_free_o2_sinks: false
+temperature_grid:
+  start_C: 5
+  stop_C: 50
+  n: 46
+organism:
+  name: Synechocystis sp. PCC 6803
+  metabolism: oxygenic photoautotroph (light-saturated; CO2/HCO3- fixed by RuBisCO,
+    Calvin cycle)
+  regime: light-saturated (carbon-fixation-limited; in-mechanism, no new light layer)
+  Topt_C: 35
+  Trange_C:
+  - 15
+  - 44
+provider:
+  type: gecko
+  model_file: ecmodel_iSynCJ816_STAR/iSynCJ816_STAR.xml
+  biomass_rxn: BIOMASS_Ec_SynAuto_1
+  ecmodel_file: model/ecmodel_iSynCJ816_STAR/iSynCJ816_STAR.xml
+  ecmodel_pool_reaction: ER_pool_TG_
+  ecmodel_pool_metabolite: prot_pool
+  thermal_model: unfolding
+  enzyme_params: thermal/enzyme_thermal_params.csv
+  enzyme_params_key: rxn_id
+  budget_override: 0.26
+  dcp_prior_kJ: -4.0
+  ngam_temperature: true
+  ngam_reaction: ATPM
+  ngam_base_scale: 0.548
+  close_free_o2_sinks: false
+  prot_prefix: prot_
+  pool_id: prot_pool
+  target_fraction: null
+  model_path: /Users/g.yvon-durocher/Library/CloudStorage/OneDrive-UniversityofExeter/Documents/work/MICROADAPT/etcGEMs/strains/syn6803/model/ecmodel_iSynCJ816_STAR/iSynCJ816_STAR.xml
+T0_C: 35
+proteome_sectors:
+  enabled: true
+  P_total: null
+  f_metab: 0.5
+  f_maint: 0.33
+  sigma_nom: 0.45
+  atpm_reaction: ATPM
+  biosynthesis_growth_law: true
+  growth_law_slope: 0.39
+  growth_law_f_bio0: 0.133
+  translation_coeff: 0.9
+  nominal_kcat_scale: 1.22
+medium:
+  name: BG11_photoautotrophic_light_saturated
+  energy: SATURATING light (EX_photon_e non-limiting -> slack in enzyme model)
+  inorganic_carbon: CO2 (EX_co2_e) + bicarbonate (EX_hco3_e, CCM)
+  nitrogen: nitrate (EX_no3_e)
+  organic_carbon: CLOSED (EX_glc__D_e = 0; forces true autotrophy)
+  products: O2 (net efflux, photosynthetic)
+_strain: syn6803
+_experiment: syn6803_ecmodel
+closed_free_o2_sinks: []

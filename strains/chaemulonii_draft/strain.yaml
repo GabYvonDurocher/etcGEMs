@@ -43,6 +43,17 @@ provider:
                                        # C. auris and freezes them across all four.
   pool_budget: 0.3569742369684501    # STANDALONE fitted global P (g enzyme/gDW), same source.
 
+  # --- maintenance identity (inert until an experiment switches NGAM(T) on) ---
+  # This model's own non-growth-associated maintenance reaction and the ATP demand it
+  # ships with (3.89 mmol ATP/gDW/h, fixed). Under thermal_model: unfolding, ladder rung
+  # B3 (configs/experiments/candida_B3_ngamT.yaml) replaces that CONSTANT with the core's
+  # NGAM(T) (src/etcgem/unfolding.ngam_T, after Li et al. 2021), and ngam_base_scale
+  # anchors the amplitude so that NGAM(T0 = 30 C) reproduces this model's own published
+  # value exactly -- the same anchoring convention mmaripaludis uses for its measured
+  # Goyal 2015 NGAM. Nothing here is fitted; the anchor is the reconstruction's own number.
+  ngam_reaction: ATP_maintenance_NGAM__cyto
+  ngam_base_scale: 0.831733   # 3.89 / ngam_T(30 C) = 3.89 / 4.6770
+
   # --- what the core does for OTHER strains and is deliberately OFF here ---
   # The core's grounded pool budget (p_total x sigma x f_metab) is NOT used: the
   # standalone fits P directly, so provider.pool_budget is given instead and
@@ -51,12 +62,27 @@ provider:
   # has none of these. See reports/candida_thermal_limit/K1_port_verification.md.
   dcp_prior_kJ: -4.0                   # shared prior, written into the thermal table
                                        # for K2; the phenomenological form ignores it
-  pin_at_ub: null                          # OFF: matches 18_build_etcgem_tpc.py (this model's NGAM is already fixed at 3.89)
+  pin_at_ub:          # K2 PART A: maintenance is an obligate, IRREVERSIBLE drain.
+    - ATP_maintenance_NGAM__cyto     # iRV973-derived models: already fixed at (3.89, 3.89),
+    - ATP_Maintenance__cyto          # so this is a no-op for them.
+  # WHY. K1 found the standalone inconsistent here: 22_thermal_sensitivity.py and
+  # 19_etcgem_counterfactual.py pin these reactions, 18_build_etcgem_tpc.py does not. It
+  # matters for iDC1003 alone, whose ATP_Maintenance__cyto ships REVERSIBLE at (-3.9, 3.9):
+  # the solver takes the reverse direction at every temperature, so C. parapsilosis paid no
+  # maintenance AND collected 3.9 mmol ATP/gDW/h for free -- a 7.8 swing against the other
+  # three. Ilgaz found the same reversibility independently (gem/audits/ngam_falsification.py,
+  # and the comment in 19_etcgem_counterfactual.py setup_pool) and corrected it there, but the
+  # correction never reached 18. The CORRECTED form is the default here; the uncorrected run
+  # is kept as a labelled sensitivity (configs/experiments/transfer_candida_unpinned.yaml),
+  # which is also the configuration K1's gate compares against 18.
 
-solver: glpk        # the standalone solved with GLPK (via optlang/swiglpk). Gurobi and
-                    # GLPK agree to 1e-4 h^-1 everywhere except the coldest point of the
-                    # two DRAFT models' sweeps (22 C), where they differ by ~0.4%; GLPK is
-                    # pinned so the port reproduces the standalone exactly.
+solver: gurobi      # K2 PART D. K1 pinned GLPK, the standalone's solver, so the port
+                    # reproduced it exactly; the two agree to 1e-4 h^-1 everywhere except the
+                    # coldest point of the two DRAFT models' sweeps (22 C), where they differ
+                    # by ~0.4% -- a hint of near-degenerate solutions there. K2 runs on the
+                    # better solver and REPORTS the difference instead of pinning it away.
+                    # configs/experiments/transfer_candida_unpinned.yaml overrides this back
+                    # to glpk, because its only job is to reproduce the standalone exactly.
 
 T0_C: 30            # reference temperature of the kcats. DLKcat kcats are
                     # temperature-independent, and the phenomenological form takes

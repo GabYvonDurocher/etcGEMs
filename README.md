@@ -106,7 +106,8 @@ is not per strain: the experiment names the strains it calibrates on and predict
 | `build` | build the strain's provider; print + save a model summary | `--strain` | `build/` |
 | `tpc` | nominal TPC + descriptors + plot | `--strain [--fits]` | `tpc/` |
 | `fba` | single enzyme-constrained solve at one temperature | `--strain --temp C [--experiment]` | `fba[_<exp>]/` |
-| `transfer` | **multi-strain**: fit the experiment's global parameters on its `calibrate_on` strain, freeze them, sweep every strain in `predict` | `--experiment [--out-root]` | per strain `transfer_<exp>/`, plus `outputs/transfer_<exp>/summary.csv` |
+| `transfer` | **multi-strain**: fit the experiment's global parameters on its `calibrate_on` strain, freeze them, sweep every strain in `predict` | `--experiment [--solver --tag --out-root]` | per strain `transfer_<exp>/`, plus `outputs/transfer_<exp>/summary.csv` |
+| `audit-sinks` | report uncosted free-energy sinks: reactions that move ATP or reducing equivalents without paying enzyme cost, reversible maintenance, hard-pinned uncosted drains, uncosted consumers of a terminal electron acceptor | `--strain [--experiment --raw]` | `audit_sinks[_<exp>][_raw]/` |
 | `calibrate-dcp` | *(legacy)* pick `provider.default_dCp` for a target rising-limb Eₐ; not used by the emergent model | `--strain --target-ea` | *(updates strain.yaml)* |
 | `sweep` | LHS TPC sensitivity sweep | `--strain --experiment [--fits --resume --seconds N --no-plots]` | `sweep_<exp>/` |
 | `decompose` | allocation-vs-envelope variance decomposition | `--strain --experiment` | `decompose_<exp>/` |
@@ -147,6 +148,7 @@ Every module under `src/etcgem/`:
 | `mmrt` | Macromolecular Rate Theory: temperature response of enzyme `kcat(T)` |
 | `unfolding` | two-state native↔unfolded thermal model — folded fraction `f_N(T)` keyed on `Tm`, and NGAM(T) maintenance (after Li 2021 / the MRes) |
 | `transfer` | **multi-strain** experiment kind: fit global parameters on one strain, freeze, predict others (`etcgem transfer`) |
+| `sink_audit` | uncosted free-energy sinks: the framework-wide generalisation of three bespoke per-strain fixes (`etcgem audit-sinks`) |
 | `dltkcat` | turn DLTKcat temperature-dependent `kcat` predictions into per-enzyme MMRT (`Topt`, `dCp`) parameters |
 | `providers` | load a genome-scale model → `(cobra model, enzyme cost table)`; set the medium (availability, incl. BHI); reconcile the proteome pool |
 | `enzyme_cost` | the enzyme-constraint layer: the temperature-dependent proteome-pool budget and the `Perturbation` knob-set |
@@ -175,9 +177,16 @@ unchanged:
 | `unfolding` | MMRT turnover × two-state native fraction `f_N(T)`; the falling limb is set by each enzyme's `Tm`, with optional NGAM(T) maintenance | `Topt`, `Tm`, `Length`, `dCpt` | — |
 | `phenomenological` | Gaussian peak at `Topt` × logistic cut-off at `Tm`: `act(T) = exp(−(T−Topt)²/2σ²) / (1 + exp((T−Tm)/w))`, floored at 1e-6 | `Topt`, `Tm` | `pheno_sigma` (σ), `pheno_w` (w) — shared by every enzyme and calibratable |
 
-`phenomenological` is the form of the standalone Candida etcGEM and is what the four
-Candida strains use; it is a per-run switch, so any strain can take it. See
-`reports/candida_thermal_limit/K1_port_verification.md`.
+`phenomenological` is the form of the standalone Candida etcGEM and is what K1's port is
+verified against; it is a per-run switch, so any strain can take it. K2 then walks the four
+Candida strains from it onto `unfolding`, one component per rung. See
+`reports/candida_thermal_limit/K1_port_verification.md` and `K2_core_thermal_form.md`.
+
+Under `unfolding`, `provider.topt_tm_min_gap_C` sets an admissibility floor on Tm − Topt.
+The form anchors turnover on ΔG_u(Topt), so an enzyme whose Topt is at or above its own Tm
+collapses by ~10¹⁰ and crushes the pool. That cannot arise where Topt and Tm are measured or
+where one is derived from the other, and does arise where they come from two independent
+sequence predictors. `None` (the default) leaves the parameters untouched.
 
 Data flow (arrows follow the actual imports):
 
@@ -197,6 +206,7 @@ flowchart TD
   tpc --> decomposition["decomposition"]
   tpc --> control["control / identifiability"]
   tpc --> transfer["transfer: fit on one strain, predict others"]
+  providers --> sink_audit["sink_audit: uncosted free-energy sinks"]
   tpc --> calmulti["calibration_multi / calibration: emcee"]
   tpc --> validation["validation"]
   calmulti --> dissect["dissect: tuned-model analyses"]

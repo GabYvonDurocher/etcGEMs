@@ -1,0 +1,15 @@
+strain,mode,cls,reaction,bounds,detail
+eciML1515,configured,C,ATPM,"[4.67698, 1000]",forced >= lb ATP maintenance requirement
+eciML1515,raw,C,ATPM,"[4.67698, 1000]",forced >= lb ATP maintenance requirement
+mmaripaludis,configured,C,rxn00062_LSQBKT_c0_RSQBKT_,"[7.83611, 1000]",forced >= lb ATP phosphohydrolase protein-secreting c0
+mmaripaludis,raw,C,rxn00062_LSQBKT_c0_RSQBKT_,"[7.83611, 7.83611]",FIXED ATP phosphohydrolase protein-secreting c0
+syn6803,configured,C,ATPM,"[5.69763, 999999]",forced >= lb ATP maintenance requirement
+syn6803,raw,C,ATPM,"[5.69763, 999999]",forced >= lb ATP maintenance requirement
+cauris_iRV973,configured,C,ATP_maintenance_NGAM__cyto,"[3.89, 3.89]",FIXED ATP + H2O => Orthophosphate + ADP
+cauris_iRV973,raw,C,ATP_maintenance_NGAM__cyto,"[3.89, 3.89]",FIXED ATP + H2O => Orthophosphate + ADP
+chaemulonii_draft,configured,C,ATP_maintenance_NGAM__cyto,"[3.89, 3.89]",FIXED ATP + H2O => Orthophosphate + ADP
+chaemulonii_draft,raw,C,ATP_maintenance_NGAM__cyto,"[3.89, 3.89]",FIXED ATP + H2O => Orthophosphate + ADP
+cduobushaemulonii_draft,configured,C,ATP_maintenance_NGAM__cyto,"[3.89, 3.89]",FIXED ATP + H2O => Orthophosphate + ADP
+cduobushaemulonii_draft,raw,C,ATP_maintenance_NGAM__cyto,"[3.89, 3.89]",FIXED ATP + H2O => Orthophosphate + ADP
+cparapsilosis_iDC1003,configured,C,ATP_Maintenance__cyto,"[3.9, 3.9]",FIXED NGAM
+cparapsilosis_iDC1003,raw,B,ATP_Maintenance__cyto,"[-3.9, 3.9]",NGAM

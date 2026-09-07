@@ -1,0 +1,362 @@
+{
+  "model": "gecko:M_eciML1515_batch_v2021__45__02__45__28__45__17__45__52",
+  "biomass": "BIOMASS_Ec_iML1515_core_75p37M",
+  "n_reactions": 6085,
+  "n_costed": 2560,
+  "n_uncosted": 3525,
+  "class_A_uncosted_energy_producing": [
+    {
+      "reaction": "ALDD4",
+      "name": "Aldehyde dehydrogenase (butanal, NAD)",
+      "produces": "NADH",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "btal_c[c] + h2o_c[c] + nad_c[c] --> but_c[c] + 2.0 h_c[c] + nadh_c[c]"
+    },
+    {
+      "reaction": "GTPtex",
+      "name": "GTP transport via diffusion (extracellular to periplasm)",
+      "produces": "GTP",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "gtp_e[e] --> gtp_p[p]"
+    },
+    {
+      "reaction": "NADPHQR2",
+      "name": "NADPH Quinone Reductase (Ubiquinone-8)",
+      "produces": "QH2",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "h_c[c] + nadph_c[c] + q8_c[c] --> nadp_c[c] + q8h2_c[c]"
+    },
+    {
+      "reaction": "NADPHQR3",
+      "name": "NADPH Quinone Reductase (Menaquinone-8)",
+      "produces": "QH2",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "h_c[c] + mqn8_c[c] + nadph_c[c] --> mql8_c[c] + nadp_c[c]"
+    },
+    {
+      "reaction": "PDX5PO2",
+      "name": "Pyridoxine 5'-phosphate oxidase (anaerboic",
+      "produces": "NADH",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "nad_c[c] + pdx5p_c[c] --> h_c[c] + nadh_c[c] + pydx5p_c[c]"
+    },
+    {
+      "reaction": "DSBAO1",
+      "name": "DsbA protein reoxidation reaction (aerobic)",
+      "produces": "QH2",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "dsbard_p[p] + q8_c[c] --> dsbaox_p[p] + q8h2_c[c]"
+    },
+    {
+      "reaction": "DSBAO2",
+      "name": "DsbA protein reoxidation reaction (anaerobic)",
+      "produces": "QH2",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "dsbard_p[p] + mqn8_c[c] --> dsbaox_p[p] + mql8_c[c]"
+    },
+    {
+      "reaction": "OMMBLHX3",
+      "name": "2-Octaprenyl-3-methyl-6-methoxy-1,4-benzoquinol hydroxylase (anaerobic)",
+      "produces": "NADH",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "2ommbl_c[c] + 2.0 atp_c[c] + 3.0 h2o_c[c] + nad_c[c] --> 2omhmbl_c[c] + 2.0 adp_c[c] + 3.0 h_c[c] + nadh_c[c] + 2.0 pi_c[c]"
+    },
+    {
+      "reaction": "OPHHX3",
+      "name": "2-Octaprenylphenol hydroxylase (anaerobic)",
+      "produces": "NADH",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "2oph_c[c] + 2.0 atp_c[c] + 3.0 h2o_c[c] + nad_c[c] --> 2ohph_c[c] + 2.0 adp_c[c] + 3.0 h_c[c] + nadh_c[c] + 2.0 pi_c[c]"
+    },
+    {
+      "reaction": "GTPtex_REV",
+      "name": "GTP transport via diffusion (extracellular to periplasm) (reversible)",
+      "produces": "GTP",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "gtp_p[p] --> gtp_e[e]"
+    }
+  ],
+  "class_A_count": 10,
+  "class_B_reversible_maintenance": [],
+  "class_B_count": 0,
+  "class_C_pinned_uncosted": [
+    {
+      "reaction": "ATPM",
+      "name": "ATP maintenance requirement",
+      "lower_bound": 4.676981312737154,
+      "upper_bound": 1000.0,
+      "fixed": false,
+      "reaction_string": "atp_c[c] + h2o_c[c] --> adp_c[c] + h_c[c] + pi_c[c]"
+    }
+  ],
+  "class_C_count": 1,
+  "class_D_uncosted_acceptor_sinks": [
+    {
+      "reaction": "URIC",
+      "name": "Uricase",
+      "consumes": "O2",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "2.0 h2o_c[c] + o2_c[c] + urate_c[c] --> alltn_c[c] + co2_c[c] + h2o2_c[c]"
+    },
+    {
+      "reaction": "H2SO",
+      "name": "Hydrogen sulfide oxidation",
+      "consumes": "O2",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "h2s_c[c] + 2.0 o2_c[c] --> 2.0 h_c[c] + so4_c[c]"
+    },
+    {
+      "reaction": "SUCFUMtpp",
+      "name": "Succinate:fumarate antiporter (periplasm)",
+      "consumes": "fumarate",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "fum_p[p] + succ_c[c] --> fum_c[c] + succ_p[p]"
+    },
+    {
+      "reaction": "O2tpp",
+      "name": "O2 transport via diffusion (periplasm)",
+      "consumes": "O2",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "o2_p[p] --> o2_c[c]"
+    },
+    {
+      "reaction": "O2tex",
+      "name": "Oxygen transport via diffusion (extracellular to periplasm)",
+      "consumes": "O2",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "o2_e[e] --> o2_p[p]"
+    },
+    {
+      "reaction": "FUMt2_2pp",
+      "name": "Fumarate transport via proton symport (2 H) (periplasm)",
+      "consumes": "fumarate",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "fum_p[p] + 2.0 h_p[p] --> fum_c[c] + 2.0 h_c[c]"
+    },
+    {
+      "reaction": "FUMt2_3pp",
+      "name": "Fumarate transport via proton symport (3 H) (periplasm)",
+      "consumes": "fumarate",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "fum_p[p] + 3.0 h_p[p] --> fum_c[c] + 3.0 h_c[c]"
+    },
+    {
+      "reaction": "FUMtex",
+      "name": "Fumarate transport via diffusion (extracellular to periplasm)",
+      "consumes": "fumarate",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "fum_e[e] --> fum_p[p]"
+    },
+    {
+      "reaction": "NO3t7pp",
+      "name": "Nitrate transport in via nitrite antiport (periplasm)",
+      "consumes": "NO3",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "no2_c[c] + no3_p[p] --> no2_p[p] + no3_c[c]"
+    },
+    {
+      "reaction": "NO3tex",
+      "name": "Nitrate transport via diffusion (extracellular to periplasm)",
+      "consumes": "NO3",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "no3_e[e] --> no3_p[p]"
+    },
+    {
+      "reaction": "AACTOOR",
+      "name": "Aminoacetone:oxygen oxidoreductase(deaminating)(flavin-containing)",
+      "consumes": "O2",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "aact_c[c] + h2o_c[c] + o2_c[c] --> h2o2_c[c] + mthgxl_c[c] + nh4_c[c]"
+    },
+    {
+      "reaction": "DHORDfum",
+      "name": "Fumarate dependent DHORD",
+      "consumes": "fumarate",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "dhor__S_c[c] + fum_c[c] --> orot_c[c] + succ_c[c]"
+    },
+    {
+      "reaction": "CU1Opp",
+      "name": "Cuprous Oxidase (Cu+1)",
+      "consumes": "O2",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "4.0 cu_p[p] + 4.0 h_p[p] + o2_p[p] --> 4.0 cu2_p[p] + 2.0 h2o_p[p]"
+    },
+    {
+      "reaction": "MOX",
+      "name": "Malate oxidase",
+      "consumes": "O2",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "mal__L_c[c] + o2_c[c] --> h2o2_c[c] + oaa_c[c]"
+    },
+    {
+      "reaction": "INOSTO",
+      "name": "Myo-Inositol:oxygen oxidoreductase",
+      "consumes": "O2",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "inost_c[c] + o2_c[c] --> glcur_c[c] + h2o_c[c] + h_c[c]"
+    },
+    {
+      "reaction": "FUMt1pp",
+      "name": "Fumarate transport via diffusion in (periplasm)",
+      "consumes": "fumarate",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "fum_p[p] --> fum_c[c]"
+    },
+    {
+      "reaction": "SUCFUMtpp_REV",
+      "name": "Succinate:fumarate antiporter (periplasm) (reversible)",
+      "consumes": "fumarate",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "fum_c[c] + succ_p[p] --> fum_p[p] + succ_c[c]"
+    },
+    {
+      "reaction": "O2tpp_REV",
+      "name": "O2 transport via diffusion (periplasm) (reversible)",
+      "consumes": "O2",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "o2_c[c] --> o2_p[p]"
+    },
+    {
+      "reaction": "O2tex_REV",
+      "name": "Oxygen transport via diffusion (extracellular to periplasm) (reversible)",
+      "consumes": "O2",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "o2_p[p] --> o2_e[e]"
+    },
+    {
+      "reaction": "FUMtex_REV",
+      "name": "Fumarate transport via diffusion (extracellular to periplasm) (reversible)",
+      "consumes": "fumarate",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "fum_p[p] --> fum_e[e]"
+    },
+    {
+      "reaction": "NO3tex_REV",
+      "name": "Nitrate transport via diffusion (extracellular to periplasm) (reversible)",
+      "consumes": "NO3",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "no3_p[p] --> no3_e[e]"
+    },
+    {
+      "reaction": "FUMt1pp_REV",
+      "name": "Fumarate transport via diffusion in (periplasm) (reversible)",
+      "consumes": "fumarate",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "fum_c[c] --> fum_p[p]"
+    },
+    {
+      "reaction": "arm_FUM",
+      "name": "Fumarase (arm)",
+      "consumes": "fumarate",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "fum_c[c] + h2o_c[c] --> pmet_FUM[c]"
+    },
+    {
+      "reaction": "arm_NO3R2pp",
+      "name": "Nitrate reductase (Menaquinol-8) (periplasm) (arm)",
+      "consumes": "NO3",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "2.0 h_c[c] + mql8_c[c] + no3_c[c] --> pmet_NO3R2pp[c]"
+    },
+    {
+      "reaction": "arm_CYTBDpp",
+      "name": "Cytochrome oxidase bd (ubiquinol-8: 2 protons) (periplasm) (arm)",
+      "consumes": "O2",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "2.0 h_c[c] + 0.5 o2_c[c] + q8h2_c[c] --> pmet_CYTBDpp[c]"
+    },
+    {
+      "reaction": "arm_FEROpp",
+      "name": "Ferroxidase (arm)",
+      "consumes": "O2",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "4.0 fe2_p[p] + 4.0 h_p[p] + o2_p[p] --> pmet_FEROpp[p]"
+    },
+    {
+      "reaction": "arm_NO3R1pp",
+      "name": "Nitrate reductase (Ubiquinol-8) (periplasm) (arm)",
+      "consumes": "NO3",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": true,
+      "reaction_string": "2.0 h_c[c] + no3_c[c] + q8h2_c[c] --> pmet_NO3R1pp[c]"
+    }
+  ],
+  "class_D_count": 27,
+  "strain": "eciML1515",
+  "experiment": null,
+  "raw": true
+}

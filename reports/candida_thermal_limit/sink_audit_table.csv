@@ -1,0 +1,15 @@
+strain,organism,mode,reactions,costed,uncosted,uncosted_frac,A,B,C,D
+eciML1515,Escherichia coli K-12,configured,6085,2560,3525,0.579,10,0,1,25
+eciML1515,Escherichia coli K-12,raw,6085,2560,3525,0.579,10,0,1,27
+mmaripaludis,Methanococcus maripaludis,configured,688,527,161,0.234,23,0,1,0
+mmaripaludis,Methanococcus maripaludis,raw,688,527,161,0.234,23,0,1,0
+syn6803,Synechocystis sp. PCC 6803,configured,1303,1066,237,0.182,7,0,1,17
+syn6803,Synechocystis sp. PCC 6803,raw,1303,1066,237,0.182,7,0,1,17
+cauris_iRV973,Candidozyma auris,configured,2863,1314,1549,0.541,44,0,1,26
+cauris_iRV973,Candidozyma auris,raw,2863,1314,1549,0.541,44,0,1,26
+chaemulonii_draft,C. haemulonii (DRAFT),configured,2863,1312,1551,0.542,45,0,1,26
+chaemulonii_draft,C. haemulonii (DRAFT),raw,2863,1312,1551,0.542,45,0,1,26
+cduobushaemulonii_draft,C. duobushaemulonii (DRAFT),configured,2863,1310,1553,0.542,47,0,1,28
+cduobushaemulonii_draft,C. duobushaemulonii (DRAFT),raw,2863,1310,1553,0.542,47,0,1,28
+cparapsilosis_iDC1003,Candida parapsilosis,configured,2162,1606,556,0.257,24,0,1,18
+cparapsilosis_iDC1003,Candida parapsilosis,raw,2162,1606,556,0.257,25,1,0,18

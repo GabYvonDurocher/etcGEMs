@@ -256,12 +256,35 @@ the cyanobacterium; the older unlettered and `P1`–`P3` entries above are the *
   `reports/candida_thermal_limit/K1_port_verification.md` (which also records two findings
   about the standalone: an internal inconsistency over the maintenance reaction, and a
   0.4% solver dependence). Decides nothing scientific.
-- **K2 — Candida under the core's own thermal form.** ⏳ pending. Same strains,
-  `thermal_model: unfolding`, the shared ΔCp prior, a grounded proteome budget,
-  `transfer` from *C. auris*; outputs recorded beside K1's. Numbers are expected to move —
-  that is the point: K1 is the regression test, K2 puts the four species on the same
-  footing as the other three. K2 also decides the two questions K1 deliberately left open:
-  whether maintenance is pinned, and whether these strains get a sector layer.
+- `K2_candida_core_thermal_form_prompt.md` — ✅ run. **The core's own thermal layer, one
+  component per rung.** A five-rung ladder from the standalone's form to this repository's:
+  the maintenance correction as the default (B0), `thermal_model: unfolding` (B1), a
+  grounded yeast proteome budget (B2), NGAM(T) (B3), proteome sectors (B4); DLTKcat
+  deliberately not run (B5, reported). Fitted freedom falls 3 → 1 → 0, so from B2 the
+  Candida model is an a-priori prediction like the other three. Report:
+  `reports/candida_thermal_limit/K2_core_thermal_form.md`. **K1's gate still passes, and is
+  now stronger at 79/79.** What it found:
+    * The **thermal form is the only component that changes the scientific answer.** The
+      interspecies Tm separation the model requires falls from 32.5 °C to 13.8 °C — so the
+      standalone's ~63× fold gap is ~26× under the shared form — but that is still 26× the
+      sequence-predicted difference and 8.6× the largest measured one. The Figure 4
+      conclusion survives, with a smaller number attached. The grounded budget, NGAM(T) and
+      the sector layer move it by less than 0.3 °C between them.
+    * **Seq2Topt and Seq2Tm disagree about physics** for 1–3% of enzymes (Topt above Tm).
+      The phenomenological form is blind to it; the unfolding form is destroyed by it, so
+      the core gained an admissibility floor (`provider.topt_tm_min_gap_C`).
+    * The **grounded yeast budget binds hard and under-predicts growth 7.6×**; the sector
+      layer's temperature-independent translation cap takes over as the binding constraint
+      and **flattens the top of the curve over 12–20 °C**, so at B4 there is no optimum.
+    * **The unfolding ceiling is not universal.** Over seven strains at their emergent
+      operating points: +9.6 to +15.8 °C in Candida, +5.9 in *E. coli*, but −0.2 in
+      *M. maripaludis* and +1.7 in *Synechocystis*. Where it appears, a uniform −6 to −9 K
+      Tm correction removes it (*E. coli* −5.6 K measured, *C. auris* −9.2 K here).
+    * **GLPK is wrong at the cold end**, by ~0.5% on the draft models — established by
+      rescaling the LP and by `glpk_exact`. K1 reproduced the standalone exactly, including
+      that error.
+    * `etcgem audit-sinks` generalises three bespoke fixes into one check and rediscovers
+      all three.
 - **K3 — retire the fork.** ⏳ pending. `gem/` in `Candidas` becomes
   `archive/gem_standalone/` with a README pointing here; `gem/audits/` and `gem/notes/`
   move to `reports/candida_thermal_limit/` as `audits/` and `notes/`. Anything in

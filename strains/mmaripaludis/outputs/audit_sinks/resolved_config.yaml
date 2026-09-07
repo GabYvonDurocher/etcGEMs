@@ -1,0 +1,56 @@
+solver_timeout: 10
+crit_frac: 0.05
+close_free_o2_sinks: true
+temperature_grid:
+  start_C: 5
+  stop_C: 55
+  n: 51
+organism:
+  name: Methanococcus maripaludis S2
+  metabolism: hydrogenotrophic methanogen (CO2 + H2 -> CH4, Wolfe cycle)
+  Topt_C: 38
+  Trange_C:
+  - 18
+  - 47
+provider:
+  type: smoment_gem
+  model_file: iMR539_curated.xml
+  biomass_rxn: biomass0
+  kcat_csv: dltkcat/kcat_table.csv
+  p_total: 0.5
+  sigma: 0.45
+  f_metab: 0.5
+  default_kcat: 25.0
+  close_free_sinks: null
+  relax_pinned:
+  - rxn00062_LSQBKT_c0_RSQBKT_
+  thermal_model: unfolding
+  enzyme_params: thermal/enzyme_thermal_params.csv
+  enzyme_params_key: rxn_id
+  dcp_prior_kJ: -4.0
+  ngam_temperature: true
+  ngam_reaction: rxn00062_LSQBKT_c0_RSQBKT_
+  ngam_base_scale: 1.3021
+  model_path: /Users/g.yvon-durocher/Library/CloudStorage/OneDrive-UniversityofExeter/Documents/work/MICROADAPT/etcGEMs/strains/mmaripaludis/model/iMR539_curated.xml
+T0_C: 37
+proteome_sectors:
+  enabled: true
+  P_total: null
+  f_metab: 0.55
+  f_maint: 0.3
+  sigma_nom: 0.45
+  atpm_reaction: rxn00062_LSQBKT_c0_RSQBKT_
+  biosynthesis_growth_law: true
+  growth_law_slope: 0.0
+  growth_law_f_bio0: 0.15
+  nominal_kcat_scale: 7.223
+  translation_coeff: 0.133
+medium:
+  name: H2CO2_defined
+  electron_donor: H2 (cpd11640)
+  carbon_source: CO2 (cpd00011)
+  nitrogen: ammonia (cpd00013)
+  products: CH4 (cpd01024)
+_strain: mmaripaludis
+closed_free_o2_sinks:
+- rxn00062_LSQBKT_c0_RSQBKT_(lb->0)

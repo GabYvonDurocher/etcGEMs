@@ -1,0 +1,68 @@
+# K2 SENSITIVITY (not a ladder rung) -- B1 with a uniform Tm correction also free.
+#
+# B1 leaves the shape entirely to the per-enzyme Topt/Tm and the dCp prior. This asks the
+# question E. coli's Bayesian calibration asked of its own MEASURED meltome: what uniform
+# shift of every enzyme's Tm would the growth curve demand? There the answer was
+# -5.6 K [-7.2, -2.8] -- the model's unfolding ceiling sits too high even with measured Tm
+# (see docs/CANDIDA_DISCUSSION_2026-09-07.md section 4). Asking it here makes the two
+# organisms directly comparable.
+#
+# It is deliberately OUTSIDE the ladder: it fits a parameter rather than switching a
+# component on, so including it would break the one-change-per-rung rule.
+
+kind: transfer
+
+calibrate_on: cauris_iRV973
+predict:
+  - chaemulonii_draft
+  - cduobushaemulonii_draft
+  - cparapsilosis_iDC1003
+
+objective: measured_tpc
+growth_scale: peak_match   # one profile scale onto the CALIBRATION strain's measured peak,
+                           # frozen and applied to all four. The summary reports growth in
+                           # MODEL units as well (model_mu_*C, peak_mu_model), so a rung that
+                           # changes the magnitude is visible despite the peak match.
+
+detection_floor_h: 0.05
+thermal_limit:
+  lo_C: 20.0
+  hi_C: 90.0
+  tol_C: 0.02
+
+descriptor_grid:
+  start_C: 15
+  stop_C: 75
+  n: 121
+crit_frac: 0.05
+
+counterfactual:
+  params: [dTm, dTopt]
+  fail_T_C: 40.0
+  permissive_T_C: 34.0
+  threshold_h: 0.05
+  permissive_frac: 0.7
+  lo: -35.0
+  tol: 0.1
+
+globals: [dTm]             # the budget stays at B0's fitted value, as in B1: it is
+                           # unidentifiable under a peak-matched scale, so fitting it would
+                           # add noise rather than information
+
+optimizer:
+  method: nelder-mead
+  multistart: 4
+  starts:                    # [dTm], in K
+    - [0.0]
+    - [-4.0]
+    - [-8.0]
+    - [-14.0]
+  options:
+    maxiter: 200
+    xatol: 0.05
+    fatol: 1.0e-6
+  penalty: 1000.0
+
+provider:
+  thermal_model: unfolding
+  topt_tm_min_gap_C: 2.0     # as B1; see candida_B1_unfolding.yaml for why

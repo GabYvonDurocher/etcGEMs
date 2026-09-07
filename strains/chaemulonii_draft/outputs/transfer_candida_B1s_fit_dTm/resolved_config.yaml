@@ -1,0 +1,101 @@
+solver_timeout: 10
+crit_frac: 0.05
+close_free_o2_sinks: true
+temperature_grid:
+  start_C: 22
+  stop_C: 44
+  n: 12
+organism:
+  name: Candidozyma haemulonii (Candida haemulonii)
+  metabolism: aerobic yeast (respiro-fermentative) on YMS
+  measured_Topt_C: 32
+  Trange_C:
+  - 22
+  - 44
+provider:
+  type: smoment_gem
+  model_file: haemulonii_draft.xml
+  biomass_rxn: e_Biomass__cyto
+  kcat_csv: dltkcat/kcat_table.csv
+  default_kcat: 13.7
+  thermal_model: unfolding
+  enzyme_params: thermal/enzyme_thermal_params.csv
+  enzyme_params_key: rxn_id
+  pheno_sigma: 10.231397335263933
+  pheno_w: 8.788454874341648
+  pool_budget: 0.3569742369684501
+  ngam_reaction: ATP_maintenance_NGAM__cyto
+  ngam_base_scale: 0.831733
+  dcp_prior_kJ: -4.0
+  pin_at_ub:
+  - ATP_maintenance_NGAM__cyto
+  - ATP_Maintenance__cyto
+  topt_tm_min_gap_C: 2.0
+  model_path: /Users/g.yvon-durocher/Library/CloudStorage/OneDrive-UniversityofExeter/Documents/work/MICROADAPT/etcGEMs/strains/chaemulonii_draft/model/haemulonii_draft.xml
+solver: gurobi
+T0_C: 30
+proteome_sectors:
+  enabled: false
+medium:
+  name: YMS
+  exchange_csv: medium_iRV973_auris.csv
+measured:
+  tpc: thermal/measured_tpc.csv
+  source_repo: Candidas
+  source_commit: f123bc7489cc4f8a1d0e198a93725034c9f347e6
+  source_script: gem/17_build_measured_tpc.py
+source:
+  candidas_repo_commit: f123bc7489cc4f8a1d0e198a93725034c9f347e6
+  model_source_path: gem/models/haemulonii_draft.xml
+  kcat_source_path: gem/tables/kcat_reaction_haemulonii.csv
+  mw_source_path: gem/tables/enzyme_mw_haemulonii.csv
+  thermal_source_paths:
+  - gem/tables/thermal_topt.csv
+  - gem/tables/thermal_tm.csv
+  medium_source_path: gem/inputs/medium_iRV973_auris.csv
+  converter: tools/reconstruction/to_strain_inputs.py --species haemulonii
+kind: transfer
+calibrate_on: cauris_iRV973
+predict:
+- chaemulonii_draft
+- cduobushaemulonii_draft
+- cparapsilosis_iDC1003
+objective: measured_tpc
+growth_scale: peak_match
+detection_floor_h: 0.05
+thermal_limit:
+  lo_C: 20.0
+  hi_C: 90.0
+  tol_C: 0.02
+descriptor_grid:
+  start_C: 15
+  stop_C: 75
+  n: 121
+counterfactual:
+  params:
+  - dTm
+  - dTopt
+  fail_T_C: 40.0
+  permissive_T_C: 34.0
+  threshold_h: 0.05
+  permissive_frac: 0.7
+  lo: -35.0
+  tol: 0.1
+globals:
+- dTm
+optimizer:
+  method: nelder-mead
+  multistart: 4
+  starts:
+  - - 0.0
+  - - -4.0
+  - - -8.0
+  - - -14.0
+  options:
+    maxiter: 200
+    xatol: 0.05
+    fatol: 1.0e-06
+  penalty: 1000.0
+_strain: chaemulonii_draft
+_experiment: candida_B1s_fit_dTm
+closed_free_o2_sinks: []

@@ -1,0 +1,235 @@
+{
+  "model": "smoment_gem:MODEL1607200000",
+  "biomass": "biomass0",
+  "n_reactions": 688,
+  "n_costed": 527,
+  "n_uncosted": 161,
+  "class_A_uncosted_energy_producing": [
+    {
+      "reaction": "rxn10954_LSQBKT_c0_RSQBKT_",
+      "name": "C180SN c0",
+      "produces": "NADPH",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "8.0 cpd00001_c0 + 16.0 cpd00006_c0 + 7.0 cpd00011_c0 + 7.0 cpd11493_c0 + cpd15268_c0 --> 16.0 cpd00005_c0 + 23.0 cpd00067_c0 + cpd11488_c0 + 7.0 cpd11492_c0"
+    },
+    {
+      "reaction": "rxn01068_LSQBKT_c0_RSQBKT_",
+      "name": "L-Threonine NAD oxidoreductase c0",
+      "produces": "NADH",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "cpd00003_c0 + cpd00161_c0 --> cpd00004_c0 + cpd00067_c0 + cpd02211_c0"
+    },
+    {
+      "reaction": "rxn02831_LSQBKT_c0_RSQBKT_",
+      "name": "O-Succinylbenzoate CoA ligase AMP-forming c0",
+      "produces": "ATP",
+      "lower_bound": -1000.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "cpd00002_c0 + cpd00010_c0 + cpd00067_c0 + cpd01772_c0 <=> cpd00012_c0 + cpd00018_c0 + cpd02021_c0"
+    },
+    {
+      "reaction": "rxn08349_LSQBKT_c0_RSQBKT_",
+      "name": "2 3-diketo-5-methylthio-1-phosphopentane degradation reaction c0",
+      "produces": "NADH",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "3.0 cpd00001_c0 + 2.0 cpd00003_c0 + cpd11295_c0 --> 2.0 cpd00004_c0 + cpd00009_c0 + cpd00047_c0 + 5.0 cpd00067_c0 + cpd00869_c0"
+    },
+    {
+      "reaction": "rxn10424_LSQBKT_c0_RSQBKT_",
+      "name": "7-mercaptoheptanoate synthase",
+      "produces": "NADH",
+      "lower_bound": -1000.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "cpd00004_c0 + cpd00067_c0 + cpd00084_c0 + cpd15829_c0 <=> cpd00003_c0 + cpd00054_c0 + cpd15827_c0"
+    },
+    {
+      "reaction": "rxn10425_LSQBKT_c0_RSQBKT_",
+      "name": "7-mercaptoheptanoylthreonine synthase",
+      "produces": "ATP",
+      "lower_bound": -1000.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "cpd00002_c0 + cpd00161_c0 + cpd15827_c0 <=> cpd00008_c0 + cpd00009_c0 + cpd00067_c0 + cpd15828_c0"
+    },
+    {
+      "reaction": "rxn10475_LSQBKT_c0_RSQBKT_",
+      "name": "Coenzyme B synthase",
+      "produces": "ATP",
+      "lower_bound": -1000.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "cpd00002_c0 + cpd15828_c0 <=> cpd00008_c0 + cpd02817_c0"
+    },
+    {
+      "reaction": "H4MPTs",
+      "name": "Tetrahydromethanopterin synthase",
+      "produces": "ATP+NADH",
+      "lower_bound": -1000.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "cpd00001_c0 + 2.0 cpd00002_c0 + 2.0 cpd00004_c0 + 2.0 cpd00017_c0 + cpd00103_c0 + cpd02041_c0 + cpd15851_c0 <=> 2.0 cpd00003_c0 + 2.0 cpd00008_c0 + cpd00009_c0 + 2.0 cpd00012_c0 + 2.0 cpd00019_c0 + cp"
+    },
+    {
+      "reaction": "rxn10432_LSQBKT_c0_RSQBKT_",
+      "name": "(S)-alpha-hydroxyglutarate dehydrogenase",
+      "produces": "NADH",
+      "lower_bound": -1000.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "cpd00004_c0 + cpd00024_c0 + cpd00067_c0 <=> cpd00003_c0 + cpd02041_c0"
+    },
+    {
+      "reaction": "4ASDH",
+      "name": "4-aminoshikimate dehydrogenase",
+      "produces": "NADH",
+      "lower_bound": -1000.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "4A3DHS_c0 + cpd00004_c0 + cpd00067_c0 <=> 4ASKM_c0 + cpd00003_c0"
+    },
+    {
+      "reaction": "rxn00979_LSQBKT_c0_RSQBKT_",
+      "name": "Glycolaldehyde:NAD+ oxidoreductase",
+      "produces": "NADH",
+      "lower_bound": -1000.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "cpd00001_c0 + cpd00003_c0 + cpd00229_c0 <=> cpd00004_c0 + 2.0 cpd00067_c0 + cpd00139_c0"
+    },
+    {
+      "reaction": "rxn00512_LSQBKT_c0_RSQBKT_",
+      "name": "Glycolate:NAD+ oxidoreductase",
+      "produces": "NADH",
+      "lower_bound": -1000.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "cpd00003_c0 + cpd00139_c0 <=> cpd00004_c0 + cpd00040_c0 + cpd00067_c0"
+    },
+    {
+      "reaction": "rxn10508_LSQBKT_c0_RSQBKT_",
+      "name": "coenzyme F430 precursor synthase 1 (aminase)",
+      "produces": "ATP",
+      "lower_bound": -1000.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "2.0 cpd00001_c0 + 2.0 cpd00002_c0 + 2.0 cpd00053_c0 + cpd00244_c0 + cpd01620_c0 <=> 2.0 cpd00008_c0 + 2.0 cpd00009_c0 + 2.0 cpd00023_c0 + 4.0 cpd00067_c0 + cpd15873_c0"
+    },
+    {
+      "reaction": "rxn10509_LSQBKT_c0_RSQBKT_",
+      "name": "coenzyme F430 precursor synthase 2 (reduction)",
+      "produces": "NADH",
+      "lower_bound": -1000.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "cpd00004_c0 + 2.0 cpd00067_c0 + cpd15873_c0 <=> cpd00003_c0 + cpd15874_c0"
+    },
+    {
+      "reaction": "rxn10510_LSQBKT_c0_RSQBKT_",
+      "name": "coenzyme F430 precursor synthase 3 (reduction)",
+      "produces": "NADH",
+      "lower_bound": -1000.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "cpd00004_c0 + cpd00067_c0 + cpd15874_c0 <=> cpd00003_c0 + cpd15875_c0"
+    },
+    {
+      "reaction": "rxn10420_LSQBKT_c0_RSQBKT_",
+      "name": "2-phospho-L-lactate synthase",
+      "produces": "GTP",
+      "lower_bound": -1000.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "cpd00038_c0 + cpd00159_c0 <=> cpd00031_c0 + cpd00067_c0 + cpd15809_c0"
+    },
+    {
+      "reaction": "rxn05734_LSQBKT_c0_RSQBKT_",
+      "name": "aldehyde dehydrogenase (glyoxylate, NAD)",
+      "produces": "NADH",
+      "lower_bound": -1000.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "cpd00001_c0 + cpd00003_c0 + cpd00040_c0 <=> cpd00004_c0 + 2.0 cpd00067_c0 + cpd00180_c0"
+    },
+    {
+      "reaction": "rxn02430_LSQBKT_c0_RSQBKT_",
+      "name": "Dihydromethanopterin reductase",
+      "produces": "NADPH",
+      "lower_bound": -1000.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "cpd00005_c0 + cpd00067_c0 + cpd03523_c0 <=> cpd00006_c0 + cpd00895_c0"
+    },
+    {
+      "reaction": "HPAr",
+      "name": "Hydroxypyruvaldehyde phosphate reductase",
+      "produces": "NADH",
+      "lower_bound": -1000.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "cpd00004_c0 + cpd17158_c0 <=> cpd00003_c0 + cpd00102_c0"
+    },
+    {
+      "reaction": "rxn01618_LSQBKT_c0_RSQBKT_",
+      "name": "(S)-Lactaldehyde:NADP+ oxidoreductase",
+      "produces": "NADPH",
+      "lower_bound": -1000.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "cpd00006_c0 + cpd00334_c0 <=> cpd00005_c0 + cpd00067_c0 + cpd00428_c0"
+    },
+    {
+      "reaction": "rxn00149_LSQBKT_c0_RSQBKT_",
+      "name": "Pyruvaldehyde:NAD+ oxidoreductase",
+      "produces": "NADH",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "cpd00001_c0 + cpd00003_c0 + cpd00428_c0 --> cpd00004_c0 + cpd00020_c0 + 2.0 cpd00067_c0"
+    },
+    {
+      "reaction": "rxn00150_LSQBKT_c0_RSQBKT_",
+      "name": "Pyruvaldehyde:NADP+ oxidoreductase",
+      "produces": "NADPH",
+      "lower_bound": 0.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "cpd00001_c0 + cpd00006_c0 + cpd00428_c0 --> cpd00005_c0 + cpd00020_c0 + 2.0 cpd00067_c0"
+    },
+    {
+      "reaction": "rxn07210_LSQBKT_c0_RSQBKT_",
+      "name": "Selenite:NADP+ oxidoreductase",
+      "produces": "NADPH",
+      "lower_bound": -1000.0,
+      "upper_bound": 1000.0,
+      "has_gpr": false,
+      "reaction_string": "cpd00001_c0 + cpd00006_c0 + cpd03387_c0 <=> cpd00005_c0 + cpd03396_c0"
+    }
+  ],
+  "class_A_count": 23,
+  "class_B_reversible_maintenance": [],
+  "class_B_count": 0,
+  "class_C_pinned_uncosted": [
+    {
+      "reaction": "rxn00062_LSQBKT_c0_RSQBKT_",
+      "name": "ATP phosphohydrolase protein-secreting c0",
+      "lower_bound": 7.836112766116763,
+      "upper_bound": 1000.0,
+      "fixed": false,
+      "reaction_string": "cpd00001_c0 + cpd00002_c0 --> cpd00008_c0 + cpd00009_c0 + cpd00067_c0"
+    }
+  ],
+  "class_C_count": 1,
+  "class_D_uncosted_acceptor_sinks": [],
+  "class_D_count": 0,
+  "strain": "mmaripaludis",
+  "experiment": null,
+  "raw": false
+}
