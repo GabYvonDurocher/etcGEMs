@@ -19,6 +19,7 @@ the toy route is what the sandbox tests run on.
 from __future__ import annotations
 
 import csv
+import os
 import re
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional
@@ -375,6 +376,74 @@ LB_COMPONENTS = [
     "thymd", "trp__L", "tyr__L", "ump", "ura", "uri", "val__L", "zn2"]
 
 
+def apply_exchange_medium(model, csv_path: str, open_lb: float = -1000.0,
+                          fit_lb: float = -10.0, aa_pool_lb: float = -3.0):
+    """Apply a medium given as an exchange-reaction table to a PLAIN (unsplit) GEM.
+
+    The GECKO/sMOMENT ``set_medium`` above works on split ``EX_<met>_e_REV`` uptake
+    reactions; a plain SBML GEM has signed exchanges instead, so availability is set
+    by the exchange lower bound. This is the Candida route and applies the medium
+    exactly as the standalone does (Candidas ``gem/18_build_etcgem_tpc.py``
+    ``setup_pool``):
+
+    1. close every exchange (``EX_*`` / ``Drain*`` / cobra boundary) to uptake
+       (``lower_bound = 0``), so nothing is available that the medium does not list;
+    2. ``setting=OPEN``    -> lower_bound = -1000  (non-limiting availability)
+       ``setting=FIT``     -> lower_bound = -10    (the carbon source's fitted scale)
+       ``setting=AA_POOL`` -> lower_bound = -3     (the pooled amino-acid budget)
+    Rows whose ``exchange_id`` is not an exchange in this model are ignored (the
+    medium file records the ones absent from a given reconstruction).
+
+    Returns (n_opened, n_missing)."""
+    import pandas as pd
+    med = pd.read_csv(csv_path)
+    EX = {r.id for r in model.reactions
+          if r.id.startswith(("EX_", "Drain")) or r.boundary}
+    for r in model.reactions:
+        if r.id in EX:
+            r.lower_bound = 0.0
+    opened = missing = 0
+    for _, row in med.iterrows():
+        rid = str(row["exchange_id"])
+        if rid not in EX:
+            missing += 1
+            continue
+        setting = str(row.get("setting", "")).strip()
+        if setting == "OPEN":
+            model.reactions.get_by_id(rid).lower_bound = open_lb
+        elif setting == "FIT":
+            model.reactions.get_by_id(rid).lower_bound = fit_lb
+        elif setting == "AA_POOL":
+            model.reactions.get_by_id(rid).lower_bound = aa_pool_lb
+        else:
+            continue
+        opened += 1
+    model.solver.update()
+    return opened, missing
+
+
+def pin_reactions_at_ub(model, rxn_ids):
+    """Fix each listed reaction at |upper_bound| in both directions.
+
+    The Candida route's maintenance fix: *C. parapsilosis*' iDC1003 leaves its ATP
+    maintenance reaction reversible (bounds -3.9, 3.9), so the LP may run it BACKWARDS
+    and generate free ATP. Pinning it at its own upper bound makes maintenance an
+    obligate, fixed drain -- the standalone applies this in
+    ``gem/22_thermal_sensitivity.py`` (and the later audits) but NOT in
+    ``gem/18_build_etcgem_tpc.py``, so it is opt-in here and OFF in the strain
+    defaults, which reproduce 18. Returns the list of (id, value) actually pinned."""
+    done = []
+    for rid in (rxn_ids or []):
+        if rid in model.reactions:
+            r = model.reactions.get_by_id(rid)
+            v = abs(r.upper_bound)
+            r.bounds = (v, v)
+            done.append((rid, v))
+    if done:
+        model.solver.update()
+    return done
+
+
 def set_medium(pm, medium="glucose_minimal", carbon="glc__D", aerobic=True,
                uptake_ub=1000.0, lb_media_csv=None, bhi_media_csv=None):
     """Set the growth medium as AVAILABILITY, not pinned uptake rates: open the
@@ -526,7 +595,11 @@ def from_gem_smoment(model_path: str, kcat_csv: str, T0: float = 310.15,
                      enzyme_params_key: str = "rxn_id",
                      ngam_temperature: bool = False, ngam_rxn: Optional[str] = None,
                      ngam_base_scale: float = 1.0,
-                     dcp_prior_kJ: float = -4.0) -> ProvidedModel:
+                     dcp_prior_kJ: float = -4.0,
+                     medium_csv: Optional[str] = None,
+                     pin_at_ub: Optional[List[str]] = None,
+                     pheno_sigma: float = 10.0,
+                     pheno_w: float = 5.0) -> ProvidedModel:
     """Attach a temperature-INDEPENDENT sMOMENT total-protein pool to a plain GEM.
 
     This is the methanogen route: the base GEM (iMR539_curated) carries no GECKO
@@ -544,11 +617,24 @@ def from_gem_smoment(model_path: str, kcat_csv: str, T0: float = 310.15,
     (emergent: NOT calibrated to growth). If None, ``calibrate_budget`` is used as a
     fallback so the pool at least binds. ``close_free_sinks`` optionally closes
     listed (uncosted) energy side-reactions before building (the methanogen analogue
-    of the E. coli O2-sink fix); returns them on the ProvidedModel."""
+    of the E. coli O2-sink fix); returns them on the ProvidedModel.
+
+    ``medium_csv`` (Candida route) applies an exchange-table medium to the plain GEM
+    before the pool is built (see ``apply_exchange_medium``); the methanogen's medium
+    is baked into its curated SBML, so it leaves this None. ``pin_at_ub`` fixes listed
+    reactions at their own upper bound (the parapsilosis maintenance fix).
+    ``pheno_sigma``/``pheno_w`` are the two global shape parameters of the
+    ``phenomenological`` thermal form; they are inert under ``mmrt``/``unfolding``."""
     model = _load_any(model_path)
     if biomass_rxn is None:
         biomass_rxn = _find_biomass(model)
     closed_sinks: List[str] = []
+    if medium_csv:
+        n_open, n_missing = apply_exchange_medium(model, medium_csv)
+        print(f"[smoment_gem] medium {os.path.basename(medium_csv)}: opened {n_open} "
+              f"exchange(s); {n_missing} listed component(s) absent from this model")
+    for rid, val in pin_reactions_at_ub(model, pin_at_ub):
+        print(f"[smoment_gem] pinned {rid} at {val:.4g} (obligate maintenance drain)")
     if close_free_sinks:
         closed_sinks = close_free_energy_sinks(model, bases=close_free_sinks)
         if closed_sinks:
@@ -594,10 +680,10 @@ def from_gem_smoment(model_path: str, kcat_csv: str, T0: float = 310.15,
     # M3 thermal envelope: overlay grounded per-enzyme Topt/Tm/length/dCpt (unfolding mode)
     # before the model precomputes its two-state thermodynamics. Keyed by rxn_id (each
     # methanogen reaction has one representative UniProt); report coverage.
-    if thermal_model == "unfolding" and enzyme_params:
+    if thermal_model in ("unfolding", "phenomenological") and enzyme_params:
         params_df = load_enzyme_thermal_params(enzyme_params)
         n_match, n_tot = apply_thermal_params(table, params_df, key=enzyme_params_key)
-        print(f"[smoment_gem] unfolding: matched grounded Topt/Tm for "
+        print(f"[smoment_gem] {thermal_model}: matched grounded Topt/Tm for "
               f"{n_match}/{n_tot} enzymes ({100*n_match/max(1,n_tot):.0f}%); rest at dataset means")
     # Single total-protein pool only (no allocation sub-budgets -- that is the sector layer;
     # group labels are kept on the entries for diagnostics).
@@ -605,7 +691,8 @@ def from_gem_smoment(model_path: str, kcat_csv: str, T0: float = 310.15,
                                 thermal_model=thermal_model,
                                 ngam_temperature=ngam_temperature, ngam_rxn=ngam_rxn,
                                 ngam_base_scale=ngam_base_scale,
-                                unfold_means={"dCpt": dcp_prior_kJ * 1000.0})
+                                unfold_means={"dCpt": dcp_prior_kJ * 1000.0},
+                                pheno_sigma=pheno_sigma, pheno_w=pheno_w)
     ec.model.objective = biomass_rxn
     return ProvidedModel(ec=ec, T0=T0, biomass_rxn=biomass_rxn,
                          name=f"smoment_gem:{model.id}", closed_free_o2_sinks=closed_sinks)

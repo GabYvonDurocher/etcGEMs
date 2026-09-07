@@ -23,6 +23,18 @@ total.
 Temperature enters only through kcat_i(T); raising T past an enzyme's Topt
 lowers its kcat, inflating c_i, tightening the budget and eventually starving
 growth -- the mechanistic origin of the organismal thermal performance curve.
+
+Three interchangeable thermal forms set kcat_i(T), selected per strain/run by
+``thermal_model``:
+
+* ``mmrt``              peak-normalised MMRT (Eyring + dCp curvature).
+* ``unfolding``         MMRT turnover x two-state native fraction f_N(T); the
+                        falling limb is set by each enzyme's Tm (see unfolding.py).
+* ``phenomenological``  Gaussian peak at Topt x logistic cut-off at Tm, with two
+                        global shape parameters (sigma, w) shared by every enzyme.
+                        This is the form of the standalone Candida etcGEM
+                        (Candidas ``gem/18_build_etcgem_tpc.py``) and is what the
+                        K1 port is verified against.
 """
 from __future__ import annotations
 
@@ -141,6 +153,11 @@ class Perturbation:
                    lever once the metabolic pool is cheap and the ribosome budget
                    binds. Applied as the multiplier sigma_sat / sigma_nom on both
                    sector caps (sectors mode only).
+    pheno_sigma  : Gaussian peak width sigma (K) of the *phenomenological* thermal
+                   form; None -> the model's configured value. Global (shared by every
+                   enzyme), so it is a calibratable knob exactly like kcat_scale.
+    pheno_w      : logistic denaturation width w (K) of the same form; None -> the
+                   model's configured value.
     budget       : total proteome pool P (g/gDW); None keeps model default
     group_alloc  : per-group multiplier on that group's sub-budget (allocation)
     """
@@ -153,6 +170,12 @@ class Perturbation:
     kcat_scale: float = 1.0
     ngam_scale: float = 1.0
     ngam_steepness: float = 1.0
+    # Phenomenological thermal form (thermal_model="phenomenological") global shape
+    # parameters: the Gaussian peak width sigma and the logistic denaturation width w,
+    # shared by every enzyme (the standalone Candida etcGEM's {sig, w}). None -> use the
+    # model's configured values, so both are no-ops unless a calibration sets them.
+    pheno_sigma: Optional[float] = None
+    pheno_w: Optional[float] = None
     budget: Optional[float] = None
     group_alloc: Dict[str, float] = field(default_factory=dict)
     # Proteome-sector allocation (opt-in; None -> use the scalar pool / set_budget
@@ -184,7 +207,8 @@ class EnzymeConstrainedModel:
                  thermal_model: str = "mmrt", ngam_temperature: bool = False,
                  ngam_rxn: Optional[str] = None,
                  unfold_means: Optional[Dict[str, float]] = None,
-                 ngam_base_scale: float = 1.0):
+                 ngam_base_scale: float = 1.0,
+                 pheno_sigma: float = 10.0, pheno_w: float = 5.0):
         self.model = model
         self.table = EnzymeCostTable(
             [e for e in table.entries if e.rxn_id in model.reactions]
@@ -198,11 +222,17 @@ class EnzymeConstrainedModel:
         self._group_cons: Dict[str, object] = {}
         self._sectors = None   # populated by sectors.add_proteome_sectors (opt-in)
         self._alloc_from_data = None   # proteome_alloc.TemperatureAllocation (opt-in)
-        # Thermal model: "mmrt" (default, peak-normalised MMRT -- unchanged) or
+        # Thermal model: "mmrt" (default, peak-normalised MMRT -- unchanged),
         # "unfolding" (two-state denaturation keyed on per-enzyme Tm, after
-        # Li 2021 / the MRes; see unfolding.py). ngam_temperature adds the
+        # Li 2021 / the MRes; see unfolding.py), or "phenomenological" (Gaussian
+        # peak at Topt x logistic cut-off at Tm; the Candida standalone's form,
+        # see _costs_phenomenological). ngam_temperature adds the
         # temperature-dependent maintenance term (unfolding only).
         self.thermal_model = thermal_model
+        # Global shape parameters of the phenomenological form, shared by every
+        # enzyme and calibratable (Perturbation.pheno_sigma / pheno_w override them).
+        self.pheno_sigma = float(pheno_sigma)
+        self.pheno_w = float(pheno_w)
         self.ngam_temperature = bool(ngam_temperature)
         # Base multiplier on the NGAM(T) amplitude (default 1.0 = E. coli ngam_T baseline).
         # Anchors the maintenance amplitude on an organism-specific measured NGAM (e.g. the
@@ -228,6 +258,8 @@ class EnzymeConstrainedModel:
         self._ngam_rxn = self._detect_ngam(ngam_rxn) if self.ngam_temperature else None
         if self.thermal_model == "unfolding":
             self._build_unfolding()
+        elif self.thermal_model == "phenomenological":
+            self._build_phenomenological()
         self._build()
 
     def _detect_ngam(self, ngam_rxn):
@@ -255,6 +287,17 @@ class EnzymeConstrainedModel:
         self._uCpu = np.array(cpu, float)
         self._uCpt = np.array(cpt, float)
         self._Tm = np.array(tms, float)   # per-enzyme Tm (K), for the dTm reference scale
+
+    def _build_phenomenological(self):
+        """Precompute the per-enzyme (Topt, Tm) arrays used by the phenomenological
+        activity factor. Both are in K, taken from the enzyme table (the strain's
+        thermal/enzyme_thermal_params.csv, keyed by rxn_id); an enzyme with no Tm
+        falls back to the dataset-mean Tm, as in the unfolding form."""
+        ents = self.table.entries
+        self._pTopt = np.array([e.Topt for e in ents], float)
+        self._pTm = np.array(
+            [e.Tm if (e.Tm is not None and np.isfinite(e.Tm)) else self._unfold_mean_Tm
+             for e in ents], float)
 
     # -- construction -------------------------------------------------------
     def _build(self):
@@ -284,6 +327,8 @@ class EnzymeConstrainedModel:
         self._dCp = np.array([e.dCp for e in ents], float)
         if self.thermal_model == "unfolding":
             self._build_unfolding()
+        elif self.thermal_model == "phenomenological":
+            self._build_phenomenological()
         self.set_temperature(self._ref_T())
 
     # -- drivers ------------------------------------------------------------
@@ -298,6 +343,8 @@ class EnzymeConstrainedModel:
         """
         if self.thermal_model == "unfolding":
             return self._costs_unfolding(T, pert)
+        if self.thermal_model == "phenomenological":
+            return self._costs_phenomenological(T, pert)
         from .mmrt import relative_kcat_vec
         Topt_eff = self._T0 + pert.topt_scale * (self._Topt - self._T0) + pert.dTopt
         dCp_eff = self._dCp * pert.dCp_scale
@@ -336,6 +383,38 @@ class EnzymeConstrainedModel:
         prod = np.nan_to_num(rk * fN, nan=1e-6, posinf=1e6, neginf=1e-6)
         denom = np.clip(prod, 1e-6, 1e6)
         return self._base / (denom * pert.kcat_scale)
+
+    def _costs_phenomenological(self, T: float, pert: Optional[Perturbation] = None) -> np.ndarray:
+        """Gaussian-peak x logistic-cut-off per-flux cost -- the thermal form of the
+        standalone Candida etcGEM (Candidas `gem/18_build_etcgem_tpc.py`):
+
+            peak_i(T)  = exp( -(T - Topt_i)^2 / (2 sigma^2) )
+            death_i(T) = 1 / (1 + exp( (T - Tm_i) / w ))
+            act_i(T)   = max(peak_i(T) * death_i(T), 1e-6)
+            cost_i(T)  = base_cost_i / act_i(T)
+
+        Per-enzyme parameters: Topt_i, Tm_i (from enzyme_params). Global, shared,
+        calibratable: sigma, w. The 1e-6 floor is the standalone's, and keeps the LP
+        bounded when every enzyme is denatured.
+
+        The core's envelope knobs apply as they do elsewhere and are no-ops at their
+        defaults: dTopt/topt_scale move the optima, dTm/tm_scale move the collapse
+        (+dTm pushes CTmax up, matching the unfolding branch's convention), and
+        kcat_scale divides the cost level.
+        """
+        pert = pert or Perturbation()
+        sig = self.pheno_sigma if pert.pheno_sigma is None else float(pert.pheno_sigma)
+        w = self.pheno_w if pert.pheno_w is None else float(pert.pheno_w)
+        Topt_eff = self._T0 + pert.topt_scale * (self._pTopt - self._T0) + pert.dTopt
+        Tm_shift = pert.dTm + (pert.tm_scale - 1.0) * (self._pTm - np.mean(self._pTm))
+        Tm_eff = self._pTm + Tm_shift
+        peak = np.exp(-((T - Topt_eff) ** 2) / (2.0 * sig * sig))
+        # clip the logistic exponent: exp(>709) overflows to inf, which gives the same
+        # death -> 0 (hence the 1e-6 floor) but raises a numpy warning on every solve.
+        death = 1.0 / (1.0 + np.exp(np.clip((T - Tm_eff) / w, -700.0, 700.0)))
+        act = np.nan_to_num(peak * death, nan=1e-6, posinf=1.0, neginf=1e-6)
+        act = np.maximum(act, 1e-6)
+        return self._base / (act * pert.kcat_scale)
 
     def set_temperature(self, T: float, pert: Optional[Perturbation] = None):
         """Recompute all pool coefficients for temperature T (K)."""
