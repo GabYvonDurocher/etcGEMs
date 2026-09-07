@@ -1,0 +1,32 @@
+{
+  "operating_point": "rich BHI, T=40 C, v2 posterior-median tuned params",
+  "constraint_bounds_gDW": {
+    "GECKO_prot_pool_exchange": 0.0909,
+    "etcgem_sMOMENT_enzyme_pool": 0.1384,
+    "emergent_budget_Ptotal_x_sigma": 0.225
+  },
+  "bracket_rmax": {
+    "tuned": 1.442,
+    "relax_etcgem_pools_only": 1.547,
+    "relax_GECKO_pool_only": 1.442,
+    "relax_all_proteome": 7.606,
+    "observed": 2.4
+  },
+  "what_binds": "two REDUNDANT enzyme-mass (proteome) pools bind in sequence: the etcgem sMOMENT sector pool at ~1.44 (relaxing it -> 1.55), then the GECKO base total-protein pool prot_pool_exchange (0.091 g/gDW) at ~1.55 (relaxing all proteome -> 7.6). Named binding constraint: the enzyme-mass pool (NOT O2, glucose uptake, ATPM, GAM, or a biomass precursor -- all had slack).",
+  "why_kcat_saturates": "kcat_scale scales only the etcgem per-flux cost, so it relaxes the etcgem pool but NOT the GECKO base pool; kcat therefore saturates at the GECKO-pool ceiling ~1.55.",
+  "classification": "PROTEOME (enzyme-mass) ceiling, NOT non-proteome/structural. Partly a FIXABLE inconsistency (the GECKO base pool 0.091 is tighter than and unreconciled with the emergent P_total x sigma budget).",
+  "relax_culprit_scan_both_pools": {
+    "note": "scale BOTH enzyme-mass pools x mult -> rmax",
+    "scan": {
+      "x1.0": 1.442,
+      "x1.2": 1.731,
+      "x1.4": 2.021,
+      "x1.6": 2.31,
+      "x1.8": 2.6,
+      "x2.0": 2.89
+    }
+  },
+  "reaches_2p4": true,
+  "budget_multiplier_for_2p4": 1.8,
+  "interpretation": "Reaching the observed ~2.4 needs ~1.8x more total enzyme budget (~sigma 0.45 -> ~0.77, above the 0.4-0.5 literature range) OR reconciling the redundant GECKO base pool. So the magnitude gap IS proteome and closable in principle; the last ~1.7x may reflect a genuinely higher in-vivo enzyme capacity on rich medium (sigma / P_total) rather than a network/structural gap."
+}

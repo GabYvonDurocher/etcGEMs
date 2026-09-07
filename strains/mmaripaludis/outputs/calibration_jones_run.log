@@ -1,0 +1,125 @@
+[solver] gurobi
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+[smoment_gem] relaxed pinned uncosted reaction rxn00062_LSQBKT_c0_RSQBKT_ (lb 5.118 -> 0; ub 5.118 -> 1000); maintenance is the M3 NGAM(T) layer.
+[smoment_gem] unfolding: matched grounded Topt/Tm for 527/527 enzymes (100%); rest at dataset means
+[emergent] pool budget = P_total(0.5) x f_metab(0.5) x sigma(0.45) = 0.1125 g/gDW (not growth-calibrated)
+[preflight] solve OK on gurobi: rmax(38C, kcat_scale=4)=0.0522, single-solve=11.1 ms
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+[smoment_gem] relaxed pinned uncosted reaction rxn00062_LSQBKT_c0_RSQBKT_ (lb 5.118 -> 0; ub 5.118 -> 1000); maintenance is the M3 NGAM(T) layer.
+[smoment_gem] unfolding: matched grounded Topt/Tm for 527/527 enzymes (100%); rest at dataset means
+[emergent] pool budget = P_total(0.5) x f_metab(0.5) x sigma(0.45) = 0.1125 g/gDW (not growth-calibrated)
+[smoment_gem] relaxed pinned uncosted reaction rxn00062_LSQBKT_c0_RSQBKT_ (lb 5.118 -> 0; ub 5.118 -> 1000); maintenance is the M3 NGAM(T) layer.
+[smoment_gem] unfolding: matched grounded Topt/Tm for 527/527 enzymes (100%); rest at dataset means
+[emergent] pool budget = P_total(0.5) x f_metab(0.5) x sigma(0.45) = 0.1125 g/gDW (not growth-calibrated)
+[smoment_gem] relaxed pinned uncosted reaction rxn00062_LSQBKT_c0_RSQBKT_ (lb 5.118 -> 0; ub 5.118 -> 1000); maintenance is the M3 NGAM(T) layer.
+[smoment_gem] unfolding: matched grounded Topt/Tm for 527/527 enzymes (100%); rest at dataset means
+[emergent] pool budget = P_total(0.5) x f_metab(0.5) x sigma(0.45) = 0.1125 g/gDW (not growth-calibrated)
+[smoment_gem] relaxed pinned uncosted reaction rxn00062_LSQBKT_c0_RSQBKT_ (lb 5.118 -> 0; ub 5.118 -> 1000); maintenance is the M3 NGAM(T) layer.
+[smoment_gem] unfolding: matched grounded Topt/Tm for 527/527 enzymes (100%); rest at dataset means
+[emergent] pool budget = P_total(0.5) x f_metab(0.5) x sigma(0.45) = 0.1125 g/gDW (not growth-calibrated)
+[smoment_gem] relaxed pinned uncosted reaction rxn00062_LSQBKT_c0_RSQBKT_ (lb 5.118 -> 0; ub 5.118 -> 1000); maintenance is the M3 NGAM(T) layer.
+[smoment_gem] unfolding: matched grounded Topt/Tm for 527/527 enzymes (100%); rest at dataset means
+[emergent] pool budget = P_total(0.5) x f_metab(0.5) x sigma(0.45) = 0.1125 g/gDW (not growth-calibrated)
+Warning: environment still referenced so free is deferred (Continue to use WLS)
+Warning: environment still referenced so free is deferred (Continue to use WLS)
+[smoment_gem] relaxed pinned uncosted reaction rxn00062_LSQBKT_c0_RSQBKT_ (lb 5.118 -> 0; ub 5.118 -> 1000); maintenance is the M3 NGAM(T) layer.
+[smoment_gem] unfolding: matched grounded Topt/Tm for 527/527 enzymes (100%); rest at dataset means
+[emergent] pool budget = P_total(0.5) x f_metab(0.5) x sigma(0.45) = 0.1125 g/gDW (not growth-calibrated)
+Warning: environment still referenced so free is deferred (Continue to use WLS)
+Warning: environment still referenced so free is deferred (Continue to use WLS)
+Warning: environment still referenced so free is deferred (Continue to use WLS)
+Warning: environment still referenced so free is deferred (Continue to use WLS)
+[smoment_gem] relaxed pinned uncosted reaction rxn00062_LSQBKT_c0_RSQBKT_ (lb 5.118 -> 0; ub 5.118 -> 1000); maintenance is the M3 NGAM(T) layer.
+[smoment_gem] unfolding: matched grounded Topt/Tm for 527/527 enzymes (100%); rest at dataset means
+[emergent] pool budget = P_total(0.5) x f_metab(0.5) x sigma(0.45) = 0.1125 g/gDW (not growth-calibrated)
+[smoment_gem] relaxed pinned uncosted reaction rxn00062_LSQBKT_c0_RSQBKT_ (lb 5.118 -> 0; ub 5.118 -> 1000); maintenance is the M3 NGAM(T) layer.
+[smoment_gem] unfolding: matched grounded Topt/Tm for 527/527 enzymes (100%); rest at dataset means
+[emergent] pool budget = P_total(0.5) x f_metab(0.5) x sigma(0.45) = 0.1125 g/gDW (not growth-calibrated)
+[smoment_gem] relaxed pinned uncosted reaction rxn00062_LSQBKT_c0_RSQBKT_ (lb 5.118 -> 0; ub 5.118 -> 1000); maintenance is the M3 NGAM(T) layer.
+[smoment_gem] unfolding: matched grounded Topt/Tm for 527/527 enzymes (100%); rest at dataset means
+[emergent] pool budget = P_total(0.5) x f_metab(0.5) x sigma(0.45) = 0.1125 g/gDW (not growth-calibrated)
+Warning: environment still referenced so free is deferred (Continue to use WLS)
+Warning: environment still referenced so free is deferred (Continue to use WLS)
+Warning: environment still referenced so free is deferred (Continue to use WLS)
+[smoment_gem] relaxed pinned uncosted reaction rxn00062_LSQBKT_c0_RSQBKT_ (lb 5.118 -> 0; ub 5.118 -> 1000); maintenance is the M3 NGAM(T) layer.
+[smoment_gem] unfolding: matched grounded Topt/Tm for 527/527 enzymes (100%); rest at dataset means
+[emergent] pool budget = P_total(0.5) x f_metab(0.5) x sigma(0.45) = 0.1125 g/gDW (not growth-calibrated)
+Warning: environment still referenced so free is deferred (Continue to use WLS)
+[warm-start] DE mode found in 11s (-logpost=-19.2, 12 gens)
+[emcee] step 200: tau_max=23.2 chain/tau=8.6 (need >50) min n_eff~86 (need >=400)
+[emcee] step 400: tau_max=50.1 chain/tau=8.0 (need >50) min n_eff~200 (need >=400)
+[emcee] step 600: tau_max=75.2 chain/tau=8.0 (need >50) min n_eff~239 (need >=400)
+[emcee] step 800: tau_max=93.9 chain/tau=8.5 (need >50) min n_eff~261 (need >=400)
+[emcee] step 1000: tau_max=112.0 chain/tau=8.9 (need >50) min n_eff~278 (need >=400)
+[emcee] step 1200: tau_max=131.0 chain/tau=9.2 (need >50) min n_eff~286 (need >=400)
+[emcee] step 1400: tau_max=142.8 chain/tau=9.8 (need >50) min n_eff~312 (need >=400)
+[emcee] step 1600: tau_max=151.2 chain/tau=10.6 (need >50) min n_eff~343 (need >=400)
+[emcee] step 1800: tau_max=158.7 chain/tau=11.3 (need >50) min n_eff~374 (need >=400)
+[emcee] step 2000: tau_max=162.6 chain/tau=12.3 (need >50) min n_eff~412 (need >=400)
+[emcee] step 2200: tau_max=168.4 chain/tau=13.1 (need >50) min n_eff~443 (need >=400)
+[emcee] step 2400: tau_max=176.2 chain/tau=13.6 (need >50) min n_eff~465 (need >=400)
+[emcee] step 2600: tau_max=185.0 chain/tau=14.1 (need >50) min n_eff~482 (need >=400)
+[emcee] step 2800: tau_max=191.8 chain/tau=14.6 (need >50) min n_eff~504 (need >=400)
+[emcee] step 3000: tau_max=192.4 chain/tau=15.6 (need >50) min n_eff~544 (need >=400)
+[emcee] step 3200: tau_max=194.0 chain/tau=16.5 (need >50) min n_eff~580 (need >=400)
+[emcee] step 3400: tau_max=195.2 chain/tau=17.4 (need >50) min n_eff~617 (need >=400)
+[emcee] step 3600: tau_max=199.5 chain/tau=18.0 (need >50) min n_eff~642 (need >=400)
+[emcee] step 3800: tau_max=203.4 chain/tau=18.7 (need >50) min n_eff~667 (need >=400)
+[emcee] step 4000: tau_max=210.7 chain/tau=19.0 (need >50) min n_eff~680 (need >=400)
+[emcee] step 4200: tau_max=215.4 chain/tau=19.5 (need >50) min n_eff~700 (need >=400)
+[emcee] step 4400: tau_max=219.8 chain/tau=20.0 (need >50) min n_eff~721 (need >=400)
+[emcee] step 4600: tau_max=224.4 chain/tau=20.5 (need >50) min n_eff~740 (need >=400)
+[emcee] step 4800: tau_max=230.0 chain/tau=20.9 (need >50) min n_eff~755 (need >=400)
+[emcee] step 5000: tau_max=232.8 chain/tau=21.5 (need >50) min n_eff~779 (need >=400)
+[emcee] step 5200: tau_max=231.8 chain/tau=22.4 (need >50) min n_eff~817 (need >=400)
+[emcee] step 5400: tau_max=238.5 chain/tau=22.6 (need >50) min n_eff~826 (need >=400)
+[emcee] step 5600: tau_max=244.0 chain/tau=23.0 (need >50) min n_eff~838 (need >=400)
+[emcee] step 5800: tau_max=245.2 chain/tau=23.7 (need >50) min n_eff~866 (need >=400)
+[emcee] step 6000: tau_max=247.1 chain/tau=24.3 (need >50) min n_eff~891 (need >=400)
+DONE steps=6000 accept=0.332 n_eff=891.3 wall=1887.3s stop=n_steps_max (6000)
+posterior kcat_scale: 7.2235 [6.2152, 8.5418]
+descriptors: {'observed': {'rmax': 0.181, 'Topt_C': 37.04, 'Ea_eV': 0.66, 'CTmax_C': 51.095}, 'emergent_prior': {'rmax': 0.0, 'Topt_C': nan, 'Ea_eV': nan, 'CTmax_C': nan}, 'posterior_median': {'rmax': 0.186, 'Topt_C': 35.323, 'Ea_eV': 1.161, 'CTmax_C': 49.322}}
+out: /Users/g.yvon-durocher/Library/CloudStorage/OneDrive-UniversityofExeter/Documents/work/MICROADAPT/etcGEMs/strains/mmaripaludis/outputs/calibration_jones
+Warning: environment still referenced so free is deferred (Continue to use WLS)

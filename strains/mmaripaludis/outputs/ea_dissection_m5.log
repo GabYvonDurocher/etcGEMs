@@ -1,0 +1,18 @@
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+[smoment_gem] relaxed pinned uncosted reaction rxn00062_LSQBKT_c0_RSQBKT_ (lb 5.118 -> 0; ub 5.118 -> 1000); maintenance is the M3 NGAM(T) layer.
+[smoment_gem] unfolding: matched grounded Topt/Tm for 527/527 enzymes (100%); rest at dataset means
+[emergent] pool budget = P_total(0.5) x f_metab(0.5) x sigma(0.45) = 0.1125 g/gDW (not growth-calibrated)
+[methanogen] SS-E=1.0558 (slope 1.0812); window 19-33C; C_i at 28.0C
+[ea] C_i 50/252
+[ea] C_i 100/252
+[ea] C_i 150/252
+[ea] C_i 200/252
+[ea] C_i 250/252
+[methanogen] unweighted 0.512 + control +0.343 + alloc +0.000 + maint -0.016 + aggregation +0.218 = 1.056 (SS-E 1.056)
+[methanogen] backbone carries 89% of the control term; backbone E 0.771 vs proteome mean 0.512
+  top: [('rxn11938', 'Fwd', 0.337), ('rxn03127', 'Mcr', 0.304), ('rxn03020', 'Mtr', 0.07), ('rxn03085', 'Mer', 0.064), ('ATPS', 'ATPsyn', 0.049), ('rxn02480', 'Mch', 0.047)]
+wrote strains/mmaripaludis/outputs/ea_dissection_ss/decomposition_ss.json + ea_per_enzyme.csv
+Warning: environment still referenced so free is deferred (Continue to use WLS)

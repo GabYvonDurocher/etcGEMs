@@ -1,0 +1,11 @@
+# Universal METHOD defaults (project-wide). Organism biophysics lives in
+# strains/<name>/strain.yaml; method overlays in experiments/<name>.yaml.
+# Merge precedence when composing a run: defaults <- strain <- experiment.
+solver_timeout: 10        # seconds; caps any single LP solve
+crit_frac: 0.05           # growth fraction defining CTmin / CTmax
+
+# Fallback temperature grid, used only if a strain does not define its own.
+temperature_grid:
+  start_C: 5
+  stop_C: 55
+  n: 51

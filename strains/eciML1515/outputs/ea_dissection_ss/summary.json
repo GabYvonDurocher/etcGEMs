@@ -1,0 +1,45 @@
+{
+  "headline_BHI": {
+    "Ea_org_eV": 0.6784,
+    "medium": "BHI",
+    "sum_C_i": 0.556,
+    "decomposition_eV": {
+      "kinetic_control_weighted_mean_Ea_i": 0.9779,
+      "allocation_growth_law": -0.1261,
+      "maintenance_NGAM": 0.005,
+      "residual_nonlinear": -0.1784,
+      "actual_Ea_org": 0.6784
+    },
+    "departure_from_naive_mean_eV": {
+      "unweighted_mean_Ea_i": 0.8716,
+      "mass_weighted_mean_Ea_i": 0.8969,
+      "control_weighted_mean_Ea_i": 0.9779,
+      "attribution": {
+        "control_concentration": 0.1063,
+        "allocation": -0.1261,
+        "maintenance": 0.005
+      }
+    },
+    "convention": "Sharpe-Schoolfield E (window-independent)"
+  },
+  "medium_comparison": {
+    "Ea_org_BHI": 0.6784,
+    "Ea_org_glucose": 0.8898
+  },
+  "robustness_BHI": {
+    "homogenised_Ea_org": 0.9656,
+    "spread_sweep": {
+      "spread_x0.0": 0.9656,
+      "spread_x0.5": 0.6932,
+      "spread_x0.75": 0.6853,
+      "spread_x1.0": 0.6784,
+      "spread_x1.25": 0.901
+    },
+    "note": "SS-E; spread_x1.0 = actual heterogeneity; x0.0 = homogenised"
+  },
+  "emergent_vs_tuned": {
+    "Ea_org_emergent": 0.4998
+  },
+  "observed_VdL_SS_E": 0.5584,
+  "convention": "Sharpe-Schoolfield E (Schoolfield 1981), T_ref=20C; per-enzyme E_i = kcat(T) rising-limb Arrhenius E (f_N separated to the deactivation side, contribution ~-0.008 eV, negligible)"
+}

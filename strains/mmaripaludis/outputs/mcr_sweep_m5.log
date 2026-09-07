@@ -1,0 +1,17 @@
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+[smoment_gem] relaxed pinned uncosted reaction rxn00062_LSQBKT_c0_RSQBKT_ (lb 5.118 -> 0; ub 5.118 -> 1000); maintenance is the M3 NGAM(T) layer.
+[smoment_gem] unfolding: matched grounded Topt/Tm for 527/527 enzymes (100%); rest at dataset means
+[emergent] pool budget = P_total(0.5) x f_metab(0.5) x sigma(0.45) = 0.1125 g/gDW (not growth-calibrated)
+  Mcr=   3.0/s  SS-E=1.274  backbone= 103%  top: Mcr(1.605);Fwd(0.092);CODH(-0.065)
+  Mcr=  10.0/s  SS-E=1.011  backbone=  99%  top: Mcr(0.876);Fwd(0.167);CODH(-0.039)
+  Mcr=  30.0/s  SS-E=1.065  backbone=  92%  top: Mcr(0.488);Fwd(0.277);Mtr(0.059)
+  Mcr=  58.9/s  SS-E=1.056  backbone=  89%  top: Fwd(0.337);Mcr(0.304);Mtr(0.070)
+  Mcr= 100.0/s  SS-E=1.066  backbone=  86%  top: Fwd(0.395);Mcr(0.211);Mtr(0.079)
+  Mcr= 294.0/s  SS-E=1.017  backbone=  83%  top: Fwd(0.427);Mtr(0.086);Mer(0.079)
+
+SS-E across Mcr 3-294/s: 1.010-1.274 (E. coli 0.68). backbone 83-103% of control.
+wrote strains/mmaripaludis/outputs/ea_dissection_ss/mcr_sweep.csv + mcr_sweep.json
+Warning: environment still referenced so free is deferred (Continue to use WLS)

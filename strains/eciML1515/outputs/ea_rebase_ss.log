@@ -1,0 +1,47 @@
+Set parameter WLSAccessID
+Set parameter WLSSecret
+Set parameter LicenseID to value 2842962
+Academic license 2842962 - for non-commercial use only - registered to g.___@exeter.ac.uk
+[from_gecko] closed 4 uncosted O2-sink reaction(s) (Parsa's audit): ['CU1Opp', 'MOX', 'QMO2No1', 'QMO3No1']
+[from_gecko] unfolding mode: matched grounded Topt/Tm for 2308/2560 enzymes (90.2%); the rest use dataset-mean fallbacks
+[from_gecko] reconciled proteome pools: relaxed base pool supply 'prot_pool_exchange' (0.09091 -> inf); the etcgem sMOMENT/sector pool is now the sole enzyme-mass budget.
+[emergent] pool budget = P_total(0.5) x f_metab(0.483) x sigma(0.45) = 0.1087 g/gDW (not growth-calibrated)
+[dltkcat] applied fits to 13/2560 enzymes (key=rxn_id)
+[sectors] growth law ON (Scott 2010): slope=0.33/h, f_bio_0=0.045, f_metab_0=0.629 (proteome-conserving)
+[sectors] P_total=0.225  f=(metab 0.483, bio 0.19, maint 0.326)  translation_coeff=0.07867 (mu*=0.5462)  atpm=ATPM
+[alloc] MEDIUM-matched sector allocation from tem_proteomic.csv (f_bio@37C by medium: {'LB': 0.359, 'Glucose': 0.183, 'Glycerol': 0.145})
+[from_gecko] closed 4 uncosted O2-sink reaction(s) (Parsa's audit): ['CU1Opp', 'MOX', 'QMO2No1', 'QMO3No1']
+[from_gecko] unfolding mode: matched grounded Topt/Tm for 2308/2560 enzymes (90.2%); the rest use dataset-mean fallbacks
+[from_gecko] reconciled proteome pools: relaxed base pool supply 'prot_pool_exchange' (0.09091 -> inf); the etcgem sMOMENT/sector pool is now the sole enzyme-mass budget.
+[emergent] pool budget = P_total(0.5) x f_metab(0.483) x sigma(0.45) = 0.1087 g/gDW (not growth-calibrated)
+[dltkcat] applied fits to 13/2560 enzymes (key=rxn_id)
+[sectors] P_total=0.225  f=(metab 0.483, bio 0.19, maint 0.326)  translation_coeff=0.07867 (mu*=0.5462)  atpm=ATPM
+[alloc] MEDIUM-matched sector allocation from tem_proteomic.csv (f_bio@37C by medium: {'LB': 0.359, 'Glucose': 0.183, 'Glycerol': 0.145})
+[BHI] SS-E=0.6784 (slope 0.9095); cw_kcat=0.9779 fN=-0.0081; alloc=-0.1261 maint=+0.0050 resid=-0.1784
+[from_gecko] closed 4 uncosted O2-sink reaction(s) (Parsa's audit): ['CU1Opp', 'MOX', 'QMO2No1', 'QMO3No1']
+[from_gecko] unfolding mode: matched grounded Topt/Tm for 2308/2560 enzymes (90.2%); the rest use dataset-mean fallbacks
+[from_gecko] reconciled proteome pools: relaxed base pool supply 'prot_pool_exchange' (0.09091 -> inf); the etcgem sMOMENT/sector pool is now the sole enzyme-mass budget.
+[emergent] pool budget = P_total(0.5) x f_metab(0.483) x sigma(0.45) = 0.1087 g/gDW (not growth-calibrated)
+[dltkcat] applied fits to 13/2560 enzymes (key=rxn_id)
+[sectors] growth law ON (Scott 2010): slope=0.33/h, f_bio_0=0.045, f_metab_0=0.629 (proteome-conserving)
+[sectors] P_total=0.225  f=(metab 0.483, bio 0.19, maint 0.326)  translation_coeff=0.07867 (mu*=0.5462)  atpm=ATPM
+[alloc] MEDIUM-matched sector allocation from tem_proteomic.csv (f_bio@37C by medium: {'LB': 0.359, 'Glucose': 0.183, 'Glycerol': 0.145})
+[from_gecko] closed 4 uncosted O2-sink reaction(s) (Parsa's audit): ['CU1Opp', 'MOX', 'QMO2No1', 'QMO3No1']
+[from_gecko] unfolding mode: matched grounded Topt/Tm for 2308/2560 enzymes (90.2%); the rest use dataset-mean fallbacks
+[from_gecko] reconciled proteome pools: relaxed base pool supply 'prot_pool_exchange' (0.09091 -> inf); the etcgem sMOMENT/sector pool is now the sole enzyme-mass budget.
+[emergent] pool budget = P_total(0.5) x f_metab(0.483) x sigma(0.45) = 0.1087 g/gDW (not growth-calibrated)
+[dltkcat] applied fits to 13/2560 enzymes (key=rxn_id)
+[sectors] P_total=0.225  f=(metab 0.483, bio 0.19, maint 0.326)  translation_coeff=0.07867 (mu*=0.5462)  atpm=ATPM
+[alloc] MEDIUM-matched sector allocation from tem_proteomic.csv (f_bio@37C by medium: {'LB': 0.359, 'Glucose': 0.183, 'Glycerol': 0.145})
+[glucose_minimal] SS-E=0.8898 (slope 0.9763); cw_kcat=0.9058 fN=-0.0045; alloc=-0.0024 maint=-0.0148 resid=+0.0013
+[from_gecko] closed 4 uncosted O2-sink reaction(s) (Parsa's audit): ['CU1Opp', 'MOX', 'QMO2No1', 'QMO3No1']
+[from_gecko] unfolding mode: matched grounded Topt/Tm for 2308/2560 enzymes (90.2%); the rest use dataset-mean fallbacks
+[from_gecko] reconciled proteome pools: relaxed base pool supply 'prot_pool_exchange' (0.09091 -> inf); the etcgem sMOMENT/sector pool is now the sole enzyme-mass budget.
+[emergent] pool budget = P_total(0.5) x f_metab(0.483) x sigma(0.45) = 0.1087 g/gDW (not growth-calibrated)
+[dltkcat] applied fits to 13/2560 enzymes (key=rxn_id)
+[sectors] growth law ON (Scott 2010): slope=0.33/h, f_bio_0=0.045, f_metab_0=0.629 (proteome-conserving)
+[sectors] P_total=0.225  f=(metab 0.483, bio 0.19, maint 0.326)  translation_coeff=0.07867 (mu*=0.5462)  atpm=ATPM
+[alloc] MEDIUM-matched sector allocation from tem_proteomic.csv (f_bio@37C by medium: {'LB': 0.359, 'Glucose': 0.183, 'Glycerol': 0.145})
+[emergent BHI] SS-E=0.4998; observed VdL SS-E=0.5584
+wrote strains/eciML1515/outputs/ea_dissection_ss/decomposition_ss.json
+Warning: environment still referenced so free is deferred (Continue to use WLS)

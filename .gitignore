@@ -36,3 +36,17 @@ verify_*.log
 /tpc_pipeline/
 collaborator_email_draft.md
 /strains/eciML1515/outputs/_archive/
+# Collaborator email drafts (kept local, not version-controlled)
+emails/
+# Local push helper (do not track)
+push_updates.sh
+# Quarto / LaTeX render byproducts (keep .qmd, header.tex, assets, assemble.py)
+reports/**/report.tex
+reports/**/supplementary.tex
+reports/**/*.aux
+reports/**/*.log
+reports/**/*.out
+reports/**/*.toc
+reports/**/*.fls
+reports/**/*.fdb_latexmk
+reports/**/*.synctex.gz
