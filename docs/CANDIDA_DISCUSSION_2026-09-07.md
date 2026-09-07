@@ -155,6 +155,15 @@ sharper question, it is only askable because the seven strains now share a code 
 be resolved before the membrane hypothesis (§6a) is treated as the leading explanation — whatever
 explains the pattern must also explain the two organisms where nothing is wrong.
 
+_Checked against the flatness guard (N2). N1's guard fires wherever proteome sectors run
+without temperature-dependent allocation, which is true of the Candida B4 rung, of
+M. maripaludis and of Synechocystis — so it is fair to ask whether the table above is reading
+descriptors off flat-topped curves. It is not: CT_max is read off the falling limb, which the
+flat top does not touch; M. maripaludis reports NaN because its a-priori curve is identically
+zero and its analyses run at the calibrated operating point where the metabolic pool binds;
+and Synechocystis' plateau is 2.0 °C at the 1% level and 0.0 at 0.01%, i.e. a genuine peak.
+The table survives. Detail:_ `reports/candida_thermal_limit/K2_core_thermal_form.md` §C2.
+
 ## 5. Coverage: what the model actually sees
 
 | Stage | *C. auris* | Across the four |

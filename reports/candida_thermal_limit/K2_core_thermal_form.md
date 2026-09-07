@@ -124,8 +124,16 @@ reported beside it: a scale of *s* means the model under-predicts *C. auris*' me
 | | *duobushaemulonii* | 0.0629 | 30 | 30.0 ‡ | 53.95 | 53.83 | −1.145 | **no** | 1.0 / 32.5 |
 | | *parapsilosis* | 0.0666 | 30 | 30.5 ‡ | 53.37 | 53.23 | −1.243 | **no** | 1.0 / 42.6 |
 
-‡ **not an optimum.** At B4 the top of the curve is exactly flat over 12.5–20.5 °C (see
-below), so Topt is the low edge of a plateau.
+‡ **not an optimum.** At B4 the top of the curve is flat, so Topt is the low edge of a
+plateau. N1's flatness guard now measures it on the strain's own grid and records it in each
+run's `sector_flatness.json`: **within 1% of the maximum the plateau is 12–14 °C wide on a
+22 °C grid** — *C. auris* 30–44 °C, *C. haemulonii* 30–44 °C, *C. duobushaemulonii* 30–42 °C,
+*C. parapsilosis* 30–44 °C. **More than half the tested range sits within 1% of the peak.**
+
+That is a serious-looking number, so read it with the one that bounds it: **the required
+separation is stable to 0.3 °C across B1–B4** (PART C1), so the 13.8 °C figure this ladder
+exists to produce does not depend on the flat rung at all. B4's *magnitude and optimum* are
+not interpretable; its *falling limb*, which is what C1 and C2 use, is.
 
 Growth scale: B0 **2.07**, B1 **1.92**, B2 **7.58**, B3 **7.67**, B4 **11.42**.
 `×free` is growth with the metabolic pool removed, divided by growth as configured; the
@@ -320,6 +328,16 @@ measured proteome-wide difference on record**. The requirement is stable to with
 across every rung after B1, so neither the grounded budget, nor NGAM(T), nor the sector layer
 moves it. Nothing in the core's machinery rescues the prediction.
 
+**That stability is also what makes B4 usable here.** N1's flatness guard measured B4's
+plateau at **12–14 °C wide on a 22 °C grid** — more than half the tested range within 1% of
+the maximum — because the sector layer's temperature-independent translation cap removes the
+optimum rather than shifting it. A reader who sees that plateau should reasonably ask whether
+the B4 row of this table means anything. It does, for two reasons: the counterfactual is
+evaluated at a **fixed** temperature (40 °C) against a **fixed** detection floor, so it does
+not depend on where the peak is; and the requirement barely moves across B1–B4 (13.77, 13.71,
+13.64, 13.77 °C), i.e. across rungs with and without the plateau. What B4 cannot support is a
+statement about T_opt or rmax.
+
 The Topt route moves the other way, 15.6 → 23.3 °C, for the same mechanistic reason: under
 `unfolding` the upper limit is owned by Tm, so shifting Topt is a less efficient way to kill
 growth at 40 °C than it was under a Gaussian.
@@ -378,6 +396,26 @@ appears, a uniform downward Tm correction of 6–9 K removes it, in a bacterium 
 yeast.** Note also that the median enzyme Tm barely varies across the seven (53.5–56.9 °C)
 while the observed limits span 38–47 °C — the table does not show the model tracking the
 observed limit.
+
+### The flatness guard fires for two of these strains, and neither result is affected
+
+N1's guard fires whenever proteome sectors are on without temperature-dependent allocation.
+That is true of *M. maripaludis* and of *Synechocystis*, so a reader checking their runs will
+find a `sector_flatness.json` there. Neither undermines this table.
+
+* ***M. maripaludis*** reports `NaN`. Its a-priori TPC is identically zero — the
+  maintenance-crushed state its own `strain.yaml` documents (`nominal_kcat_scale: 7.223` is
+  the calibrated operating point) — so there is no maximum to measure a plateau around, and
+  the guard reports NaN rather than inventing a width. Its analyses, including the M3 row
+  above, run at the calibrated `kcat_scale` where the **metabolic pool** binds, not the
+  translation cap.
+* ***Synechocystis*** has a plateau of **2.0 °C at the 1% level and 0.0 °C at 0.01%** on a
+  45 °C grid. That is a genuine peak, not a tie.
+
+A fired guard means "this configuration is in the at-risk class", not "this result is
+broken". The four Candida B4 rows are the only ones in this report where the risk actually
+materialised, and the CTmax column — which is what this table is about — is read off the
+falling edge and is unaffected in every row.
 
 The table states what it shows; it is not interpreted further here.
 
