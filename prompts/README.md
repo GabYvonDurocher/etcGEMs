@@ -235,6 +235,39 @@ _Deferred — respiration & CUE:_ once the growth model is trusted, add respirat
 flat with warming; max CUE ≈ 0.4–0.6). Full library-scale validation against the 29 Smith
 2021 environmental strains needs draft GEMs for those strains.
 
+## K-series — bringing the Candida etcGEMs into the framework
+
+Scoping document: `docs/CANDIDA_ETCGEM_PLAN.md`. Four *Candidozyma*/*Candida* species were
+modelled in a **separate implementation** (`gem/` in the `Candidas` repository, by Ilgaz):
+its own enzyme-cost and thermal layers, its own path map, species handled by a dictionary
+rather than by folders. The K-series makes them `strains/` entries on this core, so the
+method lives in one place and does not drift between implementations. (`C` is the Candidas
+repository's own prompt series; `K` is this one. `M*` are the methanogen and `P*_phototroph*`
+the cyanobacterium; the older unlettered and `P1`–`P3` entries above are the *E. coli* line.)
+
+- `K1_candida_port_and_verify_prompt.md` — ✅ run. **Port and verify.** The four strain
+  folders + one converter (`tools/reconstruction/to_strain_inputs.py`);
+  `tools/reconstruction/` from `gem/01_ … 15_` with paths generalised (copied, not
+  executed); `thermal_model: phenomenological` as a third option beside `mmrt` and
+  `unfolding`; `etcgem transfer`, the multi-strain calibrate-on-one/predict-the-rest
+  experiment kind. **Gate:** the core, configured to match, reproduces the standalone's
+  locked numbers — 57/57 comparisons pass, the fitted globals to every stored digit and all
+  48 predicted growth rates exactly. See
+  `reports/candida_thermal_limit/K1_port_verification.md` (which also records two findings
+  about the standalone: an internal inconsistency over the maintenance reaction, and a
+  0.4% solver dependence). Decides nothing scientific.
+- **K2 — Candida under the core's own thermal form.** ⏳ pending. Same strains,
+  `thermal_model: unfolding`, the shared ΔCp prior, a grounded proteome budget,
+  `transfer` from *C. auris*; outputs recorded beside K1's. Numbers are expected to move —
+  that is the point: K1 is the regression test, K2 puts the four species on the same
+  footing as the other three. K2 also decides the two questions K1 deliberately left open:
+  whether maintenance is pinned, and whether these strains get a sector layer.
+- **K3 — retire the fork.** ⏳ pending. `gem/` in `Candidas` becomes
+  `archive/gem_standalone/` with a README pointing here; `gem/audits/` and `gem/notes/`
+  move to `reports/candida_thermal_limit/` as `audits/` and `notes/`. Anything in
+  `Candidas` that needs an etcGEM output takes it from a pinned commit of this repository
+  by path — never vendored back.
+
 ## The through-line
 
 The scientific thread these encode: build an enzyme- & temperature-constrained GEM of
