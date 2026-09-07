@@ -289,15 +289,13 @@ class EnzymeConstrainedModel:
         self._Tm = np.array(tms, float)   # per-enzyme Tm (K), for the dTm reference scale
 
     def _build_phenomenological(self):
-        """Precompute the per-enzyme (Topt, Tm) arrays used by the phenomenological
-        activity factor. Both are in K, taken from the enzyme table (the strain's
-        thermal/enzyme_thermal_params.csv, keyed by rxn_id); an enzyme with no Tm
-        falls back to the dataset-mean Tm, as in the unfolding form."""
-        ents = self.table.entries
-        self._pTopt = np.array([e.Topt for e in ents], float)
-        self._pTm = np.array(
+        """Precompute the per-enzyme melting temperatures the phenomenological activity
+        factor needs (the optima are already in ``self._Topt``). In K, from the enzyme
+        table -- the strain's thermal/enzyme_thermal_params.csv, keyed by rxn_id; an
+        enzyme with no Tm falls back to the dataset mean, as in the unfolding form."""
+        self._Tm = np.array(
             [e.Tm if (e.Tm is not None and np.isfinite(e.Tm)) else self._unfold_mean_Tm
-             for e in ents], float)
+             for e in self.table.entries], float)
 
     # -- construction -------------------------------------------------------
     def _build(self):
@@ -405,9 +403,9 @@ class EnzymeConstrainedModel:
         pert = pert or Perturbation()
         sig = self.pheno_sigma if pert.pheno_sigma is None else float(pert.pheno_sigma)
         w = self.pheno_w if pert.pheno_w is None else float(pert.pheno_w)
-        Topt_eff = self._T0 + pert.topt_scale * (self._pTopt - self._T0) + pert.dTopt
-        Tm_shift = pert.dTm + (pert.tm_scale - 1.0) * (self._pTm - np.mean(self._pTm))
-        Tm_eff = self._pTm + Tm_shift
+        Topt_eff = self._T0 + pert.topt_scale * (self._Topt - self._T0) + pert.dTopt
+        Tm_shift = pert.dTm + (pert.tm_scale - 1.0) * (self._Tm - np.mean(self._Tm))
+        Tm_eff = self._Tm + Tm_shift
         peak = np.exp(-((T - Topt_eff) ** 2) / (2.0 * sig * sig))
         # clip the logistic exponent: exp(>709) overflows to inf, which gives the same
         # death -> 0 (hence the 1e-6 floor) but raises a numpy warning on every solve.
