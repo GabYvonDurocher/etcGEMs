@@ -1,0 +1,11 @@
+{
+  "label": "candida_B4_sectors:chaemulonii_draft",
+  "sectors_enabled": true,
+  "allocation_from_data": null,
+  "plateau_1pct_lo_C": 30.0,
+  "plateau_1pct_hi_C": 44.0,
+  "plateau_1pct_width_C": 14.0,
+  "plateau_0p01pct_width_C": 14.0,
+  "grid_span_C": 22.0,
+  "note": "proteome sectors are on and the sector fractions do not vary with temperature, so the biosynthesis/translation cap is temperature-independent. Where it binds it flattens the top of the curve and T_opt becomes the argmax of a tie. See reports/N1_overnight/TASK4_sector_cap.md"
+}

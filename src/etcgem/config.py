@@ -267,7 +267,8 @@ def build_provider(cfg: Dict[str, Any]):
     # Opt-in proteome sectors (Basan/Scott). Absent or disabled -> untouched.
     ps = cfg.get("proteome_sectors")
     if ps and ps.get("enabled"):
-        from .sectors import add_proteome_sectors
+        from .sectors import add_proteome_sectors, warn_sector_cap
+        warn_sector_cap(cfg)
         # thread the emergent in-vivo saturation (budget = P_total x f_metab x sigma)
         # so a free sigma_sat perturbation can scale both sector caps by sigma/sigma_nom
         ps.setdefault("sigma_nom", float(p.get("sigma", 0.45)))

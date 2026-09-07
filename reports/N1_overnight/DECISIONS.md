@@ -175,3 +175,36 @@ a provenance file that misstates the configuration.
 
 **Reversible:** yes. **Review:** nobody, but it is the one place N1 touches a committed
 output file, so it is recorded here deliberately.
+
+## D10 — TASK 4: the flatness is recorded in a NEW file, not added to descriptors.json
+
+**Decided.** `sector_flatness.json` is written into the run's output folder when the risk
+applies, rather than adding a `plateau_width` field to `TPCDescriptors`.
+
+**Why.** Adding a field to `TPCDescriptors` would change every `descriptors.json` in the
+repository, including `strains/eciML1515/outputs/tpc/descriptors.json`, which is a committed
+output of a strain other than the Candida four. The standing rules forbid that outright. A
+new file, written only when the risk applies, records the same information and changes
+nothing.
+
+**Alternatives.** Add the field (forbidden); print it only (then it cannot be checked after
+the fact, which is the point of the task).
+
+**Reversible:** yes. **Review:** nobody. But see TASK4_sector_cap.md's closing paragraph:
+making `descriptors()` itself refuse to report a T_opt read off a tie is the natural
+follow-up and does change `descriptors.json`, so it needs a human.
+
+## D11 — TASK 4: the guard fires for mmaripaludis too, and that is intended
+
+**Observed, not decided.** *M. maripaludis* has sectors on with a fixed `translation_coeff`
+and no `allocation_from_data`, so it is in the at-risk class and the guard fires for it. Its
+plateau is reported as `NaN` because its bare TPC is identically zero at the a-priori
+`kcat_scale` — the maintenance-crushed state its own `strain.yaml` documents.
+
+**Why left as is.** The guard is correct: the configuration IS at risk. Reporting NaN rather
+than a fabricated width is the right behaviour for a zero curve. Nothing about how
+mmaripaludis runs changed, and its committed outputs are byte-identical.
+
+**Reversible:** n/a. **Review:** whoever owns mmaripaludis may want to know that its
+translation cap is temperature-independent; it has not mattered so far because its analyses
+run at a calibrated `kcat_scale` where the metabolic pool binds.

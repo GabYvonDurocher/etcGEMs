@@ -151,6 +151,8 @@ def cmd_tpc(args):
         os.path.join(out_dir, "nominal_tpc.csv"), index=False)
     with open(os.path.join(out_dir, "descriptors.json"), "w") as fh:
         json.dump(desc.as_dict(), fh, indent=2)
+    from .sectors import record_flatness
+    record_flatness(cfg, temps, tpc.growth, out_dir, label=f"tpc:{args.strain}")
     dump_resolved(cfg, out_dir)
     print(f"[tpc] strain={args.strain}" + (f" +fits {os.path.basename(fits)}" if fits else ""))
     print(f"[tpc] Topt={desc.Topt_C:.1f}°C rmax={desc.rmax:.3f}/h "
