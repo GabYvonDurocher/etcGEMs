@@ -8,7 +8,8 @@ the *M. maripaludis* `smoment_gem` provider. Every choice below is the standalon
 choice, taken from `gem/18_build_etcgem_tpc.py`, and is commented as such so that
 K2 (the same strains under the core's own thermal form) can change it deliberately.
 
-Reads (all under $CANDIDAS_ROOT/gem/):
+Reads (all under the WORK directory: `--work`, or `--candidas-root R` meaning `R/gem`,
+which is how K1 read the standalone's committed tables directly):
     models/<xml>                       the species' SBML (for GPRs and subsystems)
     tables/enzyme_mw_<sp>.csv          gene -> length_aa, MW_kDa (08_enzyme_mw.py)
     tables/kcat_reaction_<sp>.csv      reaction -> kcat_per_s, best_gene (11_aggregate_kcat.py)
@@ -52,6 +53,8 @@ import sys
 
 import pandas as pd
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 # The standalone's species map (gem/gempaths.py SP) plus this repository's strain
 # folder name for each. Both draft models are KOfam reconstructions on the iRV973
 # scaffold, not curated models -- their strain.yaml says so.
@@ -66,6 +69,22 @@ SPECIES = {
                          medium="medium_iDC1003_parapsilosis.csv"),
 }
 
+
+def _species_map(config_path: str | None = None):
+    """The taxon -> (model, medium, strain) map. Taken from reconstruction.yaml when one
+    resolves (so a new taxon needs no code change); the Candida map above is the fallback
+    and is what `--candidas-root` uses."""
+    try:
+        import paths
+        cfg = paths.configure(config_path)
+        taxa = cfg.get("taxa") or {}
+        if taxa:
+            return {k: dict(strain=v.get("strain", k), model=v["model"], medium=v["medium"])
+                    for k, v in taxa.items()}
+    except Exception:
+        pass
+    return dict(SPECIES)
+
 DEFAULT_KCAT_S = 13.7        # standalone: reactions with no DLKcat kcat
 DCP_PRIOR_KJ = -4.0          # shared dCp prior (methanogen convention), kJ/mol/K
 K0 = 273.15
@@ -79,11 +98,12 @@ def _git_commit(root: str) -> str:
         return "unknown"
 
 
-def convert(species: str, candidas_root: str, repo_root: str, strain: str | None = None,
-            copy_model: bool = True) -> dict:
-    meta = SPECIES[species]
+def convert(species: str, work: str, repo_root: str, strain: str | None = None,
+            copy_model: bool = True, species_map: dict | None = None,
+            source_repo: str | None = None) -> dict:
+    meta = (species_map or SPECIES)[species]
     strain = strain or meta["strain"]
-    gem = os.path.join(candidas_root, "gem")
+    gem = work                      # <work>/{tables,models,inputs}
     tables = os.path.join(gem, "tables")
     sdir = os.path.join(repo_root, "strains", strain)
     for sub in ("model", "media", "thermal", "dltkcat", "outputs"):
@@ -192,7 +212,9 @@ def convert(species: str, candidas_root: str, repo_root: str, strain: str | None
 
     report = dict(
         species=species, strain=strain, model=meta["model"], medium=meta["medium"],
-        candidas_commit=_git_commit(candidas_root),
+        source_repo=(os.path.basename(os.path.normpath(source_repo)) if source_repo else None),
+        source_dir=(os.path.relpath(gem, source_repo) if source_repo else os.path.abspath(gem)),
+        source_commit=_git_commit(source_repo or gem),
         reactions_in_model=n_total,
         skipped_exchange_or_boundary=n_skip_ex, skipped_biomass=n_skip_biomass,
         skipped_no_gene=n_skip_nogene, skipped_no_mw=n_skip_nomw,
@@ -214,19 +236,39 @@ def convert(species: str, candidas_root: str, repo_root: str, strain: str | None
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--species", required=True, choices=sorted(SPECIES) + ["all"])
+    ap.add_argument("--species", required=True,
+                    help="taxon key from reconstruction.yaml (or 'all')")
+    ap.add_argument("--work", default=None,
+                    help="work directory holding tables/, models/, inputs/ "
+                         "(default: the reconstruction config's work_dir)")
     ap.add_argument("--candidas-root", default=os.environ.get("CANDIDAS_ROOT"),
-                    help="path to the Candidas repository (default $CANDIDAS_ROOT)")
+                    help="shortcut for --work <root>/gem: read the standalone Candida "
+                         "etcGEM's committed tables directly (default $CANDIDAS_ROOT). "
+                         "This is how the K1 port was built.")
+    ap.add_argument("--config", default=None, help="reconstruction.yaml (see paths.py)")
     ap.add_argument("--repo-root", default=os.getcwd())
     ap.add_argument("--strain", default=None, help="override the strain folder name")
     ap.add_argument("--no-copy-model", action="store_true")
     a = ap.parse_args(argv)
-    if not a.candidas_root:
-        ap.error("--candidas-root (or $CANDIDAS_ROOT) is required")
-    todo = sorted(SPECIES) if a.species == "all" else [a.species]
+    smap = _species_map(a.config)
+    source_repo = None
+    if a.work:
+        work = a.work
+    elif a.candidas_root:
+        work = os.path.join(a.candidas_root, "gem")
+        source_repo = a.candidas_root
+        smap = dict(SPECIES)          # the standalone's own layout and species names
+    else:
+        import paths
+        paths.configure(a.config)
+        work = str(paths.WORK)
+    todo = sorted(smap) if a.species == "all" else [a.species]
     for sp in todo:
-        rep = convert(sp, a.candidas_root, a.repo_root, a.strain,
-                      copy_model=not a.no_copy_model)
+        if sp not in smap:
+            ap.error(f"unknown taxon {sp!r}; known: {sorted(smap)}")
+        rep = convert(sp, work, a.repo_root, a.strain,
+                      copy_model=not a.no_copy_model, species_map=smap,
+                      source_repo=source_repo)
         print(json.dumps(rep, indent=2))
     return 0
 

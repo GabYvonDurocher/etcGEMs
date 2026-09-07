@@ -50,3 +50,8 @@ reports/**/*.toc
 reports/**/*.fls
 reports/**/*.fdb_latexmk
 reports/**/*.synctex.gz
+
+# tools/reconstruction: third-party code, trained weights and databases (fetch_external.sh),
+# and the pipeline's own scratch work area. Same convention as /DLTKcat/.
+/tools/reconstruction/external/
+/tools/reconstruction/work/
