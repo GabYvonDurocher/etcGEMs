@@ -69,12 +69,30 @@ def main():
         import json
         cal = json.load(open(os.path.join(d, "calibration.json")))
         for _, r in s.iterrows():
+            # Is the "peak" a peak or a plateau? A temperature-INDEPENDENT constraint (the
+            # sector translation cap, from B4 on) flattens the top of the curve, and then
+            # Topt is the first index of a tie rather than an optimum -- which is also why
+            # the two solvers disagree about it there. Measured on the wide grid as the
+            # width of the region within 0.01% of the peak.
+            plateau_lo = plateau_hi = float("nan")
+            w = os.path.join("strains", r["strain"], "outputs",
+                             ("transfer_" + exp) if not exp.startswith("transfer") else exp,
+                             "tpc_wide.csv")
+            if os.path.exists(w):
+                tw = pd.read_csv(w)
+                m = float(tw.growth.max())
+                if m > 0:
+                    flat = tw[tw.growth >= m * 0.9999]
+                    plateau_lo, plateau_hi = float(flat.temp_C.min()), float(flat.temp_C.max())
             row = dict(rung=rung, experiment=exp, change=change,
                        species=SHORT.get(r["strain"], r["strain"]),
                        role=r["role"], growth_scale=cal["scale"],
                        fitted=";".join(f"{k}={v:.6g}" for k, v in cal["fitted"].items()) or "none")
             for c in COLS:
                 row[c] = r.get(c)
+            row["plateau_lo_C"] = plateau_lo
+            row["plateau_hi_C"] = plateau_hi
+            row["plateau_width_C"] = plateau_hi - plateau_lo
             row["observed_limit_C"] = OBSERVED_LIMIT_C.get(row["species"], np.nan)
             row["ceiling_gap_C"] = row["thermal_limit_C"] - row["observed_limit_C"]
             rows.append(row)
@@ -103,9 +121,9 @@ def main():
         C["fold_gap_vs_measured_1.6C"] = C["required"] / 1.6
         C.to_csv(os.path.join(HERE, "ladder_counterfactual.csv"), index=False)
 
-    show = ["rung", "species", "peak_mu_model", "peak_T_C", "descr_Topt_C", "descr_rmax",
-            "descr_CTmax_C", "thermal_limit_C", "fit_r2", "pool_binds",
-            "pool_binding_ratio", "all_caps_ratio"]
+    show = ["rung", "species", "peak_mu_model", "descr_Topt_C", "plateau_lo_C",
+            "plateau_hi_C", "plateau_width_C", "descr_CTmax_C", "thermal_limit_C",
+            "fit_r2", "pool_binds", "pool_binding_ratio", "all_caps_ratio"]
     with pd.option_context("display.width", 250, "display.max_rows", 200):
         print(L[show].round(4).to_string(index=False))
         print("\ngrowth scale and fitted parameters per rung:")
