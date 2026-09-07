@@ -1,0 +1,11 @@
+pair,n_pairs,median_identity_pct
+scerevisiae__suvarum,5287,84.3
+auris_cladeI__cladeII,5183,99.8
+auris_cladeI__cladeIII,5358,100.0
+auris_cladeI__cladeIV,5153,99.3
+auris_cladeII__cladeIII,5174,99.7
+auris_cladeII__cladeIV,5088,99.3
+auris_cladeIII__cladeIV,5145,99.3
+auris_cladeI__haemulonii,4831,78.7
+auris_cladeI__duobushaemulonii,4786,77.6
+auris_cladeI__parapsilosis,4525,53.7

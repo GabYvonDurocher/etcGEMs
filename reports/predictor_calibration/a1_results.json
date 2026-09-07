@@ -1,0 +1,40 @@
+{
+  "A": {
+    "n_measured": 1949,
+    "n_matched": 1947,
+    "pearson_r": -0.04813241600711131,
+    "spearman_rho": 0.0246302572921234,
+    "rmse_C": 7.505153671148768,
+    "bias_C": 5.4267484523583605,
+    "measured_mean": 49.270812567672465,
+    "predicted_mean": 54.697561020030825
+  },
+  "B": {
+    "n": 1947,
+    "sd_measured": 3.976555894564854,
+    "sd_predicted": 3.1425427131551027,
+    "iqr_measured": 5.299107144160402,
+    "iqr_predicted": 3.1948829999999973,
+    "p5_95_measured": 13.00781371722698,
+    "p5_95_predicted": 9.954367799999993,
+    "compression_sd": 1.2653943820456157,
+    "compression_iqr": 1.6586232247504546,
+    "compression_p5_95": 1.3067443336006723,
+    "regression_slope": -0.060906488809681136,
+    "regression_slope_se": 0.028659093154329313,
+    "regression_intercept": 52.60224895585582
+  },
+  "CD": [
+    {
+      "comparison": "S. cerevisiae - S. uvarum",
+      "kind": "interspecies",
+      "head": "Tm",
+      "n_pairs": 62,
+      "mean_diff_C": -0.14443380645161252,
+      "ci_lo": -0.4249303875579677,
+      "ci_hi": 0.13606277465474265,
+      "sd_of_pair_diffs": 1.1045240238404284,
+      "frac_positive": 0.5
+    }
+  ]
+}

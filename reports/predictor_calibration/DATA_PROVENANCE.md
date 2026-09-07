@@ -11,7 +11,7 @@ _Fetched 2026-09-07 by `reports/predictor_calibration/a1_fetch.py`. Raw files li
 | file | `full_dataset.json.zip -> meltome_scerevisiae.csv` |
 | retrieved from | https://raw.githubusercontent.com/J-SNACKKB/FLIP/main/splits/meltome/full_dataset.json.zip |
 | original source | Jarzab et al. 2020, Nat Methods 17:495-503, doi:10.1038/s41592-020-0801-4; PRIDE PXD011929. Redistributed by the FLIP benchmark (J-SNACKKB/FLIP, splits/meltome), which obtained it from http://meltomeatlas.proteomics.wzw.tum.de:5003 |
-| entries | 221203 total, 2166 S. cerevisiae proteins with a melting point |
+| entries | 221203 total, 1949 S. cerevisiae proteins with a melting point |
 | identifier namespace | UniProt accession (uniprotAccession field) |
 | md5 | `827ac24a2d89defb4b4678654a1f496a` |
 

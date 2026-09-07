@@ -1,0 +1,2 @@
+comparison,kind,head,n_pairs,mean_diff_C,ci_lo,ci_hi,sd_of_pair_diffs,frac_positive
+S. cerevisiae - S. uvarum,interspecies,Tm,62,-0.14443380645161252,-0.4249303875579677,0.13606277465474265,1.1045240238404284,0.5

@@ -81,8 +81,13 @@ def main(argv=None):
         with zipfile.ZipFile(z) as zf:
             zf.extractall(D)
     rows = json.load(open(j))
+    # NB: the JSON encodes some melting points as the literal NaN, which json.load returns
+    # as float('nan') and which `is not None` does not catch. Filter on finite instead.
+    import math
     sub = [r for r in rows if r.get("runName") == MELTOME_RUN
-           and r.get("meltingPoint") is not None]
+           and r.get("meltingPoint") is not None
+           and isinstance(r["meltingPoint"], (int, float))
+           and math.isfinite(r["meltingPoint"])]
     mt = pd.DataFrame([dict(proteinId=r["proteinId"],
                             uniprotAccession=r.get("uniprotAccession"),
                             meltingPoint=r["meltingPoint"]) for r in sub])
