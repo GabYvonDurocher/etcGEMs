@@ -1,0 +1,26 @@
+{
+  "with_allocation_from_data": {
+    "Topt_C": 31.0,
+    "rmax": 0.5429018962625913,
+    "CTmax_C": 46.88149729342933,
+    "CTmin_C": 9.200369270009633,
+    "plateau_1pct_lo": 30.0,
+    "plateau_1pct_hi": 32.0,
+    "plateau_1pct_width": 2.0,
+    "plateau_001pct_width": 0.0,
+    "sectors_enabled": true,
+    "allocation_from_data": "proteomics/tem_proteomic.csv"
+  },
+  "without_allocation_from_data": {
+    "Topt_C": 31.0,
+    "rmax": 0.5462473681187057,
+    "CTmax_C": 46.8799329019473,
+    "CTmin_C": 9.659217384866418,
+    "plateau_1pct_lo": 30.0,
+    "plateau_1pct_hi": 44.0,
+    "plateau_1pct_width": 14.0,
+    "plateau_001pct_width": 13.0,
+    "sectors_enabled": true,
+    "allocation_from_data": null
+  }
+}

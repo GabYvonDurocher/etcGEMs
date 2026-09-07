@@ -1,0 +1,19 @@
+# eci_sectors_no_alloc_data.yaml -- N1 TASK 4 DIAGNOSTIC, for eciML1515 only.
+#
+# THE HYPOTHESIS, from docs/CANDIDA_DISCUSSION_2026-09-07.md section 6b and K2 rung B4: with
+# proteome sectors on and a FIXED (temperature-independent) allocation, the translation cap
+# does not shift the growth optimum, it removes it -- the curve goes flat, T_opt becomes the
+# argmax of a tie, and fit falls. K2 saw exactly that in the four Candida strains, whose
+# sector fractions are literature values identical across species and across temperature.
+#
+# E. coli does not show it. The question this run asks is whether E. coli escapes only
+# because `allocation_from_data` makes ITS cap temperature-dependent -- the measured
+# per-medium f_sector(T) curve from the DeyuWang temperature proteomics.
+#
+# THE ONE CHANGE: allocation_from_data off. Sectors stay on, every other setting is
+# eciML1515's own. If the curve flattens, the flattening is a property of a
+# temperature-independent translation cap and not of the Candida strains.
+#
+# DIAGNOSTIC ONLY. It writes to its own output directory and is not a proposal to change how
+# eciML1515 is run. eciML1515's committed outputs are untouched.
+allocation_from_data: null

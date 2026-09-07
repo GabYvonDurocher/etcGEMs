@@ -209,7 +209,8 @@ class EnzymeConstrainedModel:
                  unfold_means: Optional[Dict[str, float]] = None,
                  ngam_base_scale: float = 1.0,
                  pheno_sigma: float = 10.0, pheno_w: float = 5.0,
-                 topt_tm_min_gap: Optional[float] = None):
+                 topt_tm_min_gap: Optional[float] = None,
+                 rescale_pool_row: bool = False):
         self.model = model
         self.table = EnzymeCostTable(
             [e for e in table.entries if e.rxn_id in model.reactions]
@@ -238,6 +239,11 @@ class EnzymeConstrainedModel:
         # See _build_unfolding for why the unfolding form needs one and the others do not.
         self.topt_tm_min_gap = (None if topt_tm_min_gap is None else float(topt_tm_min_gap))
         self.n_topt_clamped = 0
+        # Pool-row rescaling (N1 TASK 3). DEFAULT OFF; see set_temperature for what it does
+        # and why the default is off.
+        self.rescale_pool_row = bool(rescale_pool_row)
+        self._row_scale = 1.0        # the factor currently applied to the pool row
+        self._row_cond = float("nan")  # its condition number before rescaling, per solve
         self.ngam_temperature = bool(ngam_temperature)
         # Base multiplier on the NGAM(T) amplitude (default 1.0 = E. coli ngam_T baseline).
         # Anchors the maintenance amplitude on an organism-specific measured NGAM (e.g. the
@@ -455,15 +461,53 @@ class EnzymeConstrainedModel:
         return self._base / (act * pert.kcat_scale)
 
     def set_temperature(self, T: float, pert: Optional[Perturbation] = None):
-        """Recompute all pool coefficients for temperature T (K)."""
+        """Recompute all pool coefficients for temperature T (K).
+
+        POOL-ROW RESCALING (``rescale_pool_row``; default False). The pool row is badly
+        scaled at the cold end: the 1e-6 activity floor puts a handful of enzymes many
+        orders of magnitude above the median cost, and at 22 C the coefficients span ~8e8.
+        K2 PART D established what that costs -- GLPK returns a growth rate ~0.5% wrong at
+        the coldest point of the two draft models, confirmed by GLPK's own exact rational
+        solver and by the fact that rescaling makes GLPK agree with Gurobi exactly.
+
+        Dividing every coefficient AND the bound by the same constant is a mathematically
+        identical LP with a well-conditioned row, so switching this on changes no optimum,
+        only the arithmetic used to find it. The constant is the median coefficient at that
+        temperature, recomputed per solve because the conditioning is temperature-dependent.
+
+        IT IS OFF BY DEFAULT, and that is a deliberate tension rather than an oversight. K1's
+        gate reproduces the standalone EXACTLY, including the ~0.4% error the standalone's own
+        solver made at those points; a better-conditioned port does not reproduce that error
+        and so cannot pass the gate there. Fidelity to the standalone and numerical
+        correctness are now different configurations. Which should be canonical is a decision
+        for a human -- see reports/N1_overnight/DECISIONS.md.
+        """
         pert = pert or Perturbation()
         c = self._costs(T, pert)
+        finite = c[np.isfinite(c) & (c > 0)]
+        self._row_cond = (float(finite.max() / finite.min()) if len(finite)
+                          else float("nan"))
+        if self.rescale_pool_row and len(finite):
+            self._row_scale = 1.0 / float(np.median(finite))
+            if self._sectors is not None:
+                raise RuntimeError(
+                    "rescale_pool_row is not supported with proteome sectors wired: the "
+                    "sector layer writes the pool bound and, under the growth law, an extra "
+                    "pool-row coefficient, in places this rescaling does not reach. Run the "
+                    "rescaled comparison without sectors, or extend set_allocation first.")
+        else:
+            self._row_scale = 1.0
+        k = self._row_scale
         pool_coef = {}
         for v_f, v_r, ci in zip(self._fwd, self._rev, c):
-            ci = float(ci)
+            ci = float(ci) * k
             pool_coef[v_f] = ci
             pool_coef[v_r] = ci
         self._pool.set_linear_coefficients(pool_coef)
+        if k != 1.0:
+            # the bound moves with the row; set_budget below may overwrite it, and applies
+            # the same factor
+            self._pool.ub = self._pool.ub * k
         for g, con in self._group_cons.items():
             pos = self._group_pos[g]
             gc = {}
@@ -507,7 +551,9 @@ class EnzymeConstrainedModel:
     def set_budget(self, budget: Optional[float] = None,
                    group_alloc: Optional[Dict[str, float]] = None):
         if budget is not None:
-            self._pool.ub = budget
+            # _row_scale is 1.0 unless pool-row rescaling is on, in which case the bound
+            # carries the same factor as the row (see set_temperature).
+            self._pool.ub = budget * self._row_scale
         if group_alloc:
             for g, mult in group_alloc.items():
                 if g in self._group_cons:

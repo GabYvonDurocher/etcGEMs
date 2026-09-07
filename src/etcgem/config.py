@@ -238,6 +238,7 @@ def build_provider(cfg: Dict[str, Any]):
             pheno_sigma=p.get("pheno_sigma", 10.0),
             pheno_w=p.get("pheno_w", 5.0),
             topt_tm_min_gap=p.get("topt_tm_min_gap_C"),
+            rescale_pool_row=bool(p.get("rescale_pool_row", False)),
         )
         if budget_override is not None and p.get("pool_budget") is not None:
             print(f"[pool] pool budget = {budget_override:.4g} g/gDW "
@@ -266,7 +267,8 @@ def build_provider(cfg: Dict[str, Any]):
     # Opt-in proteome sectors (Basan/Scott). Absent or disabled -> untouched.
     ps = cfg.get("proteome_sectors")
     if ps and ps.get("enabled"):
-        from .sectors import add_proteome_sectors
+        from .sectors import add_proteome_sectors, warn_sector_cap
+        warn_sector_cap(cfg)
         # thread the emergent in-vivo saturation (budget = P_total x f_metab x sigma)
         # so a free sigma_sat perturbation can scale both sector caps by sigma/sigma_nom
         ps.setdefault("sigma_nom", float(p.get("sigma", 0.45)))

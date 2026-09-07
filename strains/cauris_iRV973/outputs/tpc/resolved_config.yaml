@@ -18,12 +18,12 @@ provider:
   biomass_rxn: e_Biomass__cyto
   kcat_csv: dltkcat/kcat_table.csv
   default_kcat: 13.7
-  thermal_model: mmrt
-  enzyme_params: null
+  thermal_model: phenomenological
+  enzyme_params: thermal/enzyme_thermal_params.csv
   enzyme_params_key: rxn_id
   pheno_sigma: 10.231397335263933
   pheno_w: 8.788454874341648
-  pool_budget: 1.0e6
+  pool_budget: 0.3569742369684501
   ngam_reaction: ATP_maintenance_NGAM__cyto
   ngam_base_scale: 0.831733
   dcp_prior_kJ: -4.0
@@ -54,5 +54,4 @@ source:
   medium_source_path: gem/inputs/medium_iRV973_auris.csv
   converter: tools/reconstruction/to_strain_inputs.py --species auris
 _strain: cauris_iRV973
-_experiment: candida_pool_unconstrained
 closed_free_o2_sinks: []

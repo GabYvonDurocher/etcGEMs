@@ -1,0 +1,13 @@
+present_in,absent_from,absent_e10,absent_e10_in_model,absent_e3,absent_e3_in_model
+C. auris (clade I),C. haemulonii,209,4,172,4
+C. auris (clade I),C. duobushaemulonii,244,7,205,7
+C. auris (clade I),C. parapsilosis,594,10,462,9
+C. haemulonii,C. auris (clade I),240,1,189,1
+C. haemulonii,C. duobushaemulonii,206,2,159,1
+C. haemulonii,C. parapsilosis,631,11,511,11
+C. duobushaemulonii,C. auris (clade I),208,1,171,1
+C. duobushaemulonii,C. haemulonii,164,0,122,0
+C. duobushaemulonii,C. parapsilosis,601,10,468,9
+C. parapsilosis,C. auris (clade I),748,13,602,12
+C. parapsilosis,C. haemulonii,784,12,620,10
+C. parapsilosis,C. duobushaemulonii,816,15,647,15

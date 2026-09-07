@@ -371,6 +371,8 @@ def run(experiment: str, out_root: str = "outputs", verbose: bool = True,
         s_out = os.path.join(strain_dir(s), "outputs", tag)
         os.makedirs(s_out, exist_ok=True)
         per.to_csv(os.path.join(s_out, "tpc.csv"), index=False)
+        from .sectors import record_flatness
+        record_flatness(cfgs[s], temps, g, s_out, label=f"{experiment}:{s}")
         dump_resolved(cfgs[s], s_out)
         i_peak = int(np.argmax(g))
         peak_T = float(temps[i_peak])

@@ -1,0 +1,17 @@
+candidate,searched,any_present,best_pident,any_in_model
+alternative oxidase (AOX),C. auris (clade I),True,100.0,False
+alternative oxidase (AOX),C. duobushaemulonii,True,100.0,False
+alternative oxidase (AOX),C. haemulonii,True,86.4,False
+alternative oxidase (AOX),C. parapsilosis,True,100.0,False
+glutaredoxin (GRX5 family),C. auris (clade I),True,100.0,False
+glutaredoxin (GRX5 family),C. duobushaemulonii,True,100.0,False
+glutaredoxin (GRX5 family),C. haemulonii,True,100.0,False
+glutaredoxin (GRX5 family),C. parapsilosis,True,100.0,False
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),True,100.0,False
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,True,100.0,False
+iron uptake: ferric reductase (FRE-like),C. haemulonii,True,100.0,False
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,True,100.0,True
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. auris (clade I),True,100.0,True
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. duobushaemulonii,True,100.0,True
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. haemulonii,True,100.0,True
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. parapsilosis,True,100.0,True

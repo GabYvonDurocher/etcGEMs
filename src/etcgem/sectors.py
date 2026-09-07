@@ -133,3 +133,83 @@ def add_proteome_sectors(pm, cfg: dict) -> dict:
           f"{translation_coeff:.4g} (mu*={mu:.4g})  "
           f"atpm={atpm_rxn.id if atpm_rxn else None}")
     return ec._sectors
+
+
+# ---------------------------------------------------------------------------
+# Guard: a temperature-INDEPENDENT translation cap flattens the curve
+# ---------------------------------------------------------------------------
+def sector_cap_risk(cfg) -> bool:
+    """Is this configuration at risk of a flat-topped TPC?
+
+    The biosynthesis/translation cap is linear in growth rate and, unless the sector
+    fractions themselves vary with temperature, carries no temperature dependence at all.
+    Once it binds it therefore does not SHIFT the optimum, it REMOVES it: growth is pinned at
+    the cap over whatever temperature range the metabolic pool can supply it, the top of the
+    curve goes flat, and T_opt becomes the argmax of a tie.
+
+    Measured, not assumed. K2 rung B4 found plateaus of 12.5-20.5 C in all four Candida
+    strains. N1 TASK 4 then tested whether E. coli escapes only because
+    ``allocation_from_data`` makes ITS cap temperature-dependent: with the measured
+    per-temperature sector fractions eciML1515's plateau is 2.0 C (0.0 C at 0.01% of the
+    maximum), and with them switched off and nothing else changed it is 14.0 C. So the
+    flattening is a property of a temperature-independent cap and not of the Candida strains.
+
+    This function only reports the risk. Making the cap temperature-dependent is a modelling
+    decision with literature implications for every strain and is deliberately NOT taken
+    here; see reports/N1_overnight/TASK4_sector_cap.md."""
+    ps = cfg.get("proteome_sectors") or {}
+    return bool(ps.get("enabled")) and not cfg.get("allocation_from_data")
+
+
+def plateau_width(temps, growth, frac: float = 0.01):
+    """(lo, hi, width) of the temperature region within ``frac`` of the maximum."""
+    import numpy as np
+    t = np.asarray(temps, float)
+    g = np.asarray(growth, float)
+    if not len(g) or not np.isfinite(g).any() or g.max() <= 0:
+        return float("nan"), float("nan"), float("nan")
+    sel = t[g >= g.max() * (1.0 - frac)]
+    return float(sel.min()), float(sel.max()), float(sel.max() - sel.min())
+
+
+def record_flatness(cfg, temps, growth, out_dir, label=""):
+    """Write sector_flatness.json into a run's output folder when the risk applies.
+
+    A NEW file, never an edit to an existing one, so no committed output changes. Written
+    only when sectors are enabled without temperature-dependent allocation -- so a run that
+    is at risk of a flat top cannot pass unnoticed."""
+    import json
+    import os
+    if not sector_cap_risk(cfg):
+        return None
+    lo1, hi1, w1 = plateau_width(temps, growth, 0.01)
+    _lo, _hi, w0 = plateau_width(temps, growth, 1e-4)
+    rec = dict(label=label, sectors_enabled=True, allocation_from_data=None,
+               plateau_1pct_lo_C=lo1, plateau_1pct_hi_C=hi1, plateau_1pct_width_C=w1,
+               plateau_0p01pct_width_C=w0,
+               grid_span_C=(float(max(temps)) - float(min(temps))) if len(temps) else None,
+               note="proteome sectors are on and the sector fractions do not vary with "
+                    "temperature, so the biosynthesis/translation cap is temperature-"
+                    "independent. Where it binds it flattens the top of the curve and T_opt "
+                    "becomes the argmax of a tie. See reports/N1_overnight/TASK4_sector_cap.md")
+    os.makedirs(out_dir, exist_ok=True)
+    with open(os.path.join(out_dir, "sector_flatness.json"), "w") as fh:
+        json.dump(rec, fh, indent=2)
+    return rec
+
+
+def warn_sector_cap(cfg):
+    """Print the warning at build time. Returns True if it fired."""
+    if not sector_cap_risk(cfg):
+        return False
+    print("[sectors] WARNING: proteome sectors are enabled but the sector fractions do not "
+          "vary with temperature (no allocation_from_data).")
+    print("[sectors]          The biosynthesis/translation cap is then temperature-"
+          "INDEPENDENT: where it binds it does not shift the growth optimum, it removes it, "
+          "and the top of the TPC goes flat.")
+    print("[sectors]          Measured: eciML1515's plateau is 2.0 C with measured "
+          "temperature-dependent allocation and 14.0 C without it; the K2 Candida rung B4 "
+          "plateaus are 12.5-20.5 C.")
+    print("[sectors]          Any T_opt from this run is the argmax of a tie. The run's "
+          "flatness is recorded in sector_flatness.json.")
+    return True

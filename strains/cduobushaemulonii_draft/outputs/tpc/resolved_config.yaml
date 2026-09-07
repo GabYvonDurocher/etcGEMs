@@ -6,31 +6,31 @@ temperature_grid:
   stop_C: 44
   n: 12
 organism:
-  name: Candidozyma auris (Candida auris), clade I (B8441)
+  name: Candidozyma duobushaemulonii (Candida duobushaemulonii)
   metabolism: aerobic yeast (respiro-fermentative) on YMS
-  measured_Topt_C: 36
+  measured_Topt_C: 32
   Trange_C:
   - 22
   - 44
 provider:
   type: smoment_gem
-  model_file: auris_iRV973_rekeyed.xml
+  model_file: duobushaemulonii_draft.xml
   biomass_rxn: e_Biomass__cyto
   kcat_csv: dltkcat/kcat_table.csv
   default_kcat: 13.7
-  thermal_model: mmrt
-  enzyme_params: null
+  thermal_model: phenomenological
+  enzyme_params: thermal/enzyme_thermal_params.csv
   enzyme_params_key: rxn_id
   pheno_sigma: 10.231397335263933
   pheno_w: 8.788454874341648
-  pool_budget: 1.0e6
+  pool_budget: 0.3569742369684501
   ngam_reaction: ATP_maintenance_NGAM__cyto
   ngam_base_scale: 0.831733
   dcp_prior_kJ: -4.0
   pin_at_ub:
   - ATP_maintenance_NGAM__cyto
   - ATP_Maintenance__cyto
-  model_path: /Users/g.yvon-durocher/Library/CloudStorage/OneDrive-UniversityofExeter/Documents/work/MICROADAPT/etcGEMs/strains/cauris_iRV973/model/auris_iRV973_rekeyed.xml
+  model_path: /Users/g.yvon-durocher/Library/CloudStorage/OneDrive-UniversityofExeter/Documents/work/MICROADAPT/etcGEMs/strains/cduobushaemulonii_draft/model/duobushaemulonii_draft.xml
 solver: gurobi
 T0_C: 30
 proteome_sectors:
@@ -45,14 +45,13 @@ measured:
   source_script: gem/17_build_measured_tpc.py
 source:
   candidas_repo_commit: f123bc7489cc4f8a1d0e198a93725034c9f347e6
-  model_source_path: gem/models/auris_iRV973_rekeyed.xml
-  kcat_source_path: gem/tables/kcat_reaction_auris.csv
-  mw_source_path: gem/tables/enzyme_mw_auris.csv
+  model_source_path: gem/models/duobushaemulonii_draft.xml
+  kcat_source_path: gem/tables/kcat_reaction_duobushaemulonii.csv
+  mw_source_path: gem/tables/enzyme_mw_duobushaemulonii.csv
   thermal_source_paths:
   - gem/tables/thermal_topt.csv
   - gem/tables/thermal_tm.csv
   medium_source_path: gem/inputs/medium_iRV973_auris.csv
-  converter: tools/reconstruction/to_strain_inputs.py --species auris
-_strain: cauris_iRV973
-_experiment: candida_pool_unconstrained
+  converter: tools/reconstruction/to_strain_inputs.py --species duobushaemulonii
+_strain: cduobushaemulonii_draft
 closed_free_o2_sinks: []

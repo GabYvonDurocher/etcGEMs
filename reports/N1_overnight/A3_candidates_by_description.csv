@@ -1,0 +1,25 @@
+candidate,species,n_by_description,n_by_description_in_model,genes
+alternative oxidase (AOX),C. auris (clade I),1,0,XP_085454255.1
+alternative oxidase (AOX),C. haemulonii,0,0,
+alternative oxidase (AOX),C. duobushaemulonii,1,0,XP_025338419.1
+alternative oxidase (AOX),C. parapsilosis,2,0,XP_036668250.1;XP_036668251.1
+glutaredoxin (GRX5 family),C. auris (clade I),4,0,XP_085451995.1;XP_085452177.1;XP_085453897.1;XP_085454274.1
+glutaredoxin (GRX5 family),C. haemulonii,3,0,XP_025341096.1;XP_025342742.1;XP_025343739.1
+glutaredoxin (GRX5 family),C. duobushaemulonii,3,0,XP_025336058.1;XP_025337240.1;XP_025338437.1
+glutaredoxin (GRX5 family),C. parapsilosis,4,0,XP_036663723.1;XP_036664315.1;XP_036666401.1;XP_036667368.1
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. auris (clade I),2,1,XP_085450767.1;XP_085453338.1
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. haemulonii,2,1,XP_025340021.1;XP_025341880.1
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. duobushaemulonii,2,1,XP_025335224.1;XP_025339253.1
+iron uptake: ferroxidase / multicopper oxidase (FET3-like),C. parapsilosis,2,0,XP_036663127.1;XP_036664420.1
+iron uptake: ferric reductase (FRE-like),C. auris (clade I),8,0,XP_085451468.1;XP_085451639.1;XP_085452765.1;XP_085452849.1;XP_085453244.1;XP_085453595.1;XP_085453882.1;XP_085455715.1
+iron uptake: ferric reductase (FRE-like),C. haemulonii,6,0,XP_025339647.1;XP_025342000.1;XP_025343028.1;XP_025343267.1;XP_025344296.1;XP_025344423.1
+iron uptake: ferric reductase (FRE-like),C. duobushaemulonii,8,0,XP_025335271.1;XP_025335341.1;XP_025335668.1;XP_025336627.1;XP_025336900.1;XP_025337752.1;XP_025337889.1;XP_025338073.1
+iron uptake: ferric reductase (FRE-like),C. parapsilosis,7,0,XP_036664251.1;XP_036664252.1;XP_036665108.1;XP_036665434.1;XP_036665435.1;XP_036666533.1;XP_036666534.1
+iron uptake: high-affinity iron permease (FTR1-like),C. auris (clade I),0,0,
+iron uptake: high-affinity iron permease (FTR1-like),C. haemulonii,0,0,
+iron uptake: high-affinity iron permease (FTR1-like),C. duobushaemulonii,0,0,
+iron uptake: high-affinity iron permease (FTR1-like),C. parapsilosis,0,0,
+iron uptake: siderophore transporter (SIT1-like),C. auris (clade I),0,0,
+iron uptake: siderophore transporter (SIT1-like),C. haemulonii,0,0,
+iron uptake: siderophore transporter (SIT1-like),C. duobushaemulonii,0,0,
+iron uptake: siderophore transporter (SIT1-like),C. parapsilosis,0,0,
