@@ -1,0 +1,6 @@
+scenario,required_dTm_C,available_dTm_C,fold_gap,note
+"standalone (phenomenological form, deduplicated pairs)",32.54,0.411,79.17274939172749,as published: gem/FIG4_LOCKED.md
+"K2-corrected requirement, same available difference",13.77,0.411,33.503649635036496,"K2 rung B4: the core's unfolding form needs 13.8 C, not 32.5"
+"K2-corrected requirement, A1 proteome-wide available difference",13.77,0.15099715835230798,91.19376914280537,the same predicted quantity measured over all RBH orthologs rather than the model-enzyme subset
+"K2-corrected requirement, A1 compression-corrected difference",13.77,2.558639107510327,5.38176719005864,"predicted difference scaled by 16.9x, the factor by which the predictor under-states the MEASURED S. cerevisiae/S. uvarum difference"
+"K2-corrected requirement, vs the MEASURED yeast benchmark",13.77,1.6,8.60625,"Walunjkar et al. 2025: 1.6 C over 827 pairs, measured, for an 8 C difference in growth limit"

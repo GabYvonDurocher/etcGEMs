@@ -29,12 +29,480 @@
       "comparison": "S. cerevisiae - S. uvarum",
       "kind": "interspecies",
       "head": "Tm",
-      "n_pairs": 62,
-      "mean_diff_C": -0.14443380645161252,
-      "ci_lo": -0.4249303875579677,
-      "ci_hi": 0.13606277465474265,
-      "sd_of_pair_diffs": 1.1045240238404284,
-      "frac_positive": 0.5
+      "n_pairs": 5287,
+      "mean_diff_C": 0.09442341933043312,
+      "ci_lo": 0.054714189463770706,
+      "ci_hi": 0.13413264919709553,
+      "sd_of_pair_diffs": 1.4728162752822345,
+      "frac_positive": 0.5383014942311329
+    },
+    {
+      "comparison": "C. auris clade I - clade II",
+      "kind": "same-species (noise floor)",
+      "head": "Tm",
+      "n_pairs": 5183,
+      "mean_diff_C": -0.0361101562801467,
+      "ci_lo": -0.055508397116148425,
+      "ci_hi": -0.016711915444144982,
+      "sd_of_pair_diffs": 0.7123663726156921,
+      "frac_positive": 0.4057495658884816,
+      "n_identical_seq_pairs": 1683,
+      "mean_diff_identical_seqs": -0.006386543077837156
+    },
+    {
+      "comparison": "C. auris clade I - clade III",
+      "kind": "same-species (noise floor)",
+      "head": "Tm",
+      "n_pairs": 5358,
+      "mean_diff_C": -0.008496167786487473,
+      "ci_lo": -0.028225066406329165,
+      "ci_hi": 0.01123273083335422,
+      "sd_of_pair_diffs": 0.7366445314956298,
+      "frac_positive": 0.3896976483762598,
+      "n_identical_seq_pairs": 2635,
+      "mean_diff_identical_seqs": -0.005282115370018929
+    },
+    {
+      "comparison": "C. auris clade I - clade IV",
+      "kind": "same-species (noise floor)",
+      "head": "Tm",
+      "n_pairs": 5153,
+      "mean_diff_C": -0.0782973660003882,
+      "ci_lo": -0.10686447079363227,
+      "ci_hi": -0.04973026120714412,
+      "sd_of_pair_diffs": 1.0460348823889125,
+      "frac_positive": 0.4513875412381137,
+      "n_identical_seq_pairs": 905,
+      "mean_diff_identical_seqs": -0.0030196607734806324
+    },
+    {
+      "comparison": "C. auris clade II - clade III",
+      "kind": "same-species (noise floor)",
+      "head": "Tm",
+      "n_pairs": 5174,
+      "mean_diff_C": 0.023429252609199917,
+      "ci_lo": 0.002337937250425616,
+      "ci_hi": 0.04452056796797422,
+      "sd_of_pair_diffs": 0.773868483465139,
+      "frac_positive": 0.43409354464630845,
+      "n_identical_seq_pairs": 1636,
+      "mean_diff_identical_seqs": -0.01824365342298287
+    },
+    {
+      "comparison": "C. auris clade II - clade IV",
+      "kind": "same-species (noise floor)",
+      "head": "Tm",
+      "n_pairs": 5088,
+      "mean_diff_C": -0.04190254186320755,
+      "ci_lo": -0.07141239740933364,
+      "ci_hi": -0.012392686317081451,
+      "sd_of_pair_diffs": 1.0737154418910608,
+      "frac_positive": 0.47562893081761004,
+      "n_identical_seq_pairs": 796,
+      "mean_diff_identical_seqs": -0.019123778894472403
+    },
+    {
+      "comparison": "C. auris clade III - clade IV",
+      "kind": "same-species (noise floor)",
+      "head": "Tm",
+      "n_pairs": 5145,
+      "mean_diff_C": -0.07001302196307103,
+      "ci_lo": -0.09884103096783882,
+      "ci_hi": -0.04118501295830325,
+      "sd_of_pair_diffs": 1.0547682489867642,
+      "frac_positive": 0.46355685131195334,
+      "n_identical_seq_pairs": 881,
+      "mean_diff_identical_seqs": -0.018364671963677713
+    },
+    {
+      "comparison": "C. auris - C. haemulonii",
+      "kind": "interspecies",
+      "head": "Tm",
+      "n_pairs": 4831,
+      "mean_diff_C": 0.15099715835230798,
+      "ci_lo": 0.1117854562321475,
+      "ci_hi": 0.19020886047246846,
+      "sd_of_pair_diffs": 1.390199980611791,
+      "frac_positive": 0.5487476712895881
+    },
+    {
+      "comparison": "C. auris - C. duobushaemulonii",
+      "kind": "interspecies",
+      "head": "Tm",
+      "n_pairs": 4786,
+      "mean_diff_C": 0.08225928771416627,
+      "ci_lo": 0.04152759236042182,
+      "ci_hi": 0.12299098306791072,
+      "sd_of_pair_diffs": 1.4373445112068521,
+      "frac_positive": 0.5351023819473464
+    },
+    {
+      "comparison": "C. auris - C. parapsilosis",
+      "kind": "interspecies",
+      "head": "Tm",
+      "n_pairs": 4525,
+      "mean_diff_C": 0.29960094099447515,
+      "ci_lo": 0.24219919531667006,
+      "ci_hi": 0.35700268667228024,
+      "sd_of_pair_diffs": 1.9695639813749666,
+      "frac_positive": 0.589171270718232
+    },
+    {
+      "comparison": "S. cerevisiae - S. uvarum",
+      "kind": "interspecies",
+      "head": "Topt",
+      "n_pairs": 5287,
+      "mean_diff_C": 0.1531336716474371,
+      "ci_lo": 0.065722908064381,
+      "ci_hi": 0.2405444352304932,
+      "sd_of_pair_diffs": 3.24206728945039,
+      "frac_positive": 0.5328163419708719
+    },
+    {
+      "comparison": "C. auris clade I - clade II",
+      "kind": "same-species (noise floor)",
+      "head": "Topt",
+      "n_pairs": 5183,
+      "mean_diff_C": -0.03054757457071188,
+      "ci_lo": -0.08644459950198792,
+      "ci_hi": 0.025349450360564157,
+      "sd_of_pair_diffs": 2.0527202042156607,
+      "frac_positive": 0.4192552575728343,
+      "n_identical_seq_pairs": 1683,
+      "mean_diff_identical_seqs": 0.0012740279263220593
+    },
+    {
+      "comparison": "C. auris clade I - clade III",
+      "kind": "same-species (noise floor)",
+      "head": "Topt",
+      "n_pairs": 5358,
+      "mean_diff_C": 0.011716534714445677,
+      "ci_lo": -0.04406718209910361,
+      "ci_hi": 0.06750025152799496,
+      "sd_of_pair_diffs": 2.0828719701501326,
+      "frac_positive": 0.3882045539380366,
+      "n_identical_seq_pairs": 2635,
+      "mean_diff_identical_seqs": 0.056827120303605316
+    },
+    {
+      "comparison": "C. auris clade I - clade IV",
+      "kind": "same-species (noise floor)",
+      "head": "Topt",
+      "n_pairs": 5153,
+      "mean_diff_C": -0.005807766543760813,
+      "ci_lo": -0.08120047982530607,
+      "ci_hi": 0.06958494673778445,
+      "sd_of_pair_diffs": 2.7606370523446553,
+      "frac_positive": 0.4758393169027751,
+      "n_identical_seq_pairs": 905,
+      "mean_diff_identical_seqs": 0.04124056906077354
+    },
+    {
+      "comparison": "C. auris clade II - clade III",
+      "kind": "same-species (noise floor)",
+      "head": "Topt",
+      "n_pairs": 5174,
+      "mean_diff_C": 0.02942312968689592,
+      "ci_lo": -0.029189830058245318,
+      "ci_hi": 0.08803608943203717,
+      "sd_of_pair_diffs": 2.150587646991196,
+      "frac_positive": 0.4223038268264399,
+      "n_identical_seq_pairs": 1636,
+      "mean_diff_identical_seqs": 0.017339916259168645
+    },
+    {
+      "comparison": "C. auris clade II - clade IV",
+      "kind": "same-species (noise floor)",
+      "head": "Topt",
+      "n_pairs": 5088,
+      "mean_diff_C": 0.02288627613993713,
+      "ci_lo": -0.05423434950331106,
+      "ci_hi": 0.10000690178318532,
+      "sd_of_pair_diffs": 2.8060322596979166,
+      "frac_positive": 0.483687106918239,
+      "n_identical_seq_pairs": 796,
+      "mean_diff_identical_seqs": 5.197864321614114e-05
+    },
+    {
+      "comparison": "C. auris clade III - clade IV",
+      "kind": "same-species (noise floor)",
+      "head": "Topt",
+      "n_pairs": 5145,
+      "mean_diff_C": -0.019373869387754986,
+      "ci_lo": -0.09363693180476737,
+      "ci_hi": 0.054889193029257405,
+      "sd_of_pair_diffs": 2.717160255397176,
+      "frac_positive": 0.47619047619047616,
+      "n_identical_seq_pairs": 881,
+      "mean_diff_identical_seqs": -0.10806370942111237
+    },
+    {
+      "comparison": "C. auris - C. haemulonii",
+      "kind": "interspecies",
+      "head": "Topt",
+      "n_pairs": 4831,
+      "mean_diff_C": 0.04001933843924658,
+      "ci_lo": -0.06681344525982025,
+      "ci_hi": 0.1468521221383134,
+      "sd_of_pair_diffs": 3.7876176191491098,
+      "frac_positive": 0.49927551231629064
+    },
+    {
+      "comparison": "C. auris - C. duobushaemulonii",
+      "kind": "interspecies",
+      "head": "Topt",
+      "n_pairs": 4786,
+      "mean_diff_C": 0.007703526117843805,
+      "ci_lo": -0.10204540392077396,
+      "ci_hi": 0.11745245615646158,
+      "sd_of_pair_diffs": 3.87283222148843,
+      "frac_positive": 0.4991642290012537
+    },
+    {
+      "comparison": "C. auris - C. parapsilosis",
+      "kind": "interspecies",
+      "head": "Topt",
+      "n_pairs": 4525,
+      "mean_diff_C": 0.44588651204419893,
+      "ci_lo": 0.30387924269641897,
+      "ci_hi": 0.5878937813919789,
+      "sd_of_pair_diffs": 4.872541758062703,
+      "frac_positive": 0.5328176795580111
     }
-  ]
+  ],
+  "E_spreads": [
+    {
+      "head": "Tm",
+      "proteome": "S. cerevisiae",
+      "n": 6067,
+      "mean": 54.26353637234218,
+      "sd": 2.860205238018279,
+      "iqr": 2.888750999999999,
+      "p5_95": 8.800364899999998
+    },
+    {
+      "head": "Tm",
+      "proteome": "S. uvarum",
+      "n": 5489,
+      "mean": 54.087414009837865,
+      "sd": 2.7669370193031666,
+      "iqr": 2.6638379999999984,
+      "p5_95": 8.625695199999988
+    },
+    {
+      "head": "Tm",
+      "proteome": "C. auris clade I",
+      "n": 5424,
+      "mean": 54.02330688053097,
+      "sd": 2.6062690105175426,
+      "iqr": 2.556580249999996,
+      "p5_95": 7.620919649999998
+    },
+    {
+      "head": "Tm",
+      "proteome": "C. auris clade II",
+      "n": 5327,
+      "mean": 54.03576286596583,
+      "sd": 2.5818928647616057,
+      "iqr": 2.549856500000004,
+      "p5_95": 7.699635299999997
+    },
+    {
+      "head": "Tm",
+      "proteome": "C. auris clade III",
+      "n": 5521,
+      "mean": 54.04463288353559,
+      "sd": 2.6107421666041373,
+      "iqr": 2.5581960000000024,
+      "p5_95": 7.823580999999997
+    },
+    {
+      "head": "Tm",
+      "proteome": "C. auris clade IV",
+      "n": 5506,
+      "mean": 54.127869803850345,
+      "sd": 2.6553408760436295,
+      "iqr": 2.5761334999999974,
+      "p5_95": 7.752108749999998
+    },
+    {
+      "head": "Tm",
+      "proteome": "C. haemulonii",
+      "n": 5249,
+      "mean": 53.79565852486187,
+      "sd": 2.4660198452237942,
+      "iqr": 2.4225649999999987,
+      "p5_95": 7.096741599999987
+    },
+    {
+      "head": "Tm",
+      "proteome": "C. duobushaemulonii",
+      "n": 5173,
+      "mean": 53.86455114710999,
+      "sd": 2.4454625277158306,
+      "iqr": 2.434080999999999,
+      "p5_95": 7.328797599999994
+    },
+    {
+      "head": "Tm",
+      "proteome": "C. parapsilosis",
+      "n": 5830,
+      "mean": 53.83108087221269,
+      "sd": 2.7837645365818324,
+      "iqr": 2.780463250000004,
+      "p5_95": 8.363665599999997
+    },
+    {
+      "head": "Topt",
+      "proteome": "S. cerevisiae",
+      "n": 6067,
+      "mean": 33.365845267183126,
+      "sd": 6.870112807890598,
+      "iqr": 7.109031000000002,
+      "p5_95": 21.201023999999997
+    },
+    {
+      "head": "Topt",
+      "proteome": "S. uvarum",
+      "n": 5489,
+      "mean": 33.395061218072506,
+      "sd": 6.791138242472288,
+      "iqr": 7.090225000000004,
+      "p5_95": 21.6099056
+    },
+    {
+      "head": "Topt",
+      "proteome": "C. auris clade I",
+      "n": 5424,
+      "mean": 34.0764186314528,
+      "sd": 7.2579200809687405,
+      "iqr": 7.363456000000003,
+      "p5_95": 22.865418949999988
+    },
+    {
+      "head": "Topt",
+      "proteome": "C. auris clade II",
+      "n": 5327,
+      "mean": 34.11682184512859,
+      "sd": 7.261433405739118,
+      "iqr": 7.404267999999995,
+      "p5_95": 22.917823399999993
+    },
+    {
+      "head": "Topt",
+      "proteome": "C. auris clade III",
+      "n": 5521,
+      "mean": 34.076179759101606,
+      "sd": 7.245048841090002,
+      "iqr": 7.501593999999997,
+      "p5_95": 22.360809000000003
+    },
+    {
+      "head": "Topt",
+      "proteome": "C. auris clade IV",
+      "n": 5506,
+      "mean": 34.07977397457319,
+      "sd": 7.2124339393784425,
+      "iqr": 7.455985000000002,
+      "p5_95": 22.51457375
+    },
+    {
+      "head": "Topt",
+      "proteome": "C. haemulonii",
+      "n": 5249,
+      "mean": 33.991909927986285,
+      "sd": 7.343744796294018,
+      "iqr": 7.429935,
+      "p5_95": 22.4893912
+    },
+    {
+      "head": "Topt",
+      "proteome": "C. duobushaemulonii",
+      "n": 5173,
+      "mean": 34.0219425144017,
+      "sd": 7.215079238013093,
+      "iqr": 7.581500999999999,
+      "p5_95": 22.843042199999996
+    },
+    {
+      "head": "Topt",
+      "proteome": "C. parapsilosis",
+      "n": 5830,
+      "mean": 33.687141985591765,
+      "sd": 7.284557865149609,
+      "iqr": 7.480576249999995,
+      "p5_95": 23.167495249999998
+    }
+  ],
+  "F": {
+    "predicted_scer_suva_dTm": 0.09442341933043312,
+    "predicted_scer_suva_ci": [
+      0.054714189463770706,
+      0.13413264919709553
+    ],
+    "measured_scer_suva_dTm": 1.6,
+    "correction_factor": 16.944948735660883,
+    "correction_factor_ci": [
+      11.928490263760825,
+      29.242871285874546
+    ],
+    "predicted_candida_proteomewide_dTm": 0.15099715835230798,
+    "predicted_candida_ci": [
+      0.1117854562321475,
+      0.19020886047246846
+    ],
+    "corrected_candida_dTm": 2.558639107510327,
+    "corrected_candida_ci": [
+      1.3334317262952333,
+      5.562253224229266
+    ],
+    "fold_gap_corrected": 5.38176719005864,
+    "fold_gap_corrected_ci": [
+      2.4756154466354845,
+      10.326737941250396
+    ],
+    "noise_floor_mean_abs": 0.04304141775041681,
+    "noise_floor_max_abs": 0.0782973660003882,
+    "noise_floor_n_significant": 5,
+    "noise_floor_n_pairs": 6,
+    "standalone_dTm_as_multiple_of_floor": 9.548941960584463,
+    "proteomewide_dTm_as_multiple_of_floor": 3.5081827282709743,
+    "table": [
+      {
+        "scenario": "standalone (phenomenological form, deduplicated pairs)",
+        "required_dTm_C": 32.54,
+        "available_dTm_C": 0.411,
+        "fold_gap": 79.17274939172749,
+        "note": "as published: gem/FIG4_LOCKED.md"
+      },
+      {
+        "scenario": "K2-corrected requirement, same available difference",
+        "required_dTm_C": 13.77,
+        "available_dTm_C": 0.411,
+        "fold_gap": 33.503649635036496,
+        "note": "K2 rung B4: the core's unfolding form needs 13.8 C, not 32.5"
+      },
+      {
+        "scenario": "K2-corrected requirement, A1 proteome-wide available difference",
+        "required_dTm_C": 13.77,
+        "available_dTm_C": 0.15099715835230798,
+        "fold_gap": 91.19376914280537,
+        "note": "the same predicted quantity measured over all RBH orthologs rather than the model-enzyme subset"
+      },
+      {
+        "scenario": "K2-corrected requirement, A1 compression-corrected difference",
+        "required_dTm_C": 13.77,
+        "available_dTm_C": 2.558639107510327,
+        "fold_gap": 5.38176719005864,
+        "note": "predicted difference scaled by 16.9x, the factor by which the predictor under-states the MEASURED S. cerevisiae/S. uvarum difference"
+      },
+      {
+        "scenario": "K2-corrected requirement, vs the MEASURED yeast benchmark",
+        "required_dTm_C": 13.77,
+        "available_dTm_C": 1.6,
+        "fold_gap": 8.60625,
+        "note": "Walunjkar et al. 2025: 1.6 C over 827 pairs, measured, for an 8 C difference in growth limit"
+      }
+    ]
+  }
 }
