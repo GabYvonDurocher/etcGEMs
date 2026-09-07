@@ -600,7 +600,8 @@ def from_gem_smoment(model_path: str, kcat_csv: str, T0: float = 310.15,
                      pin_at_ub: Optional[List[str]] = None,
                      pheno_sigma: float = 10.0,
                      pheno_w: float = 5.0,
-                     topt_tm_min_gap: Optional[float] = None) -> ProvidedModel:
+                     topt_tm_min_gap: Optional[float] = None,
+                     rescale_pool_row: bool = False) -> ProvidedModel:
     """Attach a temperature-INDEPENDENT sMOMENT total-protein pool to a plain GEM.
 
     This is the methanogen route: the base GEM (iMR539_curated) carries no GECKO
@@ -627,7 +628,10 @@ def from_gem_smoment(model_path: str, kcat_csv: str, T0: float = 310.15,
     ``pheno_sigma``/``pheno_w`` are the two global shape parameters of the
     ``phenomenological`` thermal form; they are inert under ``mmrt``/``unfolding``.
     ``topt_tm_min_gap`` (K) is the unfolding form's admissibility floor on Tm - Topt; see
-    ``EnzymeConstrainedModel._build_unfolding``. None (default) leaves it off."""
+    ``EnzymeConstrainedModel._build_unfolding``. None (default) leaves it off.
+    ``rescale_pool_row`` divides the pool row and its bound by the same constant -- a
+    mathematically identical, better-conditioned LP. Default False; see
+    ``EnzymeConstrainedModel.set_temperature`` for why the default is off."""
     model = _load_any(model_path)
     if biomass_rxn is None:
         biomass_rxn = _find_biomass(model)
@@ -696,7 +700,8 @@ def from_gem_smoment(model_path: str, kcat_csv: str, T0: float = 310.15,
                                 ngam_base_scale=ngam_base_scale,
                                 unfold_means={"dCpt": dcp_prior_kJ * 1000.0},
                                 pheno_sigma=pheno_sigma, pheno_w=pheno_w,
-                                topt_tm_min_gap=topt_tm_min_gap)
+                                topt_tm_min_gap=topt_tm_min_gap,
+                                rescale_pool_row=rescale_pool_row)
     ec.model.objective = biomass_rxn
     return ProvidedModel(ec=ec, T0=T0, biomass_rxn=biomass_rxn,
                          name=f"smoment_gem:{model.id}", closed_free_o2_sinks=closed_sinks)

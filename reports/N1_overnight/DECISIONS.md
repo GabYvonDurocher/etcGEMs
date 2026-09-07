@@ -115,3 +115,63 @@ is ever re-run.
 
 **Reversible:** yes. **Review:** nobody, unless the standalone is re-run — then someone
 should look at the drift report before `--refresh-fixture`.
+
+## D7 — TASK 3: rescaling refuses to run with proteome sectors, rather than half-working
+
+**Decided.** `rescale_pool_row` raises a `RuntimeError` when `_sectors` is wired.
+
+**Why.** The sector layer writes the pool bound in `set_allocation` and, under the growth
+law, adds a `v_bio` coefficient to the pool row. Neither is reached by a rescaling applied in
+`set_temperature`/`set_budget`, so with sectors on the row and its bound would be scaled by
+different factors — a different LP, silently. An explicit refusal is a smaller problem than a
+wrong answer.
+
+**Alternatives.** Extend `set_allocation` to carry the factor — more code, and it would touch
+the path eciML1515 and mmaripaludis run on, which is exactly what this task must not do.
+
+**Reversible:** yes. **Review:** whoever wants the rescaling on a sector-enabled strain; the
+extension is small but must not be done without re-verifying the other strains.
+
+## D8 — TASK 3: default OFF, and the tension is recorded rather than resolved  *(NEEDS REVIEW)*
+
+**Decided.** `rescale_pool_row` defaults to `false`, so the gate is unaffected and every
+committed output is unchanged. The rescaled result is a separate labelled run.
+
+**Why.** K1's gate reproduces the standalone exactly, INCLUDING the ~0.4% error the
+standalone's solver made at the cold end of the two draft models. A better-conditioned port
+does not reproduce that error and cannot pass the gate on those points. The standing rules
+forbid loosening a test to make it pass and forbid editing a number in a report to match a
+new result, so the only honest options were: leave the default off and document, or change
+the canonical configuration and re-baseline the gate. The second is a decision about what
+this project's reference numbers ARE, which is not a decision this prompt has the standing
+to make.
+
+**Alternatives.** (i) Default ON and re-baseline the affected gate rows against the correct
+values — defensible, and arguably right, but it changes numbers people have quoted.
+(ii) Default ON and loosen the tolerance — forbidden. (iii) Do not implement it — the task
+asked for it.
+
+**Reversible:** yes, one YAML key.
+
+**Who should look at this:** the project owner. The question is whether fidelity to the
+standalone or numerical correctness should be the canonical Candida configuration. Evidence
+for correctness: Gurobi and GLPK's own exact rational solver agree, and GLPK does not — by
+8.7% at the worst point. Evidence for fidelity: exact reproduction is the whole of K1's
+claim, and a gate should be re-baselined deliberately and once, not as a side effect.
+
+## D9 — TASK 3: the two fba resolved_config files are refreshed, and why that is not a result change
+
+**Decided.** Commit the refreshed `resolved_config.yaml` of
+`strains/cauris_iRV973/outputs/fba_candida_pool_{binding,unconstrained}/`.
+
+**Why.** Those two folders were last written before K2 PART A added `ngam_reaction` and
+`ngam_base_scale` to the strain files, so their recorded config no longer matched the
+`strain.yaml` the run used. Both keys are inert in those runs (`ngam_temperature` is off) and
+`fba_result.json` is byte-identical — no number moves. A resolved-config file exists to record
+what was run; leaving it stale is a small untruth in a provenance record.
+
+**Alternatives.** Revert them and leave the mismatch — keeps the diff smaller at the cost of
+a provenance file that misstates the configuration.
+
+**Reversible:** yes. **Review:** nobody, but it is the one place N1 touches a committed
+output file, so it is recorded here deliberately.

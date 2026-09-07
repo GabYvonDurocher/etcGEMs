@@ -24,6 +24,8 @@ provider:
   pheno_sigma: 10.231397335263933
   pheno_w: 8.788454874341648
   pool_budget: 0.25
+  ngam_reaction: ATP_maintenance_NGAM__cyto
+  ngam_base_scale: 0.831733
   dcp_prior_kJ: -4.0
   pin_at_ub:
   - ATP_maintenance_NGAM__cyto
