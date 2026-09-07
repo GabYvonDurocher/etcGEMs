@@ -15,23 +15,42 @@ turnover number, optimum temperature and melting temperature; fits three global 
 (σ, w, P) to the *C. auris* growth curve alone; freezes them; and predicts the three relatives.
 The relatives' measured growth collapses above ~36 °C while the model keeps predicting 0.3–0.5 h⁻¹.
 
-The reason is in the inputs. Paired across orthologs, *C. auris* enzymes are predicted **0.52 °C**
-more heat-stable than *C. haemulonii*'s (95 % CI 0.37–0.67). The fitted model needs about **33 °C**.
-A ~63-fold gap. Substituting a *measured* proteome-wide ΔTm — *S. cerevisiae* vs *S. uvarum*,
-1.6 °C across 827 proteins for an 8 °C difference in growth limit — still leaves ~20-fold.
+The reason is in the inputs. Paired across orthologs, *C. auris* enzymes are predicted **0.411 °C**
+more heat-stable than *C. haemulonii*'s (the deduplicated value in `FIG4_LOCKED.md`; the 0.52 °C
+quoted in correspondence and in earlier drafts of this document is the superseded reaction-level
+figure). The fitted model needs about **33 °C**.
+A ~79-fold gap on the deduplicated value (~63× as reported at the time). Substituting a *measured*
+proteome-wide ΔTm — *S. cerevisiae* vs *S. uvarum*, 1.6 °C across 827 proteins for an 8 °C
+difference in growth limit — still leaves ~20-fold.
 Concentrating large shifts on ranked bottleneck enzymes does not rescue it (flux reroutes; a beam
 search over pairs and triples found nothing crossing detection).
 
 Conclusion as it stands: **within this model class, sequence-predicted enzyme thermal properties
 are far too similar between these species to reproduce the observed divergence.**
 
-**Revised by K2 (2026-09-07).** Under the core's mechanistic thermal form the required separation
-falls from 32.5 °C to **13.8 °C** — so the conclusion is form-independent *in kind* (13.8 °C is
-still ~26× the sequence-predicted 0.52 °C, and stable to 0.3 °C across every rung of the ladder),
-but **the standalone's ~63× was inflated roughly 2.4× by the choice of thermal form alone**. The
-fold-gaps to quote are the core's: ~26× against the sequence prediction, 8.6× against the measured
-*S. cerevisiae*/*S. uvarum* benchmark. This is the single most important reason K2 was worth doing
-before anything downstream.
+**Revised twice, by K2 and A1 (2026-09-07).** Both sides of the ratio moved.
+
+| | required | available | fold gap |
+|---|---|---|---|
+| as published | 32.54 °C | 0.411 °C | **79×** |
+| K2: the core's thermal form | 13.77 °C | 0.411 °C | **34×** |
+| K2 + A1: compression-corrected | 13.77 °C | 2.56 °C | **5.4× [2.5, 10.3]** |
+
+K2 halved the requirement (the standalone's figure was inflated ~2.4× by its thermal form alone).
+A1 then found the *available* side is not a measurement of the proteomes but an artefact of a
+predictor with no demonstrated validity in this regime (§3a). Treat the bottom row as the most
+generous reading available rather than a point estimate: a 17× correction derived from means, when
+per-protein r ≈ 0 and the noise floor throws spuriously significant differences, is soft, and its
+lower bound of 2.5× is close enough that model uncertainty could plausibly close it.
+
+**What survives all of this, untouched, is the measured benchmark.** *S. cerevisiae* vs *S. uvarum*:
+1.6 °C across 827 proteins, for a pair **8 °C apart in growth limit — further apart than our
+species**. Against 13.77 °C that is **8.6×**, and it involves no predictor at all. The defensible
+form of the claim therefore inverts the figure's current emphasis: *even a directly measured
+proteome-wide ΔTm, from a yeast pair with a larger thermal-limit separation than ours, falls ~9-fold
+short of what the model requires.* The sequence-prediction arm becomes supporting texture with a
+stated caveat, not the headline. Ilgaz added the measured benchmark to pre-empt exactly this
+objection; it turns out to be the load-bearing member.
 
 ## 2. What Ilgaz has already closed
 
@@ -60,6 +79,11 @@ it there, but the correction never reached `18_build_etcgem_tpc.py`. Uncorrected
 is **unreachable by any Tm shift** — no finite value crosses detection — and its fit is R² = −0.323,
 worse than a flat line. Corrected: 32.64 °C required, R² = +0.042. One of the four species in the
 published counterfactual was structurally incapable of being killed by the mechanism under test.
+(iii) **A1 found a live reproducibility break**: `15_run_seq2tm.py` truncates sequences at 1022 aa
+citing an "ESM2 positional limit" that does not exist (ESM-2 uses rotary embeddings), while the
+*committed* predictions are untruncated. The script in the repository does not reproduce the data
+beside it, differing by up to 2.6 °C on affected batches. Independent of everything else, and Ilgaz
+should be told.
 (ii) The pool constraint row spans 8.2×10⁸ at 22 °C, and GLPK makes a ~0.4 % error at the cold end
 of the draft models as a result — numerical, not alternate optima, established three ways. A
 conditioning problem worth fixing in the framework.
@@ -70,15 +94,31 @@ not. (One correction to an earlier over-generalisation: the maintenance falsific
 this class — it asks what multiplier would be required, against a measured comparator of 1.34×
 respiration per unit growth at 40 °C in the relatives versus *auris*.)
 
-## 3. Two claims that were being conflated
+## 3. Claims that were being conflated
 
 1. **Within a model, Tm controls the upper limit.** E. coli's variance decomposition gives
    φ_stability = 0.994 for CT_max and 0.999 for T_opt. True.
-2. **Between species, Tm is what differs.** False here — 0.52 °C predicted, 1.6 °C even when
-   measured in the *S. cerevisiae*/*S. uvarum* pair.
+2. **Between species, Tm is what differs.** False here — 0.411 °C predicted (and see 3a on what
+   that number is worth), 1.6 °C even when measured in the *S. cerevisiae*/*S. uvarum* pair.
 
 Both hold at once, and together they are a problem for the model class rather than for Ilgaz's
 execution.
+
+**(3a) A third claim, established by A1: the predictor has no per-protein validity in this
+regime.** Seq2Tm scored against a measured *S. cerevisiae* meltome gives Pearson **r = −0.048**
+(ρ = +0.025, RMSE 7.51 °C, bias +5.43 °C, n = 1947). The same predictor and code across the tree of
+life gives **r = +0.762**. So it distinguishes a thermophile's proteins from a mesophile's and
+cannot resolve proteins within one organism — which is the regime Figure 4 uses it in. Two
+consequences: Fig 4B's overlapping densities may overlap because the predictor cannot resolve rather
+than because the proteomes are similar; and the same-species noise floor (four *C. auris* clades,
+99.3–100 % identical, true ΔTm ≈ 0) is |mean| 0.043 °C with **five of six clade pairs significantly
+non-zero**, so the method manufactures differences where none exist. 0.411 °C is 9.5× that floor —
+above it, but the floor should not be non-zero at all.
+
+Note this reframes the earlier "compression" idea recorded under A1: the regression slope of
+measured on predicted is **−0.061 ± 0.029**, so there is no scaling factor to divide out, only
+absence of signal. (Where the predictor works, across the tree of life, the slope is +1.11 — mild
+compression, which is what compression actually looks like.)
 
 **The circularity to keep in view.** A variance decomposition can only attribute to mechanisms the
 model contains. If two-state unfolding is the only thing that can produce a hot collapse, the
@@ -136,8 +176,10 @@ the right control and its result should be on record.
 **Sequence divergence is real.** *C. auris* and the *haemulonii* complex differ by 0.33–0.35
 substitutions per site. These are not near-identical organisms; that description applies only to
 the four *C. auris* clades. So the striking fact is that genuinely divergent proteomes yield a
-predicted ΔTm of 0.52 °C — either thermostability is that conserved, or the predictor cannot see
-the substitutions that matter.
+predicted ΔTm of 0.411 °C. That was posed here as an either/or — thermostability is that conserved,
+or the predictor cannot see the substitutions that matter. **A1 answered it: the predictor cannot
+see them** (§3a). Whether thermostability is *also* conserved remains unknown, and now needs
+measurement rather than prediction.
 
 **Crucially: fixing coverage does not fix the species question.** Adding the missing 4,400 proteins
 would bring their species-specificity through the same flat Seq2Tm channel. Coverage and
@@ -215,42 +257,26 @@ already partly visible in `gem/tables/*_evidence.csv`. Nobody has looked. The Xi
 
 ## 8. ACTION POINTS
 
-**A1 — Calibrate the sequence predictors against a known truth.** *(highest value; the Seq2Tm half
-needs no new data)* Three predictors supply every species-specific input the etcGEM has: **Seq2Tm**
-(stability), **Seq2Topt** (kinetic optimum) and **DLKcat/DLTKcat** (turnover). The same doubt applies
-to all three — how much interspecies variance does each actually produce, and is that variance real
-or compressed? Ask it as one question, in three parts.
+**A1 — Calibrate the sequence predictors against measured truth. — RUN 2026-09-07.**
+Three predictors supply every species-specific input the etcGEM has: **Seq2Tm** (stability),
+**Seq2Topt** (kinetic optimum) and **DLKcat/DLTKcat** (turnover). A1 asked of each: how much
+interspecies variance does it produce, and is that variance real? It was written expecting a
+*compression factor* to divide out. That framing turned out to be wrong — see the outcome, and §3a.
 
-*(i) The benchmark.* Run each predictor on the *S. cerevisiae* / *S. uvarum* proteomes, pair
-orthologs, and compare the predicted paired difference with measured truth. For Tm the truth is
-known: 1.6 °C across 827 proteins, for a pair 8 °C apart in growth limit. If Seq2Tm returns ~1.5 °C
-it is not compressing and Ilgaz's 0.52 °C is real; if it returns ~0.2 °C, compression is ~8× and the
-true Candida separation may be ~4 °C — still an order of magnitude short of 33 °C, but the claim
-changes from "the difference does not exist" to "the predictor cannot see it, and even corrected it
-is far too small". That converts an unbounded claim into a bounded one. Both proteomes are public
-and Seq2Tm is already installed.
-
-*(ii) The spread.* For each predictor, report the interspecies spread it produces across the four
-Candida species, so the three channels can be compared on one scale. K2 has already established the
-other half of this arithmetic: the model-side requirement is 13.8 °C, not 33 °C, so the gap to close
-is ~26× rather than ~63×. If A1 finds Seq2Tm compresses by ~8×, the two corrections together bring
-predicted and required within ~3× of one another — still a failure, but a very different statement
-from the one currently in the figure.
-
-*(iii) DLTKcat, run here rather than bolted onto K2.* **Deliberately excluded from K2**, for three
-reasons worth recording. It improves the *wrong half of the curve*: it predicts kcat(T), and the
-E. coli decomposition puts the cold-side limb and E_a under kinetics while T_opt and CT_max are
-owned by stability (φ ≈ 0.99) — the Candida divergence is entirely at the upper limit, which
-DLTKcat does not touch. It would *break K2's ladder*, because it changes input data rather than
-model structure, so movement would no longer be attributable to a single component. And it is
-expensive: external weights, substrate SMILES, and an enzyme × substrate × temperature grid of order
-50,000+ predictions across four proteomes. Note what is actually lost meanwhile: E. coli uses
-`dcp_from: prior` with `dltkcat_fits` as an **overlay where fits exist**, so the shared literature
-prior is the base case in both organisms and Candida is missing a refinement, not a mechanism.
-
-Run this prompt AFTER K2. By then it is known whether the thermal form matters, and DLTKcat gets
-run with a benchmark attached rather than as an unfalsifiable upgrade. Only then decide whether the
-overlay is worth adding to the Candida strains permanently.
+**OUTCOME (2026-09-07, `reports/predictor_calibration/report.md`).** Done for Seq2Tm and Seq2Topt;
+DLTKcat scoped and recommended against for now (A1 PART G). Against 1949 MEASURED
+*S. cerevisiae* melting points, **Seq2Tm's within-proteome correlation is r = -0.05** — while the
+same code on a cross-species Meltome Atlas sample gets **r = +0.76**, so the predictor resolves
+thermophily between organisms and not variation within a proteome. It under-states the one
+checkable congeneric difference (*S. cerevisiae* vs *S. uvarum*, measured 1.6 °C) **17-fold**, and
+it returns significant ΔTm of up to 0.078 °C between *C. auris* clades that are 99.3-100% identical
+— a floor the Figure 4 estimate exceeds by only 3.5-9.5×. For **Seq2Topt** the *C. auris* vs
+*C. haemulonii*/*C. duobushaemulonii* separations are not distinguishable from zero **or from that
+floor**. Correcting Figure 4's arithmetic for K2's requirement (13.8 °C, not 33) and A1's measured
+17× compression takes the fold gap from ~79× to **5.4× [2.5, 10.3]** — still a failure, and a
+materially different sentence. Two corrections to numbers used above: §1's **0.52 °C is the
+superseded reaction-level value**; the project's own deduplicated figure is 0.411 °C, and A1's
+proteome-wide equivalent is 0.151 °C. A1 reports numbers and adjudicates no mechanism.
 
 **A2 — Get the `common_network.py` result on record.** Ilgaz ran the identical-scaffold control; the
 number is not in `gem/notes/`. If optima still compress on a common scaffold, network and
@@ -303,8 +329,8 @@ reconstructed from the repository.
     K1  port the four species onto the core (DONE - 57/57, mu to 0.000000 h^-1)
     K2  the core's thermal layer, one component per rung (DONE - gate now 79/79; required
         separation 32.5 -> 13.8 C; ceiling measured on all seven strains; sink audit added)
-    A1  predictor calibration: Seq2Tm, Seq2Topt, DLTKcat against the S. cerevisiae/S. uvarum
-        benchmark - run AFTER K2, when it is known whether the form matters
+    A1  predictor calibration (DONE - Seq2Tm has no per-protein validity in this regime; the
+        MEASURED benchmark is now the load-bearing evidence; DLTKcat recommended against)
     A3  gene-content screen (cheap, independent of the above, can run any time)
     K3  retire the fork; audits and notes into reports/candida_thermal_limit/
 
@@ -325,3 +351,10 @@ translation cap needs to be temperature-dependent before sectors are enabled any
 measured allocation (SS6b); and the emergent Candida model under-predicts C. auris growth by 7.6x
 against E. coli's ~2.3x, with R^2 0.205 - a grounded eukaryote budget that binds far too tightly,
 which is a finding about the framework's transferability to eukaryotes rather than about Candida.
+
+**Left open by A1.** The measured benchmark is now the load-bearing evidence (SS1) and it rests on a
+single yeast pair from the literature, published as a summary statistic only - which is why A1's
+paired test is summary-to-summary and the strongest form (correlation of measured against predicted
+DIFFERENCES) could not be run. Two things would strengthen it: obtaining the per-protein
+S. cerevisiae/S. uvarum data from the authors, and a measured meltome for any Candida, which does
+not exist (SS7). Neither is scheduled.

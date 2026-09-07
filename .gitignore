@@ -55,3 +55,4 @@ reports/**/*.synctex.gz
 # and the pipeline's own scratch work area. Same convention as /DLTKcat/.
 /tools/reconstruction/external/
 /tools/reconstruction/work/
+/tools/reconstruction/external/predictor_venv/

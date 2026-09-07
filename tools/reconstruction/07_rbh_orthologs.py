@@ -55,6 +55,27 @@ def best_hits(q, s, td, tag):
             d[qid] = (sid, float(pid), bs)
     return d
 
+def rbh_pairs(faa_a, faa_b, tag='a2b', workdir=None):
+    """Reciprocal best hits between two protein FASTA files.
+
+    Returns [(id_in_a, id_in_b, percent_identity_of_the_a->b_alignment)], sorted. This is
+    the body of main() lifted into a function so other analyses can pair any two proteomes
+    without going through the reconstruction config -- A1's interspecies test and its
+    same-species noise floor both need exactly this, between files that are not taxa of a
+    reconstruction. The alignment settings are unchanged: DIAMOND blastp, --sensitive,
+    e < 1e-10, one target per query, reciprocity required."""
+    import contextlib
+    ctx = (contextlib.nullcontext(Path(workdir)) if workdir
+           else tempfile.TemporaryDirectory())
+    with ctx as td:
+        td = Path(td)
+        td.mkdir(parents=True, exist_ok=True)
+        ab = best_hits(Path(faa_a), Path(faa_b), td, f'{tag}_fwd')
+        ba = best_hits(Path(faa_b), Path(faa_a), td, f'{tag}_rev')
+        return sorted((a, b, pid) for a, (b, pid, _) in ab.items()
+                      if ba.get(b, (None,))[0] == a)
+
+
 def main():
     out_dir = TABLES / 'rbh'; out_dir.mkdir(exist_ok=True)
     with tempfile.TemporaryDirectory() as td:

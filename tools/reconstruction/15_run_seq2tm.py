@@ -49,23 +49,48 @@ from paths import *  # PROJECT, WORK, INPUTS, MODELS, TABLES, EXTERNAL, NOTES,
                     # PROTEOMES, PROTEOME, SP, STRAIN_OUT, load_proteome
 cli_configure()     # --config/--work/--external/--proteomes/--out-strain (paths.py)
 
+# The two heads share an architecture and differ only in their checkpoint, the constant the
+# output fraction is multiplied by, and the column they write. A1 added --model so the same
+# code runs both; the constants are upstream's (code/seq2tm.py x100, code/seq2topt.py x120).
+HEADS = {
+    "tm":   dict(scale=100.0, column="pred_tm",
+                 ckpt="model_tm_window=3_r2=0.76.pth"),
+    "topt": dict(scale=120.0, column="pred_topt",
+                 ckpt="model_topt_window=3_r2=0.57.pth"),
+}
 TM_MAX = 100.0       # the head predicts a fraction of this; upstream convention
-MAXLEN = 1022        # ESM2 positional limit, less BOS/EOS
+# Sequence length cap. A1 changed the DEFAULT from 1022 to none, and the reason matters.
+# 1022 was carried over as "the ESM2 positional limit less BOS/EOS", but ESM-2 uses rotary
+# position embeddings and has no such limit; the pipeline that produced the committed
+# thermal_tm.csv passed whole sequences. Reproducing the first 200 rows of that table in
+# file order at batch 4: the 156 sequences in batches with no member over 1022 aa come back
+# with a maximum difference of 1.8e-5 C and r = 1.00000000, while every batch containing a
+# truncated member is wrong, by up to 2.6 C. So truncation, not arithmetic, was the whole
+# discrepancy. Pass --max-len 1022 for the old behaviour.
+MAXLEN = 0           # 0 = no truncation
 MINLEN = 10
+SCALE = [TM_MAX]     # mutable, set from --model before predict() runs
 
 
-def device():
+def device(name=None):
+    """Compute device. ``name`` forces one ('cpu', 'mps', 'cuda').
+
+    A1 added the override: the committed predictions were made on CPU, and a different
+    backend is a different set of floating-point kernels, so a run meant to be COMPARED
+    with them must be able to pin the backend rather than take whatever is fastest."""
+    if name:
+        return torch.device(name)
     if torch.cuda.is_available(): return torch.device('cuda')
     if getattr(torch.backends, 'mps', None) and torch.backends.mps.is_available():
         return torch.device('mps')
     return torch.device('cpu')
 
 
-def load(ckpt, code):
+def load(ckpt, code, dev_name=None):
     sys.path.insert(0, code)
     from model import MultiAttModel
     import esm
-    dev = device()
+    dev = device(dev_name)
     net = MultiAttModel(320, 3, 4, 4).to(dev)
     net.load_state_dict(torch.load(ckpt, map_location=dev)); net.eval()
     esm2, alpha = esm.pretrained.esm2_t6_8M_UR50D()
@@ -103,7 +128,7 @@ def predict(pairs, dev, net, esm2, conv, budget=8000, log=None,
             emb = esm2(toks, repr_layers=[6], return_contacts=False)['representations'][6]
             pred = net(emb.transpose(1, 2)).cpu().numpy().reshape(-1)
         for (pid, _), v in zip(batch, pred):
-            yield pid, float(v) * TM_MAX
+            yield pid, float(v) * SCALE[0]
         n += len(batch)
         if log and n % 500 < len(batch):
             el = time.time() - t0
@@ -122,7 +147,8 @@ def read_fasta(p):
             buf.append(line)
     if name: out.append((name, ''.join(buf)))
     # '*' marks a stop codon in some proteome files and is not in the ESM alphabet
-    out = [(i, s.replace('*', '').upper()[:MAXLEN]) for i, s in out]
+    out = [(i, (s.replace('*', '').upper()[:MAXLEN] if MAXLEN else
+                s.replace('*', '').upper())) for i, s in out]
     return [(i, s) for i, s in out if len(s) >= MINLEN]
 
 
@@ -131,7 +157,8 @@ def selfcheck(path, dev, net, esm2, conv, n=200):
     if 'sequence' not in ref.columns:
         sys.exit('selfcheck needs the sequence column of <work>/tables/thermal_tm.csv')
     ref = ref.sample(min(n, len(ref)), random_state=0)
-    got = dict(predict([(r.id, r.sequence[:MAXLEN]) for r in ref.itertuples()],
+    got = dict(predict([(r.id, r.sequence[:MAXLEN] if MAXLEN else r.sequence)
+                        for r in ref.itertuples()],
                        dev, net, esm2, conv, fixed_bs=4, sort=False))
     a = ref.pred_tm.values
     b = np.array([got[i] for i in ref.id])
@@ -152,13 +179,21 @@ def main():
     ap.add_argument('--seqs-from', metavar='CSV',
                     help='take id,sequence from this CSV (e.g. <work>/tables/thermal_tm.csv) '
                          'instead of a FASTA, preserving its row order')
+    ap.add_argument('--model', default='tm', choices=sorted(HEADS),
+                    help='which head to run: tm (Seq2Tm) or topt (Seq2Topt). Sets the '
+                         'checkpoint, the output scale and the output column name.')
     # Defaults point into the fetched <external>/ tree (was: environment variables only).
-    ap.add_argument('--ckpt', default=os.environ.get(
-        'SEQ2TOPT_CKPT', str(EXTERNAL / 'large_model_pth' / 'model_tm_window=3_r2=0.76.pth')))
+    ap.add_argument('--ckpt', default=None)
     ap.add_argument('--code', default=os.environ.get(
         'SEQ2TOPT_CODE', str(EXTERNAL / 'Seq2Topt' / 'code')))
     ap.add_argument('--selfcheck', metavar='THERMAL_TM_CSV')
+    ap.add_argument('--device', default=os.environ.get('SEQ2TOPT_DEVICE'),
+                    help="force a compute device (cpu / mps / cuda); default is the fastest "
+                         "available. Pin it to cpu to compare with the committed predictions.")
     ap.add_argument('--limit', type=int, default=0)
+    ap.add_argument('--max-len', dest='max_len', type=int, default=MAXLEN,
+                    help='truncate sequences to this length; 0 (default) = no truncation, '
+                         'which is what the committed predictions were made with')
     ap.add_argument('--batch-tokens', type=int, default=8000)
     ap.add_argument('--batch-size', type=int, default=1,
                     help='fixed batch size in FILE ORDER. Default 1 = no padding, the '
@@ -167,10 +202,15 @@ def main():
                          'comparable with either.')
     a = ap.parse_args()
     configure_from_args(a)
+    head = HEADS[a.model]
+    SCALE[0] = head['scale']
+    if not a.ckpt:
+        a.ckpt = os.environ.get('SEQ2TOPT_CKPT',
+                                str(EXTERNAL / 'large_model_pth' / head['ckpt']))
     if not a.ckpt or not a.code:
         sys.exit('need --ckpt and --code (or SEQ2TOPT_CKPT / SEQ2TOPT_CODE)')
 
-    dev, net, esm2, conv = load(a.ckpt, a.code)
+    dev, net, esm2, conv = load(a.ckpt, a.code, a.device)
     print(f'device {dev}', flush=True)
 
     if a.selfcheck:
@@ -182,7 +222,9 @@ def main():
             a.out, a.fasta = a.fasta, None
         if not a.out: sys.exit('need an output path')
         t = pd.read_csv(a.seqs_from)
-        recs = [(str(r.id), str(r.sequence)[:MAXLEN]) for r in t.itertuples()]
+        cap = a.max_len or None
+        recs = [(str(r.id), str(r.sequence)[:cap] if cap else str(r.sequence))
+                for r in t.itertuples()]
     elif a.fasta and a.out:
         recs = read_fasta(a.fasta)
     else:
@@ -193,7 +235,7 @@ def main():
         recs = [r for r in recs if r[0] not in done]
         print(f'resuming: {len(done)} done, {len(recs)} to go', flush=True)
     else:
-        with open(a.out, 'w') as fh: fh.write('id,pred_tm\n')
+        with open(a.out, 'w') as fh: fh.write(f"id,{head['column']}\n")
     if not recs:
         print('nothing to do'); return
 
