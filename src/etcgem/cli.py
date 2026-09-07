@@ -14,6 +14,9 @@ Strain + experiment (method overlay from configs/experiments/EXP.yaml):
     etcgem decompose --strain NAME --experiment EXP [--no-plots]
     etcgem sweep     --config PATH ...          # ad-hoc self-contained config escape hatch
 
+Multi-strain (the experiment names the strains):
+    etcgem transfer  --experiment EXP           # fit globals on one strain, freeze, predict others
+
 Every run writes into strains/NAME/outputs/<tag>/ and dumps the exact merged
 config there as resolved_config.yaml. No scientific/numerical code changes --
 provider construction (config.build_provider) is byte-for-byte unchanged.
@@ -158,15 +161,26 @@ def cmd_tpc(args):
     return out_dir
 
 
+def cmd_transfer(args):
+    """Multi-strain transfer: fit the experiment's globals on its calibrate_on strain,
+    freeze them, and sweep every strain in predict. The strains come from the experiment,
+    so there is no --strain."""
+    from .transfer import run
+    return run(args.experiment, out_root=args.out_root, verbose=not args.quiet)
+
+
 def cmd_fba(args):
-    cfg = resolve(args.strain)
-    out_dir = _out_dir(args.strain, "fba")
+    # an optional experiment overlay, so a single solve can be run under a method variant
+    # (e.g. the Candida pool-binding precondition) without a second command
+    cfg = resolve(args.strain, getattr(args, "experiment", None))
+    out_dir = _out_dir(args.strain, _run_tag("fba", getattr(args, "experiment", None)))
     os.makedirs(out_dir, exist_ok=True)
     fits = _fits_path(args.strain, args.fits)
     pm = _build_pm(cfg, fits)
     tpc = compute_tpc(pm, [args.temp], Perturbation())
     growth = float(tpc.growth[0])
-    result = {"strain": args.strain, "temp_C": args.temp, "growth": growth,
+    result = {"strain": args.strain, "experiment": getattr(args, "experiment", None),
+              "temp_C": args.temp, "growth": growth,
               "fits": os.path.basename(fits) if fits else None}
     with open(os.path.join(out_dir, "fba_result.json"), "w") as fh:
         json.dump(result, fh, indent=2)
@@ -833,6 +847,9 @@ def build_parser():
     fb.add_argument("--temp", type=float, required=True, help="temperature in °C")
     fb.add_argument("--fits", nargs="?", const=_FITS_DEFAULT, default=None)
     fb.add_argument("--key", default="rxn_id", choices=["rxn_id", "enzyme_id"])
+    fb.add_argument("--experiment", default=None,
+                    help="optional method overlay (configs/experiments/EXP.yaml); the run's\n"
+                         "outputs go to outputs/fba_<EXP>/")
     fb.set_defaults(func=cmd_fba)
 
     cd = sub.add_parser("calibrate-dcp",
@@ -848,6 +865,16 @@ def build_parser():
     cd.add_argument("--hi", type=float, default=-3.0, help="dCp bisection upper bound")
     cd.add_argument("--tol", type=float, default=0.02, help="Ea tolerance (eV)")
     cd.set_defaults(func=cmd_calibrate_dcp)
+
+    tr = sub.add_parser("transfer",
+                        help="multi-strain transfer: fit the experiment's globals on its "
+                             "calibrate_on strain, freeze them, predict the others")
+    tr.add_argument("--experiment", required=True,
+                    help="a configs/experiments/EXP.yaml with kind: transfer")
+    tr.add_argument("--out-root", dest="out_root", default="outputs",
+                    help="where transfer_<EXP>/summary.csv is written (default outputs/)")
+    tr.add_argument("--quiet", action="store_true")
+    tr.set_defaults(func=cmd_transfer)
 
     # --- strain + experiment ---
     sw = sub.add_parser("sweep", help="TPC sensitivity sweep (strain + experiment)")

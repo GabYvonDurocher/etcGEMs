@@ -1,0 +1,62 @@
+# transfer_candida.yaml -- K1's gate experiment.
+#
+# Fit the three shared global parameters of the phenomenological thermal form on
+# C. auris's measured growth curve ALONE, freeze them, and predict the other three
+# species. Every between-species difference the model then makes comes only from the
+# per-enzyme, sequence-predicted Topt and Tm in each strain's
+# thermal/enzyme_thermal_params.csv.
+#
+# EVERY value below is the standalone Candida etcGEM's value
+# (Candidas repository, gem/18_build_etcgem_tpc.py, commit f123bc7). This experiment
+# exists so that the core reproduces that implementation's locked numbers; it decides
+# nothing scientific. See reports/candida_thermal_limit/K1_port_verification.md.
+
+kind: transfer
+
+calibrate_on: cauris_iRV973
+predict:
+  - chaemulonii_draft
+  - cduobushaemulonii_draft
+  - cparapsilosis_iDC1003
+
+# what is fitted on calibrate_on and then FROZEN across every strain
+globals: [pheno_sigma, pheno_w, pool_budget]
+
+# the calibration target: the strain's thermal/measured_tpc.csv (dead wells counted as
+# zeros; built by the Candidas pipeline's 17_build_measured_tpc.py, copied not recomputed)
+objective: measured_tpc
+
+# One profile scale factor maps the model's peak onto the measured peak of the
+# CALIBRATION strain, recomputed inside every objective evaluation and then frozen and
+# applied to all four. The standalone's SCALE; not a fourth fitted dimension.
+growth_scale: peak_match
+
+optimizer:
+  method: nelder-mead
+  multistart: 4                # N = 4, the standalone's four simplex origins, in order
+  starts:                      # [pheno_sigma, pheno_w, pool_budget]
+    - [8,  3, 0.20]
+    - [12, 5, 0.25]
+    - [6,  2, 0.15]
+    - [15, 8, 0.30]
+  options:                     # scipy Nelder-Mead settings, as the standalone sets them
+    maxiter: 120
+    xatol: 0.3
+    fatol: 1.0e-4
+  penalty: 1000.0              # flat loss returned for a point outside the bounds below
+
+# The standalone's guard: a strictly-greater-than constraint on each global, enforced by
+# returning `penalty` rather than by a bounded optimiser.
+lower_bounds:
+  pheno_sigma: 1.0
+  pheno_w: 0.3
+  pool_budget: 0.02
+
+# The thermal limit reported per strain: the highest temperature at which the scaled
+# prediction still reaches the detection floor. Bisection bracket and tolerance as in the
+# standalone's 22_thermal_sensitivity.py.
+detection_floor_h: 0.05
+thermal_limit:
+  lo_C: 20.0
+  hi_C: 90.0
+  tol_C: 0.02

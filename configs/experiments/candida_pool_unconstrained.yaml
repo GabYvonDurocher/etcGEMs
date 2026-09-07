@@ -1,0 +1,20 @@
+# candida_pool_unconstrained.yaml -- the plain GEM: the proteome pool removed.
+#
+# The standalone's pool-binding precondition (gem/16_pool_binding_test.py) asks whether
+# the enzyme constraint is load-bearing at observed growth rates, or whether the ecGEM
+# collapses to a plain GEM. Its first number is the plain-GEM maximum on the YMS medium
+# (2.045 /h for C. auris), taken before any pool constraint is added.
+#
+# Here the same thing is done by leaving the pool constraint in place with a budget large
+# enough never to bind, so nothing about the model changes except that number.
+#
+#   etcgem fba --strain cauris_iRV973 --experiment candida_pool_unconstrained --temp 30
+#
+# T = 30 C is this strain's T0. Under thermal_model: mmrt with every Topt pinned to T0
+# (the temperature-INDEPENDENT base ecModel), the peak-normalised shape is exactly 1 at
+# T0, so each reaction costs MW/(kcat*3600) with no thermal factor -- which is what 16
+# computes. The phenomenological envelope is switched off for the same reason.
+provider:
+  thermal_model: mmrt
+  enzyme_params: null
+  pool_budget: 1.0e6          # effectively infinite: the pool cannot bind

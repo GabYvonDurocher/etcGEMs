@@ -46,6 +46,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import shutil
 import statistics
 import subprocess
@@ -89,6 +90,28 @@ DEFAULT_KCAT_S = 13.7        # standalone: reactions with no DLKcat kcat
 DCP_PRIOR_KJ = -4.0          # shared dCp prior (methanogen convention), kJ/mol/K
 K0 = 273.15
 
+# EC-class prior turnover numbers (1/s), Bar-Even-style, exactly as the standalone's
+# pool-binding precondition test uses them (gem/16_pool_binding_test.py). This is the
+# GENERIC, untuned kcat set that DLKcat later replaced; --ec-class-kcat writes the same
+# reaction set with these kcats instead, so that test's numbers can be reproduced.
+KCAT_EC_CLASS = {"1": 13.7, "2": 13.7, "3": 79.0, "4": 15.0, "5": 6.9, "6": 10.0}
+
+
+def _rxn_ec_codes(r):
+    """Full four-level EC numbers annotated on a reaction (the standalone's rx_ecs)."""
+    a = r.annotation.get("ec-code", [])
+    a = [a] if isinstance(a, str) else a
+    return {x for e in a for x in re.split(r"[;, ]+", str(e))
+            if re.match(r"\d+\.\d+\.\d+\.\d+", x)}
+
+
+def _ec_class_kcat(r):
+    ecs = _rxn_ec_codes(r)
+    if not ecs:
+        return DEFAULT_KCAT_S
+    return statistics.median([KCAT_EC_CLASS.get(e.split(".")[0], DEFAULT_KCAT_S)
+                              for e in ecs])
+
 
 def _git_commit(root: str) -> str:
     try:
@@ -100,7 +123,7 @@ def _git_commit(root: str) -> str:
 
 def convert(species: str, work: str, repo_root: str, strain: str | None = None,
             copy_model: bool = True, species_map: dict | None = None,
-            source_repo: str | None = None) -> dict:
+            source_repo: str | None = None, ec_class_kcat: bool = False) -> dict:
     meta = (species_map or SPECIES)[species]
     strain = strain or meta["strain"]
     gem = work                      # <work>/{tables,models,inputs}
@@ -136,7 +159,7 @@ def convert(species: str, work: str, repo_root: str, strain: str | None = None,
     EX = {r.id for r in model.reactions
           if r.id.startswith(("EX_", "Drain")) or r.boundary}
 
-    kcat_rows, therm_rows = [], []
+    kcat_rows, therm_rows, ec_rows = [], [], []
     n_total = len(model.reactions)
     n_skip_ex = n_skip_biomass = n_skip_nogene = n_skip_nomw = 0
     n_kcat = n_default = n_topt = n_tm = n_median = 0
@@ -167,6 +190,10 @@ def convert(species: str, work: str, repo_root: str, strain: str | None = None,
             n_default += 1
         kcat_rows.append(dict(rxn_id=r.id, mw_kDa=round(mw_mean, 6), kcat_s=kcat_s,
                               source=source, group=(r.subsystem or "")))
+        if ec_class_kcat:
+            ec_rows.append(dict(rxn_id=r.id, mw_kDa=round(mw_mean, 6),
+                                kcat_s=_ec_class_kcat(r), source="ec_class_prior",
+                                group=(r.subsystem or "")))
         has_to = best_gene in tov
         has_tm = best_gene in tmv
         n_topt += int(has_to)
@@ -195,6 +222,9 @@ def convert(species: str, work: str, repo_root: str, strain: str | None = None,
         ))
 
     pd.DataFrame(kcat_rows).to_csv(os.path.join(sdir, "dltkcat", "kcat_table.csv"), index=False)
+    if ec_class_kcat:
+        pd.DataFrame(ec_rows).to_csv(
+            os.path.join(sdir, "dltkcat", "kcat_table_ecclass.csv"), index=False)
     pd.DataFrame(therm_rows).to_csv(
         os.path.join(sdir, "thermal", "enzyme_thermal_params.csv"), index=False)
 
@@ -249,6 +279,10 @@ def main(argv=None):
     ap.add_argument("--repo-root", default=os.getcwd())
     ap.add_argument("--strain", default=None, help="override the strain folder name")
     ap.add_argument("--no-copy-model", action="store_true")
+    ap.add_argument("--ec-class-kcat", action="store_true",
+                    help="also write dltkcat/kcat_table_ecclass.csv: the same reaction\n"
+                         "set with generic EC-class prior kcats instead of DLKcat, as the\n"
+                         "standalone's pool-binding precondition test (16) uses")
     a = ap.parse_args(argv)
     smap = _species_map(a.config)
     source_repo = None
@@ -268,7 +302,7 @@ def main(argv=None):
             ap.error(f"unknown taxon {sp!r}; known: {sorted(smap)}")
         rep = convert(sp, work, a.repo_root, a.strain,
                       copy_model=not a.no_copy_model, species_map=smap,
-                      source_repo=source_repo)
+                      source_repo=source_repo, ec_class_kcat=a.ec_class_kcat)
         print(json.dumps(rep, indent=2))
     return 0
 

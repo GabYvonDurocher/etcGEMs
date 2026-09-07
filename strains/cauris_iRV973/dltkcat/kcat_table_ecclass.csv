@@ -1,0 +1,1315 @@
+rxn_id,mw_kDa,kcat_s,source,group
+R00894__cyto,86.11,10.0,ec_class_prior,Glutathione metabolism
+R03416__mito,172.52,79.0,ec_class_prior,Glycerophospholipid metabolism
+R03936__cyto,50.3,79.0,ec_class_prior,Tryptophan metabolism
+R00658__cyto,47.11,15.0,ec_class_prior,Biosynthesis of antibiotics
+R00763__cyto,58.688571,79.0,ec_class_prior,
+R12120__cyto,59.65,13.7,ec_class_prior,
+R08657__mito,71.85,13.7,ec_class_prior,
+R04355__cyto,125.355,13.7,ec_class_prior,Fatty acid biosynthesis
+R04591__cyto,35.04,10.0,ec_class_prior,Biosynthesis of antibiotics
+R02485__cyto,15.16,79.0,ec_class_prior,Pyrimidine metabolism
+R00527__cyto,31.66,79.0,ec_class_prior,Microbial metabolism in diverse environments
+R02590__cyto,48.87,13.7,ec_class_prior,Phosphonate and phosphinate metabolism
+R01351__cyto,51.27,79.0,ec_class_prior,Glycerolipid metabolism
+R11104__pero,48.27,79.0,ec_class_prior,
+R03893__cyto,30.37,79.0,ec_class_prior,Chlorocyclohexane and chlorobenzene degradation
+R00489__cyto,59.89,15.0,ec_class_prior,Pantothenate and CoA biosynthesis
+R03352__cyto,46.783333,79.0,ec_class_prior,
+R04726__pero,125.355,13.7,ec_class_prior,Fatty acid biosynthesis
+R00848__mito,71.85,13.7,ec_class_prior,Glycerophospholipid metabolism
+R07895__cyto,43.62,13.7,ec_class_prior,alpha-Linolenic acid metabolism
+R01072__cyto,59.08,13.7,ec_class_prior,Biosynthesis of antibiotics
+R01187__cyto,58.688571,79.0,ec_class_prior,Biosynthesis of antibiotics
+R02464__cyto,65.95,15.0,ec_class_prior,Sphingolipid metabolism
+R00548__cyto,35.12,79.0,ec_class_prior,Riboflavin metabolism
+R00768__cyto,76.31,13.7,ec_class_prior,Biosynthesis of antibiotics
+R00243__cyto,120.16,13.7,ec_class_prior,D-Glutamine and D-glutamate metabolism
+R03293__cyto,29.07,13.7,ec_class_prior,Arginine and proline metabolism
+R04639__cyto,31.64,79.0,ec_class_prior,Spontaneous
+R03657__cyto,114.14,13.7,ec_class_prior,Aminoacyl-tRNA biosynthesis
+R01466__cyto,57.74,15.0,ec_class_prior,"Glycine, serine and threonine metabolism"
+R03652__cyto,90.35,10.0,ec_class_prior,Aminoacyl-tRNA biosynthesis
+R02295__cyto,33.19,13.7,ec_class_prior,Nicotinate and nicotinamide metabolism
+R09419__cyto,37.545,13.7,ec_class_prior,
+R09076__cyto,52.77,13.7,ec_class_prior,Arginine and proline metabolism
+R07764__cyto,73.98,15.0,ec_class_prior,Fatty acid biosynthesis
+R00827__cyto,38.917143,13.7,ec_class_prior,
+R02249__cyto,58.688571,79.0,ec_class_prior,
+R03357__cyto,39.962857,13.7,ec_class_prior,
+R02874__cyto,54.97,13.7,ec_class_prior,Biosynthesis of antibiotics
+R00248__cyto,141.845,13.7,ec_class_prior,D-Glutamine and D-glutamate metabolism
+R01372__cyto,53.49,13.7,ec_class_prior,Phenylalanine metabolism
+R08310__cyto,38.4775,13.7,ec_class_prior,Drug metabolism - cytochrome P450
+R02003__cyto,40.205,13.7,ec_class_prior,Biosynthesis of antibiotics
+R04955__cyto,42.41,13.7,ec_class_prior,Fatty acid biosynthesis
+R00674__cyto,75.34,15.0,ec_class_prior,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+R07070__cyto,30.0625,13.7,ec_class_prior,Metabolism of xenobiotics by cytochrome P450
+R02849__cyto,56.2525,13.7,ec_class_prior,
+R02413__cyto,171.57,13.7,ec_class_prior,Biosynthesis of antibiotics
+R01398__cyto,37.23,13.7,ec_class_prior,Biosynthesis of antibiotics
+R04208__cyto,83.87,10.0,ec_class_prior,Biosynthesis of antibiotics
+R12366__cyto,44.248,13.7,ec_class_prior,
+R01030__cyto,145.15,79.0,ec_class_prior,Glycerophospholipid metabolism
+R08306__mito,38.4775,13.7,ec_class_prior,Drug metabolism - cytochrome P450
+R00264__cyto,55.306667,13.7,ec_class_prior,Ascorbate and aldarate metabolism
+R03416__cyto,172.52,79.0,ec_class_prior,Glycerophospholipid metabolism
+R08551__cyto,76.25,13.7,ec_class_prior,
+R01956__cyto,49.04,13.7,ec_class_prior,Non enzymatic
+R02722__cyto,75.34,15.0,ec_class_prior,Biosynthesis of antibiotics
+R00220__pero,44.933333,15.0,ec_class_prior,Biosynthesis of antibiotics
+R02549__cyto,55.306667,13.7,ec_class_prior,Arginine and proline metabolism
+R02029__mito,24.14,79.0,ec_class_prior,Glycerophospholipid metabolism
+R02739__cyto,47.885,6.9,ec_class_prior,Biosynthesis of antibiotics
+R08221__cyto,15.16,79.0,ec_class_prior,Drug metabolism - other enzymes
+R00351__pero,51.33,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R08310__mito,38.4775,13.7,ec_class_prior,Drug metabolism - cytochrome P450
+R01330__cyto,56.2525,13.7,ec_class_prior,
+R01626__mito,229.37,13.7,ec_class_prior,Fatty acid biosynthesis
+R05801__cyto,63.24,13.7,ec_class_prior,Inositol phosphate metabolism
+R00227__cyto,43.845,79.0,ec_class_prior,Pyruvate metabolism
+R01220__mito,104.465,13.7,ec_class_prior,Carbon fixation pathways in prokaryotes
+R02439__mito,63.24,13.7,ec_class_prior,Pentose and glucuronate interconversions
+R02746__pero,172.52,79.0,ec_class_prior,Glycerophospholipid metabolism
+R01288__cyto,66.65,13.7,ec_class_prior,Cysteine and methionine metabolism
+R07396__cyto,55.22,13.7,ec_class_prior,Cysteine and methionine metabolism
+R04566__cyto,152.495,13.7,ec_class_prior,Fatty acid biosynthesis
+R02853__cyto,63.24,13.7,ec_class_prior,
+R03036__cyto,69.56,79.0,ec_class_prior,Pantothenate and CoA biosynthesis
+R08162__cyto,43.845,79.0,ec_class_prior,Fatty acid biosynthesis
+R05002__cyto,65.412143,13.7,ec_class_prior,
+R01960__cyto,61.23,13.7,ec_class_prior,Tryptophan metabolism
+R11216__cyto,46.505,13.7,ec_class_prior,
+R02113__cyto,70.156429,13.7,ec_class_prior,
+R01051__cyto,34.68,13.7,ec_class_prior,Pentose phosphate pathway
+R00974__cyto,16.54,79.0,ec_class_prior,Pyrimidine metabolism
+R03661__cyto,69.975,10.0,ec_class_prior,Aminoacyl-tRNA biosynthesis
+R00344__mito,129.68,10.0,ec_class_prior,Carbon fixation pathways in prokaryotes
+R07024__cyto,30.0625,79.0,ec_class_prior,Metabolism of xenobiotics by cytochrome P450
+R00278__cyto,31.535,13.7,ec_class_prior,Vitamin B6 metabolism
+R04430__cyto,135.89,13.7,ec_class_prior,Fatty acid biosynthesis
+R07084__cyto,30.0625,13.7,ec_class_prior,Metabolism of xenobiotics by cytochrome P450
+R01965__cyto,40.045,79.0,ec_class_prior,
+R02558__cyto,90.946667,79.0,ec_class_prior,Cyanoamino acid metabolism
+R02017__cyto,79.923333,13.7,ec_class_prior,Purine metabolism
+R00602__cyto,55.04,13.7,ec_class_prior,
+R04964__cyto,152.495,13.7,ec_class_prior,Fatty acid biosynthesis
+R01736__cyto,28.28,79.0,ec_class_prior,Pyruvate metabolism
+R01626__cyto,229.37,13.7,ec_class_prior,Fatty acid biosynthesis
+R05733__cyto,36.03,13.7,ec_class_prior,
+R04969__cyto,42.41,13.7,ec_class_prior,Fatty acid biosynthesis
+R01209__mito,63.04,15.0,ec_class_prior,
+R00316__cyto,74.865,10.0,ec_class_prior,Pyruvate metabolism
+R00328__cyto,76.445,79.0,ec_class_prior,Purine metabolism
+R03601__cyto,40.09,13.7,ec_class_prior,
+R08120__cyto,30.37,79.0,ec_class_prior,Microbial metabolism in diverse environments
+R00390__cyto,77.44,10.0,ec_class_prior,Fatty acid biosynthesis
+R01600__cyto,53.923333,13.7,ec_class_prior,Biosynthesis of antibiotics
+R01710__cyto,31.535,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R03217__cyto,66.65,13.7,ec_class_prior,Biosynthesis of antibiotics
+R07134__cyto,30.27,13.7,ec_class_prior,Pentose and glucuronate interconversions
+R12188__cyto,45.0,15.0,ec_class_prior,
+R02670__cyto,55.04,13.7,ec_class_prior,Non enzymatic
+R04533__cyto,152.495,13.7,ec_class_prior,Fatty acid biosynthesis
+R02024__cyto,79.923333,13.7,ec_class_prior,Pyrimidine metabolism
+R04859__cyto,45.145,13.7,ec_class_prior,
+R00988__cyto,28.28,79.0,ec_class_prior,Tryptophan metabolism
+R10065__cyto,63.24,13.7,ec_class_prior,
+R11216__mito,46.505,13.7,ec_class_prior,
+R04371__cyto,73.19,15.0,ec_class_prior,2-Oxocarboxylic acid metabolism
+R07091__cyto,30.0625,13.7,ec_class_prior,Metabolism of xenobiotics by cytochrome P450
+R01431__cyto,32.58,13.7,ec_class_prior,Pentose and glucuronate interconversions
+R01321__cyto,33.55,13.7,ec_class_prior,Glycerophospholipid metabolism
+R07406__cyto,45.6025,13.7,ec_class_prior,Spontaneous
+R09882__mito,69.56,79.0,ec_class_prior,
+R00227__mito,43.845,79.0,ec_class_prior,Pyruvate metabolism
+R10928__cyto,58.688571,79.0,ec_class_prior,Inositol phosphate metabolism
+R03648__cyto,59.095,10.0,ec_class_prior,Aminoacyl-tRNA biosynthesis
+R05616__cyto,43.62,13.7,ec_class_prior,Ubiquinone and other terpenoid-quinone biosynthesis
+R01799__mito,47.92,13.7,ec_class_prior,Glycerophospholipid metabolism
+R09376__cyto,29.15,13.7,ec_class_prior,Riboflavin metabolism
+R11101__cyto,44.933333,15.0,ec_class_prior,Spontaneous
+R00772__cyto,48.58,6.9,ec_class_prior,
+R02059__cyto,44.05,79.0,ec_class_prior,Biosynthesis of antibiotics
+R01698__mito,51.95,13.7,ec_class_prior,
+R04751__cyto,78.966667,13.7,ec_class_prior,Fatty acid metabolism
+R00937__mito,23.52,13.7,ec_class_prior,One carbon pool by folate
+R11312__cyto,53.2,13.7,ec_class_prior,
+R02404__mito,33.83,10.0,ec_class_prior,C5-Branched dibasic acid metabolism
+R05510__cyto,30.37,79.0,ec_class_prior,Chlorocyclohexane and chlorobenzene degradation
+R09477__cyto,35.77,13.7,ec_class_prior,Pentose and glucuronate interconversions
+R04430__mito,135.89,13.7,ec_class_prior,Fatty acid biosynthesis
+R05168__cyto,35.215,79.0,ec_class_prior,Galactose metabolism
+R04920__cyto,33.55,13.7,ec_class_prior,Phosphonate and phosphinate metabolism
+R02235__mito,23.52,13.7,ec_class_prior,One carbon pool by folate
+R05506__cyto,60.042222,13.7,ec_class_prior,Degradation of aromatic compounds
+R04144__cyto,83.87,10.0,ec_class_prior,Biosynthesis of antibiotics
+R03758__cyto,45.6025,13.7,ec_class_prior,"Glycine, serine and threonine metabolism"
+R00708__cyto,64.43,13.7,ec_class_prior,Arginine and proline metabolism
+R01279__pero,78.966667,13.7,ec_class_prior,Fatty acid metabolism
+R10170__cyto,85.78,15.0,ec_class_prior,2-Oxocarboxylic acid metabolism
+R05234__cyto,38.4775,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R03158__cyto,52.66,79.0,ec_class_prior,Propanoate metabolism
+R00159__cyto,76.445,79.0,ec_class_prior,Pyrimidine metabolism
+R00662__cyto,69.56,79.0,ec_class_prior,Pyrimidine metabolism
+R12404__cyto,38.83,13.7,ec_class_prior,Biosynthesis of antibiotics
+R10115__cyto,45.16,13.7,ec_class_prior,Biotin metabolism
+R02668__cyto,50.3,79.0,ec_class_prior,Tryptophan metabolism
+R10548__cyto,85.32,13.7,ec_class_prior,
+R12399__cyto,44.238,13.7,ec_class_prior,Steroid biosynthesis
+R03492__cyto,63.46,79.0,ec_class_prior,
+R00332__cyto,20.74,13.7,ec_class_prior,Purine metabolism
+R12024__mito,35.64,79.0,ec_class_prior,
+R01752__cyto,55.306667,13.7,ec_class_prior,Glycerolipid metabolism
+R04582__cyto,75.8,10.0,ec_class_prior,
+R04967__mito,135.89,13.7,ec_class_prior,Fatty acid biosynthesis
+R02617__cyto,63.939167,13.7,ec_class_prior,
+R01086__cyto,52.02,15.0,ec_class_prior,Biosynthesis of antibiotics
+R10056__cyto,51.377143,13.7,ec_class_prior,
+R02396__cyto,84.97,13.7,ec_class_prior,
+R00756__cyto,105.19,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R04863__cyto,154.18,13.7,ec_class_prior,Lysine biosynthesis
+R10827__cyto,24.525,15.0,ec_class_prior,Fatty acid elongation
+R07497__cyto,24.44,13.7,ec_class_prior,Biosynthesis of antibiotics
+R01663__cyto,37.79,79.0,ec_class_prior,Pyrimidine metabolism
+R04941__cyto,45.0,15.0,ec_class_prior,Selenocompound metabolism
+R11099__pero,16.63,15.0,ec_class_prior,Spontaneous
+R05046__cyto,31.64,79.0,ec_class_prior,Folate biosynthesis
+R00582__cyto,34.32,79.0,ec_class_prior,Biosynthesis of antibiotics
+R04536__cyto,152.495,13.7,ec_class_prior,Fatty acid biosynthesis
+R11005__mito,55.935,13.7,ec_class_prior,
+R00405__mito,33.83,10.0,ec_class_prior,Biosynthesis of antibiotics
+R00770__cyto,91.206667,13.7,ec_class_prior,
+R08281__mito,38.4775,13.7,ec_class_prior,Drug metabolism - cytochrome P450
+R02731__cyto,58.688571,79.0,ec_class_prior,Fructose and mannose metabolism
+R04946__cyto,66.65,13.7,ec_class_prior,Selenocompound metabolism
+R00014__mito,52.596667,13.7,ec_class_prior,Pyruvate metabolism
+R00177__cyto,41.95,13.7,ec_class_prior,Cysteine and methionine metabolism
+R11220__cyto,54.23,13.7,ec_class_prior,
+R00209__mito,46.7225,13.7,ec_class_prior,Biosynthesis of antibiotics
+R01279__cyto,78.966667,13.7,ec_class_prior,Fatty acid metabolism
+R04962__mito,135.89,13.7,ec_class_prior,Fatty acid biosynthesis
+R02326__cyto,16.93,10.0,ec_class_prior,Pyrimidine metabolism
+R00904__cyto,55.306667,13.7,ec_class_prior,beta-Alanine metabolism
+R11005__cyto,55.935,13.7,ec_class_prior,
+R00515__cyto,69.56,79.0,ec_class_prior,Pyrimidine metabolism
+R03450__mito,65.831111,79.0,ec_class_prior,
+R00341__cyto,61.34,6.9,ec_class_prior,Biosynthesis of antibiotics
+R08281__cyto,38.4775,13.7,ec_class_prior,Drug metabolism - cytochrome P450
+R00925__cyto,74.865,10.0,ec_class_prior,
+R03970__cyto,63.55,13.7,ec_class_prior,Cyanoamino acid metabolism
+R00086__cyto,76.445,79.0,ec_class_prior,Purine metabolism
+R03259__cyto,68.285,79.0,ec_class_prior,
+R00236__cyto,74.865,10.0,ec_class_prior,Pyruvate metabolism
+R04962__cyto,135.89,13.7,ec_class_prior,Fatty acid biosynthesis
+R02731__mito,58.688571,79.0,ec_class_prior,Fructose and mannose metabolism
+R11220__mito,54.23,13.7,ec_class_prior,
+R08964__cyto,128.86,13.7,ec_class_prior,
+R01274__cyto,37.3,79.0,ec_class_prior,Fatty acid elongation
+R09510__cyto,56.985,13.7,ec_class_prior,
+R02283__cyto,49.23,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R04557__cyto,42.41,13.7,ec_class_prior,
+R00751__cyto,41.945,15.0,ec_class_prior,Biosynthesis of antibiotics
+R00513__cyto,62.18,13.7,ec_class_prior,Pyrimidine metabolism
+R03313__cyto,47.47,13.7,ec_class_prior,Biosynthesis of antibiotics
+R02026__cyto,58.425,13.7,ec_class_prior,Cysteine and methionine metabolism
+R04355__pero,125.355,13.7,ec_class_prior,Fatty acid biosynthesis
+R04922__cyto,33.55,13.7,ec_class_prior,Phosphonate and phosphinate metabolism
+R04037__cyto,92.81,79.0,ec_class_prior,Histidine metabolism
+R04779__cyto,105.19,13.7,ec_class_prior,Biosynthesis of antibiotics
+R04726__cyto,125.355,13.7,ec_class_prior,Fatty acid biosynthesis
+R02109__cyto,204.68,79.0,ec_class_prior,
+R02340__cyto,75.34,15.0,ec_class_prior,Benzoxazinoid biosynthesis
+R03066__cyto,83.34,13.7,ec_class_prior,Folate biosynthesis
+R01574__cyto,73.87,13.7,ec_class_prior,
+R03777__pero,78.966667,13.7,ec_class_prior,Fatty acid metabolism
+R10951__cyto,268.41,13.7,ec_class_prior,
+R00287__cyto,69.56,79.0,ec_class_prior,Pyrimidine metabolism
+R04301__cyto,29.65,13.7,ec_class_prior,Betalain biosynthesis
+R02106__cyto,33.92,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R01880__cyto,62.71,13.7,ec_class_prior,Pyrimidine metabolism
+R01708__cyto,45.6025,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R01317__cyto,103.7,79.0,ec_class_prior,Arachidonic acid metabolism
+R01818__cyto,28.71,6.9,ec_class_prior,Biosynthesis of antibiotics
+R02061__cyto,39.84,13.7,ec_class_prior,Biosynthesis of antibiotics
+R02687__cyto,70.0175,79.0,ec_class_prior,Glycerolipid metabolism
+R04206__cyto,67.2625,15.0,ec_class_prior,
+R07888__cyto,78.966667,13.7,ec_class_prior,alpha-Linolenic acid metabolism
+R9737__mito,39.223571,13.7,ec_class_prior,Ubiquinone and other terpenoid-quinone biosynthesis
+R12329__cyto,32.385,79.0,ec_class_prior,Fatty acid biosynthesis
+R00257__cyto,80.14,10.0,ec_class_prior,Nicotinate and nicotinamide metabolism
+R04426__cyto,39.45,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R03013__cyto,36.91,79.0,ec_class_prior,Histidine metabolism
+R08244__cyto,58.52,10.0,ec_class_prior,Drug metabolism - other enzymes
+R00424__cyto,31.64,79.0,ec_class_prior,
+R10288__cyto,64.8775,15.0,ec_class_prior,
+R01926__cyto,53.36,13.7,ec_class_prior,Sphingolipid metabolism
+R01706__cyto,58.445,46.35,ec_class_prior,Fatty acid biosynthesis
+R04866__cyto,88.146667,13.7,ec_class_prior,Lysine degradation
+R00014__cyto,52.596667,15.0,ec_class_prior,Pyruvate metabolism
+R03425__mito,113.18,13.7,ec_class_prior,"Glycine, serine and threonine metabolism"
+R00754__cyto,38.4775,13.7,ec_class_prior,Biosynthesis of antibiotics
+R03197__cyto,41.03,15.0,ec_class_prior,Porphyrin and chlorophyll metabolism
+R03643__cyto,23.77,13.7,ec_class_prior,
+R02746__mito,172.52,79.0,ec_class_prior,Glycerophospholipid metabolism
+R10953__cyto,63.24,13.7,ec_class_prior,
+R01054__cyto,23.2,79.0,ec_class_prior,Purine metabolism
+R01290__cyto,54.07,15.0,ec_class_prior,Biosynthesis of antibiotics
+R02715__mito,62.66,13.7,ec_class_prior,
+R04559__cyto,54.3,15.0,ec_class_prior,Biosynthesis of antibiotics
+R02324__cyto,27.13,13.7,ec_class_prior,Nicotinate and nicotinamide metabolism
+R00754__mito,38.4775,13.7,ec_class_prior,Biosynthesis of antibiotics
+R07505__cyto,44.12,13.7,ec_class_prior,Biosynthesis of antibiotics
+R04506__cyto,55.306667,13.7,ec_class_prior,
+R03348__mito,25.42,13.7,ec_class_prior,Nicotinate and nicotinamide metabolism
+R04428__cyto,131.93,13.7,ec_class_prior,Fatty acid biosynthesis
+R08575__cyto,35.86,13.7,ec_class_prior,
+R07762__pero,40.083333,13.7,ec_class_prior,Fatty acid biosynthesis
+R01007__cyto,44.105,13.7,ec_class_prior,
+R04444__mito,64.43,13.7,ec_class_prior,Arginine and proline metabolism
+R00897__cyto,45.145,13.7,ec_class_prior,Biosynthesis of antibiotics
+R10147__cyto,32.63,15.0,ec_class_prior,Biosynthesis of antibiotics
+R12657__mito,39.63,13.7,ec_class_prior,Ubiquinone and other terpenoid-quinone biosynthesis
+R08639__cyto,65.64,6.9,ec_class_prior,Biosynthesis of antibiotics
+R02872__cyto,50.23,13.7,ec_class_prior,Biosynthesis of antibiotics
+R10700__cyto,229.37,13.7,ec_class_prior,Fatty acid biosynthesis
+R01021__cyto,62.47,13.7,ec_class_prior,Glycerophospholipid metabolism
+R07389__cyto,33.55,13.7,ec_class_prior,Ether lipid metabolism
+R10089__cyto,28.955,15.0,ec_class_prior,Vitamin B6 metabolism
+R11166__cyto,37.35,79.0,ec_class_prior,
+R08306__cyto,38.4775,13.7,ec_class_prior,Drug metabolism - cytochrome P450
+R02091__cyto,62.71,13.7,ec_class_prior,Pyrimidine metabolism
+R02746__cyto,172.52,79.0,ec_class_prior,Glycerophospholipid metabolism
+R03361__cyto,130.176667,13.7,ec_class_prior,Inositol phosphate metabolism
+R07330__cyto,38.917143,13.7,ec_class_prior,
+R00126__cyto,45.36,13.7,ec_class_prior,Purine metabolism
+R05578__cyto,58.44,10.0,ec_class_prior,Porphyrin and chlorophyll metabolism
+R04887__cyto,29.65,13.7,ec_class_prior,Tyrosine metabolism
+R03530__cyto,16.93,13.7,ec_class_prior,Purine metabolism
+R04221__cyto,38.9625,13.7,ec_class_prior,Arginine and proline metabolism
+R04001__cyto,85.78,15.0,ec_class_prior,2-Oxocarboxylic acid metabolism
+R07116__cyto,30.0625,13.7,ec_class_prior,Metabolism of xenobiotics by cytochrome P450
+R02098__cyto,23.65,13.7,ec_class_prior,Pyrimidine metabolism
+R03471__cyto,63.0,13.7,ec_class_prior,Thiamine metabolism
+R01775__cyto,45.6025,13.7,ec_class_prior,Biosynthesis of antibiotics
+R00086__mito,76.445,79.0,ec_class_prior,Purine metabolism
+R02096__cyto,62.71,13.7,ec_class_prior,Pyrimidine metabolism
+R02101__cyto,42.34,13.7,ec_class_prior,Pyrimidine metabolism
+R01070__cyto,39.37,15.0,ec_class_prior,Biosynthesis of antibiotics
+R11945__mito,41.941429,13.7,ec_class_prior,Oxidative Phosphorilation
+R03409__cyto,43.57,79.0,ec_class_prior,Purine metabolism
+R02748__cyto,33.19,13.7,ec_class_prior,Purine metabolism
+R01496__cyto,62.095,13.7,ec_class_prior,Sphingolipid metabolism
+R00239__cyto,49.22,13.7,ec_class_prior,Biosynthesis of antibiotics
+R10035__cyto,90.946667,79.0,ec_class_prior,Cyanoamino acid metabolism
+R06516__cyto,65.95,15.0,ec_class_prior,Sphingolipid metabolism
+R00995__pero,69.37,15.0,ec_class_prior,C5-Branched dibasic acid metabolism
+R02093__cyto,16.93,13.7,ec_class_prior,Pyrimidine metabolism
+R01056__cyto,25.27,6.9,ec_class_prior,Biosynthesis of antibiotics
+R02047__mito,45.6025,13.7,ec_class_prior,
+R01665__cyto,32.75,13.7,ec_class_prior,Pyrimidine metabolism
+R01059__cyto,62.7,13.7,ec_class_prior,Fructose and mannose metabolism
+R00129__cyto,64.8775,15.0,ec_class_prior,
+R02372__cyto,62.71,13.7,ec_class_prior,Pyrimidine metabolism
+R08359__cyto,34.615,13.7,ec_class_prior,Glutathione metabolism
+R02094__cyto,23.65,13.7,ec_class_prior,Pyrimidine metabolism
+R01724__cyto,47.45,10.0,ec_class_prior,Nicotinate and nicotinamide metabolism
+R08091__cyto,60.042222,13.7,ec_class_prior,Geraniol degradation
+R00191__cyto,65.31,79.0,ec_class_prior,Purine metabolism
+R03018__cyto,63.24,13.7,ec_class_prior,Pantothenate and CoA biosynthesis
+R07113__cyto,30.0625,13.7,ec_class_prior,Metabolism of xenobiotics by cytochrome P450
+R11945__cyto,41.941429,13.7,ec_class_prior,Oxidative Phosphorilation
+R00569__cyto,76.445,79.0,ec_class_prior,Pyrimidine metabolism
+R03238__cyto,105.19,13.7,ec_class_prior,Galactose metabolism
+R07003__cyto,30.0625,13.7,ec_class_prior,Metabolism of xenobiotics by cytochrome P450
+R07384__cyto,33.55,13.7,ec_class_prior,Ether lipid metabolism
+R03348__cyto,25.42,13.7,ec_class_prior,Nicotinate and nicotinamide metabolism
+R07274__cyto,40.09,13.7,ec_class_prior,Cysteine and methionine metabolism
+R05639__cyto,42.41,13.7,ec_class_prior,Biosynthesis of antibiotics
+R07494__cyto,38.83,13.7,ec_class_prior,Biosynthesis of antibiotics
+R03458__cyto,45.6025,13.7,ec_class_prior,Riboflavin metabolism
+R10828__mito,42.41,13.7,ec_class_prior,Fatty acid elongation
+R07896__pero,78.966667,13.7,ec_class_prior,alpha-Linolenic acid metabolism
+R02030__mito,21.09,13.7,ec_class_prior,Glycerophospholipid metabolism
+R01857__cyto,16.93,13.7,ec_class_prior,Purine metabolism
+R12173__cyto,56.175,13.7,ec_class_prior,Biosynthesis of unsaturated fatty acids
+R00710__cyto,55.306667,13.7,ec_class_prior,Biosynthesis of antibiotics
+R04420__cyto,44.4,6.9,ec_class_prior,Cysteine and methionine metabolism
+R02568__cyto,39.37,15.0,ec_class_prior,Microbial metabolism in diverse environments
+R03304__cyto,29.65,13.7,ec_class_prior,Tyrosine metabolism
+R00026__cyto,90.946667,79.0,ec_class_prior,
+R02250__cyto,70.0175,79.0,ec_class_prior,Glycerolipid metabolism
+R00590__pero,35.76,15.0,ec_class_prior,Cysteine and methionine metabolism
+R10633__cyto,45.78,13.7,ec_class_prior,Nicotinate and nicotinamide metabolism
+R01324__mito,73.98,15.0,ec_class_prior,2-Oxocarboxylic acid metabolism
+R03422__cyto,59.3125,79.0,ec_class_prior,
+R00275__cyto,27.6,13.7,ec_class_prior,
+R07394__cyto,27.34,79.0,ec_class_prior,Cysteine and methionine metabolism
+R00964__cyto,62.18,13.7,ec_class_prior,Pyrimidine metabolism
+R11218__cyto,54.23,13.7,ec_class_prior,
+R00939__mito,23.52,13.7,ec_class_prior,One carbon pool by folate
+R09087__cyto,85.32,13.7,ec_class_prior,
+R12119__cyto,59.65,13.7,ec_class_prior,
+R02850__cyto,56.2525,13.7,ec_class_prior,
+R00621__mito,114.52,13.7,ec_class_prior,Citrate cycle (TCA cycle)
+R03084__cyto,93.7,15.0,ec_class_prior,Biosynthesis of antibiotics
+R07411__cyto,46.38,13.7,ec_class_prior,Porphyrin and chlorophyll metabolism
+R00867__cyto,53.923333,13.7,ec_class_prior,Fructose and mannose metabolism
+R07491__cyto,42.42,13.7,ec_class_prior,Steroid biosynthesis
+R01083__cyto,54.3,15.0,ec_class_prior,"Alanine, aspartate and glutamate metabolism"
+R02978__cyto,35.9,13.7,ec_class_prior,Sphingolipid metabolism
+R02035__cyto,32.65,79.0,ec_class_prior,Biosynthesis of antibiotics
+R12427__mito,62.095,13.7,ec_class_prior,Lipoic acid metabolism
+R00342__mito,34.54,13.7,ec_class_prior,Biosynthesis of antibiotics
+R00428__cyto,31.64,79.0,ec_class_prior,Folate biosynthesis
+R12152__cyto,64.28,15.0,ec_class_prior,
+R02694__cyto,62.095,13.7,ec_class_prior,
+R04725__cyto,135.89,13.7,ec_class_prior,Fatty acid biosynthesis
+R03363__cyto,58.688571,79.0,ec_class_prior,Inositol phosphate metabolism
+R00651__cyto,50.2,13.7,ec_class_prior,
+R07509__cyto,36.03,13.7,ec_class_prior,Biosynthesis of antibiotics
+R04945__cyto,66.65,13.7,ec_class_prior,
+R02665__cyto,19.42,13.7,ec_class_prior,Tryptophan metabolism
+R00402__cyto,42.41,13.7,ec_class_prior,Carbon fixation pathways in prokaryotes
+R00782__cyto,43.82,15.0,ec_class_prior,Cysteine and methionine metabolism
+R07981__cyto,33.92,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R09877__cyto,69.56,79.0,ec_class_prior,
+R00870__cyto,45.6025,13.7,ec_class_prior,Fructose and mannose metabolism
+R00127__mito,27.523333,13.7,ec_class_prior,Biosynthesis of antibiotics
+R03650__cyto,86.92,10.0,ec_class_prior,Aminoacyl-tRNA biosynthesis
+R00342__cyto,34.54,13.7,ec_class_prior,Biosynthesis of antibiotics
+R07762__cyto,40.083333,13.7,ec_class_prior,Fatty acid biosynthesis
+R06590__cyto,73.8,13.7,ec_class_prior,Biosynthesis of antibiotics
+R01899__mito,46.725,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R04953__cyto,152.495,13.7,ec_class_prior,Fatty acid biosynthesis
+R03921__cyto,56.79,79.0,ec_class_prior,Starch and sucrose metabolism
+R02408__cyto,43.82,15.0,ec_class_prior,Cysteine and methionine metabolism
+R09420__cyto,44.964,13.7,ec_class_prior,Metabolism of xenobiotics by cytochrome P450
+R00778__cyto,25.53,15.0,ec_class_prior,Microbial metabolism in diverse environments
+R04543__cyto,152.495,13.7,ec_class_prior,Fatty acid biosynthesis
+R12152__mito,64.28,15.0,ec_class_prior,
+R03968__cyto,85.78,15.0,ec_class_prior,2-Oxocarboxylic acid metabolism
+R00181__cyto,87.66,79.0,ec_class_prior,Biosynthesis of antibiotics
+R02297__cyto,33.19,13.7,ec_class_prior,Purine metabolism
+R03469__cyto,72.44,13.7,ec_class_prior,Inositol phosphate metabolism
+R00702__cyto,50.23,13.7,ec_class_prior,Biosynthesis of antibiotics
+R01954__cyto,46.09,10.0,ec_class_prior,Biosynthesis of antibiotics
+R00529__cyto,60.11,13.7,ec_class_prior,Biosynthesis of antibiotics
+R11218__mito,54.23,13.7,ec_class_prior,
+R00710__mito,55.306667,13.7,ec_class_prior,Biosynthesis of antibiotics
+R04762__cyto,29.65,13.7,ec_class_prior,Steroid hormone biosynthesis
+R03528__cyto,45.0,15.0,ec_class_prior,
+R01074__cyto,75.8,10.0,ec_class_prior,Biotin metabolism
+R03596__cyto,34.71,13.7,ec_class_prior,Selenocompound metabolism
+R07951__pero,73.98,15.0,ec_class_prior,Fatty acid metabolism
+R12085__cyto,62.095,13.7,ec_class_prior,Arginine and proline metabolism
+R00494__cyto,63.55,79.0,ec_class_prior,Glutathione metabolism
+R06366__cyto,55.306667,13.7,ec_class_prior,Limonene and pinene degradation
+R06527__cyto,46.145,13.7,ec_class_prior,Sphingolipid metabolism
+R00114__cyto,234.7,13.7,ec_class_prior,Biosynthesis of antibiotics
+R03654__cyto,73.36,10.0,ec_class_prior,Aminoacyl-tRNA biosynthesis
+R09644__cyto,58.688571,79.0,ec_class_prior,
+R03772__cyto,45.632857,79.0,ec_class_prior,Microbial metabolism in diverse environments
+R04483__cyto,44.248,13.7,ec_class_prior,
+R00927__cyto,43.62,13.7,ec_class_prior,Biosynthesis of antibiotics
+R04952__pero,125.355,13.7,ec_class_prior,Fatty acid biosynthesis
+R00719__cyto,76.445,79.0,ec_class_prior,Purine metabolism
+R03050__mito,53.475,13.7,ec_class_prior,
+R04949__cyto,90.946667,79.0,ec_class_prior,
+R03659__cyto,72.685,10.0,ec_class_prior,Aminoacyl-tRNA biosynthesis
+R04911__cyto,28.28,79.0,ec_class_prior,Tryptophan metabolism
+R04960__pero,125.355,13.7,ec_class_prior,Fatty acid biosynthesis
+R11319__cyto,26.775,13.7,ec_class_prior,Thiamine metabolism
+R04360__mito,32.443333,13.7,ec_class_prior,Ether lipid metabolism
+R00122__cyto,76.445,79.0,ec_class_prior,Purine metabolism
+R07948__cyto,78.966667,13.7,ec_class_prior,Non enzymatic
+R01354__cyto,74.865,10.0,ec_class_prior,Propanoate metabolism
+R00330__cyto,16.93,13.7,ec_class_prior,Purine metabolism
+R01082__cyto,52.25,15.0,ec_class_prior,Biosynthesis of antibiotics
+R00994__cyto,39.45,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R00335__cyto,76.445,79.0,ec_class_prior,Purine metabolism
+R04360__cyto,32.443333,13.7,ec_class_prior,Ether lipid metabolism
+R05069__mito,44.25,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R09365__cyto,86.19,13.7,ec_class_prior,Selenocompound metabolism
+R01320__cyto,23.06,13.7,ec_class_prior,Glycerophospholipid metabolism
+R03096__cyto,61.08,79.0,ec_class_prior,Tryptophan metabolism
+R04957__cyto,125.355,13.7,ec_class_prior,Fatty acid biosynthesis
+R04586__cyto,63.46,79.0,ec_class_prior,
+R01899__cyto,46.725,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R12026__cyto,51.81,13.7,ec_class_prior,Thiamine metabolism
+R07238__cyto,41.150714,13.7,ec_class_prior,
+R07364__cyto,21.35,13.7,ec_class_prior,Cysteine and methionine metabolism
+R03646__cyto,71.13,10.0,ec_class_prior,Aminoacyl-tRNA biosynthesis
+R00115__cyto,53.25,13.7,ec_class_prior,Glutathione metabolism
+R09099__cyto,52.95,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R11319__mito,26.775,13.7,ec_class_prior,Thiamine metabolism
+R03992__cyto,60.836667,13.7,ec_class_prior,
+R00926__cyto,74.865,10.0,ec_class_prior,Propanoate metabolism
+T_ATP_synthase__mito,41.941429,13.7,ec_class_prior,Oxidative Phosphorilation
+R09366__cyto,42.64,15.0,ec_class_prior,Selenocompound metabolism
+R02124__cyto,38.4775,13.7,ec_class_prior,Retinol metabolism
+R00271__cyto,47.585,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R01579__cyto,32.27,79.0,ec_class_prior,D-Glutamine and D-glutamate metabolism
+R08121__cyto,30.37,79.0,ec_class_prior,Microbial metabolism in diverse environments
+R00156__cyto,16.93,13.7,ec_class_prior,Pyrimidine metabolism
+R03552__cyto,66.342143,13.7,ec_class_prior,
+R00217__mito,50.416,13.7,ec_class_prior,Pyruvate metabolism
+R02410__cyto,56.79,79.0,ec_class_prior,Galactose metabolism
+R00707__cyto,64.43,13.7,ec_class_prior,Arginine and proline metabolism
+R01959__cyto,28.28,79.0,ec_class_prior,Tryptophan metabolism
+R11527__cyto,53.451111,79.0,ec_class_prior,Glycerolipid metabolism
+R00409__pero,61.61,15.0,ec_class_prior,Propanoate metabolism
+R07892__pero,78.966667,13.7,ec_class_prior,alpha-Linolenic acid metabolism
+R01201__cyto,63.24,13.7,ec_class_prior,Amino sugar and nucleotide sugar metabolism
+R10828__cyto,42.41,13.7,ec_class_prior,Fatty acid elongation
+R01858__cyto,55.58,13.7,ec_class_prior,Purine metabolism
+R04958__cyto,42.41,13.7,ec_class_prior,Fatty acid biosynthesis
+R05724__cyto,43.77,13.7,ec_class_prior,
+R05071__cyto,44.25,6.9,ec_class_prior,2-Oxocarboxylic acid metabolism
+R00876__cyto,56.2525,13.7,ec_class_prior,
+R09375__cyto,29.15,13.7,ec_class_prior,Riboflavin metabolism
+R01920__cyto,34.615,13.7,ec_class_prior,Glutathione metabolism
+R00494__mito,63.55,79.0,ec_class_prior,Glutathione metabolism
+R00217__cyto,50.416,13.7,ec_class_prior,Pyruvate metabolism
+R05064__cyto,52.66,79.0,ec_class_prior,"Valine, leucine and isoleucine degradation"
+R00715__cyto,40.53,13.7,ec_class_prior,Biosynthesis of antibiotics
+R07140__cyto,44.558,13.7,ec_class_prior,
+R01138__cyto,55.58,13.7,ec_class_prior,Purine metabolism
+R01641__cyto,73.8,13.7,ec_class_prior,Biosynthesis of antibiotics
+R05068__mito,44.25,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R00472__pero,62.28,13.7,ec_class_prior,Pyruvate metabolism
+R00875__cyto,40.66,13.7,ec_class_prior,Fructose and mannose metabolism
+R03875__cyto,88.146667,13.7,ec_class_prior,Lysine degradation
+R00274__cyto,18.375,13.7,ec_class_prior,Glutathione metabolism
+R00714__cyto,54.16,13.7,ec_class_prior,"Alanine, aspartate and glutamate metabolism"
+R03655__cyto,58.62,10.0,ec_class_prior,Aminoacyl-tRNA biosynthesis
+R00158__cyto,32.75,13.7,ec_class_prior,Pyrimidine metabolism
+R03435__cyto,69.276667,79.0,ec_class_prior,Inositol phosphate metabolism
+R07136__cyto,34.54,13.7,ec_class_prior,Cysteine and methionine metabolism
+R01139__cyto,56.2525,13.7,ec_class_prior,
+R04480__cyto,69.17,13.7,ec_class_prior,Glycerophospholipid metabolism
+R02940__cyto,55.306667,13.7,ec_class_prior,
+R01175__cyto,78.966667,13.7,ec_class_prior,Fatty acid metabolism
+R02199__mito,41.47,13.7,ec_class_prior,Glucosinolate biosynthesis
+R03098__cyto,154.18,13.7,ec_class_prior,Lysine biosynthesis
+R02530__cyto,35.81,79.0,ec_class_prior,Pyruvate metabolism
+R04954__cyto,131.93,13.7,ec_class_prior,Fatty acid biosynthesis
+R01799__cyto,47.92,13.7,ec_class_prior,Glycerophospholipid metabolism
+R00342__pero,34.54,13.7,ec_class_prior,Biosynthesis of antibiotics
+R04988__mito,39.63,13.7,ec_class_prior,Ubiquinone and other terpenoid-quinone biosynthesis
+R06154__cyto,77.515,13.7,ec_class_prior,
+R03991__cyto,43.62,13.7,ec_class_prior,Fatty acid elongation
+R04544__cyto,131.93,13.7,ec_class_prior,Fatty acid biosynthesis
+R03332__cyto,34.33,79.0,ec_class_prior,Inositol phosphate metabolism
+R00185__cyto,37.84,13.7,ec_class_prior,Purine metabolism
+R11098__cyto,16.63,15.0,ec_class_prior,Spontaneous
+R01397__cyto,243.08,13.7,ec_class_prior,Pyrimidine metabolism
+R07763__cyto,99.44,13.7,ec_class_prior,Fatty acid biosynthesis
+R05196__cyto,93.168,13.7,ec_class_prior,Starch and sucrose metabolism
+R07393__cyto,54.56,42.95,ec_class_prior,Cysteine and methionine metabolism
+R01108__cyto,38.71,13.7,ec_class_prior,Glutathione metabolism
+R02382__cyto,77.515,13.7,ec_class_prior,Tyrosine metabolism
+R00965__cyto,69.37,15.0,ec_class_prior,Pyrimidine metabolism
+R11219__cyto,38.78,13.7,ec_class_prior,
+R00619__cyto,33.08,13.7,ec_class_prior,Thiamine metabolism
+R12118__cyto,59.65,13.7,ec_class_prior,
+R06830__cyto,45.6025,13.7,ec_class_prior,Spontaneous
+R01518__cyto,28.415,6.9,ec_class_prior,Biosynthesis of antibiotics
+R00022__cyto,110.29,79.0,ec_class_prior,Amino sugar and nucleotide sugar metabolism
+R01234__cyto,65.31,79.0,ec_class_prior,Purine metabolism
+R01049__cyto,39.355,13.7,ec_class_prior,Biosynthesis of antibiotics
+R00999__cyto,66.65,13.7,ec_class_prior,Cysteine and methionine metabolism
+R07237__cyto,41.150714,13.7,ec_class_prior,
+R04014__cyto,43.845,79.0,ec_class_prior,Biosynthesis of antibiotics
+R02750__cyto,34.68,13.7,ec_class_prior,Pentose phosphate pathway
+R07896__cyto,78.966667,13.7,ec_class_prior,alpha-Linolenic acid metabolism
+R06835__cyto,30.37,79.0,ec_class_prior,Chlorocyclohexane and chlorobenzene degradation
+R03527__cyto,90.946667,79.0,ec_class_prior,Starch and sucrose metabolism
+R04956__mito,135.89,13.7,ec_class_prior,Fatty acid biosynthesis
+R07395__cyto,25.66,79.0,ec_class_prior,Cysteine and methionine metabolism
+R02222__cyto,56.175,13.7,ec_class_prior,Fatty acid metabolism
+R11217__cyto,38.78,13.7,ec_class_prior,
+R04764__cyto,29.65,13.7,ec_class_prior,Steroid hormone biosynthesis
+R03804__cyto,32.385,79.0,ec_class_prior,
+R04952__cyto,125.355,13.7,ec_class_prior,Fatty acid biosynthesis
+R01513__cyto,50.81,13.7,ec_class_prior,Biosynthesis of antibiotics
+R02473__cyto,33.9,10.0,ec_class_prior,Pantothenate and CoA biosynthesis
+R01325__cyto,73.98,15.0,ec_class_prior,2-Oxocarboxylic acid metabolism
+R07235__mito,39.63,13.7,ec_class_prior,Ubiquinone and other terpenoid-quinone biosynthesis
+R03613__cyto,71.98,10.0,ec_class_prior,
+R04983__cyto,39.223571,13.7,ec_class_prior,Ubiquinone and other terpenoid-quinone biosynthesis
+R07953__cyto,43.62,13.7,ec_class_prior,Fatty acid metabolism
+R00836__cyto,66.704483,13.7,ec_class_prior,
+R02251__cyto,62.095,13.7,ec_class_prior,Glycerolipid metabolism
+R07760__cyto,24.525,15.0,ec_class_prior,Fatty acid metabolism
+R08163__cyto,43.845,79.0,ec_class_prior,Fatty acid biosynthesis
+R00968__cyto,62.18,13.7,ec_class_prior,Pyrimidine metabolism
+R01325__mito,73.98,15.0,ec_class_prior,2-Oxocarboxylic acid metabolism
+R07859__cyto,103.7,13.7,ec_class_prior,alpha-Linolenic acid metabolism
+R04957__pero,125.355,13.7,ec_class_prior,Fatty acid biosynthesis
+R07015__cyto,42.41,13.7,ec_class_prior,Metabolism of xenobiotics by cytochrome P450
+R02848__cyto,56.2525,13.7,ec_class_prior,
+R01676__cyto,52.64,79.0,ec_class_prior,Purine metabolism
+R00650__cyto,36.63,13.7,ec_class_prior,Cysteine and methionine metabolism
+R01896__cyto,40.66,13.7,ec_class_prior,Pentose and glucuronate interconversions
+R00430__cyto,55.58,13.7,ec_class_prior,Purine metabolism
+R03681__cyto,45.42,13.7,ec_class_prior,
+R04604__cyto,75.8,10.0,ec_class_prior,
+R01230__cyto,58.52,10.0,ec_class_prior,Purine metabolism
+R07761__cyto,42.41,13.7,ec_class_prior,Fatty acid metabolism
+R04325__cyto,24.2,13.7,ec_class_prior,Biosynthesis of antibiotics
+R01326__cyto,53.923333,13.7,ec_class_prior,Fructose and mannose metabolism
+R01827__cyto,35.86,13.7,ec_class_prior,Biosynthesis of antibiotics
+R00524__cyto,46.92,79.0,ec_class_prior,Cyanoamino acid metabolism
+R07892__cyto,78.966667,13.7,ec_class_prior,alpha-Linolenic acid metabolism
+R03777__cyto,78.966667,13.7,ec_class_prior,Fatty acid metabolism
+R06522__cyto,73.98,15.0,ec_class_prior,Sphingolipid metabolism
+R03118__cyto,210.25,13.7,ec_class_prior,Starch and sucrose metabolism
+R01548__cyto,62.71,13.7,ec_class_prior,Pyrimidine metabolism
+R03180__cyto,61.08,79.0,ec_class_prior,Arginine and proline metabolism
+R00308__cyto,51.48,79.0,ec_class_prior,Starch and sucrose metabolism
+R00967__cyto,62.71,13.7,ec_class_prior,Pyrimidine metabolism
+R08198__cyto,46.644,13.7,ec_class_prior,
+R07950__cyto,78.966667,13.7,ec_class_prior,Fatty acid metabolism
+R04730__cyto,78.17,10.0,ec_class_prior,
+R02909__cyto,51.21,13.7,ec_class_prior,Tryptophan metabolism
+R01547__cyto,27.523333,13.7,ec_class_prior,Purine metabolism
+R03778__cyto,43.62,13.7,ec_class_prior,Fatty acid elongation
+R01177__cyto,42.53,13.7,ec_class_prior,Fatty acid elongation
+R00742__mito,253.56,10.0,ec_class_prior,Biosynthesis of antibiotics
+R10852__cyto,28.64,13.7,ec_class_prior,
+R04673__mito,53.475,13.7,ec_class_prior,
+R07891__cyto,43.62,13.7,ec_class_prior,alpha-Linolenic acid metabolism
+R12428__mito,62.095,13.7,ec_class_prior,Lipoic acid metabolism
+R01268__cyto,26.5,79.0,ec_class_prior,Nicotinate and nicotinamide metabolism
+R01015__cyto,26.77,13.7,ec_class_prior,Biosynthesis of antibiotics
+R01731__cyto,55.22,13.7,ec_class_prior,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+R00028__cyto,40.045,79.0,ec_class_prior,Starch and sucrose metabolism
+R10851__cyto,28.64,13.7,ec_class_prior,"Glycine, serine and threonine metabolism"
+R08193__cyto,58.82,6.9,ec_class_prior,Biosynthesis of antibiotics
+R02164__mito,30.874,13.7,ec_class_prior,Oxidative Phosphorilation
+R07486__cyto,42.42,13.7,ec_class_prior,Steroid biosynthesis
+R04326__cyto,24.2,13.7,ec_class_prior,One carbon pool by folate
+R01986__cyto,55.306667,13.7,ec_class_prior,Arginine and proline metabolism
+R12205__cyto,45.82,13.7,ec_class_prior,Fatty acid metabolism
+R01327__cyto,56.2525,13.7,ec_class_prior,
+R07324__cyto,57.56,6.9,ec_class_prior,Biosynthesis of antibiotics
+R03460__cyto,171.57,13.7,ec_class_prior,Biosynthesis of antibiotics
+R03245__cyto,48.07,13.7,ec_class_prior,Biosynthesis of antibiotics
+R06838__cyto,30.37,79.0,ec_class_prior,Chlorocyclohexane and chlorobenzene degradation
+R11063__cyto,36.63,13.7,ec_class_prior,
+R07766__mito,62.095,13.7,ec_class_prior,
+R07765__cyto,42.41,13.7,ec_class_prior,Fatty acid biosynthesis
+R01395__cyto,139.046667,13.7,ec_class_prior,Nitrogen metabolism
+R07392__cyto,28.2,15.0,ec_class_prior,Cysteine and methionine metabolism
+R05000__mito,43.62,13.7,ec_class_prior,Ubiquinone and other terpenoid-quinone biosynthesis
+R10634__cyto,45.78,13.7,ec_class_prior,Nicotinate and nicotinamide metabolism
+R00963__cyto,36.395,79.0,ec_class_prior,Pyrimidine metabolism
+R01549__cyto,62.71,13.7,ec_class_prior,Pyrimidine metabolism
+R02315__cyto,49.02,13.7,ec_class_prior,Biosynthesis of antibiotics
+R01010__cyto,54.291,79.0,ec_class_prior,
+R00802__cyto,56.79,79.0,ec_class_prior,
+R00189__cyto,80.14,10.0,ec_class_prior,Nicotinate and nicotinamide metabolism
+R10040__cyto,90.946667,79.0,ec_class_prior,Cyanoamino acid metabolism
+R01011__mito,62.7,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R01826__cyto,40.355,13.7,ec_class_prior,Biosynthesis of antibiotics
+R01013__cyto,63.939167,13.7,ec_class_prior,Glycerophospholipid metabolism
+R02534__cyto,29.65,13.7,ec_class_prior,Tyrosine metabolism
+R01730__cyto,49.01,13.7,ec_class_prior,Biosynthesis of antibiotics
+R02756__mito,32.443333,13.7,ec_class_prior,Glycerophospholipid metabolism
+R02038__cyto,43.15,13.7,ec_class_prior,Glycerophospholipid metabolism
+R04390__cyto,154.18,13.7,ec_class_prior,Lysine biosynthesis
+R02814__cyto,43.845,79.0,ec_class_prior,Fatty acid biosynthesis
+R01923__pero,62.095,13.7,ec_class_prior,Fatty acid metabolism
+R03243__cyto,44.05,13.7,ec_class_prior,Histidine metabolism
+R00188__cyto,39.53,79.0,ec_class_prior,
+R00961__cyto,76.445,79.0,ec_class_prior,Purine metabolism
+R04672__mito,53.475,13.7,ec_class_prior,
+R02756__cyto,32.443333,13.7,ec_class_prior,Glycerophospholipid metabolism
+R01829__cyto,39.37,15.0,ec_class_prior,Microbial metabolism in diverse environments
+R06521__cyto,53.587273,79.0,ec_class_prior,Sphingolipid metabolism
+R07606__cyto,62.095,13.7,ec_class_prior,
+R02976__cyto,53.36,13.7,ec_class_prior,Sphingolipid metabolism
+R04328__cyto,42.292857,13.7,ec_class_prior,
+R02161__mito,41.941429,13.7,ec_class_prior,Oxidative Phosphorilation
+R00742__cyto,253.56,10.0,ec_class_prior,Biosynthesis of antibiotics
+R03522__cyto,31.792,79.0,ec_class_prior,Glutathione metabolism
+R01231__cyto,58.52,10.0,ec_class_prior,Purine metabolism
+R04391__cyto,63.24,13.7,ec_class_prior,Pantothenate and CoA biosynthesis
+R06740__cyto,77.515,13.7,ec_class_prior,Biosynthesis of secondary metabolites
+R00962__cyto,62.71,13.7,ec_class_prior,Pyrimidine metabolism
+R07489__cyto,52.77,13.7,ec_class_prior,Steroid biosynthesis
+R00187__cyto,69.56,79.0,ec_class_prior,Purine metabolism
+R01013__mito,63.939167,13.7,ec_class_prior,Glycerophospholipid metabolism
+R03024__cyto,34.365,79.0,ec_class_prior,Aminobenzoate degradation
+R01890__cyto,48.87,13.7,ec_class_prior,Glycerophospholipid metabolism
+R00801__cyto,56.79,79.0,ec_class_prior,Galactose metabolism
+R00245__cyto,64.43,13.7,ec_class_prior,Arginine and proline metabolism
+R01011__cyto,62.7,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R04171__cyto,49.04,13.7,ec_class_prior,Tryptophan metabolism
+R06520__cyto,57.85,79.0,ec_class_prior,Sphingolipid metabolism
+R00235__cyto,74.865,10.0,ec_class_prior,Biosynthesis of antibiotics
+R00940__mito,23.52,13.7,ec_class_prior,One carbon pool by folate
+R01512__cyto,44.44,13.7,ec_class_prior,Biosynthesis of antibiotics
+R07477__cyto,41.43,13.7,ec_class_prior,
+R02236__cyto,23.52,13.7,ec_class_prior,One carbon pool by folate
+R05066__cyto,45.6025,13.7,ec_class_prior,"Valine, leucine and isoleucine degradation"
+R00256__mito,139.046667,10.0,ec_class_prior,D-Glutamine and D-glutamate metabolism
+R03534__mito,44.25,13.7,ec_class_prior,Butanoate metabolism
+R06517__cyto,46.145,13.7,ec_class_prior,Sphingolipid metabolism
+R00104__cyto,53.585,13.7,ec_class_prior,Nicotinate and nicotinamide metabolism
+R02472__cyto,38.92,13.7,ec_class_prior,Pantothenate and CoA biosynthesis
+R03239__cyto,105.19,13.7,ec_class_prior,Galactose metabolism
+R10952__cyto,69.276667,79.0,ec_class_prior,
+R06927__cyto,38.4775,13.7,ec_class_prior,Degradation of aromatic compounds
+R10711__cyto,65.90037,13.7,ec_class_prior,Thiamine metabolism
+R00197__cyto,62.9,13.7,ec_class_prior,Pyruvate metabolism
+R04173__cyto,42.99,13.7,ec_class_prior,Biosynthesis of antibiotics
+R01325__pero,73.98,15.0,ec_class_prior,2-Oxocarboxylic acid metabolism
+R00087__cyto,69.56,79.0,ec_class_prior,Purine metabolism
+R00814__cyto,42.41,13.7,ec_class_prior,
+R02100__cyto,16.29,79.0,ec_class_prior,Pyrimidine metabolism
+R08770__mito,55.58,15.0,ec_class_prior,Ubiquinone and other terpenoid-quinone biosynthesis
+R02088__cyto,32.693333,79.0,ec_class_prior,Purine metabolism
+R00709__mito,39.225,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R00945__mito,52.95,13.7,ec_class_prior,Biosynthesis of antibiotics
+R10783__cyto,42.04,13.7,ec_class_prior,alpha-Linolenic acid metabolism
+R04558__mito,64.28,15.0,ec_class_prior,Histidine metabolism
+R09511__cyto,56.985,13.7,ec_class_prior,
+R00214__cyto,69.67,13.7,ec_class_prior,Pyruvate metabolism
+R07215__cyto,42.42,15.0,ec_class_prior,Steroid biosynthesis
+R05640__cyto,59.65,13.7,ec_class_prior,Biosynthesis of antibiotics
+R11097__cyto,52.77,13.7,ec_class_prior,Steroid biosynthesis
+R07105__cyto,38.4775,13.7,ec_class_prior,Metabolism of xenobiotics by cytochrome P450
+R01969__cyto,33.19,13.7,ec_class_prior,Purine metabolism
+R00514__cyto,76.445,13.7,ec_class_prior,Pyrimidine metabolism
+R00497__cyto,55.07,10.0,ec_class_prior,Glutathione metabolism
+R01392__pero,45.6025,13.7,ec_class_prior,"Glycine, serine and threonine metabolism"
+R02920__cyto,29.65,13.7,ec_class_prior,Tyrosine metabolism
+R04216__cyto,83.99,13.7,ec_class_prior,
+R01402__cyto,38.03,13.7,ec_class_prior,Cysteine and methionine metabolism
+R08280__cyto,30.0625,13.7,ec_class_prior,Drug metabolism - cytochrome P450
+R04457__cyto,20.78,13.7,ec_class_prior,Riboflavin metabolism
+R04998__cyto,90.946667,79.0,ec_class_prior,Phenylpropanoid biosynthesis
+R00425__cyto,36.53,79.0,ec_class_prior,Riboflavin metabolism
+R08280__mito,30.0625,13.7,ec_class_prior,Drug metabolism - cytochrome P450
+R00996__cyto,44.933333,15.0,ec_class_prior,Biosynthesis of antibiotics
+R04867__cyto,88.146667,13.7,ec_class_prior,Lysine degradation
+R07400__cyto,38.9625,13.7,ec_class_prior,Biosynthesis of antibiotics
+R01018__cyto,67.4,13.7,ec_class_prior,N-Glycan biosynthesis
+R02282__cyto,34.39,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R11896__cyto,16.29,79.0,ec_class_prior,Drug metabolism - other enzymes
+R00835__cyto,57.59,13.7,ec_class_prior,
+R02971__cyto,63.24,13.7,ec_class_prior,Pantothenate and CoA biosynthesis
+R05691__cyto,44.238,13.7,ec_class_prior,
+R04558__cyto,64.28,15.0,ec_class_prior,Histidine metabolism
+R07100__cyto,30.0625,13.7,ec_class_prior,Metabolism of xenobiotics by cytochrome P450
+R04321__cyto,33.55,13.7,ec_class_prior,Ether lipid metabolism
+R02472__mito,38.92,13.7,ec_class_prior,Pantothenate and CoA biosynthesis
+R03665__cyto,120.37,10.0,ec_class_prior,Aminoacyl-tRNA biosynthesis
+R07456__cyto,28.955,15.0,ec_class_prior,Vitamin B6 metabolism
+R02493__cyto,43.83,13.7,ec_class_prior,Vitamin B6 metabolism
+R01790__cyto,61.29,79.0,ec_class_prior,Galactose metabolism
+R06863__cyto,73.8,13.7,ec_class_prior,
+R00214__mito,69.67,13.7,ec_class_prior,Pyruvate metabolism
+R11861__mito,28.28,15.0,ec_class_prior,Glutathione metabolism
+R04537__cyto,131.93,13.7,ec_class_prior,Fatty acid biosynthesis
+R08539__cyto,76.25,13.7,ec_class_prior,
+R00725__cyto,56.2525,13.7,ec_class_prior,
+R04300__cyto,77.515,13.7,ec_class_prior,Isoquinoline alkaloid biosynthesis
+R00256__cyto,139.046667,13.7,ec_class_prior,D-Glutamine and D-glutamate metabolism
+R02747__mito,172.52,79.0,ec_class_prior,Glycerophospholipid metabolism
+R00755__cyto,62.6,15.0,ec_class_prior,Glycolysis / Gluconeogenesis
+R01318__cyto,69.17,13.7,ec_class_prior,Glycerophospholipid metabolism
+R00066__cyto,25.58,13.7,ec_class_prior,Riboflavin metabolism
+R03424__cyto,23.06,10.0,ec_class_prior,Glycerophospholipid metabolism
+R09832__cyto,63.808,79.0,ec_class_prior,
+R02142__cyto,24.57,13.7,ec_class_prior,Purine metabolism
+R00945__cyto,52.95,13.7,ec_class_prior,Biosynthesis of antibiotics
+R06364__cyto,33.55,13.7,ec_class_prior,Ether lipid metabolism
+R00479__pero,61.61,15.0,ec_class_prior,Microbial metabolism in diverse environments
+R01648__cyto,53.68,13.7,ec_class_prior,"Alanine, aspartate and glutamate metabolism"
+R07316__cyto,53.125,47.0,ec_class_prior,Spontaneous
+R04427__cyto,42.51,13.7,ec_class_prior,Biosynthesis of antibiotics
+R01868__cyto,46.55,13.7,ec_class_prior,Pyrimidine metabolism
+R05551__cyto,61.08,79.0,ec_class_prior,Styrene degradation
+R11765__mito,23.52,13.7,ec_class_prior,Folate biosynthesis
+R00713__cyto,54.16,13.7,ec_class_prior,"Alanine, aspartate and glutamate metabolism"
+R10057__cyto,36.03,13.7,ec_class_prior,
+R03269__cyto,70.63,15.0,ec_class_prior,Pantothenate and CoA biosynthesis
+R02878__cyto,42.04,13.7,ec_class_prior,
+R07481__cyto,42.51,13.7,ec_class_prior,Steroid biosynthesis
+R01137__cyto,16.93,13.7,ec_class_prior,Purine metabolism
+R11193__cyto,40.897857,13.7,ec_class_prior,
+R02135__cyto,44.03,79.0,ec_class_prior,Thiamine metabolism
+R00987__cyto,50.3,79.0,ec_class_prior,Tryptophan metabolism
+R01039__cyto,32.52,13.7,ec_class_prior,Glycerolipid metabolism
+R09372__cyto,34.71,13.7,ec_class_prior,Selenocompound metabolism
+R07092__cyto,30.0625,13.7,ec_class_prior,Metabolism of xenobiotics by cytochrome P450
+R00155__cyto,76.445,79.0,ec_class_prior,Pyrimidine metabolism
+R02294__cyto,33.19,13.7,ec_class_prior,Nicotinate and nicotinamide metabolism
+R00391__cyto,60.042222,13.7,ec_class_prior,Fatty acid elongation
+R04963__cyto,125.355,13.7,ec_class_prior,Fatty acid biosynthesis
+R09220__cyto,30.37,79.0,ec_class_prior,Microbial metabolism in diverse environments
+R00010__cyto,106.715,79.0,ec_class_prior,Biosynthesis of secondary metabolites
+R01639__cyto,76.49,13.7,ec_class_prior,Pentose and glucuronate interconversions
+R10052__cyto,39.45,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R08159__cyto,43.845,79.0,ec_class_prior,Fatty acid biosynthesis
+R11034__cyto,73.98,15.0,ec_class_prior,Spontaneous
+R01373__cyto,73.98,15.0,ec_class_prior,Biosynthesis of antibiotics
+R00670__cyto,51.07,15.0,ec_class_prior,Glutathione metabolism
+R11861__cyto,28.28,15.0,ec_class_prior,Glutathione metabolism
+R04956__cyto,135.89,13.7,ec_class_prior,Fatty acid biosynthesis
+R00277__cyto,31.535,13.7,ec_class_prior,Vitamin B6 metabolism
+R05329__cyto,41.43,13.7,ec_class_prior,
+R00549__cyto,63.24,13.7,ec_class_prior,Riboflavin metabolism
+R02923__pero,38.9625,13.7,ec_class_prior,D-Arginine and D-ornithine metabolism
+R08548__cyto,58.688571,79.0,ec_class_prior,
+R01870__cyto,23.76,13.7,ec_class_prior,Pyrimidine metabolism
+R00057__cyto,22.735,13.7,ec_class_prior,
+R03051__mito,44.25,13.7,ec_class_prior,
+R00996__mito,44.933333,15.0,ec_class_prior,Biosynthesis of antibiotics
+R03438__cyto,62.095,13.7,ec_class_prior,Ether lipid metabolism
+R02058__cyto,16.68,13.7,ec_class_prior,Amino sugar and nucleotide sugar metabolism
+R04968__cyto,125.355,13.7,ec_class_prior,Fatty acid biosynthesis
+R05734__cyto,36.03,13.7,ec_class_prior,
+R10116__cyto,99.44,13.7,ec_class_prior,Biotin metabolism
+R05070__mito,63.04,15.0,ec_class_prior,2-Oxocarboxylic acid metabolism
+R05286__cyto,55.306667,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R07362__cyto,44.57,13.7,ec_class_prior,
+R04959__mito,135.89,13.7,ec_class_prior,Fatty acid biosynthesis
+R02016__cyto,34.71,13.7,ec_class_prior,
+R01529__cyto,25.14,6.9,ec_class_prior,Biosynthesis of antibiotics
+R01039__mito,32.52,13.7,ec_class_prior,Glycerolipid metabolism
+R01526__cyto,81.02,13.7,ec_class_prior,Pentose and glucuronate interconversions
+R00221__cyto,45.72,15.0,ec_class_prior,"Glycine, serine and threonine metabolism"
+R07025__cyto,30.0625,13.7,ec_class_prior,Metabolism of xenobiotics by cytochrome P450
+R00767__cyto,91.206667,13.7,ec_class_prior,
+R07899__cyto,43.62,13.7,ec_class_prior,alpha-Linolenic acid metabolism
+R04972__cyto,41.03,15.0,ec_class_prior,Porphyrin and chlorophyll metabolism
+R06875__cyto,58.688571,79.0,ec_class_prior,
+R01964__cyto,56.2525,13.7,ec_class_prior,
+R10994__cyto,55.07,10.0,ec_class_prior,Cysteine and methionine metabolism
+R00052__cyto,30.65,13.7,ec_class_prior,
+R02557__cyto,33.19,13.7,ec_class_prior,Purine metabolism
+R03222__cyto,59.37,13.7,ec_class_prior,Porphyrin and chlorophyll metabolism
+R12403__cyto,36.03,13.7,ec_class_prior,Biosynthesis of antibiotics
+R00006__mito,53.475,13.7,ec_class_prior,
+R01863__cyto,33.19,13.7,ec_class_prior,Purine metabolism
+R01177__pero,42.53,13.7,ec_class_prior,Fatty acid elongation
+R02887__cyto,90.946667,79.0,ec_class_prior,Starch and sucrose metabolism
+R03220__cyto,36.56,13.7,ec_class_prior,Porphyrin and chlorophyll metabolism
+R11674__pero,42.41,13.7,ec_class_prior,
+R00551__cyto,34.24,79.0,ec_class_prior,Biosynthesis of antibiotics
+R00830__mito,62.25,13.7,ec_class_prior,Porphyrin and chlorophyll metabolism
+R02236__mito,23.52,13.7,ec_class_prior,One carbon pool by folate
+R03319__cyto,65.64,6.9,ec_class_prior,
+R03990__cyto,78.966667,13.7,ec_class_prior,Fatty acid metabolism
+R10120__cyto,99.44,13.7,ec_class_prior,Biotin metabolism
+R05615__cyto,43.62,13.7,ec_class_prior,Ubiquinone and other terpenoid-quinone biosynthesis
+R00709__cyto,39.225,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R07083__cyto,30.0625,13.7,ec_class_prior,Metabolism of xenobiotics by cytochrome P450
+R04959__cyto,135.89,13.7,ec_class_prior,Fatty acid biosynthesis
+R05725__cyto,43.77,13.7,ec_class_prior,
+R00936__mito,23.52,13.7,ec_class_prior,One carbon pool by folate
+R03660__cyto,58.493333,10.0,ec_class_prior,Aminoacyl-tRNA biosynthesis
+R10826__cyto,45.6025,13.7,ec_class_prior,Fatty acid elongation
+R03869__cyto,55.306667,79.0,ec_class_prior,"Valine, leucine and isoleucine degradation"
+R02894__cyto,38.9625,13.7,ec_class_prior,Arginine and proline metabolism
+R02291__cyto,38.98,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R03330__cyto,58.688571,79.0,ec_class_prior,Inositol phosphate metabolism
+R12405__cyto,38.78,13.7,ec_class_prior,Biosynthesis of antibiotics
+R00771__cyto,61.38,6.9,ec_class_prior,Biosynthesis of secondary metabolites
+R07034__cyto,18.375,13.7,ec_class_prior,Arachidonic acid metabolism
+R04968__pero,125.355,13.7,ec_class_prior,Fatty acid biosynthesis
+R00842__mito,41.265,13.7,ec_class_prior,Glycerophospholipid metabolism
+R01004__cyto,26.12,79.0,ec_class_prior,N-Glycan biosynthesis
+R00678__cyto,51.21,13.7,ec_class_prior,Tryptophan metabolism
+R01057__cyto,65.64,6.9,ec_class_prior,Pentose phosphate pathway
+R04509__cyto,63.0,13.7,ec_class_prior,Thiamine metabolism
+R10208__cyto,34.49,15.0,ec_class_prior,Fatty acid biosynthesis
+R00465__pero,45.6025,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R02412__cyto,171.57,13.7,ec_class_prior,Biosynthesis of antibiotics
+R02508__cyto,66.65,13.7,ec_class_prior,
+R01135__cyto,47.84,10.0,ec_class_prior,"Alanine, aspartate and glutamate metabolism"
+R04035__cyto,92.81,79.0,ec_class_prior,Histidine metabolism
+R02543__cyto,62.095,13.7,ec_class_prior,Sphingolipid metabolism
+R07460__mito,51.45,13.7,ec_class_prior,Thiamine metabolism
+R03656__cyto,117.995,10.0,ec_class_prior,Aminoacyl-tRNA biosynthesis
+R02985__cyto,90.946667,79.0,ec_class_prior,Cyanoamino acid metabolism
+R04963__pero,125.355,13.7,ec_class_prior,Fatty acid biosynthesis
+R04209__cyto,61.25,15.0,ec_class_prior,Purine metabolism
+R00847__mito,69.83,13.7,ec_class_prior,Glycerolipid metabolism
+R02760__mito,60.600909,13.7,ec_class_prior,
+R04724__cyto,42.41,13.7,ec_class_prior,Fatty acid biosynthesis
+R09030__cyto,25.27,6.9,ec_class_prior,Microbial metabolism in diverse environments
+R01130__cyto,56.2,13.7,ec_class_prior,Purine metabolism
+R00289__cyto,55.66,13.7,ec_class_prior,Biosynthesis of antibiotics
+R00659__cyto,59.41,13.7,ec_class_prior,
+R02527__cyto,45.6025,13.7,ec_class_prior,Pyruvate metabolism
+R01315__cyto,103.7,79.0,ec_class_prior,Glycerophospholipid metabolism
+R00769__cyto,91.206667,13.7,ec_class_prior,
+R01009__cyto,15.663333,13.7,ec_class_prior,N-Glycan biosynthesis
+R02133__cyto,63.0,79.0,ec_class_prior,Thiamine metabolism
+R01071__cyto,33.35,13.7,ec_class_prior,Histidine metabolism
+R01800__cyto,30.64,13.7,ec_class_prior,"Glycine, serine and threonine metabolism"
+R07149__cyto,44.248,13.7,ec_class_prior,
+R01352__cyto,46.3375,79.0,ec_class_prior,
+R03658__cyto,65.295,10.0,ec_class_prior,Aminoacyl-tRNA biosynthesis
+R00694__cyto,52.3,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R01961__cyto,53.923333,13.7,ec_class_prior,Amino sugar and nucleotide sugar metabolism
+R02964__cyto,23.77,13.7,ec_class_prior,Ubiquinone and other terpenoid-quinone biosynthesis
+R07506__cyto,59.72,13.7,ec_class_prior,Biosynthesis of antibiotics
+R00009__pero,55.04,13.7,ec_class_prior,Biosynthesis of antibiotics
+R08632__cyto,42.64,15.0,ec_class_prior,
+R12356__cyto,78.966667,13.7,ec_class_prior,Propanoate metabolism
+R02090__cyto,20.74,13.7,ec_class_prior,Purine metabolism
+R02245__cyto,45.72,13.7,ec_class_prior,Biosynthesis of antibiotics
+R00842__cyto,41.265,13.7,ec_class_prior,Glycerophospholipid metabolism
+R01221__cyto,56.94,13.7,ec_class_prior,Biosynthesis of antibiotics
+R01073__cyto,40.01,13.7,ec_class_prior,Biosynthesis of antibiotics
+R04960__cyto,125.355,13.7,ec_class_prior,Fatty acid biosynthesis
+R05802__cyto,268.41,13.7,ec_class_prior,Inositol phosphate metabolism
+R05764__cyto,35.02,13.7,ec_class_prior,
+R05048__cyto,31.64,79.0,ec_class_prior,Spontaneous
+R12400__cyto,59.41,13.7,ec_class_prior,Steroid biosynthesis
+R03283__cyto,55.306667,13.7,ec_class_prior,Lysine degradation
+R04072__cyto,88.96,13.7,ec_class_prior,
+R05800__cyto,63.24,13.7,ec_class_prior,Inositol phosphate metabolism
+R12121__cyto,59.65,13.7,ec_class_prior,
+R01411__cyto,16.54,79.0,ec_class_prior,Pyrimidine metabolism
+R04440__mito,44.25,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R00893__cyto,26.15,13.7,ec_class_prior,Taurine and hypotaurine metabolism
+R10455__cyto,45.66,13.7,ec_class_prior,
+R01682__cyto,59.89,15.0,ec_class_prior,Taurine and hypotaurine metabolism
+R10039__cyto,90.946667,79.0,ec_class_prior,Cyanoamino acid metabolism
+R01221__mito,56.94,13.7,ec_class_prior,Biosynthesis of antibiotics
+R01462__cyto,76.646667,79.0,ec_class_prior,Steroid biosynthesis
+R01978__cyto,49.5,13.7,ec_class_prior,Biosynthesis of antibiotics
+R06861__cyto,73.8,13.7,ec_class_prior,
+R01132__cyto,24.57,13.7,ec_class_prior,Purine metabolism
+R07004__cyto,30.0625,13.7,ec_class_prior,Metabolism of xenobiotics by cytochrome P450
+R01055__mito,84.52,15.0,ec_class_prior,Pyrimidine metabolism
+R00127__cyto,27.523333,13.7,ec_class_prior,Biosynthesis of antibiotics
+R03035__cyto,91.8,13.7,ec_class_prior,Pantothenate and CoA biosynthesis
+R01771__cyto,38.54,13.7,ec_class_prior,"Glycine, serine and threonine metabolism"
+R05577__cyto,71.85,10.0,ec_class_prior,Aminoacyl-tRNA biosynthesis
+R07759__cyto,45.6025,13.7,ec_class_prior,Fatty acid metabolism
+R04929__cyto,60.11,13.7,ec_class_prior,Selenocompound metabolism
+R02540__cyto,61.08,13.7,ec_class_prior,Styrene degradation
+R03920__cyto,53.923333,13.7,ec_class_prior,Amino sugar and nucleotide sugar metabolism
+R00517__cyto,62.18,13.7,ec_class_prior,Pyrimidine metabolism
+R00084__cyto,39.63,13.7,ec_class_prior,Porphyrin and chlorophyll metabolism
+R00036__cyto,37.33,15.0,ec_class_prior,Porphyrin and chlorophyll metabolism
+R01618__cyto,45.36,13.7,ec_class_prior,Purine metabolism
+R02097__cyto,63.24,13.7,ec_class_prior,Pyrimidine metabolism
+R01776__cyto,54.72,13.7,ec_class_prior,Biosynthesis of antibiotics
+R03347__cyto,27.13,13.7,ec_class_prior,Nicotinate and nicotinamide metabolism
+R11165__cyto,33.74,13.7,ec_class_prior,
+R02371__cyto,62.71,13.7,ec_class_prior,Pyrimidine metabolism
+R03237__cyto,105.19,13.7,ec_class_prior,Galactose metabolism
+R00238__cyto,42.53,13.7,ec_class_prior,Biosynthesis of antibiotics
+R05799__cyto,128.86,13.7,ec_class_prior,
+R01001__cyto,42.64,15.0,ec_class_prior,Biosynthesis of antibiotics
+R00348__cyto,32.73,79.0,ec_class_prior,"Alanine, aspartate and glutamate metabolism"
+R00908__cyto,53.68,13.7,ec_class_prior,Propanoate metabolism
+R04429__cyto,42.41,13.7,ec_class_prior,Fatty acid biosynthesis
+R02156__cyto,37.33,13.7,ec_class_prior,
+R01229__cyto,24.57,13.7,ec_class_prior,Purine metabolism
+R10845__cyto,55.22,13.7,ec_class_prior,
+R00253__cyto,41.18,10.0,ec_class_prior,"Alanine, aspartate and glutamate metabolism"
+R03990__pero,78.966667,13.7,ec_class_prior,Fatty acid metabolism
+R01819__cyto,48.58,6.9,ec_class_prior,Biosynthesis of antibiotics
+R04881__cyto,29.65,13.7,ec_class_prior,Tyrosine metabolism
+R00970__cyto,62.71,13.7,ec_class_prior,Pyrimidine metabolism
+R03236__cyto,105.19,13.7,ec_class_prior,Galactose metabolism
+R03083__cyto,171.57,15.0,ec_class_prior,Biosynthesis of antibiotics
+R06519__cyto,42.59,13.7,ec_class_prior,Sphingolipid metabolism
+R02688__cyto,54.5,79.0,ec_class_prior,
+R04944__cyto,66.65,13.7,ec_class_prior,Selenocompound metabolism
+R03362__cyto,116.62,13.7,ec_class_prior,Inositol phosphate metabolism
+R02092__cyto,76.445,79.0,ec_class_prior,Pyrimidine metabolism
+R07168__cyto,70.7,13.7,ec_class_prior,Carbon fixation pathways in prokaryotes
+R03194__cyto,60.92,13.7,ec_class_prior,Porphyrin and chlorophyll metabolism
+R04928__cyto,63.24,13.7,ec_class_prior,
+R11100__pero,35.76,15.0,ec_class_prior,Spontaneous
+R04880__cyto,38.4775,13.7,ec_class_prior,Tyrosine metabolism
+R00734__cyto,52.3,13.7,ec_class_prior,Ubiquinone and other terpenoid-quinone biosynthesis
+R04990__cyto,39.223571,13.7,ec_class_prior,Ubiquinone and other terpenoid-quinone biosynthesis
+R04770__cyto,42.64,15.0,ec_class_prior,Selenocompound metabolism
+R08095__cyto,60.042222,13.7,ec_class_prior,Geraniol degradation
+R02747__cyto,172.52,79.0,ec_class_prior,Glycerophospholipid metabolism
+R09698__pero,73.98,15.0,ec_class_prior,
+R03067__cyto,83.34,13.7,ec_class_prior,Folate biosynthesis
+R04502__cyto,65.277857,13.7,ec_class_prior,
+R03628__cyto,51.21,13.7,ec_class_prior,Tryptophan metabolism
+R01830__cyto,73.8,13.7,ec_class_prior,Biosynthesis of antibiotics
+R00085__cyto,71.855,79.0,ec_class_prior,
+R00776__pero,23.6,15.0,ec_class_prior,Purine metabolism
+R00251__cyto,142.1,79.0,ec_class_prior,Glutathione metabolism
+R02760__cyto,60.600909,13.7,ec_class_prior,
+R05590__cyto,61.08,79.0,ec_class_prior,Aminobenzoate degradation
+R04445__mito,64.43,13.7,ec_class_prior,Arginine and proline metabolism
+R09844__cyto,38.525,13.7,ec_class_prior,Biosynthesis of antibiotics
+R07385__cyto,193.48,79.0,ec_class_prior,Ether lipid metabolism
+R01388__cyto,45.6025,13.7,ec_class_prior,Biosynthesis of antibiotics
+R03459__cyto,34.33,79.0,ec_class_prior,Riboflavin metabolism
+R01664__cyto,32.693333,79.0,ec_class_prior,Pyrimidine metabolism
+R04494__cyto,64.425,13.7,ec_class_prior,
+R04725__mito,135.89,13.7,ec_class_prior,Fatty acid biosynthesis
+R03457__cyto,73.98,15.0,ec_class_prior,Histidine metabolism
+R00519__cyto,39.04,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R00190__cyto,20.04,13.7,ec_class_prior,Purine metabolism
+R00530__cyto,45.36,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R00959__cyto,65.64,6.9,ec_class_prior,Biosynthesis of antibiotics
+R00516__cyto,62.71,13.7,ec_class_prior,Pyrimidine metabolism
+R03899__cyto,52.77,13.7,ec_class_prior,
+R00691__cyto,73.98,15.0,ec_class_prior,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+R01224__cyto,69.59,13.7,ec_class_prior,One carbon pool by folate
+R00626__cyto,54.291,79.0,ec_class_prior,
+R02529__cyto,77.515,13.7,ec_class_prior,"Glycine, serine and threonine metabolism"
+R00200__cyto,55.58,13.7,ec_class_prior,Biosynthesis of antibiotics
+R02484__cyto,42.5,13.7,ec_class_prior,Pyrimidine metabolism
+R07495__cyto,38.78,13.7,ec_class_prior,Biosynthesis of antibiotics
+R07168__mito,70.7,13.7,ec_class_prior,Carbon fixation pathways in prokaryotes
+R04773__cyto,72.685,13.7,ec_class_prior,Selenocompound metabolism
+R01226__cyto,34.62,13.7,ec_class_prior,Pantothenate and CoA biosynthesis
+R07002__cyto,30.0625,13.7,ec_class_prior,Metabolism of xenobiotics by cytochrome P450
+R09736__mito,33.94,13.7,ec_class_prior,Ubiquinone and other terpenoid-quinone biosynthesis
+R00627__cyto,31.2725,79.0,ec_class_prior,
+R11337__cyto,46.644,13.7,ec_class_prior,
+R02095__cyto,76.445,79.0,ec_class_prior,Pyrimidine metabolism
+R02102__cyto,32.693333,79.0,ec_class_prior,Pyrimidine metabolism
+R04496__cyto,26.47,13.7,ec_class_prior,Biosynthesis of antibiotics
+R00192__cyto,48.85,79.0,ec_class_prior,Cysteine and methionine metabolism
+R02918__cyto,51.27,10.0,ec_class_prior,Aminoacyl-tRNA biosynthesis
+R00310__mito,43.34,15.0,ec_class_prior,Porphyrin and chlorophyll metabolism
+R03516__cyto,110.474,13.7,ec_class_prior,
+R00847__cyto,69.83,13.7,ec_class_prior,Glycerolipid metabolism
+R02457__pero,38.9625,13.7,ec_class_prior,D-Arginine and D-ornithine metabolism
+R01497__cyto,51.88,13.7,ec_class_prior,Sphingolipid metabolism
+R03012__cyto,92.81,13.7,ec_class_prior,Histidine metabolism
+R03858__cyto,43.62,13.7,ec_class_prior,Fatty acid elongation
+R07094__cyto,30.0625,13.7,ec_class_prior,Metabolism of xenobiotics by cytochrome P450
+R04961__cyto,42.41,13.7,ec_class_prior,Fatty acid biosynthesis
+R11893__mito,72.585,13.7,ec_class_prior,Drug metabolism - other enzymes
+R03038__cyto,106.11,10.0,ec_class_prior,Aminoacyl-tRNA biosynthesis
+R02732__mito,107.56,13.7,ec_class_prior,Fructose and mannose metabolism
+R01214__mito,41.47,13.7,ec_class_prior,Glucosinolate biosynthesis
+R04556__cyto,42.41,13.7,ec_class_prior,
+R04023__cyto,110.474,13.7,ec_class_prior,
+R04966__cyto,42.41,13.7,ec_class_prior,Fatty acid biosynthesis
+R02737__cyto,77.56,13.7,ec_class_prior,Biosynthesis of secondary metabolites
+R08558__cyto,42.04,13.7,ec_class_prior,"Glycine, serine and threonine metabolism"
+R03971__cyto,63.55,13.7,ec_class_prior,Cyanoamino acid metabolism
+R10920__cyto,50.4675,13.7,ec_class_prior,
+R07888__pero,78.966667,13.7,ec_class_prior,alpha-Linolenic acid metabolism
+R11323__cyto,69.56,79.0,ec_class_prior,Pyrimidine metabolism
+R03443__cyto,94.8,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R00178__cyto,47.76,15.0,ec_class_prior,Arginine and proline metabolism
+R03417__pero,172.52,79.0,ec_class_prior,Glycerophospholipid metabolism
+R02678__cyto,55.306667,13.7,ec_class_prior,Tryptophan metabolism
+R02868__cyto,56.2525,13.7,ec_class_prior,
+R04441__cyto,63.04,15.0,ec_class_prior,2-Oxocarboxylic acid metabolism
+R08769__mito,39.63,13.7,ec_class_prior,Ubiquinone and other terpenoid-quinone biosynthesis
+R10088__cyto,28.955,15.0,ec_class_prior,
+R01286__cyto,45.0,15.0,ec_class_prior,Cysteine and methionine metabolism
+R07035__cyto,18.375,13.7,ec_class_prior,Arachidonic acid metabolism
+R00160__cyto,69.56,79.0,ec_class_prior,Riboflavin metabolism
+R03004__cyto,48.27,79.0,ec_class_prior,Nicotinate and nicotinamide metabolism
+R05085__cyto,42.99,13.7,ec_class_prior,Vitamin B6 metabolism
+R03663__cyto,68.495,10.0,ec_class_prior,Aminoacyl-tRNA biosynthesis
+R08240__cyto,56.2,13.7,ec_class_prior,Drug metabolism - other enzymes
+R01280__pero,77.44,10.0,ec_class_prior,Fatty acid biosynthesis
+R01214__cyto,41.47,13.7,ec_class_prior,Glucosinolate biosynthesis
+R04404__cyto,131.11,79.0,ec_class_prior,Inositol phosphate metabolism
+R04162__cyto,53.587273,79.0,ec_class_prior,Ether lipid metabolism
+R02957__cyto,55.306667,13.7,ec_class_prior,Ascorbate and aldarate metabolism
+R01801__mito,33.55,13.7,ec_class_prior,Glycerophospholipid metabolism
+R03451__cyto,45.65,13.7,ec_class_prior,Lysine degradation
+R09881__cyto,69.56,79.0,ec_class_prior,
+R04535__cyto,131.93,13.7,ec_class_prior,Fatty acid biosynthesis
+R01126__cyto,42.36,79.0,ec_class_prior,Purine metabolism
+R02056__cyto,62.865,13.7,ec_class_prior,Glycerophospholipid metabolism
+R02111__cyto,153.525,13.7,ec_class_prior,Biosynthesis of secondary metabolites
+R00943__cyto,104.465,10.0,ec_class_prior,Carbon fixation pathways in prokaryotes
+R07758__cyto,37.545,13.7,ec_class_prior,Fatty acid metabolism
+R09409__cyto,30.0625,13.7,ec_class_prior,Metabolism of xenobiotics by cytochrome P450
+R01624__cyto,229.37,13.7,ec_class_prior,Fatty acid biosynthesis
+R01654__cyto,51.73,10.0,ec_class_prior,
+R04125__cyto,43.07,13.7,ec_class_prior,"Glycine, serine and threonine metabolism"
+R00259__cyto,47.44,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R02019__cyto,79.923333,13.7,ec_class_prior,Purine metabolism
+R08237__cyto,38.19,13.7,ec_class_prior,Drug metabolism - other enzymes
+R01163__cyto,92.81,13.7,ec_class_prior,Histidine metabolism
+R02335__cyto,116.895,13.7,ec_class_prior,Amino sugar and nucleotide sugar metabolism
+R03942__cyto,45.6025,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R00570__cyto,16.93,13.7,ec_class_prior,Pyrimidine metabolism
+R03815__mito,51.95,13.7,ec_class_prior,"Glycine, serine and threonine metabolism"
+R00508__cyto,39.53,79.0,ec_class_prior,Microbial metabolism in diverse environments
+R09222__cyto,30.37,79.0,ec_class_prior,Microbial metabolism in diverse environments
+R01244__cyto,40.37,13.7,ec_class_prior,Purine metabolism
+R08245__cyto,38.19,13.7,ec_class_prior,Drug metabolism - other enzymes
+R01933__cyto,50.175,13.7,ec_class_prior,Biosynthesis of antibiotics
+R04433__mito,71.45,13.7,ec_class_prior,
+R06171__cyto,41.945,13.7,ec_class_prior,"Glycine, serine and threonine metabolism"
+R00321__cyto,43.794,79.0,ec_class_prior,
+R00512__cyto,32.75,13.7,ec_class_prior,Pyrimidine metabolism
+R09827__cyto,131.11,79.0,ec_class_prior,Inositol phosphate metabolism
+R00258__mito,57.6,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R03950__cyto,41.150714,13.7,ec_class_prior,
+R00760__cyto,53.923333,13.7,ec_class_prior,Biosynthesis of secondary metabolites
+R08772__mito,36.53,13.7,ec_class_prior,Ubiquinone and other terpenoid-quinone biosynthesis
+R02327__cyto,62.71,13.7,ec_class_prior,Pyrimidine metabolism
+R02767__cyto,99.44,13.7,ec_class_prior,Fatty acid biosynthesis
+R02466__cyto,59.89,15.0,ec_class_prior,Taurine and hypotaurine metabolism
+R11957__cyto,62.095,13.7,ec_class_prior,
+R11679__cyto,154.18,13.7,ec_class_prior,Biosynthesis of amino acids
+R01184__cyto,39.19,13.7,ec_class_prior,Ascorbate and aldarate metabolism
+R04247__cyto,43.15,13.7,ec_class_prior,Phosphonate and phosphinate metabolism
+R12402__cyto,44.238,13.7,ec_class_prior,
+R01185__cyto,58.688571,79.0,ec_class_prior,Inositol phosphate metabolism
+R08549__mito,71.623333,13.7,ec_class_prior,Biosynthesis of antibiotics
+R04463__cyto,146.98,10.0,ec_class_prior,Biosynthesis of antibiotics
+R01248__cyto,29.07,13.7,ec_class_prior,Biosynthesis of antibiotics
+R00174__cyto,43.83,13.7,ec_class_prior,Vitamin B6 metabolism
+R03199__cyto,54.51,6.9,ec_class_prior,Biosynthesis of antibiotics
+R02057__cyto,33.55,13.7,ec_class_prior,Glycerophospholipid metabolism
+R01528__cyto,54.33,13.7,ec_class_prior,Glutathione metabolism
+R02239__cyto,44.66,79.0,ec_class_prior,Glycerophospholipid metabolism
+R04903__cyto,55.306667,13.7,ec_class_prior,Tryptophan metabolism
+R02115__cyto,54.937,79.0,ec_class_prior,
+R08178__cyto,43.845,79.0,ec_class_prior,Biosynthesis of unsaturated fatty acids
+R00512__mito,32.75,13.7,ec_class_prior,Pyrimidine metabolism
+R04184__cyto,63.46,79.0,ec_class_prior,
+R00829__cyto,60.042222,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R03503__cyto,83.34,13.7,ec_class_prior,Folate biosynthesis
+R05238__cyto,55.306667,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R00220__cyto,44.933333,15.0,ec_class_prior,Biosynthesis of antibiotics
+R07349__cyto,42.41,13.7,ec_class_prior,
+R04747__cyto,43.62,13.7,ec_class_prior,Fatty acid elongation
+R08549__cyto,71.623333,13.7,ec_class_prior,Biosynthesis of antibiotics
+R01802__cyto,23.9,13.7,ec_class_prior,Inositol phosphate metabolism
+R03223__cyto,53.2,13.7,ec_class_prior,Thiamine metabolism
+R00004__cyto,57.556667,79.0,ec_class_prior,Oxidative Phosphorilation
+R07069__cyto,30.0625,13.7,ec_class_prior,Metabolism of xenobiotics by cytochrome P450
+R03321__cyto,61.38,6.9,ec_class_prior,Biosynthesis of antibiotics
+R06223__cyto,50.23,13.7,ec_class_prior,
+R00224__cyto,64.856667,15.0,ec_class_prior,
+R03662__cyto,49.645,10.0,ec_class_prior,Aminoacyl-tRNA biosynthesis
+R00161__cyto,32.47,13.7,ec_class_prior,Riboflavin metabolism
+R05237__cyto,55.306667,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R12401__cyto,44.238,13.7,ec_class_prior,Steroid biosynthesis
+R06917__cyto,38.4775,13.7,ec_class_prior,Degradation of aromatic compounds
+R04754__cyto,78.966667,13.7,ec_class_prior,Fatty acid metabolism
+R00220__mito,44.933333,15.0,ec_class_prior,Biosynthesis of antibiotics
+R03857__pero,78.966667,13.7,ec_class_prior,Fatty acid metabolism
+R00942__cyto,56.82,10.0,ec_class_prior,Folate biosynthesis
+R01251__cyto,29.07,13.7,ec_class_prior,Biosynthesis of antibiotics
+R00267__mito,46.725,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R04534__cyto,152.495,13.7,ec_class_prior,Fatty acid biosynthesis
+R04742__cyto,43.62,13.7,ec_class_prior,Fatty acid elongation
+R02521__cyto,53.49,13.7,ec_class_prior,Ubiquinone and other terpenoid-quinone biosynthesis
+R02018__cyto,79.923333,13.7,ec_class_prior,Pyrimidine metabolism
+R07023__cyto,30.0625,13.7,ec_class_prior,Metabolism of xenobiotics by cytochrome P450
+R11043__cyto,46.85,13.7,ec_class_prior,Fatty acid metabolism
+R01430__cyto,45.6025,13.7,ec_class_prior,Pentose and glucuronate interconversions
+R04965__cyto,131.93,13.7,ec_class_prior,Fatty acid biosynthesis
+R10991__cyto,41.47,13.7,ec_class_prior,Cysteine and methionine metabolism
+R00986__cyto,57.29,15.0,ec_class_prior,Biosynthesis of antibiotics
+R02740__cyto,61.38,6.9,ec_class_prior,Biosynthesis of antibiotics
+R01909__cyto,43.83,13.7,ec_class_prior,Vitamin B6 metabolism
+R08557__cyto,42.04,13.7,ec_class_prior,"Glycine, serine and threonine metabolism"
+R04027__cyto,77.515,13.7,ec_class_prior,Biosynthesis of secondary metabolites
+R01090__cyto,41.47,13.7,ec_class_prior,Glucosinolate biosynthesis
+R12406__cyto,44.248,13.7,ec_class_prior,
+R02300__cyto,43.07,13.7,ec_class_prior,One carbon pool by folate
+R00267__cyto,46.725,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R04970__mito,135.89,13.7,ec_class_prior,Fatty acid biosynthesis
+R03816__cyto,23.77,13.7,ec_class_prior,Ubiquinone and other terpenoid-quinone biosynthesis
+R10121__cyto,73.98,15.0,ec_class_prior,Biotin metabolism
+R08231__cyto,37.785,13.7,ec_class_prior,Drug metabolism - other enzymes
+R02241__cyto,59.755,13.7,ec_class_prior,Glycerophospholipid metabolism
+R07026__cyto,30.0625,13.7,ec_class_prior,Metabolism of xenobiotics by cytochrome P450
+R02021__cyto,27.72,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R08557__mito,42.04,13.7,ec_class_prior,"Glycine, serine and threonine metabolism"
+R00765__cyto,27.79,13.7,ec_class_prior,Amino sugar and nucleotide sugar metabolism
+R02241__mito,59.755,13.7,ec_class_prior,Glycerophospholipid metabolism
+R00985__cyto,57.29,15.0,ec_class_prior,Biosynthesis of antibiotics
+R06983__cyto,40.38,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R01468__cyto,64.37,13.7,ec_class_prior,Glycerophospholipid metabolism
+R05779__mito,60.966,79.0,ec_class_prior,
+R08232__cyto,62.18,13.7,ec_class_prior,Drug metabolism - other enzymes
+R08558__mito,42.04,13.7,ec_class_prior,"Glycine, serine and threonine metabolism"
+R05731__cyto,59.65,13.7,ec_class_prior,Steroid biosynthesis
+R04970__cyto,135.89,13.7,ec_class_prior,Fatty acid biosynthesis
+R00004__mito,57.556667,79.0,ec_class_prior,Oxidative Phosphorilation
+R00268__cyto,46.725,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R02732__cyto,107.56,13.7,ec_class_prior,Fructose and mannose metabolism
+R05233__cyto,38.4775,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R05511__cyto,30.37,79.0,ec_class_prior,Chlorocyclohexane and chlorobenzene degradation
+R10993__cyto,86.11,10.0,ec_class_prior,Cysteine and methionine metabolism
+R02237__mito,51.73,10.0,ec_class_prior,Folate biosynthesis
+R01280__cyto,77.44,10.0,ec_class_prior,Fatty acid biosynthesis
+R01968__cyto,32.693333,79.0,ec_class_prior,Purine metabolism
+R05086__cyto,57.74,15.0,ec_class_prior,Vitamin B6 metabolism
+R03916__cyto,63.55,13.7,ec_class_prior,Glutathione metabolism
+R00137__cyto,37.13,13.7,ec_class_prior,Nicotinate and nicotinamide metabolism
+R03005__cyto,37.13,13.7,ec_class_prior,Nicotinate and nicotinamide metabolism
+R03664__cyto,44.715,10.0,ec_class_prior,Aminoacyl-tRNA biosynthesis
+R02613__cyto,77.515,13.7,ec_class_prior,Phenylalanine metabolism
+R01218__cyto,36.62,13.7,ec_class_prior,One carbon pool by folate
+R02953__cyto,45.0,15.0,ec_class_prior,
+R01872__cyto,37.06,13.7,ec_class_prior,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+R02082__cyto,110.24,13.7,ec_class_prior,Biosynthesis of antibiotics
+R04405__cyto,86.19,13.7,ec_class_prior,Cysteine and methionine metabolism
+R03482__cyto,33.0825,79.0,ec_class_prior,
+R02055__mito,98.63,15.0,ec_class_prior,Glycerophospholipid metabolism
+R05333__cyto,76.51,13.7,ec_class_prior,Glycerolipid metabolism
+R03416__pero,172.52,79.0,ec_class_prior,Glycerophospholipid metabolism
+R04780__cyto,37.44,79.0,ec_class_prior,Biosynthesis of antibiotics
+R10685__cyto,35.72,13.7,ec_class_prior,Thiamine metabolism
+R02867__cyto,56.2525,13.7,ec_class_prior,
+R01213__mito,65.5,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R08176__cyto,43.845,79.0,ec_class_prior,Biosynthesis of unsaturated fatty acids
+R07937__cyto,43.62,13.7,ec_class_prior,Fatty acid metabolism
+R01310__cyto,193.48,13.7,ec_class_prior,Glycerophospholipid metabolism
+R04563__cyto,75.8,10.0,ec_class_prior,
+R02736__cyto,57.59,13.7,ec_class_prior,Glutathione metabolism
+R04967__cyto,135.89,13.7,ec_class_prior,Fatty acid biosynthesis
+R00268__mito,46.725,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R01714__cyto,40.94,15.0,ec_class_prior,Biosynthesis of antibiotics
+R08512__cyto,31.792,13.7,ec_class_prior,
+R02237__cyto,51.73,10.0,ec_class_prior,Folate biosynthesis
+R00722__cyto,16.93,13.7,ec_class_prior,Purine metabolism
+R03449__cyto,101.565,13.7,ec_class_prior,
+R01934__cyto,40.25,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R00416__cyto,53.12,13.7,ec_class_prior,Biosynthesis of antibiotics
+R02457__cyto,38.9625,13.7,ec_class_prior,D-Arginine and D-ornithine metabolism
+R00485__cyto,41.27,79.0,ec_class_prior,"Alanine, aspartate and glutamate metabolism"
+R00103__cyto,48.27,79.0,ec_class_prior,Nicotinate and nicotinamide metabolism
+R10117__cyto,73.98,15.0,ec_class_prior,Biotin metabolism
+R05861__cyto,38.9625,13.7,ec_class_prior,
+R00132__cyto,29.87,15.0,ec_class_prior,
+R03417__mito,172.52,79.0,ec_class_prior,Glycerophospholipid metabolism
+R00946__cyto,39.63,13.7,ec_class_prior,One carbon pool by folate
+R01287__cyto,50.2,13.7,ec_class_prior,Cysteine and methionine metabolism
+R01470__cyto,145.15,79.0,ec_class_prior,Glycerophospholipid metabolism
+R10712__cyto,53.2,13.7,ec_class_prior,Thiamine metabolism
+R00130__cyto,26.7,13.7,ec_class_prior,Pantothenate and CoA biosynthesis
+R00100__cyto,33.036667,13.7,ec_class_prior,Amino sugar and nucleotide sugar metabolism
+R08771__mito,39.63,13.7,ec_class_prior,Ubiquinone and other terpenoid-quinone biosynthesis
+R03635__cyto,56.79,79.0,ec_class_prior,Galactose metabolism
+R02144__cyto,45.86,13.7,ec_class_prior,Histidine metabolism
+R04568__cyto,131.93,13.7,ec_class_prior,Fatty acid biosynthesis
+R00261__cyto,59.89,15.0,ec_class_prior,"Alanine, aspartate and glutamate metabolism"
+R00858__cyto,158.42,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R00762__cyto,37.44,79.0,ec_class_prior,Microbial metabolism in diverse environments
+R01569__cyto,32.693333,79.0,ec_class_prior,Pyrimidine metabolism
+R10463__cyto,40.59,13.7,ec_class_prior,
+R08774__mito,39.223571,13.7,ec_class_prior,Ubiquinone and other terpenoid-quinone biosynthesis
+R03444__cyto,88.01,15.0,ec_class_prior,2-Oxocarboxylic acid metabolism
+R04711__cyto,39.63,13.7,ec_class_prior,Ubiquinone and other terpenoid-quinone biosynthesis
+R00885__cyto,40.05,13.7,ec_class_prior,Fructose and mannose metabolism
+R00226__cyto,53.475,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R01068__cyto,39.37,15.0,ec_class_prior,Microbial metabolism in diverse environments
+R00480__cyto,58.54,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R01652__cyto,44.372,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R00724__cyto,59.41,13.7,ec_class_prior,
+R01843__cyto,91.206667,13.7,ec_class_prior,
+R00483__cyto,68.54,10.0,ec_class_prior,"Alanine, aspartate and glutamate metabolism"
+R02053__cyto,103.7,79.0,ec_class_prior,Glycerophospholipid metabolism
+R07093__cyto,30.0625,13.7,ec_class_prior,Metabolism of xenobiotics by cytochrome P450
+R10119__cyto,45.16,13.7,ec_class_prior,Biotin metabolism
+R01845__cyto,56.0325,79.0,ec_class_prior,Microbial metabolism in diverse environments
+R08238__cyto,38.19,13.7,ec_class_prior,Drug metabolism - other enzymes
+R03139__cyto,77.515,13.7,ec_class_prior,beta-Alanine metabolism
+R03417__cyto,172.52,79.0,ec_class_prior,Glycerophospholipid metabolism
+R02332__cyto,62.71,13.7,ec_class_prior,Pyrimidine metabolism
+R00667__cyto,46.62,13.7,ec_class_prior,Biosynthesis of antibiotics
+R03504__cyto,83.34,15.0,ec_class_prior,Folate biosynthesis
+R03857__cyto,78.966667,13.7,ec_class_prior,Fatty acid metabolism
+R01655__mito,104.465,79.0,ec_class_prior,Carbon fixation pathways in prokaryotes
+R01786__cyto,53.923333,13.7,ec_class_prior,Biosynthesis of antibiotics
+R08707__cyto,34.78,79.0,ec_class_prior,
+R01127__cyto,64.26,79.0,ec_class_prior,Biosynthesis of antibiotics
+R01931__cyto,34.97,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R02055__cyto,98.63,15.0,ec_class_prior,Glycerophospholipid metabolism
+R03260__cyto,66.65,13.7,ec_class_prior,Cysteine and methionine metabolism
+R02747__pero,172.52,79.0,ec_class_prior,Glycerophospholipid metabolism
+R04930__cyto,42.64,15.0,ec_class_prior,
+R02331__cyto,16.93,13.7,ec_class_prior,Pyrimidine metabolism
+R00851__cyto,67.6275,13.7,ec_class_prior,Glycerophospholipid metabolism
+R02649__cyto,94.8,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R07280__cyto,58.688571,79.0,ec_class_prior,Riboflavin metabolism
+R01404__cyto,135.89,13.7,ec_class_prior,Fatty acid biosynthesis
+R00009__cyto,55.04,13.7,ec_class_prior,Biosynthesis of antibiotics
+R00668__cyto,46.62,13.7,ec_class_prior,
+R01067__cyto,73.8,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R04751__pero,78.966667,13.7,ec_class_prior,Fatty acid metabolism
+R00351__mito,51.33,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R02422__cyto,38.29,79.0,ec_class_prior,Microbial metabolism in diverse environments
+R03291__cyto,29.07,13.7,ec_class_prior,Arginine and proline metabolism
+R02053__mito,103.7,79.0,ec_class_prior,Glycerophospholipid metabolism
+R00572__cyto,59.41,13.7,ec_class_prior,
+R04378__cyto,20.04,13.7,ec_class_prior,Purine metabolism
+R01900__mito,63.24,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R01716__cyto,84.5,13.7,ec_class_prior,Folate biosynthesis
+R01158__cyto,92.81,13.7,ec_class_prior,Biosynthesis of amino acids
+R09136__cyto,30.37,79.0,ec_class_prior,Chlorocyclohexane and chlorobenzene degradation
+R10688__cyto,77.296667,79.0,ec_class_prior,"Alanine, aspartate and glutamate metabolism"
+R01658__cyto,40.205,13.7,ec_class_prior,Biosynthesis of antibiotics
+R01061__cyto,35.36,13.7,ec_class_prior,Biosynthesis of antibiotics
+R11896__mito,16.29,79.0,ec_class_prior,Drug metabolism - other enzymes
+R00571__cyto,64.01,10.0,ec_class_prior,Pyrimidine metabolism
+R02051__cyto,193.48,79.0,ec_class_prior,Glycerophospholipid metabolism
+R01900__cyto,63.24,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R00578__cyto,68.54,10.0,ec_class_prior,"Alanine, aspartate and glutamate metabolism"
+R04125__mito,43.07,13.7,ec_class_prior,"Glycine, serine and threonine metabolism"
+R10092__cyto,29.87,15.0,ec_class_prior,Nitrogen metabolism
+R11399__cyto,88.96,13.7,ec_class_prior,
+R09944__cyto,35.55,13.7,ec_class_prior,Glycerophospholipid metabolism
+R09077__cyto,52.77,13.7,ec_class_prior,Arginine and proline metabolism
+R00351__cyto,51.33,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R00139__cyto,16.93,13.7,ec_class_prior,Pyrimidine metabolism
+R04065__cyto,55.306667,13.7,ec_class_prior,Histidine metabolism
+R00299__cyto,53.923333,13.7,ec_class_prior,Biosynthesis of antibiotics
+R01404__mito,135.89,13.7,ec_class_prior,Fatty acid biosynthesis
+R00509__cyto,63.24,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R03947__cyto,31.0,13.7,ec_class_prior,Porphyrin and chlorophyll metabolism
+R05641__cyto,53.59,13.7,ec_class_prior,Biosynthesis of antibiotics
+R11895__cyto,16.93,13.7,ec_class_prior,Drug metabolism - other enzymes
+R08648__mito,53.475,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R01715__cyto,31.54,6.9,ec_class_prior,Biosynthesis of antibiotics
+R05050__cyto,55.306667,13.7,ec_class_prior,Arginine and proline metabolism
+R03508__cyto,56.28,13.7,ec_class_prior,Biosynthesis of antibiotics
+R11891__mito,32.75,13.7,ec_class_prior,Drug metabolism - other enzymes
+R04620__cyto,61.85,79.0,ec_class_prior,Folate biosynthesis
+R10687__cyto,77.296667,79.0,ec_class_prior,"Alanine, aspartate and glutamate metabolism"
+R02587__cyto,58.688571,79.0,ec_class_prior,
+R01561__cyto,33.19,13.7,ec_class_prior,Purine metabolism
+R01281__cyto,61.64,13.7,ec_class_prior,Sphingolipid metabolism
+R11892__mito,32.75,13.7,ec_class_prior,Drug metabolism - other enzymes
+R07934__cyto,78.966667,13.7,ec_class_prior,Fatty acid metabolism
+R02147__cyto,33.19,13.7,ec_class_prior,Purine metabolism
+R00390__pero,77.44,10.0,ec_class_prior,Fatty acid biosynthesis
+R01123__cyto,32.17,6.9,ec_class_prior,Biosynthesis of antibiotics
+R01939__cyto,55.22,13.7,ec_class_prior,2-Oxocarboxylic acid metabolism
+R11894__cyto,16.93,13.7,ec_class_prior,Drug metabolism - other enzymes
+R02702__cyto,51.21,13.7,ec_class_prior,Tryptophan metabolism
+R01878__cyto,15.16,79.0,ec_class_prior,Pyrimidine metabolism
+R00573__cyto,64.01,10.0,ec_class_prior,Pyrimidine metabolism
+R09074__cyto,52.77,13.7,ec_class_prior,
+R08146__cyto,55.306667,13.7,ec_class_prior,Insect hormone biosynthesis
+R04439__cyto,44.25,13.7,ec_class_prior,Pantothenate and CoA biosynthesis
+R02864__cyto,31.0,15.0,ec_class_prior,Porphyrin and chlorophyll metabolism
+R04560__cyto,64.26,13.7,ec_class_prior,Biosynthesis of antibiotics
+R00078__mito,18.63,13.7,ec_class_prior,Porphyrin and chlorophyll metabolism
+R11893__cyto,72.585,13.7,ec_class_prior,Drug metabolism - other enzymes
+R02425__cyto,74.76,79.0,ec_class_prior,Microbial metabolism in diverse environments
+R04754__pero,78.966667,13.7,ec_class_prior,Fatty acid metabolism
+R02923__cyto,38.9625,13.7,ec_class_prior,D-Arginine and D-ornithine metabolism
+R10686__cyto,38.85,13.7,ec_class_prior,Thiamine metabolism
+R05586__cyto,60.042222,13.7,ec_class_prior,Microbial metabolism in diverse environments
+R02865__cyto,56.2525,13.7,ec_class_prior,
+R01121__cyto,42.36,15.0,ec_class_prior,Biosynthesis of antibiotics
