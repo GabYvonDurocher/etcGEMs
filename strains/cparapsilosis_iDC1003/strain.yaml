@@ -1,0 +1,103 @@
+# Strain: Candida parapsilosis (CDC317) -- ORGANISM ONLY (no method code; see src/etcgem).
+#
+# K1 PORT (docs/CANDIDA_ETCGEM_PLAN.md, prompts/K1_candida_port_and_verify_prompt.md).
+# Every input below is COPIED from the standalone Candida etcGEM in the Candidas
+# repository (`gem/`, commit f123bc7489cc4f8a1d0e198a93725034c9f347e6) and every numerical
+# choice is that implementation's choice, kept so the core reproduces its locked
+# numbers. K2 is where these choices change; nothing here is a new decision.
+#
+# The model is a CURATED, published reconstruction (iDC1003), used as published; its
+# gene ids are UniProt/CGD locus tags (CPAR2_*) that the proteome resolves directly.
+#
+organism:
+  name: Candida parapsilosis (CDC317)
+  metabolism: aerobic yeast (respiro-fermentative) on YMS
+  measured_Topt_C: 32          # peak of thermal/measured_tpc.csv (17_build_measured_tpc.py)
+  Trange_C: [22, 44]           # the assayed range; the model is swept over exactly this
+
+provider:
+  # sMOMENT single total-protein pool on a plain SBML GEM -- the SAME provider the
+  # methanogen uses. Cost per unit flux = MW/(kcat*3600), summed over forward and
+  # reverse variables, bounded by one pool P (src/etcgem/enzyme_cost.py).
+  type: smoment_gem
+  model_file: parapsilosis_iDC1003.xml   # iDC1003 (curated), used as published
+  biomass_rxn: e_Biomass__cyto
+  kcat_csv: dltkcat/kcat_table.csv     # DLKcat kcat + mean-of-GPR-genes MW, from
+                                       # gem/tables/{kcat_reaction,enzyme_mw}_parapsilosis.csv
+  default_kcat: 13.7                   # STANDALONE choice: reactions with no DLKcat
+                                       # kcat are already written into kcat_table.csv
+                                       # at 13.7 s^-1; this is only a CSV-parse guard.
+
+  # --- thermal envelope: the standalone's phenomenological form (PART C1) ---
+  thermal_model: phenomenological      # act(T) = exp(-(T-Topt)^2/2sigma^2)
+                                       #        * 1/(1+exp((T-Tm)/w)), floored at 1e-6
+  enzyme_params: thermal/enzyme_thermal_params.csv   # per-rxn Topt/Tm (K) from
+  enzyme_params_key: rxn_id                          # Seq2Topt/Seq2Tm via best_gene;
+                                                     # species median where absent
+  pheno_sigma: 10.231397335263933      # STANDALONE fitted global (gem/tables/etcgem_calib.json,
+  pheno_w: 8.788454874341648          # 18_build_etcgem_tpc.py); frozen here so the strain runs
+                                       # on its own. `etcgem transfer` refits them on
+                                       # C. auris and freezes them across all four.
+  pool_budget: 0.3569742369684501    # STANDALONE fitted global P (g enzyme/gDW), same source.
+
+  # --- what the core does for OTHER strains and is deliberately OFF here ---
+  # The core's grounded pool budget (p_total x sigma x f_metab) is NOT used: the
+  # standalone fits P directly, so provider.pool_budget is given instead and
+  # p_total/sigma/f_metab are absent. No NGAM(T) maintenance layer, no free-sink
+  # closure, no relaxation of pinned reactions, no DLTKcat overlay -- the standalone
+  # has none of these. See reports/candida_thermal_limit/K1_port_verification.md.
+  dcp_prior_kJ: -4.0                   # shared prior, written into the thermal table
+                                       # for K2; the phenomenological form ignores it
+  pin_at_ub: null                          # OFF: matches 18_build_etcgem_tpc.py, the source of the locked mu table. NOTE: this
+                                       # model's ATP_Maintenance__cyto is REVERSIBLE (-3.9, 3.9), so the LP may run
+                                       # it backwards for free ATP; gem/22_thermal_sensitivity.py and the later audits
+                                       # pin it, 18 does not. Set to [ATP_Maintenance__cyto] to reproduce 22.
+
+solver: glpk        # the standalone solved with GLPK (via optlang/swiglpk). Gurobi and
+                    # GLPK agree to 1e-4 h^-1 everywhere except the coldest point of the
+                    # two DRAFT models' sweeps (22 C), where they differ by ~0.4%; GLPK is
+                    # pinned so the port reproduces the standalone exactly.
+
+T0_C: 30            # reference temperature of the kcats. DLKcat kcats are
+                    # temperature-independent, and the phenomenological form takes
+                    # Topt/Tm from the table rather than relative to T0, so this
+                    # value does not enter the K1 result. Kept explicit for K2.
+
+temperature_grid:   # the standalone's sweep: the 12 assayed temperatures, 22-44 C
+  start_C: 22
+  stop_C: 44
+  n: 12
+
+# Proteome-sector / allocation layer DISABLED: the standalone has no sector model
+# (one pool, one budget). K2 decides whether the Candidas strains get one.
+proteome_sectors:
+  enabled: false
+
+medium:
+  name: YMS                            # see media/YMS.md
+  exchange_csv: medium_iDC1003_parapsilosis.csv
+  # STANDALONE encoding: every exchange closed to uptake, then glucose at lb=-10
+  # (FIT), the pooled amino acids at lb=-3 each (AA_POOL) and O2/NH3/SO4/Pi/biotin/
+  # H+/H2O/CO2 at lb=-1000 (OPEN). Biotin auxotrophy is retained (the models cannot
+  # synthesise it; yeast extract supplies it).
+
+# Measured curves copied from the Candidas pipeline (NOT recomputed here):
+#   thermal/measured_tpc.csv   <- gem/tables/measured_tpc_honest.csv (17_build_measured_tpc.py)
+#                                 dead wells counted as zeros; mu in h^-1
+# There is no separate measured-respiration TPC to copy: the measured growth rate IS
+# the respirometric rate (fitted from oxygen drawdown), and gem/ consumes no other
+# measured table.
+measured:
+  tpc: thermal/measured_tpc.csv
+  source_repo: Candidas
+  source_commit: f123bc7489cc4f8a1d0e198a93725034c9f347e6
+  source_script: gem/17_build_measured_tpc.py
+
+source:
+  candidas_repo_commit: f123bc7489cc4f8a1d0e198a93725034c9f347e6
+  model_source_path: gem/models/parapsilosis_iDC1003.xml
+  kcat_source_path: gem/tables/kcat_reaction_parapsilosis.csv
+  mw_source_path: gem/tables/enzyme_mw_parapsilosis.csv
+  thermal_source_paths: [gem/tables/thermal_topt.csv, gem/tables/thermal_tm.csv]
+  medium_source_path: gem/inputs/medium_iDC1003_parapsilosis.csv
+  converter: tools/reconstruction/to_strain_inputs.py --species parapsilosis

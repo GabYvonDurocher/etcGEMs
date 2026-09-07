@@ -1,0 +1,1607 @@
+rxn_id,mw_kDa,kcat_s,source,group
+R07054__cyto,65.45,2.6479,dlkcat,Arachidonic acid metabolism
+R00894__cyto,88.97,1.139,dlkcat,Glutathione metabolism
+TO0000182_CYTMEM__plas,48.805,14.3407,dlkcat,Transporters pathway
+R01853__pero,77.175,0.1348,dlkcat,
+R03936__cyto,52.61,8.5953,dlkcat,Tryptophan metabolism
+R02354__cyto,65.45,1.6651,dlkcat,
+R00658__cyto,47.35,20.1113,dlkcat,Biosynthesis of amino acids
+R00763__cyto,76.29,26.5083,dlkcat,
+R01220__cyto,104.285,11.9586,dlkcat,Carbon fixation pathways in prokaryotes
+R08657__mito,72.15,41.9421,dlkcat,
+TR0015529_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R06520__mito,50.2,7.6349,dlkcat,Sphingolipid metabolism
+R04355__cyto,218.285,13.7,default_13.7,Fatty acid biosynthesis
+TR0002803_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R04591__cyto,33.96,3.2144,dlkcat,Purine metabolism
+R02485__cyto,16.66,13.8505,dlkcat,Pyrimidine metabolism
+TO1002511_CYTMEM__plas,70.25,11.3569,dlkcat,Transporters pathway
+R00527__cyto,31.75,8.4897,dlkcat,Carbon metabolism
+TR0011839_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+TR2901157_CYTMEM__plas,34.64,13.7,default_13.7,Transporters pathway
+R01351__cyto,35.21,13.7,default_13.7,Glycerolipid metabolism
+TR2900096_CYTMEM__plas,56.573333,19.507,dlkcat,Transporters pathway
+R00489__cyto,69.25,20.0219,dlkcat,Pantothenate and CoA biosynthesis
+TR0011423_CYTMEM__plas,108.486667,13.7,default_13.7,Transporters pathway
+TO1000438_CYTMEM__plas,70.25,8.1265,dlkcat,Transporters pathway
+R00848__mito,72.15,41.9421,dlkcat,Glycerophospholipid metabolism
+R07895__cyto,42.503333,26.8076,dlkcat,alpha-Linolenic acid metabolism
+TR0000517_CYTMEM__plas,66.735,13.7,default_13.7,Transporters pathway
+R01072__cyto,58.83,7.2314,dlkcat,Purine metabolism
+R02464__cyto,64.34,3.5483,dlkcat,Sphingolipid metabolism
+TR1000009_CYTMEM__plas,61.41,13.7,default_13.7,Transporters pathway
+R00548__cyto,40.026667,130.228,dlkcat,Riboflavin metabolism
+R00768__cyto,79.08,0.0922,dlkcat,"Alanine, aspartate and glutamate metabolism"
+R04891__cyto,53.566667,79.6718,dlkcat,Tyrosine metabolism
+TR1000310_CYTMEM__plas,57.919091,2.7614,dlkcat,Transporters pathway
+R00243__cyto,118.98,3.4985,dlkcat,D-Glutamine and D-glutamate metabolism
+TO1000249_CYTMEM__plas,70.25,10.5184,dlkcat,Transporters pathway
+R03293__cyto,29.08,0.6454,dlkcat,Arginine and proline metabolism
+TR0015316_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R08657__cyto,72.15,41.9421,dlkcat,
+TR2901123_CYTMEM__plas,34.64,2.7718,dlkcat,Transporters pathway
+R02480__cyto,31.215,13.7,default_13.7,Porphyrin and chlorophyll metabolism
+R04639__cyto,30.98,7.5862,dlkcat,Folate biosynthesis
+TR0013385_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R12120__mito,59.48,0.3495,dlkcat,
+TR0012660_CYTMEM__plas,47.15,13.7,default_13.7,Transporters pathway
+TR2900814_CYTMEM__plas,42.38,1.0897,dlkcat,Transporters pathway
+TR2000161_CYTMEM__plas,118.52,0.6143,dlkcat,Transporters pathway
+TO1002738_CYTMEM__plas,60.686667,90.7337,dlkcat,Transporters pathway
+R03657__cyto,16.86,40.0821,dlkcat,Aminoacyl-tRNA biosynthesis
+TR2000015_CYTMEM__plas,39.35,13.7,default_13.7,Transporters pathway
+TR0011829_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R01466__cyto,57.27,166.0429,dlkcat,Biosynthesis of amino acids
+R03652__cyto,86.925,36.4348,dlkcat,Aminoacyl-tRNA biosynthesis
+R02295__cyto,32.79,3.1149,dlkcat,Nicotinate and nicotinamide metabolism
+TR2000017_CYTMEM__plas,30.45,13.7,default_13.7,Transporters pathway
+R00937__cyto,16.5,7.0826,dlkcat,Folate biosynthesis
+R00717__cyto,40.72,1.7979,dlkcat,Glyoxylate and dicarboxylate metabolism
+R09419__cyto,39.07,4.766,dlkcat,
+R02874__cyto,54.43,11.2303,dlkcat,Sesquiterpenoid and triterpenoid biosynthesis
+R02359__cyto,61.74,0.2665,dlkcat,
+R00248__cyto,142.5,6.6662,dlkcat,D-Glutamine and D-glutamate metabolism
+R01372__cyto,63.57,6.3923,dlkcat,Phenylalanine metabolism
+TR2900231_CYTMEM__plas,42.78,6.5761,dlkcat,Transporters pathway
+R02003__cyto,40.965,22.1599,dlkcat,Terpenoid backbone biosynthesis
+R04955__cyto,229.63,13.7,default_13.7,Fatty acid biosynthesis
+R00674__cyto,48.805,101.5528,dlkcat,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+R02849__cyto,56.453333,19.1668,dlkcat,
+R02413__cyto,170.15,6.4999,dlkcat,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+R01801_Cyto__cyto,65.16,28.2581,dlkcat,Glycerophospholipid metabolism
+R01398__cyto,38.52,711.2137,dlkcat,Biosynthesis of amino acids
+TR2901159_CYTMEM__plas,34.64,4.0538,dlkcat,Transporters pathway
+R04208__cyto,85.12,3.3002,dlkcat,Purine metabolism
+R10949__cyto,139.326667,5.6769,dlkcat,
+TI6900005_CYTMEM__plas,29.689375,179.5016,dlkcat,Transporters pathway
+TO0000924_CYTMEM__plas,45.88,1.2724,dlkcat,Transporters pathway
+R01030__cyto,137.715,8.7356,dlkcat,Glycerophospholipid metabolism
+TR1000388_CYTMEM__plas,57.919091,242.2023,dlkcat,Transporters pathway
+TR0011455_CYTMEM__plas,74.281429,13.7,default_13.7,Transporters pathway
+R03416__cyto,82.545,13.7,default_13.7,Glycerophospholipid metabolism
+TR2900858_CYTMEM__plas,31.89,3.0031,dlkcat,Transporters pathway
+R00763__mito,76.29,26.5083,dlkcat,
+R08551__cyto,76.92,13.7,default_13.7,
+R02722__cyto,48.805,122.1248,dlkcat,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+TR2900990_CYTMEM__plas,34.64,2.8879,dlkcat,Transporters pathway
+R00220__pero,46.9725,10.423,dlkcat,Biosynthesis of amino acids
+TR2900267_CYTMEM__plas,42.78,6.5761,dlkcat,Transporters pathway
+R02739__cyto,47.865,28.0367,dlkcat,Pentose phosphate pathway
+TR2901179_CYTMEM__plas,64.408182,27.9517,dlkcat,Transporters pathway
+R01157__cyto,44.97,1.7215,dlkcat,Arginine and proline metabolism
+R01330__cyto,56.453333,19.1668,dlkcat,
+R00227__cyto,57.48,20.4334,dlkcat,Pyruvate metabolism
+R01220__mito,104.285,11.9586,dlkcat,Carbon fixation pathways in prokaryotes
+R12205__mito,49.95,2.2544,dlkcat,Biosynthesis of unsaturated fatty acids
+TR1000121_CYTMEM__plas,59.62,6.2053,dlkcat,Transporters pathway
+R01787__cyto,35.98,0.2935,dlkcat,Fructose and mannose metabolism
+TR1900010_CYTMEM__plas,60.815,13.7,default_13.7,Transporters pathway
+TR2900277_CYTMEM__plas,31.55,26.0365,dlkcat,Transporters pathway
+TR2900030_CYTMEM__plas,37.5,52.3648,dlkcat,Transporters pathway
+R01288__cyto,66.08,5.6389,dlkcat,Sulfur metabolism
+R07396__cyto,53.86,124.0524,dlkcat,Cysteine and methionine metabolism
+R04566__cyto,122.9675,13.7,default_13.7,Fatty acid biosynthesis
+R03036__cyto,40.75,56.3619,dlkcat,Pantothenate and CoA biosynthesis
+R08162__cyto,229.63,13.7,default_13.7,Fatty acid biosynthesis
+TO0010516_PLAS__plas,58.415,11.803,dlkcat,Transporters pathway
+R01960__cyto,52.25,2.2743,dlkcat,Tryptophan metabolism
+R11216__cyto,53.116667,13.7,default_13.7,
+TR0000111_CYTMEM__plas,100.4925,183.2147,dlkcat,Transporters pathway
+TR2900287_CYTMEM__plas,31.55,752.689,dlkcat,Transporters pathway
+TR2900308_CYTMEM__plas,32.76,81.3504,dlkcat,Transporters pathway
+TR0000090_CYTMEM__plas,79.254545,13.7,default_13.7,Transporters pathway
+R01274__pero,33.66,12.2988,dlkcat,Biosynthesis of unsaturated fatty acids
+TR0001563_CYTMEM__plas,36.06,1.2496,dlkcat,Transporters pathway
+R01051__cyto,33.27,19.6183,dlkcat,Pentose phosphate pathway
+R00974__cyto,17.11,0.7547,dlkcat,Pyrimidine metabolism
+R03661__cyto,65.503333,59.3859,dlkcat,Aminoacyl-tRNA biosynthesis
+R11764__cyto,35.98,0.2845,dlkcat,Folate biosynthesis
+TR0000559_CYTMEM__plas,108.486667,13.4593,dlkcat,Transporters pathway
+R00278__cyto,29.74,3.1549,dlkcat,Vitamin B6 metabolism
+R04430__cyto,130.5775,13.7,default_13.7,Fatty acid biosynthesis
+TR1000157_CYTMEM__plas,60.932,45.1268,dlkcat,Transporters pathway
+R02558__cyto,87.74,2.805,dlkcat,Cyanoamino acid metabolism
+R02017__cyto,80.083333,13.7,default_13.7,Purine metabolism
+TR2916905_CYTMEM__plas,37.44,2.9017,dlkcat,Transporters pathway
+R04964__cyto,122.9675,13.7,default_13.7,Fatty acid biosynthesis
+R01926__mito,62.34,10.364,dlkcat,Sphingolipid metabolism
+R04882__pero,53.566667,31.0626,dlkcat,Tyrosine metabolism
+R01736__cyto,28.73,47.06,dlkcat,Pyruvate metabolism
+R01626__cyto,133.15,3.5494,dlkcat,Fatty acid biosynthesis
+R05733__cyto,35.88,2.2343,dlkcat,
+R04969__cyto,229.63,13.7,default_13.7,Fatty acid biosynthesis
+R01209__mito,62.95,0.4376,dlkcat,
+R00316__cyto,74.31,2.6003,dlkcat,Pyruvate metabolism
+R00328__cyto,80.86,13.7,default_13.7,Purine metabolism
+R02016_Cyto__cyto,34.75,13.7,default_13.7,
+TZ2900063_CYTMEM__plas,85.15,1.2108,dlkcat,Transporters pathway
+R00390__cyto,82.433333,13.7,default_13.7,Fatty acid biosynthesis
+R01600__cyto,56.453333,19.1668,dlkcat,Glycolysis / Gluconeogenesis
+TR0000283_CYTMEM__plas,108.486667,0.524,dlkcat,Transporters pathway
+R01710__cyto,29.74,2.152,dlkcat,Vitamin B6 metabolism
+R03217__cyto,66.08,3.5873,dlkcat,Cysteine and methionine metabolism
+R07134__cyto,30.282,662.5346,dlkcat,Pentose and glucuronate interconversions
+R04533__cyto,122.9675,13.7,default_13.7,Fatty acid biosynthesis
+R02024__cyto,80.083333,13.7,default_13.7,Pyrimidine metabolism
+TR1000179_CYTMEM__plas,60.932,50.5188,dlkcat,Transporters pathway
+R00988__cyto,34.16,1.8585,dlkcat,Tryptophan metabolism
+R00705__cyto,59.31,4.771,dlkcat,Inositol phosphate metabolism
+R11216__mito,59.885,13.7,default_13.7,
+R04371__cyto,74.58,7.3916,dlkcat,2-Oxocarboxylic acid metabolism
+TR0000919_CYTMEM__plas,36.06,0.216,dlkcat,Transporters pathway
+R03758__mito,28.88,0.1325,dlkcat,"Glycine, serine and threonine metabolism"
+R03542__cyto,34.01,23.4721,dlkcat,Cyanoamino acid metabolism
+R01431__cyto,34.018333,113.5085,dlkcat,Pentose and glucuronate interconversions
+R01321__cyto,44.7,3.1756,dlkcat,Glycerophospholipid metabolism
+R10825__mito,39.07,4.766,dlkcat,Fatty acid elongation
+R00708__mito,65.33,7.3282,dlkcat,Arginine and proline metabolism
+R10928__cyto,88.4,13.7,default_13.7,Inositol phosphate metabolism
+R03648__cyto,59.67,3.6786,dlkcat,Aminoacyl-tRNA biosynthesis
+TR0011837_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+TR2900119_CYTMEM__plas,42.78,8.6041,dlkcat,Transporters pathway
+R05616__cyto,40.65,0.6869,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+TO1000074_CYTMEM__plas,64.190588,65.5389,dlkcat,Transporters pathway
+R01799__mito,47.625,23.4202,dlkcat,Glycerophospholipid metabolism
+R09376__cyto,24.71,98.0215,dlkcat,Riboflavin metabolism
+R11101__cyto,50.603333,24.7915,dlkcat,Spontaneous
+TO1002197_CYTMEM__plas,60.686667,45.4764,dlkcat,Transporters pathway
+R00772__cyto,48.18,6.1656,dlkcat,
+R02059__cyto,46.46,1.667,dlkcat,Amino sugar and nucleotide sugar metabolism
+R04751__cyto,79.8425,22.0581,dlkcat,Fatty acid metabolism
+R00937__mito,16.5,7.0826,dlkcat,Folate biosynthesis
+R09477__cyto,34.018333,113.5085,dlkcat,Pentose and glucuronate interconversions
+TR2900940_CYTMEM__plas,37.5,13.7,default_13.7,Transporters pathway
+TO0000021_PLAS__plas,58.04,72.4542,dlkcat,Transporters pathway
+R10825__cyto,39.07,4.766,dlkcat,Fatty acid elongation
+R02235__mito,16.5,18.7054,dlkcat,Folate biosynthesis
+TO1000184_CYTMEM__plas,70.25,7.9496,dlkcat,Transporters pathway
+R07409__cyto,52.91,48.0979,dlkcat,"Glycine, serine and threonine metabolism"
+R04144__cyto,85.12,4.0486,dlkcat,Purine metabolism
+TO1000478_CYTMEM__plas,60.686667,0.9871,dlkcat,Transporters pathway
+TR2916888_CYTMEM__plas,32.14,45.2013,dlkcat,Transporters pathway
+R00772__mito,48.18,6.1656,dlkcat,
+R03758__cyto,28.88,0.1325,dlkcat,"Glycine, serine and threonine metabolism"
+R03158__cyto,53.92,0.1852,dlkcat,Propanoate metabolism
+R00159__cyto,80.86,13.7,default_13.7,Pyrimidine metabolism
+R00662__cyto,40.75,13.7,default_13.7,Pyrimidine metabolism
+R12404__cyto,38.72,0.3986,dlkcat,Steroid biosynthesis
+R02668__cyto,52.61,9.6694,dlkcat,Tryptophan metabolism
+R02778__cyto,84.16,10.2261,dlkcat,Starch and sucrose metabolism
+R12399__cyto,39.09,0.2517,dlkcat,Steroid biosynthesis
+TO1000201_CYTMEM__plas,60.686667,47.7533,dlkcat,Transporters pathway
+R02235__cyto,16.5,18.7054,dlkcat,Folate biosynthesis
+TZ3000012_CYTMEM__plas,81.730769,12.6795,dlkcat,Transporters pathway
+R00332__cyto,21.19,77.1733,dlkcat,Purine metabolism
+R01752__cyto,62.486667,157.7217,dlkcat,Glycerolipid metabolism
+TR2900289_CYTMEM__plas,31.55,752.689,dlkcat,Transporters pathway
+R02617__cyto,84.765,19.2758,dlkcat,
+R01086__cyto,52.45,11.2956,dlkcat,Biosynthesis of amino acids
+R10056__cyto,51.87,48.5197,dlkcat,
+TO1000263_CYTMEM__plas,60.686667,26.8689,dlkcat,Transporters pathway
+R04863__cyto,155.19,7.4889,dlkcat,Lysine biosynthesis
+R10827__cyto,23.486667,13.7,default_13.7,Fatty acid elongation
+R03903__cyto,18.31,3.2906,dlkcat,Phenylalanine metabolism
+R01663__cyto,38.74,8.2069,dlkcat,Pyrimidine metabolism
+TR2000043_CYTMEM__plas,37.24,13.1078,dlkcat,Transporters pathway
+TO0000311_CYTMEM__plas,45.88,0.7996,dlkcat,Transporters pathway
+TR2900291_CYTMEM__plas,31.55,50.5879,dlkcat,Transporters pathway
+R11099__pero,37.385,4.9354,dlkcat,Spontaneous
+TR0001210_CYTMEM__plas,108.486667,6.7067,dlkcat,Transporters pathway
+R08282__pero,53.566667,18.5555,dlkcat,
+R05046__cyto,30.98,6.8488,dlkcat,Folate biosynthesis
+TR0003847_CYTMEM__plas,47.15,8.2078,dlkcat,Transporters pathway
+R00582__cyto,33.66,33.2283,dlkcat,Biosynthesis of amino acids
+R04536__cyto,122.9675,13.7,default_13.7,Fatty acid biosynthesis
+R01759__cyto,35.98,0.2757,dlkcat,Pentose and glucuronate interconversions
+R00405__mito,39.18,0.9207,dlkcat,Citrate cycle (TCA cycle)
+R00770__cyto,107.505,9.1594,dlkcat,
+TR2900203_CYTMEM__plas,42.78,6.5761,dlkcat,Transporters pathway
+R02731__cyto,76.29,26.5083,dlkcat,Fructose and mannose metabolism
+R04946__cyto,66.08,2.4199,dlkcat,Selenocompound metabolism
+TZ2900067_CYTMEM__plas,85.15,13.7,default_13.7,Transporters pathway
+TR0003566_CYTMEM__plas,47.15,36.4655,dlkcat,Transporters pathway
+R00014__mito,44.3,18.1446,dlkcat,Citrate cycle (TCA cycle)
+TR2900101_CYTMEM__plas,42.78,9.4698,dlkcat,Transporters pathway
+R00177__cyto,42.31,23.1392,dlkcat,Biosynthesis of amino acids
+R11220__cyto,59.885,13.7,default_13.7,
+R00209__mito,48.811667,70.4239,dlkcat,Carbon metabolism
+R01279__cyto,79.8425,19.5546,dlkcat,Fatty acid metabolism
+TR2916185_CYTMEM__plas,62.16,4.8224,dlkcat,Transporters pathway
+R00515__mito,40.75,32.1485,dlkcat,Pyrimidine metabolism
+TR1000306_CYTMEM__plas,60.932,50.6673,dlkcat,Transporters pathway
+R00904__cyto,58.812,253.4506,dlkcat,beta-Alanine metabolism
+TR0012849_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R01773__cyto,38.68,3.0415,dlkcat,Biosynthesis of amino acids
+T00485__cyto,72.966667,13.7,default_13.7,Oxidative Phosphorylation
+R00515__cyto,40.75,32.1485,dlkcat,Pyrimidine metabolism
+TZ2900031_CYTMEM__plas,85.15,13.7,default_13.7,Transporters pathway
+TR0002419_CYTMEM__plas,108.486667,6.8357,dlkcat,Transporters pathway
+TR0011662_CYTMEM__plas,108.486667,9.6037,dlkcat,Transporters pathway
+R03755__cyto,72.18,13.7,default_13.7,Glycerolipid metabolism
+R00925__cyto,74.31,1.7801,dlkcat,
+R03970__cyto,64.67,7.5759,dlkcat,Cyanoamino acid metabolism
+R00086__cyto,119.6625,13.7,default_13.7,Purine metabolism
+TR0000029_CYTMEM__plas,29.332857,40.2037,dlkcat,Transporters pathway
+R03629__cyto,65.45,3.528,dlkcat,Tryptophan metabolism
+R10089__mito,29.485,111.2326,dlkcat,
+R00236__cyto,74.31,6.7948,dlkcat,Pyruvate metabolism
+R01974__cyto,69.5,2.6858,dlkcat,Tryptophan metabolism
+R04962__cyto,130.5775,13.7,default_13.7,Fatty acid biosynthesis
+TR0012375_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+TR2901117_CYTMEM__plas,34.64,13.7,default_13.7,Transporters pathway
+R02731__mito,76.29,26.5083,dlkcat,Fructose and mannose metabolism
+R11220__mito,59.885,13.7,default_13.7,
+TR2900988_CYTMEM__plas,34.64,3.9908,dlkcat,Transporters pathway
+R01274__cyto,34.69,35.3428,dlkcat,Biosynthesis of unsaturated fatty acids
+R09510__cyto,51.87,48.5197,dlkcat,
+R02283__cyto,49.9,6.6269,dlkcat,2-Oxocarboxylic acid metabolism
+R00751__cyto,41.21,2.6378,dlkcat,Biosynthesis of amino acids
+TR1001017_CYTMEM__plas,57.919091,43.5058,dlkcat,Transporters pathway
+R00513__cyto,69.47,1.3251,dlkcat,Pyrimidine metabolism
+TR0000009_CYTMEM__plas,65.883077,13.7,default_13.7,Transporters pathway
+R03313__cyto,47.48,28.3075,dlkcat,Arginine and proline metabolism
+R02577__cyto,35.98,0.2564,dlkcat,
+TR1000105_CYTMEM__plas,60.932,45.946,dlkcat,Transporters pathway
+TR1000027_CYTMEM__plas,61.427333,40.4284,dlkcat,Transporters pathway
+R04037__cyto,92.52,1.7411,dlkcat,Histidine metabolism
+R04779__cyto,107.505,9.1048,dlkcat,Pentose phosphate pathway
+TR0012678_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+TO0000367_CYTMEM__plas,48.805,19.3997,dlkcat,Transporters pathway
+TZ2900053_CYTMEM__plas,85.15,2.4186,dlkcat,Transporters pathway
+TR2900966_CYTMEM__plas,34.64,7.7707,dlkcat,Transporters pathway
+TR0011684_CYTMEM__plas,58.682727,13.7,default_13.7,Transporters pathway
+R04726__cyto,218.285,13.7,default_13.7,Fatty acid biosynthesis
+R02109__cyto,173.86,13.7,default_13.7,
+R02340__cyto,48.805,122.1248,dlkcat,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+R03066__cyto,88.59,9.2077,dlkcat,Folate biosynthesis
+R01574__cyto,36.975,4.0917,dlkcat,
+R10951__cyto,300.76,13.7,default_13.7,
+R07162__mito,28.41,13.7,default_13.7,Fatty acid elongation
+R00287__cyto,40.75,32.077,dlkcat,Pyrimidine metabolism
+R04301__cyto,28.94,16.8746,dlkcat,Tyrosine metabolism
+R02106__cyto,34.33,5.1662,dlkcat,Purine metabolism
+R01880__cyto,69.47,1.2505,dlkcat,Pyrimidine metabolism
+TR0012500_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+TR1900004_CYTMEM__plas,56.83,7.373,dlkcat,Transporters pathway
+R01708__cyto,38.93,9.3902,dlkcat,Vitamin B6 metabolism
+R01818__cyto,28.76,6.4775,dlkcat,Fructose and mannose metabolism
+TO1000016_CYTMEM__plas,60.686667,19.8964,dlkcat,Transporters pathway
+TO1000182_CYTMEM__plas,70.25,10.8313,dlkcat,Transporters pathway
+R02687__cyto,52.10375,13.7,default_13.7,Glycerolipid metabolism
+TZ3000004_CYTMEM__plas,81.730769,7.7796,dlkcat,Transporters pathway
+R07888__cyto,79.8425,18.2278,dlkcat,alpha-Linolenic acid metabolism
+R12329__cyto,32.91,13.7,default_13.7,Fatty acid biosynthesis
+R00257__cyto,80.78,2.6577,dlkcat,Nicotinate and nicotinamide metabolism
+TO1000367_CYTMEM__plas,70.25,15.124,dlkcat,Transporters pathway
+TR0000289_CYTMEM__plas,108.486667,1.0914,dlkcat,Transporters pathway
+R08362__pero,22.045556,64.6264,dlkcat,Glutathione metabolism
+R04426__cyto,40.14,9.7386,dlkcat,2-Oxocarboxylic acid metabolism
+TO1000924_CYTMEM__plas,70.25,11.3623,dlkcat,Transporters pathway
+R03013__cyto,35.6,15.188,dlkcat,Histidine metabolism
+TR0015545_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R00344__cyto,129.78,34.5187,dlkcat,Citrate cycle (TCA cycle)
+R00424__cyto,30.98,13.7,default_13.7,
+R04889__cyto,53.566667,193.4616,dlkcat,Tyrosine metabolism
+R04756__cyto,29.976667,28.2475,dlkcat,Fatty acid degradation
+TR2901005_CYTMEM__plas,34.64,9.5026,dlkcat,Transporters pathway
+R01926__cyto,62.34,10.364,dlkcat,Sphingolipid metabolism
+R01706__cyto,229.63,13.7,default_13.7,Fatty acid biosynthesis
+R04866__cyto,130.8925,13.7,default_13.7,Lysine degradation
+R00014__cyto,62.86,31.706,dlkcat,Citrate cycle (TCA cycle)
+R00754__cyto,39.8325,998.1427,dlkcat,Glycolysis / Gluconeogenesis
+R03197__cyto,40.63,0.2457,dlkcat,Porphyrin and chlorophyll metabolism
+R12205__pero,49.95,2.2544,dlkcat,Biosynthesis of unsaturated fatty acids
+TO1000207_CYTMEM__plas,60.686667,47.0091,dlkcat,Transporters pathway
+TO0000249_CYTMEM__plas,48.805,13.5593,dlkcat,Transporters pathway
+TR2000137_CYTMEM__plas,33.3,39.1659,dlkcat,Transporters pathway
+TO1000345_CYTMEM__plas,60.686667,55.9156,dlkcat,Transporters pathway
+R01054__cyto,23.61,1.2065,dlkcat,Purine metabolism
+R04559__cyto,54.49,3.0024,dlkcat,Purine metabolism
+R02324__cyto,28.69,14.2035,dlkcat,Nicotinate and nicotinamide metabolism
+R07505__cyto,47.22,0.2631,dlkcat,Steroid biosynthesis
+R08174__pero,33.66,12.0702,dlkcat,Biosynthesis of unsaturated fatty acids
+R04428__cyto,218.285,13.7,default_13.7,Fatty acid biosynthesis
+R00955__cyto,42.63,12.2936,dlkcat,Galactose metabolism
+R08575__cyto,35.77,95.9689,dlkcat,
+R04444__mito,65.33,3.7822,dlkcat,Arginine and proline metabolism
+R00897__cyto,45.745,9.4077,dlkcat,Biosynthesis of amino acids
+R12657__mito,36.54,1.8141,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R08639__cyto,65.985,39.8009,dlkcat,Streptomycin biosynthesis
+R01993__cyto,41.23,164.6084,dlkcat,Pyrimidine metabolism
+R02872__cyto,50.71,2.2471,dlkcat,Sesquiterpenoid and triterpenoid biosynthesis
+R10700__cyto,218.285,13.7,default_13.7,Fatty acid biosynthesis
+R01021__cyto,64.35,10.7466,dlkcat,Glycerophospholipid metabolism
+R07389__cyto,44.7,3.1756,dlkcat,Ether lipid metabolism
+R10089__cyto,29.485,111.2326,dlkcat,
+R00896__cyto,47.15,35.7255,dlkcat,Cysteine and methionine metabolism
+R02091__cyto,69.47,1.3251,dlkcat,Pyrimidine metabolism
+R02746__cyto,82.545,13.7,default_13.7,Glycerophospholipid metabolism
+R08179__pero,33.66,15.3774,dlkcat,Biosynthesis of unsaturated fatty acids
+R07052__cyto,65.45,2.6479,dlkcat,Arachidonic acid metabolism
+R03361__cyto,162.2,13.7,default_13.7,Inositol phosphate metabolism
+R02029__cyto,24.4,13.7,default_13.7,Glycerophospholipid metabolism
+R00126__cyto,36.18,13.7,default_13.7,Purine metabolism
+R07110__cyto,71.11,13.8115,dlkcat,Arachidonic acid metabolism
+R04887__cyto,28.94,0.0517,dlkcat,Tyrosine metabolism
+TR0000042_CYTMEM__plas,100.4925,66.7102,dlkcat,Transporters pathway
+R02984__cyto,75.08,15.7623,dlkcat,
+R02260__cyto,37.233333,14.3029,dlkcat,Propanoate metabolism
+TO1000412_CYTMEM__plas,70.25,8.4178,dlkcat,Transporters pathway
+R03530__cyto,16.86,13.672,dlkcat,Purine metabolism
+R07051__cyto,65.45,2.6479,dlkcat,Arachidonic acid metabolism
+TR0000167_CYTMEM__plas,108.486667,13.7,default_13.7,Transporters pathway
+R04001__cyto,85.09,4.7072,dlkcat,2-Oxocarboxylic acid metabolism
+TO0000184_CYTMEM__plas,45.88,0.7546,dlkcat,Transporters pathway
+R03471__cyto,60.54,10.9505,dlkcat,Thiamine metabolism
+R01775__cyto,38.68,3.0415,dlkcat,Biosynthesis of amino acids
+R00848__cyto,72.15,41.9421,dlkcat,Glycerophospholipid metabolism
+TR2900846_CYTMEM__plas,31.89,5.0271,dlkcat,Transporters pathway
+R00086__mito,64.936,13.7,default_13.7,Purine metabolism
+R02096__cyto,69.47,1.3251,dlkcat,Pyrimidine metabolism
+TR2900924_CYTMEM__plas,33.29,13.7,default_13.7,Transporters pathway
+TR2916163_CYTMEM__plas,64.120909,485.2071,dlkcat,Transporters pathway
+R02101__cyto,51.02,32.6966,dlkcat,Pyrimidine metabolism
+R01070__cyto,39.67,0.432,dlkcat,Pentose phosphate pathway
+TO0000021_EXTR__plas,54.053333,72.4542,dlkcat,Transporters pathway
+TZ2900069_CYTMEM__plas,85.15,2.6454,dlkcat,Transporters pathway
+TR2900165_CYTMEM__plas,42.78,6.5761,dlkcat,Transporters pathway
+R11945__mito,54.02,5.6955,dlkcat,Oxidative Phosphorylation
+R02748__cyto,32.79,1.1588,dlkcat,Purine metabolism
+R01496__cyto,51.36,5.8072,dlkcat,Sphingolipid metabolism
+R01005__cyto,36.45,5.8159,dlkcat,N-Glycan biosynthesis
+R00239__cyto,45.98,15.728,dlkcat,Arginine and proline metabolism
+R10035__cyto,87.74,5.3116,dlkcat,Cyanoamino acid metabolism
+TR1000724_CYTMEM__plas,60.932,40.4284,dlkcat,Transporters pathway
+R00677__cyto,46.19,8.9758,dlkcat,Tryptophan metabolism
+R00472__cyto,62.46,1.3782,dlkcat,Carbon metabolism
+TR0000062_CYTMEM__plas,79.254545,13.7,default_13.7,Transporters pathway
+TR2900196_CYTMEM__plas,42.78,6.5761,dlkcat,Transporters pathway
+R06516__cyto,64.34,3.8443,dlkcat,Sphingolipid metabolism
+R02820__cyto,35.98,13.7,default_13.7,
+R04882__cyto,53.566667,31.0626,dlkcat,Tyrosine metabolism
+R02093__cyto,16.86,63.5705,dlkcat,Pyrimidine metabolism
+TO0000438_CYTMEM__plas,45.88,0.86,dlkcat,Transporters pathway
+R07111__cyto,71.11,16.5937,dlkcat,Arachidonic acid metabolism
+R01056__cyto,25.74,30.1593,dlkcat,Pentose phosphate pathway
+TR0000020_CYTMEM__plas,14.245,76.9398,dlkcat,Transporters pathway
+TO1002555_CYTMEM__plas,60.686667,86.4734,dlkcat,Transporters pathway
+R01059__cyto,64.56,4.3119,dlkcat,Fructose and mannose metabolism
+TR1000185_CYTMEM__plas,60.932,42.3611,dlkcat,Transporters pathway
+TR2900036_CYTMEM__plas,31.9,6.567,dlkcat,Transporters pathway
+TO1000926_CYTMEM__plas,95.135714,3.6436,dlkcat,Transporters pathway
+TR0011624_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R02372__cyto,69.47,1.3251,dlkcat,Pyrimidine metabolism
+TO1000365_CYTMEM__plas,60.686667,0.8848,dlkcat,Transporters pathway
+R08359__cyto,35.915,1.0904,dlkcat,Glutathione metabolism
+R01724__cyto,47.9,28.736,dlkcat,Nicotinate and nicotinamide metabolism
+R00191__cyto,46.74,1.94,dlkcat,Purine metabolism
+R03018__cyto,63.44,29.36,dlkcat,Pantothenate and CoA biosynthesis
+R08177__pero,33.66,13.6137,dlkcat,Biosynthesis of unsaturated fatty acids
+TR2901003_CYTMEM__plas,34.64,2.8127,dlkcat,Transporters pathway
+R00569__cyto,80.86,18.5305,dlkcat,Pyrimidine metabolism
+R03238__cyto,107.505,9.1048,dlkcat,Galactose metabolism
+R07384__cyto,44.7,4.1414,dlkcat,Ether lipid metabolism
+R02541__cyto,84.445,13.7,default_13.7,Sphingolipid metabolism
+R03348__cyto,32.38,0.4493,dlkcat,Nicotinate and nicotinamide metabolism
+R07274__cyto,45.745,9.4077,dlkcat,Biosynthesis of amino acids
+R05639__cyto,52.77,2.4891,dlkcat,Steroid biosynthesis
+R07494__cyto,38.72,0.6993,dlkcat,Steroid biosynthesis
+TR1000212_CYTMEM__plas,60.932,61.2846,dlkcat,Transporters pathway
+TR0012785_CYTMEM__plas,108.486667,14.166,dlkcat,Transporters pathway
+TO0010516_EXTR__plas,59.41,15.2819,dlkcat,Transporters pathway
+R02030__mito,27.78,13.7,default_13.7,Glycerophospholipid metabolism
+R01857__cyto,16.86,1.6951,dlkcat,Purine metabolism
+R12173__cyto,59.47,2.0143,dlkcat,Biosynthesis of unsaturated fatty acids
+R00710__cyto,58.812,123.0748,dlkcat,Glycolysis / Gluconeogenesis
+R04420__cyto,44.56,34.7481,dlkcat,Cysteine and methionine metabolism
+R02568__cyto,39.67,0.4664,dlkcat,Fructose and mannose metabolism
+R03304__cyto,28.94,48.2956,dlkcat,Tyrosine metabolism
+R02250__cyto,52.10375,13.7,default_13.7,Glycerolipid metabolism
+R00590__pero,37.385,2.9804,dlkcat,Cysteine and methionine metabolism
+R12119__mito,59.48,0.3203,dlkcat,
+R10633__cyto,55.92,13.7,default_13.7,Nicotinate and nicotinamide metabolism
+R04856__cyto,30.896,13.7,default_13.7,Sphingolipid metabolism
+R02855__cyto,44.89,12.195,dlkcat,Butanoate metabolism
+R00157__cyto,26.57,13.7,default_13.7,
+TR0000404_CYTMEM__plas,32.98,0.1863,dlkcat,Transporters pathway
+R02537__pero,53.566667,339.68,dlkcat,Phenylalanine metabolism
+R00275__cyto,24.306,67.241,dlkcat,
+R07394__cyto,26.76,6.4083,dlkcat,Cysteine and methionine metabolism
+R00964__cyto,69.47,1.2505,dlkcat,Pyrimidine metabolism
+TR0001080_CYTMEM__plas,47.15,10.1373,dlkcat,Transporters pathway
+TZ2900039_CYTMEM__plas,85.15,1.0076,dlkcat,Transporters pathway
+R11218__cyto,59.885,13.7,default_13.7,
+TR0015429_CYTMEM__plas,108.486667,13.7,default_13.7,Transporters pathway
+R00939__mito,16.5,7.0826,dlkcat,Folate biosynthesis
+R02850__cyto,56.453333,19.1668,dlkcat,
+R00621__mito,113.41,1.2496,dlkcat,Citrate cycle (TCA cycle)
+TR2000083_CYTMEM__plas,37.08,0.2701,dlkcat,Transporters pathway
+R03084__cyto,170.15,7.4574,dlkcat,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+TR1000276_CYTMEM__plas,60.932,68.9681,dlkcat,Transporters pathway
+TR2000128_CYTMEM__plas,32.76,81.3504,dlkcat,Transporters pathway
+R00867__cyto,56.453333,23.1388,dlkcat,Fructose and mannose metabolism
+R07491__cyto,47.22,0.2631,dlkcat,Steroid biosynthesis
+TR0003225_CYTMEM__plas,108.486667,7.6358,dlkcat,Transporters pathway
+R01083__cyto,54.49,2.5555,dlkcat,Purine metabolism
+R02978__cyto,37.55,0.7131,dlkcat,Sphingolipid metabolism
+TR0002557_CYTMEM__plas,108.486667,1.7929,dlkcat,Transporters pathway
+R02035__cyto,34.07,11.0779,dlkcat,Pentose phosphate pathway
+R12427__mito,31.79,13.7,default_13.7,Lipoic acid metabolism
+R00428__cyto,30.98,13.7,default_13.7,Folate biosynthesis
+R12152__cyto,65.71,6.7475,dlkcat,
+R02694__cyto,72.18,13.7,default_13.7,
+R04725__cyto,130.5775,13.7,default_13.7,Fatty acid biosynthesis
+TR0000056_CYTMEM__plas,46.88,11.657,dlkcat,Transporters pathway
+R03363__cyto,88.4,13.7,default_13.7,Inositol phosphate metabolism
+TR0015426_CYTMEM__plas,108.486667,13.7,default_13.7,Transporters pathway
+R07509__cyto,35.88,1.719,dlkcat,Steroid biosynthesis
+R04945__cyto,66.08,2.1104,dlkcat,
+TR0002544_CYTMEM__plas,36.06,0.5773,dlkcat,Transporters pathway
+R04513__mito,39.62,13.7,default_13.7,Inositol phosphate metabolism
+R07483__cyto,52.77,9.1692,dlkcat,Steroid biosynthesis
+R03401__cyto,42.39,0.5505,dlkcat,alpha-Linolenic acid metabolism
+R02665__cyto,19.45,0.388,dlkcat,Tryptophan metabolism
+R00402__cyto,62.765,0.494,dlkcat,Carbon fixation pathways in prokaryotes
+R00782__cyto,42.89,1.1816,dlkcat,Cysteine and methionine metabolism
+R11099__cyto,37.385,4.9354,dlkcat,Spontaneous
+R00870__cyto,30.325,630.8896,dlkcat,Fructose and mannose metabolism
+R00127__mito,30.745,13.7,default_13.7,Purine metabolism
+R03650__cyto,87.8,0.5861,dlkcat,Aminoacyl-tRNA biosynthesis
+R00342__cyto,35.676667,99.201,dlkcat,Citrate cycle (TCA cycle)
+TR2000679_CYTMEM__plas,51.63,10.4713,dlkcat,Transporters pathway
+TO1000125_CYTMEM__plas,60.686667,50.6523,dlkcat,Transporters pathway
+R07762__cyto,39.07,13.7,default_13.7,Fatty acid biosynthesis
+TR2900310_CYTMEM__plas,32.76,81.3504,dlkcat,Transporters pathway
+R00939__cyto,16.5,7.0826,dlkcat,Folate biosynthesis
+R01315__e_r_,55.99,13.7,default_13.7,Glycerophospholipid metabolism
+TO1003705_CYTMEM__plas,70.25,11.4134,dlkcat,Transporters pathway
+R07238__mito,59.81,5.6602,dlkcat,
+R05190__cyto,173.86,10.9024,dlkcat,Fatty acid biosynthesis
+TR1000074_CYTMEM__plas,59.725455,23.4034,dlkcat,Transporters pathway
+TR2900153_CYTMEM__plas,42.78,6.6445,dlkcat,Transporters pathway
+R01899__mito,47.055,7.2653,dlkcat,2-Oxocarboxylic acid metabolism
+R04953__cyto,122.9675,13.7,default_13.7,Fatty acid biosynthesis
+TR0000829_CYTMEM__plas,108.486667,4.468,dlkcat,Transporters pathway
+TO1001017_CYTMEM__plas,95.135714,64.436,dlkcat,Transporters pathway
+R01324__cyto,85.75,12.7182,dlkcat,2-Oxocarboxylic acid metabolism
+R02408__cyto,42.89,2.0028,dlkcat,Cysteine and methionine metabolism
+R04990__mito,55.17,2.4585,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+TO1000493_CYTMEM__plas,60.686667,0.1772,dlkcat,Transporters pathway
+TR2900160_CYTMEM__plas,42.78,6.5761,dlkcat,Transporters pathway
+R03341__cyto,69.5,4.3077,dlkcat,Isoquinoline alkaloid biosynthesis
+TO0000654_CYTMEM__plas,45.88,0.8819,dlkcat,Transporters pathway
+R04543__cyto,122.9675,13.7,default_13.7,Fatty acid biosynthesis
+R03968__cyto,85.09,2.7613,dlkcat,2-Oxocarboxylic acid metabolism
+TR0012582_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R00181__cyto,87.88,13.7,default_13.7,Purine metabolism
+R02297__cyto,32.79,2.6476,dlkcat,Purine metabolism
+R01082__mito,51.72,6.5129,dlkcat,Citrate cycle (TCA cycle)
+R03469__cyto,62.47,13.7,default_13.7,Inositol phosphate metabolism
+R00702__cyto,50.71,0.2339,dlkcat,Sesquiterpenoid and triterpenoid biosynthesis
+R01954__cyto,46.24,4.4071,dlkcat,Biosynthesis of amino acids
+TR0000012_CYTMEM__plas,57.5175,13.7,default_13.7,Transporters pathway
+TR0000067_CYTMEM__plas,73.417,13.7,default_13.7,Transporters pathway
+R00089__cyto,110.52,13.7,default_13.7,Purine metabolism
+R00372__cyto,41.78,6.581,dlkcat,Carbon metabolism
+R00529__cyto,58.88,11.9712,dlkcat,Purine metabolism
+TR1000644_CYTMEM__plas,58.226667,5.7817,dlkcat,Transporters pathway
+R11218__mito,59.885,13.7,default_13.7,
+R01074__cyto,74.115,3.2061,dlkcat,Biotin metabolism
+TR0011715_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R07043__cyto,65.45,4.7523,dlkcat,Arachidonic acid metabolism
+TR2900039_CYTMEM__plas,31.9,13.5958,dlkcat,Transporters pathway
+R03596__cyto,34.75,1.5335,dlkcat,Selenocompound metabolism
+R12085__cyto,37.18,153.3433,dlkcat,Arginine and proline metabolism
+R00494__cyto,68.92,11.3648,dlkcat,Glutathione metabolism
+R06527__cyto,51.36,6.0871,dlkcat,Sphingolipid metabolism
+R00707__mito,65.33,7.3282,dlkcat,Arginine and proline metabolism
+R00114__cyto,235.87,10.98,dlkcat,Nitrogen metabolism
+R03088__cyto,65.45,1.5037,dlkcat,
+R03654__cyto,73.83,3.4131,dlkcat,Aminoacyl-tRNA biosynthesis
+TO1000310_CYTMEM__plas,95.135714,11.3211,dlkcat,Transporters pathway
+TR1000258_CYTMEM__plas,60.932,63.8967,dlkcat,Transporters pathway
+R12423__mito,45.87,13.7,default_13.7,Lipoic acid metabolism
+R00927__cyto,42.325,26.8076,dlkcat,"Valine, leucine and isoleucine degradation"
+R00719__cyto,80.86,14.5124,dlkcat,Purine metabolism
+R03050__mito,74.55,5.5971,dlkcat,
+R00935__cyto,16.5,0.3787,dlkcat,Propanoate metabolism
+R03659__cyto,76.025,4.7371,dlkcat,Aminoacyl-tRNA biosynthesis
+R04911__cyto,34.16,7.2325,dlkcat,Tryptophan metabolism
+TR0000776_CYTMEM__plas,108.486667,10.1691,dlkcat,Transporters pathway
+R11319__cyto,30.745,22.7532,dlkcat,Thiamine metabolism
+TR0015541_CYTMEM__plas,67.958889,13.7,default_13.7,Transporters pathway
+R01041__cyto,36.843333,12.0026,dlkcat,Glycerolipid metabolism
+R00122__cyto,80.86,13.7,default_13.7,Purine metabolism
+R01354__cyto,74.31,5.5428,dlkcat,Propanoate metabolism
+R00330__cyto,16.86,13.7,default_13.7,Purine metabolism
+TR1008367_CYTMEM__plas,63.976,157.68,dlkcat,Transporters pathway
+R02697__pero,53.566667,348.9281,dlkcat,Tyrosine metabolism
+R01082__cyto,51.72,6.5129,dlkcat,Citrate cycle (TCA cycle)
+TR2900183_CYTMEM__plas,42.78,6.9472,dlkcat,Transporters pathway
+R00994__cyto,40.14,44.4604,dlkcat,2-Oxocarboxylic acid metabolism
+R04360__cyto,32.771667,13.7,default_13.7,Ether lipid metabolism
+R05069__mito,44.46,1.4759,dlkcat,2-Oxocarboxylic acid metabolism
+R09365__cyto,85.88,3.1814,dlkcat,Selenocompound metabolism
+TR2901049_CYTMEM__plas,34.64,7.357,dlkcat,Transporters pathway
+TR1000108_CYTMEM__plas,60.322727,40.4284,dlkcat,Transporters pathway
+R01320__cyto,23.76,13.7,default_13.7,Glycerophospholipid metabolism
+R03096__cyto,64.786667,2.2101,dlkcat,Tryptophan metabolism
+R04957__cyto,218.285,13.7,default_13.7,Fatty acid biosynthesis
+R04586__cyto,84.78,13.7,default_13.7,
+TR0012599_CYTMEM__plas,108.486667,13.7,default_13.7,Transporters pathway
+R00369__cyto,41.78,7.1115,dlkcat,"Alanine, aspartate and glutamate metabolism"
+TR2900120_CYTMEM__plas,42.78,6.5761,dlkcat,Transporters pathway
+R12026__cyto,38.52,34.0474,dlkcat,Thiamine metabolism
+R07238__cyto,59.81,5.6602,dlkcat,
+R03302__pero,53.566667,129.893,dlkcat,Tyrosine metabolism
+TR0000015_CYTMEM__plas,89.36,13.7,default_13.7,Transporters pathway
+R00706__cyto,59.31,4.771,dlkcat,Inositol phosphate metabolism
+R07364__cyto,24.38,140.5141,dlkcat,Cysteine and methionine metabolism
+R00774__cyto,201.13,1530.2804,dlkcat,Arginine biosynthesis
+R03646__cyto,74.63,0.9447,dlkcat,Aminoacyl-tRNA biosynthesis
+R00115__cyto,53.75,123.1761,dlkcat,Glutathione metabolism
+TR2900171_CYTMEM__plas,42.78,6.5761,dlkcat,Transporters pathway
+R04640__cyto,30.69,6.1486,dlkcat,Histidine metabolism
+R00926__cyto,74.31,5.5428,dlkcat,Propanoate metabolism
+TZ2900003_CYTMEM__plas,50.33,1.4848,dlkcat,Transporters pathway
+R08282__cyto,53.566667,18.5555,dlkcat,
+R09366__cyto,42.89,1.331,dlkcat,Selenocompound metabolism
+R02124__cyto,39.8325,140.5139,dlkcat,
+R01579__cyto,46.375,49.178,dlkcat,D-Glutamine and D-glutamate metabolism
+R00156__cyto,16.86,13.7,default_13.7,Pyrimidine metabolism
+TO1001217_CYTMEM__plas,70.25,9.2474,dlkcat,Transporters pathway
+R00217__mito,70.53,12.232,dlkcat,Pyruvate metabolism
+R01959__cyto,34.16,8.3263,dlkcat,Tryptophan metabolism
+TR0002198_CYTMEM__plas,79.254545,128.4737,dlkcat,Transporters pathway
+TR2900227_CYTMEM__plas,42.78,6.5761,dlkcat,Transporters pathway
+R01201__cyto,62.72,6.2568,dlkcat,Amino sugar and nucleotide sugar metabolism
+TR0011789_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R10828__cyto,36.81,13.7,default_13.7,Fatty acid elongation
+R01858__cyto,55.49,11.3027,dlkcat,Purine metabolism
+R04958__cyto,229.63,13.7,default_13.7,Fatty acid biosynthesis
+R05724__cyto,45.9,2.231,dlkcat,
+R00876__cyto,56.453333,23.1388,dlkcat,
+TO0021423_CYTMEM__plas,45.88,0.8455,dlkcat,Transporters pathway
+R09375__cyto,24.71,98.0215,dlkcat,Riboflavin metabolism
+R01920__cyto,35.915,1.0904,dlkcat,Glutathione metabolism
+R04891__pero,53.566667,79.6718,dlkcat,Tyrosine metabolism
+TR2900009_CYTMEM__plas,31.89,3.0048,dlkcat,Transporters pathway
+R05064__cyto,53.92,27.5522,dlkcat,"Valine, leucine and isoleucine degradation"
+R00715__cyto,41.3,3.0037,dlkcat,Lysine degradation
+R07140__cyto,40.19,7.9566,dlkcat,
+TO1000506_CYTMEM__plas,95.135714,36.5493,dlkcat,Transporters pathway
+R01138__cyto,55.49,11.3027,dlkcat,Purine metabolism
+TR0020344_CYTMEM__plas,108.486667,15.832,dlkcat,Transporters pathway
+R01641__cyto,74.48,24.1998,dlkcat,Pentose phosphate pathway
+R04892__pero,53.566667,79.6718,dlkcat,Tyrosine metabolism
+R03875__cyto,130.8925,13.7,default_13.7,Lysine degradation
+R00274__cyto,35.69,294.5155,dlkcat,Glutathione metabolism
+TR0012438_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R00714__cyto,53.765,6.7477,dlkcat,Nicotinate and nicotinamide metabolism
+TR2900121_CYTMEM__plas,42.78,6.5761,dlkcat,Transporters pathway
+R03655__cyto,54.35,9.5389,dlkcat,Aminoacyl-tRNA biosynthesis
+TR0000096_CYTMEM__plas,79.254545,13.7,default_13.7,Transporters pathway
+R08283__cyto,53.566667,18.5555,dlkcat,
+TR2900172_CYTMEM__plas,42.78,7.7585,dlkcat,Transporters pathway
+R03435__cyto,105.09,13.7,default_13.7,Inositol phosphate metabolism
+R07136__cyto,35.676667,616.1723,dlkcat,Methane metabolism
+R01139__cyto,56.453333,19.1668,dlkcat,
+R04480__cyto,58.66,13.7,default_13.7,Glycerophospholipid metabolism
+TR2900035_CYTMEM__plas,31.9,7.4898,dlkcat,Transporters pathway
+R03838__cyto,72.18,13.7,default_13.7,
+R01175__cyto,79.8425,26.7147,dlkcat,Carbon metabolism
+R02199__mito,42.61,21.7127,dlkcat,Glucosinolate biosynthesis
+R03098__cyto,155.19,3.8259,dlkcat,Lysine biosynthesis
+TR1000048_CYTMEM__plas,63.976,15.474,dlkcat,Transporters pathway
+TR2900852_CYTMEM__plas,31.89,2.1369,dlkcat,Transporters pathway
+R04954__cyto,218.285,13.7,default_13.7,Fatty acid biosynthesis
+R01799__cyto,47.625,23.4202,dlkcat,Glycerophospholipid metabolism
+TR0003387_CYTMEM__plas,58.682727,8.0281,dlkcat,Transporters pathway
+R03991__cyto,42.503333,26.8076,dlkcat,Fatty acid elongation
+R04544__cyto,218.285,13.7,default_13.7,Fatty acid biosynthesis
+R03332__cyto,105.09,13.7,default_13.7,Inositol phosphate metabolism
+R04231__cyto,39.3,0.1577,dlkcat,Pantothenate and CoA biosynthesis
+R00185__cyto,38.24,0.8379,dlkcat,Purine metabolism
+T_Choline_c00114_ExtrCyto__plas,62.99,0.2504,dlkcat,Transporters pathway
+TO0003705_CYTMEM__plas,45.88,1.4121,dlkcat,Transporters pathway
+R11098__cyto,50.603333,15.7381,dlkcat,Spontaneous
+TR0003476_CYTMEM__plas,108.486667,0.524,dlkcat,Transporters pathway
+R07763__cyto,87.413333,13.7,default_13.7,Fatty acid biosynthesis
+TR0008685_CYTMEM__plas,108.486667,0.9346,dlkcat,Transporters pathway
+TR0000903_CYTMEM__plas,47.15,9.4156,dlkcat,Transporters pathway
+TR0003443_CYTMEM__plas,108.486667,7.9604,dlkcat,Transporters pathway
+R07393__cyto,26.76,7.2361,dlkcat,Cysteine and methionine metabolism
+TR2900290_CYTMEM__plas,31.55,64.2981,dlkcat,Transporters pathway
+TR0000577_CYTMEM__plas,108.486667,17.1659,dlkcat,Transporters pathway
+TR1000104_CYTMEM__plas,63.356667,2.2367,dlkcat,Transporters pathway
+R01481__cyto,37.275,13.2023,dlkcat,Ascorbate and aldarate metabolism
+R02382__cyto,77.175,289.1814,dlkcat,Tyrosine metabolism
+R00965__cyto,39.345,21.1262,dlkcat,Pyrimidine metabolism
+R11219__cyto,39.58,13.7,default_13.7,
+R00619__cyto,34.785,217.0421,dlkcat,Thiamine metabolism
+R00306__cyto,87.74,11.8815,dlkcat,Starch and sucrose metabolism
+R01518__cyto,28.71,40.3394,dlkcat,Biosynthesis of amino acids
+TR0011652_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R01234__cyto,46.74,1.4945,dlkcat,Purine metabolism
+TZ2900043_CYTMEM__plas,85.15,2.5109,dlkcat,Transporters pathway
+R01049__cyto,41.425,49.4347,dlkcat,Pentose phosphate pathway
+R00711__cyto,53.566667,123.0748,dlkcat,Glycolysis / Gluconeogenesis
+R12118__mito,59.48,0.3203,dlkcat,
+T_S_Adenosyl_L_Methionine_c00019_CytoMito___plas,30.45,13.7,default_13.7,Transporters pathway
+R08161__cyto,47.22,13.7,default_13.7,Fatty acid biosynthesis
+R00999__cyto,66.08,2.4199,dlkcat,Cysteine and methionine metabolism
+TR1000218_CYTMEM__plas,58.8025,0.995,dlkcat,Transporters pathway
+R10851__mito,28.88,0.0393,dlkcat,"Glycine, serine and threonine metabolism"
+TZ3000003_CYTMEM__plas,81.730769,11.8342,dlkcat,Transporters pathway
+R07237__cyto,59.81,10.0075,dlkcat,
+R04014__cyto,229.63,13.7,default_13.7,Fatty acid biosynthesis
+R02819__cyto,35.98,13.7,default_13.7,
+R02750__cyto,33.27,7.0038,dlkcat,Pentose phosphate pathway
+R07896__cyto,79.8425,19.0134,dlkcat,alpha-Linolenic acid metabolism
+TO0000021_CYTMEM__plas,59.145,15.2819,dlkcat,Transporters pathway
+TR2900293_CYTMEM__plas,31.55,26.0365,dlkcat,Transporters pathway
+TR1000832_CYTMEM__plas,60.932,49.6859,dlkcat,Transporters pathway
+R03527__cyto,87.74,13.7,default_13.7,Starch and sucrose metabolism
+R07951__cyto,99.28,12.9454,dlkcat,Biosynthesis of unsaturated fatty acids
+T_Ethanol_c00469__plas,44.165,27.3249,dlkcat,Transporters pathway
+R07395__cyto,26.76,7.2361,dlkcat,Cysteine and methionine metabolism
+R02222__cyto,59.47,2.0528,dlkcat,Biosynthesis of unsaturated fatty acids
+R11217__cyto,39.58,13.7,default_13.7,
+TO1011451_CYTMEM__plas,60.686667,66.1068,dlkcat,Transporters pathway
+TR0003176_CYTMEM__plas,47.15,414.4423,dlkcat,Transporters pathway
+TZ3000018_CYTMEM__plas,81.730769,13.9241,dlkcat,Transporters pathway
+R04952__cyto,218.285,13.7,default_13.7,Fatty acid biosynthesis
+R01513__cyto,50.2,7.1114,dlkcat,Biosynthesis of amino acids
+TR0001122_CYTMEM__plas,47.15,19.2989,dlkcat,Transporters pathway
+R07045__cyto,65.45,1.3547,dlkcat,Arachidonic acid metabolism
+R00590__cyto,37.385,2.9804,dlkcat,Cysteine and methionine metabolism
+R02473__cyto,34.9,0.7243,dlkcat,Pantothenate and CoA biosynthesis
+R04482__cyto,32.32,53.2087,dlkcat,
+R00092__cyto,79.42,10.072,dlkcat,
+TR1000395_CYTMEM__plas,63.976,37.8761,dlkcat,Transporters pathway
+R07235__mito,36.54,1.8141,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+TR0000074_CYTMEM__plas,57.516552,44.5794,dlkcat,Transporters pathway
+TR0015555_CYTMEM__plas,74.281429,13.7,default_13.7,Transporters pathway
+R07953__cyto,42.503333,37.4728,dlkcat,Biosynthesis of unsaturated fatty acids
+R00836__cyto,79.836667,16.1781,dlkcat,
+R02251__cyto,72.18,13.7,default_13.7,Glycerolipid metabolism
+R01602__cyto,75.08,15.4493,dlkcat,Glycolysis / Gluconeogenesis
+R07760__cyto,23.486667,2.4575,dlkcat,Biosynthesis of unsaturated fatty acids
+TR0003846_CYTMEM__plas,47.15,4.8403,dlkcat,Transporters pathway
+TR2916859_CYTMEM__plas,31.9,6.567,dlkcat,Transporters pathway
+TR0010516_CYTMEM__plas,73.265789,21.9955,dlkcat,Transporters pathway
+TR0000119_CYTMEM__plas,32.98,0.3361,dlkcat,Transporters pathway
+R08163__cyto,229.63,13.7,default_13.7,Fatty acid biosynthesis
+R00968__cyto,69.47,1.2505,dlkcat,Pyrimidine metabolism
+R07237__mito,59.81,10.0075,dlkcat,
+R01325__mito,85.75,12.7182,dlkcat,2-Oxocarboxylic acid metabolism
+R04734__cyto,13.36,38.3204,dlkcat,Folate biosynthesis
+R07859__cyto,55.99,13.7,default_13.7,alpha-Linolenic acid metabolism
+R07042__cyto,65.45,4.7523,dlkcat,Arachidonic acid metabolism
+R03093__cyto,34.01,6.5018,dlkcat,Tryptophan metabolism
+TR0012801_CYTMEM__plas,108.486667,13.7,default_13.7,Transporters pathway
+TZ2900046_CYTMEM__plas,85.15,2.3017,dlkcat,Transporters pathway
+TR2900963_CYTMEM__plas,34.64,120.7365,dlkcat,Transporters pathway
+R02848__cyto,56.453333,19.1668,dlkcat,
+R04983__mito,55.17,2.4406,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R01676__cyto,57.66,4.3348,dlkcat,Purine metabolism
+R00094__cyto,53.75,123.1761,dlkcat,
+R01899__pero,47.055,7.2653,dlkcat,2-Oxocarboxylic acid metabolism
+R01896__cyto,40.185,52.489,dlkcat,Pentose and glucuronate interconversions
+R10948__cyto,139.326667,1.1834,dlkcat,
+TR0002507_CYTMEM__plas,36.06,0.4065,dlkcat,Transporters pathway
+R00430__cyto,39.09,4.3459,dlkcat,Purine metabolism
+TR2900024_CYTMEM__plas,33.59,19.507,dlkcat,Transporters pathway
+R12424__mito,45.87,13.7,default_13.7,Lipoic acid metabolism
+R07044__cyto,65.45,1.3967,dlkcat,Arachidonic acid metabolism
+TR1001307_CYTMEM__plas,60.932,50.6673,dlkcat,Transporters pathway
+R03663_Cyto__cyto,77.4,6.5801,dlkcat,Aminoacyl-tRNA biosynthesis
+R01230__cyto,59.07,3.1707,dlkcat,Purine metabolism
+R07761__cyto,36.81,0.705,dlkcat,Biosynthesis of unsaturated fatty acids
+R04325__cyto,25.87,0.6125,dlkcat,Purine metabolism
+R01326__cyto,56.453333,19.1668,dlkcat,Fructose and mannose metabolism
+TR0000099_CYTMEM__plas,66.285333,10.911,dlkcat,Transporters pathway
+R01827__cyto,35.77,95.9689,dlkcat,Pentose phosphate pathway
+R02317__cyto,155.19,9.8634,dlkcat,Spontaneous
+R00524__cyto,46.67,4.1844,dlkcat,Cyanoamino acid metabolism
+R07892__cyto,79.8425,18.5889,dlkcat,alpha-Linolenic acid metabolism
+R03777__cyto,79.8425,21.3899,dlkcat,Fatty acid metabolism
+TO1000128_CYTMEM__plas,60.686667,104.5793,dlkcat,Transporters pathway
+TR0002169_CYTMEM__plas,108.486667,11.3107,dlkcat,Transporters pathway
+R03118__cyto,201.183333,4.2201,dlkcat,Starch and sucrose metabolism
+R01548__cyto,69.47,1.3251,dlkcat,Pyrimidine metabolism
+TR2900856_CYTMEM__plas,31.89,2.6026,dlkcat,Transporters pathway
+TI6900007_CYTMEM__plas,27.69,13.1699,dlkcat,Transporters pathway
+R12429__mito,52.47,2.463,dlkcat,Lipoic acid metabolism
+TR0008908_CYTMEM__plas,108.486667,13.7,default_13.7,Transporters pathway
+TR2901086_CYTMEM__plas,34.64,8.2268,dlkcat,Transporters pathway
+R00967__cyto,69.47,1.2505,dlkcat,Pyrimidine metabolism
+R02197__mito,46.19,1.7534,dlkcat,"Valine, leucine and isoleucine degradation"
+R10852__mito,28.88,0.0393,dlkcat,
+R02909__cyto,48.21,18.716,dlkcat,Tryptophan metabolism
+R01547__cyto,30.745,13.5253,dlkcat,Purine metabolism
+TR2900923_CYTMEM__plas,33.29,0.0608,dlkcat,Transporters pathway
+TR0000052_CYTMEM__plas,79.254545,170.9039,dlkcat,Transporters pathway
+R03778__cyto,42.503333,26.8076,dlkcat,Fatty acid elongation
+R03090__cyto,65.45,1.5037,dlkcat,
+R10852__cyto,28.88,0.0393,dlkcat,
+R04673__mito,74.55,5.0965,dlkcat,
+R07891__cyto,42.503333,26.8076,dlkcat,alpha-Linolenic acid metabolism
+TR0000048_CYTMEM__plas,58.682727,90.7316,dlkcat,Transporters pathway
+R12428__mito,31.79,13.7,default_13.7,Lipoic acid metabolism
+R01268__cyto,25.0,1.6355,dlkcat,Nicotinate and nicotinamide metabolism
+TR0000126_CYTMEM__plas,79.254545,103.5836,dlkcat,Transporters pathway
+R01731__cyto,53.86,116.8026,dlkcat,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+R00028__cyto,79.806667,28.4157,dlkcat,Starch and sucrose metabolism
+R10851__cyto,28.88,0.0393,dlkcat,"Glycine, serine and threonine metabolism"
+R08193__cyto,59.43,2.4854,dlkcat,Amino sugar and nucleotide sugar metabolism
+R07486__cyto,47.22,0.2233,dlkcat,Steroid biosynthesis
+R04892__cyto,53.566667,79.6718,dlkcat,Tyrosine metabolism
+R04326__cyto,25.87,0.6125,dlkcat,One carbon pool by folate
+TR2900235_CYTMEM__plas,42.78,6.5761,dlkcat,Transporters pathway
+R01986__cyto,62.486667,296.5865,dlkcat,Arginine and proline metabolism
+R12205__cyto,49.95,2.2544,dlkcat,Biosynthesis of unsaturated fatty acids
+R01327__cyto,56.453333,19.1668,dlkcat,
+R07324__cyto,58.06,12.1649,dlkcat,Inositol phosphate metabolism
+R00746__cyto,37.275,16.1976,dlkcat,Glycolysis / Gluconeogenesis
+TI6900011_CYTMEM__plas,27.69,15.167,dlkcat,Transporters pathway
+R03460__cyto,170.15,9.5734,dlkcat,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+R03245__cyto,46.13,1.7753,dlkcat,Terpenoid backbone biosynthesis
+R03300__cyto,53.566667,129.893,dlkcat,Tyrosine metabolism
+TR0002603_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R07765__cyto,229.63,13.7,default_13.7,Fatty acid biosynthesis
+R00025__cyto,40.6,1.2683,dlkcat,Nitrogen metabolism
+TO1000246_CYTMEM__plas,70.25,10.5463,dlkcat,Transporters pathway
+R07109__cyto,71.11,13.8115,dlkcat,Arachidonic acid metabolism
+R01395__cyto,139.326667,0.4431,dlkcat,Nitrogen metabolism
+R07392__cyto,30.55,4.2661,dlkcat,Cysteine and methionine metabolism
+R02695__cyto,53.566667,348.9281,dlkcat,Tyrosine metabolism
+R06521__mito,50.2,10.7907,dlkcat,Sphingolipid metabolism
+R05000__mito,40.65,0.7201,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R10634__cyto,55.92,13.7,default_13.7,Nicotinate and nicotinamide metabolism
+R01549__cyto,69.47,1.2505,dlkcat,Pyrimidine metabolism
+R02315__cyto,48.87,4.5075,dlkcat,Lysine degradation
+R01010__cyto,41.02,29.5513,dlkcat,
+R00802__cyto,79.806667,33.6381,dlkcat,
+R00189__cyto,80.78,2.4898,dlkcat,Nicotinate and nicotinamide metabolism
+R10040__cyto,87.74,8.7453,dlkcat,Cyanoamino acid metabolism
+TO0001217_CYTMEM__plas,45.88,1.8781,dlkcat,Transporters pathway
+TR0000304_CYTMEM__plas,108.486667,3.4467,dlkcat,Transporters pathway
+TR0000355_CYTMEM__plas,79.254545,78.7621,dlkcat,Transporters pathway
+R02537__cyto,53.566667,339.68,dlkcat,Phenylalanine metabolism
+R01826__cyto,39.47,14.7046,dlkcat,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+R01013__cyto,84.765,10.8824,dlkcat,Glycerophospholipid metabolism
+R07489__mito,60.39,3.0984,dlkcat,Steroid biosynthesis
+TO1021423_CYTMEM__plas,70.25,11.3944,dlkcat,Transporters pathway
+R07048__cyto,65.45,2.6479,dlkcat,Arachidonic acid metabolism
+R02534__cyto,28.94,0.0225,dlkcat,Tyrosine metabolism
+R01730__cyto,49.79,122.0224,dlkcat,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+R02038__cyto,45.65,126.2868,dlkcat,Glycerophospholipid metabolism
+R04390__cyto,155.19,13.7,default_13.7,Lysine biosynthesis
+TR0000188_CYTMEM__plas,47.15,45.9943,dlkcat,Transporters pathway
+R02814__cyto,229.63,13.7,default_13.7,Fatty acid biosynthesis
+TR0000008_CYTMEM__plas,79.254545,13.7,default_13.7,Transporters pathway
+R02536__cyto,53.566667,339.68,dlkcat,Phenylalanine metabolism
+R02697__cyto,53.566667,348.9281,dlkcat,Tyrosine metabolism
+R03243__cyto,43.51,6.6048,dlkcat,Histidine metabolism
+R02976__mito,62.34,9.9955,dlkcat,Sphingolipid metabolism
+R00961__cyto,80.86,13.7,default_13.7,Purine metabolism
+TR0000947_CYTMEM__plas,108.486667,13.7,default_13.7,Transporters pathway
+R04672__mito,74.55,5.5971,dlkcat,
+R02756__cyto,32.771667,13.7,default_13.7,Glycerophospholipid metabolism
+TZ2900068_CYTMEM__plas,85.15,2.9108,dlkcat,Transporters pathway
+R01829__cyto,39.67,3.7007,dlkcat,Carbon fixation in photosynthetic organisms
+R06521__cyto,50.2,10.7907,dlkcat,Sphingolipid metabolism
+TR2900275_CYTMEM__plas,31.55,140.6007,dlkcat,Transporters pathway
+R02976__cyto,62.34,9.9955,dlkcat,Sphingolipid metabolism
+TR1000222_CYTMEM__plas,62.566667,9.0807,dlkcat,Transporters pathway
+R01608__cyto,39.22,0.2476,dlkcat,Propanoate metabolism
+TR0003850_CYTMEM__plas,47.15,26.5423,dlkcat,Transporters pathway
+R00742__cyto,224.405,32.2212,dlkcat,Carbon fixation pathways in prokaryotes
+R03522__cyto,63.765,29.3179,dlkcat,Glutathione metabolism
+R01231__cyto,59.07,4.5944,dlkcat,Purine metabolism
+R06740__cyto,77.175,54.0969,dlkcat,
+R00962__cyto,69.47,1.3251,dlkcat,Pyrimidine metabolism
+R07108__cyto,71.11,16.6222,dlkcat,Arachidonic acid metabolism
+R03302__cyto,53.566667,129.893,dlkcat,Tyrosine metabolism
+R00465__cyto,38.17,10.7291,dlkcat,Glyoxylate and dicarboxylate metabolism
+R00187__cyto,21.39,0.7779,dlkcat,Purine metabolism
+R01392__cyto,38.17,20.337,dlkcat,"Glycine, serine and threonine metabolism"
+R01890__cyto,57.16,10.8143,dlkcat,Glycerophospholipid metabolism
+R00801__cyto,79.806667,33.6381,dlkcat,Galactose metabolism
+R00245__cyto,65.33,6.0719,dlkcat,Arginine and proline metabolism
+R01011__cyto,64.56,4.0391,dlkcat,Carbon metabolism
+TR2900135_CYTMEM__plas,42.78,9.0616,dlkcat,Transporters pathway
+R04171__cyto,53.505,49.4417,dlkcat,Tryptophan metabolism
+R06520__cyto,50.2,7.6349,dlkcat,Sphingolipid metabolism
+R00776__cyto,23.36,7.6145,dlkcat,Purine metabolism
+R04883__cyto,53.566667,31.0626,dlkcat,Tyrosine metabolism
+R00235__cyto,74.31,2.6003,dlkcat,Carbon fixation pathways in prokaryotes
+R00940__mito,16.5,7.0826,dlkcat,Folate biosynthesis
+TR2900264_CYTMEM__plas,42.78,6.5761,dlkcat,Transporters pathway
+R01512__cyto,44.97,52.805,dlkcat,Carbon fixation in photosynthetic organisms
+R02236__cyto,16.5,18.7054,dlkcat,Folate biosynthesis
+R05066__cyto,39.22,0.2892,dlkcat,"Valine, leucine and isoleucine degradation"
+TR0001743_CYTMEM__plas,108.486667,13.7,default_13.7,Transporters pathway
+R00256__mito,90.443333,74.4601,dlkcat,D-Glutamine and D-glutamate metabolism
+R02695__pero,53.566667,348.9281,dlkcat,Tyrosine metabolism
+R06517__cyto,51.36,6.0474,dlkcat,Sphingolipid metabolism
+R03103__cyto,155.19,9.8634,dlkcat,Lysine degradation
+TR2900813_CYTMEM__plas,42.38,13.7,default_13.7,Transporters pathway
+R00409__cyto,60.68,476.3467,dlkcat,Propanoate metabolism
+R02472__cyto,39.35,12.875,dlkcat,Pantothenate and CoA biosynthesis
+R03239__cyto,107.505,9.1594,dlkcat,Galactose metabolism
+TR2916158_CYTMEM__plas,64.120909,485.2071,dlkcat,Transporters pathway
+TR0011422_CYTMEM__plas,66.735,13.7,default_13.7,Transporters pathway
+TR1019001_CYTMEM__plas,61.427333,40.4284,dlkcat,Transporters pathway
+R04173__cyto,43.06,5.412,dlkcat,Biosynthesis of amino acids
+R00087__cyto,40.75,13.7,default_13.7,Purine metabolism
+R07346__cyto,29.99,358.0986,dlkcat,Fructose and mannose metabolism
+R02100__cyto,16.72,29.7873,dlkcat,Pyrimidine metabolism
+R08770__mito,53.9,11.0549,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R03300__pero,53.566667,129.893,dlkcat,Tyrosine metabolism
+R04888__cyto,53.566667,193.4616,dlkcat,Tyrosine metabolism
+R02088__cyto,26.33,5.8053,dlkcat,Purine metabolism
+TZ3000021_CYTMEM__plas,81.730769,13.3621,dlkcat,Transporters pathway
+R00709__mito,39.34,25.4351,dlkcat,2-Oxocarboxylic acid metabolism
+R03283__pero,62.486667,578.3731,dlkcat,Lysine degradation
+R00996_Mito__mito,50.603333,19.3481,dlkcat,Biosynthesis of amino acids
+R09511__cyto,51.87,48.5197,dlkcat,
+TR0011456_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+TR0015528_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R05640__cyto,59.48,0.4575,dlkcat,Steroid biosynthesis
+R00497__cyto,55.34,11.4337,dlkcat,Glutathione metabolism
+R00087__mito,40.75,13.7,default_13.7,Purine metabolism
+R02920__cyto,28.94,0.0871,dlkcat,Tyrosine metabolism
+R07046__cyto,65.45,2.6479,dlkcat,Arachidonic acid metabolism
+TR0002601_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R01402__cyto,36.14,20.8976,dlkcat,Cysteine and methionine metabolism
+R00268__pero,47.055,13.4419,dlkcat,2-Oxocarboxylic acid metabolism
+R08283__pero,53.566667,18.5555,dlkcat,
+R04457__cyto,18.18,187.8673,dlkcat,Riboflavin metabolism
+R00425__cyto,47.95,13.7,default_13.7,Folate biosynthesis
+TR0001741_CYTMEM__plas,47.15,7.0253,dlkcat,Transporters pathway
+R00966__cyto,24.58,0.0163,dlkcat,Pyrimidine metabolism
+R00996__cyto,50.603333,19.3481,dlkcat,Biosynthesis of amino acids
+R04867__cyto,130.8925,13.7,default_13.7,Lysine degradation
+R01018__cyto,66.3,18.5876,dlkcat,N-Glycan biosynthesis
+R02282__cyto,46.22,121.3623,dlkcat,2-Oxocarboxylic acid metabolism
+R02971__cyto,63.44,73.9332,dlkcat,Pantothenate and CoA biosynthesis
+R08360__cyto,22.045556,13.7,default_13.7,Glutathione metabolism
+R04558__cyto,65.71,6.969,dlkcat,Histidine metabolism
+R03665__cyto,119.73,7.3052,dlkcat,Aminoacyl-tRNA biosynthesis
+R07456__cyto,29.485,111.2326,dlkcat,Vitamin B6 metabolism
+R02493__cyto,37.185,0.867,dlkcat,Vitamin B6 metabolism
+R06863__cyto,74.48,16.8537,dlkcat,
+R02531__cyto,35.98,0.7409,dlkcat,
+R00214__mito,70.53,11.054,dlkcat,Carbon fixation in photosynthetic organisms
+TR2900095_CYTMEM__plas,68.065,2.504,dlkcat,Transporters pathway
+R00125__cyto,38.47,2.2819,dlkcat,Purine metabolism
+R04537__cyto,218.285,13.7,default_13.7,Fatty acid biosynthesis
+TR2900847_CYTMEM__plas,31.89,2.1369,dlkcat,Transporters pathway
+R08539__cyto,76.92,13.7,default_13.7,
+R00725__cyto,56.453333,19.1668,dlkcat,
+R04300__cyto,77.175,169.741,dlkcat,Isoquinoline alkaloid biosynthesis
+R00256__cyto,96.724,74.4601,dlkcat,D-Glutamine and D-glutamate metabolism
+R00755__cyto,62.86,22.9614,dlkcat,Glycolysis / Gluconeogenesis
+R01318__cyto,58.66,13.7,default_13.7,Glycerophospholipid metabolism
+R03534__cyto,44.0,8.0141,dlkcat,Butanoate metabolism
+R00066__cyto,25.49,87.6741,dlkcat,Riboflavin metabolism
+R03424__cyto,76.025,13.7,default_13.7,Glycerophospholipid metabolism
+TO1000419_CYTMEM__plas,60.686667,0.6911,dlkcat,Transporters pathway
+R09993__cyto,60.54,0.0375,dlkcat,Thiamine metabolism
+R02142__cyto,24.18,36.8039,dlkcat,Purine metabolism
+R00945__cyto,53.1,2.7991,dlkcat,Cyanoamino acid metabolism
+R01711__cyto,29.74,10.2796,dlkcat,Vitamin B6 metabolism
+R11765__cyto,16.5,7.2001,dlkcat,Folate biosynthesis
+R06364__cyto,44.7,4.1596,dlkcat,Ether lipid metabolism
+TR2900232_CYTMEM__plas,42.78,6.7574,dlkcat,Transporters pathway
+TR0011657_CYTMEM__plas,33.91,13.7,default_13.7,Transporters pathway
+R01758__cyto,35.98,0.2757,dlkcat,Pentose and glucuronate interconversions
+R01648__cyto,53.23,39.7776,dlkcat,"Alanine, aspartate and glutamate metabolism"
+TR0005274_CYTMEM__plas,47.15,12.7979,dlkcat,Transporters pathway
+R04427__cyto,42.99,0.1175,dlkcat,Steroid biosynthesis
+R01868__cyto,47.94,3.8686,dlkcat,Pyrimidine metabolism
+R01575__cyto,36.9,3.7272,dlkcat,
+R00226__mito,74.55,4.425,dlkcat,2-Oxocarboxylic acid metabolism
+TR2019240_CYTMEM__plas,51.63,0.176,dlkcat,Transporters pathway
+R11765__mito,16.5,7.2001,dlkcat,Folate biosynthesis
+TR2916889_CYTMEM__plas,31.55,26.0365,dlkcat,Transporters pathway
+R00713__cyto,53.765,6.7477,dlkcat,Nicotinate and nicotinamide metabolism
+R10057__cyto,35.88,2.1711,dlkcat,
+R00615__cyto,261.0,38.171,dlkcat,Thiamine metabolism
+TR0012300_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R03269__cyto,64.55,0.471,dlkcat,Pantothenate and CoA biosynthesis
+R00434__cyto,110.52,13.7,default_13.7,Purine metabolism
+R07481__cyto,42.99,0.4141,dlkcat,Steroid biosynthesis
+TO1000220_CYTMEM__plas,60.686667,132.4919,dlkcat,Transporters pathway
+TR0002846_CYTMEM__plas,47.15,16.5978,dlkcat,Transporters pathway
+R01137__cyto,16.86,13.7,default_13.7,Purine metabolism
+TO1003279_CYTMEM__plas,70.25,2.5081,dlkcat,Transporters pathway
+R02135__cyto,41.02,98.7057,dlkcat,Thiamine metabolism
+R00987__cyto,52.61,11.8713,dlkcat,Tryptophan metabolism
+R02025__cyto,22.17,68.8051,dlkcat,Cysteine and methionine metabolism
+TR0002996_CYTMEM__plas,108.486667,13.7,default_13.7,Transporters pathway
+R01039__cyto,32.76,18.6858,dlkcat,Glycerolipid metabolism
+R09372__cyto,34.75,1.6118,dlkcat,Selenocompound metabolism
+R00155__cyto,80.86,13.7,default_13.7,Pyrimidine metabolism
+R02294__cyto,32.79,2.9952,dlkcat,Nicotinate and nicotinamide metabolism
+R00391__cyto,42.503333,26.8076,dlkcat,Fatty acid elongation
+R04963__cyto,218.285,13.7,default_13.7,Fatty acid biosynthesis
+TR1000100_CYTMEM__plas,61.334615,51.0403,dlkcat,Transporters pathway
+TR2900282_CYTMEM__plas,31.55,64.5898,dlkcat,Transporters pathway
+R00010__cyto,111.705,17.7833,dlkcat,Starch and sucrose metabolism
+TR2000558_CYTMEM__plas,64.408182,27.9517,dlkcat,Transporters pathway
+R01639__cyto,69.57,0.9289,dlkcat,Pentose and glucuronate interconversions
+R10052__cyto,40.14,9.7386,dlkcat,2-Oxocarboxylic acid metabolism
+R08159__cyto,229.63,13.7,default_13.7,Fatty acid biosynthesis
+TO1000218_CYTMEM__plas,60.686667,0.7573,dlkcat,Transporters pathway
+TR2916906_CYTMEM__plas,37.44,2.9017,dlkcat,Transporters pathway
+R01373__cyto,32.85,6.2656,dlkcat,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+R00670__cyto,51.82,18.625,dlkcat,Glutathione metabolism
+R02354__e_r_,65.45,1.6651,dlkcat,
+R11861__cyto,28.48,31.2312,dlkcat,Glutathione metabolism
+R04956__cyto,130.5775,13.7,default_13.7,Fatty acid biosynthesis
+TR0012322_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R00277__cyto,29.74,0.2312,dlkcat,Vitamin B6 metabolism
+R00549__cyto,20.73,4.748,dlkcat,Riboflavin metabolism
+TR0000114_CYTMEM__plas,79.254545,107.891,dlkcat,Transporters pathway
+R08548__cyto,28.36,0.716,dlkcat,
+TR0000536_CYTMEM__plas,47.15,12.865,dlkcat,Transporters pathway
+R01870__cyto,23.85,1.3843,dlkcat,Pyrimidine metabolism
+TR0015538_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R03051__mito,44.46,1.2385,dlkcat,
+R09377__cyto,65.7,1.0762,dlkcat,Riboflavin metabolism
+R03438__cyto,58.66,13.7,default_13.7,Ether lipid metabolism
+TR2916916_CYTMEM__plas,33.59,12.4791,dlkcat,Transporters pathway
+R02058__cyto,17.58,43.2557,dlkcat,Amino sugar and nucleotide sugar metabolism
+TR0015536_CYTMEM__plas,67.958889,13.7,default_13.7,Transporters pathway
+TR2916891_CYTMEM__plas,31.55,42.6536,dlkcat,Transporters pathway
+R04968__cyto,218.285,13.7,default_13.7,Fatty acid biosynthesis
+R05734__cyto,35.88,2.2261,dlkcat,
+TR1000926_CYTMEM__plas,57.919091,2.0651,dlkcat,Transporters pathway
+R05070__mito,62.95,0.4727,dlkcat,2-Oxocarboxylic acid metabolism
+TR2916887_CYTMEM__plas,32.73,2820.253,dlkcat,Transporters pathway
+TR0003557_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+TR2900278_CYTMEM__plas,31.55,26.0365,dlkcat,Transporters pathway
+TR0000331_CYTMEM__plas,36.06,1.2496,dlkcat,Transporters pathway
+R01529__cyto,25.27,23.1476,dlkcat,Pentose phosphate pathway
+TR2900220_CYTMEM__plas,42.78,6.5761,dlkcat,Transporters pathway
+TR0002088_CYTMEM__plas,108.486667,13.7,default_13.7,Transporters pathway
+R00767__cyto,107.505,11.4134,dlkcat,
+R07899__cyto,62.486667,191.9658,dlkcat,alpha-Linolenic acid metabolism
+R00940__cyto,16.5,7.0826,dlkcat,Folate biosynthesis
+R04972__cyto,40.63,0.2457,dlkcat,Porphyrin and chlorophyll metabolism
+R07641__cyto,139.326667,1.1834,dlkcat,
+R06875__cyto,88.4,13.7,default_13.7,
+R01964__cyto,56.453333,42.3634,dlkcat,
+TR2004654_CYTMEM__plas,63.096667,4.5437,dlkcat,Transporters pathway
+R10994__cyto,55.34,10.7266,dlkcat,Cysteine and methionine metabolism
+TR0002649_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R04862__cyto,40.0,0.1532,dlkcat,2-Oxocarboxylic acid metabolism
+R02557__cyto,32.79,1.5039,dlkcat,Purine metabolism
+R03222__cyto,59.61,11.9195,dlkcat,Porphyrin and chlorophyll metabolism
+R12403__cyto,35.88,0.9861,dlkcat,Steroid biosynthesis
+R00006__mito,74.55,3.2702,dlkcat,
+T02161__mito,27.69,13.7,default_13.7,Oxidative Phosphorylation
+R05556__cyto,40.28,2.6865,dlkcat,Terpenoid backbone biosynthesis
+TR2900250_CYTMEM__plas,42.78,8.8752,dlkcat,Transporters pathway
+R01863__cyto,32.79,2.8591,dlkcat,Purine metabolism
+R11097__mito,60.39,6.1935,dlkcat,Steroid biosynthesis
+R02887__cyto,87.74,12.3609,dlkcat,Starch and sucrose metabolism
+R03220__cyto,36.76,3.881,dlkcat,Porphyrin and chlorophyll metabolism
+R00551__cyto,34.22,15.6891,dlkcat,Arginine and proline metabolism
+TR2900248_CYTMEM__plas,42.78,6.5761,dlkcat,Transporters pathway
+TO0000246_CYTMEM__plas,45.88,1.8647,dlkcat,Transporters pathway
+TO1000577_CYTMEM__plas,60.686667,68.7651,dlkcat,Transporters pathway
+TR2900849_CYTMEM__plas,33.47,4156.2169,dlkcat,Transporters pathway
+R09541__cyto,79.514286,14.7079,dlkcat,
+R02236__mito,16.5,18.7054,dlkcat,Folate biosynthesis
+R03990__cyto,79.8425,20.0125,dlkcat,Fatty acid metabolism
+R10120__cyto,87.413333,13.7,default_13.7,Biotin metabolism
+R00830__cyto,65.26,2.249,dlkcat,Porphyrin and chlorophyll metabolism
+R05615__cyto,40.65,0.7118,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R04959__cyto,130.5775,13.7,default_13.7,Fatty acid biosynthesis
+R05725__cyto,45.9,2.231,dlkcat,
+R00391__mito,42.503333,26.8076,dlkcat,Fatty acid elongation
+R00936__mito,59.31,2.8897,dlkcat,Folate biosynthesis
+R03660__cyto,58.326667,38.5795,dlkcat,Aminoacyl-tRNA biosynthesis
+R10826__cyto,38.51,13.7,default_13.7,Fatty acid elongation
+TR2901091_CYTMEM__plas,34.64,13.7,default_13.7,Transporters pathway
+R03869__cyto,64.786667,1.4882,dlkcat,"Valine, leucine and isoleucine degradation"
+TO1000242_CYTMEM__plas,82.393333,2244.7076,dlkcat,Transporters pathway
+R11100__cyto,37.385,2.4357,dlkcat,Spontaneous
+R02291__cyto,39.29,29.1982,dlkcat,2-Oxocarboxylic acid metabolism
+R12405__cyto,39.09,0.1589,dlkcat,Steroid biosynthesis
+TR2900230_CYTMEM__plas,42.78,6.7574,dlkcat,Transporters pathway
+R00771__cyto,61.54,28.0367,dlkcat,Starch and sucrose metabolism
+R06875__mito,88.4,13.7,default_13.7,
+R07034__cyto,35.69,139.034,dlkcat,Arachidonic acid metabolism
+TR0003555_CYTMEM__plas,47.15,417.829,dlkcat,Transporters pathway
+R00842__mito,41.01,2.0171,dlkcat,Glycerophospholipid metabolism
+R01004__cyto,27.2,50.5159,dlkcat,N-Glycan biosynthesis
+TR2900875_CYTMEM__plas,31.89,3.0031,dlkcat,Transporters pathway
+R00678__cyto,48.21,11.1389,dlkcat,Tryptophan metabolism
+R01057__cyto,65.985,43.0047,dlkcat,Pentose phosphate pathway
+R04509__cyto,60.54,0.1943,dlkcat,Thiamine metabolism
+R10208__cyto,229.63,13.7,default_13.7,Fatty acid biosynthesis
+R02412__cyto,170.15,6.4999,dlkcat,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+R01135__cyto,48.04,13.517,dlkcat,Purine metabolism
+TR1009049_CYTMEM__plas,57.919091,19.4044,dlkcat,Transporters pathway
+TO1001401_CYTMEM__plas,60.686667,35.1185,dlkcat,Transporters pathway
+TR0000209_CYTMEM__plas,58.682727,11.7712,dlkcat,Transporters pathway
+R04035__cyto,92.52,1.21,dlkcat,Histidine metabolism
+R02543__cyto,51.36,11.5097,dlkcat,Sphingolipid metabolism
+R08360__pero,22.045556,13.7,default_13.7,Glutathione metabolism
+R03656__cyto,118.56,9.4646,dlkcat,Aminoacyl-tRNA biosynthesis
+R02985__cyto,87.74,11.1954,dlkcat,Cyanoamino acid metabolism
+TO0003279_CYTMEM__plas,45.88,0.6078,dlkcat,Transporters pathway
+R04209__cyto,62.54,8.7636,dlkcat,Purine metabolism
+R12121__mito,59.48,0.303,dlkcat,
+TR0000365_CYTMEM__plas,108.486667,1.3145,dlkcat,Transporters pathway
+R02536__pero,53.566667,339.68,dlkcat,Phenylalanine metabolism
+R04724__cyto,229.63,13.7,default_13.7,Fatty acid biosynthesis
+R01130__cyto,62.275,19.0877,dlkcat,Purine metabolism
+R00289__cyto,55.99,2.1407,dlkcat,Galactose metabolism
+TR0012802_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R00895__cyto,47.15,35.7255,dlkcat,Cysteine and methionine metabolism
+R00659__cyto,55.49,11.3027,dlkcat,
+R02527__cyto,38.17,7.5191,dlkcat,Pyruvate metabolism
+R01315__cyto,55.99,13.7,default_13.7,Glycerophospholipid metabolism
+TR0000532_CYTMEM__plas,58.682727,10.911,dlkcat,Transporters pathway
+TR0015532_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R00769__cyto,107.505,9.1048,dlkcat,
+TR2900025_CYTMEM__plas,33.59,19.507,dlkcat,Transporters pathway
+R01009__cyto,26.7,0.347,dlkcat,N-Glycan biosynthesis
+TR2000054_CYTMEM__plas,118.52,2.1321,dlkcat,Transporters pathway
+R02133__cyto,60.54,8.7814,dlkcat,Thiamine metabolism
+R01071__cyto,33.0,51.0147,dlkcat,Histidine metabolism
+TR2900136_CYTMEM__plas,42.78,6.5761,dlkcat,Transporters pathway
+R01800__cyto,31.4,9.6997,dlkcat,Glycerophospholipid metabolism
+TR0011677_CYTMEM__plas,108.486667,13.7,default_13.7,Transporters pathway
+R01352__cyto,35.21,13.7,default_13.7,
+R03894__cyto,69.5,3.1243,dlkcat,
+R03658__cyto,58.21,6.0046,dlkcat,Aminoacyl-tRNA biosynthesis
+R02175__mito,36.54,1.549,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R00694__cyto,49.505714,49.4417,dlkcat,2-Oxocarboxylic acid metabolism
+R01961__cyto,56.453333,42.3634,dlkcat,Amino sugar and nucleotide sugar metabolism
+TO1000654_CYTMEM__plas,70.25,12.9406,dlkcat,Transporters pathway
+R07506__cyto,60.39,13.7,default_13.7,Steroid biosynthesis
+TO1000009_CYTMEM__plas,102.89,13.7,default_13.7,Transporters pathway
+R08632__cyto,42.89,2.4218,dlkcat,
+TR0014518_CYTMEM__plas,108.486667,1.7479,dlkcat,Transporters pathway
+R12356__cyto,79.8425,23.9229,dlkcat,Propanoate metabolism
+R02090__cyto,21.19,50.0685,dlkcat,Purine metabolism
+T_L_Glutamate_C00025__plas,81.49,11.3537,dlkcat,Transporters pathway
+R02355__cyto,65.45,1.6651,dlkcat,
+R02245__cyto,47.28,33.319,dlkcat,Terpenoid backbone biosynthesis
+R00842__cyto,41.01,2.0171,dlkcat,Glycerophospholipid metabolism
+R01073__cyto,40.0,0.5965,dlkcat,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+R07050__cyto,65.45,2.6479,dlkcat,Arachidonic acid metabolism
+R08509__cyto,35.98,0.0434,dlkcat,
+TR2901108_CYTMEM__plas,34.64,13.7,default_13.7,Transporters pathway
+R04960__cyto,218.285,13.7,default_13.7,Fatty acid biosynthesis
+R05802__cyto,300.76,13.7,default_13.7,Inositol phosphate metabolism
+TR0000552_CYTMEM__plas,57.478333,10.911,dlkcat,Transporters pathway
+R05048__cyto,30.98,7.3964,dlkcat,Folate biosynthesis
+R12400__cyto,55.49,2.0994,dlkcat,Steroid biosynthesis
+R03283__cyto,62.486667,578.3731,dlkcat,Lysine degradation
+TZ2900056_CYTMEM__plas,85.15,2.3588,dlkcat,Transporters pathway
+TR2900977_CYTMEM__plas,34.64,23.359,dlkcat,Transporters pathway
+TR2901083_CYTMEM__plas,34.64,120.902,dlkcat,Transporters pathway
+R01411__cyto,17.11,1.6487,dlkcat,Pyrimidine metabolism
+R00893__cyto,29.41,116.79,dlkcat,Taurine and hypotaurine metabolism
+TR0000487_CYTMEM__plas,47.15,13.7,default_13.7,Transporters pathway
+R01682__cyto,69.25,71.0859,dlkcat,Taurine and hypotaurine metabolism
+R10039__cyto,87.74,8.1733,dlkcat,Cyanoamino acid metabolism
+TR0002653_CYTMEM__plas,36.06,0.574,dlkcat,Transporters pathway
+TO1000087_CYTMEM__plas,60.686667,49.824,dlkcat,Transporters pathway
+TR2900973_CYTMEM__plas,34.64,3.1667,dlkcat,Transporters pathway
+TR0002172_CYTMEM__plas,108.486667,1.9077,dlkcat,Transporters pathway
+R01978__cyto,49.82,2.9069,dlkcat,Synthesis and degradation of ketone bodies
+R03194__mito,59.81,10.0075,dlkcat,Porphyrin and chlorophyll metabolism
+R06861__cyto,74.48,16.8537,dlkcat,
+TR2901063_CYTMEM__plas,34.64,3.366,dlkcat,Transporters pathway
+TR0000906_CYTMEM__plas,108.486667,1.5016,dlkcat,Transporters pathway
+R01132__cyto,24.18,36.8039,dlkcat,Purine metabolism
+R00127__cyto,30.745,13.7,default_13.7,Purine metabolism
+R03035__cyto,34.21,27.9568,dlkcat,Pantothenate and CoA biosynthesis
+R01771__cyto,38.53,4.705,dlkcat,Biosynthesis of amino acids
+R05577__cyto,76.41,15.433,dlkcat,Aminoacyl-tRNA biosynthesis
+R01887__cyto,34.01,10.987,dlkcat,Cyanoamino acid metabolism
+R07759__cyto,38.51,0.4109,dlkcat,Biosynthesis of unsaturated fatty acids
+R04929__cyto,58.88,1.7984,dlkcat,Selenocompound metabolism
+R02540__cyto,62.486667,612.6255,dlkcat,Phenylalanine metabolism
+R03920__cyto,56.453333,23.1388,dlkcat,Amino sugar and nucleotide sugar metabolism
+R00517__cyto,69.47,1.3251,dlkcat,Pyrimidine metabolism
+R00084__cyto,38.83,2.4258,dlkcat,Porphyrin and chlorophyll metabolism
+R00036__cyto,34.485,1.0584,dlkcat,Porphyrin and chlorophyll metabolism
+R04448__cyto,61.55,2.5178,dlkcat,Thiamine metabolism
+R01618__cyto,36.18,4.4421,dlkcat,Purine metabolism
+TR1000259_CYTMEM__plas,60.932,63.8967,dlkcat,Transporters pathway
+R07273__cyto,40.65,0.7201,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R01776__cyto,54.39,36.8102,dlkcat,Cysteine and methionine metabolism
+R03347__cyto,28.69,14.7662,dlkcat,Nicotinate and nicotinamide metabolism
+R02371__cyto,69.47,1.3251,dlkcat,Pyrimidine metabolism
+TR0000877_CYTMEM__plas,108.486667,4.6984,dlkcat,Transporters pathway
+R03237__cyto,107.505,11.4134,dlkcat,Galactose metabolism
+R00238__cyto,42.325,26.8076,dlkcat,Lysine degradation
+R01001__cyto,42.89,2.4218,dlkcat,Biosynthesis of amino acids
+R00310__cyto,39.63,1.4882,dlkcat,Porphyrin and chlorophyll metabolism
+TR0000038_CYTMEM__plas,79.254545,13.7,default_13.7,Transporters pathway
+R00017__cyto,37.4,3329.2096,dlkcat,
+R00908__cyto,53.23,39.7776,dlkcat,Propanoate metabolism
+R04429__cyto,229.63,13.7,default_13.7,Fatty acid biosynthesis
+R01229__cyto,22.57,36.8039,dlkcat,Purine metabolism
+R00253__cyto,41.31,16.9949,dlkcat,Nitrogen metabolism
+TR0000260_CYTMEM__plas,36.06,0.3294,dlkcat,Transporters pathway
+R01819__cyto,48.18,6.1656,dlkcat,Fructose and mannose metabolism
+R04881__cyto,28.94,0.0527,dlkcat,Tyrosine metabolism
+R00970__cyto,69.47,1.3059,dlkcat,Pyrimidine metabolism
+R03236__cyto,107.505,9.1048,dlkcat,Galactose metabolism
+R03083__cyto,170.15,4.4151,dlkcat,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+R06519__cyto,42.31,13.7,default_13.7,Sphingolipid metabolism
+R02688__cyto,52.10375,13.7,default_13.7,
+R01055__cyto,79.5,4.3355,dlkcat,Pyrimidine metabolism
+R04944__cyto,66.08,3.0055,dlkcat,Selenocompound metabolism
+TR1002611_CYTMEM__plas,60.932,56.9312,dlkcat,Transporters pathway
+R03362__cyto,122.24,13.7,default_13.7,Inositol phosphate metabolism
+R02092__cyto,80.86,11.9446,dlkcat,Pyrimidine metabolism
+R07168__cyto,69.485,5.9445,dlkcat,Carbon fixation pathways in prokaryotes
+R03194__cyto,59.81,10.0075,dlkcat,Porphyrin and chlorophyll metabolism
+R11100__pero,37.385,2.4357,dlkcat,Spontaneous
+R04880__cyto,39.8325,62.6832,dlkcat,Tyrosine metabolism
+R00734__cyto,49.505714,49.4417,dlkcat,Isoquinoline alkaloid biosynthesis
+TO1000305_CYTMEM__plas,60.686667,73.4591,dlkcat,Transporters pathway
+TR2900877_CYTMEM__plas,31.89,0.4115,dlkcat,Transporters pathway
+R04770__cyto,42.89,1.5998,dlkcat,Selenocompound metabolism
+R02747__cyto,82.545,13.7,default_13.7,Glycerophospholipid metabolism
+R03067__cyto,88.59,12.6735,dlkcat,Folate biosynthesis
+TR0000091_CYTMEM__plas,79.254545,13.7,default_13.7,Transporters pathway
+TR1000506_CYTMEM__plas,57.919091,18.9271,dlkcat,Transporters pathway
+R03628__cyto,48.21,8.5403,dlkcat,Tryptophan metabolism
+R01830__cyto,74.48,24.1998,dlkcat,Pentose phosphate pathway
+R00085__cyto,80.86,13.7,default_13.7,
+TR0000051_CYTMEM__plas,32.98,0.0651,dlkcat,Transporters pathway
+R00251__cyto,142.52,35.6274,dlkcat,Glutathione metabolism
+TR2901174_CYTMEM__plas,34.64,3.5283,dlkcat,Transporters pathway
+R02760__cyto,51.49,13.7,default_13.7,
+R04445__mito,65.33,3.7822,dlkcat,Arginine and proline metabolism
+TI2000703_CYTMEM__plas,49.55,54.9449,dlkcat,Transporters pathway
+R09844__cyto,44.78,0.7829,dlkcat,Terpenoid backbone biosynthesis
+R07385__cyto,187.88,13.7,default_13.7,Ether lipid metabolism
+TR0013384_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R01388__cyto,39.445,20.337,dlkcat,Carbon metabolism
+R03459__cyto,57.815,10.2274,dlkcat,Riboflavin metabolism
+R08175__pero,33.66,11.8645,dlkcat,Biosynthesis of unsaturated fatty acids
+R01664__cyto,26.33,8.5683,dlkcat,Pyrimidine metabolism
+TR2901132_CYTMEM__plas,34.64,11.7613,dlkcat,Transporters pathway
+R03457__cyto,24.27,4.7621,dlkcat,Histidine metabolism
+TR2900254_CYTMEM__plas,42.78,8.316,dlkcat,Transporters pathway
+R00519__cyto,38.766,6.7084,dlkcat,Carbon metabolism
+R02433__cyto,47.15,35.7255,dlkcat,Cysteine and methionine metabolism
+R00190__cyto,22.57,36.8039,dlkcat,Purine metabolism
+R00530__cyto,36.18,2.7649,dlkcat,Sulfur metabolism
+R00959__cyto,65.985,39.8009,dlkcat,Galactose metabolism
+R08178__pero,33.66,13.6521,dlkcat,Biosynthesis of unsaturated fatty acids
+R00516__cyto,69.47,1.3251,dlkcat,Pyrimidine metabolism
+R01041__pero,37.275,12.0026,dlkcat,Glycerolipid metabolism
+R00691__cyto,32.85,3.3625,dlkcat,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+R02529__cyto,77.175,64.3448,dlkcat,"Glycine, serine and threonine metabolism"
+R00200__cyto,55.49,14.2338,dlkcat,Purine metabolism
+TR1000154_CYTMEM__plas,61.942667,47.59,dlkcat,Transporters pathway
+R00519__mito,38.766,6.7084,dlkcat,Carbon metabolism
+R02484__cyto,32.79,1.0167,dlkcat,Pyrimidine metabolism
+R07495__cyto,39.09,0.1327,dlkcat,Steroid biosynthesis
+R08176__pero,33.66,12.0349,dlkcat,Biosynthesis of unsaturated fatty acids
+R04773__cyto,23.76,0.0381,dlkcat,Selenocompound metabolism
+TR0000031_CYTMEM__plas,79.254545,13.7,default_13.7,Transporters pathway
+TR1000448_CYTMEM__plas,60.932,43.3839,dlkcat,Transporters pathway
+R03088__e_r_,65.45,1.5037,dlkcat,
+R02095__cyto,80.86,11.9527,dlkcat,Pyrimidine metabolism
+R02102__cyto,26.33,4.3347,dlkcat,Pyrimidine metabolism
+R04496__cyto,26.875,13.7,default_13.7,Terpenoid backbone biosynthesis
+R00192__cyto,49.05,4.2088,dlkcat,Cysteine and methionine metabolism
+R02918__cyto,48.47,45.737,dlkcat,Aminoacyl-tRNA biosynthesis
+R00847__cyto,69.63,2.5828,dlkcat,Glycerolipid metabolism
+TR2900176_CYTMEM__plas,42.78,6.5761,dlkcat,Transporters pathway
+TR1000588_CYTMEM__plas,60.932,49.2516,dlkcat,Transporters pathway
+TR0000018_CYTMEM__plas,79.254545,13.7,default_13.7,Transporters pathway
+R01497__cyto,63.76,16.5012,dlkcat,Sphingolipid metabolism
+R04441__mito,62.95,0.4376,dlkcat,2-Oxocarboxylic acid metabolism
+R03012__cyto,92.52,4.4804,dlkcat,Histidine metabolism
+R03858__cyto,42.503333,26.8076,dlkcat,Fatty acid elongation
+R04961__cyto,229.63,13.7,default_13.7,Fatty acid biosynthesis
+R03038__cyto,71.87,43.7176,dlkcat,Aminoacyl-tRNA biosynthesis
+R02732__mito,76.29,21.6485,dlkcat,Fructose and mannose metabolism
+R01214__mito,42.61,21.7127,dlkcat,Glucosinolate biosynthesis
+R10992__cyto,41.78,9.9055,dlkcat,Cysteine and methionine metabolism
+TZ2900029_CYTMEM__plas,35.53,0.4152,dlkcat,Transporters pathway
+R05731__mito,59.48,0.1124,dlkcat,Steroid biosynthesis
+R04966__cyto,229.63,13.7,default_13.7,Fatty acid biosynthesis
+R02737__cyto,79.836667,16.1781,dlkcat,Starch and sucrose metabolism
+R08558__cyto,39.8325,1148.9183,dlkcat,"Glycine, serine and threonine metabolism"
+R02619__cyto,47.15,35.7255,dlkcat,Cysteine and methionine metabolism
+R03971__cyto,64.67,7.5759,dlkcat,Cyanoamino acid metabolism
+R10088__mito,29.485,111.2326,dlkcat,
+TO1000009_Pi_c00009_CytoMito__mito,102.89,13.7,default_13.7,Transporters pathway
+TR0002905_CYTMEM__plas,47.15,8.4623,dlkcat,Transporters pathway
+R10920__cyto,44.23,9.4451,dlkcat,
+R11323__cyto,40.75,15.2631,dlkcat,Pyrimidine metabolism
+R03443__cyto,94.24,17.5947,dlkcat,2-Oxocarboxylic acid metabolism
+R00178__cyto,51.07,13.7,default_13.7,Arginine and proline metabolism
+TR0012606_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+TR0000046_CYTMEM__plas,79.254545,189.3004,dlkcat,Transporters pathway
+R04285__cyto,35.98,0.3997,dlkcat,Folate biosynthesis
+R02678__cyto,62.486667,177.0568,dlkcat,Tryptophan metabolism
+R02868__cyto,56.453333,9.755,dlkcat,
+TR1000221_CYTMEM__plas,58.5875,191.2277,dlkcat,Transporters pathway
+R04889__pero,53.566667,193.4616,dlkcat,Tyrosine metabolism
+R10088__cyto,29.485,111.2326,dlkcat,
+TR0000068_CYTMEM__plas,79.254545,123.0763,dlkcat,Transporters pathway
+R03451__mito,47.325,210.4872,dlkcat,Lysine degradation
+R07035__cyto,35.69,140.1702,dlkcat,Arachidonic acid metabolism
+R00005__cyto,201.13,49.803,dlkcat,Arginine biosynthesis
+R00160__cyto,40.75,13.7,default_13.7,Riboflavin metabolism
+R03004__cyto,43.9175,35.3343,dlkcat,Nicotinate and nicotinamide metabolism
+R05085__cyto,43.06,1.7565,dlkcat,Vitamin B6 metabolism
+T_alpha_alpha_Trehalose__plas,71.915,48.1524,dlkcat,Transporters pathway
+R01280__pero,82.433333,13.3621,dlkcat,Fatty acid biosynthesis
+R01214__cyto,42.61,21.7127,dlkcat,Glucosinolate biosynthesis
+R04404__cyto,120.515,13.7,default_13.7,Inositol phosphate metabolism
+TR1000268_CYTMEM__plas,63.976,6.3291,dlkcat,Transporters pathway
+R02957__cyto,62.486667,424.0381,dlkcat,Ascorbate and aldarate metabolism
+R03451__cyto,47.325,210.4872,dlkcat,Lysine degradation
+R04535__cyto,218.285,13.7,default_13.7,Fatty acid biosynthesis
+R01126__cyto,54.52,1.0236,dlkcat,Purine metabolism
+R02056__cyto,98.6,13.7,default_13.7,Glycerophospholipid metabolism
+R02111__cyto,103.25,13.7,default_13.7,Starch and sucrose metabolism
+R00943__cyto,104.285,12.4914,dlkcat,Carbon fixation pathways in prokaryotes
+R07758__cyto,39.07,4.766,dlkcat,Biosynthesis of unsaturated fatty acids
+TZ2900019_CYTMEM__plas,89.175,2.4004,dlkcat,Transporters pathway
+R01624__cyto,218.285,4.2468,dlkcat,Fatty acid biosynthesis
+TR2901077_CYTMEM__plas,34.64,3.3213,dlkcat,Transporters pathway
+R00291__cyto,75.08,18.6384,dlkcat,Galactose metabolism
+TR0009429_CYTMEM__plas,108.486667,10.3743,dlkcat,Transporters pathway
+R00259__cyto,56.11,68.2425,dlkcat,2-Oxocarboxylic acid metabolism
+R02019__cyto,80.083333,13.7,default_13.7,Purine metabolism
+R01163__cyto,92.52,4.6387,dlkcat,Histidine metabolism
+TR2901022_CYTMEM__plas,34.64,13.6828,dlkcat,Transporters pathway
+R02335__cyto,115.44,11.6142,dlkcat,Amino sugar and nucleotide sugar metabolism
+R00570__cyto,16.86,13.7,default_13.7,Pyrimidine metabolism
+R03815__mito,52.75,13.7,default_13.7,"Glycine, serine and threonine metabolism"
+TR0011735_CYTMEM__plas,33.91,13.7,default_13.7,Transporters pathway
+TI2000430_CYTMEM__plas,49.55,358.8274,dlkcat,Transporters pathway
+TR0000214_CYTMEM__plas,47.15,9.238,dlkcat,Transporters pathway
+TR0000002_CYTMEM__plas,80.172353,13.7,default_13.7,Transporters pathway
+R09827__mito,120.515,13.7,default_13.7,Inositol phosphate metabolism
+TR2900219_CYTMEM__plas,42.78,6.6445,dlkcat,Transporters pathway
+R01819__mito,48.18,6.1656,dlkcat,Fructose and mannose metabolism
+R09827__cyto,120.515,13.7,default_13.7,Inositol phosphate metabolism
+R00760__cyto,56.453333,23.1388,dlkcat,Starch and sucrose metabolism
+R02327__cyto,69.47,1.2505,dlkcat,Pyrimidine metabolism
+R01598__pero,73.3,3.4301,dlkcat,
+R02767__cyto,87.413333,13.7,default_13.7,Fatty acid biosynthesis
+TR1000210_CYTMEM__plas,63.976,33.1017,dlkcat,Transporters pathway
+TR0001297_CYTMEM__plas,108.486667,13.7,default_13.7,Transporters pathway
+R02466__cyto,69.25,10.5424,dlkcat,Taurine and hypotaurine metabolism
+TR0012572_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R01184__cyto,42.91,2.2687,dlkcat,Inositol phosphate metabolism
+TO1012844_CYTMEM__plas,60.686667,25.0419,dlkcat,Transporters pathway
+TO0010516_CYTMEM__plas,52.22,72.4542,dlkcat,Transporters pathway
+TR0005718_CYTMEM__plas,108.486667,8.5653,dlkcat,Transporters pathway
+TR2900218_CYTMEM__plas,42.78,6.5761,dlkcat,Transporters pathway
+TO1000104_CYTMEM__plas,60.686667,11.8119,dlkcat,Transporters pathway
+R08549__mito,83.08,63.3298,dlkcat,Carbon metabolism
+R04463__cyto,145.73,9.434,dlkcat,Purine metabolism
+R01248__cyto,29.08,2.6514,dlkcat,Arginine and proline metabolism
+R00174__cyto,37.185,67.1716,dlkcat,Vitamin B6 metabolism
+R03199__cyto,83.47,3.4482,dlkcat,Steroid biosynthesis
+R02057__cyto,44.7,4.1596,dlkcat,Glycerophospholipid metabolism
+R01528__cyto,55.17,24.7635,dlkcat,Glutathione metabolism
+R02239__cyto,50.2,13.7,default_13.7,Glycerophospholipid metabolism
+R04903__cyto,62.486667,164.7574,dlkcat,Tryptophan metabolism
+TR2901180_CYTMEM__plas,64.408182,27.9517,dlkcat,Transporters pathway
+R02115__cyto,62.32,13.7,default_13.7,
+R00943__mito,104.285,12.4914,dlkcat,Carbon fixation pathways in prokaryotes
+R00512__mito,31.01,108.2192,dlkcat,Pyrimidine metabolism
+R04184__cyto,84.78,13.9884,dlkcat,
+R00258__cyto,60.2,9.1481,dlkcat,2-Oxocarboxylic acid metabolism
+R00829__cyto,42.503333,26.8076,dlkcat,Phenylalanine metabolism
+R03503__cyto,88.59,9.2077,dlkcat,Folate biosynthesis
+R00220__cyto,46.9725,10.423,dlkcat,Biosynthesis of amino acids
+R04888__pero,53.566667,193.4616,dlkcat,Tyrosine metabolism
+TR0000054_CYTMEM__plas,52.0,1.0776,dlkcat,Transporters pathway
+R05779__cyto,21.41,16.9181,dlkcat,
+R03165__cyto,31.7,35.6686,dlkcat,Porphyrin and chlorophyll metabolism
+R02355__e_r_,65.45,1.6651,dlkcat,
+R04747__cyto,42.503333,26.8076,dlkcat,Fatty acid elongation
+R01802__cyto,25.15,9.9239,dlkcat,Inositol phosphate metabolism
+R00004__cyto,34.68,13.7,default_13.7,Oxidative Phosphorylation
+TR0000239_CYTMEM__plas,58.682727,428.3766,dlkcat,Transporters pathway
+TO1000311_CYTMEM__plas,70.25,9.5938,dlkcat,Transporters pathway
+R03321__cyto,61.54,28.0367,dlkcat,Glycolysis / Gluconeogenesis
+R06223__cyto,50.71,0.2339,dlkcat,
+R02239__mito,50.2,13.7,default_13.7,Glycerophospholipid metabolism
+R00224__cyto,62.86,31.706,dlkcat,
+R03662__cyto,52.34,2.7298,dlkcat,Aminoacyl-tRNA biosynthesis
+TR2900181_CYTMEM__plas,42.78,6.5761,dlkcat,Transporters pathway
+TR0000064_CYTMEM__plas,32.98,0.1863,dlkcat,Transporters pathway
+R01095__cyto,35.98,0.3109,dlkcat,Galactose metabolism
+R00161__cyto,33.16,4.5752,dlkcat,Riboflavin metabolism
+R12401__cyto,39.09,0.1207,dlkcat,Steroid biosynthesis
+R12067__mito,29.14,13.7,default_13.7,Ubiquinone and other terpenoid-quinone biosynthesis
+R04754__cyto,79.8425,20.8099,dlkcat,Fatty acid metabolism
+TR0001899_CYTMEM__plas,108.486667,13.7,default_13.7,Transporters pathway
+R00479__cyto,60.68,104.6135,dlkcat,Carbon metabolism
+R00942__cyto,50.23,2.7966,dlkcat,Folate biosynthesis
+TR2900122_CYTMEM__plas,42.78,9.2462,dlkcat,Transporters pathway
+R01251__cyto,29.08,2.6514,dlkcat,Arginine and proline metabolism
+R04534__cyto,122.9675,13.7,default_13.7,Fatty acid biosynthesis
+TO1000307_CYTMEM__plas,60.686667,92.7764,dlkcat,Transporters pathway
+R00267__mito,47.055,7.2653,dlkcat,2-Oxocarboxylic acid metabolism
+R02018__cyto,80.083333,13.7,default_13.7,Pyrimidine metabolism
+R04883__pero,53.566667,31.0626,dlkcat,Tyrosine metabolism
+R11043__cyto,49.45,0.556,dlkcat,Biosynthesis of unsaturated fatty acids
+TO1000133_CYTMEM__plas,60.686667,0.4629,dlkcat,Transporters pathway
+TO1000895_CYTMEM__plas,60.686667,58.1702,dlkcat,Transporters pathway
+R04965__cyto,218.285,13.7,default_13.7,Fatty acid biosynthesis
+TR2901030_CYTMEM__plas,34.64,3.2599,dlkcat,Transporters pathway
+R10991__cyto,42.61,21.7127,dlkcat,Cysteine and methionine metabolism
+R00986__cyto,58.535,71.2806,dlkcat,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+R02740__cyto,61.54,28.0367,dlkcat,Pentose phosphate pathway
+R01909__cyto,37.185,21.1774,dlkcat,Vitamin B6 metabolism
+R08557__cyto,39.8325,1148.9183,dlkcat,"Glycine, serine and threonine metabolism"
+TR2900029_CYTMEM__plas,37.5,52.3648,dlkcat,Transporters pathway
+R01090__cyto,42.61,21.7127,dlkcat,Glucosinolate biosynthesis
+R02301__mito,24.42,1.3479,dlkcat,One carbon pool by folate
+R03004__mito,40.75,35.3343,dlkcat,Nicotinate and nicotinamide metabolism
+TR0000242_CYTMEM__plas,58.682727,136.9902,dlkcat,Transporters pathway
+R00267__cyto,47.055,7.2653,dlkcat,2-Oxocarboxylic acid metabolism
+R01036__cyto,35.98,0.0764,dlkcat,Glycerolipid metabolism
+TO0000277_CYTMEM__plas,45.88,0.3217,dlkcat,Transporters pathway
+TR0000075_CYTMEM__plas,57.83,18.5747,dlkcat,Transporters pathway
+R03816__cyto,24.006667,1.7121,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R10121__cyto,229.63,13.7,default_13.7,Biotin metabolism
+TR1000020_CYTMEM__plas,58.5875,201.7257,dlkcat,Transporters pathway
+R01092__cyto,55.6,4.0896,dlkcat,Galactose metabolism
+R02241__cyto,51.49,13.7,default_13.7,Glycerophospholipid metabolism
+R02021__cyto,29.14,13.937,dlkcat,Sulfur metabolism
+R08557__mito,39.8325,1148.9183,dlkcat,"Glycine, serine and threonine metabolism"
+TO1002679_CYTMEM__plas,60.686667,61.2628,dlkcat,Transporters pathway
+TR1000082_CYTMEM__plas,60.619167,48.4462,dlkcat,Transporters pathway
+TR0003560_CYTMEM__plas,47.15,25.7136,dlkcat,Transporters pathway
+TR2900162_CYTMEM__plas,42.78,6.5761,dlkcat,Transporters pathway
+R00985__cyto,58.535,3.757,dlkcat,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+TR2900207_CYTMEM__plas,42.78,9.562,dlkcat,Transporters pathway
+R06983__cyto,40.19,7.9566,dlkcat,Carbon metabolism
+TR0000014_CYTMEM__plas,79.254545,13.7,default_13.7,Transporters pathway
+R01468__cyto,63.75,14.4786,dlkcat,Glycerophospholipid metabolism
+R04970__cyto,130.5775,13.7,default_13.7,Fatty acid biosynthesis
+R08558__mito,39.8325,1148.9183,dlkcat,"Glycine, serine and threonine metabolism"
+R00004__mito,34.68,13.7,default_13.7,Oxidative Phosphorylation
+R02732__cyto,76.29,21.6485,dlkcat,Fructose and mannose metabolism
+R00707_Cyto__cyto,65.33,7.3282,dlkcat,Arginine and proline metabolism
+R02300__mito,43.65,4.6066,dlkcat,One carbon pool by folate
+R10993__cyto,88.97,1.4785,dlkcat,Cysteine and methionine metabolism
+TZ2900044_CYTMEM__plas,89.175,2.4004,dlkcat,Transporters pathway
+TR1000138_CYTMEM__plas,60.322727,40.4284,dlkcat,Transporters pathway
+R01280__cyto,82.433333,13.3621,dlkcat,Fatty acid biosynthesis
+R01968__cyto,26.33,0.2565,dlkcat,Purine metabolism
+R05086__cyto,57.27,100.4122,dlkcat,Vitamin B6 metabolism
+TR1001567_CYTMEM__plas,57.919091,313.2269,dlkcat,Transporters pathway
+R03916__cyto,64.67,13.7,default_13.7,Glutathione metabolism
+R00137__cyto,38.41,17.4464,dlkcat,Nicotinate and nicotinamide metabolism
+R03005__cyto,38.41,17.34,dlkcat,Nicotinate and nicotinamide metabolism
+R03664__cyto,45.175,3.4094,dlkcat,Aminoacyl-tRNA biosynthesis
+R02613__cyto,77.175,325.5596,dlkcat,Phenylalanine metabolism
+R01213__cyto,64.78,7.8755,dlkcat,2-Oxocarboxylic acid metabolism
+R04439__mito,44.46,2.6389,dlkcat,Pantothenate and CoA biosynthesis
+TR1000305_CYTMEM__plas,57.919091,19.9695,dlkcat,Transporters pathway
+R02082__cyto,112.19,19.9724,dlkcat,Terpenoid backbone biosynthesis
+R04405__cyto,85.88,3.1814,dlkcat,Biosynthesis of amino acids
+TR0002799_CYTMEM__plas,36.06,0.5762,dlkcat,Transporters pathway
+TI1000381_CYTMEM__plas,33.745,7.1632,dlkcat,Transporters pathway
+R03482__cyto,35.45,13.7,default_13.7,
+R05333__cyto,75.86,13.7,default_13.7,Glycerolipid metabolism
+R04780__cyto,37.48,0.4162,dlkcat,Pentose phosphate pathway
+TR2900215_CYTMEM__plas,42.78,6.5761,dlkcat,Transporters pathway
+R02867__cyto,56.453333,9.755,dlkcat,
+R01655__cyto,104.285,10.1872,dlkcat,Carbon fixation pathways in prokaryotes
+R07937__cyto,42.503333,41.8561,dlkcat,Biosynthesis of unsaturated fatty acids
+R03005__mito,38.41,17.34,dlkcat,Nicotinate and nicotinamide metabolism
+R04967__cyto,130.5775,13.7,default_13.7,Fatty acid biosynthesis
+TO1000330_CYTMEM__plas,60.686667,101.0111,dlkcat,Transporters pathway
+R00268__mito,47.055,13.4419,dlkcat,2-Oxocarboxylic acid metabolism
+R00100__mito,29.975,13.7,default_13.7,Amino sugar and nucleotide sugar metabolism
+R01714__cyto,40.53,25.928,dlkcat,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+TR0015431_CYTMEM__plas,108.486667,13.7,default_13.7,Transporters pathway
+R02237__cyto,50.23,5.0861,dlkcat,Folate biosynthesis
+R00722__cyto,16.86,13.7,default_13.7,Purine metabolism
+TO0000412_CYTMEM__plas,45.88,0.4835,dlkcat,Transporters pathway
+R05202__cyto,56.11,41.8173,dlkcat,Inositol phosphate metabolism
+TR2900126_CYTMEM__plas,42.78,7.7168,dlkcat,Transporters pathway
+R00729__cyto,46.19,10.8371,dlkcat,Isoquinoline alkaloid biosynthesis
+TR0000431_CYTMEM__plas,108.486667,13.7,default_13.7,Transporters pathway
+R01934__cyto,40.0,0.1532,dlkcat,2-Oxocarboxylic acid metabolism
+TR1000190_CYTMEM__plas,61.427333,40.4284,dlkcat,Transporters pathway
+R00416__cyto,54.56,11.3659,dlkcat,Amino sugar and nucleotide sugar metabolism
+R00485__cyto,42.43,1.6791,dlkcat,Cyanoamino acid metabolism
+R00103__cyto,43.9175,13.7,default_13.7,Nicotinate and nicotinamide metabolism
+TR0011765_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R10117__cyto,229.63,13.7,default_13.7,Biotin metabolism
+R03090__e_r_,65.45,1.5037,dlkcat,
+TR2000056_CYTMEM__plas,33.14,77.3665,dlkcat,Transporters pathway
+R03102__cyto,155.19,9.8634,dlkcat,Lysine degradation
+TR0016290_CYTMEM__plas,47.15,51.1886,dlkcat,Transporters pathway
+R01287__cyto,48.09,7.9524,dlkcat,Cysteine and methionine metabolism
+R01470__cyto,137.715,9.0618,dlkcat,Glycerophospholipid metabolism
+R10712__cyto,61.55,2.2426,dlkcat,Thiamine metabolism
+TR1001242_CYTMEM__plas,60.932,19.8551,dlkcat,Transporters pathway
+R00130__cyto,27.12,0.3043,dlkcat,Pantothenate and CoA biosynthesis
+R00100__cyto,29.975,13.7,default_13.7,Amino sugar and nucleotide sugar metabolism
+T_L_Glutamate_c00025_CytoMito__plas,81.49,11.3537,dlkcat,Transporters pathway
+R08771__mito,36.54,13.7,default_13.7,Ubiquinone and other terpenoid-quinone biosynthesis
+T__S__Allantoin__plas,57.919091,313.2269,dlkcat,Transporters pathway
+R09796__cyto,26.12,116.3229,dlkcat,Pyruvate metabolism
+TR2002869_CYTMEM__plas,51.63,11.2799,dlkcat,Transporters pathway
+TR0015531_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R02144__cyto,43.78,10.5274,dlkcat,Histidine metabolism
+R04568__cyto,218.285,13.7,default_13.7,Fatty acid biosynthesis
+R00261__cyto,69.25,32.1676,dlkcat,"Alanine, aspartate and glutamate metabolism"
+R00858__cyto,141.75,4.3415,dlkcat,Sulfur metabolism
+R00762__cyto,37.48,0.4162,dlkcat,Carbon fixation in photosynthetic organisms
+R01569__cyto,26.33,5.1153,dlkcat,Pyrimidine metabolism
+R08774__mito,35.29,13.7,default_13.7,Ubiquinone and other terpenoid-quinone biosynthesis
+R05614__mito,36.54,1.7402,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+R03444__cyto,87.11,3.6839,dlkcat,2-Oxocarboxylic acid metabolism
+R00885__cyto,39.92,21.559,dlkcat,Fructose and mannose metabolism
+R05052__cyto,47.15,35.7255,dlkcat,Arginine and proline metabolism
+R01068__cyto,39.67,0.432,dlkcat,Carbon fixation in photosynthetic organisms
+R05553__cyto,33.34,0.6078,dlkcat,Folate biosynthesis
+R00480__cyto,60.45,6.6255,dlkcat,2-Oxocarboxylic acid metabolism
+TR2900854_CYTMEM__plas,31.89,5.0271,dlkcat,Transporters pathway
+TR2900044_CYTMEM__plas,62.42,13.7,default_13.7,Transporters pathway
+R01652__cyto,40.14,13.133,dlkcat,2-Oxocarboxylic acid metabolism
+R00724__cyto,55.49,14.2338,dlkcat,
+R01218__mito,36.35,3.5066,dlkcat,One carbon pool by folate
+R01843__cyto,107.505,8.6758,dlkcat,
+R00483__cyto,65.02,2.5762,dlkcat,Cyanoamino acid metabolism
+R02053__cyto,55.99,13.7,default_13.7,Glycerophospholipid metabolism
+R00418__cyto,75.08,17.9172,dlkcat,Amino sugar and nucleotide sugar metabolism
+TZ2900052_CYTMEM__plas,85.15,2.4004,dlkcat,Transporters pathway
+R01845__cyto,32.78,19.7777,dlkcat,Carbon fixation in photosynthetic organisms
+R04711__mito,36.54,2.1808,dlkcat,Ubiquinone and other terpenoid-quinone biosynthesis
+TR0002496_CYTMEM__plas,66.735,78.4131,dlkcat,Transporters pathway
+TR0002885_CYTMEM__plas,108.486667,13.7,default_13.7,Transporters pathway
+TR0000497_CYTMEM__plas,79.254545,99.7986,dlkcat,Transporters pathway
+R03139__cyto,77.175,155.4708,dlkcat,beta-Alanine metabolism
+R03417__cyto,82.545,13.7,default_13.7,Glycerophospholipid metabolism
+R00103__mito,40.75,13.7,default_13.7,Nicotinate and nicotinamide metabolism
+R02332__cyto,69.47,1.2505,dlkcat,Pyrimidine metabolism
+R00667__cyto,46.63,5.2999,dlkcat,Arginine and proline metabolism
+TR0000350_CYTMEM__plas,108.486667,0.8255,dlkcat,Transporters pathway
+R03504__cyto,88.59,8.5685,dlkcat,Folate biosynthesis
+R03857__cyto,79.8425,20.5289,dlkcat,Fatty acid metabolism
+TR0001157_CYTMEM__plas,86.095,285.6008,dlkcat,Transporters pathway
+R01655__mito,104.285,10.1872,dlkcat,Carbon fixation pathways in prokaryotes
+R01786__cyto,56.453333,19.1668,dlkcat,Galactose metabolism
+R01127__cyto,64.67,0.3421,dlkcat,Purine metabolism
+R01931__cyto,39.5,2.4203,dlkcat,Sulfur metabolism
+R02055__cyto,99.615,13.7,default_13.7,Glycerophospholipid metabolism
+R03260__cyto,66.08,3.5873,dlkcat,Biosynthesis of amino acids
+R04930__cyto,42.89,1.1624,dlkcat,
+TR2000009_CYTMEM__plas,43.9,13.7,default_13.7,Transporters pathway
+R02331__cyto,16.86,62.8102,dlkcat,Pyrimidine metabolism
+R00851__cyto,84.765,19.2758,dlkcat,Glycerophospholipid metabolism
+R02649__cyto,94.24,11.6022,dlkcat,2-Oxocarboxylic acid metabolism
+R07280__cyto,18.18,121.1141,dlkcat,Riboflavin metabolism
+TZ2900059_CYTMEM__plas,85.15,13.7,default_13.7,Transporters pathway
+R01404__cyto,42.87,13.7,default_13.7,Fatty acid biosynthesis
+R00009__cyto,55.19,30090.488,dlkcat,Carbon metabolism
+R01067__cyto,74.48,24.1998,dlkcat,Carbon fixation in photosynthetic organisms
+R00351__mito,52.08,110.0148,dlkcat,2-Oxocarboxylic acid metabolism
+R08181__pero,33.66,14.0845,dlkcat,Biosynthesis of unsaturated fatty acids
+R09944__mito,37.86,274.3396,dlkcat,Glycerophospholipid metabolism
+R02422__cyto,37.47,999.9351,dlkcat,Purine metabolism
+R03291__cyto,29.08,0.6454,dlkcat,Arginine and proline metabolism
+R00572__cyto,55.49,14.1927,dlkcat,
+R04378__cyto,20.96,0.0627,dlkcat,Purine metabolism
+TR0003178_CYTMEM__plas,36.06,0.1231,dlkcat,Transporters pathway
+R01716__cyto,86.43,3.403,dlkcat,Folate biosynthesis
+R01158__cyto,92.52,4.4804,dlkcat,Biosynthesis of amino acids
+R03509__cyto,27.07,22.8991,dlkcat,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+TI2000074_CYTMEM__plas,146.37,0.7923,dlkcat,Transporters pathway
+R04404__mito,120.515,13.7,default_13.7,Inositol phosphate metabolism
+TR0012514_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R01658__cyto,40.965,22.1599,dlkcat,Terpenoid backbone biosynthesis
+TR1003285_CYTMEM__plas,63.976,606.9444,dlkcat,Transporters pathway
+TR0000878_CYTMEM__plas,108.486667,13.7,default_13.7,Transporters pathway
+TR2900311_CYTMEM__plas,32.76,81.3504,dlkcat,Transporters pathway
+R01061__cyto,36.17,71.8368,dlkcat,Carbon fixation in photosynthetic organisms
+TR0001431_CYTMEM__plas,108.486667,13.7,default_13.7,Transporters pathway
+R00260__cyto,25.26,11.5945,dlkcat,D-Glutamine and D-glutamate metabolism
+R00571__cyto,64.62,13.7,default_13.7,Pyrimidine metabolism
+TR0000268_CYTMEM__plas,58.682727,11.2054,dlkcat,Transporters pathway
+TR0003396_CYTMEM__plas,58.682727,6.812,dlkcat,Transporters pathway
+R02051__cyto,187.88,13.7,default_13.7,Glycerophospholipid metabolism
+R00578__cyto,65.02,3.8782,dlkcat,Biosynthesis of amino acids
+R10092__cyto,30.82,2244.7076,dlkcat,Nitrogen metabolism
+R11231__cyto,155.19,6.959,dlkcat,
+R09944__cyto,37.86,274.3396,dlkcat,Glycerophospholipid metabolism
+R09077__cyto,53.12,0.7149,dlkcat,Arginine and proline metabolism
+R08362__cyto,22.045556,64.6264,dlkcat,Glutathione metabolism
+R00139__cyto,16.86,67.6074,dlkcat,Pyrimidine metabolism
+R04065__cyto,62.486667,60.4137,dlkcat,Histidine metabolism
+R00267__pero,47.055,7.2653,dlkcat,2-Oxocarboxylic acid metabolism
+TR0013383_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+R00299__cyto,56.453333,19.1668,dlkcat,"Neomycin, kanamycin and gentamicin biosynthesis"
+TR2900177_CYTMEM__plas,42.78,7.7168,dlkcat,Transporters pathway
+TR0003641_CYTMEM__plas,77.818333,2.3969,dlkcat,Transporters pathway
+TZ2900041_CYTMEM__plas,85.15,2.5081,dlkcat,Transporters pathway
+R00509__cyto,22.59,18.7979,dlkcat,Purine metabolism
+R03947__cyto,45.555,4.2451,dlkcat,Porphyrin and chlorophyll metabolism
+TO1009049_CYTMEM__plas,95.135714,33.1245,dlkcat,Transporters pathway
+R08648__mito,74.55,5.0965,dlkcat,2-Oxocarboxylic acid metabolism
+R01715__cyto,30.83,0.6268,dlkcat,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+R04620__cyto,43.006667,1.1684,dlkcat,Folate biosynthesis
+TO1000059_CYTMEM__plas,60.686667,46.2723,dlkcat,Transporters pathway
+R00078__cyto,19.37,0.3398,dlkcat,Porphyrin and chlorophyll metabolism
+TR0000028_CYTMEM__plas,89.36,2.659,dlkcat,Transporters pathway
+TR0006277_CYTMEM__plas,108.486667,4.0479,dlkcat,Transporters pathway
+R01561__cyto,32.79,3.5788,dlkcat,Purine metabolism
+TO1000215_CYTMEM__plas,60.686667,66.3592,dlkcat,Transporters pathway
+R07281__cyto,22.71,0.3664,dlkcat,Riboflavin metabolism
+R01281__cyto,64.845,64.2131,dlkcat,Sphingolipid metabolism
+R11232__cyto,155.19,6.959,dlkcat,
+R07934__cyto,79.8425,37.1507,dlkcat,Biosynthesis of unsaturated fatty acids
+R02147__cyto,32.79,1.5203,dlkcat,Purine metabolism
+R01123__cyto,33.53,0.1752,dlkcat,Terpenoid backbone biosynthesis
+R09449__cyto,36.81,13.7,default_13.7,
+TO0002511_CYTMEM__plas,45.88,1.0774,dlkcat,Transporters pathway
+R01939__cyto,55.33,26.9768,dlkcat,Lysine degradation
+TO1000277_CYTMEM__plas,70.25,0.6357,dlkcat,Transporters pathway
+R08183__pero,33.66,14.4984,dlkcat,Biosynthesis of unsaturated fatty acids
+R01936__cyto,40.0,0.1477,dlkcat,2-Oxocarboxylic acid metabolism
+R02702__cyto,48.21,3.6182,dlkcat,Tryptophan metabolism
+TR0000021_CYTMEM__plas,73.157895,21.9955,dlkcat,Transporters pathway
+R01878__cyto,16.66,18.2114,dlkcat,Pyrimidine metabolism
+R00573__cyto,64.62,63.2231,dlkcat,Pyrimidine metabolism
+R08180__pero,33.66,16.9527,dlkcat,Biosynthesis of unsaturated fatty acids
+TO1000226_CYTMEM__plas,60.686667,54.1679,dlkcat,Transporters pathway
+TR0012554_CYTMEM__plas,78.363333,13.7,default_13.7,Transporters pathway
+TR2900244_CYTMEM__plas,42.78,6.5761,dlkcat,Transporters pathway
+R02864__cyto,45.555,0.5069,dlkcat,Porphyrin and chlorophyll metabolism
+R04560__cyto,64.67,0.3045,dlkcat,Purine metabolism
+R08182__pero,33.66,13.9085,dlkcat,Biosynthesis of unsaturated fatty acids
+R02425__cyto,44.825,818.4569,dlkcat,Purine metabolism
+TO1000048_CYTMEM__plas,71.366,3347.2758,dlkcat,Transporters pathway
+R10686__cyto,38.52,4.766,dlkcat,Thiamine metabolism
+R00137__mito,38.41,17.4464,dlkcat,Nicotinate and nicotinamide metabolism
+R00575__cyto,139.326667,8.0766,dlkcat,Pyrimidine metabolism
+R02865__cyto,56.453333,9.755,dlkcat,
+R01121__cyto,42.03,3.3456,dlkcat,Terpenoid backbone biosynthesis
+R00355__cyto,47.15,35.7255,dlkcat,2-Oxocarboxylic acid metabolism
+TR2900876_CYTMEM__plas,31.89,5.0271,dlkcat,Transporters pathway
+TR0000150_CYTMEM__plas,58.682727,11.3632,dlkcat,Transporters pathway
+TO1000304_CYTMEM__plas,60.686667,6.7226,dlkcat,Transporters pathway
