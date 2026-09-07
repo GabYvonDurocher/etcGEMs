@@ -92,6 +92,15 @@ def main():
     pd.DataFrame(wide).to_csv(os.path.join(HERE, "ladder_wide.csv"), index=False)
     C = pd.concat(cfs, ignore_index=True) if cfs else pd.DataFrame()
     if len(C):
+        # K2 PART C1. The separation the MODEL requires, against the separation that
+        # actually exists. Two references, both from outside this model:
+        #   0.52 C  the sequence-predicted paired ortholog dTm, C. auris minus
+        #           C. haemulonii (95% CI 0.37-0.67), gem/24_paired_dedup_audit.py.
+        #   1.6 C   MEASURED proteome-wide dTm between S. cerevisiae and S. uvarum, 827
+        #           protein pairs, for an 8 C difference in growth limit (Walunjkar et al.
+        #           2025, Mol Biol Evol 42:msaf137). The most generous real number available.
+        C["fold_gap_vs_predicted_0.52C"] = C["required"] / 0.52
+        C["fold_gap_vs_measured_1.6C"] = C["required"] / 1.6
         C.to_csv(os.path.join(HERE, "ladder_counterfactual.csv"), index=False)
 
     show = ["rung", "species", "peak_mu_model", "peak_T_C", "descr_Topt_C", "descr_rmax",
@@ -110,6 +119,14 @@ def main():
             print("\nmedian over the three relatives:")
             m = (C.groupby(["rung", "param"])["required"].median().unstack())
             print(m.round(2).to_string())
+            print("\nPART C1 -- required separation and the fold gap, median over the "
+                  "three relatives:")
+            g = (C.groupby(["rung", "param"])[
+                     ["required", "fold_gap_vs_predicted_0.52C", "fold_gap_vs_measured_1.6C"]]
+                 .median().reset_index())
+            g.columns = ["rung", "param", "required_C", "x vs predicted 0.52 C",
+                         "x vs measured 1.6 C"]
+            print(g.round(1).to_string(index=False))
     print("\nwrote", os.path.join(HERE, "ladder_table.csv"))
     return 0
 
