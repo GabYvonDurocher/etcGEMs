@@ -40,3 +40,53 @@ user's environment, for a cosmetic problem, and not this prompt's business.
 **Reversible:** n/a, nothing changed. **Review:** worth knowing that on this machine
 `git status` can flag a file whose content has not moved; content checks should use `cmp`
 against `git show`, which is what N2 does throughout.
+
+## D2 — TASK 1: the reproduction check reports exact AND numeric agreement separately
+
+**Decided.** `task1_reproduce_all.py` reports `reproduces_exact` (byte-for-byte) and
+`reproduces_numeric` (every number equal to a relative tolerance of 1e-9) as two columns.
+
+**Why.** The toy strain's TPC differs from its committed copy by a maximum **relative**
+difference of 6.2e-15 — floating-point rounding between BLAS builds, on a model whose
+numbers are otherwise deterministic (two consecutive runs are byte-identical). Reporting that
+as "does not reproduce" would bury the one real finding in noise.
+
+**Alternatives.** Byte comparison only — would have flagged `_toy`'s numbers as stale when
+they are not. Numeric only — would have hidden `_toy`'s genuinely stale `resolved_config.yaml`.
+
+**Reversible:** yes. **Review:** nobody.
+
+## D3 — TASK 1: `_toy`'s stale resolved_config is listed, not fixed
+
+**Decided.** `strains/_toy/outputs/tpc/resolved_config.yaml` is structurally stale — it
+predates `close_free_o2_sinks` in `configs/defaults.yaml` and the `proteome_sectors` block in
+the merged config — and is **left alone**.
+
+**Why.** The task's constraint is explicit: do not bulk-overwrite other stale outputs, list
+them. It is also the least consequential possible case (a synthetic smoke-test strain whose
+numbers are correct and whose provenance file is out of date), so there is no urgency that
+would justify overriding the constraint.
+
+**Alternatives.** Regenerate it — one command, and it would have been consistent with what
+TASK 1 did for eciML1515, but eciML1515 was diagnosed first and this was not.
+
+**Reversible:** n/a, nothing done. **Review:** whoever wants it regenerated; it is a
+one-liner and should be done deliberately.
+
+## D4 — TASK 1: the check covers what one quick deterministic command produces, and says so
+
+**Decided.** The reproduction check covers the nominal TPCs, the Candida `transfer_*`,
+`audit_sinks*` and `fba_*` outputs — 46 directories, 132 files. It does **not** cover
+`eciML1515`'s sweeps and Bayesian calibrations, `mmaripaludis`' M2–M6, `syn6803`'s P1–P4, or
+the cross-organism `outputs/ea_*`.
+
+**Why.** Those take hours to days and several are stochastic (emcee chains), so "does it
+reproduce" is a different question needing a seed policy and a tolerance rather than a byte
+comparison. Attempting it inside an under-an-hour prompt would have produced a table of
+false failures.
+
+**Alternatives.** Run everything — not feasible in the time and would answer the wrong
+question for the stochastic runs.
+
+**Reversible:** n/a. **Review:** somebody should decide whether the stochastic outputs need a
+reproducibility policy at all; at present nothing checks them.

@@ -50,7 +50,10 @@ def jobs():
                     "candida_B1_unfolding", "candida_B1s_fit_dTm",
                     "candida_B2_grounded_budget", "candida_B3_ngamT",
                     "candida_B4_sectors"]:
-            J.append((s, exp, [ETC, "transfer", "--experiment", exp]))
+            # transfer.run_tag: the output folder is transfer_<exp>, de-doubled when the
+            # experiment name already starts with "transfer"
+            tag = exp if exp.startswith("transfer") else f"transfer_{exp}"
+            J.append((s, tag, [ETC, "transfer", "--experiment", exp]))
         J.append((s, "audit_sinks", [ETC, "audit-sinks", "--strain", s]))
         J.append((s, "audit_sinks_raw", [ETC, "audit-sinks", "--strain", s, "--raw"]))
     for exp in ["candida_pool_unconstrained", "candida_pool_binding"]:
@@ -58,6 +61,36 @@ def jobs():
                   [ETC, "fba", "--strain", "cauris_iRV973", "--experiment", exp,
                    "--temp", "30"]))
     return J
+
+
+def numerically_equal(a_bytes, b_path, rtol=1e-9):
+    """Do two CSV/JSON files agree to floating-point rounding?
+
+    A byte difference in the last significant digit is rounding, not staleness -- the toy
+    strain's rmax comes back as 0.0889448438683759 or ...99 depending on the BLAS build.
+    Reporting that as "does not reproduce" would bury a real signal in noise, so exact and
+    numeric agreement are reported as separate columns."""
+    import math
+    import re
+    try:
+        A = re.findall(r"-?\d+\.?\d*(?:[eE][-+]?\d+)?", a_bytes.decode())
+        B = re.findall(r"-?\d+\.?\d*(?:[eE][-+]?\d+)?", open(b_path, "rb").read().decode())
+    except Exception:
+        return False
+    if len(A) != len(B):
+        return False
+    for x, y in zip(A, B):
+        try:
+            fx, fy = float(x), float(y)
+        except ValueError:
+            if x != y:
+                return False
+            continue
+        if math.isnan(fx) and math.isnan(fy):
+            continue
+        if not math.isclose(fx, fy, rel_tol=rtol, abs_tol=1e-12):
+            return False
+    return True
 
 
 def tracked(path):
@@ -89,20 +122,28 @@ def main():
             rows.append(dict(strain=s, output=d, n_tracked=0, n_compared=0,
                              reproduces=None, differing=""))
             continue
-        diff = []
+        diff, numeric_only = [], []
         for f in files:
+            if f.endswith(".png"):
+                continue        # matplotlib PNGs carry a non-deterministic creation date
             p = os.path.join(ROOT, f)
             if not os.path.exists(p):
                 diff.append(os.path.basename(f) + "(missing)")
             elif open(p, "rb").read() != watch.get(f):
-                diff.append(os.path.basename(f))
-        # plots are excluded: matplotlib PNGs carry a non-deterministic creation date
-        diff = [x for x in diff if not x.endswith(".png")]
-        rows.append(dict(strain=s, output=d, n_tracked=len(files),
-                         n_compared=len([f for f in files if not f.endswith(".png")]),
-                         reproduces=(len(diff) == 0), differing=";".join(sorted(diff))))
-        print(f"  {s:24s} {d:28s} {'OK' if not diff else 'DIFFERS: ' + ';'.join(diff)}",
-              flush=True)
+                if numerically_equal(watch.get(f, b""), p):
+                    numeric_only.append(os.path.basename(f))
+                else:
+                    diff.append(os.path.basename(f))
+        n_cmp = len([f for f in files if not f.endswith(".png")])
+        rows.append(dict(strain=s, output=d, n_tracked=len(files), n_compared=n_cmp,
+                         reproduces_exact=(len(diff) == 0 and len(numeric_only) == 0),
+                         reproduces_numeric=(len(diff) == 0),
+                         rounding_only=";".join(sorted(numeric_only)),
+                         differing=";".join(sorted(diff))))
+        status = ("OK" if not diff and not numeric_only else
+                  ("OK (rounding: " + ";".join(numeric_only) + ")" if not diff else
+                   "DIFFERS: " + ";".join(diff)))
+        print(f"  {s:24s} {d:30s} {status}", flush=True)
 
     # restore every watched file, so this script leaves the tree exactly as it found it
     for f, blob in watch.items():
@@ -115,9 +156,11 @@ def main():
     T.to_csv(os.path.join(HERE, "task1_reproduction_table.csv"), index=False)
     with pd.option_context("display.width", 200, "display.max_rows", 100):
         print("\n" + T.to_string(index=False))
-    n_bad = int((T.reproduces == False).sum())
+    n_bad = int((T.reproduces_numeric == False).sum())
     print(f"\n{len(T)} committed output directories checked; "
-          f"{int((T.reproduces == True).sum())} reproduce, {n_bad} do not")
+          f"{int((T.reproduces_exact == True).sum())} reproduce byte-for-byte, "
+          f"{int((T.reproduces_numeric == True).sum())} reproduce to floating-point "
+          f"rounding, {n_bad} do not reproduce")
     print("wrote", os.path.join(HERE, "task1_reproduction_table.csv"))
     return 0
 

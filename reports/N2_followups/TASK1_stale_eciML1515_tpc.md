@@ -91,3 +91,61 @@ change whose *outputs were not re-generated*, and by that going unnoticed for tw
 because nothing checked. N1 TASK 5 adopted the rule that every strain commits its nominal TPC
 partly for this reason: a committed artefact that stops reproducing is a signal. This is the
 first time that signal has been read.
+
+---
+
+# Does anything else fail the same way?
+
+`reports/N2_followups/task1_reproduce_all.py` → `task1_reproduction_table.csv`. It
+regenerates every committed output that **one deterministic command** produces in
+seconds-to-minutes, compares byte for byte, and then restores the tree exactly as it found
+it. Nothing is overwritten: a failure is listed, because a second stale artefact deserves its
+own diagnosis and not a bulk overwrite.
+
+**46 committed output directories checked, 132 files. 45 reproduce; one does not.**
+
+| what was checked | directories | result |
+|---|---|---|
+| nominal TPC, all eight strain folders | 8 | 7 reproduce; **`_toy` does not** (below) |
+| Candida `transfer_*`, all seven experiments × four strains | 28 | all reproduce |
+| Candida `audit_sinks`, `audit_sinks_raw` × four strains | 8 | all reproduce |
+| `fba_candida_pool_{unconstrained,binding}` | 2 | both reproduce |
+
+PNG files are excluded from the comparison: matplotlib stamps a creation date into them.
+
+## The one that does not: `strains/_toy/outputs/tpc/`
+
+Not the numbers — the recorded configuration.
+
+* `descriptors.json` and `nominal_tpc.csv` differ only in the last significant digits:
+  **maximum relative difference 6.2 × 10⁻¹⁵**, on 11 of 49 rows. That is floating-point
+  rounding between BLAS builds, not staleness. Confirmed deterministic: two consecutive runs
+  are byte-identical to each other.
+* `resolved_config.yaml` is **structurally stale**. The regenerated file has two things the
+  committed one lacks:
+
+  ```
+  + close_free_o2_sinks: true
+  + proteome_sectors:
+  +   enabled: false
+  +   ...
+  ```
+
+  So it was written before `configs/defaults.yaml` gained `close_free_o2_sinks` (commit
+  `8085036`) and before the `proteome_sectors` block entered the merged config. Same failure
+  mode as eciML1515's: a configuration change whose outputs were not regenerated.
+
+**Listed, not fixed**, per this task's constraint. It is the toy strain — a synthetic
+smoke-test model with no scientific content — and the numbers it records are correct; only
+its provenance file is out of date. Regenerating it is a one-line job for whoever wants it,
+and it should be done deliberately.
+
+## Not checked, and why
+
+The remaining committed outputs are not reachable by one quick deterministic command:
+`eciML1515`'s sweeps, Bayesian calibrations (emcee chains), decomposition, dissection,
+control and elasticity runs; `mmaripaludis`' M2–M6 outputs; `syn6803`'s P1–P4 outputs; and
+the cross-organism `outputs/ea_*` directories. They take hours to days, and several are
+**stochastic**, so "does it reproduce" is a different question for them — one that needs a
+seed policy and a tolerance, not a byte comparison. That is its own piece of work and is not
+attempted here.
