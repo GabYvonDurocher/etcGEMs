@@ -128,3 +128,35 @@ end.
 
 **Reversible:** yes, four YAML keys. **Review:** nobody, but it is worth knowing that "ladder
 rung B0" and "legacy fidelity" now name the same configuration.
+
+## D7 — TASK 4: the "2–5%" framing is stated as a range with the arithmetic visible
+
+**Decided.** §5 says "the models see about 2–5% of the gene-content difference" and gives the
+two numbers it comes from (0–15 in a model, 122–647 in the proteome) plus a worked example
+(4 of 209 for *C. auris* against *C. haemulonii*).
+
+**Why.** 0/122 to 15/647 spans 0% to 2.3%, and the per-comparison ratios cluster around
+1.5–2.5%; the prompt's "roughly 2–5%" is the right order but the honest thing is to show the
+ratio rather than assert a single figure, because the numerator is small enough that a single
+gene moves it several percent.
+
+**Alternatives.** Quote a single percentage — cleaner to read, and it would overstate the
+precision of a count that ranges from zero to fifteen.
+
+**Reversible:** yes, it is prose. **Review:** worth a glance from whoever quotes it next; the
+underlying table is `reports/N1_overnight/A3_model_level_counts.csv`.
+
+## D8 — TASK 4: §6(e) is written as a scope limit, and says explicitly what it does not claim
+
+**Decided.** §6(e) says the Xiao et al. mechanism is "untestable in this framework as it
+stands, on two separate grounds", names both, and then states in the same paragraph that this
+is a scope limit of these reconstructions and **not** a refutation — because a gene being
+present says nothing about expression, and the mechanism proposed is regulatory rather than
+combinatorial.
+
+**Why.** The prompt asks for exactly this framing, and it is the one place in N2 where a
+measurement could easily be read as adjudicating a mechanism. Writing the disclaimer in the
+same paragraph rather than a footnote is deliberate.
+
+**Reversible:** yes. **Review:** this is the sentence most likely to be quoted out of
+context; worth a human reading it once.
