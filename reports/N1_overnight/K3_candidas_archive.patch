@@ -1,0 +1,177 @@
+diff -ruN a/.gitignore b/.gitignore
+--- a/.gitignore	2026-09-07 22:54:44
++++ b/.gitignore	2026-09-07 22:55:15
+@@ -26,13 +26,13 @@
+ # --- external sub-projects (their own git repos / GitHub) ---
+ /etcGEMs/
+ 
+-# --- etcGEM layer: third-party code, weights and databases (gem/fetch_external.sh) ---
+-/gem/tables/lineage_work/
+-/gem/tables/cg_work/
+-/gem/tables/rbh/*.dmnd
+-/gem/tables/dlkcat_input_*.tsv
+-/gem/tables/dlkcat_*.log
+-/gem/external/
++# --- etcGEM layer (archived; see archive/gem_standalone/README.md) ---
++/archive/gem_standalone/tables/lineage_work/
++/archive/gem_standalone/tables/cg_work/
++/archive/gem_standalone/tables/rbh/*.dmnd
++/archive/gem_standalone/tables/dlkcat_input_*.tsv
++/archive/gem_standalone/tables/dlkcat_*.log
++/archive/gem_standalone/external/
+ /phylo/trees/work/
+ __pycache__/
+ 
+diff -ruN a/archive/gem_standalone/README.md b/archive/gem_standalone/README.md
+--- a/archive/gem_standalone/README.md	1970-01-01 01:00:00
++++ b/archive/gem_standalone/README.md	2026-09-07 22:55:15
+@@ -0,0 +1,64 @@
++# `archive/gem_standalone/` — the standalone Candida etcGEM, retired
++
++**This code is no longer maintained here. The model it implements now lives in
++[`GabYvonDurocher/etcGEMs`](https://github.com/GabYvonDurocher/etcGEMs), where the four
++*Candida* species are strains on the shared core.**
++
++This directory is kept **as it stood**, unmodified, so that every number in the manuscript
++can still be traced to the script that produced it. Nothing in it should be developed
++further; changes to the model belong in `etcGEMs`.
++
++## Why it was retired
++
++`gem/` was a second implementation of the enzyme- and temperature-constrained GEM: its own
++enzyme-cost layer, its own thermal function, its own path map, species handled by a
++dictionary rather than by folders. The rule the group adopted for the O2 model applies —
++the method lives in one place and does not drift between implementations — so the four
++species became `strains/` entries in `etcGEMs`, and this became the record rather than the
++tool.
++
++## The port is verified, not asserted
++
++`etcGEMs` reproduces this implementation's locked numbers, at a stated tolerance, with the
++comparison run as a script that exits non-zero if it ever stops holding:
++`reports/candida_thermal_limit/gate_table.py` — **79 of 79 comparisons pass**, the fitted
++globals to every digit stored in `tables/etcgem_calib.json`, and all 48 predicted growth
++rates exactly. The expected values are frozen in a committed fixture
++(`reports/candida_thermal_limit/standalone_expected.json`) carrying this repository's commit
++hash and the md5 of each source file, so the check keeps working with this directory
++archived and needs no copy of this repository.
++
++Full record: `reports/candida_thermal_limit/K1_port_verification.md` in `etcGEMs`.
++
++## What changed in the port, and what did not
++
++Nothing scientific changed at K1: the port was configured to match this implementation and
++the gate is the proof. Two findings about this code came out of the porting, both recorded
++in the K1 report and both since acted on in `etcGEMs`:
++
++* `ATP_Maintenance__cyto` ships **reversible** in iDC1003, so the solver ran maintenance
++  backwards and *C. parapsilosis* collected free ATP. `19_etcgem_counterfactual.py` and
++  `22_thermal_sensitivity.py` here already correct it; `18_build_etcgem_tpc.py` does not, and
++  the locked µ table comes from 18. `etcGEMs` makes the correction the default and keeps the
++  uncorrected run as a labelled sensitivity.
++* `15_run_seq2tm.py` truncates sequences at 1022 aa, citing an ESM-2 positional limit that
++  does not exist (ESM-2 uses rotary position embeddings). The committed
++  `tables/thermal_tm.csv` was produced **without** truncation, so the script as it stands
++  does not reproduce the table beside it — by up to 2.6 °C on affected batches.
++
++K2 then put the four species on the shared thermal form and K3 retired this directory. What
++moved between K1 and K2, and why, is in `reports/candida_thermal_limit/K2_core_thermal_form.md`.
++
++## If you need an etcGEM output
++
++Take it from a **pinned commit of `etcGEMs`, by path** — never vendor it back here. The
++strains are `strains/{cauris_iRV973,chaemulonii_draft,cduobushaemulonii_draft,cparapsilosis_iDC1003}/`
++and their outputs are under each strain's `outputs/`, with the cross-strain summaries in
++`outputs/transfer_*/`.
++
++## What still reads this directory
++
++`scripts/19_fig4.R` draws Figure 4 from `tables/` here, and `scripts/run_all.sh` can
++regenerate those tables with `RUN_GEM=1`. Both were repointed when this directory moved.
++Every script here resolves its own paths from its own location (`gempaths.py`), so the move
++required no change inside it.
+diff -ruN a/scripts/19_fig4.R b/scripts/19_fig4.R
+--- a/scripts/19_fig4.R	2026-09-07 22:54:44
++++ b/scripts/19_fig4.R	2026-09-07 22:54:44
+@@ -3,7 +3,7 @@
+ # =============================================================================
+ #   Rscript scripts/19_fig4.R        or  source() it in RStudio
+ #
+-# Four panels, drawn from tables the etcGEM layer (gem/) writes; nothing is computed
++# Four panels, drawn from tables the etcGEM layer writes; nothing is computed
+ # here that is not in those tables.
+ #   A  measured against etcGEM-predicted thermal performance, one facet per species.
+ #      C. auris is the calibration target (in-sample); the three relatives are predicted
+@@ -17,14 +17,16 @@
+ #   D  the dynamic greedy search: shifting the strongest bottleneck enzymes one by one by
+ #      -8 C never drives a relative's 40 C growth below detection.
+ #
+-# Inputs (regenerate with `python3 gem/26_fig4_tables.py`, which flattens the etcGEM JSON):
+-#   gem/tables/measured_tpc_honest.csv        17_build_measured_tpc.py   (panel A, measured)
+-#   gem/tables/etcgem_tpc_pred_fine.csv       18_build_etcgem_tpc.py     (panel A, predicted)
+-#   gem/tables/fig4/tm_predicted.csv          predicted Tm per enzyme     (panel B)
+-#   gem/tables/fig4/paired.csv                paired ortholog differences (panels B, C)
+-#   gem/tables/fig4/requirements.csv          model-required separations  (panels B, C)
+-#   gem/tables/fig4/dyn_sparse.csv            greedy-search trajectories  (panel D)
+-# Every printed number is pinned to its producing script in gem/FIG4_LOCKED.md.
++# Inputs (regenerate with `python3 archive/gem_standalone/26_fig4_tables.py`; the etcGEM
++# itself now lives in GabYvonDurocher/etcGEMs -- see archive/gem_standalone/README.md):
++#   archive/gem_standalone/tables/measured_tpc_honest.csv        17_build_measured_tpc.py   (panel A, measured)
++#   archive/gem_standalone/tables/etcgem_tpc_pred_fine.csv       18_build_etcgem_tpc.py     (panel A, predicted)
++#   archive/gem_standalone/tables/fig4/tm_predicted.csv          predicted Tm per enzyme     (panel B)
++#   archive/gem_standalone/tables/fig4/paired.csv                paired ortholog differences (panels B, C)
++#   archive/gem_standalone/tables/fig4/requirements.csv          model-required separations  (panels B, C)
++#   archive/gem_standalone/tables/fig4/dyn_sparse.csv            greedy-search trajectories  (panel D)
++# Every printed number is pinned to its producing script in
++# archive/gem_standalone/FIG4_LOCKED.md.
+ #
+ # Needs only: dplyr, readr (base graphics). Same conventions as 18_fig3.R.
+ # =============================================================================
+@@ -37,7 +39,7 @@
+ if (file.exists(.cfg)) try(source(.cfg), silent = TRUE)
+ if (exists("fig_keep_add")) fig_keep_add("FIG4_etcgem_counterfactual")
+ 
+-GT  <- file.path(root, "gem", "tables")
++GT  <- file.path(root, "archive", "gem_standalone", "tables")
+ FIG <- file.path(root, "results", "figures", "manuscript")
+ dir.create(FIG, showWarnings = FALSE, recursive = TRUE)
+ rd <- function(...) read_csv(file.path(GT, ...), show_col_types = FALSE, progress = FALSE)
+diff -ruN a/scripts/run_all.sh b/scripts/run_all.sh
+--- a/scripts/run_all.sh	2026-09-07 22:54:44
++++ b/scripts/run_all.sh	2026-09-07 22:54:44
+@@ -16,15 +16,15 @@
+ #      scale-free numbers are produced there, so it regenerates with the pipeline.
+ #   3. quarto render of manuscript/v3.qmd.
+ #
+-# THE PYTHON etcGEM LAYER (gem/) IS NOT RUN HERE. Figure 4 (19_fig4.R) reads the tables
++# THE PYTHON etcGEM LAYER IS NOT RUN HERE, AND IS NO LONGER MAINTAINED HERE. Figure 4 (19_fig4.R) reads the tables
+ # it writes, which are committed. Regenerating them is a deliberate act with its own
+-# environment (gem/requirements.txt) and run order (gem/README.md); the sequence
++# environment (archive/gem_standalone/requirements.txt) and run order (archive/gem_standalone/README.md); the sequence
+ # predictors depend on batch composition, so a casual re-run could silently move the
+ # committed numbers. RUN_GEM=1 runs the cheap, deterministic part (17 -> 26) first.
+ #
+ # ENVIRONMENT (all optional):
+-#   RUN_GEM=1        regenerate gem/tables/ from the committed models and predictor
+-#                    outputs before the R pipeline (needs gem/requirements.txt tier 1)
++#   RUN_GEM=1        regenerate archive/gem_standalone/tables/ from the committed models and predictor
++#                    outputs before the R pipeline (needs archive/gem_standalone/requirements.txt tier 1)
+ #   SKIP_R=1         skip the R pipeline
+ #   SKIP_C11=1       skip the C11 scale-free report
+ #   SKIP_RENDER=1    skip the manuscript render (and the C11 report render)
+@@ -110,11 +110,12 @@
+ if [ "${RUN_GEM:-0}" = "1" ]; then
+   PY="${PYTHON:-python3}"
+   for s in 17_build_measured_tpc 18_build_etcgem_tpc 19_etcgem_counterfactual 21_counts_at_44 26_fig4_tables; do
+-    stage "0/4 gem/$s.py" "$LOG_DIR/gem_${s}_${STAMP}.log" "$PY" "$ROOT/gem/$s.py"
++    stage "0/4 archive/gem_standalone/$s.py" "$LOG_DIR/gem_${s}_${STAMP}.log" \
++          "$PY" "$ROOT/archive/gem_standalone/$s.py"
+   done
+-  echo "  (20_dyn_sparse.py, hours, and the predictors are not re-run here; see gem/README.md)"
++  echo "  (20_dyn_sparse.py, hours, and the predictors are not re-run here; see archive/gem_standalone/README.md)"
+ else
+-  echo ""; echo "etcGEM stage skipped (RUN_GEM=1 to regenerate gem/tables/ from the committed models)."
++  echo ""; echo "etcGEM stage skipped (RUN_GEM=1 to regenerate archive/gem_standalone/tables/ from the committed models)."
+ fi
+ 
+ # ---------------------------------------------------------------------------

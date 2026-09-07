@@ -262,3 +262,39 @@ strain's real model gets built — and moving it is its own piece of work.
 **Reversible:** n/a, nothing was done. **Review:** all three; (i) is the one that matters,
 because a committed result that does not reproduce is either a stale file or a regression and
 nobody currently knows which.
+
+## D15 — TASK 6: the patch carries the path fixes and the README, not the move
+
+**Decided.** `K3_candidas_archive.patch` contains the three path fixes
+(`scripts/19_fig4.R`, `scripts/run_all.sh`, `.gitignore`) and the new
+`archive/gem_standalone/README.md`. The `git mv` itself is given as commands in
+`K3_readiness.md`, not as a diff.
+
+**Why.** A rename of a 56 MB directory is not a text patch, and a patch that tried to be one
+would be unusable. Verified instead that the textual half applies cleanly:
+`git apply --check` in `$CANDIDAS_ROOT` exits 0 and writes nothing.
+
+**Alternatives.** Generate a full `git format-patch` including renames — would require
+committing in `$CANDIDAS_ROOT`, which is forbidden.
+
+**Reversible:** n/a, nothing applied. **Review:** whoever applies it. The acceptance test
+(`Rscript scripts/19_fig4.R` after the move) has NOT been run, because running it means
+modifying `$CANDIDAS_ROOT`.
+
+## D16 — TASK 6: the archive README's content is mine, and it makes claims
+
+**Decided.** `archive/gem_standalone/README.md` states that the port is verified at 79/79,
+names the two findings about the standalone that came out of porting it (the reversible
+maintenance reaction and the Seq2Tm truncation bug), and tells readers to take etcGEM outputs
+from a pinned etcGEMs commit by path rather than vendoring them back.
+
+**Why.** An archive README that only said "moved" would lose the reason and the evidence. The
+two findings are already in the K1 and A1 reports and in the draft message to Ilgaz, so the
+README repeats rather than introduces them.
+
+**Alternatives.** A three-line pointer — smaller, and it would leave the next reader to
+rediscover why.
+
+**Reversible:** yes, nothing applied. **Review:** ILGAZ SHOULD READ IT BEFORE IT IS APPLIED.
+It is a README in his repository describing findings about his code; he should agree with the
+wording, and the message drafted for him raises the same two points directly.
