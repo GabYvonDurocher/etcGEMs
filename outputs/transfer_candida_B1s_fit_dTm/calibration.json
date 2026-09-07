@@ -13,9 +13,9 @@
     "dTm": -9.165624999999999
   },
   "growth_scale": "peak_match",
-  "scale": 1.9237855931470493,
+  "scale": 1.9237855931470094,
   "detection_floor_h": 0.05,
-  "mse": 0.011806908289571335,
+  "mse": 0.011806908289571372,
   "n_eval": 64,
   "method": "nelder-mead",
   "starts": [

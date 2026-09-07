@@ -210,7 +210,7 @@ class EnzymeConstrainedModel:
                  ngam_base_scale: float = 1.0,
                  pheno_sigma: float = 10.0, pheno_w: float = 5.0,
                  topt_tm_min_gap: Optional[float] = None,
-                 rescale_pool_row: bool = False):
+                 rescale_pool_row: bool = True):
         self.model = model
         self.table = EnzymeCostTable(
             [e for e in table.entries if e.rxn_id in model.reactions]
@@ -239,8 +239,8 @@ class EnzymeConstrainedModel:
         # See _build_unfolding for why the unfolding form needs one and the others do not.
         self.topt_tm_min_gap = (None if topt_tm_min_gap is None else float(topt_tm_min_gap))
         self.n_topt_clamped = 0
-        # Pool-row rescaling (N1 TASK 3). DEFAULT OFF; see set_temperature for what it does
-        # and why the default is off.
+        # Pool-row rescaling (N1 TASK 3, made the default in N2 TASK 2). See
+        # set_temperature for what it does and for the one configuration that turns it off.
         self.rescale_pool_row = bool(rescale_pool_row)
         self._row_scale = 1.0        # the factor currently applied to the pool row
         self._row_cond = float("nan")  # its condition number before rescaling, per solve
@@ -475,12 +475,18 @@ class EnzymeConstrainedModel:
         only the arithmetic used to find it. The constant is the median coefficient at that
         temperature, recomputed per solve because the conditioning is temperature-dependent.
 
-        IT IS OFF BY DEFAULT, and that is a deliberate tension rather than an oversight. K1's
-        gate reproduces the standalone EXACTLY, including the ~0.4% error the standalone's own
-        solver made at those points; a better-conditioned port does not reproduce that error
-        and so cannot pass the gate there. Fidelity to the standalone and numerical
-        correctness are now different configurations. Which should be canonical is a decision
-        for a human -- see reports/N1_overnight/DECISIONS.md.
+        IT IS ON BY DEFAULT (N2 TASK 2), and there are exactly two configurations:
+
+        * **normal use** -- rescaling ON. Gurobi and GLPK then agree, and both agree with
+          GLPK's exact rational solver.
+        * **legacy fidelity** -- rescaling OFF, used by K1's gate alone. The gate's job is to
+          reproduce the standalone Candida etcGEM INCLUDING the ~0.4% error its solver made
+          at the cold end of the two draft models, and it cannot do that from a
+          better-conditioned LP. That job is historical and finished.
+
+        In one sentence: fidelity to the original implementation and numerical correctness are
+        now different things, and the gate tests the first while everything else uses the
+        second. See reports/candida_thermal_limit/CONFIGURATIONS.md.
         """
         pert = pert or Perturbation()
         c = self._costs(T, pert)

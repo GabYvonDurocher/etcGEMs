@@ -28,6 +28,7 @@ provider:
   ngam_base_scale: 0.831733
   dcp_prior_kJ: -4.0
   pin_at_ub: null
+  rescale_pool_row: false
   model_path: /Users/g.yvon-durocher/Library/CloudStorage/OneDrive-UniversityofExeter/Documents/work/MICROADAPT/etcGEMs/strains/cduobushaemulonii_draft/model/duobushaemulonii_draft.xml
 solver: glpk
 T0_C: 30

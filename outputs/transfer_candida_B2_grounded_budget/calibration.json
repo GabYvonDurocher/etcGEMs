@@ -9,7 +9,7 @@
   "globals": [],
   "fitted": {},
   "growth_scale": "peak_match",
-  "scale": 7.577083577583573,
+  "scale": 7.577083577583541,
   "detection_floor_h": 0.05,
   "mse": NaN,
   "n_eval": 0,

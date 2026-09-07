@@ -118,6 +118,28 @@ def dump_resolved(cfg: Dict[str, Any], out_dir: str) -> str:
     return path
 
 
+def _rescale_choice(cfg: Dict[str, Any], p: Dict[str, Any]) -> bool:
+    """Whether to rescale the pool row, honouring the difference between an EXPLICIT request
+    and the default.
+
+    Rescaling is not supported with proteome sectors wired: the sector layer writes the pool
+    bound in ``set_allocation`` and, under the growth law, adds a v_bio coefficient to the
+    pool row, neither of which the rescaling reaches (N1 DECISIONS D7). Since N2 the default
+    is ON, and a DEFAULT must not break a configuration that was working -- so with sectors
+    enabled it silently reverts to off and says so. An EXPLICIT ``rescale_pool_row: true``
+    still raises, because that is a request the code cannot honour."""
+    explicit = "rescale_pool_row" in p
+    want = bool(p.get("rescale_pool_row", True))
+    sectors_on = bool((cfg.get("proteome_sectors") or {}).get("enabled"))
+    if want and sectors_on and not explicit:
+        print("[pool] pool-row rescaling defaults ON but is not supported with proteome "
+              "sectors wired; leaving it OFF for this run (an explicit "
+              "provider.rescale_pool_row: true would be an error). See "
+              "reports/candida_thermal_limit/CONFIGURATIONS.md")
+        return False
+    return want
+
+
 def build_provider(cfg: Dict[str, Any]):
     p = cfg["provider"]
     T0 = (cfg.get("T0_C", 30.0)) + 273.15
@@ -238,7 +260,7 @@ def build_provider(cfg: Dict[str, Any]):
             pheno_sigma=p.get("pheno_sigma", 10.0),
             pheno_w=p.get("pheno_w", 5.0),
             topt_tm_min_gap=p.get("topt_tm_min_gap_C"),
-            rescale_pool_row=bool(p.get("rescale_pool_row", False)),
+            rescale_pool_row=_rescale_choice(cfg, p),
         )
         if budget_override is not None and p.get("pool_budget") is not None:
             print(f"[pool] pool budget = {budget_override:.4g} g/gDW "

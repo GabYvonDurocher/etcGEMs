@@ -90,3 +90,41 @@ question for the stochastic runs.
 
 **Reversible:** n/a. **Review:** somebody should decide whether the stochastic outputs need a
 reproducibility policy at all; at present nothing checks them.
+
+## D5 — TASK 2: with sectors wired, the default reverts to off instead of raising
+
+**Decided.** `config._rescale_choice` distinguishes an EXPLICIT `rescale_pool_row: true` from
+the new default. With proteome sectors enabled, an explicit request still raises (N1 D7's
+reasoning is unchanged); the default silently reverts to off and prints why.
+
+**Why.** N1 implemented the sector case as a hard error, correctly, when the option was
+opt-in. Once it is the default, that error would break ladder rung B4 and *M. maripaludis*
+without either configuration having asked for anything. A default must not break a
+configuration that was working.
+
+**Alternatives.** Set `rescale_pool_row: false` explicitly in B4 and in mmaripaludis'
+strain.yaml — works, but leaves every future sector strain to trip over the same error.
+Extend the rescaling into `set_allocation` — the right long-term answer, and it touches the
+path eciML1515 and mmaripaludis run on, which N2 is not the place for.
+
+**Reversible:** yes. **Review:** whoever wants rescaling to work with sectors; the extension
+is small but must be verified against the other strains.
+
+## D6 — TASK 2: legacy fidelity is the four gate experiments, which includes ladder rung B0
+
+**Decided.** `rescale_pool_row: false` goes in `transfer_candida`,
+`transfer_candida_unpinned`, `candida_pool_unconstrained` and `candida_pool_binding` — the
+four experiments K1's gate reads. `transfer_candida` is also K2 ladder rung B0.
+
+**Why.** B0 is by definition the standalone's configuration — it is what the gate compares
+its limits and counterfactual rows against — so it belongs on the fidelity side. It also
+means K2's published B0 row does not move, which is the right outcome for a rung whose job
+is to be the reference point.
+
+**Alternatives.** Put only `transfer_candida_unpinned` (the one that runs GLPK) in legacy
+fidelity. Under Gurobi the other three move by <1.5e-14, so it would work — but it would
+leave the gate reading a mixture of configurations, which is the thing this task exists to
+end.
+
+**Reversible:** yes, four YAML keys. **Review:** nobody, but it is worth knowing that "ladder
+rung B0" and "legacy fidelity" now name the same configuration.

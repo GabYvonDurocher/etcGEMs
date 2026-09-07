@@ -30,6 +30,7 @@ provider:
   pin_at_ub:
   - ATP_maintenance_NGAM__cyto
   - ATP_Maintenance__cyto
+  rescale_pool_row: false
   model_path: /Users/g.yvon-durocher/Library/CloudStorage/OneDrive-UniversityofExeter/Documents/work/MICROADAPT/etcGEMs/strains/cparapsilosis_iDC1003/model/parapsilosis_iDC1003.xml
 solver: gurobi
 T0_C: 30

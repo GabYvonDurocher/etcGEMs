@@ -81,6 +81,19 @@ in the TASK 5 note rather than silently fixed: `strains/eciML1515/outputs/tpc/` 
 reproduces, and several `*_quick` / `*_v2` directories are committed although their names say
 scratch.
 
+**Two solver configurations** (`reports/candida_thermal_limit/CONFIGURATIONS.md`). The
+proteome-pool row is badly conditioned at the cold end — coefficients spanning up to 7.7×10¹¹,
+because the 1e-6 activity floor puts a few enzymes far above the median cost — and GLPK
+returns answers up to 8.7% wrong there, as Gurobi and GLPK's own exact rational solver both
+show. `provider.rescale_pool_row` (**default true**) divides the pool row and its bound by
+the same constant: a mathematically identical, well-conditioned LP. The exception is K1's
+gate, whose four experiments set it **false** under the label *legacy fidelity*, because
+their job is to reproduce the standalone Candida etcGEM *including* the ~0.4% error its own
+solver made. In one sentence: fidelity to the original implementation and numerical
+correctness are now different things, and the gate tests the first while everything else uses
+the second. (With proteome sectors wired the rescaling is unsupported and reverts to off with
+a printed note; an explicit request still raises.)
+
 **Report convention.** Reports are **per deliverable**, named by organism + topic — the
 current one is `reports/ecoli_tpc/` (this *E. coli* TPC study). Future deliverables live in
 sibling directories, e.g. `reports/activation_energy/` (a cross-organism activation-energy

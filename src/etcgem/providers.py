@@ -601,7 +601,7 @@ def from_gem_smoment(model_path: str, kcat_csv: str, T0: float = 310.15,
                      pheno_sigma: float = 10.0,
                      pheno_w: float = 5.0,
                      topt_tm_min_gap: Optional[float] = None,
-                     rescale_pool_row: bool = False) -> ProvidedModel:
+                     rescale_pool_row: bool = True) -> ProvidedModel:
     """Attach a temperature-INDEPENDENT sMOMENT total-protein pool to a plain GEM.
 
     This is the methanogen route: the base GEM (iMR539_curated) carries no GECKO
@@ -630,8 +630,9 @@ def from_gem_smoment(model_path: str, kcat_csv: str, T0: float = 310.15,
     ``topt_tm_min_gap`` (K) is the unfolding form's admissibility floor on Tm - Topt; see
     ``EnzymeConstrainedModel._build_unfolding``. None (default) leaves it off.
     ``rescale_pool_row`` divides the pool row and its bound by the same constant -- a
-    mathematically identical, better-conditioned LP. Default False; see
-    ``EnzymeConstrainedModel.set_temperature`` for why the default is off."""
+    mathematically identical, better-conditioned LP. Default True since N2; the one
+    configuration that switches it off is K1's gate, whose job is to reproduce the standalone
+    including its solver's error. See ``EnzymeConstrainedModel.set_temperature``."""
     model = _load_any(model_path)
     if biomass_rxn is None:
         biomass_rxn = _find_biomass(model)
