@@ -1,0 +1,81 @@
+# K2 LADDER RUNG B2 -- the proteome budget.
+#
+# CHANGE FROM B1, and the only one: the pool budget stops being the value B0 fitted to
+# C. auris and becomes a GROUNDED product of three literature quantities,
+#
+#     P_metab = p_total x sigma x f_metab
+#             = 0.46 x 0.45 x 0.4461  =  0.0923 g enzyme / gDW
+#
+# against B0's fitted 0.3570 -- 3.9x smaller. This is the same construction eciML1515 and
+# mmaripaludis use, and it removes the last fitted parameter: from B2 on, the Candida model
+# has none, and its curve is an a-priori prediction in shape AND magnitude. (The growth
+# scale still maps the model peak onto the measured peak of the calibration strain, so the
+# summary reports growth in MODEL units too -- peak_mu_model, model_mu_*C -- which is where
+# a magnitude change shows up.)
+#
+# THE THREE NUMBERS, entered as given and not tuned. If a reader prefers different ones this
+# rung is one line of YAML.
+#   p_total  0.46  g protein / gDW.  Total protein content of S. cerevisiae; the value the
+#           GECKO/ecYeastGEM parameterisation uses as Ptot, and within the 0.45-0.50 range
+#           quoted for exponentially growing yeast.
+#   sigma    0.45  Average in-vivo enzyme saturation. This repository's convention for every
+#           strain (Davidi et al. 2016; Heckmann et al. 2020); mmaripaludis and eciML1515
+#           both use 0.45.
+#   f_metab  0.4461  Mass fraction of the proteome accounted for by enzymes that are IN the
+#           metabolic model. This is exactly GECKO's `f` for S. cerevisiae (Sanchez et al.
+#           2017, Mol Syst Biol 13:935) -- the same quantity, defined the same way. For
+#           comparison, E. coli's MEASURED metabolic sector in this repository is 0.483.
+#
+# WHETHER IT BINDS is the question this rung exists to answer, and the summary answers it
+# per species: pool_binds, and pool_binding_ratio = growth with the pool effectively removed
+# divided by growth as configured. A grounded budget that does NOT bind would mean the
+# enzyme-constrained model had collapsed to a plain GEM for a eukaryote, which is a finding
+# about this framework and not something to tune away.
+
+kind: transfer
+
+calibrate_on: cauris_iRV973
+predict:
+  - chaemulonii_draft
+  - cduobushaemulonii_draft
+  - cparapsilosis_iDC1003
+
+objective: measured_tpc
+growth_scale: peak_match   # one profile scale onto the CALIBRATION strain's measured peak,
+                           # frozen and applied to all four. The summary reports growth in
+                           # MODEL units as well (model_mu_*C, peak_mu_model), so a rung that
+                           # changes the magnitude is visible despite the peak match.
+
+detection_floor_h: 0.05
+thermal_limit:
+  lo_C: 20.0
+  hi_C: 90.0
+  tol_C: 0.02
+
+descriptor_grid:
+  start_C: 15
+  stop_C: 75
+  n: 121
+crit_frac: 0.05
+
+counterfactual:
+  params: [dTm, dTopt]
+  fail_T_C: 40.0
+  permissive_T_C: 34.0
+  threshold_h: 0.05
+  permissive_frac: 0.7
+  lo: -35.0
+  tol: 0.1
+
+globals: []                # nothing fitted: the pool budget carries over from B0
+
+globals: []                # nothing is fitted from B2 on
+
+provider:
+  thermal_model: unfolding
+  topt_tm_min_gap_C: 2.0     # as B1; see candida_B1_unfolding.yaml for why
+
+  pool_budget: null          # <- THE CHANGE: stop using B0's fitted pool budget ...
+  p_total: 0.46              # ... and build it from literature instead (see the header)
+  sigma: 0.45
+  f_metab: 0.4461

@@ -57,6 +57,24 @@ thermal_limit:
   hi_C: 90.0
   tol_C: 0.02
 
+# The K2 diagnostics, so this run is comparable with the ladder's rungs. They are read-only
+# -- descriptors on a wider grid and the Figure-4 counterfactual -- and change nothing the
+# gate compares.
+descriptor_grid:
+  start_C: 15
+  stop_C: 75
+  n: 121
+crit_frac: 0.05
+
+counterfactual:
+  params: [dTm, dTopt]
+  fail_T_C: 40.0
+  permissive_T_C: 34.0
+  threshold_h: 0.05
+  permissive_frac: 0.7
+  lo: -35.0
+  tol: 0.1
+
 # THE ONE CHANGE, relative to the strain default: switch the maintenance correction OFF.
 provider:
   pin_at_ub: null

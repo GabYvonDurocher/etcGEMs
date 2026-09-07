@@ -1,0 +1,74 @@
+# K2 LADDER RUNG B3 -- maintenance.
+#
+# CHANGE FROM B2, and the only one: the non-growth-associated maintenance ATP demand stops
+# being a CONSTANT and becomes temperature-dependent, NGAM(T) (src/etcgem/unfolding.ngam_T,
+# after Li et al. 2021 / the MRes). Maintenance then rises with temperature, competing with
+# growth for the same ATP, and rounds the top of the curve.
+#
+# The standalone has no maintenance layer at all: it pins one number, identical across
+# species AND across temperature (docs/CANDIDA_DISCUSSION_2026-09-07.md section 6d). This
+# rung is the core's answer to that.
+#
+# WHAT IT IS ANCHORED TO. Each strain's ngam_base_scale (in its strain.yaml) is set so that
+# NGAM(T0 = 30 C) reproduces THAT MODEL'S OWN published maintenance demand exactly -- 3.89
+# mmol ATP/gDW/h for the three iRV973-derived models, 3.90 for iDC1003. Nothing is fitted:
+# the amplitude comes from the reconstruction and only its temperature dependence is added.
+# This is the convention mmaripaludis uses for its measured Goyal 2015 NGAM.
+#
+# THE COMPARATOR TO CHECK IT AGAINST is measured, and is not used to set anything: the
+# Candidas assay gives respiration per unit growth at 40 C as 0.80 in C. auris against 1.07
+# in the relatives, a ratio of 1.34. The K2 report puts the model's own qO2/mu ratio beside
+# it. Note the standing caveat that qO2/mu is NON-IDENTIFIABLE in these reconstructions
+# (feasible range 3.5-19.5 at 90% of optimal growth), so the comparison is indicative.
+
+kind: transfer
+
+calibrate_on: cauris_iRV973
+predict:
+  - chaemulonii_draft
+  - cduobushaemulonii_draft
+  - cparapsilosis_iDC1003
+
+objective: measured_tpc
+growth_scale: peak_match   # one profile scale onto the CALIBRATION strain's measured peak,
+                           # frozen and applied to all four. The summary reports growth in
+                           # MODEL units as well (model_mu_*C, peak_mu_model), so a rung that
+                           # changes the magnitude is visible despite the peak match.
+
+detection_floor_h: 0.05
+thermal_limit:
+  lo_C: 20.0
+  hi_C: 90.0
+  tol_C: 0.02
+
+descriptor_grid:
+  start_C: 15
+  stop_C: 75
+  n: 121
+crit_frac: 0.05
+
+counterfactual:
+  params: [dTm, dTopt]
+  fail_T_C: 40.0
+  permissive_T_C: 34.0
+  threshold_h: 0.05
+  permissive_frac: 0.7
+  lo: -35.0
+  tol: 0.1
+
+globals: []                # nothing fitted: the pool budget carries over from B0
+
+globals: []                # nothing is fitted from B2 on
+
+provider:
+  thermal_model: unfolding
+  topt_tm_min_gap_C: 2.0     # as B1; see candida_B1_unfolding.yaml for why
+
+  pool_budget: null          # <- THE CHANGE: stop using B0's fitted pool budget ...
+  p_total: 0.46              # ... and build it from literature instead (see the header)
+  sigma: 0.45
+  f_metab: 0.4461
+
+  ngam_temperature: true     # <- THE CHANGE. The reaction and the anchor are per strain
+                             # (provider.ngam_reaction / ngam_base_scale in each strain.yaml)
+                             # because which reaction carries maintenance is organism data.

@@ -481,8 +481,12 @@ class EnzymeConstrainedModel:
             if self._sectors is None:
                 val = U.ngam_T(T, scale=pert.ngam_scale * self.ngam_base_scale,
                                steepness=pert.ngam_steepness)
-                self._ngam_rxn.lower_bound = val
-                self._ngam_rxn.upper_bound = max(val, self._ngam_rxn.upper_bound)
+                # Set both bounds at once. Assigning the lower bound first fails cobra's
+                # ordering check whenever the reaction ships with a TIGHT upper bound -- as
+                # the Candida maintenance reactions do, pinned at 3.89/3.90 -- because the
+                # new lower bound can exceed it before the upper bound is raised. A no-op
+                # where the upper bound was already slack (mmaripaludis relaxes its to 1000).
+                self._ngam_rxn.bounds = (val, max(val, self._ngam_rxn.upper_bound))
             else:
                 # relative T-factor about the 25 C anchor (scale cancels in the ratio,
                 # so it is applied separately as an amplitude), on top of the
@@ -496,8 +500,7 @@ class EnzymeConstrainedModel:
                 if atpm is not None and s["f_maint_nom"] > 0:
                     fmaint = getattr(self, "_last_fmaint", None) or s["f_maint_nom"]
                     val = s["atpm_nom_lb"] * (fmaint / s["f_maint_nom"]) * self._ngam_T_factor
-                    atpm.lower_bound = val
-                    atpm.upper_bound = max(val, atpm.upper_bound)
+                    atpm.bounds = (val, max(val, atpm.upper_bound))   # both at once; see above
         if pert.budget is not None or pert.group_alloc:
             self.set_budget(pert.budget, pert.group_alloc)
 
@@ -560,8 +563,7 @@ class EnzymeConstrainedModel:
             # include the T-dependent maintenance factor set by set_temperature
             nf = getattr(self, "_ngam_T_factor", 1.0)
             val = s["atpm_nom_lb"] * (fmaint / s["f_maint_nom"]) * nf
-            atpm.lower_bound = val
-            atpm.upper_bound = max(val, atpm.upper_bound)
+            atpm.bounds = (val, max(val, atpm.upper_bound))           # both at once; see above
 
     # -- diagnostics --------------------------------------------------------
     def enzyme_mass(self, solution, T: float, pert: Optional[Perturbation] = None) -> float:

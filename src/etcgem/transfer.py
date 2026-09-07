@@ -183,14 +183,32 @@ def fit_globals(pm, measured: pd.DataFrame, globals_: Sequence[str], opt: Dict,
 def pool_binds(pm, pert, T_C: float, slack: float = 1000.0):
     """Does the proteome pool actually constrain growth at this temperature?
 
-    Solve once as configured and once with the pool budget multiplied by ``slack`` (i.e.
-    effectively removed) and return (mu_configured, mu_unconstrained, binds). A eukaryote
-    given a literature-grounded budget may leave the pool slack, in which case the model
-    has collapsed to a plain GEM and says so here rather than silently."""
+    Solve as configured, then with the metabolic pool budget multiplied by ``slack`` (i.e.
+    effectively removed), then with every enzyme-mass cap removed. Returns
+    (mu_configured, mu_pool_free, mu_all_caps_free, pool_binds). A eukaryote given a
+    literature-grounded budget may leave the pool slack, in which case the model has
+    collapsed to a plain GEM and says so here rather than silently; and once sectors are
+    wired, the pool may be slack because the TRANSLATION CAP binds instead, which the third
+    value distinguishes."""
     mu_cfg = float(_growth(pm, [T_C], pert)[0])
     budget = pert.budget if pert.budget is not None else pm.ec.default_budget
     mu_free = float(_growth(pm, [T_C], _replace(pert, budget=float(budget) * slack))[0])
-    return mu_cfg, mu_free, bool(mu_free > mu_cfg * (1.0 + 1e-6))
+    # With proteome sectors wired, the metabolic pool is not the only enzyme-mass
+    # constraint: the biosynthesis/translation cap can bind instead (and by construction
+    # does, when translation_coeff is auto-calibrated to co-limit at the nominal point).
+    # Relax it too, so "nothing binds" and "something else binds" are distinguishable.
+    mu_all = mu_free
+    sect = getattr(pm.ec, "_sectors", None)
+    if sect is not None and sect.get("bio_constraint") is not None:
+        bio = sect["bio_constraint"]
+        keep = bio.ub
+        try:
+            bio.ub = keep * slack
+            mu_all = float(_growth(pm, [T_C], _replace(pert, budget=float(budget) * slack))[0])
+        finally:
+            bio.ub = keep
+            pm.ec.model.solver.update()
+    return mu_cfg, mu_free, mu_all, bool(mu_free > mu_cfg * (1.0 + 1e-6))
 
 
 def _replace(pert: Perturbation, **kw) -> Perturbation:
@@ -361,7 +379,7 @@ def run(experiment: str, out_root: str = "outputs", verbose: bool = True,
                               hi=float(lim.get("hi_C", 90.0)),
                               tol=float(lim.get("tol_C", 0.02)))
         # does the pool still bind, at this strain's own peak?
-        mu_cfg, mu_free, binds = pool_binds(pms[s], pert, peak_T)
+        mu_cfg, mu_free, mu_all, binds = pool_binds(pms[s], pert, peak_T)
         row = dict(strain=s, role=("calibrate_on" if s == cal else "predict"),
                    growth_scale=scale, thermal_limit_C=limit,
                    peak_mu=float(np.max(g) * scale), peak_T_C=peak_T,
@@ -369,6 +387,8 @@ def run(experiment: str, out_root: str = "outputs", verbose: bool = True,
                    pool_binds=binds,
                    mu_pool_free_model=float(mu_free),
                    pool_binding_ratio=(float(mu_free / mu_cfg) if mu_cfg > 0 else float("inf")),
+                   mu_all_caps_free_model=float(mu_all),
+                   all_caps_ratio=(float(mu_all / mu_cfg) if mu_cfg > 0 else float("inf")),
                    fit_r2=fit_r2(g * scale, meas_col))
         # descriptors on a wider grid, when one is configured: the strain grid stops at the
         # top of the ASSAY range (44 C), well below any model CTmax, so Topt/rmax/CTmax read
@@ -393,7 +413,8 @@ def run(experiment: str, out_root: str = "outputs", verbose: bool = True,
         if verbose:
             print(f"[transfer] {s}: peak {row['peak_mu']:.4f}/h at {peak_T:.0f}C "
                   f"(model units {row['peak_mu_model']:.4f}), thermal limit {limit:.2f}C at "
-                  f"mu>={floor}, pool binds={binds} (x{row['pool_binding_ratio']:.2f} free), "
+                  f"mu>={floor}, pool binds={binds} (x{row['pool_binding_ratio']:.2f} pool-free, "
+                  f"x{row['all_caps_ratio']:.2f} all-caps-free), "
                   f"R2={row['fit_r2']:.3f}", flush=True)
         # the Figure-4 counterfactual, on the predicted strains only
         if cf and s != cal:

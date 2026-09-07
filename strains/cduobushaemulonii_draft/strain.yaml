@@ -43,6 +43,17 @@ provider:
                                        # C. auris and freezes them across all four.
   pool_budget: 0.3569742369684501    # STANDALONE fitted global P (g enzyme/gDW), same source.
 
+  # --- maintenance identity (inert until an experiment switches NGAM(T) on) ---
+  # This model's own non-growth-associated maintenance reaction and the ATP demand it
+  # ships with (3.89 mmol ATP/gDW/h, fixed). Under thermal_model: unfolding, ladder rung
+  # B3 (configs/experiments/candida_B3_ngamT.yaml) replaces that CONSTANT with the core's
+  # NGAM(T) (src/etcgem/unfolding.ngam_T, after Li et al. 2021), and ngam_base_scale
+  # anchors the amplitude so that NGAM(T0 = 30 C) reproduces this model's own published
+  # value exactly -- the same anchoring convention mmaripaludis uses for its measured
+  # Goyal 2015 NGAM. Nothing here is fitted; the anchor is the reconstruction's own number.
+  ngam_reaction: ATP_maintenance_NGAM__cyto
+  ngam_base_scale: 0.831733   # 3.89 / ngam_T(30 C) = 3.89 / 4.6770
+
   # --- what the core does for OTHER strains and is deliberately OFF here ---
   # The core's grounded pool budget (p_total x sigma x f_metab) is NOT used: the
   # standalone fits P directly, so provider.pool_budget is given instead and
