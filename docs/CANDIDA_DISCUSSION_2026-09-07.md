@@ -252,6 +252,21 @@ Run this prompt AFTER K2. By then it is known whether the thermal form matters, 
 run with a benchmark attached rather than as an unfalsifiable upgrade. Only then decide whether the
 overlay is worth adding to the Candida strains permanently.
 
+**OUTCOME (2026-09-07, `reports/predictor_calibration/report.md`).** Done for Seq2Tm and Seq2Topt;
+DLTKcat scoped and recommended against for now (A1 PART G). Against 1949 MEASURED
+*S. cerevisiae* melting points, **Seq2Tm's within-proteome correlation is r = -0.05** — while the
+same code on a cross-species Meltome Atlas sample gets **r = +0.76**, so the predictor resolves
+thermophily between organisms and not variation within a proteome. It under-states the one
+checkable congeneric difference (*S. cerevisiae* vs *S. uvarum*, measured 1.6 °C) **17-fold**, and
+it returns significant ΔTm of up to 0.078 °C between *C. auris* clades that are 99.3-100% identical
+— a floor the Figure 4 estimate exceeds by only 3.5-9.5×. For **Seq2Topt** the *C. auris* vs
+*C. haemulonii*/*C. duobushaemulonii* separations are not distinguishable from zero **or from that
+floor**. Correcting Figure 4's arithmetic for K2's requirement (13.8 °C, not 33) and A1's measured
+17× compression takes the fold gap from ~79× to **5.4× [2.5, 10.3]** — still a failure, and a
+materially different sentence. Two corrections to numbers used above: §1's **0.52 °C is the
+superseded reaction-level value**; the project's own deduplicated figure is 0.411 °C, and A1's
+proteome-wide equivalent is 0.151 °C. A1 reports numbers and adjudicates no mechanism.
+
 **A2 — Get the `common_network.py` result on record.** Ilgaz ran the identical-scaffold control; the
 number is not in `gem/notes/`. If optima still compress on a common scaffold, network and
 reconstruction differences were not the cause and the four species are safe to compare. If they do

@@ -285,6 +285,29 @@ the cyanobacterium; the older unlettered and `P1`–`P3` entries above are the *
       that error.
     * `etcgem audit-sinks` generalises three bespoke fixes into one check and rediscovers
       all three.
+- `A1_predictor_calibration_prompt.md` — ✅ run. **Calibrate the sequence predictors against
+  measured truth.** Not a modelling step: it asks whether the predictors that supply every
+  species-specific input the Candida etcGEM has can resolve a difference of the size Figure 4
+  rests on. Downloads a measured yeast meltome and two yeast proteomes, and RUNS Seq2Tm and
+  Seq2Topt — the predictors K1 wired in and never executed — after verifying they reproduce the
+  committed Candida tables to 1e-5 °C. Report:
+  `reports/predictor_calibration/report.md`. What it found:
+    * **Seq2Tm resolves thermostability between organisms and not within a proteome.**
+      Pearson r = **+0.76** on a cross-species Meltome Atlas sample; **r = −0.05** on 1949
+      measured *S. cerevisiae* proteins. Same code, same predictor — the second number was not
+      reported until the first had been measured as a control.
+    * Where a predicted congeneric ΔTm can be checked against a measured one, it **under-states
+      it 17-fold** (0.094 °C predicted against 1.6 °C measured).
+    * **The noise floor nobody had measured**: between *C. auris* clades that are 99.3–100%
+      identical, the predictor returns significant ΔTm of up to 0.078 °C where the truth is zero.
+      Figure 4's 0.411 °C is 9.5× that floor; the proteome-wide equivalent is 3.5×.
+    * For **Seq2Topt**, the separations for the two species Figure 4 is about are not
+      distinguishable from zero or from that floor. No measured benchmark exists for it, so its
+      accuracy could not be scored at all — reported as a limit, not worked around.
+    * **The corrected arithmetic**: fold gap ~79× (published) → 34× (K2's requirement) →
+      **5.4× [2.5, 10.3]** (both corrections). Still a failure, materially differently sized.
+    * DLTKcat scoped and **recommended against for now**: it improves the cold limb, not the
+      upper limit, and it would break K2's ladder by changing input data rather than structure.
 - **K3 — retire the fork.** ⏳ pending. `gem/` in `Candidas` becomes
   `archive/gem_standalone/` with a README pointing here; `gem/audits/` and `gem/notes/`
   move to `reports/candida_thermal_limit/` as `audits/` and `notes/`. Anything in
