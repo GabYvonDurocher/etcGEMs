@@ -1,0 +1,46 @@
+# Gas-exchange data for E. coli iML1515 (P1).
+#
+# STRAIN DATA ONLY -- measured properties of E. coli and of the eciML1515 encoding. Nothing
+# here switches anything on: the mechanisms live in src/etcgem/{gasflux,etc_area}.py and are
+# selected per run by a `gasflux:` block in a configs/experiments/ overlay. This file is read
+# ONLY when such an overlay enables the layer, which is why it is a separate file rather than
+# a block in strain.yaml: adding it to strain.yaml would change the `resolved_config.yaml` of
+# every existing eciML1515 run, and those are committed, verified artefacts (P1 DECISIONS D3).
+gas_exchange:
+  gdw_per_cell: 2.8e-13       # g dry weight per cell; converts mmol/gDW/h -> fmol/cell/h
+
+  lb_media_csv: media/LB_media.csv
+  bhi_media_csv: media/BHI_media.csv
+
+  media:                      # defined media given as a recipe of concentrations
+    NLDM:
+      recipe_csv: media/NLDM_media.csv
+      clearance_L_per_gDW_h: 5.0   # the one physical scale factor: ub_i = clearance * C_i.
+                                   # 2-10 L/gDW/h is the physiological range for bacterial
+                                   # uptake; 5.0 puts the total carbon ceiling at ~431 mmol
+                                   # C/gDW/h, ~3.4x the observed peak uptake, so the medium
+                                   # does not artificially bind in exponential phase.
+      uptake_ub: 1000.0            # non-carbon components (salts, minerals) and O2
+
+    NLDM_blanket:               # the SAME component list with NO per-component ceilings --
+      recipe_csv: media/NLDM_media.csv   # every component open at uptake_ub. This is what
+      clearance_L_per_gDW_h: null        # Parsa's committed gas-flux CSVs were produced with,
+      uptake_ub: 1000.0                  # before he added the recipe-proportional ceilings.
+                                         # Kept so his numbers can be reproduced exactly; the
+                                         # recipe medium above is the better model and the
+                                         # default. See reports/P1_parsa_port/gate.md.
+
+  transport_carrier:          # generic inner-membrane carrier, for MMRT-costed transport
+    kcat_s: 30.0              # see reports/P1_parsa_port/gate.md: his figures used 300
+    mw_kDa: 45.0
+    length_aa: 409.0
+
+  overflow_line:              # Basan et al. 2015, Nature 528:99 (doi:10.1038/nature15765),
+    exchange_rxn: EX_ac_e     # Fig. 1: threshold lambda_ac ~ 0.76 /h (stated) and a red-line
+    slope: 21.0               # slope ~9.5 mM A600^-1 h^-1 per h^-1, which converts to
+    threshold: 0.76           # ~21 mmol gDW^-1 h^-1 at 0.45 gDW L^-1 OD^-1.
+
+  etc_table: etc/complexes.csv   # default ETC-complex table (see the file header)
+  membrane:                      # inner-membrane area available per gDW (Szenk 2017 S1A)
+    sv_um2_per_fL: 4.5           # surface-to-volume ratio
+    dcw_pg_per_fL: 0.3325        # dry-cell density  -> A_mem ~ 1.35e19 nm^2/gDW

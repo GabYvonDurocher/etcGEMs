@@ -1,0 +1,17 @@
+# The SAME mechanism with Parsa's configuration-E parameterisation, kept as a separate data
+# file so his configuration E can be run exactly as he ran it.
+#
+# Differences from etc/complexes.csv: the two bd oxidases are MERGED into one row, and the
+# oxidase turnovers are the round physiological placeholders he used (100 s^-1) rather than
+# Bekker's measured values. No h_p_target column is set, so proton stoichiometry is never
+# altered. Areas are Szenk 2017 Table S1B in both files.
+#
+# Which of the two tables a run uses is a per-run choice (`gasflux.etc_area.table`), not a
+# code path: this is the whole of what used to be `configE.py` vs `configF.py`.
+complex,area_nm2,kcat_s,reactions,h_p_target,notes
+NDH-I,80,200,NADH16ppNo1 NADH17ppNo1 NADH18ppNo1,,proton-pumping (3 H+)
+NDH-II,15,300,NADH5No1 NADH5No2 NADH5No3 NADH5No4 NADH9No1 NADH9No2 NADH9No3 NADH9No4 NADH10No1 NADH10No2 NADH10No3 NADH10No4,,non-pumping (0 H+)
+SDH,10,100,SUCDiNo1,,complex II
+bo3,35,100,CYTBO3_4ppNo1,,efficient oxidase
+bd,30,100,CYTBDppNo1 CYTBDppNo2 CYTBD2ppNo1,,inefficient oxidase (bd-I + bd-II merged)
+ATPS,35,270,ATPS4rppNo1 ATPS4rppNo2,,ATP synthase (forward)

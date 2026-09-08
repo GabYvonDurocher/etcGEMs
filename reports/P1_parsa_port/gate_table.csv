@@ -1,0 +1,61 @@
+config,medium,quantity,parsa,port,difference,tolerance,verdict,attribution
+A -- MMRT-costed transport,glucose_minimal,T_opt (C),38.0,38.0,0,0.0 abs,PASS,
+A -- MMRT-costed transport,glucose_minimal,r_max (1/h),1.195356374629941,1.1949348434102771,0.000353,0.001 rel,PASS,
+A -- MMRT-costed transport,glucose_minimal,O2 uptake @T_opt,48.15102837614664,48.13636778552629,0.000304,0.001 rel,PASS,
+A -- MMRT-costed transport,glucose_minimal,CO2 release @T_opt,0.9230119964089594,0.9234094404616308,0.000431,0.001 rel,PASS,
+A -- MMRT-costed transport,glucose_minimal,RQ @T_opt,0.0191691024581773,0.0191831972984734,0.000735,0.001 rel,PASS,
+A -- MMRT-costed transport,NLDM,T_opt (C),39.0,39.0,0,0.0 abs,PASS,"his NLDM predates his recipe medium: CSV 2026-09-01, his set_medium_nldm 2026-09-04 (D5)"
+A -- MMRT-costed transport,NLDM,r_max (1/h),2.0961734730232173,2.095421869557443,0.000359,0.001 rel,PASS,"his NLDM predates his recipe medium: CSV 2026-09-01, his set_medium_nldm 2026-09-04 (D5)"
+A -- MMRT-costed transport,NLDM,O2 uptake @T_opt,89.9381663088539,89.90887550475102,0.000326,0.001 rel,PASS,"his NLDM predates his recipe medium: CSV 2026-09-01, his set_medium_nldm 2026-09-04 (D5)"
+A -- MMRT-costed transport,NLDM,CO2 release @T_opt,183.13789259861952,183.08194471693,0.000305,0.001 rel,PASS,"his NLDM predates his recipe medium: CSV 2026-09-01, his set_medium_nldm 2026-09-04 (D5)"
+A -- MMRT-costed transport,NLDM,RQ @T_opt,2.0362644705220174,2.0363055781657007,2.02e-05,0.001 rel,PASS,"his NLDM predates his recipe medium: CSV 2026-09-01, his set_medium_nldm 2026-09-04 (D5)"
+A -- MMRT-costed transport,LB,T_opt (C),39.0,39.0,0,0.0 abs,PASS,
+A -- MMRT-costed transport,LB,r_max (1/h),2.0498819070925633,2.0491644691415054,0.00035,0.001 rel,PASS,
+A -- MMRT-costed transport,LB,O2 uptake @T_opt,1.2414231190920897,1.2409999039509827,0.000341,0.001 rel,PASS,
+A -- MMRT-costed transport,LB,CO2 release @T_opt,2.9600479227788288,2.9590119359205556,0.00035,0.001 rel,PASS,
+A -- MMRT-costed transport,LB,RQ @T_opt,2.384398902562447,2.384377248136702,9.08e-06,0.001 rel,PASS,
+A -- MMRT-costed transport,BHI,T_opt (C),39.0,39.0,0,0.0 abs,PASS,
+A -- MMRT-costed transport,BHI,r_max (1/h),2.049891138728433,2.04917369431653,0.00035,0.001 rel,PASS,
+A -- MMRT-costed transport,BHI,O2 uptake @T_opt,1.291287802025753,1.2908471327657198,0.000341,0.001 rel,PASS,
+A -- MMRT-costed transport,BHI,CO2 release @T_opt,2.960061253344107,2.9590252571563207,0.00035,0.001 rel,PASS,
+A -- MMRT-costed transport,BHI,RQ @T_opt,2.292332699728447,2.292312685249125,8.73e-06,0.001 rel,PASS,
+B -- total-carbon cap (C_max 60),glucose_minimal,T_opt (C),37.5,37.5,0,0.0 abs,PASS,
+B -- total-carbon cap (C_max 60),glucose_minimal,r_max (1/h),0.8270266423259622,0.8269370036311777,0.000108,0.001 rel,PASS,
+B -- total-carbon cap (C_max 60),glucose_minimal,O2 uptake @T_opt,24.29533258925221,24.295700422385032,1.51e-05,0.001 rel,PASS,
+B -- total-carbon cap (C_max 60),glucose_minimal,CO2 release @T_opt,26.058613143366053,26.059790454099534,4.52e-05,0.001 rel,PASS,
+B -- total-carbon cap (C_max 60),glucose_minimal,RQ @T_opt,1.072576925943952,1.0726091448711288,3e-05,0.001 rel,PASS,
+B -- total-carbon cap (C_max 60),NLDM,T_opt (C),34.5,34.5,0,0.0 abs,PASS,"his NLDM predates his recipe medium: CSV 2026-09-01, his set_medium_nldm 2026-09-04 (D5)"
+B -- total-carbon cap (C_max 60),NLDM,r_max (1/h),0.965754998303288,0.96575499830329,2.07e-15,0.001 rel,PASS,"his NLDM predates his recipe medium: CSV 2026-09-01, his set_medium_nldm 2026-09-04 (D5)"
+B -- total-carbon cap (C_max 60),NLDM,O2 uptake @T_opt,22.693653915313067,22.693653915313114,2.04e-15,0.001 rel,PASS,"his NLDM predates his recipe medium: CSV 2026-09-01, his set_medium_nldm 2026-09-04 (D5)"
+B -- total-carbon cap (C_max 60),NLDM,CO2 release @T_opt,20.364397833044077,20.36439783304411,1.57e-15,0.001 rel,PASS,"his NLDM predates his recipe medium: CSV 2026-09-01, his set_medium_nldm 2026-09-04 (D5)"
+B -- total-carbon cap (C_max 60),NLDM,RQ @T_opt,0.8973609057862088,0.8973609057862083,4.95e-16,0.001 rel,PASS,"his NLDM predates his recipe medium: CSV 2026-09-01, his set_medium_nldm 2026-09-04 (D5)"
+B -- total-carbon cap (C_max 60),LB,T_opt (C),33.0,33.0,0,0.0 abs,PASS,
+B -- total-carbon cap (C_max 60),LB,r_max (1/h),0.927410410066743,0.9273374631804044,7.87e-05,0.001 rel,PASS,
+B -- total-carbon cap (C_max 60),LB,O2 uptake @T_opt,22.127152263345113,22.12620393603776,4.29e-05,0.001 rel,PASS,
+B -- total-carbon cap (C_max 60),LB,CO2 release @T_opt,21.940905531448685,21.94109393199374,8.59e-06,0.001 rel,PASS,
+B -- total-carbon cap (C_max 60),LB,RQ @T_opt,0.99158288741001,0.9916339013877332,5.14e-05,0.001 rel,PASS,
+B -- total-carbon cap (C_max 60),BHI,T_opt (C),32.5,32.5,0,0.0 abs,PASS,
+B -- total-carbon cap (C_max 60),BHI,r_max (1/h),0.9280857151331924,0.9280063613948364,8.55e-05,0.001 rel,PASS,
+B -- total-carbon cap (C_max 60),BHI,O2 uptake @T_opt,21.96930506548311,21.96642583346582,0.000131,0.001 rel,PASS,
+B -- total-carbon cap (C_max 60),BHI,CO2 release @T_opt,21.91319234315574,21.913641644856764,2.05e-05,0.001 rel,PASS,
+B -- total-carbon cap (C_max 60),BHI,RQ @T_opt,0.9974458581115736,0.9975970515636348,0.000152,0.001 rel,PASS,
+C -- Basan acetate line,glucose_minimal,T_opt (C),38.0,38.0,0,0.0 abs,PASS,
+C -- Basan acetate line,glucose_minimal,r_max (1/h),1.1893524738816952,1.1889391390976296,0.000348,0.001 rel,PASS,
+C -- Basan acetate line,glucose_minimal,O2 uptake @T_opt,50.148148233834235,50.131351768165274,0.000335,0.001 rel,PASS,
+C -- Basan acetate line,glucose_minimal,CO2 release @T_opt,9.934777947704616,9.926498062888788,0.000833,0.001 rel,PASS,
+C -- Basan acetate line,glucose_minimal,RQ @T_opt,0.1981085702582685,0.1980097825567188,0.000499,0.001 rel,PASS,
+C -- Basan acetate line,NLDM,T_opt (C),38.5,38.5,0,0.0 abs,PASS,"his NLDM predates his recipe medium: CSV 2026-09-01, his set_medium_nldm 2026-09-04 (D5)"
+C -- Basan acetate line,NLDM,r_max (1/h),2.2657676470456143,2.264885569278664,0.000389,0.001 rel,PASS,"his NLDM predates his recipe medium: CSV 2026-09-01, his set_medium_nldm 2026-09-04 (D5)"
+C -- Basan acetate line,NLDM,O2 uptake @T_opt,31.40398988452969,31.390686664233915,0.000424,0.001 rel,PASS,"his NLDM predates his recipe medium: CSV 2026-09-01, his set_medium_nldm 2026-09-04 (D5)"
+C -- Basan acetate line,NLDM,CO2 release @T_opt,231.58613131613885,231.49887123594996,0.000377,0.001 rel,PASS,"his NLDM predates his recipe medium: CSV 2026-09-01, his set_medium_nldm 2026-09-04 (D5)"
+C -- Basan acetate line,NLDM,RQ @T_opt,7.374417459936305,7.374762894235007,4.68e-05,0.001 rel,PASS,"his NLDM predates his recipe medium: CSV 2026-09-01, his set_medium_nldm 2026-09-04 (D5)"
+C -- Basan acetate line,LB,T_opt (C),39.0,39.0,0,0.0 abs,PASS,
+C -- Basan acetate line,LB,r_max (1/h),2.1305166291579076,2.1297522044317247,0.000359,0.001 rel,PASS,
+C -- Basan acetate line,LB,O2 uptake @T_opt,14.605505586163094,14.596113455867323,0.000643,0.001 rel,PASS,
+C -- Basan acetate line,LB,CO2 release @T_opt,29.85208149552317,29.835644220463315,0.000551,0.001 rel,PASS,
+C -- Basan acetate line,LB,RQ @T_opt,2.0438923746538644,2.0440814132251095,9.25e-05,0.001 rel,PASS,
+C -- Basan acetate line,BHI,T_opt (C),39.0,39.0,0,0.0 abs,PASS,
+C -- Basan acetate line,BHI,r_max (1/h),2.1311162854518195,2.1303513122256965,0.000359,0.001 rel,PASS,
+C -- Basan acetate line,BHI,O2 uptake @T_opt,14.611862514051175,14.602464206673382,0.000643,0.001 rel,PASS,
+C -- Basan acetate line,BHI,CO2 release @T_opt,29.86497578727851,29.84852671793196,0.000551,0.001 rel,PASS,
+C -- Basan acetate line,BHI,RQ @T_opt,2.043885627760288,2.0440746366829696,9.25e-05,0.001 rel,PASS,

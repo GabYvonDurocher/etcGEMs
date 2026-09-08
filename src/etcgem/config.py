@@ -359,6 +359,133 @@ def build_provider(cfg: Dict[str, Any]):
                   for m in sfm.medium.unique() if ((sfm.medium == m) & (sfm.temp_C == 37)).any()}
             print(f"[alloc] MEDIUM-matched sector allocation from {os.path.basename(str(alloc_data))} "
                   f"(f_bio@37C by medium: {fb})")
+
+    # Opt-in gas-exchange layer (P1: Parsa's configurations A-F). Absent or disabled ->
+    # untouched, so every existing strain and experiment behaves exactly as before.
+    apply_gasflux(cfg, pm)
+    return pm
+
+
+def _strain_path(cfg, path):
+    """Resolve a strain-relative path against the strain folder, if it exists there."""
+    if path and not os.path.isabs(path) and cfg.get("_strain"):
+        cand = os.path.join(strain_dir(cfg["_strain"]), path)
+        if os.path.exists(cand):
+            return cand
+    return path
+
+
+def apply_gasflux(cfg: Dict[str, Any], pm):
+    """Apply the opt-in gas-exchange layer to a built provider.
+
+    Everything is off unless ``gasflux.enabled`` is true, and each mechanism has its own
+    ``enabled`` flag, so a configuration selects exactly the pieces it wants:
+
+    * ``medium``            -- which growth medium to set (name, or a strain recipe)
+    * ``transport_costs``   -- MMRT-costed membrane carriers
+    * ``total_carbon_cap``  -- sum(nC * v_uptake) <= c_max
+    * ``overflow_line``     -- an empirical threshold-linear excretion floor
+    * ``etc_area``          -- the ETC membrane-area budget (and proton stoichiometry)
+
+    ORDER MATTERS and is fixed here: medium first (the carbon cap enumerates the uptakes the
+    medium leaves open), then proton stoichiometry, then transport costs (they rebuild the
+    enzyme table), then the constraints. Strain constants -- carrier properties, membrane
+    geometry, overflow-line coefficients, the ETC table, the medium recipes -- come from
+    ``strain.yaml``'s ``gas_exchange`` block; run choices come from the experiment overlay.
+    """
+    gf = cfg.get("gasflux") or {}
+    if not gf.get("enabled"):
+        return pm
+    # The strain's measured gas-exchange constants live in strains/<name>/gas_exchange.yaml
+    # and are loaded ONLY here, i.e. only for runs that enable this layer. Keeping them out
+    # of strain.yaml is deliberate: a new strain.yaml key would change the recorded
+    # resolved_config.yaml of every existing run of that strain (P1 DECISIONS D3).
+    gx = cfg.get("gas_exchange")
+    if gx is None:
+        src = gf.get("gas_exchange_from", "gas_exchange.yaml")
+        path = _strain_path(cfg, src)
+        if os.path.exists(path):
+            gx = (load_config(path) or {}).get("gas_exchange", {})
+            cfg["gas_exchange"] = gx      # recorded in this run's resolved_config
+        else:
+            gx = {}
+    from . import providers as _prov
+
+    # --- medium ---------------------------------------------------------------
+    med = gf.get("medium")
+    if med:
+        recipes = gx.get("media") or {}
+        if med in recipes:
+            r = recipes[med]
+            _prov.set_medium_recipe(
+                pm, _strain_path(cfg, r["recipe_csv"]),
+                clearance_L_per_gDW_h=(None if r.get("clearance_L_per_gDW_h") is None
+                                       else float(r["clearance_L_per_gDW_h"])),
+                uptake_ub=float(r.get("uptake_ub", 1000.0)))
+        else:
+            kw = {}
+            for key, arg in (("lb_media_csv", "lb_media_csv"), ("bhi_media_csv", "bhi_media_csv")):
+                if gx.get(key):
+                    kw[arg] = _strain_path(cfg, gx[key])
+            _prov.set_medium(pm, med, **kw)
+        print(f"[gasflux] medium = {med}")
+
+    # --- ETC membrane area (configurations E/F) -------------------------------
+    ea = gf.get("etc_area") or {}
+    if ea.get("enabled"):
+        from . import etc_area as _ea
+        table = _ea.load_etc_table(_strain_path(cfg, ea.get("table") or gx.get("etc_table")))
+        if ea.get("apply_proton_stoichiometry"):
+            _ea.set_proton_stoichiometry(pm, table)
+        a_etc = ea.get("a_etc")
+        if a_etc is None:
+            mem = gx.get("membrane") or {}
+            a_mem = mem.get("a_mem_nm2_per_gdw")
+            if a_mem is None:
+                a_mem = _ea.membrane_area_per_gdw(mem["sv_um2_per_fL"], mem["dcw_pg_per_fL"])
+            a_etc = _ea.budget_from_fraction(a_mem, float(ea.get("f_etc", 0.316)))
+        _ea.add_etc_area_constraint(pm, table, float(a_etc))
+        pm.etc_table = table
+        print(f"[gasflux] ETC membrane-area budget A_ETC = {float(a_etc):.4g} nm^2/gDW "
+              f"over {len(table)} complexes")
+
+    # --- MMRT-costed transport (configuration A) ------------------------------
+    tc = gf.get("transport_costs") or {}
+    if tc.get("enabled"):
+        from .gasflux import add_transport_costs
+        carrier = gx.get("transport_carrier") or {}
+        add_transport_costs(
+            pm,
+            kcat=float(tc.get("kcat_s", carrier.get("kcat_s"))),
+            mw_kDa=float(tc.get("mw_kDa", carrier.get("mw_kDa"))),
+            length_aa=float(tc.get("length_aa", carrier.get("length_aa"))),
+            dcp_prior_kJ=float(tc.get("dcp_prior_kJ",
+                                      (cfg.get("provider") or {}).get("dcp_prior_kJ", -4.0))),
+            only_carbon=bool(tc.get("only_carbon", True)))
+
+    # --- empirical overflow line (configuration C) ----------------------------
+    ol = gf.get("overflow_line") or {}
+    if ol.get("enabled"):
+        from .gasflux import add_acetate_line
+        line = gx.get("overflow_line") or {}
+        add_acetate_line(pm,
+                         slope=float(ol.get("slope", line.get("slope"))),
+                         threshold=float(ol.get("threshold", line.get("threshold"))),
+                         exchange_rxn=ol.get("exchange_rxn", line.get("exchange_rxn")),
+                         biomass_rxn=pm.biomass_rxn)
+        print(f"[gasflux] overflow line on {ol.get('exchange_rxn', line.get('exchange_rxn'))}: "
+              f"J >= {ol.get('slope', line.get('slope'))} * (mu - "
+              f"{ol.get('threshold', line.get('threshold'))})")
+
+    # --- total-carbon cap (configuration B) -----------------------------------
+    cc = gf.get("total_carbon_cap") or {}
+    if cc.get("enabled"):
+        from .gasflux import add_total_carbon_constraint
+        c = add_total_carbon_constraint(pm, float(cc["c_max"]),
+                                        exclude=tuple(cc.get("exclude", ("co2", "hco3"))))
+        n = getattr(c, "_n_carbon_sources", 0) if c is not None else 0
+        print(f"[gasflux] total carbon uptake <= {float(cc['c_max']):g} mmol C/gDW/h "
+              f"over {n} open carbon source(s)")
     return pm
 
 

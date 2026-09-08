@@ -1,0 +1,24 @@
+# CONFIGURATION E -- the ETC membrane-area budget (Szenk "membrane real estate").
+#
+# Replace the ad-hoc carbon cap with a physical one: sum_i (A_i/kcat_i) v_i <= A_ETC over the
+# ETC complexes, with A_ETC = A_mem * F_ETC. Respiration is then limited by the area the ETC
+# can occupy, so acetate overflow can emerge rather than be imposed.
+#
+# `table` selects the strain's configuration-E parameterisation (bd-I and bd-II merged, round
+# placeholder oxidase turnovers) so this reproduces Parsa's configuration E exactly.
+# `apply_proton_stoichiometry: false` is what distinguishes E from F -- one flag, one table
+# column, not a second module.
+kind: gasflux
+proteome_sectors: {enabled: true, biosynthesis_growth_law: true}
+allocation_from_data: null
+gasflux:
+  enabled: true
+  perturbation_from: calibration_vanderlinden
+  media: [glucose_minimal, NLDM, LB, BHI]
+  temperatures: {start_C: 5, stop_C: 50, n: 91}
+  metabolites: [o2, co2, glc__D, pyr, lac__D, ac]
+  etc_area:
+    enabled: true
+    table: etc/complexes_szenk_merged_bd.csv
+    f_etc: 0.316                       # Szenk 2017 S1B measured membrane fraction
+    apply_proton_stoichiometry: false

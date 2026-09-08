@@ -71,6 +71,71 @@ def build_vdl_specs(f_metab_meas=0.280, f_maint_meas=0.360, sigma_nom=0.45) -> L
     ]
 
 
+# --- overflow / gas-exchange fits (P1: Parsa's configuration D and later) ------------------
+# Widened thermal-envelope priors, opt-in. In his capped fit the dCp_scale posterior ran to
+# 2.18 at p95 while its prior only reached 1.64 -- the data was pushing against the prior --
+# so Topt shift and spread are freed alongside it and the peak SHAPE, POSITION and WIDTH can
+# move together. topt_scale's upper bound is TIGHTENED 2.0 -> 1.35 in the same breath: above
+# ~1.4 every enzyme sits far above its inflated Topt and the whole TPC collapses to zero
+# growth (measured), so a wider prior there only scatters walkers into a dead region.
+WIDE_ENVELOPE_SPECS = {
+    "dTopt":      PSpec("dTopt",      "add", "normal",    8.00, 0.0, -15.0, 15.0, "dTopt", 0.0),
+    "topt_scale": PSpec("topt_scale", "log", "lognormal", 0.25, 0.0, 0.60, 1.35, "topt_scale", 1.0),
+    "dCp_scale":  PSpec("dCp_scale",  "log", "lognormal", 0.50, 0.0, 0.25, 4.00, "dCp_scale", 1.0),
+}
+
+
+def build_overflow_specs(f_metab_meas=0.280, f_maint_meas=0.360, sigma_nom=0.45,
+                         fit_carbon_cap=True, wide_envelope=False) -> List[PSpec]:
+    """The Van Derlinden free set, as a CONFIGURATION for an overflow / gas-exchange fit.
+
+    This is the whole of what used to be a second calibrator: the same twelve physical levers
+    with the same priors and provenance, optionally (a) widened envelope priors and (b) one
+    extra dimension, ``C_max_mult``, a multiplier on the strain's nominal total-carbon cap so
+    the cap is fitted rather than swept. ``sigma_disc`` stays LAST -- the nuisance index and
+    the emergent-theta helper rely on it.
+
+    Adding a third top-level calibrator was the alternative and was rejected (P1 DECISIONS
+    D4): three sampling code paths cannot be kept in step, and everything that differs here is
+    a parameter set, not an algorithm.
+    """
+    base = build_vdl_specs(f_metab_meas, f_maint_meas, sigma_nom)
+    phys = [s for s in base if s.name != "sigma_disc"]
+    if wide_envelope:
+        phys = [WIDE_ENVELOPE_SPECS.get(s.name, s) for s in phys]
+    disc = next(s for s in base if s.name == "sigma_disc")
+    cap = ([PSpec("C_max_mult", "log", "lognormal", 0.40, 0.0, 0.25, 3.0, None, 1.0)]
+           if fit_carbon_cap else [])
+    return phys + cap + [disc]
+
+
+def build_pm_medium(strain, medium=None, experiment=None, cfg=None, timeout=10):
+    """Provider at a chosen GROWTH MEDIUM and the calibration operating point.
+
+    The generalisation of :func:`_build_pm_rich` over media: same coupled growth law, same
+    static sectors (``allocation_from_data`` off, so the fitted f_metab/f_maint drive the
+    split), but the medium -- and any gas-exchange mechanism -- comes from a
+    ``configs/experiments/gasflux_*.yaml`` overlay rather than from code. Pass ``medium`` to
+    override the overlay's choice for one call, which is what a per-medium likelihood term
+    needs.
+    """
+    import copy
+    from .config import resolve, build_provider
+    cfg = copy.deepcopy(cfg) if cfg is not None else resolve(strain, experiment)
+    cfg.setdefault("proteome_sectors", {})["biosynthesis_growth_law"] = True
+    cfg["allocation_from_data"] = None
+    if medium is not None:
+        cfg.setdefault("gasflux", {})["enabled"] = True
+        cfg["gasflux"]["medium"] = medium
+    pm = build_provider(cfg)
+    try:
+        pm.ec.model.solver.configuration.timeout = int(timeout)
+    except Exception:
+        pass
+    pm.ec._alloc_from_data = None
+    return pm
+
+
 def build_methanogen_specs() -> List[PSpec]:
     """Free set for the M. maripaludis Jones-1983 fit (M4). The methanogen ecModel is a
     SINGLE sMOMENT pool with NGAM(T) and NO sectors/growth-law (per M3), so the E. coli

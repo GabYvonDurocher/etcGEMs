@@ -1,0 +1,184 @@
+{
+ "_provenance": {
+  "source_root": "$PARSA_ROOT (/Users/g.yvon-durocher/Downloads/etcGEMs-main_3), READ ONLY",
+  "note": "Values read off Parsa's committed CSVs at each medium's growth optimum, plus the figures his PDF reports quote. Nothing was copied out of his tree: these numbers are transcribed here so the gate runs without it (the K1 precedent, reports/candida_thermal_limit/standalone_expected.json).",
+  "files": {
+   "posterior_mmrt_transport/mmrt_transport_kcat300.csv": "2026-07-10 13:57",
+   "posterior_carboncap/gasflux_C60.csv": "2026-09-01 18:04",
+   "posterior_configC/configC_acetate.csv": "2026-07-14 15:25",
+   "posterior_multimedia/posterior_multimedia.csv": "2026-07-10 13:20"
+  }
+ },
+ "configA_kcat300": {
+  "glucose_minimal": {
+   "temp_C": 38.0,
+   "growth": 1.195356374629941,
+   "o2_uptake": 48.15102837614664,
+   "co2_release": 0.9230119964089594,
+   "glc__D_uptake": 59.763743942346544,
+   "ac_release": -0.0,
+   "RQ": 0.0191691024581773
+  },
+  "NLDM": {
+   "temp_C": 39.0,
+   "growth": 2.0961734730232173,
+   "o2_uptake": 89.9381663088539,
+   "co2_release": 183.13789259861952,
+   "glc__D_uptake": 2.439897710609146,
+   "ac_release": -0.0,
+   "RQ": 2.0362644705220174
+  },
+  "LB": {
+   "temp_C": 39.0,
+   "growth": 2.0498819070925633,
+   "o2_uptake": 1.2414231190920897,
+   "co2_release": 2.9600479227788288,
+   "glc__D_uptake": 0.1955177362984888,
+   "ac_release": -0.0,
+   "RQ": 2.384398902562447
+  },
+  "BHI": {
+   "temp_C": 39.0,
+   "growth": 2.049891138728433,
+   "o2_uptake": 1.291287802025753,
+   "co2_release": 2.960061253344107,
+   "glc__D_uptake": 0.1955186168119179,
+   "ac_release": -0.0,
+   "RQ": 2.292332699728447
+  }
+ },
+ "configB_C60": {
+  "glucose_minimal": {
+   "temp_C": 37.5,
+   "growth": 0.8270266423259622,
+   "o2_uptake": 24.29533258925221,
+   "co2_release": 26.058613143366053,
+   "glc__D_uptake": 9.99962838936205,
+   "ac_release": -0.0,
+   "RQ": 1.072576925943952
+  },
+  "NLDM": {
+   "temp_C": 34.5,
+   "growth": 0.965754998303288,
+   "o2_uptake": 22.693653915313067,
+   "co2_release": 20.364397833044077,
+   "glc__D_uptake": 0.0,
+   "ac_release": -0.0,
+   "RQ": 0.8973609057862088
+  },
+  "LB": {
+   "temp_C": 33.0,
+   "growth": 0.927410410066743,
+   "o2_uptake": 22.127152263345113,
+   "co2_release": 21.940905531448685,
+   "glc__D_uptake": 4.884378208838227,
+   "ac_release": -0.0,
+   "RQ": 0.99158288741001
+  },
+  "BHI": {
+   "temp_C": 32.5,
+   "growth": 0.9280857151331924,
+   "o2_uptake": 21.96930506548311,
+   "co2_release": 21.91319234315574,
+   "glc__D_uptake": 4.875601248231994,
+   "ac_release": -0.0,
+   "RQ": 0.9974458581115736
+  }
+ },
+ "configC_acetate": {
+  "glucose_minimal": {
+   "temp_C": 38.0,
+   "growth": 1.1893524738816952,
+   "o2_uptake": 50.148148233834235,
+   "co2_release": 9.934777947704616,
+   "glc__D_uptake": 57.19433579046699,
+   "ac_release": 9.016401951515595,
+   "RQ": 0.1981085702582685
+  },
+  "NLDM": {
+   "temp_C": 38.5,
+   "growth": 2.2657676470456143,
+   "o2_uptake": 31.40398988452969,
+   "co2_release": 231.58613131613885,
+   "glc__D_uptake": 0.6862828941489403,
+   "ac_release": 31.621120587957897,
+   "RQ": 7.374417459936305
+  },
+  "LB": {
+   "temp_C": 39.0,
+   "growth": 2.1305166291579076,
+   "o2_uptake": 14.605505586163094,
+   "co2_release": 29.85208149552317,
+   "glc__D_uptake": 0.0,
+   "ac_release": 28.780849212316053,
+   "RQ": 2.0438923746538644
+  },
+  "BHI": {
+   "temp_C": 39.0,
+   "growth": 2.1311162854518195,
+   "o2_uptake": 14.611862514051175,
+   "co2_release": 29.86497578727851,
+   "glc__D_uptake": 0.0,
+   "ac_release": 28.793441994488205,
+   "RQ": 2.043885627760288
+  }
+ },
+ "posterior_multimedia": {
+  "glucose_minimal": {
+   "Topt_C": 38.0,
+   "rmax": 1.2079554275534776
+  },
+  "NLDM": {
+   "Topt_C": 38.5,
+   "rmax": 2.3178302969541984
+  },
+  "LB": {
+   "Topt_C": 39.0,
+   "rmax": 2.1613756005266223
+  },
+  "BHI": {
+   "Topt_C": 39.0,
+   "rmax": 2.1616546556162763
+  }
+ },
+ "report_quoted": {
+  "configA_kcat_s": 300.0,
+  "configA_RQ": "~0 (fermentative)",
+  "configA_co2_fva_span_glucose": 9.0,
+  "configB_c_max": 60.0,
+  "configB_RQ_at_optimum": {
+   "glucose_minimal": 1.07,
+   "NLDM": 0.9,
+   "LB": 0.99,
+   "BHI": 1.0
+  },
+  "configB_growth_vs_uncapped": "~90% of the uncapped optimum",
+  "configC_slope_mmol_gdw_h": 21.0,
+  "configC_threshold_per_h": 0.76,
+  "configC_rmax_NLDM": 2.27,
+  "configC_rmax_LB_BHI": 2.13,
+  "configC_RQ_NLDM": "7-9",
+  "configC_RQ_glucose": "~0",
+  "baseline_growth_R2": 0.96,
+  "configD_R2": {
+   "NLDM_growth": 0.71,
+   "NLDM_resp_scale": 3.4,
+   "LB_growth": 0.9,
+   "LB_resp_scale": 3.6
+  },
+  "configE_R2": {
+   "NLDM_growth": 0.85,
+   "NLDM_resp": 0.72,
+   "LB_growth": 0.83,
+   "LB_resp": 0.81,
+   "F_ETC": "0.28-0.32"
+  },
+  "configF_R2": {
+   "NLDM_growth": 0.91,
+   "NLDM_resp": 0.96,
+   "LB_growth": 0.88,
+   "LB_resp": 0.85,
+   "LB_c_max": 510.0
+  }
+ }
+}

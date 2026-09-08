@@ -1,0 +1,102 @@
+# NLDM -- Nutrient-Limited Defined Medium, FINAL (post-dilution) per-compound concentrations.
+#
+# PROVENANCE. Transcribed from Parsa Amirmoeini's `scripts_posterior_multimedia_tpc.py`
+# (`NLDM_COMPONENTS` + `_NLDM_CLASS_mM`) in the etcGEMs-main_3 snapshot, which cites
+# de Raad et al. 2022 (Front. Microbiol.), Table 1 of the NLDM note. Nothing was imported
+# from his outputs; this is the recipe as his source code states it (P1 DECISIONS D1).
+#
+# Concentrations are per CLASS, as his source records them (mM):
+#   sugars 0.875 | organic acids 0.525 | amino acids 0.175
+#   nucleosides/bases 0.0175 | other organics 0.0175 | vitamins 0.0175
+# Total organic carbon works out to 86.2 mmol C/L (sugars 56%, amino acids 22%,
+# organic acids 17%, the rest ~5%).
+#
+# Components with a blank conc_mM (salts, trace minerals) are NOT the limiting resource and
+# are opened at the generous default uptake bound; carbon-bearing components are limited to
+# clearance [L/gDW/h] * conc_mM. The clearance is a strain.yaml setting, not part of the
+# recipe: see `gas_exchange.media.NLDM` in strains/eciML1515/strain.yaml.
+#
+# 83 components; the ones eciML1515 does not encode are reported as "not in the model".
+base,conc_mM,class
+sucr,0.875,sugars
+glc__D,0.875,sugars
+tre,0.875,sugars
+inost,0.875,sugars
+xyl__D,0.875,sugars
+mnl,0.875,sugars
+acgam,0.875,sugars
+lac__L,0.525,acids
+lac__D,0.525,acids
+mal__L,0.525,acids
+cit,0.525,acids
+succ,0.525,acids
+pyr,0.525,acids
+akg,0.525,acids
+ala__L,0.175,amino
+arg__L,0.175,amino
+asn__L,0.175,amino
+asp__L,0.175,amino
+cys__L,0.175,amino
+glu__L,0.175,amino
+gln__L,0.175,amino
+gly,0.175,amino
+his__L,0.175,amino
+ile__L,0.175,amino
+leu__L,0.175,amino
+lys__L,0.175,amino
+met__L,0.175,amino
+phe__L,0.175,amino
+pro__L,0.175,amino
+ser__L,0.175,amino
+thr__L,0.175,amino
+trp__L,0.175,amino
+tyr__L,0.175,amino
+val__L,0.175,amino
+ade,0.0175,nucleo
+adn,0.0175,nucleo
+cytd,0.0175,nucleo
+csn,0.0175,nucleo
+gua,0.0175,nucleo
+gsn,0.0175,nucleo
+hxan,0.0175,nucleo
+ins,0.0175,nucleo
+thym,0.0175,nucleo
+ura,0.0175,nucleo
+uri,0.0175,nucleo
+xan,0.0175,nucleo
+xtsn,0.0175,nucleo
+4abut,0.0175,other
+glyb,0.0175,other
+orn,0.0175,other
+skm,0.0175,other
+spmd,0.0175,other
+taur,0.0175,other
+crn,0.0175,other
+chol,0.0175,other
+g3pc,0.0175,other
+nh4,,salts_minerals
+pi,,salts_minerals
+so4,,salts_minerals
+mg2,,salts_minerals
+ca2,,salts_minerals
+k,,salts_minerals
+na1,,salts_minerals
+cl,,salts_minerals
+thm,0.0175,vitam
+pydxn,0.0175,vitam
+pydx,0.0175,vitam
+pnto__R,0.0175,vitam
+btn,0.0175,vitam
+nac,0.0175,vitam
+cbl1,0.0175,vitam
+lipoate,0.0175,vitam
+fe2,,salts_minerals
+fe3,,salts_minerals
+mn2,,salts_minerals
+zn2,,salts_minerals
+cu2,,salts_minerals
+cobalt2,,salts_minerals
+ni2,,salts_minerals
+mobd,,salts_minerals
+slnt,,salts_minerals
+tungs,,salts_minerals

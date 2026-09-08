@@ -31,37 +31,47 @@ def compute_tpc(pm, temps_C: Sequence[float], pert: Optional[Perturbation] = Non
     """
     pert = pert or Perturbation()
     ecm = pm.ec
-    budget = pert.budget if pert.budget is not None else ecm.default_budget
-    use_alloc = pert.uses_allocation()
     temps_C = np.asarray(temps_C, dtype=float)
     growth = np.zeros_like(temps_C)
     for i, Tc in enumerate(temps_C):
-        Tk = Tc + 273.15
-        ecm.set_temperature(Tk, pert)
-        if getattr(ecm, "_alloc_from_data", None) is not None and ecm._sectors is not None:
-            # temperature-dependent allocation from measured proteomics (opt-in):
-            # the measured f_sector(T) drives the sector split at each temperature.
-            fm, fmaint = ecm._alloc_from_data.model_alloc(float(Tc))
-            ecm.set_allocation(fm, fmaint, kappa_scale=pert.kappa_scale,
-                               sigma_sat=pert.sigma_sat)
-        elif use_alloc:
-            # proteome-sector allocation path (opt-in; needs sectors wired)
-            f_maint = pert.f_maint
-            if pert.maint_to_bio is not None and ecm._sectors is not None:
-                f_maint = ecm._sectors["f_maint_nom"] * (1.0 - pert.maint_to_bio)
-            ecm.set_allocation(pert.f_metab, f_maint, kappa_scale=pert.kappa_scale,
-                               sigma_sat=pert.sigma_sat)
-        else:
-            ecm.set_budget(budget, pert.group_alloc)
-            # translation-efficiency lever on the biosynthesis cap (sectors mode)
-            if ecm._sectors is not None and pert.kappa_scale != 1.0:
-                s = ecm._sectors
-                s["bio_constraint"].ub = s["f_bio_nom"] * s["P_total"] * float(pert.kappa_scale)
+        apply_state(ecm, float(Tc), pert)
         g = ecm.model.slim_optimize()
         if g is None or not np.isfinite(g) or g < min_growth:
             g = 0.0
         growth[i] = g
     return TPC(temps_C=temps_C, growth=growth)
+
+
+def apply_state(ecm, Tc: float, pert: Optional["Perturbation"] = None) -> None:
+    """Put an EnzymeConstrainedModel into the state (temperature ``Tc`` in C, ``pert``).
+
+    Factored out of :func:`compute_tpc` so that anything sweeping temperature -- the TPC, the
+    gas-flux sweep in :mod:`etcgem.gasflux`, the calibrators -- sets the model up **the same
+    way**. There were two hand-copied versions of this loop; a third would have drifted.
+    Behaviour is unchanged: the branch order and every argument are as compute_tpc had them.
+    """
+    pert = pert or Perturbation()
+    budget = pert.budget if pert.budget is not None else ecm.default_budget
+    ecm.set_temperature(Tc + 273.15, pert)
+    if getattr(ecm, "_alloc_from_data", None) is not None and ecm._sectors is not None:
+        # temperature-dependent allocation from measured proteomics (opt-in):
+        # the measured f_sector(T) drives the sector split at each temperature.
+        fm, fmaint = ecm._alloc_from_data.model_alloc(float(Tc))
+        ecm.set_allocation(fm, fmaint, kappa_scale=pert.kappa_scale,
+                           sigma_sat=pert.sigma_sat)
+    elif pert.uses_allocation():
+        # proteome-sector allocation path (opt-in; needs sectors wired)
+        f_maint = pert.f_maint
+        if pert.maint_to_bio is not None and ecm._sectors is not None:
+            f_maint = ecm._sectors["f_maint_nom"] * (1.0 - pert.maint_to_bio)
+        ecm.set_allocation(pert.f_metab, f_maint, kappa_scale=pert.kappa_scale,
+                           sigma_sat=pert.sigma_sat)
+    else:
+        ecm.set_budget(budget, pert.group_alloc)
+        # translation-efficiency lever on the biosynthesis cap (sectors mode)
+        if ecm._sectors is not None and pert.kappa_scale != 1.0:
+            s = ecm._sectors
+            s["bio_constraint"].ub = s["f_bio_nom"] * s["P_total"] * float(pert.kappa_scale)
 
 
 @dataclass
