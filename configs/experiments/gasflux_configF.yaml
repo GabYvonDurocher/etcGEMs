@@ -1,3 +1,8 @@
+# !! UNGATED. This configuration is PORTED and RUNS, but nothing about its fit to data
+# !! has been verified here: the R2A / respirometry file its likelihood needs
+# !! (derived_N0_R_results_with_carbon.csv) is not in the snapshot. The R2 values
+# !! Parsa's report quotes for it are HIS numbers, not reproduced here.
+# !! See the notice at the top of reports/ecoli_gasflux/README.md.
 # CONFIGURATION F -- configuration E plus the corrected cytochrome bd-II energetics.
 #
 # ONE change relative to E: cytochrome bd-II (appBC) is made non-electrogenic (0 H+/2e-,
