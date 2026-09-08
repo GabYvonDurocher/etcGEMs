@@ -61,6 +61,5 @@ gasflux:
   - ac
   transport_costs:
     enabled: true
-    kcat_s: 300.0
 _strain: eciML1515
 _experiment: gasflux_configA

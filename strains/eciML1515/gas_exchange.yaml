@@ -31,7 +31,16 @@ gas_exchange:
                                          # default. See reports/P1_parsa_port/gate.md.
 
   transport_carrier:          # generic inner-membrane carrier, for MMRT-costed transport
-    kcat_s: 30.0              # see reports/P1_parsa_port/gate.md: his figures used 300
+    # kcat SETTLED BY EXPERIMENT, P2 TASK 1 -- PROVISIONAL, pending Parsa's confirmation.
+    # His sources disagreed: gasflux.py set TRANSPORT_KCAT = 30 s^-1, while his configuration-A
+    # figure, its CSV filename (mmrt_transport_kcat300.csv) and his report all said 300. Both
+    # were run against his committed output (reports/P2_settle/task1_kcat.py):
+    #   300 s^-1 -> T_opt exact in all four media, every optimum quantity within 7.4e-4
+    #               relative, whole curve within 6.0e-4 of r_max  -> REPRODUCES his figure
+    #    30 s^-1 -> T_opt off by 0.5 C in three media, r_max 5.5-5.8% low, curve 14% of r_max
+    #               away                                          -> does NOT reproduce it
+    # So 30 was a stale module default his runs overrode. 300 is set here.
+    kcat_s: 300.0
     mw_kDa: 45.0
     length_aa: 409.0
 
