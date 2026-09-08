@@ -116,3 +116,41 @@ no number, and restores the ability to verify anything at all from a shell.
 
 **Where:** TASK 0 housekeeping, as the prompt directed. Local config only, not committed.
 Stops the 100644→100755 noise the OneDrive checkout produces (N2's finding).
+
+---
+
+## D5 — the caveat sentence was added although the hypothesis, taken literally, failed
+
+**Where:** TASK 2.
+
+The prompt gated the `report.qmd` caveat on the cap-regime hypothesis holding, and it does
+not hold as posed: the old T_opt of 37 °C was not a plateau edge (plateau 1.0 °C), and the
+cap binds at T_opt in the current nominal state too, so cap binding is not what separates the
+two states.
+
+I added the caveat anyway, because the measurement makes a *stronger* version of the same
+statement true and checkable: at the decomposition's own operating point the cap has slack at
+all 48 temperatures (the metabolic pool binds instead), while at the strain's nominal
+glucose-minimal point the same cap binds at T_opt and the optimum tracks the allocation curve.
+The φ_envelope = 0.999 attribution is therefore regime-conditional, and the report says
+nothing about the regime. The sentence added states only what was measured here.
+
+**Decided:** add it. One sentence, in the bullet it qualifies, no number changed, and the
+prompt's own budget for this task is "documentation and one caveat sentence". `report.qmd`
+has **not** been re-rendered — `report.tex` / `.pdf` are therefore one sentence behind, and
+that is listed rather than fixed, per the standing rule.
+
+## D6 — my own probe was wrong once, and is recorded as such
+
+**Where:** TASK 2.
+
+The first version of the tuned-point probe omitted `kappa_scale` / `sigma_sat` from
+`set_allocation` and reported r_max 1.114 against a committed 2.161 — which, taken at face
+value, would have read as a large staleness in `decompose_tuned`. `sigma_sat`/`sigma_nom` =
+0.8669/0.45 rescales both sector caps by 1.93, which is the whole discrepancy. The probe was
+corrected and only then used. Recorded because the wrong version briefly looked like a
+finding, and the corrected one reproduces `control_tuned`'s committed r_max to seven decimal
+places, which is what makes the −0.235 % offset on `decompose_tuned` credible.
+
+The probes and their outputs are committed under `reports/N3_output_audit/probes/` so the
+numbers in TASK 2 can be re-derived without re-deriving the method.

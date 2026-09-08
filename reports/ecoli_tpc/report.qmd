@@ -821,7 +821,12 @@ the cold-side rising limb, and the melting temperature moves the hot falling edg
   $T_\text{opt}$ ($\varphi_\text{envelope}=0.999$) and $CT_\text{max}$ ($0.994$) move almost entirely
   with the melting-temperature axis (achievable IQR $\approx2.0$ and $1.9$ °C under stability, $\approx0$
   under everything else): the rounded peak location and the hot collapse are both set by protein
-  stability.
+  stability. *This attribution is conditional on the constraint regime and not a
+  medium-independent property of the organism: at this tuned rich operating point the
+  biosynthesis/translation cap has slack at every temperature on the grid (the reconciled
+  metabolic pool is what binds, 27–44 °C), so $T_\text{opt}$ is a genuine rounded peak; at the
+  same strain's nominal glucose-minimal operating point that cap does bind at $T_\text{opt}$,
+  and there the optimum tracks the measured allocation curve rather than the envelope.*
 - **The cold side and the activation energy are owned by the envelope — specifically kinetics.** The
   niche width ($\varphi_\text{envelope}=0.99$) has a large kinetic IQR (6.5 °C) and $E_a$ ($0.97$) is
   kinetic-led (IQR 0.28): the rising-limb shape and slope are governed by where enzymes work best and
