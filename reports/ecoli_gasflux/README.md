@@ -26,6 +26,19 @@
 >
 > Until then: **A, B, C — gated. D, E, F — ported, ungated.**
 
+> ### NLDM: the recipe medium is the baseline; the blanket medium is a sensitivity
+>
+> `NLDM` in these runs applies **recipe-proportional uptake ceilings** (each carbon component
+> capped at `clearance × concentration`). That is canonical. `NLDM_blanket` — every component
+> open at one generous bound — is a **labelled sensitivity**, kept only because Parsa's
+> committed NLDM figures were produced with it before he changed his own code and did not
+> re-run. Quote `NLDM`, not `NLDM_blanket`.
+>
+> It matters: on the canonical medium configuration C's NLDM respiratory quotient is **1.04**,
+> not the ≈ 7–9 his report gives, so the high RQ was the unlimited medium and not the absent
+> carbon cap. Full table in `reports/P2_settle/TASK2_nldm.md`. Provisional pending his
+> confirmation.
+
 
 A new deliverable directory in the house convention (`reports/<organism>_<topic>/`), created by
 P1 for Parsa's gas-exchange and overflow work on *E. coli*.

@@ -57,3 +57,27 @@ his committed figure was made with, which is not the same as which value he inte
 **One committed output changed and it carries no numbers:** `gasflux_configA/resolved_config.yaml`
 loses the line `kcat_s: 300.0` from the overlay block, because the value now arrives from the
 strain instead. `gasflux.csv` and `summary.csv` are **byte-identical**.
+
+## D2 — TASK 2: recipe ceilings are canonical; the residual is reported, not stopped on (PROVISIONAL)
+
+**Where:** TASK 2.
+
+The task says to stop and report if a residual remains after the medium is accounted for. For
+configuration B — the run in which the 1.2 % was observed — **there is none**: with his blanket
+medium the port reproduces his r_max to 2 × 10⁻¹⁵ and every other optimum quantity to the same
+order. The medium explains all of it.
+
+A ≤ 5.9 × 10⁻⁴ residual does remain in configurations A and C. I did **not** stop on it,
+because it is not a residual of this task and it is not unexplained: P1 isolated it, demonstrated
+that his own code at his own fork point reproduces the port exactly (so nothing in this
+repository can be responsible), and showed that it tracks *when he ran things* rather than what
+any code says. It is four orders of magnitude below his quoted precision. Stopping would have
+discarded the task over a difference already attributed in the preceding one.
+
+**Decided:** recipe ceilings are the baseline; `NLDM_blanket` stays as an explicitly labelled
+sensitivity, and the gas-flux README says which to quote. **Provisional** pending Parsa: the
+clearance (5.0 L gDW⁻¹ h⁻¹) is his choice and is not re-examined here.
+
+**Reported, not adjudicated:** on the canonical medium configuration C's NLDM RQ is 1.04, not
+the ≈ 7–9 his report quotes. The high RQ was the blanket medium's unlimited carbon, not the
+absent carbon cap — which is a change to what that configuration demonstrates, and his call.
