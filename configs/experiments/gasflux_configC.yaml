@@ -1,0 +1,19 @@
+# CONFIGURATION C -- the Basan-2015 acetate line.
+#
+# Instead of limiting carbon uptake, force the fermentation branch directly with the empirical
+# overflow law: net acetate excretion >= slope * (mu - threshold). No carbon cap, so the
+# respiratory quotient is reported as-is rather than driven toward 1.
+#
+# slope and threshold are measurements of E. coli and live in the strain's gas_exchange.yaml
+# (Basan et al. 2015, Nature 528:99); this overlay only switches the mechanism on.
+kind: gasflux
+proteome_sectors: {enabled: true, biosynthesis_growth_law: true}
+allocation_from_data: null
+gasflux:
+  enabled: true
+  perturbation_from: calibration_vanderlinden
+  media: [glucose_minimal, NLDM, LB, BHI]
+  temperatures: {start_C: 5, stop_C: 50, n: 91}
+  metabolites: [o2, co2, glc__D, pyr, lac__D, ac]
+  overflow_line:
+    enabled: true        # slope / threshold / exchange_rxn from gas_exchange.overflow_line

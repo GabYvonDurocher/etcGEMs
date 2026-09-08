@@ -1,0 +1,30 @@
+# Electron-transport-chain complexes of E. coli iML1515: membrane footprint, turnover, the
+# eciML1515 reactions that carry each complex's flux, and the translocated-proton target.
+#
+# PROVENANCE
+#   area_nm2   Szenk, Dill & de Graff (2017) Cell Systems 5:95-104, Table S1B ("membrane
+#              real estate"). NDH-II is given a small single-subunit footprint so the
+#              non-pumping route is not an area loophole.
+#   kcat_s     oxidases: Bekker et al. (2009) J. Bacteriol. 191:5510, Table 3
+#              (bo3 225, bd-I 218, bd-II 818 s^-1). ATP synthase 270 s^-1 (Szenk 2017);
+#              dehydrogenases are physiological midpoints (BRENDA).
+#   reactions  eciML1515 (GECKO) isozyme reaction ids.
+#   h_p_target coefficient of the TRANSLOCATED (periplasmic) proton in the reaction as the
+#              model encodes it. BLANK = leave the model's own stoichiometry alone.
+#              bd-II (appBC, b0978/b0979) is set to 0: Bekker 2009 measures H+/2e- =
+#              0.2 +/- 0.1 ~ 0, i.e. it reduces O2 and oxidises quinol but pumps no protons
+#              and makes no ATP. eciML1515 encodes it as an isozyme of bd-I and so
+#              over-credits it. Applying this column is a per-run choice
+#              (`gasflux.etc_area.apply_proton_stoichiometry`), which is what separates
+#              Parsa's configuration F from configuration E.
+#
+# The ABSOLUTE area scale is set by A_ETC (= A_mem * F_ETC, see strain.yaml); only the
+# RELATIVE weights A_i/kcat_i drive the internal allocation and the bd:bo3 dependence.
+complex,area_nm2,kcat_s,reactions,h_p_target,notes
+NDH-I,80,200,NADH16ppNo1 NADH17ppNo1 NADH18ppNo1,,proton-pumping (3 H+)
+NDH-II,15,300,NADH5No1 NADH5No2 NADH5No3 NADH5No4 NADH9No1 NADH9No2 NADH9No3 NADH9No4 NADH10No1 NADH10No2 NADH10No3 NADH10No4,,non-pumping (0 H+)
+SDH,10,100,SUCDiNo1,,complex II
+bo3,35,225,CYTBO3_4ppNo1,,cyoABCD; 4 H+/2e-
+bd-I,30,218,CYTBDppNo2,,cydABX; 2 H+/2e-
+bd-II,30,818,CYTBDppNo1 CYTBD2ppNo1,0,appBC; non-electrogenic (Bekker 2009)
+ATPS,35,270,ATPS4rppNo1 ATPS4rppNo2,,ATP synthase (forward)

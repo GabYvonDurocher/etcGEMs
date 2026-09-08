@@ -167,6 +167,71 @@ def cmd_tpc(args):
     return out_dir
 
 
+def cmd_gasflux(args):
+    """Exchange-flux TPCs across media under one gas-exchange configuration (P1).
+
+    Replaces the six per-configuration driver scripts: which mechanisms are on is a
+    `gasflux:` block in configs/experiments/, not a bespoke script.
+    """
+    import copy
+    from .gasflux import flux_tpc, respiratory_quotient, per_cell
+    cfg = resolve(args.strain, args.experiment)
+    gf = cfg.get("gasflux") or {}
+    if not gf.get("enabled"):
+        raise SystemExit(f"experiment {args.experiment!r} does not enable a `gasflux:` block")
+    out_dir = _out_dir(args.strain, _run_tag("gasflux", args.experiment))
+    os.makedirs(out_dir, exist_ok=True)
+
+    media = list(gf.get("media") or [gf.get("medium") or "glucose_minimal"])
+    g = gf.get("temperatures") or {}
+    temps = np.linspace(float(g.get("start_C", 5)), float(g.get("stop_C", 50)),
+                        int(g.get("n", 91))) if g else np.asarray(temperature_grid(cfg), float)
+    mets = tuple(gf.get("metabolites") or ("o2", "co2", "glc__D", "ac"))
+
+    # perturbation: the strain's calibrated posterior medians, or none
+    pert = Perturbation()
+    src = gf.get("perturbation_from")
+    if src:
+        from .dissect import tuned_pert_from_v3
+        d = src if os.path.isabs(src) else os.path.join(strain_dir(args.strain), "outputs", src)
+        pert, med = tuned_pert_from_v3(d)
+        print(f"[gasflux] perturbation = posterior medians from {os.path.relpath(d)}")
+
+    frames, rows = [], []
+    for medium in media:
+        c = copy.deepcopy(cfg)
+        c.setdefault("gasflux", {})["medium"] = medium
+        pm = build_provider(c)
+        try:
+            pm.ec.model.solver.configuration.timeout = int(cfg.get("solver_timeout", 10))
+        except Exception:
+            pass
+        df = flux_tpc(pm, temps, pert, metabolites=mets)
+        df["RQ"] = respiratory_quotient(df)
+        df["medium"] = medium
+        frames.append(df)
+        gr = df["growth"].to_numpy(float)
+        if np.nanmax(gr) > 0:
+            i = int(np.nanargmax(gr))
+            r = df.iloc[i]
+            rows.append({"medium": medium, "Topt_C": float(r.temp_C), "rmax": float(r.growth),
+                         **{f"{m}_at_Topt": float(r.get(f"{m}_uptake", np.nan)) for m in mets},
+                         "co2_release_at_Topt": float(r.get("co2_release", np.nan)),
+                         "RQ_at_Topt": float(r.RQ)})
+    out = pd.concat(frames, ignore_index=True)
+    out.to_csv(os.path.join(out_dir, "gasflux.csv"), index=False)
+    summ = pd.DataFrame(rows)
+    gx = cfg.get("gas_exchange") or {}
+    if "gdw_per_cell" in gx and not summ.empty:
+        summ["o2_fmol_per_cell_h"] = per_cell(summ["o2_at_Topt"], gx["gdw_per_cell"])
+    summ.to_csv(os.path.join(out_dir, "summary.csv"), index=False)
+    dump_resolved(cfg, out_dir)
+    print(f"\n[gasflux] {args.experiment} — at each medium's optimum")
+    print(summ.to_string(index=False, float_format=lambda x: f"{x:.4g}"))
+    print(f"[gasflux] wrote {out_dir}")
+    return out_dir
+
+
 def cmd_transfer(args):
     """Multi-strain transfer: fit the experiment's globals on its calibrate_on strain,
     freeze them, and sweep every strain in predict. The strains come from the experiment,
@@ -899,6 +964,14 @@ def build_parser():
     t.add_argument("--key", default="rxn_id", choices=["rxn_id", "enzyme_id"])
     t.add_argument("--no-plots", action="store_true")
     t.set_defaults(func=cmd_tpc)
+
+    gfp = sub.add_parser("gasflux", help="exchange-flux TPCs (O2/CO2/RQ) under a gas-exchange "
+                                         "configuration; see configs/experiments/gasflux_*.yaml")
+    gfp.add_argument("--strain", required=True)
+    gfp.add_argument("--experiment", required=True,
+                     help="overlay carrying the `gasflux:` block (e.g. gasflux_configB)")
+    gfp.add_argument("--no-plots", action="store_true")
+    gfp.set_defaults(func=cmd_gasflux)
 
     fb = sub.add_parser("fba", help="single enzyme-constrained solve at one temperature")
     fb.add_argument("--strain", required=True)

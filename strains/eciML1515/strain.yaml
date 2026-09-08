@@ -61,3 +61,10 @@ proteome_sectors:
 # selected by set_medium; interpolated per temperature within each medium's range.
 allocation_from_data: proteomics/tem_proteomic.csv
 default_medium_proteome: Glucose   # default medium's sector fractions (glucose minimal)
+
+# ---------------------------------------------------------------------------
+# Gas exchange (P1): see gas_exchange.yaml beside this file for the measured E. coli
+# constants (per-cell dry weight, media recipes, carrier properties, the Basan overflow
+# line, the ETC-complex table and the membrane geometry). It is loaded only by runs whose
+# experiment overlay enables `gasflux:`, so this strain's existing outputs are untouched.
+# ---------------------------------------------------------------------------

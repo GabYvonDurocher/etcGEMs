@@ -1,0 +1,26 @@
+# CONFIGURATION F -- configuration E plus the corrected cytochrome bd-II energetics.
+#
+# ONE change relative to E: cytochrome bd-II (appBC) is made non-electrogenic (0 H+/2e-,
+# Bekker et al. 2009 J. Bacteriol. 191:5510), so it reduces O2 and oxidises quinol but
+# conserves no energy -- an electron-overflow valve that decouples respiration from growth.
+# Since bd-II is also the most thermostable oxidase in this parameterisation, the prediction is
+# that above the denaturation of bo3 and bd-I the cell keeps consuming O2 while growth
+# collapses.
+#
+# In code that change is: a different table (bd split, measured Bekker turnovers) and
+# apply_proton_stoichiometry: true, which applies the table's h_p_target column. There is no
+# configuration-F module.
+kind: gasflux
+proteome_sectors: {enabled: true, biosynthesis_growth_law: true}
+allocation_from_data: null
+gasflux:
+  enabled: true
+  perturbation_from: calibration_vanderlinden
+  media: [glucose_minimal, NLDM, LB, BHI]
+  temperatures: {start_C: 5, stop_C: 50, n: 91}
+  metabolites: [o2, co2, glc__D, pyr, lac__D, ac]
+  etc_area:
+    enabled: true
+    table: etc/complexes.csv           # bd-I / bd-II split, Bekker turnovers, h_p_target on bd-II
+    f_etc: 0.316
+    apply_proton_stoichiometry: true

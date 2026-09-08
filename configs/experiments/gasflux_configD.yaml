@@ -1,0 +1,25 @@
+# CONFIGURATION D -- emergent overflow under a carbon cap with a free oxidase split.
+#
+# Overflow is NOT imposed: it emerges from the enzyme-mass (sMOMENT proteome-sector) budget
+# under a per-medium carbon cap, with the terminal-oxidase split left free so the LP picks bd
+# vs bo3 at each temperature (making the choice emergent and temperature-dependent through the
+# Tm difference). Structurally this is configuration B's constraint with nothing imposed on the
+# acetate branch -- the difference from B is what is being asked of the model, not the wiring.
+#
+# In Parsa's work the cap was FITTED, jointly with the thermal envelope, against growth and
+# per-cell respiration (see calibration_multi.build_overflow_specs). That fit needs the R2A /
+# respiration measurements, which are not in the snapshot; the value below is his nominal NLDM
+# cap, used here for the forward comparison in reports/P1_parsa_port/ (PART F).
+kind: gasflux
+proteome_sectors: {enabled: true, biosynthesis_growth_law: true}
+allocation_from_data: null
+gasflux:
+  enabled: true
+  perturbation_from: calibration_vanderlinden
+  media: [glucose_minimal, NLDM, LB, BHI]
+  temperatures: {start_C: 5, stop_C: 50, n: 91}
+  metabolites: [o2, co2, glc__D, pyr, lac__D, ac]
+  total_carbon_cap:
+    enabled: true
+    c_max: 230.0         # C_MAX_NOM in his calibration_configD (NLDM nominal; fitted as a
+                         # multiplier of this)

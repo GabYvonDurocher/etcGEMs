@@ -1,0 +1,24 @@
+# CONFIGURATION A -- MMRT-costed transport.
+#
+# Give the uncosted inner-membrane carriers the same MMRT/unfolding envelope every metabolic
+# enzyme has, so substrate uptake acquires a temperature-dependent ceiling and the O2 flux
+# becomes determinate. No carbon cap.
+#
+# Parsa's finding, which this configuration exists to reproduce rather than to endorse: at the
+# carrier turnover his figures used the transporter is too cheap to throttle carbon, the TCA
+# cycle stays off and the cell ferments (RQ ~ 0), so no respiratory gas-flux result is
+# obtainable. He did not carry this route into the later configurations.
+kind: gasflux
+proteome_sectors: {enabled: true, biosynthesis_growth_law: true}
+allocation_from_data: null
+gasflux:
+  enabled: true
+  perturbation_from: calibration_vanderlinden
+  media: [glucose_minimal, NLDM, LB, BHI]
+  temperatures: {start_C: 5, stop_C: 50, n: 91}
+  metabolites: [o2, co2, glc__D, pyr, lac__D, ac]
+  transport_costs:
+    enabled: true
+    kcat_s: 300.0        # the value his committed figures used; the strain default is 30.
+                         # See reports/P1_parsa_port/gate.md -- his module constant and his
+                         # figure caption disagree, and the CSV is the 300 run.

@@ -1,0 +1,21 @@
+# CONFIGURATION B -- total-carbon-uptake cap.
+#
+# One shared cap on total carbon uptake, sum(nC * v_uptake) <= c_max. The cap abolishes
+# overflow, so the TCA cycle carries flux and O2/CO2 become respiratory (RQ -> 1); it also
+# gives a dilute defined medium a finite carbon budget. c_max is a boundary condition to be
+# swept, not a fitted quantity.
+#
+# The four uncosted O2 sinks are closed by the PROVIDER (configs/defaults.yaml
+# close_free_o2_sinks, commit 8085036, from Parsa's own audit) rather than by this layer.
+kind: gasflux
+proteome_sectors: {enabled: true, biosynthesis_growth_law: true}
+allocation_from_data: null
+gasflux:
+  enabled: true
+  perturbation_from: calibration_vanderlinden
+  media: [glucose_minimal, NLDM, LB, BHI]
+  temperatures: {start_C: 5, stop_C: 50, n: 91}
+  metabolites: [o2, co2, glc__D, pyr, lac__D, ac]
+  total_carbon_cap:
+    enabled: true
+    c_max: 60.0          # mmol C gDW^-1 h^-1; the value his Figure B2 reports

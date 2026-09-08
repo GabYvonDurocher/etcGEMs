@@ -502,6 +502,79 @@ def set_medium(pm, medium="glucose_minimal", carbon="glc__D", aerobic=True,
     return 1 + int(aerobic), 0
 
 
+def set_medium_recipe(pm, recipe_csv, clearance_L_per_gDW_h: Optional[float],
+                      uptake_ub: float = 1000.0, aerobic: bool = True,
+                      o2_rxn: str = "EX_o2_e_REV", verbose: bool = True):
+    """Set a DEFINED medium from a recipe of per-component concentrations.
+
+    A rich medium given as an open/closed component list says which substrates exist but not
+    how much of each, so a dilute defined medium looks as rich as LB. A recipe fixes that with
+    one physical scale factor -- a volumetric clearance:
+
+        ub_i [mmol gDW^-1 h^-1]  =  clearance [L gDW^-1 h^-1] * C_i [mM]
+
+    applied to every CARBON-bearing component; non-carbon components (salts, trace minerals)
+    and O2 keep the generous ``uptake_ub``, since they are not the limiting resource. Carbon
+    sources absent from the recipe are closed.
+
+    ``recipe_csv`` has columns ``base`` (the exchange metabolite base id, e.g. ``glc__D``) and
+    ``conc_mM``; ``#`` comment lines carry the provenance. Generic: the recipe, the clearance
+    and the citation live with the strain, not here.
+    Returns (n_opened, n_missing).
+    """
+    import pandas as pd
+    model = pm.ec.model if hasattr(pm, "ec") else pm
+    df = pd.read_csv(recipe_csv, comment="#")
+    for col in ("base", "conc_mM"):
+        if col not in df.columns:
+            raise ValueError(f"medium recipe {recipe_csv} needs a '{col}' column")
+    conc = {str(b): float(c) for b, c in zip(df["base"], df["conc_mM"])}
+    comps = set(conc)
+    # close every carbon source the recipe does not list
+    for base in _CARBON_BASES:
+        rev = f"EX_{base}_e_REV"
+        if rev in model.reactions and base not in comps:
+            model.reactions.get_by_id(rev).upper_bound = 0.0
+    opened, missing, carbon = 0, 0, 0
+    for base, c in conc.items():
+        rev = f"EX_{base}_e_REV"
+        if rev not in model.reactions:
+            missing += 1
+            continue
+        r = model.reactions.get_by_id(rev)
+        mets = list(r.metabolites)
+        is_c = bool(mets) and any(mm.elements.get("C", 0) > 0 for mm in mets)
+        if clearance_L_per_gDW_h is None:
+            # BLANKET mode: the medium says which components exist but not how much of each.
+            # Kept because it is what Parsa's committed gas-flux CSVs were produced with,
+            # before he introduced the recipe-proportional ceilings (P1 gate, DECISIONS D5).
+            is_c = False
+        if is_c and np.isfinite(c) and c > 0:
+            r.upper_bound = float(clearance_L_per_gDW_h) * c
+            carbon += 1
+        else:
+            r.upper_bound = float(uptake_ub)
+        opened += 1
+    if o2_rxn in model.reactions:
+        model.reactions.get_by_id(o2_rxn).upper_bound = float(uptake_ub) if aerobic else 0.0
+    model.solver.update()
+    if verbose and clearance_L_per_gDW_h is None:
+        print(f"[medium] recipe {os.path.basename(str(recipe_csv))} in BLANKET mode: "
+              f"{opened} components open at ub={uptake_ub:g} (no per-component ceilings), "
+              f"{missing} not in the model")
+    elif verbose:
+        total_c = sum(clearance_L_per_gDW_h * conc[b] *
+                      max([mm.elements.get("C", 0)
+                           for mm in model.reactions.get_by_id(f"EX_{b}_e_REV").metabolites]
+                          or [0])
+                      for b in conc if f"EX_{b}_e_REV" in model.reactions
+                      and np.isfinite(conc[b]))
+        print(f"[medium] recipe {os.path.basename(str(recipe_csv))}: {opened} components open "
+              f"({carbon} carbon-limited at clearance {clearance_L_per_gDW_h:g} L/gDW/h "
+              f"-> {total_c:.0f} mmol C/gDW/h ceiling), {missing} not in the model")
+    return opened, missing
+
+
 def _existing_pool_bound(model, pool_id):
     for rxn in model.reactions:
         # the pool exchange/supply reaction produces prot_pool
