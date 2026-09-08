@@ -36,6 +36,7 @@ are far too similar between these species to reproduce the observed divergence.*
 | K2: the core's thermal form | 13.77 °C | 0.411 °C | **34×** |
 | K2 + A1: compression-corrected | 13.77 °C | 2.56 °C | **5.4× [2.5, 10.3]** |
 | **K5: the model repaired so it respires** | **13.57 °C** | 0.411 °C | **33×** |
+| **K7: the same, under the OTHER measured growth convention** | **13.57 °C** | 0.411 °C | **33×** |
 
 _Added 2026-09-08 by K5 (`reports/K5_respire/report.md`)._ The last row closes a possibility
 that was open until it was computed. K4 showed the models had two escape routes — a free proton
@@ -49,6 +50,18 @@ the shift that kills the cell. The escape routes mattered enormously for a const
 respiration — closing them turned K4's "no A_ETC, including zero, changes anything" into a finite
 122-fold membrane requirement — and almost not at all here. So this row is not a new estimate;
 it is the old one, now known not to be an artefact of two model defects.
+
+_Added 2026-09-08 by K7 (`reports/K7_envelope/task1_convention.md`)._ **A second way the number
+could have been an artefact is now also closed.** K6 found the repository holds two conventions
+for the measured growth curve — one counting a dead well as an observed zero, one keeping only
+survivors — and at 40 °C, the temperature this counterfactual interrogates, *C. haemulonii* grows
+at 0.000 h⁻¹ under the first and 0.66 under the second. K7 traced the code rather than reasoning
+about it: `required_separation` takes the growth scale as a scalar and **never reads the
+predicted strain's measured curve at all**. The only measured input is the PEAK of the *C. auris*
+curve, at 36 °C, where *C. auris* is alive under either convention. Recomputed both ways the
+requirement is **13.57 °C either way** (13.64 vs 13.71 before the K5 repair). Calibration and
+counterfactual read the same file, so the model is not fitted to one curve and falsified against
+another.
 
 K2 halved the requirement (the standalone's figure was inflated ~2.4× by its thermal form alone).
 A1 then found the *available* side is not a measurement of the proteomes but an artefact of a
@@ -168,6 +181,18 @@ right in a methanogen and a cyanobacterium and wrong in a bacterium and four yea
 sharper question, it is only askable because the seven strains now share a code base, and it should
 be resolved before the membrane hypothesis (§6a) is treated as the leading explanation — whatever
 explains the pattern must also explain the two organisms where nothing is wrong.
+
+**And the ΔCp prior is not the explanation either (K7, 2026-09-08).** The obvious candidate for
+a single cause behind both the over-predicted ceiling and the too-steep rising limb is the shared
+MMRT curvature prior, `dcp_prior_kJ = -4.0`. K7 swept it from −1 to −16 kJ/mol/K against a
+literature range of −2 to −6. **The two failures are strictly opposed**: the CT_max gap falls
+monotonically as ΔCp becomes more negative while the rising-limb activation energy rises
+monotonically with it. For *C. auris* the steepness and the fit are both best at −3.0, inside
+the range, where the ceiling gap is +9.4 °C; the gap is smallest at −16.0, four times outside the
+range, where the fit R² is −4.17. **Within the defensible range ΔCp closes at most about a fifth
+of the ceiling error.** So the ceiling and the rising limb are not one failure with one cause,
+and the most obvious candidate for making them one is ruled out. Detail:
+`reports/K7_envelope/task3_dcp.md`.
 
 **The ceiling numbers do not move under the K5 repair, and one of them now has a mechanism
 attached (K5, 2026-09-08).** Closing the free proton circuit lowers predicted growth by 36-38 %
