@@ -1,0 +1,67 @@
+# K8 -- the repaired model with A1's MEASURED Seq2Tm bias subtracted from every enzyme's Tm.
+#
+# CHANGE FROM candida_B5_respire, and the only one: a uniform -5.43 C shift of every enzyme's
+# melting temperature, PINNED at that value rather than fitted.
+#
+# WHERE THE NUMBER COMES FROM. A1 scored Seq2Tm against a measured S. cerevisiae meltome and
+# found a systematic bias of +5.43 C (measured mean 49.27, predicted 54.70; RMSE 7.51,
+# r = -0.048, n = 1947; reports/predictor_calibration/report.md). The four Candida strains take
+# every Tm from that predictor, so if the predictor over-states Tm by 5.43 C the model's
+# unfolding ceiling should be too high by about the same.
+#
+# WHY THIS IS A TEST AND NOT A FIT. The value is measured elsewhere and applied here with a
+# prediction stated in advance (reports/K8_tm_bias/DECISIONS.md D4: dCT_max/dTm ~ 1.0, so the
+# gaps should fall from +9.0..+15.4 C to about +3.6..+10.0 C). It is NOT the offset that best
+# closes the gap -- reports/K8_tm_bias/task3_offset_sweep.py finds that separately and the
+# report states how far apart the two are.
+#
+# READ THIS BEFORE USING IT. A1's bias is NOT uniform: it rises 1.06 C per C of predicted Tm,
+# from +2.44 C in the lowest predicted octile to +12.78 C in the highest, because the predictor
+# carries almost no within-proteome signal. A flat offset therefore corrects the LOCATION of the
+# Tm distribution and not its SHAPE, and the shape is what the unfolding form uses to give
+# different enzymes different fates. The correction A1's data actually supports is the
+# regression Tm_corrected = 52.60 - 0.061 x Tm_predicted, which collapses the spread; K8 TASK 2
+# runs that too and reports both. See reports/K8_tm_bias/report.md.
+#
+# NO DEFAULT IS CHANGED. This is an overlay; strains/*/thermal/ and strain.yaml are untouched.
+
+kind: transfer
+
+calibrate_on: cauris_iRV973
+predict:
+  - chaemulonii_draft
+  - cduobushaemulonii_draft
+  - cparapsilosis_iDC1003
+
+objective: measured_tpc
+growth_scale: peak_match
+globals: []                    # nothing is fitted, as from K2 rung B2 on
+fixed_globals:
+  dTm: -5.43                   # A1's measured Seq2Tm bias, subtracted. Pinned, not fitted.
+
+detection_floor_h: 0.05
+thermal_limit: {lo_C: 20.0, hi_C: 90.0, tol_C: 0.02}
+descriptor_grid: {start_C: 15, stop_C: 75, n: 121}
+crit_frac: 0.05
+
+counterfactual:
+  params: [dTm, dTopt]
+  fail_T_C: 40.0
+  permissive_T_C: 34.0
+  threshold_h: 0.05
+  permissive_frac: 0.7
+  lo: -35.0
+  tol: 0.1
+
+provider:
+  # the K5-repaired configuration (candida_B5_respire), unchanged
+  thermal_model: unfolding
+  topt_tm_min_gap_C: 2.0
+  pool_budget: null
+  p_total: 0.46
+  sigma: 0.45
+  f_metab: 0.4461
+  ngam_temperature: true
+  forbid_ion_export:
+    compartment: C_00002
+    ion: H+

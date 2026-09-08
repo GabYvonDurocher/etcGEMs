@@ -147,6 +147,17 @@ measured on predicted is **−0.061 ± 0.029**, so there is no scaling factor to
 absence of signal. (Where the predictor works, across the tree of life, the slope is +1.11 — mild
 compression, which is what compression actually looks like.)
 
+**A1's finding now has a measured consequence inside the model (K8, 2026-09-08).** Two of A1's
+results were, until now, statements about a predictor rather than about this model's behaviour.
+Both now bite. Applying A1's **mean** bias of +5.43 °C closes a third to a half of the Candida
+ceiling over-prediction. Applying the **relationship** A1 actually measured — `Tm = 52.60 − 0.061
+× Tm_predicted`, which is what "no within-proteome validity" means when written as a correction —
+collapses the per-enzyme Tm spread from sd 2.2–2.9 °C to **0.14–0.18 °C** and **improves the fit
+to the measured growth curve in all four species** (*C. auris* R² 0.518 → 0.687). A correction
+that removes almost all of a distribution's variance and makes the model fit *better* is direct
+evidence that the variance was error rather than signal. Detail:
+`reports/K8_tm_bias/report.md`.
+
 **The circularity to keep in view.** A variance decomposition can only attribute to mechanisms the
 model contains. If two-state unfolding is the only thing that can produce a hot collapse, the
 decomposition will assign the collapse to unfolding whether or not that is what kills real cells.
@@ -202,6 +213,27 @@ the membrane-area budget once the model can respire under a carbon cap: *C. auri
 falls from 53.0 °C to 36.5 °C across the A_ETC sweep, against 53.6 to 47.0 in K4. So the
 over-prediction recorded in this section is not immovable — it is simply not moved by anything
 in the enzyme layer. Detail: `reports/K5_respire/task3b_membrane_retest.md`.
+
+**Part of the over-prediction is a predictor artefact, and it can now be sized (K8, 2026-09-08;
+`reports/K8_tm_bias/report.md`).** A1 measured Seq2Tm's bias against a real *S. cerevisiae*
+meltome at **+5.43 °C**. Subtracting exactly that from every Candida enzyme's Tm — a test with the
+expected shift recorded in advance — moves CT_max by **4.1–5.1 °C** (dCT_max/dTm = 0.75–0.94) and
+takes the gaps from +9.0…+15.3 °C to **+4.2…+10.2 °C**, closing a third to a half. *C. auris*
+lands **below** *E. coli*'s +5.9. **E_growth and T_opt do not move at all**, so this is the
+orthogonal lever K7 showed the curvature prior could not supply.
+
+**But it is not the whole story, and the remainder is the interesting part.** Full closure needs
+10 °C for *C. auris* and 15 °C for each relative, 1.8–2.8× the measured bias — and the offsets the
+four species need differ by **5 °C**, which no uniform predictor bias can produce, since a
+predictor bias is common to all four by construction. Meanwhile *E. coli*'s own tuned row in the
+table above already records a **−5.6 K** correction to a **measured** meltome, which cannot be
+predictor bias at all. **So the ceiling has at least two components** — a common ≈5.6 K term and a
+Candida-only ≈5.4 K predictor term, summing to ≈11 K against *C. auris*' required 10 — and a
+species-specific residual of about 4 °C in the relatives, which is the divergence this document
+exists to explain. Note also that *M. maripaludis* and *Synechocystis* take Tm from a **mesophile
+prior built on E. coli's measured meltome**, not from Seq2Tm, which is consistent with their
+near-zero gaps but is weak evidence: their median Tm are higher than Candida's, and the methanogen
+runs at a calibrated `kcat_scale`.
 
 _Checked against the flatness guard (N2). N1's guard fires wherever proteome sectors run
 without temperature-dependent allocation, which is true of the Candida B4 rung, of
