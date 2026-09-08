@@ -51,6 +51,26 @@ ecoli_gasflux:
     - strains/eciML1515/outputs/gasflux_configD
     - strains/eciML1515/outputs/gasflux_configE
     - strains/eciML1515/outputs/gasflux_configF
+    - strains/eciML1515/outputs/calibration_configD_NLDM_recipe_cmax120
+    - strains/eciML1515/outputs/calibration_configD_LB_recipe_cmax120
+    - strains/eciML1515/outputs/calibration_configD_M9_recipe_cmax120
+    - strains/eciML1515/outputs/calibration_configE_NLDM_recipe_cmax120
+    - strains/eciML1515/outputs/calibration_configE_LB_recipe_cmax120
+    - strains/eciML1515/outputs/calibration_configE_M9_recipe_cmax120
+    - strains/eciML1515/outputs/calibration_configF_NLDM_recipe_cmax120
+    - strains/eciML1515/outputs/calibration_configF_LB_recipe_cmax120
+    - strains/eciML1515/outputs/calibration_configF_M9_recipe_cmax120
+
+P4_refit:
+  status: CURRENT
+  note: >-
+    every number in it is produced by a script in the same directory against the present code.
+    Its own headline is that NO chain in it converged -- nor did any of Parsa's -- so nothing
+    in it is quoted as a converged posterior. That is a property of the sampling budget, and it
+    is stated in the report rather than worked around.
+  evidence: >-
+    reports/P4_refit/run_fits.py regenerates the fits (~10 h) and compare.py the tables;
+    convergence diagnostics are recorded per fit in each summary.json.
 
 P3_gate:
   status: CURRENT
