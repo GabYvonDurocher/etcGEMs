@@ -6,7 +6,7 @@
 
 *Evidence:* `task1_two_measured_E.py`, `task2_like_for_like.py` and `task3_maintenance_test.py` all exit 0 and regenerate their committed tables; `python reports/candida_thermal_limit/gate_table.py` -> 79/79 PASS, exit 0, with $CANDIDAS_ROOT unset (2026-09-08).
 
-**This report was last written at** `52b6884` (2026-09-08) — K6 TASK 4: the comparator hazard recorded, and a second instance found
+**This report was last written at** `6f451b2` (2026-09-08) — K6 TASK 5: the report and the provenance stamps
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 
