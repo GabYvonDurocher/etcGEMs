@@ -174,3 +174,13 @@ K6_like_for_like:
     `task1_two_measured_E.py`, `task2_like_for_like.py` and `task3_maintenance_test.py` all exit
     0 and regenerate their committed tables; `python reports/candida_thermal_limit/gate_table.py`
     -> 79/79 PASS, exit 0, with $CANDIDAS_ROOT unset (2026-09-08).
+
+K7_envelope:
+  status: CURRENT
+  note: >-
+    every number was produced by the three scripts beside it, on the code and the strain models
+    as they stand in this branch, and all three re-run clean. No default was changed.
+  evidence: >-
+    `task1_convention.py`, `task2_envelope.py` and `task3_dcp_sweep.py` all exit 0 and
+    regenerate their committed tables; `python reports/candida_thermal_limit/gate_table.py`
+    -> 79/79 PASS, exit 0, with $CANDIDAS_ROOT unset (2026-09-08).
