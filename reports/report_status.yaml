@@ -75,6 +75,16 @@ ecoli_tpc:
     - strains/eciML1515/outputs/control_tuned
     - strains/eciML1515/outputs/ablation_complete
 
+N3_output_audit:
+  status: HISTORICAL
+  note: >-
+    a working log of the output audit (2026-09-07/08), describing the repository as it then was.
+    Its own findings are the reason reports/ecoli_tpc/ is stamped HISTORICAL, and its probes
+    reproduce today; the audit itself is a record of that moment.
+  evidence: >-
+    its probes (reports/N3_output_audit/probes/) run against the present code; the audit table
+    was re-derived at the P2 merge for reports/report_status.yaml's ecoli_tpc entry.
+
 N1_overnight:
   status: HISTORICAL
   note: >-

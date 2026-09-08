@@ -6,7 +6,7 @@
 
 *Evidence:* task1_kcat.py, task2_nldm.py and task3_cmax.py regenerate their own tables.
 
-**This report was last written at** `4c084c2` (2026-09-08) — P2: refresh the provenance stamps after the TASK 5 annotations, and record D4/D5
+**This report was last written at** `5fefbe3` (2026-09-08) — P2: summary
 
 **Committed inputs it reads (found by scanning this report's own files), and the commit each was last written at:**
 

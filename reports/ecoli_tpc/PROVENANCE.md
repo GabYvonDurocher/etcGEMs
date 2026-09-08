@@ -6,7 +6,7 @@
 
 *Evidence:* reports/N3_output_audit/report.md (the eleven-directory audit; arrives on main with PR #3). control_tuned reproduces to seven decimal places; decompose_tuned and elasticity_tuned are 0.235% behind it, exactly the O2-sink closure's documented effect.
 
-**This report was last written at** `4984d04` (2026-09-08) — P2 TASK 5: the three owed annotations, in the files a reader actually reaches
+**This report was last written at** `c3f66be` (2026-09-08) — Merge P2: settle the transporter kcat and the NLDM medium, gather the c_max evidence, stamp every report
 
 **Committed inputs it reads (from `reports/report_status.yaml`), and the commit each was last written at:**
 
