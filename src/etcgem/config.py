@@ -193,6 +193,7 @@ def build_provider(cfg: Dict[str, Any]):
             enzyme_params_use_dCpt=(p.get("dcp_from", "table") != "prior"),
             dcp_prior_kJ=p.get("dcp_prior_kJ", -4.0),
             close_free_o2_sinks=cfg.get("close_free_o2_sinks", True),
+            rescale_pool_row=_rescale_choice(cfg, p),
         )
         if budget_override is not None:
             print(f"[emergent] pool budget = P_total({p_total}) x f_metab({f_metab}) "
@@ -303,6 +304,24 @@ def build_provider(cfg: Dict[str, Any]):
         if ps_call.get("atpm_reaction") is None and p.get("ngam_reaction"):
             ps_call["atpm_reaction"] = p["ngam_reaction"]
         add_proteome_sectors(pm, ps_call)
+        # Backstop for the _rescale_choice guard, at the point sectors actually become
+        # known. It must be an ERROR and not a silent flip: add_proteome_sectors calibrates
+        # translation_coeff (and the NGAM anchor) by solving the model, so by the time we
+        # get here a rescaled pool row has already been used to set sector constants, and
+        # turning rescaling off afterwards leaves those constants calibrated against a
+        # different LP (measured at ~1e-13 relative on eciML1515 -- small, but not the
+        # requested configuration). The decision must be made BEFORE the provider is built,
+        # which is what _rescale_choice does in the gecko and smoment_gem branches. Reaching
+        # this line means a provider kind was added without threading that decision through.
+        if getattr(pm, "ec", None) is not None and getattr(pm.ec, "_sectors", None) is not None \
+                and getattr(pm.ec, "rescale_pool_row", False):
+            raise RuntimeError(
+                f"provider kind {kind!r} built with rescale_pool_row=True and then had "
+                "proteome sectors wired. Rescaling is not supported with sectors; the "
+                "choice must be made before construction -- pass "
+                "rescale_pool_row=_rescale_choice(cfg, p) in the "
+                f"{kind!r} branch of build_provider. See "
+                "reports/candida_thermal_limit/CONFIGURATIONS.md")
         # Fix the sector NGAM anchor for a temperature-dependent maintenance reaction: the
         # sector branch scales atpm_nom_lb by ngam_T(T)/ngam_T(25C), so atpm_nom_lb must be
         # the 25C NGAM value. At sector-build the reaction's lb was NGAM(ref_T) (e.g. 37C),

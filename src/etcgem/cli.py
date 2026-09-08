@@ -1083,7 +1083,14 @@ def build_parser():
 
 def main(argv=None):
     args = build_parser().parse_args(argv)
-    return args.func(args)
+    # Do NOT return the command's value. Every cmd_* returns the output directory it
+    # wrote, and the console-script wrapper does sys.exit(main()) -- so returning it
+    # made every SUCCESSFUL run print that path to stderr and exit 1. That silently
+    # broke `etcgem ... && <check>` in shell verification (N3 TASK 0) and would break
+    # any subprocess call using check=True. Failure is signalled by an exception or an
+    # explicit sys.exit, as before.
+    args.func(args)
+    return 0
 
 
 if __name__ == "__main__":

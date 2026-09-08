@@ -237,7 +237,8 @@ def from_gecko(model_path: str, T0: float = 303.15,
                budget_override: Optional[float] = None,
                enzyme_params_use_dCpt: bool = True,
                dcp_prior_kJ: float = -4.0,
-               close_free_o2_sinks: bool = True) -> ProvidedModel:
+               close_free_o2_sinks: bool = True,
+               rescale_pool_row: bool = True) -> ProvidedModel:
     """Extract an enzyme cost table from a GECKO-style ecModel.
 
     Handles two encodings:
@@ -349,7 +350,8 @@ def from_gecko(model_path: str, T0: float = 303.15,
                                 thermal_model=thermal_model,
                                 ngam_temperature=ngam_temperature, ngam_rxn=ngam_rxn,
                                 ngam_base_scale=ngam_base_scale,
-                                unfold_means={"dCpt": dcp_prior_kJ * 1000.0})
+                                unfold_means={"dCpt": dcp_prior_kJ * 1000.0},
+                                rescale_pool_row=rescale_pool_row)
     ec.model.objective = biomass_rxn
     # P1c: reconcile the two redundant enzyme-mass pools into ONE proteome budget.
     # The etcgem sMOMENT/sector pool (P_total x f_metab x sigma, medium- & growth-law-
