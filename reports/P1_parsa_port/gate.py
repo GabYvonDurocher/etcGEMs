@@ -39,7 +39,10 @@ QUANTITIES = [("temp_C", "T_opt (C)", 0.0, "abs"),
               ("co2_release", "CO2 release @T_opt", 1e-3, "rel"),
               ("RQ", "RQ @T_opt", 1e-3, "rel")]
 CONFIGS = [("configA_kcat300", "gasflux_configA", "A -- MMRT-costed transport"),
-           ("configB_C60", "gasflux_configB", "B -- total-carbon cap (C_max 60)"),
+           # C_max = 60 is now the labelled SENSITIVITY overlay, not the baseline (P3 TASK 4
+           # adopted 120 on Parsa's own sweep). The gate compares his figure, so it reads the
+           # run that reproduces his figure.
+           ("configB_C60", "gasflux_configB_cmax60", "B -- total-carbon cap (C_max 60)"),
            ("configC_acetate", "gasflux_configC", "C -- Basan acetate line")]
 
 

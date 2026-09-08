@@ -481,10 +481,14 @@ def apply_gasflux(cfg: Dict[str, Any], pm):
     cc = gf.get("total_carbon_cap") or {}
     if cc.get("enabled"):
         from .gasflux import add_total_carbon_constraint
-        c = add_total_carbon_constraint(pm, float(cc["c_max"]),
+        c_max = cc.get("c_max", (gx.get("carbon_cap") or {}).get("c_max"))
+        if c_max is None:
+            raise ValueError("gasflux.total_carbon_cap is enabled but no c_max is set, in the "
+                             "experiment or in the strain's gas_exchange.carbon_cap")
+        c = add_total_carbon_constraint(pm, float(c_max),
                                         exclude=tuple(cc.get("exclude", ("co2", "hco3"))))
         n = getattr(c, "_n_carbon_sources", 0) if c is not None else 0
-        print(f"[gasflux] total carbon uptake <= {float(cc['c_max']):g} mmol C/gDW/h "
+        print(f"[gasflux] total carbon uptake <= {float(c_max):g} mmol C/gDW/h "
               f"over {n} open carbon source(s)")
     return pm
 

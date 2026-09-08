@@ -1,0 +1,2 @@
+OTU,growth_E_eV,respiration_E_eV,growth_se_E_eV,respiration_se_E_eV,growth_r_squared,respiration_r_squared,growth_n,respiration_n,otu_name,cell_volume_um3,cell_carbon_fg
+1,-1.002967820784209,0.34522432869681624,0.3076679304888893,0.05302832392747731,0.15949954978332462,0.4307933128048631,58,58,Ecoli_M9,2,350
