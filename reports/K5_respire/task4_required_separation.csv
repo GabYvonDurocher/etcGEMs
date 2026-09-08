@@ -1,0 +1,17 @@
+required,permissive_growth,permissive_baseline,permissive_preserved,baseline_fail,config,experiment,c_max,strain,growth_scale
+13.5,0.5665,0.5686,True,0.684,"B3 before repair, no cap (K2's condition)",candida_B3_ngamT,,chaemulonii_draft,7.67030518625977
+14.05,0.5539,0.5581,True,0.5353,"B3 before repair, no cap (K2's condition)",candida_B3_ngamT,,cduobushaemulonii_draft,7.67030518625977
+13.64,0.6244,0.6295,True,0.6368,"B3 before repair, no cap (K2's condition)",candida_B3_ngamT,,cparapsilosis_iDC1003,7.67030518625977
+13.64,,,,,"B3 before repair, no cap (K2's condition)",candida_B3_ngamT,,MEDIAN,7.67030518625977
+13.3,0.6048,0.609,True,0.6545,"B5 repaired, no cap",candida_B5_respire,,chaemulonii_draft,11.702874781052445
+13.57,0.571,0.5756,True,0.5056,"B5 repaired, no cap",candida_B5_respire,,cduobushaemulonii_draft,11.702874781052445
+13.77,0.9517,0.9604,True,0.9715,"B5 repaired, no cap",candida_B5_respire,,cparapsilosis_iDC1003,11.702874781052445
+13.57,,,,,"B5 repaired, no cap",candida_B5_respire,,MEDIAN,11.702874781052445
+13.23,0.5532,0.5564,True,0.546,B5 repaired + carbon cap 12,candida_B5_respire,12.0,chaemulonii_draft,11.703415391866612
+13.57,0.5531,0.5569,True,0.476,B5 repaired + carbon cap 12,candida_B5_respire,12.0,cduobushaemulonii_draft,11.703415391866612
+13.77,0.9102,0.9195,True,0.9193,B5 repaired + carbon cap 12,candida_B5_respire,12.0,cparapsilosis_iDC1003,11.703415391866612
+13.57,,,,,B5 repaired + carbon cap 12,candida_B5_respire,12.0,MEDIAN,11.703415391866612
+13.5,0.5665,0.5686,True,0.684,B3 before repair + carbon cap 12,candida_B3_ngamT,12.0,chaemulonii_draft,7.670305186259775
+14.05,0.5539,0.5581,True,0.5353,B3 before repair + carbon cap 12,candida_B3_ngamT,12.0,cduobushaemulonii_draft,7.670305186259775
+13.64,0.5972,0.6026,True,0.6025,B3 before repair + carbon cap 12,candida_B3_ngamT,12.0,cparapsilosis_iDC1003,7.670305186259775
+13.64,,,,,B3 before repair + carbon cap 12,candida_B3_ngamT,12.0,MEDIAN,7.670305186259775

@@ -1,0 +1,81 @@
+# K5 LADDER RUNG B5 -- close the free coupling-ion circuit, so the model actually respires.
+#
+# CHANGE FROM B3 (candida_B3_ngamT), and the only one: uncosted, REVERSIBLE carriers may no
+# longer run in the direction that pumps protons INTO the cytosol. Everything else -- the
+# unfolding thermal form, the grounded proteome budget, NGAM(T) -- is B3's.
+#
+# WHY. K4 found, and K5 TASK 1 confirmed on all seven strains, that the respiratory chain
+# supplies 0.04-0.05 % of the protons ATP synthase consumes in the three iRV973-derived models.
+# The circuit closes instead through free metabolite/H+ symporters run backwards; one aspartate
+# carrier alone supplies more protons per hour than ATP synthase draws. The chain is functional
+# and simply bypassed. C. parapsilosis (112 %), E. coli (124 %), M. maripaludis (105 %) and
+# Synechocystis (100 %) do not have the defect, so this is a property of one reconstruction.
+#
+# WHY A DIRECTION CONSTRAINT AND NOT A DELETION OR A BOUND. These carriers are real biology and
+# are genuinely reversible in principle. What is not physical is running one in the direction
+# that CREATES proton-motive force for free: a symporter is driven BY the gradient and cannot
+# build the gradient that drives it. The physiological direction, down the gradient, stays
+# completely open. Nothing is deleted and no numerical bound is invented.
+#
+# WHY NOT JUST COST THE TRANSPORT, which would have been cheaper. Tried first, and it does not
+# work: costing all 78 mito/cyto carriers with Config A's MMRT-costed carrier (the mechanism
+# P3 gated on E. coli) leaves the chain supplying 0.04-0.05 %. The enzyme cost of the leak is
+# far smaller than the ATP the free gradient buys. Recorded in reports/K5_respire/report.md.
+#
+# WHY IT IS AN EXPERIMENT AND NOT A STRAIN DEFAULT. Putting it in strain.yaml would change the
+# resolved_config.yaml of every committed run of these strains and would move K1's locked
+# numbers, which the gate checks. The unrepaired model stays the default; this overlay is the
+# repaired one, and both are runnable side by side. Same convention as the K2 ladder.
+#
+# WHAT IT COSTS. Predicted growth falls by 36-38 % in the three affected species at 40 C and is
+# unchanged in C. parapsilosis, which has nothing to constrain. That is the order K4 measured
+# for stripping the proton coupling by hand (about one third).
+
+kind: transfer
+
+calibrate_on: cauris_iRV973
+predict:
+  - chaemulonii_draft
+  - cduobushaemulonii_draft
+  - cparapsilosis_iDC1003
+
+objective: measured_tpc
+growth_scale: peak_match
+globals: []                # nothing fitted, as from K2 rung B2 on
+
+detection_floor_h: 0.05
+thermal_limit:
+  lo_C: 20.0
+  hi_C: 90.0
+  tol_C: 0.02
+
+descriptor_grid:
+  start_C: 15
+  stop_C: 75
+  n: 121
+crit_frac: 0.05
+
+counterfactual:
+  params: [dTm, dTopt]
+  fail_T_C: 40.0
+  permissive_T_C: 34.0
+  threshold_h: 0.05
+  permissive_frac: 0.7
+  lo: -35.0
+  tol: 0.1
+
+provider:
+  # --- B3, unchanged ---
+  thermal_model: unfolding
+  topt_tm_min_gap_C: 2.0
+  pool_budget: null
+  p_total: 0.46
+  sigma: 0.45
+  f_metab: 0.4461
+  ngam_temperature: true
+
+  # --- THE CHANGE ---
+  forbid_ion_export:
+    compartment: C_00002     # the cytosol: the side ATP synthase draws protons from in these
+                             # models, i.e. the energised side of the inner membrane
+    ion: H+

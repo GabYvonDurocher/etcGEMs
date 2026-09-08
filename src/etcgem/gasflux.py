@@ -104,6 +104,14 @@ def add_total_carbon_constraint(pm, c_max: float, exclude=("co2", "hco3"),
     organism-independent: it constrains whatever carbon sources the current medium leaves open.
     ``exclude`` names inorganic-carbon bases that should not be charged to the budget.
     Returns the constraint (with ``_n_carbon_sources`` attached) or None if nothing matched.
+
+    TWO EXCHANGE ENCODINGS (K5). A GECKO model splits every exchange into a forward and a
+    ``_e_REV`` reverse half, and uptake is the REV half's flux -- that is the eciML1515 case and
+    the only one this function handled. A plain SBML GEM keeps one reversible exchange with a
+    negative lower bound, and uptake is its REVERSE VARIABLE; that is the Candida and methanogen
+    case, in which the GECKO pattern matches nothing at all and the cap was silently a no-op.
+    The plain-exchange branch is a FALLBACK, used only when the GECKO pattern finds nothing, so
+    no eciML1515 run can change behaviour.
     """
     m = pm.ec.model if hasattr(pm, "ec") else pm
     if name in m.constraints:
@@ -119,6 +127,21 @@ def add_total_carbon_constraint(pm, c_max: float, exclude=("co2", "hco3"),
             nC = mets[0].elements.get("C", 0)
             if nC > 0:
                 terms.append(nC * r.flux_expression)
+                n += 1
+    if not terms:
+        # plain SBML exchanges: uptake is the reverse variable of a reaction with lb < 0
+        for r in m.reactions:
+            if not r.id.startswith("EX_") or r.lower_bound >= 0:
+                continue
+            mets = list(r.metabolites)
+            if len(mets) != 1:
+                continue
+            mid = mets[0].id.lower()
+            if any(x in mid for x in exclude) or mets[0].id.startswith(("C00011", "C00288")):
+                continue
+            nC = (mets[0].elements or {}).get("C", 0)
+            if nC > 0:
+                terms.append(nC * r.reverse_variable)
                 n += 1
     if not terms:
         return None

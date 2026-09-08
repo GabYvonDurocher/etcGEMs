@@ -1,0 +1,1602 @@
+{
+  "no carbon cap::unconstrained::cauris_iRV973": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "unconstrained",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 36.0,
+    "plateau_1pct_hi_C": 38.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::unconstrained::chaemulonii_draft": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "unconstrained",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 36.5,
+    "plateau_1pct_hi_C": 38.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::unconstrained::cduobushaemulonii_draft": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "unconstrained",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 33.0,
+    "plateau_1pct_hi_C": 36.0,
+    "plateau_1pct_width_C": 3.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::unconstrained::cparapsilosis_iDC1003": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "unconstrained",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 36.0,
+    "plateau_1pct_hi_C": 38.5,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::2xA*::cauris_iRV973": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "2xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 36.0,
+    "plateau_1pct_hi_C": 38.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::2xA*::chaemulonii_draft": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "2xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 36.5,
+    "plateau_1pct_hi_C": 38.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::2xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "2xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 33.0,
+    "plateau_1pct_hi_C": 36.0,
+    "plateau_1pct_width_C": 3.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::2xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "2xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 36.0,
+    "plateau_1pct_hi_C": 38.5,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::1xA*::cauris_iRV973": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "1xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 34.5,
+    "plateau_1pct_hi_C": 37.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::1xA*::chaemulonii_draft": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "1xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 36.0,
+    "plateau_1pct_hi_C": 38.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::1xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "1xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 33.0,
+    "plateau_1pct_hi_C": 36.0,
+    "plateau_1pct_width_C": 3.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::1xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "1xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 36.0,
+    "plateau_1pct_hi_C": 38.5,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0.7xA*::cauris_iRV973": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0.7xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 34.5,
+    "plateau_1pct_hi_C": 36.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0.7xA*::chaemulonii_draft": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0.7xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 36.0,
+    "plateau_1pct_hi_C": 38.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0.7xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0.7xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 32.5,
+    "plateau_1pct_hi_C": 35.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0.7xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0.7xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 35.0,
+    "plateau_1pct_hi_C": 37.5,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0.5xA*::cauris_iRV973": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0.5xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 33.5,
+    "plateau_1pct_hi_C": 35.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0.5xA*::chaemulonii_draft": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0.5xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 36.0,
+    "plateau_1pct_hi_C": 37.5,
+    "plateau_1pct_width_C": 1.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0.5xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0.5xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 32.5,
+    "plateau_1pct_hi_C": 35.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0.5xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0.5xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 34.5,
+    "plateau_1pct_hi_C": 37.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0.35xA*::cauris_iRV973": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0.35xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 33.5,
+    "plateau_1pct_hi_C": 35.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0.35xA*::chaemulonii_draft": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0.35xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 35.5,
+    "plateau_1pct_hi_C": 37.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0.35xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0.35xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 32.5,
+    "plateau_1pct_hi_C": 35.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0.35xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0.35xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 34.0,
+    "plateau_1pct_hi_C": 36.5,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0.2xA*::cauris_iRV973": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0.2xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 33.0,
+    "plateau_1pct_hi_C": 35.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0.2xA*::chaemulonii_draft": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0.2xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 35.5,
+    "plateau_1pct_hi_C": 37.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0.2xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0.2xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 32.5,
+    "plateau_1pct_hi_C": 35.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0.2xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0.2xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 34.0,
+    "plateau_1pct_hi_C": 36.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0.1xA*::cauris_iRV973": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0.1xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 33.0,
+    "plateau_1pct_hi_C": 35.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0.1xA*::chaemulonii_draft": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0.1xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 35.5,
+    "plateau_1pct_hi_C": 37.0,
+    "plateau_1pct_width_C": 1.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0.1xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0.1xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 32.5,
+    "plateau_1pct_hi_C": 35.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0.1xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0.1xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 33.5,
+    "plateau_1pct_hi_C": 36.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0.05xA*::cauris_iRV973": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0.05xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 33.0,
+    "plateau_1pct_hi_C": 35.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0.05xA*::chaemulonii_draft": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0.05xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 35.5,
+    "plateau_1pct_hi_C": 37.0,
+    "plateau_1pct_width_C": 1.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0.05xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0.05xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 32.5,
+    "plateau_1pct_hi_C": 35.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0.05xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0.05xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 33.5,
+    "plateau_1pct_hi_C": 36.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.5,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0xA*::cauris_iRV973": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 33.0,
+    "plateau_1pct_hi_C": 34.5,
+    "plateau_1pct_width_C": 1.5,
+    "plateau_0p01pct_width_C": 0.5,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0xA*::chaemulonii_draft": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 35.5,
+    "plateau_1pct_hi_C": 37.0,
+    "plateau_1pct_width_C": 1.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 32.5,
+    "plateau_1pct_hi_C": 35.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "no carbon cap::0xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "no carbon cap",
+    "A_ETC_level": "0xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 34.0,
+    "plateau_1pct_hi_C": 36.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::unconstrained::cauris_iRV973": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "unconstrained",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 35.5,
+    "plateau_1pct_hi_C": 38.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.5,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::unconstrained::chaemulonii_draft": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "unconstrained",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 35.5,
+    "plateau_1pct_hi_C": 37.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::unconstrained::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "unconstrained",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 32.0,
+    "plateau_1pct_hi_C": 35.0,
+    "plateau_1pct_width_C": 3.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::unconstrained::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "unconstrained",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 35.5,
+    "plateau_1pct_hi_C": 38.5,
+    "plateau_1pct_width_C": 3.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::2xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "2xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 35.5,
+    "plateau_1pct_hi_C": 38.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.5,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::2xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "2xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 35.5,
+    "plateau_1pct_hi_C": 37.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::2xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "2xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 32.0,
+    "plateau_1pct_hi_C": 35.0,
+    "plateau_1pct_width_C": 3.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::2xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "2xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 35.5,
+    "plateau_1pct_hi_C": 38.5,
+    "plateau_1pct_width_C": 3.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::1xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "1xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 34.0,
+    "plateau_1pct_hi_C": 36.5,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::1xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "1xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 35.0,
+    "plateau_1pct_hi_C": 36.5,
+    "plateau_1pct_width_C": 1.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::1xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "1xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 32.0,
+    "plateau_1pct_hi_C": 35.0,
+    "plateau_1pct_width_C": 3.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::1xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "1xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 35.5,
+    "plateau_1pct_hi_C": 38.5,
+    "plateau_1pct_width_C": 3.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0.7xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0.7xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 33.0,
+    "plateau_1pct_hi_C": 35.5,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0.7xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0.7xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 33.5,
+    "plateau_1pct_hi_C": 35.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0.7xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0.7xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 31.5,
+    "plateau_1pct_hi_C": 33.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0.7xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0.7xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 35.5,
+    "plateau_1pct_hi_C": 37.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0.5xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0.5xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 32.5,
+    "plateau_1pct_hi_C": 34.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0.5xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0.5xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 32.5,
+    "plateau_1pct_hi_C": 35.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.5,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0.5xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0.5xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 30.0,
+    "plateau_1pct_hi_C": 32.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0.5xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0.5xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 33.5,
+    "plateau_1pct_hi_C": 36.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0.35xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0.35xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 32.0,
+    "plateau_1pct_hi_C": 34.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0.35xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0.35xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 32.0,
+    "plateau_1pct_hi_C": 34.5,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0.35xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0.35xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 29.0,
+    "plateau_1pct_hi_C": 31.5,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.5,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0.35xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0.35xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 33.0,
+    "plateau_1pct_hi_C": 35.5,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0.2xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0.2xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 31.5,
+    "plateau_1pct_hi_C": 32.5,
+    "plateau_1pct_width_C": 1.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0.2xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0.2xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 30.5,
+    "plateau_1pct_hi_C": 32.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0.2xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0.2xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 29.0,
+    "plateau_1pct_hi_C": 31.5,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0.2xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0.2xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 31.5,
+    "plateau_1pct_hi_C": 33.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0.1xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0.1xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 29.5,
+    "plateau_1pct_hi_C": 30.0,
+    "plateau_1pct_width_C": 0.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0.1xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0.1xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 30.0,
+    "plateau_1pct_hi_C": 31.5,
+    "plateau_1pct_width_C": 1.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0.1xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0.1xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 28.5,
+    "plateau_1pct_hi_C": 31.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0.1xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0.1xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 31.0,
+    "plateau_1pct_hi_C": 33.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0.05xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0.05xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 28.5,
+    "plateau_1pct_hi_C": 28.5,
+    "plateau_1pct_width_C": 0.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0.05xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0.05xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 30.0,
+    "plateau_1pct_hi_C": 31.5,
+    "plateau_1pct_width_C": 1.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0.05xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0.05xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 28.5,
+    "plateau_1pct_hi_C": 31.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0.05xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0.05xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 30.5,
+    "plateau_1pct_hi_C": 32.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 27.5,
+    "plateau_1pct_hi_C": 27.5,
+    "plateau_1pct_width_C": 0.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 29.5,
+    "plateau_1pct_hi_C": 31.0,
+    "plateau_1pct_width_C": 1.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 28.5,
+    "plateau_1pct_hi_C": 31.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 12::0xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 12",
+    "A_ETC_level": "0xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 30.5,
+    "plateau_1pct_hi_C": 32.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::unconstrained::cauris_iRV973": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "unconstrained",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 32.0,
+    "plateau_1pct_hi_C": 35.0,
+    "plateau_1pct_width_C": 3.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::unconstrained::chaemulonii_draft": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "unconstrained",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 34.0,
+    "plateau_1pct_hi_C": 36.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::unconstrained::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "unconstrained",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 31.5,
+    "plateau_1pct_hi_C": 33.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.5,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::unconstrained::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "unconstrained",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 35.5,
+    "plateau_1pct_hi_C": 38.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::2xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "2xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 32.0,
+    "plateau_1pct_hi_C": 35.0,
+    "plateau_1pct_width_C": 3.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::2xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "2xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 34.0,
+    "plateau_1pct_hi_C": 36.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::2xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "2xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 31.5,
+    "plateau_1pct_hi_C": 33.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.5,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::2xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "2xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 35.5,
+    "plateau_1pct_hi_C": 38.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::1xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "1xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 32.0,
+    "plateau_1pct_hi_C": 35.0,
+    "plateau_1pct_width_C": 3.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::1xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "1xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 32.5,
+    "plateau_1pct_hi_C": 34.0,
+    "plateau_1pct_width_C": 1.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::1xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "1xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 31.0,
+    "plateau_1pct_hi_C": 33.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::1xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "1xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 35.5,
+    "plateau_1pct_hi_C": 38.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0.7xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0.7xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 32.5,
+    "plateau_1pct_hi_C": 35.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0.7xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0.7xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 31.0,
+    "plateau_1pct_hi_C": 33.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0.7xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0.7xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 29.0,
+    "plateau_1pct_hi_C": 31.5,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0.7xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0.7xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 34.0,
+    "plateau_1pct_hi_C": 36.5,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0.5xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0.5xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 32.0,
+    "plateau_1pct_hi_C": 34.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0.5xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0.5xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 30.5,
+    "plateau_1pct_hi_C": 32.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0.5xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0.5xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 29.0,
+    "plateau_1pct_hi_C": 31.5,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.5,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0.5xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0.5xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 33.0,
+    "plateau_1pct_hi_C": 35.5,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0.35xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0.35xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 31.0,
+    "plateau_1pct_hi_C": 32.0,
+    "plateau_1pct_width_C": 1.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0.35xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0.35xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 30.0,
+    "plateau_1pct_hi_C": 32.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0.35xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0.35xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 29.0,
+    "plateau_1pct_hi_C": 31.5,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0.35xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0.35xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 32.0,
+    "plateau_1pct_hi_C": 34.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.5,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0.2xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0.2xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 28.0,
+    "plateau_1pct_hi_C": 28.0,
+    "plateau_1pct_width_C": 0.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0.2xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0.2xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 29.0,
+    "plateau_1pct_hi_C": 30.5,
+    "plateau_1pct_width_C": 1.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0.2xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0.2xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 28.5,
+    "plateau_1pct_hi_C": 31.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.5,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0.2xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0.2xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 31.0,
+    "plateau_1pct_hi_C": 33.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0.1xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0.1xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 25.5,
+    "plateau_1pct_hi_C": 26.0,
+    "plateau_1pct_width_C": 0.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0.1xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0.1xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 28.0,
+    "plateau_1pct_hi_C": 29.5,
+    "plateau_1pct_width_C": 1.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0.1xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0.1xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 28.5,
+    "plateau_1pct_hi_C": 31.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0.1xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0.1xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 30.0,
+    "plateau_1pct_hi_C": 32.5,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0.05xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0.05xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 25.0,
+    "plateau_1pct_hi_C": 25.0,
+    "plateau_1pct_width_C": 0.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0.05xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0.05xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 27.5,
+    "plateau_1pct_hi_C": 29.0,
+    "plateau_1pct_width_C": 1.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0.05xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0.05xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 28.0,
+    "plateau_1pct_hi_C": 30.5,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0.05xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0.05xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 30.0,
+    "plateau_1pct_hi_C": 32.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 25.0,
+    "plateau_1pct_hi_C": 25.0,
+    "plateau_1pct_width_C": 0.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 27.0,
+    "plateau_1pct_hi_C": 28.5,
+    "plateau_1pct_width_C": 1.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 28.0,
+    "plateau_1pct_hi_C": 30.5,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.5,
+    "grid_span_C": 60.0
+  },
+  "c_max 8::0xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 8",
+    "A_ETC_level": "0xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 29.5,
+    "plateau_1pct_hi_C": 31.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::unconstrained::cauris_iRV973": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "unconstrained",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 36.0,
+    "plateau_1pct_hi_C": 38.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::unconstrained::chaemulonii_draft": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "unconstrained",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 36.5,
+    "plateau_1pct_hi_C": 38.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::unconstrained::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "unconstrained",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 33.0,
+    "plateau_1pct_hi_C": 36.0,
+    "plateau_1pct_width_C": 3.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::unconstrained::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "unconstrained",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 35.5,
+    "plateau_1pct_hi_C": 38.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::2xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "2xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 36.0,
+    "plateau_1pct_hi_C": 38.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::2xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "2xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 36.5,
+    "plateau_1pct_hi_C": 38.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::2xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "2xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 33.0,
+    "plateau_1pct_hi_C": 36.0,
+    "plateau_1pct_width_C": 3.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::2xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "2xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 35.5,
+    "plateau_1pct_hi_C": 38.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::1xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "1xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 34.5,
+    "plateau_1pct_hi_C": 37.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::1xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "1xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 36.0,
+    "plateau_1pct_hi_C": 38.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::1xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "1xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 33.0,
+    "plateau_1pct_hi_C": 36.0,
+    "plateau_1pct_width_C": 3.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::1xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "1xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 35.5,
+    "plateau_1pct_hi_C": 38.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0.7xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0.7xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 33.5,
+    "plateau_1pct_hi_C": 35.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0.7xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0.7xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 36.0,
+    "plateau_1pct_hi_C": 38.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0.7xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0.7xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 32.5,
+    "plateau_1pct_hi_C": 35.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0.7xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0.7xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 35.0,
+    "plateau_1pct_hi_C": 37.5,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0.5xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0.5xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 33.0,
+    "plateau_1pct_hi_C": 35.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0.5xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0.5xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 36.0,
+    "plateau_1pct_hi_C": 37.5,
+    "plateau_1pct_width_C": 1.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0.5xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0.5xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 32.5,
+    "plateau_1pct_hi_C": 35.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0.5xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0.5xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 34.5,
+    "plateau_1pct_hi_C": 37.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0.35xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0.35xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 32.5,
+    "plateau_1pct_hi_C": 35.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0.35xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0.35xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 35.5,
+    "plateau_1pct_hi_C": 37.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0.35xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0.35xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 32.5,
+    "plateau_1pct_hi_C": 35.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0.35xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0.35xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 34.0,
+    "plateau_1pct_hi_C": 36.5,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0.2xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0.2xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 32.5,
+    "plateau_1pct_hi_C": 34.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0.2xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0.2xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 35.5,
+    "plateau_1pct_hi_C": 37.0,
+    "plateau_1pct_width_C": 1.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0.2xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0.2xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 32.5,
+    "plateau_1pct_hi_C": 35.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0.2xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0.2xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 33.5,
+    "plateau_1pct_hi_C": 35.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0.1xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0.1xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 32.0,
+    "plateau_1pct_hi_C": 34.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0.1xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0.1xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 34.5,
+    "plateau_1pct_hi_C": 36.0,
+    "plateau_1pct_width_C": 1.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0.1xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0.1xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 32.5,
+    "plateau_1pct_hi_C": 34.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0.1xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0.1xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 32.5,
+    "plateau_1pct_hi_C": 34.5,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0.05xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0.05xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 32.0,
+    "plateau_1pct_hi_C": 34.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0.05xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0.05xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 34.0,
+    "plateau_1pct_hi_C": 36.0,
+    "plateau_1pct_width_C": 2.0,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0.05xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0.05xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 32.5,
+    "plateau_1pct_hi_C": 34.0,
+    "plateau_1pct_width_C": 1.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0.05xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0.05xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 31.5,
+    "plateau_1pct_hi_C": 34.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.5,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0xA*::cauris_iRV973": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0xA*",
+    "strain": "cauris_iRV973",
+    "plateau_1pct_lo_C": 32.0,
+    "plateau_1pct_hi_C": 33.5,
+    "plateau_1pct_width_C": 1.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0xA*::chaemulonii_draft": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0xA*",
+    "strain": "chaemulonii_draft",
+    "plateau_1pct_lo_C": 34.0,
+    "plateau_1pct_hi_C": 35.5,
+    "plateau_1pct_width_C": 1.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0xA*::cduobushaemulonii_draft": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0xA*",
+    "strain": "cduobushaemulonii_draft",
+    "plateau_1pct_lo_C": 32.5,
+    "plateau_1pct_hi_C": 34.0,
+    "plateau_1pct_width_C": 1.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  },
+  "c_max 20::0xA*::cparapsilosis_iDC1003": {
+    "carbon_cap": "c_max 20",
+    "A_ETC_level": "0xA*",
+    "strain": "cparapsilosis_iDC1003",
+    "plateau_1pct_lo_C": 31.5,
+    "plateau_1pct_hi_C": 34.0,
+    "plateau_1pct_width_C": 2.5,
+    "plateau_0p01pct_width_C": 0.0,
+    "grid_span_C": 60.0
+  }
+}
