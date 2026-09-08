@@ -140,3 +140,15 @@ predictor_calibration:
     tables and reads no strain-output directory; re-running it needs the external model
     weights and the fetched sequence data, which are gitignored.
   evidence: "self-contained; inputs are external and not committed"
+
+K4_membrane:
+  status: CURRENT
+  note: >-
+    every number in the report was produced by the three scripts beside it, on the code and
+    the strain models as they stand in this branch, and all three re-run clean.
+  evidence: >-
+    `python3 reports/K4_membrane/task1_etc_complement.py`, `task2_build_tables.py` and
+    `task3_sweep.py` all exit 0 and regenerate their committed tables; the CLI path
+    `etcgem transfer --experiment candida_K4_etc_area` reproduces the sweep's 1 x A* row;
+    `python reports/candida_thermal_limit/gate_table.py` -> 79/79 PASS, exit 0, with
+    $CANDIDAS_ROOT unset, both before and after this work (2026-09-08).
