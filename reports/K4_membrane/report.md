@@ -21,6 +21,7 @@ Reproduce everything with:
 python3 reports/K4_membrane/task1_etc_complement.py    # the gate
 python3 reports/K4_membrane/task2_build_tables.py      # the tables + sourcing
 python3 reports/K4_membrane/task3_sweep.py             # the A_ETC sweep
+etcgem transfer --experiment candida_K4_etc_area       # one point on it, via the CLI
 python3 reports/candida_thermal_limit/gate_table.py    # K1's gate, still 79/79
 ```
 
@@ -199,6 +200,14 @@ at 40 °C while *C. auris* is at 0.664.
 | enzyme Tm (K2) | 13.8 °C | 0.411 °C predicted; 1.6 °C measured | 26× ; 8.6× |
 | **ETC membrane area (K4)** | **no finite value; the mechanism cannot produce the phenotype at any budget** | no measurement exists for any *Candida*; nearest fungal proxy 7× | **not expressible as a ratio** |
 
+**And the membrane constraint does not reduce what the enzyme layer still has to supply.**
+Running K2's own dTm counterfactual *with the area budget switched on* — the supported CLI
+path, `etcgem transfer --experiment candida_K4_etc_area` — the required uniform Tm separation
+is **13.5, 14.1 and 13.6 °C** for the three relatives, median **13.6 °C**. K2's figure without
+any membrane constraint was 13.8 °C (13.64 at rung B3). So adding the mechanism moves the
+enzyme-thermal requirement by about 0.2 °C. It does not substitute for the missing separation,
+and it does not reduce it.
+
 The two failures are different in kind, and the difference matters. The Tm route fails
 *quantitatively* — the mechanism works, and the available difference is 26× too small. The
 membrane-area route fails *structurally*: there is no value of the parameter that produces the
@@ -221,8 +230,9 @@ area is not a limiting resource in these models at any defensible parameterisati
 **It licenses these statements.**
 
 * The core's ETC membrane-area mechanism now runs on a eukaryote and on four new strains, from
-  per-strain data files, with no code change. That was the capability P1 was built for and it
-  transfers.
+  per-strain data files and one experiment overlay, with no code change. That was the
+  capability P1 was built for and it transfers. `configs/experiments/candida_K4_etc_area.yaml`
+  is the demonstration, and it reproduces the sweep's 1 × A\* row through the supported path.
 * In *C. parapsilosis*, whose reconstruction encodes a coupled respiratory chain, the
   constraint binds on respiration and behaves sensibly: it reduces growth, lowers CT_max and
   improves fit at intermediate budgets.
@@ -273,5 +283,6 @@ reconstruction repair, not a measurement campaign.
 | the complex tables | `strains/*/etc/complexes.csv` |
 | per-value sourcing | `task2_sourcing.csv` |
 | the A_ETC sweep, binding per temperature, counterfactual, flatness | `task3_*.csv`, `task3_flatness.json` |
+| the mechanism through the CLI | `configs/experiments/candida_K4_etc_area.yaml`, `outputs/transfer_candida_K4_etc_area/` |
 | what would make this a real test | `task5_what_would_test_it.md` |
 | decisions | `DECISIONS.md` |

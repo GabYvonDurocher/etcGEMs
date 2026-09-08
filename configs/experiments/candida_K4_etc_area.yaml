@@ -1,0 +1,79 @@
+# K4 -- the ETC membrane-area budget on the four Candida strains.
+#
+# THIS FILE EXISTS TO SHOW THE MECHANISM RUNS THROUGH THE SUPPORTED PATH, from per-strain data
+# files and one experiment overlay, with no code change. It is the same `gasflux.etc_area` block
+# eciML1515's configurations E and F use (configs/experiments/gasflux_config{E,F}.yaml); the
+# only differences are the strain table it points at and that A_ETC is given directly.
+#
+# READ reports/K4_membrane/report.md BEFORE USING THIS. The result it produces is that the
+# constraint binds on ATP SYNTHASE and not on respiration in the three Candidozyma models
+# (99.6-99.99% of the area used), because their respiratory chain supplies 0.03% of the protons
+# ATP synthase consumes. And every footprint and turnover in the tables is IDENTICAL across the
+# four species, so this configuration CANNOT be used for an interspecies comparison.
+#
+# A_ETC. There is no measured mitochondrial inner-membrane area for any Candida, and no
+# inner:outer membrane area ratio for any fungus, so this is a free knob. The value below is
+# 1.0 x A* -- A* being the area the UNCONSTRAINED C. auris model uses at 30 C
+# (2.62e17 nm^2/gDW), which is the sweep's reference point. For scale, a first-principles yeast
+# budget built from S. cerevisiae stereology and the measured ~40% inner-membrane occupancy
+# (Schwerzmann 1986) is ~2.4e18 nm^2/gDW, i.e. about 9x this and comfortably non-binding.
+# reports/K4_membrane/task3_sweep.py sweeps the whole axis; this file pins one point on it.
+#
+# apply_proton_stoichiometry is OFF and the tables' h_p_target column is blank throughout.
+# Setting it would silently repair the encoding defects K4 TASK 1 reports (complex I encoded
+# non-electrogenically, complex III pumping the wrong way in the three iRV973-derived models),
+# and it would be a no-op anyway: the core's set_proton_stoichiometry defaults to E. coli's
+# 'p'/'c' compartments, which these models do not have.
+
+kind: transfer
+
+calibrate_on: cauris_iRV973
+predict:
+  - chaemulonii_draft
+  - cduobushaemulonii_draft
+  - cparapsilosis_iDC1003
+
+objective: measured_tpc
+growth_scale: peak_match
+globals: []                # nothing fitted, as from K2 rung B2 on
+
+detection_floor_h: 0.05
+thermal_limit:
+  lo_C: 20.0
+  hi_C: 90.0
+  tol_C: 0.02
+
+descriptor_grid:
+  start_C: 15
+  stop_C: 75
+  n: 121
+crit_frac: 0.05
+
+counterfactual:
+  params: [dTm, dTopt]
+  fail_T_C: 40.0
+  permissive_T_C: 34.0
+  threshold_h: 0.05
+  permissive_frac: 0.7
+  lo: -35.0
+  tol: 0.1
+
+# The K2 configuration this sits on top of (candida_B3_ngamT): the core's unfolding thermal
+# form, the grounded proteome budget, and temperature-dependent maintenance.
+provider:
+  thermal_model: unfolding
+  topt_tm_min_gap_C: 2.0
+  pool_budget: null
+  p_total: 0.46
+  sigma: 0.45
+  f_metab: 0.4461
+  ngam_temperature: true
+
+# THE ONE ADDITION relative to candida_B3_ngamT.
+gasflux:
+  enabled: true
+  etc_area:
+    enabled: true
+    table: etc/complexes.csv       # each strain's own, built by K4 TASK 2
+    a_etc: 2.62368e17              # nm^2 gDW^-1; = 1.0 x A* (see the header)
+    apply_proton_stoichiometry: false
