@@ -1,0 +1,22 @@
+{
+  "experiment": "candida_B5_tm_bias_corrected",
+  "calibrate_on": "cauris_iRV973",
+  "predict": [
+    "chaemulonii_draft",
+    "cduobushaemulonii_draft",
+    "cparapsilosis_iDC1003"
+  ],
+  "globals": [],
+  "fitted": {},
+  "fixed": {
+    "dTm": -5.43
+  },
+  "growth_scale": "peak_match",
+  "scale": 11.711913901232512,
+  "detection_floor_h": 0.05,
+  "mse": NaN,
+  "n_eval": 0,
+  "method": "none",
+  "starts": [],
+  "options": {}
+}

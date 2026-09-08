@@ -88,3 +88,58 @@ temperature axis without changing its shape.
 > Damping is possible — if the proteome pool or maintenance binds before unfolding does, the
 > shift will be **less** than one-for-one. **Amplification is not expected** and would falsify
 > this reading of the mechanism.
+
+## D5 — the sweep's verdict is PARTIAL and is reported as three separate statements
+
+**Where:** TASK 3.
+
+The result does not fall cleanly into either branch the prompt anticipated, and forcing it into
+one would misreport it. Three things are true at once:
+
+* At **exactly** A1's independently measured 5.43 °C the gaps close by **32–53 %**, the fit
+  improves in all four species, and the rising limb does not move at all. That is a real
+  predictor component, found at a value nobody tuned.
+* Full closure needs **10 °C** (*C. auris*) and **15 °C** (all three relatives) — 1.8× to 2.8×
+  the measured bias. So the predictor bias is **not the whole explanation**.
+* The offsets the four species need differ by **5 °C**, and a predictor bias is a property of the
+  predictor, common to all four by construction. **No uniform predictor correction can produce a
+  species-specific residual**, so what is left over after the measured bias is removed is exactly
+  the interspecies divergence this project exists to explain.
+
+**Decided:** report all three, in that order, and do not summarise them into a verdict word.
+
+## D6 — E. coli's own tuned row is the strongest cross-organism evidence, and it was already committed
+
+**Where:** TASK 4.
+
+`reports/candida_thermal_limit/ceiling_table_B4.csv` records that *E. coli*'s Bayesian
+calibration **pulls Tm down by 5.6 K** and that this takes its ceiling gap from **+5.875 to
+−0.012 °C**. *E. coli*'s Tm are a **measured meltome**, so that 5.6 K cannot be predictor bias.
+
+Set beside A1's +5.43 °C predictor bias, the arithmetic of a two-component ceiling works:
+a common ≈5.6 K term that appears even with measured Tm, plus a ≈5.4 K predictor term that
+appears only where Seq2Tm is used, sums to ≈11 K — which is close to the 10 °C *C. auris*
+needs and about 4 °C short of the 15 °C the relatives need.
+
+**Decided:** treat this as the central cross-organism result rather than the methanogen and
+phototroph rows, which are weaker evidence for the reason in D7.
+
+## D7 — the methanogen and phototroph support the hypothesis only weakly, and the caveats are stated
+
+**Where:** TASK 4.
+
+Both draw Tm from a **mesophile prior**, `N(55.6, 7.59)`, which is the *E. coli* meltome mean and
+spread — **not** from Seq2Tm (`strains/syn6803/thermal/gen_thermal_params.py`, and the same route
+for the methanogen). Their gaps are −0.2 and +1.7 °C.
+
+That is consistent with the hypothesis — no predictor, no predictor-driven excess — but it is
+weak evidence, for three reasons, all recorded rather than glossed:
+
+1. Their median Tm (55.9, 56.9 °C) are **higher** than Candida's (53.5–54.2), so if the ceiling
+   tracked Tm alone they should sit higher, not closer. Their observed limits are also higher
+   (47, 44 °C). The gap is a difference of two quantities and both differ.
+2. **The methanogen runs at a calibrated `kcat_scale` of 7.223**, so its analyses are not at an
+   a-priori operating point and a gap may have been absorbed there. The prompt flags this and it
+   is correct to.
+3. A generic prior is not an organism-specific estimate, so neither strain tests a Tm
+   *distribution* in the way the Candida strains do.

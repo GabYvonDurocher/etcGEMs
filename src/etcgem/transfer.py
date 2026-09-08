@@ -11,9 +11,17 @@ comes only from their own per-enzyme parameters -- which is the point of the des
     calibrate_on: cauris_iRV973
     predict: [chaemulonii_draft, ...]
     globals: [pheno_sigma, pheno_w, pool_budget]
+    fixed_globals: {dTm: -5.43}      # PINNED, not fitted -- see below
     objective: measured_tpc
     optimizer: {method: nelder-mead, multistart: 4, starts: [[...], ...], options: {...}}
     detection_floor_h: 0.05
+
+``fixed_globals`` pins a global at a stated value instead of fitting it (K8). It is the same
+Perturbation vocabulary as ``globals`` and the two must not name the same parameter. It exists
+so that a MEASURED correction can be applied and reported as an experiment -- K8 applies A1's
+measured Seq2Tm bias this way -- without either fitting it or editing a strain default. A pinned
+value is recorded in the run's ``calibration.json`` under ``fixed`` so it cannot be mistaken for
+a fitted one.
 
 The sweep itself is ``tpc.compute_tpc`` -- there is no second solver loop here. The
 fitted globals are carried as an ``enzyme_cost.Perturbation``, the same object the
@@ -298,6 +306,14 @@ def run(experiment: str, out_root: str = "outputs", verbose: bool = True,
     predict: List[str] = list(exp.get("predict") or [])
     strains = [cal] + [s for s in predict if s != cal]
     globals_ = list(exp["globals"])
+    fixed = dict(exp.get("fixed_globals") or {})
+    clash = set(fixed) & set(globals_)
+    if clash:
+        raise ValueError(f"fixed_globals and globals both name {sorted(clash)}; a parameter "
+                         f"is either pinned or fitted, not both")
+    for k in fixed:
+        if k not in GLOBAL_TO_PERT:
+            raise ValueError(f"'{k}' is not a fittable global; known: {sorted(GLOBAL_TO_PERT)}")
     objective = exp.get("objective", "measured_tpc")
     if objective != "measured_tpc":
         raise ValueError(f"unknown objective {objective!r} (measured_tpc)")
@@ -338,7 +354,11 @@ def run(experiment: str, out_root: str = "outputs", verbose: bool = True,
         x, info = np.zeros(0), dict(mse=float("nan"), n_eval=0, method="none",
                                     starts=[], options={})
     fitted = {k: float(v) for k, v in zip(globals_, x)}
-    pert = _pert(globals_, x)
+    # pinned values are applied exactly like fitted ones, and recorded separately so the two
+    # can never be confused in a committed output
+    pert = _pert(list(globals_) + list(fixed), list(x) + [float(v) for v in fixed.values()])
+    if fixed:
+        print(f"[transfer] pinned (not fitted): {fixed}", flush=True)
 
     # the frozen growth scale, from the calibration strain at the fitted point
     pred_cal = _growth(pms[cal], measured["T_C"].values.astype(float), pert)
@@ -348,7 +368,7 @@ def run(experiment: str, out_root: str = "outputs", verbose: bool = True,
     out_dir = os.path.join(out_root, tag)
     os.makedirs(out_dir, exist_ok=True)
     calib = dict(experiment=experiment, calibrate_on=cal, predict=predict,
-                 globals=globals_, fitted=fitted, growth_scale=growth_scale,
+                 globals=globals_, fitted=fitted, fixed=fixed, growth_scale=growth_scale,
                  scale=float(scale), detection_floor_h=floor, **info)
     with open(os.path.join(out_dir, "calibration.json"), "w") as fh:
         json.dump(calib, fh, indent=2)
