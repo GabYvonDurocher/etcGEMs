@@ -338,7 +338,9 @@ def essentiality_and_quinol():
                 if qid not in [x.id for x in m.metabolites]:
                     continue
                 q = m.metabolites.get_by_id(qid)
-                for r in q.reactions:
+                # sorted: Metabolite.reactions is a SET, so iteration order varies between
+                # runs and the committed CSV would not be reproducible row-for-row.
+                for r in sorted(q.reactions, key=lambda r_: r_.id):
                     v = float(sol.fluxes.get(r.id, 0.0))
                     c = float(r.metabolites[q])
                     if abs(v * c) > 1e-9:
