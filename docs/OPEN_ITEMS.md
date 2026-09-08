@@ -108,6 +108,28 @@ Status: **BLOCKED** (waiting on something external) · **READY** (can start now)
 - **Sectors without temperature-dependent allocation flatten the curve.** Confirmed on E. coli:
   plateau 2.0 → 14.0 °C with `allocation_from_data` off. N1's guard warns; it cannot see a shoulder
   *below* the maximum (the 37–44 °C case).
+- **A GATE ONLY PROTECTS THE FIELDS IT CHECKS** (added 2026-09-08, P5, from P4 and K9). K8 added a
+  field (`fixed`) to the calibration record and wrote it unconditionally; every committed
+  `calibration.json` went stale on the next run and the K1 gate passed 79/79 throughout, because
+  it does not read that field. K9 TASK 0 caught it only by re-running the transfers and diffing
+  the tree. **Adding a field to a record is a silent way to break byte-identity.** The same week
+  a second instance surfaced: N2's hotfix started recording `rescale_pool_row` in the config
+  dump, and the two `etcgem fba` output directories the K1 gate reads
+  (`strains/cauris_iRV973/outputs/fba_candida_pool_{binding,unconstrained}/resolved_config.yaml`)
+  have been one key stale since — numerically identical, never re-run by any TASK 0, and hidden
+  from a worktree by 3.15's absolute-path artefact in the same file. Left as found by P5 (VERIFY 6);
+  clear it in a housekeeping commit that says so. **The rule: re-run the byte-identity check
+  AFTER the last change, not at the point it seems safe; diff the whole tree, not the fields
+  the gate names; and treat a `resolved_config.yaml` diff as a finding until it is explained.**
+- **A RECOMMENDATION IS SCOPED TO THE CONDITIONS IT WAS DERIVED UNDER** (added 2026-09-08, P5,
+  from P4). `c_max ≈ 100–120` came from Parsa's sweep on glucose-minimal and NLDM; P3 adopted 120
+  as canonical from that sweep; P4's settings table applied it to LB, where every LB growth R²
+  collapsed (0.83–0.90 → 0.16–0.20) while NLDM was unchanged to better. His own LB fits had used
+  257 / 459 / 510 (`reports/P5_lb_cmax/parsa_lb_cmax.csv`). Nobody had run an LB sensitivity, and
+  the number carried no medium with it when it moved. **The rule: record the value AND the
+  conditions it was established on (here, the medium), and when a value is applied outside those
+  conditions say so where it is applied, not only where it was derived.** See 1.11 and
+  `reports/P5_lb_cmax/`.
 
 ---
 
