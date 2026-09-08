@@ -1,0 +1,133 @@
+strain,species,config,T_C,mu,qO2
+cauris_iRV973,C. auris (clade I),before (B3),22.0,0.012833520255356593,0.04978137108857121
+cauris_iRV973,C. auris (clade I),before (B3),24.0,0.02264361067072981,0.0878348234276745
+cauris_iRV973,C. auris (clade I),before (B3),26.0,0.036355196706482566,0.14102222166891523
+cauris_iRV973,C. auris (clade I),before (B3),28.0,0.05287406648115911,0.2050991054743328
+cauris_iRV973,C. auris (clade I),before (B3),30.0,0.06996629002188895,0.27140003506181154
+cauris_iRV973,C. auris (clade I),before (B3),32.0,0.08497329930905925,0.32966100398876347
+cauris_iRV973,C. auris (clade I),before (B3),34.0,0.0960040025908404,0.3724555376616067
+cauris_iRV973,C. auris (clade I),before (B3),36.0,0.1023335279160254,0.39938242182068145
+cauris_iRV973,C. auris (clade I),before (B3),38.0,0.10414187970394363,0.4064399711036027
+cauris_iRV973,C. auris (clade I),before (B3),40.0,0.1021604559175162,0.39870696466288014
+cauris_iRV973,C. auris (clade I),before (B3),42.0,0.09714783517697055,0.379143947030277
+cauris_iRV973,C. auris (clade I),before (B3),44.0,0.08987122906367988,0.35074515504739934
+cauris_iRV973,C. auris (clade I),repaired (B5),22.0,0.010114828946619428,3.1549560248109043
+cauris_iRV973,C. auris (clade I),repaired (B5),24.0,0.017832386748891753,3.4061530598631173
+cauris_iRV973,C. auris (clade I),repaired (B5),26.0,0.027959012521127546,2.558531809412975
+cauris_iRV973,C. auris (clade I),repaired (B5),28.0,0.03913372242974788,3.1990873062564136
+cauris_iRV973,C. auris (clade I),repaired (B5),30.0,0.05008269541260929,3.795941591179254
+cauris_iRV973,C. auris (clade I),repaired (B5),32.0,0.05915696493568253,4.3003912409299145
+cauris_iRV973,C. auris (clade I),repaired (B5),34.0,0.06532263033865102,4.683129591160053
+cauris_iRV973,C. auris (clade I),repaired (B5),36.0,0.06825673306299902,4.937291629618928
+cauris_iRV973,C. auris (clade I),repaired (B5),38.0,0.0681306389724109,5.071645674324843
+cauris_iRV973,C. auris (clade I),repaired (B5),40.0,0.06537954957756921,5.077935589028096
+cauris_iRV973,C. auris (clade I),repaired (B5),42.0,0.06050601285909574,5.027082601439618
+cauris_iRV973,C. auris (clade I),repaired (B5),44.0,0.053970387973900594,4.9096688081947555
+cauris_iRV973,C. auris (clade I),repaired + complex III,22.0,0.0118983557565889,1.156945360823117
+cauris_iRV973,C. auris (clade I),repaired + complex III,24.0,0.020951009256727642,1.3558620499411156
+cauris_iRV973,C. auris (clade I),repaired + complex III,26.0,0.03324840367833482,1.7115291237132264
+cauris_iRV973,C. auris (clade I),repaired + complex III,28.0,0.04748414877355721,2.1864779911079695
+cauris_iRV973,C. auris (clade I),repaired + complex III,30.0,0.061716409879201545,2.639910665865274
+cauris_iRV973,C. auris (clade I),repaired + complex III,32.0,0.07377750091315073,2.9110343538959627
+cauris_iRV973,C. auris (clade I),repaired + complex III,34.0,0.08220234218724462,3.189995499666175
+cauris_iRV973,C. auris (clade I),repaired + complex III,36.0,0.08649042882261054,3.371594309175723
+cauris_iRV973,C. auris (clade I),repaired + complex III,38.0,0.08687739862940806,3.4626119230652956
+cauris_iRV973,C. auris (clade I),repaired + complex III,40.0,0.08395335383435878,3.476331812122008
+cauris_iRV973,C. auris (clade I),repaired + complex III,42.0,0.07842027773244821,3.428435915056589
+cauris_iRV973,C. auris (clade I),repaired + complex III,44.0,0.07139195308443509,2.7528951734594513
+chaemulonii_draft,C. haemulonii,before (B3),22.0,0.007086970526994921,0.02749043930879728
+chaemulonii_draft,C. haemulonii,before (B3),24.0,0.012702898517108692,0.0492746878797113
+chaemulonii_draft,C. haemulonii,before (B3),26.0,0.02125491128052721,0.08244804269264648
+chaemulonii_draft,C. haemulonii,before (B3),28.0,0.032915765994399646,0.12768063080337208
+chaemulonii_draft,C. haemulonii,before (B3),30.0,0.04693973692686446,0.18207977361323152
+chaemulonii_draft,C. haemulonii,before (B3),32.0,0.061424444543275426,0.23826611926231747
+chaemulonii_draft,C. haemulonii,before (B3),34.0,0.07412718030269487,0.28754017580309976
+chaemulonii_draft,C. haemulonii,before (B3),36.0,0.08367603695300518,0.324580299395242
+chaemulonii_draft,C. haemulonii,before (B3),38.0,0.0886509631033352,0.34593204617067475
+chaemulonii_draft,C. haemulonii,before (B3),40.0,0.08916893816193112,0.3479532782657692
+chaemulonii_draft,C. haemulonii,before (B3),42.0,0.08597634489313585,0.3354952035488847
+chaemulonii_draft,C. haemulonii,before (B3),44.0,0.08002427346940041,0.3122691474013984
+chaemulonii_draft,C. haemulonii,repaired (B5),22.0,0.0056745453677404635,2.0027198353059537
+chaemulonii_draft,C. haemulonii,repaired (B5),24.0,0.010347256889292118,2.120339050731318
+chaemulonii_draft,C. haemulonii,repaired (B5),26.0,0.017084292843251764,2.4815396723254834
+chaemulonii_draft,C. haemulonii,repaired (B5),28.0,0.02558234339491956,3.035482227637797
+chaemulonii_draft,C. haemulonii,repaired (B5),30.0,0.03525625975560497,3.576191828513946
+chaemulonii_draft,C. haemulonii,repaired (B5),32.0,0.04456674044072309,4.068946047255524
+chaemulonii_draft,C. haemulonii,repaired (B5),34.0,0.05203646167340442,4.477149107501346
+chaemulonii_draft,C. haemulonii,repaired (B5),36.0,0.05675646396896649,4.782987263844245
+chaemulonii_draft,C. haemulonii,repaired (B5),38.0,0.05792761378920816,4.943854954166931
+chaemulonii_draft,C. haemulonii,repaired (B5),40.0,0.055924073938399516,5.015666088762134
+chaemulonii_draft,C. haemulonii,repaired (B5),42.0,0.05141240686968116,5.0231449909684125
+chaemulonii_draft,C. haemulonii,repaired (B5),44.0,0.04507793627398707,4.983363686943395
+chaemulonii_draft,C. haemulonii,repaired + complex III,22.0,0.006512250427458071,1.0227781897419745
+chaemulonii_draft,C. haemulonii,repaired + complex III,24.0,0.011729896541062006,1.1247575061313682
+chaemulonii_draft,C. haemulonii,repaired + complex III,26.0,0.0195038767320578,1.3687248313955687
+chaemulonii_draft,C. haemulonii,repaired + complex III,28.0,0.029788339523122844,1.7352026273202223
+chaemulonii_draft,C. haemulonii,repaired + complex III,30.0,0.04187478659519884,2.109204012615807
+chaemulonii_draft,C. haemulonii,repaired + complex III,32.0,0.05386603232671579,2.37827199836164
+chaemulonii_draft,C. haemulonii,repaired + complex III,34.0,0.06397401191074781,2.608553472097242
+chaemulonii_draft,C. haemulonii,repaired + complex III,36.0,0.07109865805610341,2.788479720614784
+chaemulonii_draft,C. haemulonii,repaired + complex III,38.0,0.0742277575946686,2.897471345239446
+chaemulonii_draft,C. haemulonii,repaired + complex III,40.0,0.07357884350365827,2.9442845271966847
+chaemulonii_draft,C. haemulonii,repaired + complex III,42.0,0.06983844262690175,2.9398398796096976
+chaemulonii_draft,C. haemulonii,repaired + complex III,44.0,0.0638273576810067,2.8968311556751956
+cduobushaemulonii_draft,C. duobushaemulonii,before (B3),22.0,0.018186010406773902,0.07096509244195454
+cduobushaemulonii_draft,C. duobushaemulonii,before (B3),24.0,0.02929176605817995,0.1143017539092894
+cduobushaemulonii_draft,C. duobushaemulonii,before (B3),26.0,0.041780122450523226,0.1630335728188733
+cduobushaemulonii_draft,C. duobushaemulonii,before (B3),28.0,0.05346935841152359,0.20864707968452603
+cduobushaemulonii_draft,C. duobushaemulonii,before (B3),30.0,0.06286594423452783,0.24531425223381065
+cduobushaemulonii_draft,C. duobushaemulonii,before (B3),32.0,0.06930298708833195,0.27043275436569475
+cduobushaemulonii_draft,C. duobushaemulonii,before (B3),34.0,0.07275991507140771,0.2839223108102885
+cduobushaemulonii_draft,C. duobushaemulonii,before (B3),36.0,0.07379667744647866,0.2879679445772118
+cduobushaemulonii_draft,C. duobushaemulonii,before (B3),38.0,0.07280076604618332,0.2840817186813173
+cduobushaemulonii_draft,C. duobushaemulonii,before (B3),40.0,0.06978492627821026,0.27231336800200545
+cduobushaemulonii_draft,C. duobushaemulonii,before (B3),42.0,0.06520918549581348,0.2544580022373264
+cduobushaemulonii_draft,C. duobushaemulonii,before (B3),44.0,0.059499541364165236,0.23217794110516599
+cduobushaemulonii_draft,C. duobushaemulonii,repaired (B5),22.0,0.01400111560688756,3.182421643002703
+cduobushaemulonii_draft,C. duobushaemulonii,repaired (B5),24.0,0.022493995520535964,1.8899672927095899
+cduobushaemulonii_draft,C. duobushaemulonii,repaired (B5),26.0,0.03137407603809462,2.1016437115166524
+cduobushaemulonii_draft,C. duobushaemulonii,repaired (B5),28.0,0.03882062103662694,2.4970884420003543
+cduobushaemulonii_draft,C. duobushaemulonii,repaired (B5),30.0,0.04443773423865013,2.823660771432104
+cduobushaemulonii_draft,C. duobushaemulonii,repaired (B5),32.0,0.04786153817739421,3.078805423509089
+cduobushaemulonii_draft,C. duobushaemulonii,repaired (B5),34.0,0.04918715337755903,3.2683401372659926
+cduobushaemulonii_draft,C. duobushaemulonii,repaired (B5),36.0,0.04878442503846301,3.399128731618281
+cduobushaemulonii_draft,C. duobushaemulonii,repaired (B5),38.0,0.046750978285885134,3.483702943411334
+cduobushaemulonii_draft,C. duobushaemulonii,repaired (B5),40.0,0.04320496920915897,3.522995156451854
+cduobushaemulonii_draft,C. duobushaemulonii,repaired (B5),42.0,0.03847702872921876,3.5252997158551715
+cduobushaemulonii_draft,C. duobushaemulonii,repaired (B5),44.0,0.032893100845691095,3.4994545914016815
+cduobushaemulonii_draft,C. duobushaemulonii,repaired + complex III,22.0,0.016705181772066226,1.2640092852998555
+cduobushaemulonii_draft,C. duobushaemulonii,repaired + complex III,24.0,0.02678436525988462,1.4863523194030221
+cduobushaemulonii_draft,C. duobushaemulonii,repaired + complex III,26.0,0.03771538577257537,1.8195131125571096
+cduobushaemulonii_draft,C. duobushaemulonii,repaired + complex III,28.0,0.04742679941616069,2.197567735559305
+cduobushaemulonii_draft,C. duobushaemulonii,repaired + complex III,30.0,0.05487126910487793,2.5052022782555357
+cduobushaemulonii_draft,C. duobushaemulonii,repaired + complex III,32.0,0.059630033537575275,2.6343963177221115
+cduobushaemulonii_draft,C. duobushaemulonii,repaired + complex III,34.0,0.0618274136310451,2.781214033662274
+cduobushaemulonii_draft,C. duobushaemulonii,repaired + complex III,36.0,0.06208502503306634,2.8696568245406247
+cduobushaemulonii_draft,C. duobushaemulonii,repaired + complex III,38.0,0.060486032056821466,2.8911637887687736
+cduobushaemulonii_draft,C. duobushaemulonii,repaired + complex III,40.0,0.05714723430258646,2.7310927464163153
+cduobushaemulonii_draft,C. duobushaemulonii,repaired + complex III,42.0,0.05257208186392545,2.717248152743201
+cduobushaemulonii_draft,C. duobushaemulonii,repaired + complex III,44.0,0.04703405810102891,2.5437986087913402
+cparapsilosis_iDC1003,C. parapsilosis,before (B3),22.0,0.019558096318991868,3.8679736406393235
+cparapsilosis_iDC1003,C. parapsilosis,before (B3),24.0,0.031621970717158845,4.39813315005984
+cparapsilosis_iDC1003,C. parapsilosis,before (B3),26.0,0.0449886847584092,5.222900117375192
+cparapsilosis_iDC1003,C. parapsilosis,before (B3),28.0,0.057109938347548066,6.1758877841876965
+cparapsilosis_iDC1003,C. parapsilosis,before (B3),30.0,0.06664646140641556,6.95946057337136
+cparapsilosis_iDC1003,C. parapsilosis,before (B3),32.0,0.07510605302165489,4.338980592756849
+cparapsilosis_iDC1003,C. parapsilosis,before (B3),34.0,0.08206446174028936,4.774237379424347
+cparapsilosis_iDC1003,C. parapsilosis,before (B3),36.0,0.08556286643100887,4.941655175187172
+cparapsilosis_iDC1003,C. parapsilosis,before (B3),38.0,0.08570176864579265,5.0003117561834145
+cparapsilosis_iDC1003,C. parapsilosis,before (B3),40.0,0.08301797244476566,4.949495230274469
+cparapsilosis_iDC1003,C. parapsilosis,before (B3),42.0,0.07779749475609773,4.734599809336256
+cparapsilosis_iDC1003,C. parapsilosis,before (B3),44.0,0.07071634168374562,4.590485792123461
+cparapsilosis_iDC1003,C. parapsilosis,repaired (B5),22.0,0.019558096318994116,3.8679736406394043
+cparapsilosis_iDC1003,C. parapsilosis,repaired (B5),24.0,0.0316219707171582,4.398133150059814
+cparapsilosis_iDC1003,C. parapsilosis,repaired (B5),26.0,0.04498868475840894,5.222900117375186
+cparapsilosis_iDC1003,C. parapsilosis,repaired (B5),28.0,0.05710993834754942,6.175887784187733
+cparapsilosis_iDC1003,C. parapsilosis,repaired (B5),30.0,0.06664646140641563,6.9594605733713575
+cparapsilosis_iDC1003,C. parapsilosis,repaired (B5),32.0,0.0751060530216534,4.338980592756817
+cparapsilosis_iDC1003,C. parapsilosis,repaired (B5),34.0,0.0820644617402886,4.774237379424333
+cparapsilosis_iDC1003,C. parapsilosis,repaired (B5),36.0,0.08556286643100984,4.941655175187186
+cparapsilosis_iDC1003,C. parapsilosis,repaired (B5),38.0,0.08570176864579221,5.000311756183406
+cparapsilosis_iDC1003,C. parapsilosis,repaired (B5),40.0,0.08301797244476597,4.949495230274469
+cparapsilosis_iDC1003,C. parapsilosis,repaired (B5),42.0,0.07779749475609801,4.734599809336256
+cparapsilosis_iDC1003,C. parapsilosis,repaired (B5),44.0,0.07071634168374545,4.590485792123459
