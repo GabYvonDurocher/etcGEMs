@@ -305,6 +305,11 @@ def _gwlogprob(theta):
     return lp + ll if np.isfinite(ll) else -np.inf
 
 
+def _gwnegpost(theta):
+    v = _gwlogprob(theta)
+    return 1e12 if not np.isfinite(v) else -v
+
+
 def _build_gasflux_ctx(strain, medium, experiment, table, otu, c_max, etc_table,
                        apply_protons, fit_clearance, timeout=30):
     import yaml
@@ -378,7 +383,8 @@ def run_gasflux_fit(strain, out_dir, *, medium, table, otu=None, experiment="gas
     t0 = time.time()
     try:
         if warm_start:
-            p0, mode = _warm_start(specs, n_walkers, seed, pool, progress)
+            p0, mode = _warm_start(specs, n_walkers, seed, pool, progress,
+                                   negpost=_gwnegpost, logprob=_gwlogprob)
         else:
             p0, mode = init_walkers(specs, n_walkers, np.random.default_rng(seed)), None
         sampler = emcee.EnsembleSampler(n_walkers, ndim, _gwlogprob, pool=pool)
@@ -996,10 +1002,20 @@ def _theta_bounds(specs):
     return [(np.log(s.lo), np.log(s.hi)) if s.space == "log" else (s.lo, s.hi) for s in specs]
 
 
-def _warm_start(specs, n_walkers, seed, pool, progress):
+def _warm_start(specs, n_walkers, seed, pool, progress, negpost=None, logprob=None):
     """Return (p0, mode_theta_or_None). Run a short differential_evolution to the
     posterior mode over the process pool, then seed walkers in a tight ball around it
-    (falls back to the emergent-point ball if the optimiser fails)."""
+    (falls back to the emergent-point ball if the optimiser fails).
+
+    ``negpost`` / ``logprob`` name the worker-side callables. They default to the ``run()``
+    family's, which is what every earlier caller wants -- but a pool initialised for a
+    DIFFERENT entry point has different globals, and calling the wrong pair makes every worker
+    raise, which scipy surfaces as an opaque "map-like callable" error and the warm start then
+    silently degrades to the emergent-point ball. P4's first run lost its warm start exactly
+    that way (P4 DECISIONS D3).
+    """
+    negpost = negpost or _wnegpost
+    logprob = logprob or _wlogprob
     ndim = len(specs)
     rng = np.random.default_rng(seed)
     mode = None
@@ -1007,7 +1023,7 @@ def _warm_start(specs, n_walkers, seed, pool, progress):
         from scipy.optimize import differential_evolution
         t0 = time.time()
         res = differential_evolution(
-            _wnegpost, _theta_bounds(specs), workers=pool.map, updating="deferred",
+            negpost, _theta_bounds(specs), workers=pool.map, updating="deferred",
             maxiter=12, popsize=4, tol=0.03, mutation=(0.4, 1.0), recombination=0.8,
             init="sobol", polish=False, seed=seed)
         if np.isfinite(res.fun) and res.fun < 1e11:
@@ -1028,7 +1044,7 @@ def _warm_start(specs, n_walkers, seed, pool, progress):
     hi = np.array([np.log(s.hi) if s.space == "log" else s.hi for s in specs])
     p0 = np.clip(mode + widths * rng.standard_normal((n_walkers, ndim)), lo + 1e-6, hi - 1e-6)
     # guarantee every walker starts at finite log-prob (resample stragglers wider)
-    lps = np.array(pool.map(_wlogprob, [p0[i] for i in range(n_walkers)]))
+    lps = np.array(pool.map(logprob, [p0[i] for i in range(n_walkers)]))
     for i in np.where(~np.isfinite(lps))[0]:
         for _ in range(50):
             cand = np.clip(mode + 3 * widths * rng.standard_normal(ndim), lo + 1e-6, hi - 1e-6)
