@@ -21,7 +21,7 @@ gasflux:
   temperatures: {start_C: 5, stop_C: 50, n: 91}
   metabolites: [o2, co2, glc__D, pyr, lac__D, ac]
   transport_costs:
-    enabled: true
-    kcat_s: 300.0        # the value his committed figures used; the strain default is 30.
-                         # See reports/P1_parsa_port/gate.md -- his module constant and his
-                         # figure caption disagree, and the CSV is the 300 run.
+    enabled: true        # carrier kcat / MW / length come from the strain's gas_exchange.yaml.
+                         # The 30-vs-300 s^-1 disagreement in Parsa's sources was settled by
+                         # experiment in P2 TASK 1 (300 reproduces his figure, 30 does not), so
+                         # the strain now carries 300 and this overlay no longer overrides it.

@@ -153,6 +153,17 @@ glucose-minimal split is $f_\text{metab}=0.483$, $f_\text{bio}=0.191$, $f_\text{
 chaperone rise); the rich (BHI/LB) reference used for validation is
 $f_\text{metab}\approx0.28$, $f_\text{bio}\approx0.36$, $f_\text{maint}\approx0.36$ at 37 °C.
 
+*A limitation of that measurement, and it is visible in the curve.* The glucose series was
+measured at **25, 30 and 37 °C only** (the LB series adds 16 and 43 °C). Outside a series' measured
+range the allocation is held at its endpoint, so above 37 °C on glucose the sector split — and with
+it the translation cap — stops varying with temperature. The consequence is that the nominal
+glucose-minimal curve is **bit-identical at every temperature from 37 to 44 °C** (growth exactly
+$0.524757$ h⁻¹, 96.7 % of $r_\text{max}$): across eight grid points the model is answering the same
+question eight times, and the apparent shoulder there is the proteomics table running out rather
+than a property of the cell. It is not caught by the flat-top guard the sector layer carries, which
+tests for a plateau *around the maximum*; this shoulder sits below the maximum, on the falling limb.
+Extending the measured glucose series above 37 °C is the fix.
+
 *The biosynthesis (translation) cap.* The biosynthesis sector caps how fast biomass can be made —
 a translation limit $\kappa\,v_\text{bio}\le f_\text{bio}\,P_\text{tot}$ (@eq-biocap) that binds
 alongside the metabolic-pool bound (@eq-pool).
@@ -836,6 +847,19 @@ the cold-side rising limb, and the melting temperature moves the hot falling edg
   glucose-minimal analysis, where allocation and the envelope shared the optimum through a large
   interaction term.
 
+**Provenance of this dissection — it is assembled from two model states.** The control and
+identifiability analysis in the next section was regenerated on the model *after* four uncosted O₂-sink
+reactions were closed by default; the decomposition and elasticity above it were not, and still
+carry the pre-closure model. The offset is small and exactly the documented size of that closure:
+the tuned baseline $r_\text{max}$ is $2.1609$ h⁻¹ in the decomposition and elasticity against
+$2.1558$ h⁻¹ in the control analysis and in the model as it stands — $-0.235$ %, against the
+closure's own stated "≈ −0.3 % growth". $T_\text{opt}$ (39.0 °C) and $CT_\text{max}$ (45.97 °C) are
+unchanged; the largest shift in any descriptor is $B_{80}$, at $-4.5$ %. **No conclusion here
+depends on it**, and it is recorded rather than repaired: putting the three analyses on one state
+means re-running the decomposition and the elasticity (a crossed grid plus 150 posterior draws,
+hours of solver time, not a calibration), which is deferred until this material is used for
+publication rather than spent now.
+
 **The answer to the separability question.** On the tuned rich model the division of labour is
 **clean**: magnitude owns the rate; the envelope owns the shape and position — with protein stability
 ($T_m$) setting the optimum and the upper limit and the kinetic envelope setting the cold side and
@@ -944,7 +968,12 @@ levers set the maximum rate** — on the reconciled single pool $r_\text{max}$ i
 and allocation ($\varphi_\text{magnitude}=0.92$; the in-vivo saturation $\sigma$ has an $r_\text{max}$
 elasticity of $\approx1$), not by the envelope. **Protein stability — the melting temperature
 $T_m$ — sets the optimum and the upper thermal limit** ($T_\text{opt}$ and $CT_\text{max}$ both
-$\varphi_\text{envelope}\approx0.99$, essentially all stability). **The kinetic envelope sets the
+$\varphi_\text{envelope}\approx0.99$, essentially all stability). That attribution for
+$T_\text{opt}$ holds **within a fixed constraint regime and not across regimes**: three separate
+constraints — the sector re-grounding, the translation cap, and a total-carbon cap — have each been
+shown to relocate $T_\text{opt}$ by several degrees, while $CT_\text{max}$ has been insensitive to
+all three, so $T_\text{opt}$ should be quoted with its binding constraint named (see
+`docs/QUOTING_DESCRIPTORS.md`). **The kinetic envelope sets the
 cold-side shape and the activation energy.** The interaction is small, so — unlike a slower
 operating point — the labour divides cleanly: magnitude owns the height, the envelope owns the
 shape and position. Thermal control is concentrated in a few enzymes, yet **over 99 % of per-enzyme
