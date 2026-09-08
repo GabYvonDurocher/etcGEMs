@@ -1,0 +1,38 @@
+strain,rxn,name,enzyme_costed,lb,ub,equation
+cauris_iRV973,T_Guanosine_c00387_CytoMito__mito,Guanosine (Cyto) + H+ (Cyto) <=> Guanosine (Mito) H+ (Mito),False,-999999.0,999999.0,C00080__cyto + C00387__cyto <=> C00080__mito + C00387__mito
+cauris_iRV973,T00485__mito,3 ATP (mito) + ADP (cyto) + H+ (cyto) <=> 3 ATP (cyto) + ADP (mito) + H+ (mito),False,-999999.0,999999.0,3.0 C00002__mito + C00008__cyto + C00080__cyto <=> 3.0 C00002__cyto + C00008__mito + C00080__mito
+cauris_iRV973,T_L_Valine_c00183_MitoCyto__mito,L-Valine (Mito) + H+ (Mito) <=> L-Valine (Cyto) + H+ (Cyto),False,-999999.0,999999.0,C00080__mito + C00183__mito <=> C00080__cyto + C00183__cyto
+cauris_iRV973,T_L_Tryptophan_c00078_MitoCyto__mito,L-Tryptophan (Mito) + H+ (Mito) <=> L-Tryptophan (Cyto) + H+ (Cyto),False,-999999.0,999999.0,C00078__mito + C00080__mito <=> C00078__cyto + C00080__cyto
+cauris_iRV973,T_L_Threonine_c00188_MitoCyto__mito,L-Threonine (Mito) + H+ (Mito) <=> L-Threonine (Cyto) + H+(Cyto),False,-999999.0,999999.0,C00080__mito + C00188__mito <=> C00080__cyto + C00188__cyto
+cauris_iRV973,T_L_Asparagine_c00152_MitoCyto__mito,H+ (mito) + L-Asparagine (mito) <=> H+ (cyto) + L-Asparagine (cyto),False,-999999.0,999999.0,C00080__mito + C00152__mito <=> C00080__cyto + C00152__cyto
+cauris_iRV973,T_L_Lysinine_c00047_MitoCyto__mito,L-Lysine (Mito) + H+ (Mito) <=> L-Lysine (Cyto) + H+ (Cyto),False,-999999.0,999999.0,C00047__mito + C00080__mito <=> C00047__cyto + C00080__cyto
+cauris_iRV973,T_Pyruvate_c00022_CytoMito__mito,Pyruvate (Cyto) + H+ (Cyto) <=> Pyruvate (Mito) + H+ (Mito),False,-999999.0,999999.0,C00022__cyto + C00080__cyto <=> C00022__mito + C00080__mito
+cauris_iRV973,L_Aspartate_c00049_CytoMito__mito,L-Aspartate (Cyto) <=> L-Aspartate (Mito),False,-999999.0,999999.0,C00049__mito + C00080__mito <=> C00049__cyto + C00080__cyto
+cauris_iRV973,T_L_Serine_c00065_MitoCyto__mito,L-Serine (Mito) + H+ (Mito) <=> L-Serine (Cyto) + H+ (Cyto),False,-999999.0,999999.0,C00065__mito + C00080__mito <=> C00065__cyto + C00080__cyto
+cauris_iRV973,T_L_Tyrosine_c00082_MitoCyto__mito,L-Tyrosine (Mito) + H+ (Mito) <=> L-Tyrosine (Cyto) + H+ (Cyto),False,-999999.0,999999.0,C00080__mito + C00082__mito <=> C00080__cyto + C00082__cyto
+chaemulonii_draft,T_Guanosine_c00387_CytoMito__mito,Guanosine (Cyto) + H+ (Cyto) <=> Guanosine (Mito) H+ (Mito),False,-999999.0,999999.0,C00080__cyto + C00387__cyto <=> C00080__mito + C00387__mito
+chaemulonii_draft,T00485__mito,3 ATP (mito) + ADP (cyto) + H+ (cyto) <=> 3 ATP (cyto) + ADP (mito) + H+ (mito),False,-999999.0,999999.0,3.0 C00002__mito + C00008__cyto + C00080__cyto <=> 3.0 C00002__cyto + C00008__mito + C00080__mito
+chaemulonii_draft,T_L_Valine_c00183_MitoCyto__mito,L-Valine (Mito) + H+ (Mito) <=> L-Valine (Cyto) + H+ (Cyto),False,-999999.0,999999.0,C00080__mito + C00183__mito <=> C00080__cyto + C00183__cyto
+chaemulonii_draft,T_L_Tryptophan_c00078_MitoCyto__mito,L-Tryptophan (Mito) + H+ (Mito) <=> L-Tryptophan (Cyto) + H+ (Cyto),False,-999999.0,999999.0,C00078__mito + C00080__mito <=> C00078__cyto + C00080__cyto
+chaemulonii_draft,T_L_Threonine_c00188_MitoCyto__mito,L-Threonine (Mito) + H+ (Mito) <=> L-Threonine (Cyto) + H+(Cyto),False,-999999.0,999999.0,C00080__mito + C00188__mito <=> C00080__cyto + C00188__cyto
+chaemulonii_draft,T_L_Asparagine_c00152_MitoCyto__mito,H+ (mito) + L-Asparagine (mito) <=> H+ (cyto) + L-Asparagine (cyto),False,-999999.0,999999.0,C00080__mito + C00152__mito <=> C00080__cyto + C00152__cyto
+chaemulonii_draft,T_L_Lysinine_c00047_MitoCyto__mito,L-Lysine (Mito) + H+ (Mito) <=> L-Lysine (Cyto) + H+ (Cyto),False,-999999.0,999999.0,C00047__mito + C00080__mito <=> C00047__cyto + C00080__cyto
+chaemulonii_draft,T_Pyruvate_c00022_CytoMito__mito,Pyruvate (Cyto) + H+ (Cyto) <=> Pyruvate (Mito) + H+ (Mito),False,-999999.0,999999.0,C00022__cyto + C00080__cyto <=> C00022__mito + C00080__mito
+chaemulonii_draft,L_Aspartate_c00049_CytoMito__mito,L-Aspartate (Cyto) <=> L-Aspartate (Mito),False,-999999.0,999999.0,C00049__mito + C00080__mito <=> C00049__cyto + C00080__cyto
+chaemulonii_draft,T_L_Serine_c00065_MitoCyto__mito,L-Serine (Mito) + H+ (Mito) <=> L-Serine (Cyto) + H+ (Cyto),False,-999999.0,999999.0,C00065__mito + C00080__mito <=> C00065__cyto + C00080__cyto
+chaemulonii_draft,T_L_Tyrosine_c00082_MitoCyto__mito,L-Tyrosine (Mito) + H+ (Mito) <=> L-Tyrosine (Cyto) + H+ (Cyto),False,-999999.0,999999.0,C00080__mito + C00082__mito <=> C00080__cyto + C00082__cyto
+cduobushaemulonii_draft,T_Guanosine_c00387_CytoMito__mito,Guanosine (Cyto) + H+ (Cyto) <=> Guanosine (Mito) H+ (Mito),False,-999999.0,999999.0,C00080__cyto + C00387__cyto <=> C00080__mito + C00387__mito
+cduobushaemulonii_draft,T00485__mito,3 ATP (mito) + ADP (cyto) + H+ (cyto) <=> 3 ATP (cyto) + ADP (mito) + H+ (mito),False,-999999.0,999999.0,3.0 C00002__mito + C00008__cyto + C00080__cyto <=> 3.0 C00002__cyto + C00008__mito + C00080__mito
+cduobushaemulonii_draft,T_L_Valine_c00183_MitoCyto__mito,L-Valine (Mito) + H+ (Mito) <=> L-Valine (Cyto) + H+ (Cyto),False,-999999.0,999999.0,C00080__mito + C00183__mito <=> C00080__cyto + C00183__cyto
+cduobushaemulonii_draft,T_L_Tryptophan_c00078_MitoCyto__mito,L-Tryptophan (Mito) + H+ (Mito) <=> L-Tryptophan (Cyto) + H+ (Cyto),False,-999999.0,999999.0,C00078__mito + C00080__mito <=> C00078__cyto + C00080__cyto
+cduobushaemulonii_draft,T_L_Threonine_c00188_MitoCyto__mito,L-Threonine (Mito) + H+ (Mito) <=> L-Threonine (Cyto) + H+(Cyto),False,-999999.0,999999.0,C00080__mito + C00188__mito <=> C00080__cyto + C00188__cyto
+cduobushaemulonii_draft,T_L_Asparagine_c00152_MitoCyto__mito,H+ (mito) + L-Asparagine (mito) <=> H+ (cyto) + L-Asparagine (cyto),False,-999999.0,999999.0,C00080__mito + C00152__mito <=> C00080__cyto + C00152__cyto
+cduobushaemulonii_draft,T_L_Lysinine_c00047_MitoCyto__mito,L-Lysine (Mito) + H+ (Mito) <=> L-Lysine (Cyto) + H+ (Cyto),False,-999999.0,999999.0,C00047__mito + C00080__mito <=> C00047__cyto + C00080__cyto
+cduobushaemulonii_draft,T_Pyruvate_c00022_CytoMito__mito,Pyruvate (Cyto) + H+ (Cyto) <=> Pyruvate (Mito) + H+ (Mito),False,-999999.0,999999.0,C00022__cyto + C00080__cyto <=> C00022__mito + C00080__mito
+cduobushaemulonii_draft,L_Aspartate_c00049_CytoMito__mito,L-Aspartate (Cyto) <=> L-Aspartate (Mito),False,-999999.0,999999.0,C00049__mito + C00080__mito <=> C00049__cyto + C00080__cyto
+cduobushaemulonii_draft,T_L_Serine_c00065_MitoCyto__mito,L-Serine (Mito) + H+ (Mito) <=> L-Serine (Cyto) + H+ (Cyto),False,-999999.0,999999.0,C00065__mito + C00080__mito <=> C00065__cyto + C00080__cyto
+cduobushaemulonii_draft,T_L_Tyrosine_c00082_MitoCyto__mito,L-Tyrosine (Mito) + H+ (Mito) <=> L-Tyrosine (Cyto) + H+ (Cyto),False,-999999.0,999999.0,C00080__mito + C00082__mito <=> C00080__cyto + C00082__cyto
+cparapsilosis_iDC1003,T_Oxaloacetate_c00036_CytoMito__plas,Oxaloacetate (Cyto) + H+ (Cyto) <=> Oxaloacetate (Mito) + H+ (Mito),False,-999999.0,999999.0,C00036__cyto + C00080__cyto <=> C00036__mito + C00080__mito
+cparapsilosis_iDC1003,T_ATP_ADP_Mito_Antiporter__mito,ADP (Cyto) + ATP (Mito) + H+ (Cyto) => ATP (Cyto) + ADP (Mito) + H+ (Mito),False,0.0,999999.0,C00002__mito + C00008__cyto + C00080__cyto --> C00002__cyto + C00008__mito + C00080__mito
+cparapsilosis_iDC1003,TO1000009_Pi_c00009_CytoMito__mito,1.0 Orthophosphate (Cyto) + 1.0 H+ (Cyto) => 1.0 H+ (Mito) + 1.0 Orthophosphate (Mito),True,0.0,999999.0,C00009__cyto + C00080__cyto --> C00009__mito + C00080__mito
+cparapsilosis_iDC1003,T_L_Valine_c00183_MitoCyto___plas,1.0 L-Threonine (Mito) + 1.0 H+ (Mito) <=> 1.0 H+ (Cyto) + 1.0 L-Threonine (Cyto),False,-999999.0,999999.0,C00080__mito + C00183__mito <=> C00080__cyto + C00183__cyto
