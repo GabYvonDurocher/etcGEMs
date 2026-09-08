@@ -1,6 +1,6 @@
 # Open items — the running list
 
-_Started 2026-09-08 while P2 was running; last updated 2026-09-08 by K5._ This is the standing list of what is outstanding across
+_Started 2026-09-08 while P2 was running; last updated 2026-09-08 by K6._ This is the standing list of what is outstanding across
 the whole project, so nothing is lost between sessions. Update it when something lands; do not let
 it become a second decision log — decisions live in each prompt's `reports/*/DECISIONS.md`, this is
 only what is NOT yet done and who or what it waits on._
@@ -48,7 +48,7 @@ Status: **BLOCKED** (waiting on something external) · **READY** (can start now)
 | ~~3.8~~ | ~~**Repair the mitochondrial proton accounting**~~ | **CLOSED 2026-09-08 (K5 TASK 2).** Costing the transport does not fix it; a direction constraint on uncosted reversible carriers does, at 36-38 % of predicted growth. The chain goes from supplying 0.04-0.05 % of ATP synthase's protons to 200-272 %. Lives in `configs/experiments/candida_B5_respire.yaml` as rung B5, not as a strain default, so no committed output moved and the gate still passes 79/79. |
 | ~~3.9~~ | ~~**A fifth sink-audit class: uncosted transport of the coupling ion**~~ | **CLOSED 2026-09-08 (K5 TASK 1).** Class E added to `src/etcgem/sink_audit.py` and wired into `etcgem audit-sinks --coupling-ion` as an opt-in flag, so no committed audit output changed. It infers the coupling ion from each strain's own ATP synthase (*M. maripaludis* is sodium-driven), counts both translocation and in-compartment chemistry (*Synechocystis* scores 19 % on the first and 100 % on both), and contracts GECKO arm/isozyme splits (without which eciML1515 has no detectable ATP synthase). Run on all seven strains: only the three *Candidozyma* are defective. |
 | 3.13 | **Complex III is wired backwards in the three iRV973-derived models.** `R02161__mito` moves its 1.5 protons cytosol→matrix, the opposite direction to a mitochondrion, so it SPENDS proton-motive force. Quantified by K5: it eats **exactly half** of what cytochrome *c* oxidase pumps, which is why the repaired chain over-supplies at 200-272 % instead of ~100 %. Correcting it as a labelled sensitivity moves respiration per unit growth from 1.8-2.4× measured to **0.9-1.3×**, i.e. onto the measurement. | Whenever the respiration level is load-bearing for a claim. It is a one-line stoichiometry correction and it is the single change that most improves agreement with the measured O₂ assay. Send to Ilgaz with 3.14: both are in the published iRV973. |
-| 3.14 | **The maintenance layer cannot produce the measured respiration/growth decoupling.** K5 TASK 3: the organism raises respiration relative to growth **4.7-fold** between 30 and 44 °C; the repaired model raises it 1.2-fold, and E_resp − E_growth is measured at +0.33 to +0.48 eV and comes out **negative** in the model. The repair fixes the level and the peak ordering; it does not fix the slope. | Before any claim that these models capture thermal energetics. The candidate mechanisms are maintenance, futile cycling, proton leak and protein turnover; the model has only NGAM(T) and it is far too weak. This is the sharpest open discrepancy against measurement the project has. |
+| 3.14 | **The model's growth activation energy is too steep on the rising limb** — 1.20 eV against a measured 0.901 for *C. auris*, and 0.93-1.80 against 0.62-0.90 across the four. **REVISED 2026-09-08 by K6**, which found K5's version of this item ("the maintenance layer cannot produce the measured decoupling") to be wrong twice over: the sign discrepancy it rested on was a comparator artefact, and scaling NGAM(T) up moves the model AWAY from measurement and kills it at 10x the anchored value, while switching it OFF moves E_resp from 0.231 onto the measured 0.518. With maintenance off, ~88 % of the residual gap is the growth term. | Before any claim that these models capture thermal energetics. The layer implicated is the enzyme kinetic envelope — the shared dCp prior and the MMRT curvature that set the rising limb — not maintenance and not the ETC. Note it is consistent with the same models over-predicting the thermal limit by 9.6-15.8 °C (K4 §4), which had not been connected to it. |
 | 3.15 | **`resolved_config.yaml` records an absolute `provider.model_path`**, so a run made from a different directory produces a spurious diff and "byte-identical on re-run" is only checkable from the same checkout. Found by K5 TASK 0 running from a git worktree. | Trivial; whenever the config dump is next touched. Record the path relative to the repository root. |
 | 3.10 | **Add alternative oxidase to the Candida reconstructions.** AOX is in all four proteomes (A3, and confirmed independently in K4 TASK 1 by EC/name/chemistry search) and in none of the four models. It is non-electrogenic, which is exactly the role cytochrome *bd*-II plays in the **gated** *E. coli* configuration F — the one ETC result this project has tested against experiment. Adding it is one reaction. | Together with 3.8, since an AOX branch is pointless while the chain is bypassed. Then respirometry with SHAM and antimycin A across temperature (K4 TASK 5 item 4) turns it into a measurement. |
 | 3.11 | **Mitochondrial inner-membrane area per gDW, per Candida species, at 30 °C and 40 °C.** The measurement an ETC-area budget actually consumes, and it does not exist for any *Candida*: no published inner-membrane area, cristae density or mitochondrial volume fraction for *C. auris*, *C. haemulonii*, *C. duobushaemulonii* or *C. parapsilosis*, and **no inner:outer membrane area ratio for any fungus**. Nearest proxies: *S. cerevisiae* stereology (Perktold 2007; Stevens 1981), and Arthur & Watson (1976), which measured cytochrome *aa*₃ per mg dry weight across seven yeasts and found **7×** interspecific variation. | If the membrane axis is to be tested rather than made available. Method and the discriminating result are in `reports/K4_membrane/task5_what_would_test_it.md`. Serial-section electron tomography or FIB-SEM with stereological sampling; two temperatures, not one. |
@@ -56,6 +56,35 @@ Status: **BLOCKED** (waiting on something external) · **READY** (can start now)
 
 ## 4. Standing hazards — not tasks, but re-read before trusting a result
 
+- **THE REPOSITORY HOLDS MORE THAN ONE MEASURED VALUE FOR SOME QUANTITIES, AND THEY DISAGREE.**
+  This has now cost the project twice: Parsa's NLDM CSV predating its own medium change, and
+  K5 comparing the model's activation energies against the wrong one of two measured growth
+  fits. **The rule: when comparing a model to data, fit both sides over the same window with
+  the same functional form, and state in the report which measured source was used.** The known
+  multi-valued quantities, all of them legitimately so:
+  - **E_growth**, 4.6-fold spread. `arrhenius_growth_fgC_h_coefs.csv` (OLS Arrhenius over every
+    temperature) gives **0.194 eV** for *C. auris* clade I and is **negative for three
+    isolates**, which is not biology — it is a straight line through a curve that turns over.
+    The same data on the rising limb gives **0.732 eV**, and the manuscript's hierarchical
+    Sharpe-Schoolfield fit gives **0.901 eV**. Use the rising-limb value against a model.
+  - **E_resp**, 1.45-fold spread, and four published values for the same clade: 0.518 (OLS and
+    the published Bayesian Arrhenius, which agree because respiration does not turn over), 0.454
+    (equilibration-corrected), 0.654 (term-free), 0.545 (Sharpe-Schoolfield with `Eh` at its
+    bound). `bayes_resp_arr_E_three_treatments.csv` holds three of them. The headline is
+    "With term (published)".
+  - **The measured growth TPC itself.** `measured_tpc_honest.csv`, which every Candida strain
+    calibrates against, counts a dead well as an **observed zero** — deliberately, and
+    documented in `gem/17_build_measured_tpc.py`, because the previous file silently dropped
+    temperatures where everything died. `derived_N0_R_results_with_carbon.csv` keeps only valid
+    fits, i.e. the survivors. So at 40-44 °C the first says *C. haemulonii* grows at 0.000/h and
+    the second says its surviving wells grow at 0.66-0.83/h. **Both are right and they are not
+    interchangeable**: the zeros curve is the one for "the relatives die at 40 °C", the
+    survivors table is the one for any log-scale fit. Never mix them in one comparison.
+  - **T_opt**, three sources that differ by up to 2 °C: each `strain.yaml`'s
+    `measured_Topt_C`, the argmax of `measured_tpc.csv`, and the Bayesian `growth_Topt_C`. For
+    *C. haemulonii* they are 32.0, 30.0 and 31.98.
+  - **Per-cell respiration** carries the cell-mass constants, which disagree ~6-fold
+    (item 1.9). Scale-free comparisons only.
 - **Never verify with `cmd && check`.** The `cli.main` exit-code defect made one such check vacuous
   and produced a false PASS. Check exit codes explicitly. (Fixed in `a467d23`, but the habit is the
   hazard.)
