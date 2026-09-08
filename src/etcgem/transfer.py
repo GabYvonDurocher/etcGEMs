@@ -368,8 +368,14 @@ def run(experiment: str, out_root: str = "outputs", verbose: bool = True,
     out_dir = os.path.join(out_root, tag)
     os.makedirs(out_dir, exist_ok=True)
     calib = dict(experiment=experiment, calibrate_on=cal, predict=predict,
-                 globals=globals_, fitted=fitted, fixed=fixed, growth_scale=growth_scale,
+                 globals=globals_, fitted=fitted, growth_scale=growth_scale,
                  scale=float(scale), detection_floor_h=floor, **info)
+    # `fixed` is written ONLY when something is pinned. Writing it unconditionally added an
+    # empty key to every run's calibration.json and so made every committed transfer output
+    # stale on re-run -- the exact stale-at-commit hazard docs/OPEN_ITEMS.md section 4 lists.
+    # Caught by K9 TASK 0's byte-identity check; introduced by K8.
+    if fixed:
+        calib["fixed"] = fixed
     with open(os.path.join(out_dir, "calibration.json"), "w") as fh:
         json.dump(calib, fh, indent=2)
 

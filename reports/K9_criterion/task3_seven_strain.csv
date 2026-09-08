@@ -1,0 +1,8 @@
+strain,species,Tm_provenance,Tm_median_C,Tm_sd_C,n_enzymes,CTmax_C,observed_limit_C,gap_C,total_correction_C,predictor_component_C,residual_C,source
+cauris_iRV973,C. auris,PREDICTED (Seq2Tm),53.68015200000002,2.8810613253551725,1314.0,53.02380840709262,44.0,9.023808407092623,9.807328273324721,5.43,4.377328273324721,computed here
+chaemulonii_draft,C. haemulonii,PREDICTED (Seq2Tm),53.53632600000003,2.363764505050149,1312.0,51.832623895801746,38.0,13.832623895801746,15.506161110454462,5.43,10.076161110454462,computed here
+cduobushaemulonii_draft,C. duobushaemulonii,PREDICTED (Seq2Tm),53.52176400000002,2.240527313917022,1310.0,51.647049657127255,38.0,13.647049657127255,15.764854417256894,5.43,10.334854417256894,computed here
+cparapsilosis_iDC1003,C. parapsilosis,PREDICTED (Seq2Tm),54.206860000000006,2.3380684850996576,1606.0,53.25087216483654,38.0,15.250872164836537,15.909477318659306,5.43,10.479477318659306,computed here
+mmaripaludis,M. maripaludis,"PRIOR (mesophile N(55.6, 7.59), built on E. coli)",55.914000000000044,6.927273934444557,527.0,47.045822344412024,47.0,0.0458223444120236,0.048110155635402836,0.0,0.048110155635402836,computed here
+syn6803,Synechocystis,"PRIOR (mesophile N(55.6, 7.59), built on E. coli's meltome)",56.863000000000056,,,45.69884051327479,44.0,1.6988405132747886,,0.0,,"committed ceiling_table_B4.csv; correction NOT computed -- a plain strain build gives CT_max 55.5 against the committed 45.7 and the difference is not the medium, so run_p2_thermal.py's configuration is not reproduced here"
+eciML1515,E. coli,MEASURED meltome,55.56732500000004,,,51.82,45.945,5.875,5.6,0.0,5.6,"committed ceiling_table_B4.csv; the 5.6 K is the Bayesian posterior's own Tm correction, recorded in that table's tuned row (gap +5.875 -> -0.012)"
