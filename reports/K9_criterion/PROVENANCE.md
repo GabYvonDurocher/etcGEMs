@@ -6,7 +6,7 @@
 
 *Evidence:* `task1_is_it_arithmetic.py`, `task2_criteria.py` and `task3_common_term.py` all exit 0 and regenerate their committed tables; `python reports/candida_thermal_limit/gate_table.py` -> 79/79 PASS, exit 0, with $CANDIDAS_ROOT unset (2026-09-08).
 
-**This report was last written at** `5657b11` (2026-09-08) — K9 TASKS 2-3: both criteria as ranges, and the common ceiling term does not generalise
+**This report was last written at** `c228cc1` (2026-09-08) — K9 TASKS 4-5: the report, the speculative section, and the corrections to the discussion notes
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 
