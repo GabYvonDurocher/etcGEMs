@@ -240,6 +240,32 @@ between species with near-identical proteomes, i.e. not sourced from sequence pr
 consistent with §4 — a membrane mechanism is exactly what failure *below* the unfolding ceiling
 looks like from inside a model that only has enzymes.
 
+**TESTED, in the only form currently available (K4, 2026-09-08;
+`reports/K4_membrane/report.md`). The membrane-AREA half of this axis has now been carried to
+the four Candida strains, and it is available rather than tested — for a reason that was not
+anticipated here.** P1's table-driven ETC area budget, gated on *E. coli* by P3, applies to
+these models without a code change, and the complex footprints turned out to be better sourced
+than expected: derived from solved fungal structures (*Yarrowia lipolytica* complex I,
+*S. cerevisiae* complexes II–V) rather than transferred from *E. coli*. But **in the three
+*Candidozyma* models the respiratory chain supplies 0.03 % of the protons ATP synthase
+consumes**, because eleven uncosted, reversible metabolite/H⁺ symporters close the proton
+circuit outside it — a defect in the published iRV973, not in the port. Constraining complexes
+I–IV all the way to zero area changes growth at 40 °C by 0.0000 h⁻¹ in *C. auris*; ATP synthase
+takes 99.6–99.99 % of the area budget. Only *C. parapsilosis*, independently curated and the
+outgroup, has a chain the constraint can bind on (it costs 52 % of growth there). Two further
+findings bear directly on this section: **no footprint or turnover differs between the four
+species, because none has been measured for any *Candida***, so the parameters are as
+undifferentiated as Seq2Tm's were; and **per gram dry weight, mitochondrial cristae give yeast
+no more bioenergetic membrane than *E. coli* has** (~2.4 × 10¹⁸ vs 4.3 × 10¹⁸ nm²/gDW), so the
+"cristae give a much larger area" intuition is about area per cell volume, not per unit
+biomass. A first-principles yeast budget sits ~9× above the point where it would bind.
+Unlike the Tm route, which fails quantitatively by 26×, this one fails structurally: **no value
+of A_ETC, including zero, puts any relative below detection at 40 °C**, and tightening the
+budget hurts *C. auris* most — the wrong direction. What would change this is listed at
+`docs/OPEN_ITEMS.md` §3.8–3.12, and the cheapest item, repairing the proton accounting, needs
+no new data at all. Note this leaves the LIPID half of §6(a) entirely untouched: an area budget
+has no lipid term, and lipidomics bears on A8's fluidity-and-leak extension rather than on this.
+
 **(b) Proteome allocation, with measured sector fractions — and a warning from K2.** K2 rung B4
 enabled sectors with literature yeast fractions, identical across species, and the result was worse
 than inert: the **temperature-independent translation cap removes the optimum rather than shifting
