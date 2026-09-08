@@ -1,0 +1,7 @@
+carbon_cap,strain,A_star,required_A_ETC,required_ratio_to_Astar,required_fold_reduction,mu40_unconstrained,mu40_at_zero_area,detection_floor,permissive_mu,permissive_baseline,permissive_preserved,note
+no carbon cap,chaemulonii_draft,2.0497397131117606e+18,,,,0.6544724345472669,0.4023712360030627,0.05,,0.6089761950127626,,"cannot be pushed below the floor at 40 C by ANY A_ETC, including 0"
+no carbon cap,cduobushaemulonii_draft,2.0497397131117606e+18,,,,0.5056223445739112,0.383344659051973,0.05,,0.575631096813867,,"cannot be pushed below the floor at 40 C by ANY A_ETC, including 0"
+no carbon cap,cparapsilosis_iDC1003,2.0497397131117606e+18,,,,0.9715489360977493,0.4343504832893209,0.05,,0.9603901197208857,,"cannot be pushed below the floor at 40 C by ANY A_ETC, including 0"
+c_max 12,chaemulonii_draft,2.0497397131117606e+18,1.6811143429528368e+16,0.008201599121093748,121.92744186046514,0.5459606118094461,0.042812401000071915,0.05,0.19408916519930436,0.5564315200693644,False,
+c_max 12,cduobushaemulonii_draft,2.0497397131117606e+18,,,,0.4759861432602837,0.19669189195315,0.05,,0.5568830094220294,,"cannot be pushed below the floor at 40 C by ANY A_ETC, including 0"
+c_max 12,cparapsilosis_iDC1003,2.0497397131117606e+18,,,,0.9192769140906368,0.19984722665013477,0.05,,0.9194689548931919,,"cannot be pushed below the floor at 40 C by ANY A_ETC, including 0"
