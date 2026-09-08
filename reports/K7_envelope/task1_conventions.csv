@@ -1,0 +1,17 @@
+config,experiment,convention,growth_scale,strain,required_dTm,permissive_preserved
+B3 (before the K5 repair),candida_B3_ngamT,zeros (as the repository does it),7.67030518625977,chaemulonii_draft,13.5,True
+B3 (before the K5 repair),candida_B3_ngamT,zeros (as the repository does it),7.67030518625977,cduobushaemulonii_draft,14.05,True
+B3 (before the K5 repair),candida_B3_ngamT,zeros (as the repository does it),7.67030518625977,cparapsilosis_iDC1003,13.64,True
+B3 (before the K5 repair),candida_B3_ngamT,zeros (as the repository does it),7.67030518625977,MEDIAN,13.64,
+B3 (before the K5 repair),candida_B3_ngamT,survivors,8.141470944879776,chaemulonii_draft,13.5,True
+B3 (before the K5 repair),candida_B3_ngamT,survivors,8.141470944879776,cduobushaemulonii_draft,14.12,True
+B3 (before the K5 repair),candida_B3_ngamT,survivors,8.141470944879776,cparapsilosis_iDC1003,13.71,True
+B3 (before the K5 repair),candida_B3_ngamT,survivors,8.141470944879776,MEDIAN,13.71,
+B5 (repaired),candida_B5_respire,zeros (as the repository does it),11.702874781052445,chaemulonii_draft,13.3,True
+B5 (repaired),candida_B5_respire,zeros (as the repository does it),11.702874781052445,cduobushaemulonii_draft,13.57,True
+B5 (repaired),candida_B5_respire,zeros (as the repository does it),11.702874781052445,cparapsilosis_iDC1003,13.77,True
+B5 (repaired),candida_B5_respire,zeros (as the repository does it),11.702874781052445,MEDIAN,13.57,
+B5 (repaired),candida_B5_respire,survivors,12.421750202610252,chaemulonii_draft,13.3,True
+B5 (repaired),candida_B5_respire,survivors,12.421750202610252,cduobushaemulonii_draft,13.57,True
+B5 (repaired),candida_B5_respire,survivors,12.421750202610252,cparapsilosis_iDC1003,13.84,True
+B5 (repaired),candida_B5_respire,survivors,12.421750202610252,MEDIAN,13.57,
