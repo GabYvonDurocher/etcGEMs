@@ -35,6 +35,20 @@ are far too similar between these species to reproduce the observed divergence.*
 | as published | 32.54 °C | 0.411 °C | **79×** |
 | K2: the core's thermal form | 13.77 °C | 0.411 °C | **34×** |
 | K2 + A1: compression-corrected | 13.77 °C | 2.56 °C | **5.4× [2.5, 10.3]** |
+| **K5: the model repaired so it respires** | **13.57 °C** | 0.411 °C | **33×** |
+
+_Added 2026-09-08 by K5 (`reports/K5_respire/report.md`)._ The last row closes a possibility
+that was open until it was computed. K4 showed the models had two escape routes — a free proton
+circuit, so the respiratory chain carried 0.02–0.05 % of the load, and fermentation with no
+carbon budget — and it was reasonable to suspect the 13.8 °C requirement was inflated by them: a
+cell that can escape is harder to kill. **It was not.** With the proton circuit closed and a
+carbon cap applied, the requirement falls from 13.64 °C to **13.57 °C**, half a percent. The
+reason is that the counterfactual shifts *every* enzyme's Tm, so the fermentation and
+biosynthetic enzymes denature along with the chain and the escape routes are beside the point at
+the shift that kills the cell. The escape routes mattered enormously for a constraint aimed at
+respiration — closing them turned K4's "no A_ETC, including zero, changes anything" into a finite
+122-fold membrane requirement — and almost not at all here. So this row is not a new estimate;
+it is the old one, now known not to be an artefact of two model defects.
 
 K2 halved the requirement (the standalone's figure was inflated ~2.4× by its thermal form alone).
 A1 then found the *available* side is not a measurement of the proteomes but an artefact of a
@@ -154,6 +168,15 @@ right in a methanogen and a cyanobacterium and wrong in a bacterium and four yea
 sharper question, it is only askable because the seven strains now share a code base, and it should
 be resolved before the membrane hypothesis (§6a) is treated as the leading explanation — whatever
 explains the pattern must also explain the two organisms where nothing is wrong.
+
+**The ceiling numbers do not move under the K5 repair, and one of them now has a mechanism
+attached (K5, 2026-09-08).** Closing the free proton circuit lowers predicted growth by 36-38 %
+in the three *Candidozyma* but leaves the unfolding CT_max essentially where it was, because
+CT_max is read off the falling limb, which the enzyme layer still owns. What *does* move it is
+the membrane-area budget once the model can respire under a carbon cap: *C. auris*' CT_max then
+falls from 53.0 °C to 36.5 °C across the A_ETC sweep, against 53.6 to 47.0 in K4. So the
+over-prediction recorded in this section is not immovable — it is simply not moved by anything
+in the enzyme layer. Detail: `reports/K5_respire/task3b_membrane_retest.md`.
 
 _Checked against the flatness guard (N2). N1's guard fires wherever proteome sectors run
 without temperature-dependent allocation, which is true of the Candida B4 rung, of
