@@ -6,7 +6,7 @@
 
 *Evidence:* no reproduction test has been run against this directory
 
-**This report was last written at** `f3ff2d7` (2026-09-08) — P2 TASK 4: a provenance stamp on every report, generated not hand-written
+**This report was last written at** `b3b2801` (2026-07-13) — paper(activation_energy): re-render report + supplement with canonical E_a results
 
 **Committed inputs it reads (found by scanning this report's own files), and the commit each was last written at:**
 

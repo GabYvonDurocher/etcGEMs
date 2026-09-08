@@ -6,7 +6,7 @@
 
 *Evidence:* `python reports/P1_parsa_port/gate.py` -> 60/60 PASS; `python reports/P1_parsa_port/partF_thermal_vs_carbon.py` regenerates its own table.
 
-**This report was last written at** `f3ff2d7` (2026-09-08) — P2 TASK 4: a provenance stamp on every report, generated not hand-written
+**This report was last written at** `1426f77` (2026-09-08) — P1: summary
 
 **Committed inputs it reads (found by scanning this report's own files), and the commit each was last written at:**
 

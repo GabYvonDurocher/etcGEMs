@@ -6,7 +6,7 @@
 
 *Evidence:* working log; not intended to track the current model state
 
-**This report was last written at** `f3ff2d7` (2026-09-08) — P2 TASK 4: a provenance stamp on every report, generated not hand-written
+**This report was last written at** `c1bd1e8` (2026-09-07) — N1: overnight summary
 
 **Committed inputs it reads (found by scanning this report's own files), and the commit each was last written at:**
 

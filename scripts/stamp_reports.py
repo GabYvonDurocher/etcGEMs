@@ -45,9 +45,15 @@ def git(*args, default=""):
     return r.stdout.strip() if r.returncode == 0 else default
 
 
-def last_commit(path):
-    """(short sha, date, subject) of the commit that last wrote `path`, or None if untracked."""
-    out = git("log", "-1", "--format=%h|%ad|%s", "--date=short", "--", path)
+def last_commit(path, exclude=None):
+    """(short sha, date, subject) of the commit that last wrote `path`, or None if untracked.
+
+    ``exclude`` drops a pathspec from the search. A report's own stamp lives inside the report
+    directory, so without excluding it the stamp would record the commit that wrote the stamp --
+    self-referential, and ``--check`` would fail immediately after every commit.
+    """
+    spec = [path] + ([f":(exclude){exclude}"] if exclude else [])
+    out = git("log", "-1", "--format=%h|%ad|%s", "--date=short", "--", *spec)
     if not out:
         return None
     h, d, s = out.split("|", 2)
@@ -82,7 +88,8 @@ def load_status():
 
 def stamp_text(name, report_dir, status_entry):
     entry = status_entry or {}
-    rc = last_commit(os.path.relpath(report_dir, ROOT))
+    rel = os.path.relpath(report_dir, ROOT)
+    rc = last_commit(rel, exclude=f"{rel}/{STAMP}")
     lines = [MARK, "", f"# Provenance — `reports/{name}/`", ""]
     status = (status_entry or {}).get("status", "UNKNOWN")
     note = (status_entry or {}).get("note", "no entry in reports/report_status.yaml; status "
