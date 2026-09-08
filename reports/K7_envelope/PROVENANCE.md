@@ -6,7 +6,7 @@
 
 *Evidence:* `task1_convention.py`, `task2_envelope.py` and `task3_dcp_sweep.py` all exit 0 and regenerate their committed tables; `python reports/candida_thermal_limit/gate_table.py` -> 79/79 PASS, exit 0, with $CANDIDAS_ROOT unset (2026-09-08).
 
-**This report was last written at** `307705d` (2026-09-08) — K7 TASKS 2-3: growth is too steep, dCp is most of it, and it cannot also fix the ceiling
+**This report was last written at** `9721b7a` (2026-09-08) — K7 TASK 4: the report, the discussion updates, and the dCp question recorded
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 
