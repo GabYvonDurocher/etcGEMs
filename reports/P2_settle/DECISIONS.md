@@ -81,3 +81,24 @@ clearance (5.0 L gDW⁻¹ h⁻¹) is his choice and is not re-examined here.
 **Reported, not adjudicated:** on the canonical medium configuration C's NLDM RQ is 1.04, not
 the ≈ 7–9 his report quotes. The high RQ was the blanket medium's unlimited carbon, not the
 absent carbon cap — which is a change to what that configuration demonstrates, and his call.
+
+## D3 — TASK 3: c_max is reported on, not changed
+
+**Where:** TASK 3.
+
+The search of `$PARSA_ROOT` found **no literature citation for any `c_max`**, and found his own
+report saying the cap is "a boundary condition (a sweep), not a fitted likelihood" and his own
+sweep recommending **100–120** while describing 60 as a "flat plateau". 60 appears only as the
+representative run in his later configuration summary. In configuration D the cap is a *fitted*
+multiplier of 230, which is a different construction under the same name.
+
+I did not change `c_max`, did not conclude whether it is fitted, and did not touch the
+configuration-B overlay, exactly as the task requires — even though the sensitivity shows 60
+sits past the steepest part of the slope (NLDM T_opt −6.5 °C and E_a +30 % between c_max 80 and
+60) and that at 60 acetate overflow is entirely suppressed. Those are reported in
+`TASK3_cmax.md` for Parsa to act on.
+
+One dead end recorded so it is not re-trodden: his `configD_capfit` "best-match cap", re-derived
+from his own committed sweep, is **c_max = 30**, where model acetate and Basan's line are both
+zero — the minimiser matching 0 to 0 at the bottom of the range. It is not evidence for any
+value.
