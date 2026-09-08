@@ -1,5 +1,34 @@
 # P3 TASK 3 — the gate: configurations D, E and F against experiment
 
+> ## NONE OF THESE R² IS A CONVERGED POSTERIOR — read this before any number below (added 2026-09-08, P5 TASK 2)
+>
+> P4 measured the integrated autocorrelation time τ on every chain in this family, and P5
+> re-measured Parsa's six independently (same estimator, `emcee.autocorr.integrated_time`,
+> τ_max over parameters; agreement to 0.1). **Every chain — his six committed ones and all nine
+> P4 refits — has run about nine autocorrelation times against a ≥ 40 criterion.** This is a
+> property of the sampling budget for this likelihood, not of the model and not of anyone's
+> diligence; the step counts are conventional and are simply not enough for a posterior with
+> this τ. It applies evenly to both families.
+>
+> | chains | steps × walkers | τ_max | chain / τ | n_eff | converged (chain > 40 τ and n_eff ≥ 200) |
+> |---|---|---|---|---|---|
+> | Parsa's six (`configD_NLDM_full`, `configD_LB_full`, `configE_NLDM`, `configE_LB_freecmax`, `configF_NLDM`, `configF_LB`) | 1500–2000 × 36 | 160–214 | **8.2–9.4** | 148–170 (first half discarded) / 296–340 (none discarded) | **NO**, all six |
+> | P4's nine refits (D/E/F × NLDM/LB/M9, recipe medium, c_max 120) | 1500–2000 × 40 | 146–245 | **8.2–10.3** | 247–332 (sampler's own: walkers × (steps − 2τ) / τ) | **NO**, all nine |
+>
+> **What follows and what does not.** The ten R² values P3 gated, the values his report prints,
+> and every R² in `reports/P4_refit/` are point estimates (MAP or posterior median) from
+> unconverged chains. They are indicative; they are not validated model performance, and they
+> must not be quoted as such. **P3's gate remains valid as a PORT check**: it reads the same
+> parameter point out of his chain and recomputes his R² here to within 0.009, which proves the
+> port reproduces his computation whether or not the chain it was read from converged. Those are
+> two different claims and the second was never made by the gate.
+>
+> **The cost of fixing it** is arithmetic: 40 τ ≈ 8 000–10 000 steps per fit, four to five times
+> the chain, ≈ 40 h for all nine on this machine (P4 ran 1500–2000 steps in 10 h). P4's
+> warm-start repair should shorten the burn-in but is untested at scale. Until it is spent, no
+> number in this family is a result. See `reports/P4_refit/TASK3_what_moved.md` and
+> `docs/OPEN_ITEMS.md` 1.12.
+
 **Result: all ten R² values his reports print reproduce, the worst to 0.009.** Configurations
 D, E and F move from *ported* to *gated*.
 
@@ -16,6 +45,8 @@ per-cell respiration `o2_uptake × gDW_per_cell × 32/60 × resp_scale`; R² by 
 curve onto the observed temperatures, then `1 − SS_res/SS_tot`, linear on both axes.
 
 ## Table 1 — against the **pre-boundaryfix** data (what his figures used)
+
+*(Added 2026-09-08, P5.) Every R² in this table and the next is read from a chain that ran ~9 autocorrelation times, his and ours alike — see the caveat at the top. The PASS column is a statement about the port reproducing his computation, which it does; it is not a statement that the value is a converged posterior, which none of them is.*
 
 | config | medium | his run | point | quantity | his | port | Δ | verdict |
 |---|---|---|---|---|---|---|---|---|
