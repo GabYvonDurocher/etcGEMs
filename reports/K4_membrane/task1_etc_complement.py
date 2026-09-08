@@ -17,7 +17,12 @@ This is the GATE. It answers three questions and writes one table for each:
      the optimum" and "cannot carry flux" are distinguished); and the mitochondrial proton
      budget is traced, which is what actually decides the question.
 
-  3. IF IT IS NOT LOAD-BEARING, WHY NOT? -> task1_shunt.csv, task1_uncouple.csv
+  3. IF IT IS NOT LOAD-BEARING, WHAT IS IT FOR? -> task1_essentiality.csv, task1_quinol.csv
+     Every combination of complexes I-IV is deleted, and the ubiquinol balance is traced at
+     the optimum. The chain turns out to be essential only in combination, and for a
+     BIOSYNTHETIC reason rather than a bioenergetic one.
+
+  4. WHY IS IT BYPASSED? -> task1_proton_carriers.csv, task1_uncoupling.csv
      Two labelled diagnostics, neither of them adopted as a default: close the non-ETC
      proton carriers outright, and (surgically) strip only their proton coupling while
      keeping the metabolite transport.
@@ -286,6 +291,63 @@ def shunts_and_uncoupling():
     return pd.DataFrame(shunt_rows), pd.DataFrame(unc_rows)
 
 
+def essentiality_and_quinol():
+    """Delete every combination of complexes I-IV, and trace the ubiquinol balance.
+
+    Single knockouts are harmless in the three Candidozyma models and joint ones are lethal,
+    which looks like redundancy in a respiratory chain. It is not: the chain's only essential
+    job in these models is to RE-OXIDISE the ubiquinol that dihydroorotate dehydrogenase
+    (pyrimidine biosynthesis) produces, so its flux is set by nucleotide demand and not by
+    energy demand.
+    """
+    import itertools
+    ess_rows, q_rows = [], []
+    for s in STRAINS:
+        pm, m, _ = build(s)
+        groups = {k: v for k, v in ETC_COMPLEXES[s].items() if "ATP synthase" not in k
+                  and "alternative" not in k}
+        keys = list(groups)
+        for T in TEMPS:
+            apply_state(pm.ec, T, Perturbation())
+            base = m.slim_optimize()
+            base = 0.0 if base is None or not np.isfinite(base) else float(base)
+            for k in range(1, len(keys) + 1):
+                for combo in itertools.combinations(keys, k):
+                    keep = {}
+                    for cx in combo:
+                        for rid in groups[cx]:
+                            if rid in m.reactions:
+                                r = m.reactions.get_by_id(rid)
+                                keep[rid] = r.bounds
+                                r.bounds = (0.0, 0.0)
+                    m.solver.update()
+                    apply_state(pm.ec, T, Perturbation())
+                    v = m.slim_optimize()
+                    mu = 0.0 if v is None or not np.isfinite(v) else float(v)
+                    for rid, b in keep.items():
+                        m.reactions.get_by_id(rid).bounds = b
+                    m.solver.update()
+                    ess_rows.append(dict(strain=s, T_C=T, deleted="+".join(combo),
+                                         n_deleted=k, mu_base=base, mu=mu,
+                                         frac_of_base=(mu / base if base > 0 else np.nan),
+                                         lethal=bool(mu < 1e-6)))
+            # ubiquinol balance
+            apply_state(pm.ec, T, Perturbation())
+            sol = m.optimize()
+            for qid in ("M8428__mito", "M8416__mito"):
+                if qid not in [x.id for x in m.metabolites]:
+                    continue
+                q = m.metabolites.get_by_id(qid)
+                for r in q.reactions:
+                    v = float(sol.fluxes.get(r.id, 0.0))
+                    c = float(r.metabolites[q])
+                    if abs(v * c) > 1e-9:
+                        q_rows.append(dict(strain=s, T_C=T, metabolite=qid, rxn=r.id,
+                                           name=r.name, net_flux=v * c,
+                                           role=("produces" if v * c > 0 else "consumes")))
+    return pd.DataFrame(ess_rows), pd.DataFrame(q_rows)
+
+
 def main():
     print("K4 TASK 1 -- the ETC complement of the four Candida models\n")
     inv = inventory()
@@ -302,6 +364,17 @@ def main():
     unc.to_csv(os.path.join(HERE, "task1_uncoupling.csv"), index=False)
     print(f"  task1_proton_carriers.csv {len(sh)} rows")
     print(f"  task1_uncoupling.csv      {len(unc)} rows")
+    ess, quin = essentiality_and_quinol()
+    ess.to_csv(os.path.join(HERE, "task1_essentiality.csv"), index=False)
+    quin.to_csv(os.path.join(HERE, "task1_quinol.csv"), index=False)
+    print(f"  task1_essentiality.csv    {len(ess)} rows")
+    print(f"  task1_quinol.csv          {len(quin)} rows")
+
+    print("\nWHAT THE CHAIN IS FOR -- lethal deletion combinations at 40 C:")
+    for s_ in STRAINS:
+        x = ess[(ess.strain == s_) & (ess.T_C == 40.0)]
+        lethal = sorted(x[x.lethal]["deleted"], key=len)
+        print(f"  {s_:26s} lethal: {', '.join(lethal) if lethal else 'none'}")
 
     print("\nHEADLINE -- fraction of ATP synthase's protons the respiratory chain supplies:")
     for _, r in cou.iterrows():

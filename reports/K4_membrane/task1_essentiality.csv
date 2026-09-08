@@ -1,0 +1,121 @@
+strain,T_C,deleted,n_deleted,mu_base,mu,frac_of_base,lethal
+cauris_iRV973,30.0,complex I (NADH dehydrogenase),1,0.06996629002188899,0.06996629002188903,1.0000000000000007,False
+cauris_iRV973,30.0,complex II (succinate dehydrogenase),1,0.06996629002188899,0.06996515606654627,0.9999837928330576,False
+cauris_iRV973,30.0,complex III (cytochrome bc1),1,0.06996629002188899,0.06996484235762723,0.9999793091178437,False
+cauris_iRV973,30.0,complex IV (cytochrome c oxidase),1,0.06996629002188899,0.06996484235762332,0.9999793091177878,False
+cauris_iRV973,30.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase),2,0.06996629002188899,0.06996515606654631,0.9999837928330583,False
+cauris_iRV973,30.0,complex I (NADH dehydrogenase)+complex III (cytochrome bc1),2,0.06996629002188899,0.06996484235762326,0.999979309117787,False
+cauris_iRV973,30.0,complex I (NADH dehydrogenase)+complex IV (cytochrome c oxidase),2,0.06996629002188899,0.06996484235762729,0.9999793091178445,False
+cauris_iRV973,30.0,complex II (succinate dehydrogenase)+complex III (cytochrome bc1),2,0.06996629002188899,0.0,0.0,True
+cauris_iRV973,30.0,complex II (succinate dehydrogenase)+complex IV (cytochrome c oxidase),2,0.06996629002188899,0.0,0.0,True
+cauris_iRV973,30.0,complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),2,0.06996629002188899,0.06996484235762332,0.9999793091177878,False
+cauris_iRV973,30.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase)+complex III (cytochrome bc1),3,0.06996629002188899,0.0,0.0,True
+cauris_iRV973,30.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase)+complex IV (cytochrome c oxidase),3,0.06996629002188899,0.0,0.0,True
+cauris_iRV973,30.0,complex I (NADH dehydrogenase)+complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),3,0.06996629002188899,0.06996484235762727,0.9999793091178443,False
+cauris_iRV973,30.0,complex II (succinate dehydrogenase)+complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),3,0.06996629002188899,0.0,0.0,True
+cauris_iRV973,30.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase)+complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),4,0.06996629002188899,0.0,0.0,True
+cauris_iRV973,40.0,complex I (NADH dehydrogenase),1,0.10216045591751617,0.10216045591751623,1.0000000000000004,False
+cauris_iRV973,40.0,complex II (succinate dehydrogenase),1,0.10216045591751617,0.10216045591751623,1.0000000000000004,False
+cauris_iRV973,40.0,complex III (cytochrome bc1),1,0.10216045591751617,0.10215618335458798,0.9999581779183558,False
+cauris_iRV973,40.0,complex IV (cytochrome c oxidase),1,0.10216045591751617,0.1021561833545878,0.9999581779183541,False
+cauris_iRV973,40.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase),2,0.10216045591751617,0.1021604559175162,1.0000000000000002,False
+cauris_iRV973,40.0,complex I (NADH dehydrogenase)+complex III (cytochrome bc1),2,0.10216045591751617,0.10215618335458793,0.9999581779183553,False
+cauris_iRV973,40.0,complex I (NADH dehydrogenase)+complex IV (cytochrome c oxidase),2,0.10216045591751617,0.10215618335458797,0.9999581779183557,False
+cauris_iRV973,40.0,complex II (succinate dehydrogenase)+complex III (cytochrome bc1),2,0.10216045591751617,0.0,0.0,True
+cauris_iRV973,40.0,complex II (succinate dehydrogenase)+complex IV (cytochrome c oxidase),2,0.10216045591751617,0.0,0.0,True
+cauris_iRV973,40.0,complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),2,0.10216045591751617,0.10215618335458723,0.9999581779183485,False
+cauris_iRV973,40.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase)+complex III (cytochrome bc1),3,0.10216045591751617,0.0,0.0,True
+cauris_iRV973,40.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase)+complex IV (cytochrome c oxidase),3,0.10216045591751617,0.0,0.0,True
+cauris_iRV973,40.0,complex I (NADH dehydrogenase)+complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),3,0.10216045591751617,0.10215618335458783,0.9999581779183543,False
+cauris_iRV973,40.0,complex II (succinate dehydrogenase)+complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),3,0.10216045591751617,0.0,0.0,True
+cauris_iRV973,40.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase)+complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),4,0.10216045591751617,0.0,0.0,True
+chaemulonii_draft,30.0,complex I (NADH dehydrogenase),1,0.046939736926864546,0.046939736926864574,1.0000000000000007,False
+chaemulonii_draft,30.0,complex II (succinate dehydrogenase),1,0.046939736926864546,0.04693911325849848,0.9999867134243415,False
+chaemulonii_draft,30.0,complex III (cytochrome bc1),1,0.046939736926864546,0.046938897547094266,0.9999821179276828,False
+chaemulonii_draft,30.0,complex IV (cytochrome c oxidase),1,0.046939736926864546,0.04693889754709446,0.9999821179276869,False
+chaemulonii_draft,30.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase),2,0.046939736926864546,0.04693911325849851,0.9999867134243422,False
+chaemulonii_draft,30.0,complex I (NADH dehydrogenase)+complex III (cytochrome bc1),2,0.046939736926864546,0.046938897547094606,0.99998211792769,False
+chaemulonii_draft,30.0,complex I (NADH dehydrogenase)+complex IV (cytochrome c oxidase),2,0.046939736926864546,0.046938897547094606,0.99998211792769,False
+chaemulonii_draft,30.0,complex II (succinate dehydrogenase)+complex III (cytochrome bc1),2,0.046939736926864546,0.0,0.0,True
+chaemulonii_draft,30.0,complex II (succinate dehydrogenase)+complex IV (cytochrome c oxidase),2,0.046939736926864546,0.0,0.0,True
+chaemulonii_draft,30.0,complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),2,0.046939736926864546,0.04693889754709456,0.999982117927689,False
+chaemulonii_draft,30.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase)+complex III (cytochrome bc1),3,0.046939736926864546,0.0,0.0,True
+chaemulonii_draft,30.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase)+complex IV (cytochrome c oxidase),3,0.046939736926864546,0.0,0.0,True
+chaemulonii_draft,30.0,complex I (NADH dehydrogenase)+complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),3,0.046939736926864546,0.046938897547094606,0.99998211792769,False
+chaemulonii_draft,30.0,complex II (succinate dehydrogenase)+complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),3,0.046939736926864546,0.0,0.0,True
+chaemulonii_draft,30.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase)+complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),4,0.046939736926864546,0.0,0.0,True
+chaemulonii_draft,40.0,complex I (NADH dehydrogenase),1,0.08916893816193162,0.08916893816193162,1.0,False
+chaemulonii_draft,40.0,complex II (succinate dehydrogenase),1,0.08916893816193162,0.08916893816193162,1.0,False
+chaemulonii_draft,40.0,complex III (cytochrome bc1),1,0.08916893816193162,0.08916512420015578,0.9999572276865188,False
+chaemulonii_draft,40.0,complex IV (cytochrome c oxidase),1,0.08916893816193162,0.08916512420015622,0.9999572276865238,False
+chaemulonii_draft,40.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase),2,0.08916893816193162,0.08916893816193146,0.9999999999999981,False
+chaemulonii_draft,40.0,complex I (NADH dehydrogenase)+complex III (cytochrome bc1),2,0.08916893816193162,0.08916512420015646,0.9999572276865265,False
+chaemulonii_draft,40.0,complex I (NADH dehydrogenase)+complex IV (cytochrome c oxidase),2,0.08916893816193162,0.08916512420015646,0.9999572276865265,False
+chaemulonii_draft,40.0,complex II (succinate dehydrogenase)+complex III (cytochrome bc1),2,0.08916893816193162,0.0,0.0,True
+chaemulonii_draft,40.0,complex II (succinate dehydrogenase)+complex IV (cytochrome c oxidase),2,0.08916893816193162,0.0,0.0,True
+chaemulonii_draft,40.0,complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),2,0.08916893816193162,0.08916512420015629,0.9999572276865246,False
+chaemulonii_draft,40.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase)+complex III (cytochrome bc1),3,0.08916893816193162,0.0,0.0,True
+chaemulonii_draft,40.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase)+complex IV (cytochrome c oxidase),3,0.08916893816193162,0.0,0.0,True
+chaemulonii_draft,40.0,complex I (NADH dehydrogenase)+complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),3,0.08916893816193162,0.0891651242001563,0.9999572276865247,False
+chaemulonii_draft,40.0,complex II (succinate dehydrogenase)+complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),3,0.08916893816193162,0.0,0.0,True
+chaemulonii_draft,40.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase)+complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),4,0.08916893816193162,0.0,0.0,True
+cduobushaemulonii_draft,30.0,complex I (NADH dehydrogenase),1,0.06286594423452774,0.06286594423452893,1.0000000000000189,False
+cduobushaemulonii_draft,30.0,complex II (succinate dehydrogenase),1,0.06286594423452774,0.06286594423452893,1.0000000000000189,False
+cduobushaemulonii_draft,30.0,complex III (cytochrome bc1),1,0.06286594423452774,0.06286296897783342,0.9999526729975896,False
+cduobushaemulonii_draft,30.0,complex IV (cytochrome c oxidase),1,0.06286594423452774,0.06286296897783547,0.9999526729976222,False
+cduobushaemulonii_draft,30.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase),2,0.06286594423452774,0.06286594423452996,1.0000000000000353,False
+cduobushaemulonii_draft,30.0,complex I (NADH dehydrogenase)+complex III (cytochrome bc1),2,0.06286594423452774,0.06286296897783443,0.9999526729976057,False
+cduobushaemulonii_draft,30.0,complex I (NADH dehydrogenase)+complex IV (cytochrome c oxidase),2,0.06286594423452774,0.06286296897783442,0.9999526729976055,False
+cduobushaemulonii_draft,30.0,complex II (succinate dehydrogenase)+complex III (cytochrome bc1),2,0.06286594423452774,0.0,0.0,True
+cduobushaemulonii_draft,30.0,complex II (succinate dehydrogenase)+complex IV (cytochrome c oxidase),2,0.06286594423452774,0.0,0.0,True
+cduobushaemulonii_draft,30.0,complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),2,0.06286594423452774,0.06286296897783385,0.9999526729975964,False
+cduobushaemulonii_draft,30.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase)+complex III (cytochrome bc1),3,0.06286594423452774,0.0,0.0,True
+cduobushaemulonii_draft,30.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase)+complex IV (cytochrome c oxidase),3,0.06286594423452774,0.0,0.0,True
+cduobushaemulonii_draft,30.0,complex I (NADH dehydrogenase)+complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),3,0.06286594423452774,0.06286296897783504,0.9999526729976154,False
+cduobushaemulonii_draft,30.0,complex II (succinate dehydrogenase)+complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),3,0.06286594423452774,0.0,0.0,True
+cduobushaemulonii_draft,30.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase)+complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),4,0.06286594423452774,0.0,0.0,True
+cduobushaemulonii_draft,40.0,complex I (NADH dehydrogenase),1,0.06978492627820944,0.06978492627820915,0.9999999999999958,False
+cduobushaemulonii_draft,40.0,complex II (succinate dehydrogenase),1,0.06978492627820944,0.06978492627820915,0.9999999999999958,False
+cduobushaemulonii_draft,40.0,complex III (cytochrome bc1),1,0.06978492627820944,0.06978079288185562,0.9999407694960178,False
+cduobushaemulonii_draft,40.0,complex IV (cytochrome c oxidase),1,0.06978492627820944,0.06978079288185546,0.9999407694960155,False
+cduobushaemulonii_draft,40.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase),2,0.06978492627820944,0.06978492627820924,0.9999999999999972,False
+cduobushaemulonii_draft,40.0,complex I (NADH dehydrogenase)+complex III (cytochrome bc1),2,0.06978492627820944,0.06978079288185558,0.9999407694960173,False
+cduobushaemulonii_draft,40.0,complex I (NADH dehydrogenase)+complex IV (cytochrome c oxidase),2,0.06978492627820944,0.06978079288185576,0.9999407694960198,False
+cduobushaemulonii_draft,40.0,complex II (succinate dehydrogenase)+complex III (cytochrome bc1),2,0.06978492627820944,0.0,0.0,True
+cduobushaemulonii_draft,40.0,complex II (succinate dehydrogenase)+complex IV (cytochrome c oxidase),2,0.06978492627820944,0.0,0.0,True
+cduobushaemulonii_draft,40.0,complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),2,0.06978492627820944,0.06978079288185551,0.9999407694960163,False
+cduobushaemulonii_draft,40.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase)+complex III (cytochrome bc1),3,0.06978492627820944,0.0,0.0,True
+cduobushaemulonii_draft,40.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase)+complex IV (cytochrome c oxidase),3,0.06978492627820944,0.0,0.0,True
+cduobushaemulonii_draft,40.0,complex I (NADH dehydrogenase)+complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),3,0.06978492627820944,0.06978079288185551,0.9999407694960163,False
+cduobushaemulonii_draft,40.0,complex II (succinate dehydrogenase)+complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),3,0.06978492627820944,0.0,0.0,True
+cduobushaemulonii_draft,40.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase)+complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),4,0.06978492627820944,0.0,0.0,True
+cparapsilosis_iDC1003,30.0,complex I (NADH dehydrogenase),1,0.06664646140641432,0.06664646140641549,1.0000000000000175,False
+cparapsilosis_iDC1003,30.0,complex II (succinate dehydrogenase),1,0.06664646140641432,0.06009394902657931,0.9016825163473065,False
+cparapsilosis_iDC1003,30.0,complex III (cytochrome bc1),1,0.06664646140641432,0.04197827395315832,0.6298650080935604,False
+cparapsilosis_iDC1003,30.0,complex IV (cytochrome c oxidase),1,0.06664646140641432,0.04197827395315859,0.6298650080935645,False
+cparapsilosis_iDC1003,30.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase),2,0.06664646140641432,0.05912137098589856,0.8870894228783237,False
+cparapsilosis_iDC1003,30.0,complex I (NADH dehydrogenase)+complex III (cytochrome bc1),2,0.06664646140641432,0.04197827395315775,0.6298650080935518,False
+cparapsilosis_iDC1003,30.0,complex I (NADH dehydrogenase)+complex IV (cytochrome c oxidase),2,0.06664646140641432,0.04197827395315859,0.6298650080935645,False
+cparapsilosis_iDC1003,30.0,complex II (succinate dehydrogenase)+complex III (cytochrome bc1),2,0.06664646140641432,0.04195779439742152,0.6295577216254625,False
+cparapsilosis_iDC1003,30.0,complex II (succinate dehydrogenase)+complex IV (cytochrome c oxidase),2,0.06664646140641432,0.04195779439742227,0.6295577216254737,False
+cparapsilosis_iDC1003,30.0,complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),2,0.06664646140641432,0.04197827395315859,0.6298650080935645,False
+cparapsilosis_iDC1003,30.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase)+complex III (cytochrome bc1),3,0.06664646140641432,0.0,0.0,True
+cparapsilosis_iDC1003,30.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase)+complex IV (cytochrome c oxidase),3,0.06664646140641432,0.0,0.0,True
+cparapsilosis_iDC1003,30.0,complex I (NADH dehydrogenase)+complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),3,0.06664646140641432,0.04197827395315775,0.6298650080935518,False
+cparapsilosis_iDC1003,30.0,complex II (succinate dehydrogenase)+complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),3,0.06664646140641432,0.04195779439742324,0.6295577216254883,False
+cparapsilosis_iDC1003,30.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase)+complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),4,0.06664646140641432,0.0,0.0,True
+cparapsilosis_iDC1003,40.0,complex I (NADH dehydrogenase),1,0.08301797244476584,0.06342226749367283,0.7639582806707237,False
+cparapsilosis_iDC1003,40.0,complex II (succinate dehydrogenase),1,0.08301797244476584,0.07744946076377666,0.9329240221484081,False
+cparapsilosis_iDC1003,40.0,complex III (cytochrome bc1),1,0.08301797244476584,0.04021626999586073,0.4844284774916387,False
+cparapsilosis_iDC1003,40.0,complex IV (cytochrome c oxidase),1,0.08301797244476584,0.04021626999586054,0.48442847749163637,False
+cparapsilosis_iDC1003,40.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase),2,0.08301797244476584,0.05690778910386703,0.6854875809178471,False
+cparapsilosis_iDC1003,40.0,complex I (NADH dehydrogenase)+complex III (cytochrome bc1),2,0.08301797244476584,0.04021626999586051,0.48442847749163603,False
+cparapsilosis_iDC1003,40.0,complex I (NADH dehydrogenase)+complex IV (cytochrome c oxidase),2,0.08301797244476584,0.04021626999586054,0.48442847749163637,False
+cparapsilosis_iDC1003,40.0,complex II (succinate dehydrogenase)+complex III (cytochrome bc1),2,0.08301797244476584,0.040201277278901826,0.48424788145300524,False
+cparapsilosis_iDC1003,40.0,complex II (succinate dehydrogenase)+complex IV (cytochrome c oxidase),2,0.08301797244476584,0.040201277278901555,0.48424788145300196,False
+cparapsilosis_iDC1003,40.0,complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),2,0.08301797244476584,0.040216269995860136,0.48442847749163154,False
+cparapsilosis_iDC1003,40.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase)+complex III (cytochrome bc1),3,0.08301797244476584,0.0,0.0,True
+cparapsilosis_iDC1003,40.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase)+complex IV (cytochrome c oxidase),3,0.08301797244476584,0.0,0.0,True
+cparapsilosis_iDC1003,40.0,complex I (NADH dehydrogenase)+complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),3,0.08301797244476584,0.040216269995860796,0.4844284774916395,False
+cparapsilosis_iDC1003,40.0,complex II (succinate dehydrogenase)+complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),3,0.08301797244476584,0.04020127727890216,0.48424788145300923,False
+cparapsilosis_iDC1003,40.0,complex I (NADH dehydrogenase)+complex II (succinate dehydrogenase)+complex III (cytochrome bc1)+complex IV (cytochrome c oxidase),4,0.08301797244476584,0.0,0.0,True
