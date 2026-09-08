@@ -154,3 +154,48 @@ places, which is what makes the −0.235 % offset on `decompose_tuned` credible.
 
 The probes and their outputs are committed under `reports/N3_output_audit/probes/` so the
 numbers in TASK 2 can be re-derived without re-deriving the method.
+
+---
+
+## D7 — two tests had to write into the strain output tree; run, diff, restore, verify
+
+**Where:** TASK 3.
+
+`proteome_sectors/validation_correlations.csv` and the Van Derlinden validation are produced
+by CLI verbs that choose their own output directory, so they cannot be replayed without
+writing there. The alternative — re-implementing each command in a probe — risks measuring my
+reimplementation instead of the code, which is exactly the mistake D6 records.
+
+**Decided:** run the real command, copy the result to the scratchpad, then
+`git checkout -- <dir>` and confirm `git status` is clean. Done for
+`strains/eciML1515/outputs/proteome_sectors` and `.../validation_trusted`; both verified
+restored, and the proteome directory additionally byte-compared against a snapshot taken
+before the run. No committed output changed. The prompt's rule is that a *regenerated* file
+must not be committed, and none was.
+
+Incidentally: `etcgem validate` writes to `outputs/validation_trusted/`, while the report
+reads `outputs/validation/` — the rename at `8e6b703` moved the data and left the command
+pointing at the old name. The same is true of `etcgem dissect`, which still looks for
+`outputs/calibration_vanderlinden_v3/` (untracked here; absent from a fresh clone). Listed,
+not fixed.
+
+## D8 — `calibration_vanderlinden` stopped and costed, not run
+
+**Where:** TASK 3, as the prompt directs.
+
+The only way to settle it is the emcee calibration. The committed `summary.json` records the
+cost: 60 walkers × 6000 steps, **wall time 16 118 s = 4 h 28 min on 10 processes**. Left for a
+human. Note that its posterior medians are what define the tuned operating point, so if that
+directory is stale, `decompose_tuned`, `elasticity_tuned` and `control_tuned` inherit it —
+independently of the O2-closure offset measured in TASK 2.
+
+## D9 — the sweep *ensembles* were not tested; their nominal member was
+
+**Where:** TASK 3.
+
+The report's sweep figures and tables come from 120-sample LHS ensembles (~2 h each,
+single-process). Instead of running them I replayed each sweep's committed config for its
+**nominal** curve — one TPC — which is the same model state the ensemble is centred on. All
+three fail, two of them on T_opt. That is enough to classify the directories without spending
+four hours; it is *not* enough to state by how much the ensemble medians move, and this report
+does not claim to.
