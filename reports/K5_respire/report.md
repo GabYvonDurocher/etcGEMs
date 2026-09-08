@@ -121,10 +121,32 @@ measured ratio varies 7.8-fold over the same range.
   4.7-fold between 30 and 44 °C; the model raises it 1.2-fold, and the activation-energy
   difference has the **wrong sign** in all four species.
 
+> **CORRECTION, 2026-09-08 (K6; `reports/K6_like_for_like/`).** The words "wrong sign" above
+> are wrong, and the comparator is why. The measured E_growth used here is the full-range OLS
+> fit from `arrhenius_growth_fgC_h_coefs.csv`, which draws a straight Arrhenius line through a
+> growth curve that turns over — it returns a NEGATIVE activation energy for three isolates,
+> which is not biology. The manuscript's own value, from a Sharpe-Schoolfield fit in which the
+> collapse is carried by its own terms, gives **E_resp − E_growth = −0.383 [−0.56, −0.21]** for
+> *C. auris*, not +0.33. **Against every valid comparator the model's sign agrees with
+> measurement in all four species.** What survives is a magnitude gap: the model's difference is
+> 2.2–5.1× more negative than measured and lies outside the credible interval. The 4.7-fold
+> figure likewise shrinks to 1.57× against a model 1.03× once the comparison is restricted to
+> temperatures at which the organism is still growing. The paragraph below, pointing at the
+> maintenance layer, is also wrong in direction: scaling NGAM(T) up moves the model AWAY from
+> measurement and kills it before the quantity moves, while switching it off moves E_resp from
+> 0.231 to 0.474 against a measured 0.518. About 88 % of the residual gap is the model's growth
+> rising too steeply (1.20 against 0.901), which is the enzyme kinetic envelope, not the
+> maintenance layer and not the ETC.
+
 Nothing was tuned. The measured phenomenon is a cell spending progressively more carbon on
 respiration per unit growth as it heats up — the signature of maintenance, futile cycling, leak
 or turnover. The model has one of those, NGAM(T), and it is far too weak to produce a 4.7-fold
 swing. That is a statement about the maintenance layer, not the ETC.
+
+> **CORRECTED 2026-09-08 by K6.** Tested, and false. Raising NGAM(T) makes the disagreement
+> worse and the model is dead at ten times the anchored value; removing it improves the
+> respiration term almost exactly onto measurement. The residual discrepancy is in the rising
+> limb of growth, not in maintenance. See `reports/K6_like_for_like/task3_verdict.md`.
 
 ## 4. The membrane constraint, re-tested
 
