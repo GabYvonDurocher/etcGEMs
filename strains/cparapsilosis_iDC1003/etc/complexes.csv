@@ -1,0 +1,49 @@
+# ETC complexes of Candida parapsilosis: membrane footprint, turnover, the reactions that carry each
+# complex's flux, and electrogenicity. Built by reports/K4_membrane/task2_build_tables.py (K4).
+#
+# READ THIS BEFORE USING THE TABLE.
+#
+# EVERY FOOTPRINT AND TURNOVER IN THIS FILE IS IDENTICAL ACROSS THE FOUR CANDIDA SPECIES.
+# Nothing species-specific exists to put in them. There is no published membrane footprint,
+# turnover or abundance for any ETC complex of any Candida species, and no fungal equivalent
+# of Szenk, Dill & de Graff (2017) Cell Systems 5:95-104, which is where E. coli's footprints
+# come from. A constraint whose parameters are identical across species cannot explain a
+# difference between them, so THIS TABLE CANNOT BE USED FOR AN INTERSPECIES COMPARISON. It is
+# a starting point for asking what the mechanism does, which is what K4 used it for.
+#
+# PROVENANCE, per column:
+#   area_nm2   derived from solved structures OF FUNGI (Yarrowia lipolytica complex I, 6RFR; S. cerevisiae complexes II/III/IV/V, 9KPS/6HU9/6B2Z), as the membrane-plane cross-section. IDENTICAL across the four species: there is no Candida structure to differentiate them.
+#   kcat_s     taken from E. coli (Szenk 2017 / Bekker 2009 physiological midpoints), as strains/eciML1515/etc/complexes.csv uses them. NO kcat has been measured for any ETC complex of any Candida species.
+#   reactions  read off this model (K4 TASK 1). The ONLY species-varying column -- and it
+#              varies by RECONSTRUCTION, not by biology: the three iRV973-derived models share
+#              one scaffold, and only C. parapsilosis (iDC1003) is independently curated.
+#   h_p_target BLANK throughout, deliberately. Setting it would override the model's own
+#              proton stoichiometry and so would silently repair the encoding defects K4
+#              TASK 1 reports. It would also be a no-op: the core's set_proton_stoichiometry
+#              defaults to E. coli's 'p'/'c' compartments, which these models do not have.
+#
+# WHAT THE MODEL'S OWN NUMBERS SAY, and why they are not used. The kcat table these strains
+# already carry gives per-species DLKcat turnovers for complexes I and II (spread 1.6x and
+# 2.4x across the three Candidozyma) and the parse default 13.7 s^-1 for complex III and ATP
+# synthase -- i.e. not a prediction at all for two of five rows. Using the DLKcat values would
+# make the table species-specific through exactly the predictor channel A1 found has no
+# demonstrated per-protein validity (reports/predictor_calibration/report.md). Worse, in the
+# three iRV973-derived models complexes I, III and ATP synthase share ONE identical set of
+# seven genes and therefore one molecular weight, so the models do not distinguish these three
+# complexes at all.
+#
+# THE ABSOLUTE SCALE is set by A_ETC, not here; only the RELATIVE weights A_i/kcat_i matter to
+# the allocation. No defensible per-species A_ETC exists either (see the report).
+#
+# Candida parapsilosis ETC as encoded:
+#     complex I      5 H+ mito in, 4 H+ cyto out (electrogenic, correct)
+#     complex II     non-electrogenic (correct)
+#     complex III    1.5 H+ mito->cyto (correct)
+#     complex IV     6 H+ mito in, 2 H+ cyto out (correct)
+#     ATP synthase   3 H+ cyto->mito (correct direction)
+complex,area_nm2,kcat_s,reactions,h_p_target,notes
+complex I,137.4,200,R11945__mito,,5 H+ mito in; 4 H+ cyto out (electrogenic; correct)
+complex II,15.4,100,R02164__mito,,non-electrogenic (correct)
+complex III,68.2,100,T02161__mito,,1.5 H+ mito->cyto (correct)
+complex IV,45,100,R00081__mito,,6 H+ mito in; 2 H+ cyto out (correct)
+ATP synthase,57.9,270,T00485__cyto,,3 H+ cyto->mito (correct direction)
