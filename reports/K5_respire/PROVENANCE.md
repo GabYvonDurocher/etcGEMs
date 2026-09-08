@@ -6,7 +6,7 @@
 
 *Evidence:* `task1_coupling_audit.py`, `task2_fix.py`, `task3_respiration_test.py`, `task3b_membrane_retest.py` and `task4_required_separation.py` all exit 0 and regenerate their committed tables; `etcgem transfer --experiment candida_B5_respire` exits 0; `python reports/candida_thermal_limit/gate_table.py` -> 79/79 PASS, exit 0, with $CANDIDAS_ROOT unset, both before and after this work (2026-09-08).
 
-**This report was last written at** `95f5b44` (2026-09-08) — K5 TASK 4: the repair moves Figure 4's requirement by 0.07 C
+**This report was last written at** `922cfaa` (2026-09-08) — K5 TASK 5: the report, the discussion updates, and the open items this closes
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 
