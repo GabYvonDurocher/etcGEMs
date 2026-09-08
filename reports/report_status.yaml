@@ -1,0 +1,120 @@
+# Provenance status of every report directory. Read by scripts/stamp_reports.py, which writes
+# reports/<name>/PROVENANCE.md.
+#
+# WHY THIS FILE EXISTS. Whether a report's numbers still reproduce is a CLAIM, and a claim has
+# to be tested. It cannot be inferred from dates, so it is not computed: it is recorded here,
+# with the evidence, and the stamp generator copies it verbatim. A report with no entry is
+# stamped UNKNOWN, which is visible and honest.
+#
+#   status: CURRENT     the numbers reproduce from the code as it stands, and that has been checked
+#           HISTORICAL  a record of an earlier model state. NOT a defect -- a working log is
+#                       supposed to describe the state it was written in. The defect was only
+#                       ever that it did not say so.
+#           UNKNOWN     not established either way, and not claimed.
+#
+#   inputs: optional. The committed strain-output directories the report renders from, where an
+#           audit has established them. Overrides the generator's scan, which misses paths built
+#           by string join and picks up directories merely mentioned in prose.
+
+activation_energy:
+  status: UNKNOWN
+  note: >-
+    not audited. Its E_a dissections and the three calibrations they rest on were written
+    2026-07-10 to 2026-09-07, spanning the model changes N3 identified; whether they still
+    reproduce has not been tested, and settling it means re-running the dissections.
+  evidence: "no reproduction test has been run against this directory"
+
+candida_thermal_limit:
+  status: CURRENT
+  note: >-
+    the K1 gate reproduces the standalone Candida implementation's locked numbers today,
+    and the four Candida strains' transfer outputs are byte-identical on re-run.
+  evidence: >-
+    `python reports/candida_thermal_limit/gate_table.py` -> 79 comparisons, 79 PASS, 0 FAIL
+    with $CANDIDAS_ROOT unset (re-run at the P1 merge, 2026-09-08); `etcgem transfer
+    --experiment transfer_candida` leaves a clean `git status`.
+
+ecoli_gasflux:
+  status: CURRENT
+  note: >-
+    configurations A, B and C reproduce Parsa's committed numbers today. Configurations D, E
+    and F are PORTED BUT UNGATED -- they run, and their fit to data has not been checked here
+    because the measurements are not in the snapshot. See the notice at the top of this
+    report's README.
+  evidence: >-
+    `python reports/P1_parsa_port/gate.py` -> 60 comparisons, 60 PASS, 0 FAIL; T_opt exact in
+    all twelve medium x configuration cases, everything else within 1e-3 relative.
+  inputs:
+    - strains/eciML1515/outputs/gasflux_configA
+    - strains/eciML1515/outputs/gasflux_configB
+    - strains/eciML1515/outputs/gasflux_configC
+
+ecoli_tpc:
+  status: HISTORICAL
+  note: >-
+    of the eleven committed directories this report renders from, three reproduce today and
+    eight do not. Two causes account for nearly all of it: a416fd1 (the sector re-grounding,
+    2026-07-02) for the five 2026-07-02 directories, and 8085036 (the O2-sink closure,
+    2026-07-11) for the 2026-07-09 ones. Nothing found contradicts a scientific claim -- T_opt,
+    CT_max and curve shape are stable across every test -- but the report prints numbers from
+    three different model states side by side.
+  evidence: >-
+    reports/N3_output_audit/report.md (the eleven-directory audit; arrives on main with PR #3).
+    control_tuned reproduces to seven decimal places; decompose_tuned and elasticity_tuned are
+    0.235% behind it, exactly the O2-sink closure's documented effect.
+  inputs:                    # the authoritative list, from N3's read of assemble.py
+    - strains/eciML1515/outputs/sweep_default
+    - strains/eciML1515/outputs/sweep_dltkcat_ext
+    - strains/eciML1515/outputs/sweep_calibrated
+    - strains/eciML1515/outputs/proteome_sectors
+    - strains/eciML1515/outputs/anatomy
+    - strains/eciML1515/outputs/validation
+    - strains/eciML1515/outputs/calibration_vanderlinden
+    - strains/eciML1515/outputs/elasticity_tuned
+    - strains/eciML1515/outputs/decompose_tuned
+    - strains/eciML1515/outputs/control_tuned
+    - strains/eciML1515/outputs/ablation_complete
+
+N1_overnight:
+  status: HISTORICAL
+  note: >-
+    a working log of one night's work (2026-09-07), describing the repository as it then was.
+    Its conclusions have been carried forward where they still apply; the numbers in it are of
+    that state.
+  evidence: "working log; not intended to track the current model state"
+
+N2_followups:
+  status: HISTORICAL
+  note: >-
+    a working log of the N2 follow-ups (2026-09-07). One of its actions -- regenerating
+    strains/eciML1515/outputs/tpc -- was verified to have taken, and that output reproduces
+    byte-identically today.
+  evidence: >-
+    `etcgem tpc --strain eciML1515` reproduces the committed outputs/tpc byte-identically
+    (re-checked at the P1 merge, 2026-09-08).
+
+P1_parsa_port:
+  status: CURRENT
+  note: >-
+    its gate and its thermal-vs-carbon check both run against the present code and reproduce
+    the numbers quoted in it.
+  evidence: >-
+    `python reports/P1_parsa_port/gate.py` -> 60/60 PASS;
+    `python reports/P1_parsa_port/partF_thermal_vs_carbon.py` regenerates its own table.
+
+P2_settle:
+  status: CURRENT
+  note: >-
+    every number in it is produced by a script in the same directory, run against the present
+    code. TASKS 1 and 2 are PROVISIONAL pending Parsa's confirmation -- that is a question of
+    intent, not of reproduction.
+  evidence: >-
+    task1_kcat.py, task2_nldm.py and task3_cmax.py regenerate their own tables.
+
+predictor_calibration:
+  status: HISTORICAL
+  note: >-
+    a record of the A1 sequence-predictor calibration. It renders from its own committed
+    tables and reads no strain-output directory; re-running it needs the external model
+    weights and the fetched sequence data, which are gitignored.
+  evidence: "self-contained; inputs are external and not committed"
