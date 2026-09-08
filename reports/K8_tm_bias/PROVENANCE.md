@@ -6,7 +6,7 @@
 
 *Evidence:* `task1_premise.py`, `task2_apply_correction.py` and `task3_offset_sweep.py` all exit 0 and regenerate their committed tables; `etcgem transfer --experiment candida_B5_tm_bias_corrected` exits 0; `python reports/candida_thermal_limit/gate_table.py` -> 79/79 PASS, exit 0, with $CANDIDAS_ROOT unset (2026-09-08).
 
-**This report was last written at** `9a82bdb` (2026-09-08) — K8 TASKS 2-4: the measured bias closes a third to a half of the ceiling, and leaves a species-specific residual
+**This report was last written at** `515683e` (2026-09-08) — K8 TASK 5: the report, the discussion updates, and two new open items
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 
