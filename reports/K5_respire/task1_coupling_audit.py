@@ -24,6 +24,7 @@ ion-translocating reaction, classified) beside this file.
 """
 from __future__ import annotations
 
+import argparse
 import logging
 import os
 import sys
@@ -59,8 +60,18 @@ STRAINS = [
 
 
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--candida-experiment", default=None,
+                    help="override the experiment used for the four Candida strains, e.g. "
+                         "candida_B5_respire to audit the REPAIRED models")
+    ap.add_argument("--suffix", default="",
+                    help="suffix for the output filenames, so a second run does not overwrite "
+                         "the first")
+    args = ap.parse_args()
     budget_rows, rxn_rows = [], []
     for strain, exp, T, kscale in STRAINS:
+        if args.candida_experiment and strain.startswith("c") and exp:
+            exp = args.candida_experiment
         try:
             pm = build_provider(resolve(strain, exp))
         except Exception as e:                                  # noqa: BLE001
@@ -95,10 +106,12 @@ def main():
               f"{rep['n_uncosted_reversible']} of those reversible]", flush=True)
 
     b = pd.DataFrame(budget_rows)
-    b.to_csv(os.path.join(HERE, "task1_budget.csv"), index=False)
-    pd.DataFrame(rxn_rows).to_csv(os.path.join(HERE, "task1_translocators.csv"), index=False)
-    print(f"\n[k5] wrote task1_budget.csv ({len(b)}) and "
-          f"task1_translocators.csv ({len(rxn_rows)})")
+    sfx = args.suffix
+    b.to_csv(os.path.join(HERE, f"task1_budget{sfx}.csv"), index=False)
+    pd.DataFrame(rxn_rows).to_csv(
+        os.path.join(HERE, f"task1_translocators{sfx}.csv"), index=False)
+    print(f"\n[k5] wrote task1_budget{sfx}.csv ({len(b)}) and "
+          f"task1_translocators{sfx}.csv ({len(rxn_rows)})")
     return 0
 
 

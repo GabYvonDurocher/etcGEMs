@@ -424,6 +424,58 @@ def apply_exchange_medium(model, csv_path: str, open_lb: float = -1000.0,
     return opened, missing
 
 
+def forbid_free_ion_export(model, costed_ids, compartment: str, ion: str = "H+",
+                           verbose: bool = True):
+    """Forbid UNCOSTED, REVERSIBLE reactions from running in the direction that pumps the
+    coupling ion INTO the energised compartment. K5.
+
+    THE DEFECT THIS ADDRESSES. In the three iRV973-derived Candida models the respiratory
+    chain supplies 0.02-0.05 % of the protons ATP synthase consumes: the circuit closes
+    instead through free metabolite/H+ symporters run backwards, one aspartate carrier alone
+    supplying more protons per hour than ATP synthase needs. Costing those carriers does not
+    stop it (K5 TASK 2 fix (a)); the enzyme cost is far smaller than the ATP the free gradient
+    buys.
+
+    WHY THIS IS A DIRECTION CONSTRAINT AND NOT A DELETION. These carriers are real biology and
+    are genuinely reversible in principle. What is not physical is running one in the direction
+    that CREATES proton-motive force at no cost: a symporter is driven BY the gradient, and
+    cannot build the gradient that drives it. So the direction that raises the ion in the
+    energised compartment is bounded to zero and the physiological direction, down the
+    gradient, is left completely open.
+
+    Applied only to reactions that are (a) not enzyme-costed, so the proteome constraint cannot
+    see them, and (b) reversible, so a direction exists to remove. A costed carrier pays for
+    itself and an irreversible one has no free direction, which is why E. coli -- twelve
+    uncosted proton-moving reactions, none reversible -- needs none of this.
+
+    Returns the list of (reaction_id, old_bounds, new_bounds) actually changed.
+    """
+    from .sink_audit import _ion_of
+    changed = []
+    for r in model.reactions:
+        if r.id in costed_ids or r.boundary or r.id.startswith(("EX_", "arm_", "prot_")):
+            continue
+        if not (r.lower_bound < 0 < r.upper_bound):
+            continue
+        coeff = sum(c for m_, c in r.metabolites.items()
+                    if _ion_of(m_) == ion and m_.compartment == compartment)
+        others = {m_.compartment for m_ in r.metabolites if _ion_of(m_) == ion}
+        if abs(coeff) < 1e-12 or len(others) < 2:
+            continue
+        old = r.bounds
+        if coeff > 0:      # the forward direction raises the ion in the energised compartment
+            r.bounds = (old[0], 0.0)
+        else:
+            r.bounds = (0.0, old[1])
+        changed.append((r.id, old, r.bounds))
+    if changed:
+        model.solver.update()
+        if verbose:
+            print(f"[ion-circuit] forbade free {ion} export into {compartment} for "
+                  f"{len(changed)} uncosted reversible carrier(s)")
+    return changed
+
+
 def pin_reactions_at_ub(model, rxn_ids):
     """Fix each listed reaction at |upper_bound| in both directions.
 
@@ -673,6 +725,7 @@ def from_gem_smoment(model_path: str, kcat_csv: str, T0: float = 310.15,
                      dcp_prior_kJ: float = -4.0,
                      medium_csv: Optional[str] = None,
                      pin_at_ub: Optional[List[str]] = None,
+                     forbid_ion_export: Optional[dict] = None,
                      pheno_sigma: float = 10.0,
                      pheno_w: float = 5.0,
                      topt_tm_min_gap: Optional[float] = None,
@@ -756,6 +809,14 @@ def from_gem_smoment(model_path: str, kcat_csv: str, T0: float = 310.15,
     if not entries:
         raise RuntimeError("No kcat CSV rows matched reactions in the GEM.")
     table = EnzymeCostTable(entries)
+    # K5: close the free coupling-ion circuit BEFORE the budget is calibrated, so the budget
+    # is calibrated against the model that will actually be run. Which reactions are costed is
+    # known only now, and the constraint applies only to uncosted reversible carriers.
+    if forbid_ion_export:
+        forbid_free_ion_export(
+            model, {e.rxn_id for e in entries},
+            compartment=forbid_ion_export["compartment"],
+            ion=forbid_ion_export.get("ion", "H+"))
     if budget_override is not None:
         budget = float(budget_override)
     else:

@@ -258,6 +258,7 @@ def build_provider(cfg: Dict[str, Any]):
             dcp_prior_kJ=p.get("dcp_prior_kJ", -4.0),
             medium_csv=medium_csv,
             pin_at_ub=p.get("pin_at_ub"),
+            forbid_ion_export=p.get("forbid_ion_export"),
             pheno_sigma=p.get("pheno_sigma", 10.0),
             pheno_w=p.get("pheno_w", 5.0),
             topt_tm_min_gap=p.get("topt_tm_min_gap_C"),
