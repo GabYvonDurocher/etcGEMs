@@ -71,3 +71,62 @@ commensurable.
 *individually* — "this model's ceiling is 9.9 °C too high for *C. auris*" is a real model
 statement. It is only the *interspecies difference* that is arithmetic, and that is precisely
 the quantity Figure 4 is about.
+
+## D3 — Synechocystis' committed ceiling is not reproducible from a strain build, so its correction is left blank
+
+**Where:** TASK 3.
+
+Rebuilding the phototroph from `resolve("syn6803", "syn6803_ecmodel")` gives CT_max **55.5 °C**
+against the committed **45.7 °C**. Three things were checked before concluding anything:
+
+* **Is the committed curve truncated?** No. Growth falls to 0.2 % of its peak by 50 °C and 45.70
+  is a genuine 5 %-of-rmax crossing. This was worth checking, because a truncated ceiling would
+  have made the committed +1.7 °C gap an artefact and materially changed §4's argument.
+* **Is it the medium?** `run_p2_thermal.py` applies a light-saturated autotrophic medium. Applying
+  the same does not close the difference.
+* **Is it the grid?** No; the difference survives the same grid.
+
+So the committed row depends on configuration inside that run script which a plain strain build
+does not reproduce, and finding it is outside K9's scope.
+
+**Decided:** quote the phototroph's gap from the committed table and leave its total correction
+**blank** rather than guess it, and record the non-reproducibility as an open item. A number I
+cannot reproduce is not a number I will decompose.
+
+## D4 — the common term: reported as absent, because that is what the numbers say
+
+**Where:** TASK 3.
+
+Residuals after removing A1's measured predictor bias, where they can be computed:
+
+| strain | Tm provenance | residual |
+|---|---|---|
+| *M. maripaludis* | prior | **0.05 °C** |
+| *C. auris* | Seq2Tm | 4.38 °C |
+| *E. coli* | measured | **5.60 °C** |
+| *C. haemulonii* | Seq2Tm | 10.08 °C |
+| *C. duobushaemulonii* | Seq2Tm | 10.33 °C |
+| *C. parapsilosis* | Seq2Tm | 10.48 °C |
+
+**There is no constant.** The residuals span 0.05 to 10.48 °C. Only *C. auris* (4.38) is near
+*E. coli*'s 5.60; the three relatives are roughly double it and the methanogen is essentially
+zero.
+
+**Decided:** report that a common ~5–6 K term is **not** visible across strains, with the same
+prominence a confirmation would have had. *E. coli*'s 5.6 K is real and remains unexplained, but
+it is a one-organism observation and K8's framing of it as "a common term" is not supported by
+the seven-strain data.
+
+**The three confounds, addressed rather than mentioned:**
+
+1. *M. maripaludis*' 0.05 °C residual is computed **at its calibrated `kcat_scale` of 7.223**. At
+   the a-priori point its predicted TPC is identically zero (K2 PART C2), so it has no ceiling to
+   measure. It therefore cannot serve as evidence either way, and its near-zero residual should
+   not be read as a strain that escapes the effect.
+2. The non-Candida strains have **higher median Tm** (55.9, 56.9 against 53.5–54.2) **and higher
+   observed limits** (47, 44 against 38–44). The gap is a difference of two quantities and both
+   differ, so a like-for-like comparison across organisms is weaker than it looks.
+3. **The mesophile prior is built on *E. coli*'s own meltome.** So the methanogen and phototroph
+   are **not independent evidence** about a term seen in *E. coli*: their Tm distribution *is*
+   *E. coli*'s, transplanted. That cuts both ways — it removes them as confirmation, and it also
+   removes them as refutation.
