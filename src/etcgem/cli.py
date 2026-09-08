@@ -279,6 +279,40 @@ def cmd_audit_sinks(args):
             print(f"   {r['reaction']:34s} [{r['lower_bound']:.4g}, {r['upper_bound']:.4g}] "
                   f"{(r.get('produces') or r.get('consumes') or ''):14s} "
                   f"{(r.get('name') or '')[:44]}")
+    if getattr(args, "coupling_ion", False):
+        from .sink_audit import audit_coupling_ion
+        from .enzyme_cost import Perturbation
+        from .tpc import apply_state
+        T = args.coupling_temp if args.coupling_temp is not None else float(cfg.get("T0_C", 30.0))
+        try:
+            apply_state(pm.ec, float(T), Perturbation())
+        except Exception:                                            # noqa: BLE001
+            pass
+        sol = pm.ec.model.optimize()
+        ci = audit_coupling_ion(pm, solution=sol)
+        ci["solved_at_T_C"] = float(T)
+        ci["status"] = str(sol.status)
+        rxns = ci.pop("reactions", [])
+        rep["class_E_coupling_ion"] = ci
+        with open(os.path.join(out_dir, "coupling_ion.json"), "w") as fh:
+            json.dump(ci, fh, indent=2)
+        pd.DataFrame(rxns).to_csv(
+            os.path.join(out_dir, "class_E_coupling_ion_reactions.csv"), index=False)
+        if ci.get("ion") is None:
+            print(f"\n[{args.strain}] class E  coupling ion: {ci.get('note')}")
+        else:
+            print(f"\n[{args.strain}] class E  coupling-ion circuit ({ci['ion']}, "
+                  f"{ci['inner_compartment']} -> {ci['outer_compartment']}, "
+                  f"solved at {T:.0f} C, {sol.status}):")
+            print(f"   ATP synthase draws        {ci['atp_synthase_draw']:10.3f}")
+            print(f"   chain, translocated       {ci['redox_translocated']:10.3f}")
+            print(f"   chain, in-compartment     {ci['redox_in_compartment']:10.3f}")
+            print(f"   metabolite carriers       {ci['carrier_translocated']:10.3f}")
+            print(f"   -> the chain supplies {100*ci['chain_supplies_fraction']:.2f} % by "
+                  f"translocation, {100*ci['chain_supplies_fraction_incl_chemistry']:.2f} % "
+                  f"including in-compartment chemistry")
+            print(f"   {ci['n_uncosted']} of {ci['n_ion_reactions']} ion reactions are "
+                  f"uncosted, {ci['n_uncosted_reversible']} of those reversible")
     pd.DataFrame(rep["class_A_uncosted_energy_producing"]).to_csv(
         os.path.join(out_dir, "class_A_uncosted_energy_producing.csv"), index=False)
     dump_resolved(cfg, out_dir)
@@ -991,6 +1025,14 @@ def build_parser():
     au.add_argument("--experiment", default=None,
                     help="optional overlay, so the audit sees the model a given run builds")
     au.add_argument("--max-report", dest="max_report", type=int, default=40)
+    au.add_argument("--coupling-ion", dest="coupling_ion", action="store_true",
+                    help="also run class E, the coupling-ion circuit: does the respiratory "
+                         "chain actually supply the ion gradient ATP synthase runs on? Needs a "
+                         "solve, so it is opt-in and no existing audit output changes without "
+                         "it. K5.")
+    au.add_argument("--coupling-temp", dest="coupling_temp", type=float, default=None,
+                    help="temperature (C) to solve at for --coupling-ion; default is the "
+                         "strain's T0_C")
     au.add_argument("--raw", action="store_true",
                     help="audit the reconstruction as published: build without the strain's "
                          "own sink corrections (close_free_sinks / relax_pinned / pin_at_ub)")
