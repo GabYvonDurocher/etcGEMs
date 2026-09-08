@@ -38,6 +38,23 @@ are far too similar between these species to reproduce the observed divergence.*
 | **K5: the model repaired so it respires** | **13.57 °C** | 0.411 °C | **33×** |
 | **K7: the same, under the OTHER measured growth convention** | **13.57 °C** | 0.411 °C | **33×** |
 
+_Added 2026-09-08 by K9 (`reports/K9_criterion/report.md`)._ **A second criterion was proposed
+for this row and it does not work, which is worth recording so it is not proposed again.** Since
+the requirement above asks the model to kill a relative below a detection floor at 40 °C, an
+apparently gentler alternative is to ask instead what uniform ΔTm would bring each species'
+predicted CT_max onto its *observed* thermal limit. That gives about 5 °C of interspecies
+difference rather than 13.6, which would put the requirement within roughly threefold of A1's
+measured congeneric 1.6 °C — a materially weaker claim than the one this table carries.
+**It is arithmetic.** The four models predict near-identical ceilings, so the offset difference
+between species is just the difference between their *observed* limits. Tested across five model
+states — before and after the K5 proton repair, with and without a carbon cap, and with the
+curvature prior at −3 and −6 — the model's own ceiling spread varies **4.5-fold** while the
+required-offset spread stays at **6.05–6.45 °C** against an observed limit spread of **6.00 °C**.
+A model-derived requirement would move when the model moves; this does not. The **detection**
+criterion remains the right one for this table, and K9 recommends quoting it as **13.6 °C, range
+11.2–15.8 °C** over interrogation temperatures 38–42 °C, noting that the detection floor is
+nearly immaterial (a tenfold change in it moves the requirement by 0.31 °C).
+
 _Added 2026-09-08 by K5 (`reports/K5_respire/report.md`)._ The last row closes a possibility
 that was open until it was computed. K4 showed the models had two escape routes — a free proton
 circuit, so the respiratory chain carried 0.02–0.05 % of the load, and fermentation with no
@@ -213,6 +230,22 @@ the membrane-area budget once the model can respire under a carbon cap: *C. auri
 falls from 53.0 °C to 36.5 °C across the A_ETC sweep, against 53.6 to 47.0 in K4. So the
 over-prediction recorded in this section is not immovable — it is simply not moved by anything
 in the enzyme layer. Detail: `reports/K5_respire/task3b_membrane_retest.md`.
+
+**The ~5.6 K "common term" does not generalise, and this section should not be read as claiming
+it does (K9, 2026-09-08).** K8 separated the Candida ceiling error into a predictor component and
+a residual, and observed that *E. coli* — whose Tm are **measured** — still needs a −5.6 K
+correction, suggesting a second, common cause. K9 tested that across every strain where it can be
+computed. The residuals after removing A1's measured predictor bias are **0.05 °C**
+(*M. maripaludis*), **4.38** (*C. auris*), **5.60** (*E. coli*), **10.08, 10.33, 10.48** (the three
+relatives). **There is no constant.** *E. coli*'s 5.6 K is real and unexplained but is a
+one-organism observation, and the two strains that might have corroborated it cannot: the
+methanogen has no a-priori ceiling at all (its predicted TPC is identically zero until its
+calibrated `kcat_scale` is applied), and both it and the phototroph draw their Tm from a
+**mesophile prior built on *E. coli*'s own meltome**, so they are not independent evidence about
+a term seen in *E. coli*. Separately, *Synechocystis*' committed ceiling of 45.70 °C could not be
+reproduced from a plain strain build, which gives 55.50 °C; the committed curve is not truncated
+and the medium does not explain it, so that row should be treated as provisional until the
+difference is found.
 
 **Part of the over-prediction is a predictor artefact, and it can now be sized (K8, 2026-09-08;
 `reports/K8_tm_bias/report.md`).** A1 measured Seq2Tm's bias against a real *S. cerevisiae*
