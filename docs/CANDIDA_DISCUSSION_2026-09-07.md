@@ -155,6 +155,15 @@ sharper question, it is only askable because the seven strains now share a code 
 be resolved before the membrane hypothesis (§6a) is treated as the leading explanation — whatever
 explains the pattern must also explain the two organisms where nothing is wrong.
 
+_Checked against the flatness guard (N2). N1's guard fires wherever proteome sectors run
+without temperature-dependent allocation, which is true of the Candida B4 rung, of
+M. maripaludis and of Synechocystis — so it is fair to ask whether the table above is reading
+descriptors off flat-topped curves. It is not: CT_max is read off the falling limb, which the
+flat top does not touch; M. maripaludis reports NaN because its a-priori curve is identically
+zero and its analyses run at the calibrated operating point where the metabolic pool binds;
+and Synechocystis' plateau is 2.0 °C at the 1% level and 0.0 at 0.01%, i.e. a genuine peak.
+The table survives. Detail:_ `reports/candida_thermal_limit/K2_core_thermal_form.md` §C2.
+
 ## 5. Coverage: what the model actually sees
 
 | Stage | *C. auris* | Across the four |
@@ -180,6 +189,30 @@ predicted ΔTm of 0.411 °C. That was posed here as an either/or — thermostabi
 or the predictor cannot see the substitutions that matter. **A1 answered it: the predictor cannot
 see them** (§3a). Whether thermostability is *also* conserved remains unknown, and now needs
 measurement rather than prediction.
+
+**MEASURED (A3, N1): the models see about 2–5 % of the gene-content difference.** This section
+inferred a coverage problem from proteome sizes; A3 measured it directly, by aligning all four
+proteomes against each other and crossing the result with model membership.
+
+| | proteome level | of which in a metabolic model |
+|---|---|---|
+| genes present in one species, absent from another (no hit at e < 1e-3) | **122–647** per comparison | **0–15** |
+
+Concretely, *C. auris* against *C. haemulonii*: 209 genes absent at e < 1e-10, of which **four**
+are in a model — protoheme IX farnesyltransferase, Dpm2p, an uncharacterised protein and cytidine
+deaminase. Against *C. duobushaemulonii* it is seven of 244. Gene content differs by 2.4–3.8 % in
+each direction within the *Candidozyma* clade and 8.5–11.2 % against *C. parapsilosis*; **almost
+none of it is inside the models.**
+
+Two methodological caveats make that trustworthy rather than merely striking, and both were
+corrections to the obvious method. **RBH-absence over-states true absence more than threefold** —
+569 genes lack a reciprocal best hit for *C. auris* against *C. haemulonii*, and 172 lack any hit
+at all — which matters because RBH is the pairing the rest of this project uses. And **a
+description-only search for a named gene is not a presence/absence test**: it missed alternative
+oxidase in *C. haemulonii*, where alignment finds one at 86.4 % identity, and returned nothing at
+all in *C. parapsilosis*, whose model namespace carries no description field. A3 therefore finds
+candidates by description and decides presence by alignment. Full method and lists:
+`reports/N1_overnight/A3_gene_content.md`.
 
 **Crucially: fixing coverage does not fix the species question.** Adding the missing 4,400 proteins
 would bring their species-specificity through the same flat Seq2Tm channel. Coverage and
@@ -234,9 +267,27 @@ for.
 across species *and across temperature*. The core's unfolding branch has NGAM(T). This is a
 structural difference, and it interacts with the measured 1.34× respiration-per-growth ratio.
 
-**(e) Gene content.** Presence/absence is genuinely species-specific, needs no new data, and is
-already partly visible in `gem/tables/*_evidence.csv`. Nobody has looked. The Xiao et al. candidates
-(alternative oxidase in particular) are exactly this kind of thing.
+**(e) Gene content.** Presence/absence is genuinely species-specific and needs no new data.
+**Looked at now (A3, N1; `reports/N1_overnight/A3_gene_content.md`), and the result narrows the
+axis rather than opening it.**
+
+All four Xiao et al. candidates that could be located — alternative oxidase, the GRX5-family
+glutaredoxins, the FRE-like ferric reductases and the FET3-like ferroxidases — are **present in all
+four species**, by alignment. None of them distinguishes the species by presence/absence. And
+**alternative oxidase and the glutaredoxins are in no metabolic model at all**; the ferric
+reductases are in one (iDC1003).
+
+So that proposed mechanism is untestable in this framework as it stands, **on two separate
+grounds**: the genes do not differ between the species in the way presence/absence could express,
+and the two most-cited of them are not in any model, so the models could not express them even if
+they did. That is a **scope limit of these reconstructions**, not a refutation of Xiao et al. — a
+gene being present says nothing about whether it is expressed, when, or at what level, and the
+mechanism they propose is regulatory rather than combinatorial. Testing it would need the enzymes
+in the models and expression data, neither of which exists here.
+
+(FTR1 and SIT1 orthologues could not be assessed at all: no protein in any of the four RefSeq
+proteomes carries a matching description, so there was nothing to align. That is a missing
+annotation, not an absence.)
 
 ## 7. Data availability, checked
 
@@ -285,10 +336,12 @@ not compress, reconstruction depth (662–997 metabolic genes) was confounding t
 way it should be a recorded result, and later a framework-level experiment kind rather than a
 one-off script.
 
-**A3 — Gene-content screen.** *(cheap, no new data, nobody has done it)* From
-`gem/tables/*_evidence.csv`, list metabolic genes present in *C. auris* and absent in the relatives,
-and vice versa. Presence/absence is a species difference the model can represent today. Check the
-Xiao et al. candidates explicitly — alternative oxidase, GRX5, iron uptake.
+**A3 — Gene-content screen. DONE** (N1 TASK 1; `reports/N1_overnight/A3_gene_content.md`).
+Proteome-level orthology across all four species by alignment, with absence graded at three
+thresholds, crossed with model membership. **The models see about 2–5 % of the gene-content
+difference** — 0–15 genes per comparison against 122–647 in the proteome (§5) — and **all four
+locatable Xiao et al. candidates are present in all four species, with alternative oxidase and the
+glutaredoxins in no model** (§6e). Reported without adjudicating mechanism.
 
 **A4 — Add the proteome-sector layer to the Candida strains.** In K2/K3, using literature yeast
 values (P_total ≈ 0.45–0.5 g/gDW; sector fractions from the *S. cerevisiae* proteome). Frame as

@@ -27,6 +27,15 @@ Run from the project root, after
 Writes gate_table.csv beside this file and prints the table. Exit status 0 if every row
 passes, 1 otherwise -- so a later change that breaks the agreement is visible.
 
+LEGACY FIDELITY (N2 TASK 2). The four experiments this gate reads set
+`provider.rescale_pool_row: false`, against a default of true everywhere else. The pool row is
+badly conditioned at the cold end and GLPK is up to 8.7% wrong there, so normal runs rescale
+it to a mathematically identical, well-conditioned LP -- but this gate must reproduce the
+standalone INCLUDING the ~0.4% error the standalone's own solver made, and a better-conditioned
+LP does not. In one sentence: fidelity to the original implementation and numerical
+correctness are now different things, and this gate tests the first while everything else uses
+the second. See reports/candida_thermal_limit/CONFIGURATIONS.md.
+
 TOLERANCES, stated before the comparison was run (prompts/K1_candida_port_and_verify_prompt.md):
     fitted globals            within 2%
     predicted mu              within 1e-3 /h or 1%, whichever is larger

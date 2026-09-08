@@ -18,6 +18,14 @@
 #   thermal_model  mmrt with Topt pinned to T0 and no enzyme_params: no thermal layer at
 #                all, evaluated at T0, so cost = MW/(kcat*3600) exactly as in 16
 provider:
+  # LEGACY FIDELITY (N2 TASK 2): pool-row rescaling OFF. Everywhere else the default is
+  # ON since N2, because the rescaled LP is mathematically identical and better conditioned
+  # and Gurobi, GLPK and GLPK's exact rational solver then all agree. This run's job is to
+  # reproduce the standalone EXACTLY, INCLUDING the ~0.4% error the standalone's own solver
+  # made at the cold end of the two draft models, which a better-conditioned LP does not
+  # reproduce. Fidelity to the original implementation and numerical correctness are now
+  # different configurations; see reports/candida_thermal_limit/CONFIGURATIONS.md
+  rescale_pool_row: false
   kcat_csv: dltkcat/kcat_table_ecclass.csv
   thermal_model: mmrt
   enzyme_params: null

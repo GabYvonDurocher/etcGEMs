@@ -30,6 +30,7 @@ provider:
   pin_at_ub:
   - ATP_maintenance_NGAM__cyto
   - ATP_Maintenance__cyto
+  rescale_pool_row: false
   model_path: /Users/g.yvon-durocher/Library/CloudStorage/OneDrive-UniversityofExeter/Documents/work/MICROADAPT/etcGEMs/strains/cauris_iRV973/model/auris_iRV973_rekeyed.xml
 solver: gurobi
 T0_C: 30

@@ -15,6 +15,14 @@
 # T0, so each reaction costs MW/(kcat*3600) with no thermal factor -- which is what 16
 # computes. The phenomenological envelope is switched off for the same reason.
 provider:
+  # LEGACY FIDELITY (N2 TASK 2): pool-row rescaling OFF. Everywhere else the default is
+  # ON since N2, because the rescaled LP is mathematically identical and better conditioned
+  # and Gurobi, GLPK and GLPK's exact rational solver then all agree. This run's job is to
+  # reproduce the standalone EXACTLY, INCLUDING the ~0.4% error the standalone's own solver
+  # made at the cold end of the two draft models, which a better-conditioned LP does not
+  # reproduce. Fidelity to the original implementation and numerical correctness are now
+  # different configurations; see reports/candida_thermal_limit/CONFIGURATIONS.md
+  rescale_pool_row: false
   thermal_model: mmrt
   enzyme_params: null
   pool_budget: 1.0e6          # effectively infinite: the pool cannot bind

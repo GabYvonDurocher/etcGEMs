@@ -77,6 +77,14 @@ counterfactual:
 
 # THE ONE CHANGE, relative to the strain default: switch the maintenance correction OFF.
 provider:
+  # LEGACY FIDELITY (N2 TASK 2): pool-row rescaling OFF. Everywhere else the default is
+  # ON since N2, because the rescaled LP is mathematically identical and better conditioned
+  # and Gurobi, GLPK and GLPK's exact rational solver then all agree. This run's job is to
+  # reproduce the standalone EXACTLY, INCLUDING the ~0.4% error the standalone's own solver
+  # made at the cold end of the two draft models, which a better-conditioned LP does not
+  # reproduce. Fidelity to the original implementation and numerical correctness are now
+  # different configurations; see reports/candida_thermal_limit/CONFIGURATIONS.md
+  rescale_pool_row: false
   pin_at_ub: null
 
 # ... and the solver held at the standalone's, since exact reproduction is this file's only
