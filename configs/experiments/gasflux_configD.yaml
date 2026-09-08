@@ -1,8 +1,6 @@
-# !! UNGATED. This configuration is PORTED and RUNS, but nothing about its fit to data
-# !! has been verified here: the R2A / respirometry file its likelihood needs
-# !! (derived_N0_R_results_with_carbon.csv) is not in the snapshot. The R2 values
-# !! Parsa's report quotes for it are HIS numbers, not reproduced here.
-# !! See the notice at the top of reports/ecoli_gasflux/README.md.
+# !! GATED as of P3 TASK 3 (2026-09-08). Parsa's respirometry arrived and this configuration
+# !! now reproduces the R2 values his report prints, to <= 0.009. See reports/P3_gate/gate.md
+# !! and the notice at the top of reports/ecoli_gasflux/README.md.
 # CONFIGURATION D -- emergent overflow under a carbon cap with a free oxidase split.
 #
 # Overflow is NOT imposed: it emerges from the enzyme-mass (sMOMENT proteome-sector) budget

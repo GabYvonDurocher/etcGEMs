@@ -2,9 +2,9 @@
 
 # Provenance — `reports/ecoli_gasflux/`
 
-**STATUS: CURRENT** — configurations A, B and C reproduce Parsa's committed numbers today. Configurations D, E and F are PORTED BUT UNGATED -- they run, and their fit to data has not been checked here because the measurements are not in the snapshot. See the notice at the top of this report's README.
+**STATUS: CURRENT** — every configuration A-F reproduces Parsa's numbers today. A/B/C are gated on his committed gas-flux CSVs; D/E/F are gated against experiment now that his respirometry has arrived.
 
-*Evidence:* `python reports/P1_parsa_port/gate.py` -> 60 comparisons, 60 PASS, 0 FAIL; T_opt exact in all twelve medium x configuration cases, everything else within 1e-3 relative.
+*Evidence:* `python reports/P1_parsa_port/gate.py` -> 60 comparisons, 60 PASS, 0 FAIL (A/B/C); `python reports/P3_gate/gate_def.py` -> all ten R2 values his reports print reproduced, worst difference 0.009 (D/E/F).
 
 **This report was last written at** `7df74bd` (2026-09-08) — P2 TASK 2: NLDM under recipe ceilings -- the 1.2% is fully the medium, and one claim changes
 
@@ -13,8 +13,12 @@
 | input directory | last written | date | commit subject |
 |---|---|---|---|
 | `strains/eciML1515/outputs/gasflux_configA` | `5d9ca41` | 2026-09-08 | P2 TASK 1: the transporter turnover is 300 s^-1, settled by running bo |
-| `strains/eciML1515/outputs/gasflux_configB` | `3c01e8c` | 2026-09-08 | P1: ported scripts, the gate against Parsa's numbers, and the ConfigD  |
+| `strains/eciML1515/outputs/gasflux_configB` | `e346277` | 2026-09-08 | P3 TASKS 1-2: ingest the respirometry, and establish what the boundary |
+| `strains/eciML1515/outputs/gasflux_configB_cmax60` | `e346277` | 2026-09-08 | P3 TASKS 1-2: ingest the respirometry, and establish what the boundary |
 | `strains/eciML1515/outputs/gasflux_configC` | `3c01e8c` | 2026-09-08 | P1: ported scripts, the gate against Parsa's numbers, and the ConfigD  |
+| `strains/eciML1515/outputs/gasflux_configD` | *(untracked)* | — | — |
+| `strains/eciML1515/outputs/gasflux_configE` | *(untracked)* | — | — |
+| `strains/eciML1515/outputs/gasflux_configF` | *(untracked)* | — | — |
 
 ---
 

@@ -37,17 +37,29 @@ candida_thermal_limit:
 ecoli_gasflux:
   status: CURRENT
   note: >-
-    configurations A, B and C reproduce Parsa's committed numbers today. Configurations D, E
-    and F are PORTED BUT UNGATED -- they run, and their fit to data has not been checked here
-    because the measurements are not in the snapshot. See the notice at the top of this
-    report's README.
+    every configuration A-F reproduces Parsa's numbers today. A/B/C are gated on his committed
+    gas-flux CSVs; D/E/F are gated against experiment now that his respirometry has arrived.
   evidence: >-
-    `python reports/P1_parsa_port/gate.py` -> 60 comparisons, 60 PASS, 0 FAIL; T_opt exact in
-    all twelve medium x configuration cases, everything else within 1e-3 relative.
+    `python reports/P1_parsa_port/gate.py` -> 60 comparisons, 60 PASS, 0 FAIL (A/B/C);
+    `python reports/P3_gate/gate_def.py` -> all ten R2 values his reports print reproduced,
+    worst difference 0.009 (D/E/F).
   inputs:
     - strains/eciML1515/outputs/gasflux_configA
     - strains/eciML1515/outputs/gasflux_configB
+    - strains/eciML1515/outputs/gasflux_configB_cmax60
     - strains/eciML1515/outputs/gasflux_configC
+    - strains/eciML1515/outputs/gasflux_configD
+    - strains/eciML1515/outputs/gasflux_configE
+    - strains/eciML1515/outputs/gasflux_configF
+
+P3_gate:
+  status: CURRENT
+  note: >-
+    its gate reads Parsa's committed chains and recomputes every number in it against the
+    present code; nothing in it is carried over from an earlier state.
+  evidence: >-
+    `python reports/P3_gate/gate_def.py` regenerates gate_def_table.csv; the c_max change is
+    reproduced by re-running gasflux_configB and gasflux_configB_cmax60.
 
 ecoli_tpc:
   status: HISTORICAL
