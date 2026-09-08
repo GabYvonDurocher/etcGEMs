@@ -1,0 +1,7 @@
+variant,strain,A_star_nm2_per_gDW,required_A_ETC_nm2_per_gDW,required_ratio_to_Astar,required_fold_reduction,baseline_mu_40C,mu_40C_at_zero_area,mu_40C_complexes_deleted,detection_floor_h,permissive_mu,permissive_baseline,permissive_preserved,note
+full,chaemulonii_draft,2.6236790098379133e+17,,,,0.6839529688367393,0.2827536683534076,0.0,0.05,0.568578095518573,0.568578095518573,,"cannot be pushed below the floor at 40 C by ANY A_ETC, INCLUDING A_ETC = 0"
+full,cduobushaemulonii_draft,2.6236790098379133e+17,,,,0.5352716819545027,0.2609855628441692,0.0,0.05,0.5580907539240383,0.5580907539240383,,"cannot be pushed below the floor at 40 C by ANY A_ETC, INCLUDING A_ETC = 0"
+full,cparapsilosis_iDC1003,2.6236790098379133e+17,,,,0.636773184595858,0.2899785739073022,0.0,0.05,0.6294594664941563,0.6294594664941563,,"cannot be pushed below the floor at 40 C by ANY A_ETC, INCLUDING A_ETC = 0"
+chain_only,chaemulonii_draft,2.6236790098379133e+17,,,,0.6839529688367393,0.683948059718801,0.0,0.05,0.568578095518573,0.568578095518573,,"cannot be pushed below the floor at 40 C by ANY A_ETC, INCLUDING A_ETC = 0"
+chain_only,cduobushaemulonii_draft,2.6236790098379133e+17,,,,0.5352716819545027,0.5352482190025689,0.0,0.05,0.5580907539240383,0.5580907539240383,,"cannot be pushed below the floor at 40 C by ANY A_ETC, INCLUDING A_ETC = 0"
+chain_only,cparapsilosis_iDC1003,2.6236790098379133e+17,,,,0.636773184595858,0.3086667976539636,0.0,0.05,0.6294594664941563,0.6294594664941563,,"cannot be pushed below the floor at 40 C by ANY A_ETC, INCLUDING A_ETC = 0"
