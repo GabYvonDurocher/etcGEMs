@@ -419,7 +419,8 @@ def apply_gasflux(cfg: Dict[str, Any], pm):
             r = recipes[med]
             _prov.set_medium_recipe(
                 pm, _strain_path(cfg, r["recipe_csv"]),
-                clearance_L_per_gDW_h=float(r["clearance_L_per_gDW_h"]),
+                clearance_L_per_gDW_h=(None if r.get("clearance_L_per_gDW_h") is None
+                                       else float(r["clearance_L_per_gDW_h"])),
                 uptake_ub=float(r.get("uptake_ub", 1000.0)))
         else:
             kw = {}

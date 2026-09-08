@@ -14,7 +14,10 @@ allocation_from_data: null
 gasflux:
   enabled: true
   perturbation_from: calibration_vanderlinden
-  media: [glucose_minimal, NLDM, LB, BHI]
+  media: [glucose_minimal, NLDM, NLDM_blanket, LB, BHI]
+                       # NLDM_blanket is the legacy medium Parsa's committed CSVs used;
+                       # it is here so reports/P1_parsa_port/gate.py can compare against
+                       # them exactly. NLDM (recipe ceilings) is the model to quote.
   temperatures: {start_C: 5, stop_C: 50, n: 91}
   metabolites: [o2, co2, glc__D, pyr, lac__D, ac]
   transport_costs:
