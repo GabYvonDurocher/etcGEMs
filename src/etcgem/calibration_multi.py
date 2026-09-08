@@ -136,6 +136,335 @@ def build_pm_medium(strain, medium=None, experiment=None, cfg=None, timeout=10):
     return pm
 
 
+# ---------------------------------------------------------------------------
+# overflow / gas-exchange fits against measured growth + per-cell respiration (P4)
+# ---------------------------------------------------------------------------
+OVERFLOW_MEDIUM_OTU = {"NLDM": 1, "LB": 2, "glucose_minimal": 1}
+_MW_O2 = 32.0
+_MASK_G = 1e-4          # growth below this is "dead"; respiration there is not scored
+
+
+def build_gasflux_specs(cfg) -> List[PSpec]:
+    """Free set for a gas-exchange fit, assembled from ``cfg`` -- not a new spec system.
+
+    Starts from :func:`build_overflow_specs` (the v3 twelve with the widened envelope priors)
+    and adds only what the configuration needs:
+
+    * ``fit_clearance``  -- the medium's volumetric clearance K, as a multiplier of the strain's
+      nominal (prior [0.4, 2.0] -> K in [2, 10] L gDW^-1 h^-1). This is the recipe medium's one
+      physical scale factor, and P4 samples it rather than fixing it.
+    * ``use_etc``        -- the ETC membrane fraction F_ETC, as a multiplier of the nominal.
+    * ``resp_scale``     -- the per-cell respiration scale, plus its discrepancy term.
+    * ``disc_growth``    -- the growth discrepancy term, LAST as the nuisance index requires.
+
+    The total-carbon cap is NOT a free parameter here: P4 adopts c_max from Parsa's own sweep
+    rather than fitting it, so it is a fixed model setting, not a dimension.
+    """
+    specs = [s for s in build_overflow_specs(fit_carbon_cap=False, wide_envelope=True)
+             if s.name != "sigma_disc"]
+    if cfg.get("use_etc"):
+        specs += [PSpec("F_ETC_mult", "log", "lognormal", 0.35, 0.0, 0.3, 2.0, None, 1.0)]
+    if cfg.get("fit_clearance"):
+        specs += [PSpec("clearance_mult", "log", "lognormal", 0.35, 0.0, 0.4, 2.0, None, 1.0)]
+    specs += [PSpec("resp_scale", "log", "lognormal", 1.00, 0.0, 0.02, 50.0, None, 1.0),
+              PSpec("disc_resp", "log", "halfnormal", 0.50, 0.0, 1e-3, 3.0, None, None),
+              PSpec("disc_growth", "log", "halfnormal", 0.50, 0.0, 1e-4, 5.0, None, None)]
+    return specs
+
+
+def load_respirometry(strain, table, otu, temps=None):
+    """(T, growth mean/sd, respiration mean/sd) from a committed respirometry table.
+
+    ``growth_C_per_C_h`` is a specific rate (h^-1) and ``R_O2_mg_cell_min`` is per cell; both
+    are averaged over replicates per temperature. SDs are floored the way his likelihood floors
+    them -- 2 % of the mean for growth, 30 % for respiration where the SD is missing -- so a
+    single-replicate temperature cannot dominate.
+    """
+    import pandas as pd
+    from .config import strain_dir
+    path = table if os.path.isabs(table) else os.path.join(strain_dir(strain), table)
+    d = pd.read_csv(path)
+    d = d[d["OTU"] == otu]
+    if temps is not None:
+        d = d[d["T"].isin(list(temps))]
+    g = d.groupby("T")["growth_C_per_C_h"].agg(["mean", "std", "count"]).reset_index()
+    r = d.groupby("T")["R_O2_mg_cell_min"].agg(["mean", "std"]).reset_index()
+    T = g["T"].to_numpy(float)
+    og = g["mean"].to_numpy(float)
+    sg = np.maximum(np.nan_to_num(g["std"].to_numpy(float), nan=0.0),
+                    0.02 * np.maximum(og, 1e-6))
+    orr = r["mean"].to_numpy(float)
+    sr = np.where(np.isfinite(r["std"].to_numpy(float)), r["std"].to_numpy(float), 0.30 * orr)
+    meta = {"table": os.path.basename(path), "otu": int(otu), "n_per_T": g["count"].astype(int).tolist(),
+            "temps_C": T.tolist(), "growth_obs": og.tolist(), "growth_sd": sg.tolist(),
+            "resp_obs": orr.tolist(), "resp_sd": sr.tolist()}
+    return T, og, sg, orr, sr, meta
+
+
+def build_gasflux_pm(strain, medium, experiment, c_max=None, etc_table=None, timeout=30):
+    """Provider for a gas-exchange fit, built through the ordinary config path.
+
+    Everything the configuration needs is set here ONCE and read back from the resolved config
+    by the caller, so a setting cannot arrive by accident from an overlay (P3 found exactly that
+    failure: configuration D's cap leaking into E and F).
+    """
+    import copy
+    from .config import resolve, build_provider
+    cfg = resolve(strain, experiment)
+    cfg.setdefault("proteome_sectors", {})["biosynthesis_growth_law"] = True
+    cfg["allocation_from_data"] = None
+    gf = cfg.setdefault("gasflux", {})
+    gf["enabled"] = True
+    gf["medium"] = medium
+    gf["media"] = [medium]
+    cc = gf.setdefault("total_carbon_cap", {})
+    cc["enabled"] = c_max is not None
+    if c_max is not None:
+        cc["c_max"] = float(c_max)
+    ea = gf.setdefault("etc_area", {})
+    if etc_table is not None:
+        ea["enabled"] = True
+        ea["table"] = etc_table
+        ea["apply_proton_stoichiometry"] = bool(ea.get("apply_proton_stoichiometry"))
+    else:
+        ea["enabled"] = False
+    pm = build_provider(cfg)
+    try:
+        pm.ec.model.solver.configuration.timeout = float(timeout)
+    except Exception:
+        pass
+    pm.ec._alloc_from_data = None
+    return pm, cfg
+
+
+def gasflux_log_likelihood(theta, ctx, specs) -> float:
+    """Growth TPC + per-cell respiration TPC, the two terms his fits used.
+
+    Growth is scored on a linear scale against the measured specific growth rate; respiration
+    on a LOG scale against the measured per-cell rate, over the temperatures where the model is
+    alive and consuming O2. ``resp_scale`` carries the per-cell unit conversion, which is why it
+    is fitted rather than asserted -- see strains/<strain>/respirometry/README.md for what that
+    absorbs.
+    """
+    nat = to_natural(theta, specs)
+    pert = to_pert(theta, specs)
+    pm = ctx["pm"]
+    if "clearance_mult" in nat:
+        from . import providers as _prov
+        r = ctx["recipe"]
+        _prov.set_medium_recipe(pm, r["recipe_csv"],
+                                clearance_L_per_gDW_h=r["clearance"] * float(nat["clearance_mult"]),
+                                uptake_ub=r.get("uptake_ub", 1000.0), verbose=False)
+        if ctx.get("c_max") is not None:
+            from .gasflux import add_total_carbon_constraint
+            add_total_carbon_constraint(pm, float(ctx["c_max"]))
+    if "F_ETC_mult" in nat:
+        from . import etc_area as _ea
+        _ea.add_etc_area_constraint(
+            pm, ctx["etc_table"],
+            _ea.budget_from_fraction(ctx["a_mem"], ctx["f_etc_nom"] * float(nat["F_ETC_mult"])))
+    from .gasflux import flux_tpc
+    try:
+        df = flux_tpc(pm, ctx["T"], pert, metabolites=("o2",))
+    except Exception:
+        return -np.inf
+    g = df["growth"].to_numpy(float)
+    o2 = df["o2_uptake"].to_numpy(float)
+    if not np.all(np.isfinite(g)):
+        return -np.inf
+    dg = float(nat["disc_growth"])
+    var = ctx["growth_sd"] ** 2 + dg ** 2
+    ll = float(-0.5 * np.sum((ctx["growth_obs"] - g) ** 2 / var + np.log(2 * np.pi * var)))
+    keep = (g >= _MASK_G) & (o2 > 0)
+    if keep.sum() >= 1:
+        dr = float(nat["disc_resp"])
+        rs = float(nat["resp_scale"])
+        pred = np.log(o2[keep] * ctx["o2_conv"] * rs)
+        obsl = np.log(ctx["resp_obs"][keep])
+        rel = ctx["resp_sd"][keep] / ctx["resp_obs"][keep]
+        varr = rel ** 2 + dr ** 2
+        ll += float(-0.5 * np.sum((obsl - pred) ** 2 / varr + np.log(2 * np.pi * varr)))
+    return ll
+
+
+_GCTX = None
+_GSPECS = None
+
+
+def _gwinit(payload):
+    global _GCTX, _GSPECS
+    _set_default_solver(payload.pop("solver", "gurobi"))
+    _GCTX, _GSPECS = _build_gasflux_ctx(**payload)
+
+
+def _gwlogprob(theta):
+    lp = log_prior(theta, _GSPECS)
+    if not np.isfinite(lp):
+        return -np.inf
+    ll = gasflux_log_likelihood(theta, _GCTX, _GSPECS)
+    return lp + ll if np.isfinite(ll) else -np.inf
+
+
+def _gwnegpost(theta):
+    v = _gwlogprob(theta)
+    return 1e12 if not np.isfinite(v) else -v
+
+
+def _build_gasflux_ctx(strain, medium, experiment, table, otu, c_max, etc_table,
+                       apply_protons, fit_clearance, timeout=30):
+    import yaml
+    from . import etc_area as _ea
+    pm, cfg = build_gasflux_pm(strain, medium, experiment, c_max=c_max,
+                               etc_table=etc_table, timeout=timeout)
+    gx = cfg.get("gas_exchange") or {}
+    T, og, sg, orr, sr, meta = load_respirometry(strain, table, otu)
+    ctx = {"pm": pm, "T": T, "growth_obs": og, "growth_sd": sg,
+           "resp_obs": orr, "resp_sd": sr, "meta": meta, "c_max": c_max,
+           "o2_conv": float(gx["gdw_per_cell"]) * _MW_O2 / 60.0}
+    if etc_table is not None:
+        mem = gx.get("membrane") or {}
+        from .config import strain_dir
+        ctx["etc_table"] = _ea.load_etc_table(etc_table, strain_dir(strain))
+        ctx["a_mem"] = _ea.membrane_area_per_gdw(mem["sv_um2_per_fL"], mem["dcw_pg_per_fL"])
+        ctx["f_etc_nom"] = float(gx.get("f_etc_nom", 0.316))
+    if fit_clearance:
+        rec = ((gx.get("media") or {}).get(medium) or {})
+        from .config import _strain_path
+        ctx["recipe"] = {"recipe_csv": _strain_path(cfg, rec["recipe_csv"]),
+                         "clearance": float(rec["clearance_L_per_gDW_h"]),
+                         "uptake_ub": float(rec.get("uptake_ub", 1000.0))}
+    return ctx, build_gasflux_specs({"use_etc": etc_table is not None,
+                                     "fit_clearance": fit_clearance})
+
+
+def run_gasflux_fit(strain, out_dir, *, medium, table, otu=None, experiment="gasflux_configD",
+                    c_max=None, etc_table=None, apply_protons=False, fit_clearance=True,
+                    label="", n_walkers=36, n_steps_max=2000, n_burn=200, seed=1, n_proc=0,
+                    check_every=250, target_neff=200, tau_factor=40, allow_glpk=False,
+                    warm_start=True, progress=False) -> Dict:
+    """Emcee fit of one gas-exchange configuration to measured growth + per-cell respiration.
+
+    The fourth entry point beside :func:`run`, :func:`run_syn6803` and :func:`run_methanogen`,
+    on the same machinery (PSpec / to_pert / log_prior / warm start / autocorr early-stop). It
+    is a configuration of that machinery, not a second calibrator.
+    """
+    import emcee
+    os.makedirs(out_dir, exist_ok=True)
+    np.random.seed(seed)
+    otu = OVERFLOW_MEDIUM_OTU[medium] if otu is None else int(otu)
+    payload = dict(strain=strain, medium=medium, experiment=experiment, table=table, otu=otu,
+                   c_max=c_max, etc_table=etc_table, apply_protons=apply_protons,
+                   fit_clearance=fit_clearance)
+
+    solver = _set_default_solver("gurobi")
+    if solver != "gurobi" and not allow_glpk:
+        raise SystemExit("[solver] Gurobi NOT active - stopping (set ALLOW_GLPK to override).")
+    print(f"[solver] {solver}")
+
+    ctx, specs = _build_gasflux_ctx(**payload)
+    ndim = len(specs)
+    _, cfg = build_gasflux_pm(strain, medium, experiment, c_max=c_max, etc_table=etc_table)
+    from .config import dump_resolved
+    dump_resolved(cfg, out_dir)
+
+    t_pf = time.time()
+    lp0 = gasflux_log_likelihood(init_walkers(specs, 1, np.random.default_rng(seed))[0], ctx, specs)
+    pf_ms = (time.time() - t_pf) * 1000
+    if not np.isfinite(lp0):
+        raise SystemExit(f"[preflight] {label}: the likelihood is not finite at a prior draw.")
+    print(f"[preflight] {label}: one likelihood evaluation = {pf_ms:.0f} ms over "
+          f"{len(ctx['T'])} temperatures; logL={lp0:.1f}")
+
+    n_proc = n_proc or max(1, min(10, (os.cpu_count() or 2) - 2))
+    n_walkers = int(np.ceil(max(n_walkers, 2 * ndim + 2) / n_proc)) * n_proc
+
+    from multiprocessing import Pool
+    pool = Pool(processes=n_proc, initializer=_gwinit, initargs=(dict(payload, solver=solver),))
+    t0 = time.time()
+    try:
+        if warm_start:
+            p0, mode = _warm_start(specs, n_walkers, seed, pool, progress,
+                                   negpost=_gwnegpost, logprob=_gwlogprob)
+        else:
+            p0, mode = init_walkers(specs, n_walkers, np.random.default_rng(seed)), None
+        sampler = emcee.EnsembleSampler(n_walkers, ndim, _gwlogprob, pool=pool)
+        state = p0; done = 0; tau_max = float("nan")
+        stop_reason = f"n_steps_max ({n_steps_max})"
+        while done < n_steps_max:
+            n = min(check_every, n_steps_max - done)
+            state = sampler.run_mcmc(state, n, progress=progress)
+            done += n
+            try:
+                tau_max = float(np.nanmax(sampler.get_autocorr_time(tol=0)))
+            except Exception:
+                tau_max = float("nan")
+            if np.isfinite(tau_max) and tau_max > 0:
+                burn_now = min(int(max(n_burn, 2 * tau_max)), done - 10)
+                n_eff_min = n_walkers * (done - burn_now) / tau_max
+                print(f"[emcee] {label} step {done}: tau_max={tau_max:.1f} "
+                      f"chain/tau={done / tau_max:.1f} (need >{tau_factor}) "
+                      f"min n_eff~{n_eff_min:.0f} (need >={target_neff})", flush=True)
+                if done > tau_factor * tau_max and n_eff_min >= target_neff:
+                    stop_reason = (f"converged: chain {done} > {tau_factor}*tau_max "
+                                   f"AND min n_eff {n_eff_min:.0f} >= {target_neff}")
+                    break
+            else:
+                print(f"[emcee] {label} step {done}: autocorr not yet estimable", flush=True)
+    finally:
+        pool.close(); pool.join()
+    wall = time.time() - t0
+
+    burn = min(int(n_burn if not np.isfinite(tau_max) else max(n_burn, 2 * tau_max)), done - 10)
+    thin = max(1, int(tau_max / 2)) if np.isfinite(tau_max) else 1
+    flat = sampler.get_chain(discard=burn, thin=thin, flat=True)
+    lpf = sampler.get_log_prob(discard=burn, thin=thin, flat=True)
+    chain = sampler.get_chain()
+    lp_all = sampler.get_log_prob()
+    i, j = np.unravel_index(np.nanargmax(lp_all), lp_all.shape)
+    accept = float(np.mean(sampler.acceptance_fraction))
+    n_eff = flat.shape[0] if not np.isfinite(tau_max) else float(n_walkers * (done - burn) / tau_max)
+    converged = stop_reason.startswith("converged")
+
+    np.save(os.path.join(out_dir, "chain.npy"), chain)
+    np.save(os.path.join(out_dir, "log_prob.npy"), lp_all)
+    np.save(os.path.join(out_dir, "flat.npy"), flat)
+
+    names = [s.name for s in specs]
+    nat_med = to_natural(np.median(flat, axis=0), specs)
+    nat_map = to_natural(chain[i, j], specs)
+    post = {}
+    for k, nm in enumerate(names):
+        col = np.array([to_natural(t, specs)[nm] for t in flat[::max(1, len(flat) // 400)]])
+        lo, md, hi = np.percentile(col, [5, 50, 95])
+        post[nm] = {"posterior_median": float(md), "ci90": [float(lo), float(hi)],
+                    "map": float(nat_map[nm]),
+                    "prior_lo": float(specs[k].lo), "prior_hi": float(specs[k].hi),
+                    "width_ratio_vs_prior": float((hi - lo) / (specs[k].hi - specs[k].lo))}
+    result = {
+        "strain": strain, "label": label, "medium": medium, "otu": otu,
+        "settings": {"c_max": c_max, "etc_table": etc_table,
+                     "apply_proton_stoichiometry": bool(apply_protons),
+                     "fit_clearance": bool(fit_clearance), "experiment": experiment},
+        "data": ctx["meta"], "solver": solver,
+        "preflight_single_eval_ms": round(pf_ms, 1),
+        "sampler": {"n_walkers": n_walkers, "n_steps": done, "n_steps_max": n_steps_max,
+                    "burn": burn, "thin": thin, "warm_started": bool(mode is not None),
+                    "stop_reason": stop_reason, "converged": bool(converged),
+                    "acceptance_fraction": round(accept, 3),
+                    "autocorr_time_max": None if not np.isfinite(tau_max) else round(tau_max, 1),
+                    "n_eff": round(float(n_eff), 1), "wall_time_s": round(wall, 1),
+                    "n_proc": n_proc, "seed": seed},
+        "posterior": post,
+        "param_names": names,
+    }
+    with open(os.path.join(out_dir, "summary.json"), "w") as fh:
+        json.dump(result, fh, indent=2)
+    print(f"[fit] {label}: {done} steps x {n_walkers} walkers, {wall / 60:.1f} min, "
+          f"accept {accept:.3f}, tau {tau_max:.1f}, "
+          f"{'CONVERGED' if converged else 'NOT CONVERGED'} -> {out_dir}", flush=True)
+    return result
+
+
 def build_methanogen_specs() -> List[PSpec]:
     """Free set for the M. maripaludis Jones-1983 fit (M4). The methanogen ecModel is a
     SINGLE sMOMENT pool with NGAM(T) and NO sectors/growth-law (per M3), so the E. coli
@@ -673,10 +1002,20 @@ def _theta_bounds(specs):
     return [(np.log(s.lo), np.log(s.hi)) if s.space == "log" else (s.lo, s.hi) for s in specs]
 
 
-def _warm_start(specs, n_walkers, seed, pool, progress):
+def _warm_start(specs, n_walkers, seed, pool, progress, negpost=None, logprob=None):
     """Return (p0, mode_theta_or_None). Run a short differential_evolution to the
     posterior mode over the process pool, then seed walkers in a tight ball around it
-    (falls back to the emergent-point ball if the optimiser fails)."""
+    (falls back to the emergent-point ball if the optimiser fails).
+
+    ``negpost`` / ``logprob`` name the worker-side callables. They default to the ``run()``
+    family's, which is what every earlier caller wants -- but a pool initialised for a
+    DIFFERENT entry point has different globals, and calling the wrong pair makes every worker
+    raise, which scipy surfaces as an opaque "map-like callable" error and the warm start then
+    silently degrades to the emergent-point ball. P4's first run lost its warm start exactly
+    that way (P4 DECISIONS D3).
+    """
+    negpost = negpost or _wnegpost
+    logprob = logprob or _wlogprob
     ndim = len(specs)
     rng = np.random.default_rng(seed)
     mode = None
@@ -684,7 +1023,7 @@ def _warm_start(specs, n_walkers, seed, pool, progress):
         from scipy.optimize import differential_evolution
         t0 = time.time()
         res = differential_evolution(
-            _wnegpost, _theta_bounds(specs), workers=pool.map, updating="deferred",
+            negpost, _theta_bounds(specs), workers=pool.map, updating="deferred",
             maxiter=12, popsize=4, tol=0.03, mutation=(0.4, 1.0), recombination=0.8,
             init="sobol", polish=False, seed=seed)
         if np.isfinite(res.fun) and res.fun < 1e11:
@@ -705,7 +1044,7 @@ def _warm_start(specs, n_walkers, seed, pool, progress):
     hi = np.array([np.log(s.hi) if s.space == "log" else s.hi for s in specs])
     p0 = np.clip(mode + widths * rng.standard_normal((n_walkers, ndim)), lo + 1e-6, hi - 1e-6)
     # guarantee every walker starts at finite log-prob (resample stragglers wider)
-    lps = np.array(pool.map(_wlogprob, [p0[i] for i in range(n_walkers)]))
+    lps = np.array(pool.map(logprob, [p0[i] for i in range(n_walkers)]))
     for i in np.where(~np.isfinite(lps))[0]:
         for _ in range(50):
             cand = np.clip(mode + 3 * widths * rng.standard_normal(ndim), lo + 1e-6, hi - 1e-6)

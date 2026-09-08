@@ -19,6 +19,15 @@
 | `strains/eciML1515/outputs/gasflux_configD` | `f383219` | 2026-09-08 | P3 TASKS 3-4: gate D/E/F against experiment, and adopt the c_max his o |
 | `strains/eciML1515/outputs/gasflux_configE` | `f383219` | 2026-09-08 | P3 TASKS 3-4: gate D/E/F against experiment, and adopt the c_max his o |
 | `strains/eciML1515/outputs/gasflux_configF` | `f383219` | 2026-09-08 | P3 TASKS 3-4: gate D/E/F against experiment, and adopt the c_max his o |
+| `strains/eciML1515/outputs/calibration_configD_NLDM_recipe_cmax120` | `32cc234` | 2026-09-08 | P4 TASK 2: refit D_NLDM under the canonical settings |
+| `strains/eciML1515/outputs/calibration_configD_LB_recipe_cmax120` | `3aa3e2a` | 2026-09-08 | P4 TASK 2: refit D_LB under the canonical settings |
+| `strains/eciML1515/outputs/calibration_configD_M9_recipe_cmax120` | `a5dc618` | 2026-09-08 | P4 TASK 2: refit D_M9 under the canonical settings |
+| `strains/eciML1515/outputs/calibration_configE_NLDM_recipe_cmax120` | `b115791` | 2026-09-08 | P4 TASK 2: refit E_NLDM under the canonical settings |
+| `strains/eciML1515/outputs/calibration_configE_LB_recipe_cmax120` | `51327b1` | 2026-09-08 | P4 TASK 2: refit E_LB under the canonical settings |
+| `strains/eciML1515/outputs/calibration_configE_M9_recipe_cmax120` | `05f5ffa` | 2026-09-08 | P4 TASK 2: refit E_M9 under the canonical settings |
+| `strains/eciML1515/outputs/calibration_configF_NLDM_recipe_cmax120` | `3577064` | 2026-09-08 | P4 TASK 2: refit F_NLDM under the canonical settings |
+| `strains/eciML1515/outputs/calibration_configF_LB_recipe_cmax120` | `8b96c54` | 2026-09-08 | P4 TASK 2: refit F_LB under the canonical settings |
+| `strains/eciML1515/outputs/calibration_configF_M9_recipe_cmax120` | `51a5c56` | 2026-09-08 | P4 TASK 2: refit F_M9 under the canonical settings |
 
 ---
 

@@ -1,45 +1,44 @@
 # `reports/ecoli_gasflux/` — the gas-exchange deliverable
 
-> ## ✅ CONFIGURATIONS D, E AND F ARE NOW GATED AGAINST EXPERIMENT
+> ## WHICH MEDIUM EACH NUMBER CAME FROM — read this first
 >
-> Parsa's respirometry arrived on 2026-09-08 and is ingested at
-> `strains/eciML1515/respirometry/`. **All ten R² values his reports print reproduce here, the
-> worst to 0.009** (P3 TASK 3, `reports/P3_gate/gate.md`):
+> That ambiguity is what made P4 necessary, so it is stated before anything else.
 >
-> | | his growth R² | port | his respiration R² | port |
+> **Two families of numbers exist for configurations D, E and F, and they are not
+> interchangeable.**
+>
+> | | medium | c_max | quoted where | status |
 > |---|---|---|---|---|
-> | **D** NLDM / LB | 0.71 / 0.90 | **0.707 / 0.896** | — | — |
-> | **E** NLDM / LB | 0.85 / 0.83 | **0.849 / 0.828** | 0.72 / 0.81 | **0.721 / 0.801** |
-> | **F** NLDM / LB | 0.91 / 0.88 | **0.905 / 0.881** | 0.96 / 0.85 | **0.964 / 0.852** |
+> | **his fits** (P3) | **blanket** — every component open at ub 1000, carbon effectively unlimited | fitted (146–510) | his report; `reports/P3_gate/gate.md` | **historical comparison** |
+> | **the refits** (P4) | **recipe ceilings**, clearance K sampled | **120**, fixed | `reports/P4_refit/` | **the model this repository defines** |
 >
-> plus his fitted `C_max ≈ 510` on LB (port **509.9**) and `F_ETC ≈ 0.28–0.32` (port
-> **0.282 / 0.284**). Configurations **A, B and C** remain gated at 60/60
-> (`reports/P1_parsa_port/gate.md`). **So every configuration A–F is now reproduced here.**
+> **NOTHING IS QUOTED AS A RESULT FROM EITHER FAMILY, because no chain in either is converged.**
+> All nine refits and all six of his committed chains run only ~9 autocorrelation times
+> (chain/τ 6–12 against the ≥40 criterion); reaching it needs ~8 000 steps, four times the
+> chain, ≈ 40 h for all nine. The values below are indicative and are labelled so.
 >
-> Four things had to be established before any of it matched, and each is a named cause in the
-> gate table: the blanket NLDM medium his fits used, his O2-sink closure order (which matters
-> once an ETC area constraint is present, where it did not for A–C), the parameter point
-> (configuration D quotes the posterior median, E and F the MAP), and which of his similarly
-> named runs each number came from. A fifth was a correction to P1: **his configuration F is
-> configuration E's ETC table plus a non-electrogenic bd-II**, not the Bekker-turnover table
-> P1 wired.
+> | | his (blanket) growth R² | refit (recipe) growth R² | his respiration R² | refit |
+> |---|---|---|---|---|
+> | **D** NLDM / LB | 0.707 / 0.896 | **0.854 / 0.196** | 0.725 / 0.793 | 0.802 / 0.923 |
+> | **E** NLDM / LB | 0.849 / 0.828 | **0.893 / 0.183** | 0.721 / 0.801 | 0.867 / 0.866 |
+> | **F** NLDM / LB | 0.905 / 0.881 | **0.858 / 0.163** | 0.964 / 0.852 | 0.562 / 0.909 |
+> | **D / E / F on M9** | — never fitted — | **0.959 / 0.987 / 0.982** | — | 0.541 / 0.160 / 0.499 |
 >
-> Gated against the **pre-boundaryfix** data, which is what his figures used. Against the
-> current data the R² values move by ≤ 0.021, all of it an improvement in NLDM growth.
-
-> ### NLDM: the recipe medium is the baseline; the blanket medium is a sensitivity
+> **NLDM is unchanged to better; LB collapses**, and the cause is named: the LB medium did not
+> change, but `c_max` did — from his own fitted 257–510 to the canonical 120. **`c_max = 120` is
+> a glucose/NLDM recommendation and was over-applied to LB.** One fit (configuration D on LB at
+> c_max ≈ 260, ~45 min) would settle it; it has not been run.
 >
-> `NLDM` in these runs applies **recipe-proportional uptake ceilings** (each carbon component
-> capped at `clearance × concentration`). That is canonical. `NLDM_blanket` — every component
-> open at one generous bound — is a **labelled sensitivity**, kept only because Parsa's
-> committed NLDM figures were produced with it before he changed his own code and did not
-> re-run. Quote `NLDM`, not `NLDM_blanket`.
+> **The medium ceiling is a PRIOR CHOICE, not a fitted quantity.** The clearance K returns 57–64 %
+> of its prior width in every NLDM fit (median 4.15–4.78 against a prior [2, 10]). The data
+> barely constrain it.
 >
-> It matters: on the canonical medium configuration C's NLDM respiratory quotient is **1.04**,
-> not the ≈ 7–9 his report gives, so the high RQ was the unlimited medium and not the absent
-> carbon cap. Full table in `reports/P2_settle/TASK2_nldm.md`. Provisional pending his
-> confirmation.
-
+> **M9 is first light** — the best growth fits in the exercise (R² 0.96–0.99, r_max 0.64–0.69
+> against a measured 0.717, T_opt 39.5–41 °C against 40 °C) and the worst respiration fits.
+>
+> Configurations **A, B and C** are gated separately and unaffected: 60/60 against his committed
+> gas-flux CSVs (`reports/P1_parsa_port/gate.md`). Full detail:
+> `reports/P4_refit/TASK3_what_moved.md`, `TASK4_M9.md`.
 
 > ### What the respiration R² rests on — read this before quoting it
 >
