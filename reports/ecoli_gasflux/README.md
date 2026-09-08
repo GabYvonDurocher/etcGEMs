@@ -41,6 +41,28 @@
 > confirmation.
 
 
+> ### What the respiration R² rests on — read this before quoting it
+>
+> The growth R² is safe: `growth_C_per_C_h` is a **specific rate**, independent of the
+> inoculum density and of the carbon-per-cell constant. The **respiration** R² is not, and
+> neither is anything absolute per cell. Established from the data itself
+> (`strains/eciML1515/respirometry/README.md`):
+>
+> * **the inoculum back-projection is off** — `delta_Ninoc_to_N0_min = 0` and
+>   `N0_cells_per_L == N_inoculation_cells_per_L` in **117/117** R2A/LB rows and **66/66** M9
+>   rows, so N₀ is the density as pipetted;
+> * **`cell_volume_um3` = 2 and `cell_carbon_fg` = 350 are typed constants**, one value across
+>   every row of both files — and the pipeline's own log prints **21.21 µm³ / 2120.58 fg** from
+>   `config.R`, about 6× apart. Which is right is not settled here.
+>
+> The fitted `resp_scale` (4.7–11.0 across the six fits) absorbs a constant offset of exactly
+> this kind, so a systematic error in N₀ or in fg C per cell is partly re-parameterised rather
+> than exposed. **The respiration R² is therefore a statement about the SHAPE of the
+> temperature response, and the scale factor is not evidence that the absolute level is
+> right.** Scale-free quantities — activation energies, curve shapes, RQ, ratios — are immune.
+>
+> Reported, not adjudicated: nothing here revises his results.
+
 A new deliverable directory in the house convention (`reports/<organism>_<topic>/`), created by
 P1 for Parsa's gas-exchange and overflow work on *E. coli*.
 

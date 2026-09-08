@@ -6,7 +6,7 @@
 
 *Evidence:* `python reports/P1_parsa_port/gate.py` -> 60 comparisons, 60 PASS, 0 FAIL (A/B/C); `python reports/P3_gate/gate_def.py` -> all ten R2 values his reports print reproduced, worst difference 0.009 (D/E/F).
 
-**This report was last written at** `7df74bd` (2026-09-08) — P2 TASK 2: NLDM under recipe ceilings -- the 1.2% is fully the medium, and one claim changes
+**This report was last written at** `f383219` (2026-09-08) — P3 TASKS 3-4: gate D/E/F against experiment, and adopt the c_max his own sweep recommends
 
 **Committed inputs it reads (from `reports/report_status.yaml`), and the commit each was last written at:**
 
@@ -16,9 +16,9 @@
 | `strains/eciML1515/outputs/gasflux_configB` | `e346277` | 2026-09-08 | P3 TASKS 1-2: ingest the respirometry, and establish what the boundary |
 | `strains/eciML1515/outputs/gasflux_configB_cmax60` | `e346277` | 2026-09-08 | P3 TASKS 1-2: ingest the respirometry, and establish what the boundary |
 | `strains/eciML1515/outputs/gasflux_configC` | `3c01e8c` | 2026-09-08 | P1: ported scripts, the gate against Parsa's numbers, and the ConfigD  |
-| `strains/eciML1515/outputs/gasflux_configD` | *(untracked)* | — | — |
-| `strains/eciML1515/outputs/gasflux_configE` | *(untracked)* | — | — |
-| `strains/eciML1515/outputs/gasflux_configF` | *(untracked)* | — | — |
+| `strains/eciML1515/outputs/gasflux_configD` | `f383219` | 2026-09-08 | P3 TASKS 3-4: gate D/E/F against experiment, and adopt the c_max his o |
+| `strains/eciML1515/outputs/gasflux_configE` | `f383219` | 2026-09-08 | P3 TASKS 3-4: gate D/E/F against experiment, and adopt the c_max his o |
+| `strains/eciML1515/outputs/gasflux_configF` | `f383219` | 2026-09-08 | P3 TASKS 3-4: gate D/E/F against experiment, and adopt the c_max his o |
 
 ---
 

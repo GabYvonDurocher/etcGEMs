@@ -6,7 +6,7 @@
 
 *Evidence:* `python reports/P3_gate/gate_def.py` regenerates gate_def_table.csv; the c_max change is reproduced by re-running gasflux_configB and gasflux_configB_cmax60.
 
-**This report was last written at** `e346277` (2026-09-08) — P3 TASKS 1-2: ingest the respirometry, and establish what the boundary fix did
+**This report was last written at** `f383219` (2026-09-08) — P3 TASKS 3-4: gate D/E/F against experiment, and adopt the c_max his own sweep recommends
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 
