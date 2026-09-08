@@ -8,7 +8,11 @@
 
 **This report was last written at** `c901e2d` (2026-09-08) — K6 TASK 3: the verdict — sign was an artefact, magnitude is real, K5's explanation is wrong
 
-**Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
+**Committed inputs it reads (found by scanning this report's own files), and the commit each was last written at:**
+
+| input directory | last written | date | commit subject |
+|---|---|---|---|
+| `strains/eciML1515/outputs/calibration_configD_NLDM_recipe_cmax120` | `32cc234` | 2026-09-08 | P4 TASK 2: refit D_NLDM under the canonical settings |
 
 ---
 

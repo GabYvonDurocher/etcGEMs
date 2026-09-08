@@ -6,7 +6,7 @@
 
 *Evidence:* `python reports/P1_parsa_port/gate.py` -> 60 comparisons, 60 PASS, 0 FAIL (A/B/C); `python reports/P3_gate/gate_def.py` -> all ten R2 values his reports print reproduced, worst difference 0.009 (D/E/F).
 
-**This report was last written at** `0582a4f` (2026-09-08) — P3 TASK 5 + summary: the method caveats in the gas-flux report, and the run summary
+**This report was last written at** `d73370f` (2026-09-08) — P4 TASK 5: update the record -- which medium each number came from, and what is still open
 
 **Committed inputs it reads (from `reports/report_status.yaml`), and the commit each was last written at:**
 

@@ -6,7 +6,7 @@
 
 *Evidence:* reports/P4_refit/run_fits.py regenerates the fits (~10 h) and compare.py the tables; convergence diagnostics are recorded per fit in each summary.json.
 
-**This report was last written at** `a61a3b2` (2026-09-08) — P4 TASK 3-4: what moved, M9 first light, and the finding that governs both
+**This report was last written at** `1c39f79` (2026-09-08) — P4: summary
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 
