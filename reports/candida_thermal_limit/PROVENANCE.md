@@ -6,7 +6,7 @@
 
 *Evidence:* `python reports/candida_thermal_limit/gate_table.py` -> 79 comparisons, 79 PASS, 0 FAIL with $CANDIDAS_ROOT unset (re-run at the P1 merge, 2026-09-08); `etcgem transfer --experiment transfer_candida` leaves a clean `git status`.
 
-**This report was last written at** `5718ad4` (2026-09-07) — N2 TASK 3: record what the flatness guard established, where a reader will meet it
+**This report was last written at** `f3ff2d7` (2026-09-08) — P2 TASK 4: a provenance stamp on every report, generated not hand-written
 
 **Committed inputs it reads (found by scanning this report's own files), and the commit each was last written at:**
 

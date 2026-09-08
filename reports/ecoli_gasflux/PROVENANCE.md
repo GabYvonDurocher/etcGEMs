@@ -6,7 +6,7 @@
 
 *Evidence:* `python reports/P1_parsa_port/gate.py` -> 60 comparisons, 60 PASS, 0 FAIL; T_opt exact in all twelve medium x configuration cases, everything else within 1e-3 relative.
 
-**This report was last written at** `7df74bd` (2026-09-08) — P2 TASK 2: NLDM under recipe ceilings -- the 1.2% is fully the medium, and one claim changes
+**This report was last written at** `f3ff2d7` (2026-09-08) — P2 TASK 4: a provenance stamp on every report, generated not hand-written
 
 **Committed inputs it reads (from `reports/report_status.yaml`), and the commit each was last written at:**
 

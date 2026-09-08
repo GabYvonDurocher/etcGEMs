@@ -102,3 +102,40 @@ One dead end recorded so it is not re-trodden: his `configD_capfit` "best-match 
 from his own committed sweep, is **c_max = 30**, where model acetate and Basan's line are both
 zero — the minimiser matching 0 to 0 at the bottom of the range. It is not evidence for any
 value.
+
+## D4 — TASK 4: statuses are recorded with evidence, not inferred; one report is left UNKNOWN
+
+**Where:** TASK 4.
+
+The stamp could have guessed CURRENT / HISTORICAL from commit dates — inputs older than the
+last model-changing commit → HISTORICAL. That would be wrong in both directions: N3 found an
+input written *after* every model change that still reproduces (`control_tuned`) and inputs
+written before one that are unaffected by it (`proteome_sectors/sector_fractions_vs_T.csv`, a
+pure function of the proteomics file).
+
+**Decided:** the generator computes only git facts; the STATUS comes from
+`reports/report_status.yaml`, where each entry carries the evidence that established it, and a
+report with no entry is stamped **UNKNOWN**. `activation_energy` is stamped UNKNOWN and stays
+that way: it has not been audited, its inputs span 2026-07-10 to 2026-09-07, and settling it
+means re-running the E_a dissections. Claiming CURRENT for it because it *looks* recent is
+exactly the failure the stamp exists to prevent.
+
+Where an audit established a report's real input list, that list is authoritative and lives in
+the YAML: the scan reads paths out of a report's own files, which misses everything
+`reports/ecoli_tpc/assemble.py` builds by string join (all eleven of its directories) and picks
+up directories merely named in prose. N3's list is used rather than recomputed, as the task
+asked.
+
+## D5 — TASK 5: placement, and the one sentence deliberately written to compose with N3's
+
+**Where:** TASK 5.
+
+Each annotation went where its *cause* is, not where the finding was made: the two-model-states
+note immediately before the dissection's conclusion; the 37–44 °C shoulder in the passage that
+presents the measured sector allocation, because the measurement's temperature range is what
+produces it; the regime sentence appended to the T_opt clause in "Interpretation and caveats".
+
+The third is written as the **general rule** (three constraints move T_opt; CT_max is
+insensitive to all three; quote T_opt with its binding constraint named) precisely because N3's
+open PR adds the **measurement** to the same bullet. The two say different things and compose;
+the merge conflict is flagged in D0 with the resolution, rather than left to be discovered.

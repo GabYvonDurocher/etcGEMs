@@ -6,7 +6,7 @@
 
 *Evidence:* self-contained; inputs are external and not committed
 
-**This report was last written at** `1bcf1f0` (2026-09-07) — A1: Seq2Topt; corrected Figure 4 arithmetic; DLTKcat scoping; report
+**This report was last written at** `f3ff2d7` (2026-09-08) — P2 TASK 4: a provenance stamp on every report, generated not hand-written
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 
