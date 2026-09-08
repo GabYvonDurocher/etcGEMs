@@ -44,6 +44,23 @@ gas_exchange:
     mw_kDa: 45.0
     length_aa: 409.0
 
+  carbon_cap:                 # total-carbon uptake cap, sum(nC * v_uptake) <= c_max
+    # ADOPTED ON PARSA'S OWN EVIDENCE (P3 TASK 4), not on ours. His Gas Flux report sweeps
+    # C_max = 60 / 100 / 120 / 180 and concludes, verbatim: "A tight cap gives respiratory gas
+    # but a flat growth plateau; a loose cap gives a peaked TPC but fermentative gas.
+    # C_max ~ 100-120 is the SWEET SPOT: peaked growth and respiration (RQ~1) around the
+    # optimum." The same table calls the growth shape at C_max = 60 a "flat plateau".
+    #   source: $PARSA_ROOT/outputs_reports/etcgem3_Gas Flux report_2.pdf, section 4
+    #           ("Gas exchange and the total-carbon-cap sweep"), its C_max table and Figure 3.
+    # 120 rather than 100 within his range, for one measured reason: at C_max = 100 acetate
+    # overflow is ZERO on NLDM (reports/P2_settle/task3_cmax_table.csv), and a cap that
+    # suppresses overflow defeats the configuration it is there to support. At 120 overflow is
+    # non-zero on both media (glucose 23.5, NLDM 3.9 mmol gDW^-1 h^-1).
+    # C_max = 60 is kept as a labelled sensitivity, configs/experiments/gasflux_configB_cmax60
+    # -- it is what his Figure B2 used, and it sits PAST the T_opt transition (T_opt is flat
+    # from uncapped to ~150 and falls 39.0 -> 32.5 C on NLDM between 80 and 60).
+    c_max: 120.0
+
   overflow_line:              # Basan et al. 2015, Nature 528:99 (doi:10.1038/nature15765),
     exchange_rxn: EX_ac_e     # Fig. 1: threshold lambda_ac ~ 0.76 /h (stated) and a red-line
     slope: 21.0               # slope ~9.5 mM A600^-1 h^-1 per h^-1, which converts to

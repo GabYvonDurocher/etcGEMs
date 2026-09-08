@@ -61,5 +61,6 @@ gasflux:
   - ac
   total_carbon_cap:
     enabled: true
+    c_max: 60.0
 _strain: eciML1515
-_experiment: gasflux_configB
+_experiment: gasflux_configB_cmax60

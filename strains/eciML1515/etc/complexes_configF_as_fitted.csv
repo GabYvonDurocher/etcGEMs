@@ -1,0 +1,22 @@
+# Configuration F AS PARSA FITTED IT: configuration E's areas and turnovers, with cytochrome
+# bd-II made non-electrogenic. Nothing else differs from etc/complexes_szenk_merged_bd.csv.
+#
+# WHY THIS FILE EXISTS. His configuration-F fits and report figures call
+# `configE.add_etc_area_constraint` and only add `configF.set_bdII_nonelectrogenic` -- his own
+# comment reads "0 H+ only (config-E turnovers via E weights)". The alternative table in his
+# `configF.py` (bd split, Bekker turnovers 225/218/818 s^-1) is used by three diagnostic scripts
+# and by NOTHING that produced a reported number. P1 read `configF.py` and wired the Bekker
+# table as configuration F; the P3 gate showed that is not what he fitted. That table is kept as
+# etc/complexes.csv, a labelled variant, and this file is what configuration F now means.
+#
+# The bd row is SPLIT here only so bd-II can carry `h_p_target`. Both halves keep configuration
+# E's area (30 nm^2) and turnover (100 s^-1), so A_i/kcat_i is unchanged and the area expression
+# is mathematically identical to the merged row.
+complex,area_nm2,kcat_s,reactions,h_p_target,notes
+NDH-I,80,200,NADH16ppNo1 NADH17ppNo1 NADH18ppNo1,,proton-pumping (3 H+)
+NDH-II,15,300,NADH5No1 NADH5No2 NADH5No3 NADH5No4 NADH9No1 NADH9No2 NADH9No3 NADH9No4 NADH10No1 NADH10No2 NADH10No3 NADH10No4,,non-pumping (0 H+)
+SDH,10,100,SUCDiNo1,,complex II
+bo3,35,100,CYTBO3_4ppNo1,,efficient oxidase
+bd-I,30,100,CYTBDppNo2,,cydABX (bd-I); SAME area and turnover as the merged bd row
+bd-II,30,100,CYTBDppNo1 CYTBD2ppNo1,0,appBC (bd-II); non-electrogenic (Bekker 2009)
+ATPS,35,270,ATPS4rppNo1 ATPS4rppNo2,,ATP synthase (forward)

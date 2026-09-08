@@ -45,7 +45,6 @@ gasflux:
   media:
   - glucose_minimal
   - NLDM
-  - NLDM_blanket
   - LB
   - BHI
   temperatures:
@@ -59,7 +58,10 @@ gasflux:
   - pyr
   - lac__D
   - ac
-  total_carbon_cap:
+  etc_area:
     enabled: true
+    table: etc/complexes_configF_as_fitted.csv
+    f_etc: 0.316
+    apply_proton_stoichiometry: true
 _strain: eciML1515
-_experiment: gasflux_configB
+_experiment: gasflux_configF

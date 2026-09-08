@@ -1,6 +1,6 @@
 # Open items — the running list
 
-_Started 2026-09-08 while P2 was running. This is the standing list of what is outstanding across
+_Started 2026-09-08 while P2 was running; last updated 2026-09-08 by P3._ This is the standing list of what is outstanding across
 the whole project, so nothing is lost between sessions. Update it when something lands; do not let
 it become a second decision log — decisions live in each prompt's `reports/*/DECISIONS.md`, this is
 only what is NOT yet done and who or what it waits on._
@@ -14,10 +14,13 @@ Status: **BLOCKED** (waiting on something external) · **READY** (can start now)
 
 | # | Item | Waiting on | Why it matters |
 |---|---|---|---|
-| 1.1 | **`Presense_Analysis/Ecoli_R2A_LB/`** — E. coli respirometry, ideally the whole directory not just `derived_N0_R_results_with_carbon.csv` | Parsa | Configs D, E, F are merged but **ungated**. The measured half of his ConfigD comparison exists only on his laptop. Nothing validates until it lands. |
-| 1.2 | **`c_max = 60`: grounded or fitted?** | Parsa | The only open item that changes a scientific claim. At 60, T_opt moves 39.0 → 32.5 °C and E_a +30 %. P2 TASK 3 gathers the evidence; only he can give the intent. |
-| 1.3 | **Confirm recipe ceilings supersede blanket medium** | Parsa | P2 TASK 2 takes recipe as canonical on evidence. His answer ratifies or corrects. |
-| 1.4 | **Confirm transporter kcat 30 vs 300** | Parsa | P2 TASK 1 settles it by reproduction. Same status: provisional until he confirms. |
+| ~~1.1~~ | ~~**E. coli respirometry**~~ | — | **CLOSED 2026-09-08 (P3).** Arrived as two full pipeline runs (R2A/LB and M9), ingested at `strains/eciML1515/respirometry/`. Configs D, E and F are now **gated**: all ten R² values reproduce, worst 0.009. |
+| ~~1.2~~ | ~~**`c_max = 60`: grounded or fitted?**~~ | — | **CLOSED 2026-09-08 (P3 TASK 4)** — on his own evidence rather than by asking. His report calls the cap a swept boundary condition, not a fit, and his sweep concludes "C_max ≈ 100–120 is the sweet spot". **120 adopted** (the only value in his range at which acetate overflow is non-zero on both media); 60 kept as a labelled sensitivity. |
+| 1.3 | **Confirm recipe ceilings supersede blanket medium** | Parsa | P2 TASK 2 takes recipe as canonical on evidence, and P3 shows his D/E/F fits all used the **blanket** medium — so the model his numbers came from and the model now quoted differ. His answer ratifies or corrects. **Still open, and now more consequential.** |
+| ~~1.4~~ | ~~**Confirm transporter kcat 30 vs 300**~~ | — | **SETTLED 2026-09-08 (P2 TASK 1)** by reproduction: 300 reproduces his figure, 30 does not. Set in the strain data. A one-line confirmation from Parsa would close it formally; nothing waits on it. |
+| 1.8 | **Which configuration-F ETC table is intended?** | Parsa | P3 found his fits use configuration **E's** areas and turnovers plus a non-electrogenic bd-II, while the Bekker-turnover table in his `configF.py` was never used for a reported number. The port now matches what he fitted; whether the Bekker table is the intended future form is his call. |
+| 1.9 | **Per-cell respiration: N₀ and fg C per cell** | Parsa | The inoculum back-projection is off in every row of both media sets, `cell_volume_um3`/`cell_carbon_fg` are typed constants (2 µm³ / 350 fg), and his own `config.R` log prints 21.21 µm³ / 2120.58 fg — ~6× apart. Growth R² and every scale-free quantity are immune; **respiration R², CUE and absolute per-cell rates are not.** Reported in `strains/eciML1515/respirometry/README.md`, not adjudicated. |
+| 1.10 | **M9: fit or not?** | Parsa / us | The M9 set is ingested but **no configuration was ever fitted against it** — every `meta.json` names NLDM or LB. It is the obvious next dataset; fitting it is an emcee job. |
 | 1.5 | **`common_network.py` result** — does the optimum still compress on a common scaffold? | Ilgaz | Never recorded in `gem/notes/`. Note the K1 finding that makes it partly moot: the two draft models ARE the *auris* network with genes reassigned, so the control is near a no-op for them and informative only for *C. parapsilosis*. |
 | 1.6 | **Did any Candida audit touch lipid or membrane pathways?** | Ilgaz | Bears on §6a. `allocation_and_trehalose.py` suggests compatible solutes were looked at; membranes unknown. |
 | 1.7 | **`15_run_seq2tm.py` truncation bug** — truncates at 1022 aa citing a non-existent ESM-2 positional limit; committed predictions are untruncated, so the script cannot reproduce the data beside it (up to 2.6 °C) | Ilgaz — **told, not yet fixed** | A live reproducibility break in his repository. |
@@ -27,7 +30,7 @@ Status: **BLOCKED** (waiting on something external) · **READY** (can start now)
 | # | Item | Notes |
 |---|---|---|
 | 2.1 | **A3 follow-through: gene content → mechanism** | A3 measured that models see only ~2–5 % of the gene-content difference (0–15 genes in-model vs 122–647 in proteome), and that AOX and the glutaredoxins are in NO model. Nothing has been done with that. |
-| 2.2 | **Membrane-area constraint on Candida** | P1's collapse of Configs E+F into one table-driven ETC mechanism makes this possible for the first time. It is the leading candidate on §6a and now costs a strain data file, not a modelling project. **This is the highest-value scientific item on the list.** |
+| 2.2 | **Membrane-area constraint on Candida** | P1's collapse of Configs E+F into one table-driven ETC mechanism makes this possible for the first time. It is the leading candidate on §6a and now costs a strain data file, not a modelling project. **This is the highest-value scientific item on the list**, and P3 strengthens it: the mechanism is now gated against experiment on *E. coli* (configuration E respiration R² 0.72, configuration F 0.96), so it is a validated mechanism being carried to a new organism rather than an untested one. |
 | 2.3 | **K3 — retire the Candidas fork** | N1 prepared the patch (unapplied, `git apply --check` clean) and confirmed nothing in etcGEMs needs `$CANDIDAS_ROOT` at run time now the gate has a fixture. Needs a human to apply it in Ilgaz's repository. |
 | 2.4 | **`_toy/resolved_config.yaml`** structurally stale (numbers fine, 6.2e-15) | Listed by N2, not fixed. Trivial. |
 

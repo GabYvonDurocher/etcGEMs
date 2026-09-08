@@ -6,7 +6,7 @@
 
 *Evidence:* `python reports/P1_parsa_port/gate.py` -> 60/60 PASS; `python reports/P1_parsa_port/partF_thermal_vs_carbon.py` regenerates its own table.
 
-**This report was last written at** `1426f77` (2026-09-08) — P1: summary
+**This report was last written at** `e346277` (2026-09-08) — P3 TASKS 1-2: ingest the respirometry, and establish what the boundary fix did
 
 **Committed inputs it reads (found by scanning this report's own files), and the commit each was last written at:**
 

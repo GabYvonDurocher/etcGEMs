@@ -1,8 +1,6 @@
-# !! UNGATED. This configuration is PORTED and RUNS, but nothing about its fit to data
-# !! has been verified here: the R2A / respirometry file its likelihood needs
-# !! (derived_N0_R_results_with_carbon.csv) is not in the snapshot. The R2 values
-# !! Parsa's report quotes for it are HIS numbers, not reproduced here.
-# !! See the notice at the top of reports/ecoli_gasflux/README.md.
+# !! GATED as of P3 TASK 3 (2026-09-08). Parsa's respirometry arrived and this configuration
+# !! now reproduces the R2 values his report prints, to <= 0.009. See reports/P3_gate/gate.md
+# !! and the notice at the top of reports/ecoli_gasflux/README.md.
 # CONFIGURATION F -- configuration E plus the corrected cytochrome bd-II energetics.
 #
 # ONE change relative to E: cytochrome bd-II (appBC) is made non-electrogenic (0 H+/2e-,
@@ -26,6 +24,13 @@ gasflux:
   metabolites: [o2, co2, glc__D, pyr, lac__D, ac]
   etc_area:
     enabled: true
-    table: etc/complexes.csv           # bd-I / bd-II split, Bekker turnovers, h_p_target on bd-II
+    table: etc/complexes_configF_as_fitted.csv
+                                       # configuration E's areas AND turnovers, with bd-II
+                                       # non-electrogenic -- which is what Parsa's configuration-F
+                                       # fits and figures actually used (his own note: "0 H+ only
+                                       # (config-E turnovers via E weights)"). P1 wired
+                                       # etc/complexes.csv, the Bekker-turnover table in his
+                                       # configF.py, which no reported number came from; the P3
+                                       # gate found that and it is kept as a labelled variant.
     f_etc: 0.316
     apply_proton_stoichiometry: true

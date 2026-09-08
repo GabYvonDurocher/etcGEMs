@@ -1,4 +1,5 @@
-# CONFIGURATION B -- total-carbon-uptake cap.
+# CONFIGURATION B at C_max = 60 -- SENSITIVITY ONLY; the baseline is
+# gasflux_configB.yaml at the adopted C_max = 120. See P3 TASK 4.
 #
 # One shared cap on total carbon uptake, sum(nC * v_uptake) <= c_max. The cap abolishes
 # overflow, so the TCA cycle carries flux and O2/CO2 become respiratory (RQ -> 1); it also
@@ -20,7 +21,9 @@ gasflux:
   temperatures: {start_C: 5, stop_C: 50, n: 91}
   metabolites: [o2, co2, glc__D, pyr, lac__D, ac]
   total_carbon_cap:
-    enabled: true        # c_max comes from the strain's gas_exchange.carbon_cap (120 mmol C
-                         # gDW^-1 h^-1, adopted on Parsa's own sweep -- see that file). The
-                         # value his Figure B2 used, 60, is kept as the labelled sensitivity
-                         # configs/experiments/gasflux_configB_cmax60.yaml.
+    enabled: true
+    c_max: 60.0          # SENSITIVITY, not the baseline. This is the value Parsa's Figure B2
+                         # used. His own sweep calls the growth shape here a "flat plateau" and
+                         # recommends 100-120; at 60 acetate overflow is zero on both media,
+                         # and 60 sits past the T_opt transition (39.0 -> 32.5 C on NLDM
+                         # between c_max 80 and 60). Kept so his figure stays reproducible.
