@@ -97,11 +97,17 @@ gas_exchange:
                               # at Gurobi's 1e-7 the parsimonious optimum is flat enough in O2
                               # on the LB models that vertices within tolerance differ 2-4x.
     growth_tol: 1.0e-6        # relative slack on growth when it is held for the tie-break.
-    log_o2_floor: 0.76        # sd floor on log O2, in quadrature with the measured relative sd
-                              # and disc_resp: the model's own vertex granularity. Derived from
-                              # P9's cliffs (task2_floor.json): the largest |delta log O2| across
-                              # a 0.05 sd step among the O2-carried cliffs at 20 C, the
-                              # temperature carrying 14 of the 17 of them (median 0.44, max 0.759).
+    log_o2_floor: 1.42        # sd floor on log O2, in quadrature with the measured relative sd
+                              # and disc_resp: the model's own vertex granularity. P11 (2026-09-09)
+                              # moved it from 0.76 -- the largest jump at the MODAL cliff
+                              # temperature, 20 C -- to the LARGEST MEASURED vertex jump anywhere
+                              # in P9's scan: 1.4216, on the dCp_scale line between +0.90 and
+                              # +0.95 sd, carried by 25 C (task2_jumps.csv). At 0.76 that step
+                              # still cost 7.8 log-likelihood units and left the surface rough
+                              # (P10 D5). The cost is stated: the respiration sd is now at least
+                              # 1.42 in log at every temperature, a factor-4 band on O2, and the
+                              # three cold points whose measured relative sd is 0.06-0.09 lose
+                              # most. That is the price of a sampleable surface (P11 D0).
     alive_soft_growth: 0.01   # the term's support: a temperature's contribution is weighted by
                               # min(1, growth / 0.01), continuous, instead of switching in or out
                               # as growth crosses 1e-4 -- 13 of P9's 33 cliff steps were that
