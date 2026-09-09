@@ -6,7 +6,7 @@
 
 *Evidence:* `python reports/synthesis/build_evidence.py` regenerates evidence.csv (74 rows); `python reports/synthesis/fig_requirement_arithmetic.py` regenerates the one figure; `quarto render reports/synthesis/synthesis.qmd` produces the 10-page PDF.
 
-**This report was last written at** `78b7307` (2026-09-09) — P8 TASK 2B-3: zeus stopped before its first checkpoint on the pre-registered cost rule (20.4 s/step, 11x emcee, 10 % utilisation, tau at the same 0.10 N); NOT MIXING per wall-hour; 1.12 closed with a conclusion; the record
+**This report was last written at** `69d34a5` (2026-09-09) — P9 TASK 1-2: the scan (ROUGH by the pre-registered rule: 12 of 22 lines with a 0.05 sd step > 20 % of range), the solver arms (cliffs unchanged under tight tolerances and dual simplex), the attribution (each large jump is the respiration term at one cold temperature where the LP's O2 switches vertex); OPEN_ITEMS 1.12 verdict and PI item 1.15; evidence P6b; README note extended
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 

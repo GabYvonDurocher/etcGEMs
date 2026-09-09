@@ -319,3 +319,14 @@ P8_ridge:
   evidence: >-
     task1_pca.py regenerates task1_*.csv and the figure from chain.h5 / chain.npy; task2b_toy.py
     regenerates task2b_toy.json (seconds); task2b_cost.py regenerates task2b_cost.json (~11 min).
+
+P9_surface:
+  status: CURRENT
+  note: >-
+    a diagnosis of the likelihood surface itself, no sampling: 22 line scans through P4's MAP
+    with a fresh model per evaluation, the solver-tolerance and method re-scans, the per-term
+    attribution of the largest jumps, and the chains' own acceptance statistics. Every number
+    regenerates from the scripts beside it against the committed P4 and P7 chains.
+  evidence: >-
+    task1_scan.py (~52 min, 902 fresh builds), task2_solver.py, task2_attribute.py,
+    task2_fva_at_jump.py and task3_chains.py regenerate their CSV/JSON/PNG outputs.
