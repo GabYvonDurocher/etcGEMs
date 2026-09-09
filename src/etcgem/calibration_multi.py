@@ -264,8 +264,12 @@ def gasflux_log_likelihood(theta, ctx, specs) -> float:
             pm, ctx["etc_table"],
             _ea.budget_from_fraction(ctx["a_mem"], ctx["f_etc_nom"] * float(nat["F_ETC_mult"])))
     from .gasflux import flux_tpc
+    resp = ctx.get("respiration") or {}          # P10: strain-config options, default inert
     try:
-        df = flux_tpc(pm, ctx["T"], pert, metabolites=("o2",))
+        df = flux_tpc(pm, ctx["T"], pert, metabolites=("o2",),
+                      tiebreak=str(resp.get("tiebreak", "none")),
+                      growth_tol=float(resp.get("growth_tol", 1e-6)),
+                      tiebreak_tol=float(resp.get("tiebreak_tol", 1e-9)))
     except Exception:
         return -np.inf
     g = df["growth"].to_numpy(float)
@@ -282,8 +286,19 @@ def gasflux_log_likelihood(theta, ctx, specs) -> float:
         pred = np.log(o2[keep] * ctx["o2_conv"] * rs)
         obsl = np.log(ctx["resp_obs"][keep])
         rel = ctx["resp_sd"][keep] / ctx["resp_obs"][keep]
-        varr = rel ** 2 + dr ** 2
-        ll += float(-0.5 * np.sum((obsl - pred) ** 2 / varr + np.log(2 * np.pi * varr)))
+        # P10: a floor on the log-O2 sd, in quadrature -- the model's own vertex granularity
+        # (how far O2 at the optimum jumps between adjacent LP vertices), fixed from
+        # measurement of the surface (reports/P10_respiration_likelihood), default 0 = off.
+        floor = float(resp.get("log_o2_floor", 0.0))
+        varr = rel ** 2 + dr ** 2 + floor ** 2
+        # P10: the support of the term. The hard mask above switches a whole temperature in or
+        # out of the term as growth crosses 1e-4, which is a discontinuity by construction --
+        # half of P9's cliffs were this, not O2 (P10 D2). With ``alive_soft_growth`` = g_s set,
+        # a temperature's contribution is weighted by min(1, g / g_s), continuous in theta and
+        # equal to 1 wherever the model grows faster than g_s. Default None = the hard mask.
+        gs = resp.get("alive_soft_growth")
+        w = np.minimum(1.0, g[keep] / float(gs)) if gs else np.ones(int(keep.sum()))
+        ll += float(-0.5 * np.sum(w * ((obsl - pred) ** 2 / varr + np.log(2 * np.pi * varr))))
     return ll
 
 
@@ -320,7 +335,10 @@ def _build_gasflux_ctx(strain, medium, experiment, table, otu, c_max, etc_table,
     T, og, sg, orr, sr, meta = load_respirometry(strain, table, otu)
     ctx = {"pm": pm, "T": T, "growth_obs": og, "growth_sd": sg,
            "resp_obs": orr, "resp_sd": sr, "meta": meta, "c_max": c_max,
-           "o2_conv": float(gx["gdw_per_cell"]) * _MW_O2 / 60.0}
+           "o2_conv": float(gx["gdw_per_cell"]) * _MW_O2 / 60.0,
+           # P10: the strain's respiration-likelihood options (gas_exchange.respiration):
+           # tiebreak none|pfba|min_o2|max_o2 (default none), log_o2_floor (default 0).
+           "respiration": dict(gx.get("respiration") or {})}
     if etc_table is not None:
         mem = gx.get("membrane") or {}
         from .config import strain_dir

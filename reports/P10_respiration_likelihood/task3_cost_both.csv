@@ -1,0 +1,13 @@
+fit,tiebreak,s_per_eval
+D_NLDM,none,0.489
+D_NLDM,pfba,2.276
+D_LB,none,0.306
+D_LB,pfba,2.032
+E_NLDM,none,0.654
+E_NLDM,pfba,2.112
+E_LB,none,0.385
+E_LB,pfba,2.356
+F_NLDM,none,0.51
+F_NLDM,pfba,2.208
+F_LB,none,0.488
+F_LB,pfba,2.235

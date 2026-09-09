@@ -1,0 +1,58 @@
+{
+  "baseline (P9)": {
+    "n_lines": 12,
+    "median_sign_changes": 4.5,
+    "max_sign_changes": 15,
+    "median_jump_units": 18.292652451680148,
+    "max_jump_units": 71.77513243065864,
+    "median_jump_frac": 0.49417617860059193,
+    "max_jump_frac": 0.9900866052692112,
+    "lines_over_20pct": 12,
+    "lines_over_5pct": 12,
+    "flat_lines": 0,
+    "max_step_units": 71.77513243065864,
+    "verdict": "ROUGH"
+  },
+  "(a) tie-break only": {
+    "n_lines": 12,
+    "median_sign_changes": 3.5,
+    "max_sign_changes": 13,
+    "median_jump_units": 18.303329302773268,
+    "max_jump_units": 71.76169771384113,
+    "median_jump_frac": 0.4914878674304068,
+    "max_jump_frac": 0.9894781267973032,
+    "lines_over_20pct": 12,
+    "lines_over_5pct": 12,
+    "flat_lines": 0,
+    "max_step_units": 71.76169771384113,
+    "verdict": "ROUGH"
+  },
+  "(b) variance + support only": {
+    "n_lines": 12,
+    "median_sign_changes": 3.0,
+    "max_sign_changes": 13,
+    "median_jump_units": 1.168505544893904,
+    "max_jump_units": 7.833750956169112,
+    "median_jump_frac": 0.1593360462104455,
+    "max_jump_frac": 0.3205503664477792,
+    "lines_over_20pct": 3,
+    "lines_over_5pct": 10,
+    "flat_lines": 2,
+    "max_step_units": 7.833750956169112,
+    "verdict": "ROUGH"
+  },
+  "(c) both": {
+    "n_lines": 12,
+    "median_sign_changes": 1.0,
+    "max_sign_changes": 5,
+    "median_jump_units": 0.8930363973716622,
+    "max_jump_units": 7.833762751095399,
+    "median_jump_frac": 0.11368399471560806,
+    "max_jump_frac": 0.3226236602409144,
+    "lines_over_20pct": 2,
+    "lines_over_5pct": 10,
+    "flat_lines": 2,
+    "max_step_units": 7.833762751095399,
+    "verdict": "ROUGH"
+  }
+}
