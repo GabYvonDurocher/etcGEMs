@@ -1,0 +1,46 @@
+{
+  "views": [
+    {
+      "view": "128w (P7), steps 250-1500",
+      "ridge_pcs": [
+        6,
+        3,
+        9
+      ],
+      "ridge_variance": 0.23752831095175153,
+      "clean": false,
+      "four_share": 0.14300180018121839,
+      "per_component_share": {
+        "PC6": 0.18897580932989014,
+        "PC3": 0.07423480135739983,
+        "PC9": 0.2292208775944808
+      },
+      "branch": "B (not one clean direction)"
+    },
+    {
+      "view": "40w (P4+P6), steps 1500-2500",
+      "ridge_pcs": [
+        15,
+        1,
+        4
+      ],
+      "ridge_variance": 0.3187948331831285,
+      "clean": false,
+      "four_share": 0.2840801476601548,
+      "per_component_share": {
+        "PC15": 0.34136241904933445,
+        "PC1": 0.2950764329764083,
+        "PC4": 0.2545799253408703
+      },
+      "branch": "B (not one clean direction)"
+    }
+  ],
+  "deciding_view": "128w (P7), steps 250-1500",
+  "branch": "B (not one clean direction)",
+  "four": [
+    "topt_scale",
+    "dCp_scale",
+    "sigma",
+    "clearance_mult"
+  ]
+}

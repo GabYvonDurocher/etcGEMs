@@ -67,3 +67,30 @@ load on it", and that is read as: if curvature is present AND the four load ≥ 
 still taken (fixing the four may remove the curved direction with them), and the curvature is
 reported prominently as the reason BRANCH A may fail, in which case BRANCH B is the next decision
 for the user, not this run.
+
+## D2 — TASK 1 verdict: there is no ridge to name; BRANCH B, by both clauses of the rule
+
+**Where:** after `task1_pca.py`, rules D1 unchanged.
+
+| view | PC1 variance | cumulative at PC4 | τ across all 16 components | top-τ set to 50 % variance | the four's share on it | curvature c (z, inflated SE) |
+|---|---|---|---|---|---|---|
+| 128 w (P7), steps 250–1500 | **16.5 %** | 48.3 % | **109.6–120.6** (ratio 1.10) | needs > 3 components (PC6, PC3, PC9 reach 23.8 %) | 14.3 % | +0.043 (**+6.7**, curved) |
+| 40 w (P4+P6), steps 1500–2500 | 21.9 % | 53.6 % | 88.9–105.7 (ratio 1.19) | > 3 (PC15, PC1, PC4 reach 31.9 %) | 28.4 % | −0.038 (−2.8, not curved) |
+
+**The variance is spread evenly and τ is the same on every component.** No component carries a
+quarter of the variance; the slowest and fastest directions differ in τ by 10–19 %; the
+top-τ components are not the top-variance ones (PC6, PC3, PC9 on the 128-walker view). That is
+D1's "not one clean direction" clause, and the prompt's: BRANCH B. The branch rule proper gives
+the same answer — the four prior-determined parameters carry 14.3 % (28.4 %) of the squared
+loading on the top-τ set, far below 50 % — so fixing them would remove nothing that is slow.
+Both views agree on the branch. **The picture is not a ridge; it is isotropic slow mixing**: the
+ensemble moves slowly in every direction of the standardised space at the same rate, which the
+affine-invariant stretch move, whose only lever is the ensemble's own shape, cannot improve by
+reshaping. The curvature reading is mixed (curved on the 128-walker chain at z = 6.7, not on the
+40-walker one) and is reported as such; it does not bear on the branch since the four do not
+load.
+
+**Decided: BRANCH B — zeus on all sixteen.** BRANCH A is not taken because nothing to fix was
+named: the four carry a seventh of the slow directions' loading, and fixing them would leave
+twelve parameters mixing at the same isotropic rate. A 12-dimensional refit would be a
+dimensionality test, not a ridge removal, and the prompt allows one branch.
