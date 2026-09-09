@@ -116,3 +116,37 @@ pins growth at the dilution rate. True, but blunt.
 costed chain blocked — how much can anything else support? (ii) The energy-generating-cycle test:
 shut every exchange except the protein pool and ask the model to make ATP from nothing. Both are
 reported.
+
+## 10. PART C is run at their PRIOR parameters, not their posterior
+
+`etc.simulate_growth` needs a thermal-parameter table. The deposit ships the **prior**
+(`data/model_enzyme_params.csv`, 764 enzymes); the 100 posterior parameter sets are on Zenodo in
+`results.tar.gz`, which was not downloaded.
+
+**Decision: run the regime test at the prior and say so.** The test asks whether T_opt and CT_max
+respond differently to a change of binding constraint — a structural question about the
+formulation, not about the calibrated values. Running it at the prior answers that question, and
+the prior curve is a sensible one (T_opt ≈ 31.6 °C, collapse by 46 °C, their Fig. S2 setting).
+Whether the asymmetry survives at the posterior is untested; it is a cheap follow-up and is on
+`docs/OPEN_ITEMS.md`.
+
+## 11. T_opt under the tightest substrate cap is the argmax of a near-tie, and is reported as one
+
+At glucose ≤ 1 the top of the curve is 7.0 °C wide at the 99 % level and reads 0.0931 / 0.0968 /
+0.0965 at 20 / 22 / 26 °C. Quoting "T_opt = 21.0 °C" without that context would be exactly what
+`docs/QUOTING_DESCRIPTORS.md` was written to stop.
+
+**Decision: report the plateau width beside every T_opt, and state the finding as the loss of a
+sharply-defined optimum rather than as a shift to a particular temperature.**
+
+## 12. PART D reads one data file, and it is labelled
+
+PART D was specified as reading a published result, not re-analysing it. One paragraph departs
+from that: the prior Tm of the nine enzymes the paper flags as unstable, read from their deposited
+`data/model_enzyme_params.csv`.
+
+**Decision: read it, and mark the paragraph as the one place that touches data.** The question
+"did the calibration pull stability down?" cannot be answered from the paper alone, because the
+paper reports where the posterior *ended up* and not where it started for those nine. Their prior
+is a deposited input, not their posterior, so reading it is not re-analysis of their result — and
+it turns a hedge into a fact: all nine were already at or near 42 °C before calibration.
