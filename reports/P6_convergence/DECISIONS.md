@@ -162,3 +162,52 @@ been ~15 h more, are held (D3). The user's mid-run instruction (received during 
 confirms this plan and adds a diagnosis of the degeneracy (`degeneracy.py`, run alongside the
 fits, single process) and a section on what would identify the respiration likelihood — a
 decision to be reported, not a fix to be made.
+
+## D3a — (2026-09-09, addendum 5) the mechanism behind D3, measured; D3's wording stands corrected, not deleted
+
+**Where:** after the user's addendum 5, which pointed out that a five-temperature FVA sweep with
+O2 widths of 0.0–0.7 % cannot produce 7.5 units of log-likelihood jitter, and asked for the
+state-versus-identifiability test.
+
+The test (`state_vs_identifiability.py`, `state_detail.py`), at P4's MAP θ, D as the control:
+
+| fit | reuse: θ then θ again | reuse: θ, θ′, θ (Δ vs first) | reuse with a Gurobi basis reset before the last θ | rebuild fresh, θ once, twice (Δ) | rebuild fresh, θ′ then θ (Δ vs fresh θ) |
+|---|---|---|---|---|---|
+| D NLDM | 0.0000 | +0.000 | +0.000 | 0.0000 | −0.000 |
+| D LB | 0.0000 | −0.000 | +0.000 | 0.0000 | −0.000 |
+| E NLDM | **0.515** | +0.515 | +0.515 | 0.0000 | +0.515 |
+| E LB | **2.498** | −2.499 | **−0.000** | 0.0000 | −2.498 |
+| F NLDM | 0.0000 | +0.000 | +0.012 | 0.0000 | +0.000 |
+| F LB | **2.353** | +2.353 | +2.353 | 0.0000 | +2.353 |
+
+Two fresh models give the same number to four decimals; one model gives a different number on
+its second call than on its first, with **no other θ in between**. So the second call sees
+something the first call left behind — the user's "state" hypothesis is confirmed as the
+*selector*. But what it selects among is measured too, temperature by temperature, on the same
+model (`state_detail.json`): **growth does not move** (E LB 1.75853 → 1.75853 at every moved
+temperature; E NLDM 0.07458 → 0.07461), **O2 does** (E NLDM 20 °C 2.92 → 3.25; E LB 37–50 °C
+23.1 → 24.1), and the FVA of O2 with growth held at that optimum, at those temperatures, is a
+continuum: **E NLDM 20 °C [3.25, 7.84]; E LB 37 °C [5.8, 114.5], 40 °C [3.3, 172.0], 45–50 °C
+[0, 190]; F LB 35 °C [16.5, 26.3]**. The earlier five-temperature sweep (25/30/37/40/44 °C)
+missed 20 and 35 °C, which is why its widths looked negligible for the NLDM fits; for E LB it
+had already found [5.8, 114.5] at 37 °C.
+
+**The measured cause, in one sentence:** at particular temperatures the E and F models' O2
+uptake at optimal growth is a face of the LP rather than a vertex, and which point of that face
+the solver returns is set by its basis history, so re-applying the ETC constraint on every call
+(and any preceding evaluation) changes the respiration term while the parameters do not. Neither
+half alone produces the jitter — configuration D carries the same solver history and jitters by
+0.0000 because its O2 is unique; a rebuilt E/F model reproduces itself because its history is
+the same — and the fix therefore has to remove the degeneracy, not the state: a basis reset
+before every call would make E LB deterministic (the reset row above returns to the fresh value
+exactly) and no more identified, since the fresh value is one arbitrary point of a [0, 190]
+interval.
+
+**Correction to D3's wording.** D3 said "the model's O2 uptake at optimal growth is not unique"
+on the strength of the first-versus-later difference and the 37–44 °C E LB FVA. It is true, but
+D3 did not yet have the per-temperature FVA that proves it for the NLDM fits, and it did not
+name the state mechanism that selects the point. Both are now measured. The hold was the right
+call on the evidence then available and remains so; **E and F return to scope once the O2 at
+optimal growth is made unique (pFBA or a lexicographic O2 objective), and this run did not fit
+them.** The `p6_fits.py` comment is corrected the same way, with the original kept as dated
+history. No fix was implemented, and the three configuration-D fits in flight were not touched.

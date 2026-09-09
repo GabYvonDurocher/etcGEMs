@@ -30,39 +30,51 @@ of the posterior. A longer chain cannot fix that — it would sample an unidenti
 and report converged intervals on it — so **E and F are held (D3) and only configuration D was
 run.**
 
-**Where it comes from** (`jitter_diagnosis.py`, `degeneracy.py`). Growth is stable to 1e-3 h⁻¹
-in every repeat; **the O2 uptake is not**, and the difference sits at particular temperatures:
-E NLDM at 20 °C (O2 3.19 ± 0.33, a 10 % swing where the log-scale respiration term is most
-sensitive), F LB at 35 °C (24.4 ± 9.4, 40 %). With the ETC constraint left untouched repeated
-solves agree to 1e-4; the different value appears on the **first solve after the ETC area
-constraint is removed and re-added**, which the E/F likelihood does on every call, and in a
-chain every call follows a different vector. Flux variability of the net O2 uptake at growth
-held to its optimum, at P4's MAP:
+**Which mechanism the evidence supports — one line:** *the O2 uptake at optimal growth is
+genuinely non-unique at particular temperatures in E and F, and the solver's basis history
+selects which point of that continuum is returned; D carries the same history and jitters by
+0.0000 because its O2 is unique.* Not "unidentifiable" alone, not "leaking state" alone: the
+degeneracy is what makes the state matter. The rebuild numbers (`state_vs_identifiability.csv`,
+addendum 5), at P4's MAP θ and a second vector θ′:
 
-| fit | carbon cap | O2 range at fixed optimal growth (mmol gDW⁻¹ h⁻¹) |
-|---|---|---|
-| D NLDM / D LB / D M9 | slack (see note) / active / active | width ≤ 0.04 at every temperature: **unique** |
-| E NLDM, F NLDM | none (P4's setting) | ≤ 0.27 at 25–44 °C; the 20 °C swing above is at a temperature not in this sweep |
-| **E LB** | **active** | 25–30 °C ≤ 0.09; **37 °C [5.8, 114.5]; 40 °C [3.3, 172.0]; 44 °C [0.0, 187.7]** at the same growth 1.759 |
-| **F LB** | **active** | **30 °C [31.1, 46.6]**; 25 °C 0.5; 37–44 °C ≤ 0.01 |
-| E M9, F M9 | active | ≤ 0.02 |
+| fit | one model, θ then θ again | one model, θ, θ′, θ (Δ vs first) | same, with a Gurobi basis reset before the last θ | two fresh models, θ once each (Δ) | fresh model, θ′ then θ (Δ vs fresh θ) |
+|---|---|---|---|---|---|
+| D NLDM / D LB | 0.0000 / 0.0000 | +0.000 / −0.000 | +0.000 / +0.000 | 0.0000 / 0.0000 | −0.000 / −0.000 |
+| E NLDM | **0.515** | +0.515 | +0.515 | 0.0000 | +0.515 |
+| E LB | **2.498** | −2.499 | **−0.000** | 0.0000 | −2.498 |
+| F NLDM | 0.0000 | +0.000 | +0.012 | 0.0000 | +0.000 |
+| F LB | **2.353** | +2.353 | +2.353 | 0.0000 | +2.353 |
 
-So: the model's O2 uptake at optimal growth is **a face of the LP, not a vertex**, wherever the
-carbon cap and the ETC area budget between them leave the carbon that is not needed for growth
-free to be respired or not; the solver returns whichever point of that face its current basis
-leads to; and re-adding the constraint resets the basis. The carbon cap being active does **not**
-pin O2 — E LB has the cap active and the largest degeneracy of all — so `gasflux.py`'s docstring
-claim that the cap "pins the flux distribution (O2/CO2 unique)" holds for configuration D (where
-the proteome pool, not the ETC budget, is the binding resource and respiration is cost-optimal
-uniquely) and not once the ETC area constraint is present. Removing the ETC constraint changes
-the optimum (E NLDM 30 °C: 20.3 with, 24.7 without) but does not remove the LB degeneracy.
+Two fresh models agree to four decimals (the rebuild test taken alone would say "state"); one
+model gives a different answer on its second call than on its first with nothing in between.
+What the second call changes, temperature by temperature (`state_detail.json`): **growth does
+not move** (E LB 1.75853 → 1.75853 at every moved temperature; E NLDM 0.07458 → 0.07461), **O2
+does** (E NLDM 20 °C 2.92 → 3.25; E LB 37–50 °C 23.1 → 24.1), and the FVA of O2 with growth
+held at that optimum, at those temperatures, is a continuum:
+
+| fit, temperature | growth (fixed) | O2 returned, first / second call | O2 range at that growth (FVA) |
+|---|---|---|---|
+| E NLDM, 20 °C | 0.0746 | 2.92 / 3.25 | **[3.25, 7.84]** |
+| E LB, 37 °C | 1.7585 | 23.11 / 24.11 | **[5.8, 114.5]** |
+| E LB, 40 / 43 / 45 / 47 / 50 °C | 1.7585 | 23.0 / 24.1 | **[3.3, 172]; [1.5, 185]; [0, 190]; [0, 192]; [0, 191]** |
+| F LB, 35 °C | 0.56 | 26.24 / 16.83 (θ′-history) | **[16.5, 26.3]** |
+| D NLDM / D LB / D M9, every temperature | — | identical | width ≤ 0.04 |
+
+The earlier five-temperature sweep (`degeneracy.csv`, 25/30/37/40/44 °C) missed 20 and 35 °C,
+which is why its widths looked negligible for the NLDM fits; for E LB it had already found
+[5.8, 114.5] at 37 °C with the carbon cap **active**, so an active cap does not pin O2 and
+`gasflux.py`'s claim that it "pins the flux distribution (O2/CO2 unique)" holds for D — where
+the proteome pool, not the ETC budget, binds and respiration is cost-optimal uniquely — and not
+once the ETC area constraint is present. A basis reset before every call would make E LB
+deterministic (its reset row returns to the fresh value exactly) and **no more identified**: the
+fresh value is one arbitrary point of a [0, 190] interval. Ruling out and ruling in are both
+results here: alternate optima *are* the substance, state is the selector, and the fix has to
+remove the degeneracy.
 
 *Note on D NLDM:* the cap's primal reads **0 of 120** at every temperature there, while on LB
 and M9 it reads active. Either the cap's carbon-source expression does not cover the uptake
 reactions the recipe medium actually uses, or the recipe ceilings bind first and the cap term
-is genuinely empty; P4 said the latter in words. Not investigated here; recorded as a trigger
-in OPEN_ITEMS 3.21, because if the cap is a no-op on the recipe NLDM medium then "c_max 120 on
-NLDM" has been describing nothing.
+is genuinely empty; P4 said the latter in words. Not investigated; a trigger in OPEN_ITEMS 3.21.
 
 **What would make the respiration likelihood identified — a decision, not implemented here:**
 

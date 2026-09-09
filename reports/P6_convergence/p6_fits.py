@@ -51,11 +51,21 @@ def p4_dir_for(cfg, medium):
     return P4_TMPL.format(cfg=cfg, med=MED[medium])
 
 
-# P6 DECISIONS D3: configurations E and F are NOT run -- their likelihood re-applies the ETC
-# area constraint on every call and the model's O2 uptake at optimal growth is not unique, so
-# the respiration term depends on solver history (jitter 0.5-7.5 in log-likelihood at a fixed
-# parameter vector, against <= 0.0004 for every configuration-D fit). See preflight_jitter.csv
-# and jitter_diagnosis.json. RUN is what TASK 1 samples, in the prompt's order restricted to D.
+# P6 DECISIONS D3 / D3a: configurations E and F are NOT run.
+# Measured cause (D3a, 2026-09-09, state_vs_identifiability.py + state_detail.py): at particular
+# temperatures the E/F models' O2 uptake at optimal growth is a FACE of the LP, not a vertex
+# (FVA at fixed optimal growth: E NLDM 20 C [3.25, 7.84]; E LB 37-50 C [0-6, 114-192]; F LB
+# 35 C [16.5, 26.3]), and which point the solver returns is set by its basis history -- so the
+# same theta gives a different likelihood on a reused model than on a fresh one (0.5-2.5), while
+# two fresh models agree to 0.0000 and configuration D, which carries the same history, jitters
+# by 0.0000 because its O2 is unique. Growth does not move; only O2 does. E and F return to
+# scope once the O2 at optimal growth is made unique (pFBA / lexicographic O2); not done here.
+#   (original D3 wording, kept as history: "their likelihood re-applies the ETC area constraint on
+#   every call and the model's O2 uptake at optimal growth is not unique, so the respiration
+#   term depends on solver history (jitter 0.5-7.5 in log-likelihood at a fixed parameter
+#   vector, against <= 0.0004 for every configuration-D fit)" -- true, but stated before the
+#   per-temperature FVA and the rebuild test had been run.)
+# RUN is what TASK 1 samples, in the prompt's order restricted to D.
 STOPPED = {"E_NLDM": "likelihood not a function of theta (D3)", "E_LB": "same", "F_NLDM": "same",
            "F_LB": "same", "E_M9": "same", "F_M9": "same"}
 RUN = [f for f in FITS if f[0] not in STOPPED]
