@@ -69,3 +69,12 @@ method — each cliff carried by the respiration term at one cold temperature wh
 O2 uptake switches vertex. "Reaching the criterion" is therefore not a sampling question at
 all; it is a decision about the respiration likelihood (OPEN_ITEMS 1.15), and the sentence
 about ~8000 steps should be replaced by that statement. [C6] and [C8] wait on the same decision.
+
+**Extended 2026-09-09 (P10), evidence rows P7b–P8b (P9b–P10b follow).** Any sentence quoting an
+E- or F-configuration **respiration** R² from P3's gate should say the value was one arbitrary
+point of an LP face; under the pfba tie-break at Parsa's θ the E LB respiration R² is 0.7749
+(was 0.8014), the others move by < 0.001, and every growth R² is unchanged to four decimals
+(`reports/P10_respiration_likelihood/task4_regate.csv`; the restated criterion is in
+`reports/P3_gate/README.md`). F LB's respiration R² carries the caveat that its tie-break is not
+exact. The respiration likelihood itself now has a variance floor and a continuous support for
+eciML1515; the D-configuration numbers P4 reports were fitted under the old term.
