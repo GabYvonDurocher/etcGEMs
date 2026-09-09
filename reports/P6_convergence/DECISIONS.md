@@ -111,3 +111,54 @@ item with that trigger.
 
 Two consequences for this run: the benchmark and TASK 1 proceed on configuration D only, and
 the ordered list the prompt gives (D, D, E, E, F, F, M9 ×3) becomes D NLDM, D LB, D M9.
+
+## D4 — TASK 0b: the stretch move is kept and the process count goes 10 → 16
+
+**Where:** TASK 0b, `bench.py` on configuration D NLDM, every run initialised from P4's final
+ensemble state (40 walkers → emcee halves of 20, which is why the prompt's 36-walker arithmetic
+does not apply: 10 processes was already two full rounds).
+
+| run | steps | s/step | min per 500 | τ_max (chain/τ) | acceptance |
+|---|---|---|---|---|---|
+| stretch, 10 processes (P4's) | 500 | 2.08 | 17.3 | 51.2 (9.8) | 0.166 |
+| DE 0.8 + DESnooker 0.2, 10 | 500 | 2.31 | 19.3 | 49.9 (10.0) | **0.051** |
+| stretch, 12 | 150 | 2.16 | 18.0 | — | 0.178 |
+| stretch, **16** | 150 | **1.86** | **15.5** | — | 0.176 |
+| stretch, 20 | 150 | 1.86 | 15.5 | — | 0.187 |
+| DE, 16 | 150 | 1.93 | 16.1 | — | 0.064 |
+
+Machine: 12 performance + 4 efficiency cores, 16 physical, 16 logical. **Cores were idle at
+10.** 16 processes is 11 % faster per step; 20 gains nothing more.
+
+**The DE move set is not adopted.** Its τ on 500 steps is the same as the stretch move's (both
+estimates are at chain/τ ≈ 10 and unreliable in absolute terms, but they are the same number),
+and its acceptance is a third of the stretch move's — on this posterior it is not the 2–5× lever
+the prompt hoped for. The 500-step posterior comparison (`bench_posteriors.csv`) shows medians
+broadly consistent (clearance_mult 0.818 / 0.819, dTopt 2.0 / 2.2, sigma 0.68 / 0.70) and
+several interval widths differing by up to 2× (dTm 4.1 / 7.6; sigma 0.27 / 0.41), which at ten
+autocorrelation times is noise rather than evidence either way. Since DE is not faster, the
+question of whether it samples the same posterior does not need settling here.
+
+**Adopted: stretch move, n_proc 16.** The move is P4's and Parsa's, so the target distribution
+is unchanged by construction, and a process count cannot change it (the same seed gives the
+same proposals; only the wall clock moves). Measured speedup 11 %. Recorded in
+`sampler_config.json`, which `run_fits.py` reads.
+
+## D5 — the plan for TASK 1, and the time it should take, stated before it starts
+
+Three fits (D3): D NLDM, D LB, D M9, in that order, each initialised from P4's final ensemble
+state (D2), stretch move, 16 processes, checked every 250 steps against the adopted target
+(n_eff ≥ 600 AND chain/τ ≥ 25, TASK 0c), with `n_steps_max` = 1.2 × 25 × τ_P4 so that a fit
+either reaches the target or is reported not converged *at the target length*:
+
+| fit | τ_P4 (re-measured) | 25 τ | n_steps_max | s/step at 16 proc (est.) | hours at 25 τ / at n_steps_max |
+|---|---|---|---|---|---|
+| D NLDM | 244.7 | 6117 | 7500 | 1.86 | 3.2 / 3.9 |
+| D LB | 224.3 | 5609 | 6750 | ~1.25 | 1.9 / 2.3 |
+| D M9 | 201.8 | 5044 | 6250 | ~2.15 | 3.0 / 3.7 |
+
+**≈ 8 h if every fit stops at 25 τ, ≈ 10 h at the caps.** The six E/F fits, which would have
+been ~15 h more, are held (D3). The user's mid-run instruction (received during TASK 0b)
+confirms this plan and adds a diagnosis of the degeneracy (`degeneracy.py`, run alongside the
+fits, single process) and a section on what would identify the respiration likelihood — a
+decision to be reported, not a fix to be made.
