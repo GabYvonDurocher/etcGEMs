@@ -83,6 +83,30 @@ gas_exchange:
       # LB sensitivity to an unbounded cap has been run by anyone: that is the trigger to
       # revisit. None of these R2 is a converged posterior (docs/OPEN_ITEMS.md 1.12).
 
+  respiration:                # P10 (2026-09-09): how the respiration LIKELIHOOD reads and scores
+    # the model's O2. Consumed by calibration_multi's gas-flux likelihood (ctx["respiration"]);
+    # NOT by `etcgem gasflux` runs or the P1/P3 gate scripts, whose flux_tpc calls keep the
+    # defaults (tiebreak none, no floor, hard mask), so no committed gasflux_* output changes.
+    # Both halves were measured before being switched on: reports/P10_respiration_likelihood.
+    tiebreak: pfba            # O2 read at the parsimonious vertex (growth held at its optimum,
+                              # total absolute flux minimised), not at whichever vertex the
+                              # growth solve returns. Verified to 0.0000 on the D3a instrument
+                              # for D NLDM, D LB, E NLDM, E LB and F NLDM; F LB still differs
+                              # by 0.05-0.5 between calls (P10 D1) and stays HELD (3.21).
+    tiebreak_tol: 1.0e-9      # optimality/feasibility tolerance of the tie-break solve only;
+                              # at Gurobi's 1e-7 the parsimonious optimum is flat enough in O2
+                              # on the LB models that vertices within tolerance differ 2-4x.
+    growth_tol: 1.0e-6        # relative slack on growth when it is held for the tie-break.
+    log_o2_floor: 0.76        # sd floor on log O2, in quadrature with the measured relative sd
+                              # and disc_resp: the model's own vertex granularity. Derived from
+                              # P9's cliffs (task2_floor.json): the largest |delta log O2| across
+                              # a 0.05 sd step among the O2-carried cliffs at 20 C, the
+                              # temperature carrying 14 of the 17 of them (median 0.44, max 0.759).
+    alive_soft_growth: 0.01   # the term's support: a temperature's contribution is weighted by
+                              # min(1, growth / 0.01), continuous, instead of switching in or out
+                              # as growth crosses 1e-4 -- 13 of P9's 33 cliff steps were that
+                              # switch, not O2 (P10 D2).
+
   overflow_line:              # Basan et al. 2015, Nature 528:99 (doi:10.1038/nature15765),
     exchange_rxn: EX_ac_e     # Fig. 1: threshold lambda_ac ~ 0.76 /h (stated) and a red-line
     slope: 21.0               # slope ~9.5 mM A600^-1 h^-1 per h^-1, which converts to

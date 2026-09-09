@@ -41,7 +41,7 @@ ROUGH = ["axis:topt_scale", "axis:dCp_scale", "axis:kcat_scale", "axis:f_maint",
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--tag", required=True); ap.add_argument("--tiebreak", default=None)
-    ap.add_argument("--floor", type=float, default=None); ap.add_argument("--lines", default=None); a = ap.parse_args()
+    ap.add_argument("--floor", type=float, default=None); ap.add_argument("--soft", type=float, default=None); ap.add_argument("--lines", default=None); a = ap.parse_args()
     lines = a.lines.split(",") if a.lines else ROUGH
     fit = [f for f in FITS if f[0] == "D_NLDM"][0]
     meta = json.load(open(os.path.join(P9, "task1_meta.json"))); theta0 = np.array(meta["theta0"]); sd = np.array(meta["sd"]); names = meta["names"]
@@ -51,8 +51,8 @@ def main():
         v = direction(lname); vals = []; t0 = time.time()
         for s in STEPS:
             ctx, sp = build(fit)
-            if a.tiebreak or a.floor is not None:
-                ctx["respiration"] = {"tiebreak": a.tiebreak or "none", "log_o2_floor": a.floor or 0.0}
+            if a.tiebreak or a.floor is not None or a.soft is not None:
+                ctx["respiration"] = {"tiebreak": a.tiebreak or "none", "log_o2_floor": a.floor or 0.0, "alive_soft_growth": a.soft}
             th = theta0 + s * sd * v
             ll = gasflux_log_likelihood(th, ctx, sp)
             # the O2 the likelihood saw: recompute through the same path (state installed by the call above)

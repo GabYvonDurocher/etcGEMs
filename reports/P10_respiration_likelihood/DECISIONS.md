@@ -69,3 +69,52 @@ reading says it was never the problem, and TASK 2 reports it before and after un
 this reason. The tie-break (TASK 1) is the other half: it makes E/F's O2 a function of θ at all,
 and on D it does not remove vertex switches — a pFBA solution is piecewise too — which is why
 the floor is needed as well.
+
+## D2 — TASK 2: the cliffs have TWO mechanisms, not one, and the variance change follows from both
+
+**Where:** after the baseline scan of P9's twelve ROUGH lines with per-temperature O2 recorded
+(`lines_baseline.csv`, 492 evaluations, fresh model each, 33.8 min — P9's numbers reproduced
+line for line).
+
+**The 33 cliff steps** (|ΔlogL| > 5 across one 0.05 sd step) separate cleanly by what moves
+across them (`task2_jumps.csv`):
+
+| mechanism | steps | what happens | temperatures |
+|---|---|---|---|
+| **O2 vertex jump** (|Δ log O2| ≥ 0.1 at some alive temperature) | **17** | the LP's optimal O2 switches vertex: |Δ log O2| q25 0.37, median 0.47, q75 0.63, max 1.42 | **20 °C (14 of 17)**, 25 °C (3) |
+| **support flip** (a temperature enters or leaves the hard mask `growth ≥ 1e-4 & O2 > 0`) | **13** | a whole temperature's term — its residual and its log-variance — appears or disappears; |Δ log O2| elsewhere < 0.1 | 15 °C, 47–50 °C (the edges where the model is nearly dead) |
+| other | 3 | growth-term steps | — |
+
+P9 decomposed the three largest and found the first mechanism; it did not see the second,
+because its instrument recorded the log-likelihood only. Half of the cliffs are **the term's
+own indicator function**: `keep = (g ≥ 1e-4) & (o2 > 0)` is a discontinuity by construction,
+and at 15 and 50 °C the model's growth hovers at that threshold, so a 0.05 sd move switches an
+entire temperature — whose residual is large, because a nearly-dead model respires almost
+nothing — in or out, at ±16–18 units (f_maint at −0.85 sd, ngam_scale at −0.15 sd,
+clearance_mult at +0.45/+0.70/+0.75 sd are all this).
+
+**The two minimal changes, each an option, default OFF:**
+
+1. **`log_o2_floor`** — the floor D0 identified, in quadrature: `var_T = rel_T² + disc_resp² +
+   floor²`. Rule, fixed before the number was read: the floor is the model's granularity where
+   the O2 cliffs live — **the largest |Δ log O2| across a 0.05 sd step among the O2-carried cliffs
+   at the temperature carrying most of them**. That is 20 °C (14 of 17) and the value is
+   **0.759 → 0.76**. (A variance that honours the model must cover what the model does, not its
+   median; the median at 20 °C is 0.44, and the one larger jump, 1.42 at 25 °C on the dCp_scale
+   line at +0.9 sd, is left to cost what it costs.) Arithmetic on P9's three decomposed jumps at
+   the same θ, old → new (`task2_floor.json`): **−70.2 → −6.2; −31.6 → −2.6; +23.1 → +1.9**.
+   Single digits. The prior on `disc_resp` is **unchanged** — half-normal(0.5) on [1e-3, 3] — for
+   D0's reason: it was never the problem, and a fitted scale cannot know the model's
+   granularity away from where the chain sits; the floor is not fitted.
+
+2. **`alive_soft_growth`** — the term's support made continuous: a temperature's contribution
+   (both the quadratic and the log-variance) is weighted by min(1, g_T / g_s) with g_s =
+   **0.01 h⁻¹**, equal to 1 wherever the model grows faster than 0.01 (every temperature that
+   matters for the fit; the peak is 1.6) and falling to 0 continuously as it dies, instead of
+   the hard switch at 1e-4. The O2 > 0 requirement of the log stays. Not a new discrepancy term;
+   a smooth version of a mask that was already there.
+
+Both live in the strain's `gas_exchange.respiration` block, consumed by the likelihood only —
+`etcgem gasflux` runs and the gate scripts keep `flux_tpc`'s defaults, so no committed
+`gasflux_*` output changes and the seven-strain gate is byte-identical with them OFF (recorded
+in the report). ON for eciML1515 only.
