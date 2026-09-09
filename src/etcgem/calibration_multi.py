@@ -325,6 +325,17 @@ def _gwnegpost(theta):
     return 1e12 if not np.isfinite(v) else -v
 
 
+def _gwloglike(theta):
+    """(P11) The gas-flux LOG-LIKELIHOOD alone, on the worker's own ctx -- the callable a
+    sampler that handles the prior itself (nested sampling) needs. Same ctx, same specs and
+    same pool initialiser (:func:`_gwinit`) as :func:`_gwlogprob`; the only difference is that
+    no log-prior is added. Bounds are the prior transform's business, so an out-of-support
+    theta cannot arrive here; a non-finite likelihood is returned as a large negative number
+    because dynesty requires a finite ordering."""
+    ll = gasflux_log_likelihood(theta, _GCTX, _GSPECS)
+    return float(ll) if np.isfinite(ll) else -1e100
+
+
 def _build_gasflux_ctx(strain, medium, experiment, table, otu, c_max, etc_table,
                        apply_protons, fit_clearance, timeout=30):
     import yaml

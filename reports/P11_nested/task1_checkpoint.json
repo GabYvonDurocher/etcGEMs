@@ -1,0 +1,15 @@
+{
+ "A_niter": 601,
+ "A_logz": -313.05094135755195,
+ "A_logzerr": 2.356153219987769,
+ "B_niter_before": 301,
+ "B_niter_after": 602,
+ "B_logz": -313.055928899063,
+ "B_logzerr": 2.3568534394822325,
+ "logz_true": -73.17782387084947,
+ "resumed_from_disk": true,
+ "same_iteration_count": true,
+ "logz_diff": 0.0049875415110705035,
+ "logz_diff_in_combined_sigma": 0.0014965921501160265,
+ "passed": true
+}
