@@ -6,7 +6,7 @@
 
 *Evidence:* task1_checkpoint_test{,2}.py regenerate their JSON (scratch runs, ~30 min); run_walkers.py regenerates the chain (~2.1 h); task3_table.py regenerates the checkpoint, spread and verdict tables from chain.h5.
 
-**This report was last written at** `e6b8902` (2026-09-09) — P7 TASK 3: D NLDM at 128 walkers, 1500 steps -- tau still tracks chain length (NOT MIXING by the pre-registered rule)
+**This report was last written at** `8591ae4` (2026-09-09) — P7 TASK 4: NOT MIXING -- walker count is not the cause; the report, OPEN_ITEMS 1.12, and stamps
 
 **Committed inputs it reads (found by scanning this report's own files), and the commit each was last written at:**
 
