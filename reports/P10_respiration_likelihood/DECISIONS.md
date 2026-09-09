@@ -218,3 +218,49 @@ of its fraction** (its largest step is then by construction below 2 units, singl
 prompt's own standard), and the absolute step in units is reported for every line beside the
 fraction. Everything else in the rule stands. The TASK 5 gate is the rule's SMOOTH under (c)
 with that one clause.
+
+## D5 — TASK 3: each half does what it claims; (c) does NOT read SMOOTH by P9's rule; the run STOPS before any sampler
+
+**Where:** after the three scans (`task3_table.csv`, `task3_verdict.json`, `task3_attribution.csv`).
+
+| condition | sign changes, median / max | largest 0.05 sd step, median / max (units) | as % of range, median / max | lines > 20 % | verdict by P9's rule (+ D4) |
+|---|---|---|---|---|---|
+| baseline (P9) | 4 / 15 | 18.3 / 71.8 | 49 / 99 | 12 of 12 | ROUGH |
+| (a) tie-break only | 4 / 13 | 18.3 / 71.8 | 49 / 99 | 12 | ROUGH — **unchanged on D**, as it should be: D's O2 was already unique |
+| (b) variance + support only | 3 / 13 | **1.2 / 7.8** | 16 / 32 | 4 | ROUGH |
+| **(c) both** | **1 / 5** | **0.9 / 7.8** | 11 / 32 | **2** | **ROUGH** (dCp_scale 26.6 %, PC2 32.3 %) |
+
+(a) changes nothing on configuration D, exactly the prediction. (b) cuts every cliff's height:
+the largest step falls from 72 to 7.8 units and the median from 18 to 1.2; six of the twelve
+lines now have ranges under 4 units. (c) is (b) with the sign-change count halved again. **But
+by P9's rule as written — no step above 20 % of its line's range — (c) reads ROUGH on two lines,
+and by the prompt's own instruction the run stops here: no TASK 5, no sampler.**
+
+**What the remaining steps are** (`task3_attribution.csv`, fresh models at both ends, the new
+term's own arithmetic):
+
+* **dCp_scale, +0.90 → +0.95 sd, −7.8 units** — the largest vertex jump in the whole scan, at
+  25 °C: O2 1.50 → 0.36 (1.42 in log) costs −6.2 under the 0.76 floor (D2 predicted −6.2), plus
+  three growth-term steps of −0.4 to −0.6 at 25–30 °C. It is 26.6 % of a range that the floor
+  itself shrank from 137 to 29.
+* **PC2, −1.00 → −0.95 sd, +2.2 units** — the 20 °C O2 jump 0.67 → 1.23 (0.59 in log): +1.9
+  respiration, the rest growth. 32.3 % of a range of 6.8.
+* **topt_scale, −3.2 units** and **random1, −2.5**: topt_scale's step is entirely the **growth
+  term** (−1.1, −1.2, −0.6 at 25/27/30 °C: growth 0.189 → 0.146 across one 0.05 sd step — a kink
+  in the growth response, which no change to the respiration term touches); random1's is the
+  20 °C O2 jump (−1.5) with the support weight sliding 1.00 → 0.81 as growth falls through 0.01.
+* everything else ≤ 1.6 units; five lines have a largest step below 0.4.
+
+**So the residue is three things, all single digits:** the one O2 jump larger than the floor
+(1.42 at 25 °C against a floor set at 20 °C's 0.76); O2 jumps at 20 °C of 0.6 in log that the
+floor turns into 1–2 units rather than 20–30; and **growth-term kinks of 1–3 units**, which are
+the growth LP's own piecewise response and were never the respiration term's to fix. A surface
+with steps of a few units over ranges of 7–30 units is not the cliffed surface P9 found; it is
+also not smooth by the criterion this series committed to, and the criterion is kept.
+
+**Decided: STOP.** No fit is run (TASK 5's rule stands unused; `run_fit.py` is committed for the
+day it is). Two things would be needed to read SMOOTH, both decisions: a floor that honours the
+largest vertex jump rather than the modal temperature's (≈ 1.4 would take dCp_scale's step to
+≈ −2.5; it would also widen the term's variance for every temperature to a factor-4 band), and
+the same treatment of the **growth** term, whose kinks are now the largest residual on some
+lines — or the surrogate route (1.15 c) for both terms at once. Recommended, not taken.

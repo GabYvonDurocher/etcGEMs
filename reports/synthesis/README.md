@@ -78,3 +78,10 @@ point of an LP face; under the pfba tie-break at Parsa's θ the E LB respiration
 `reports/P3_gate/README.md`). F LB's respiration R² carries the caveat that its tie-break is not
 exact. The respiration likelihood itself now has a variance floor and a continuous support for
 eciML1515; the D-configuration numbers P4 reports were fitted under the old term.
+
+**Extended 2026-09-09 (P10, rows P9b–P10b).** Section 7 should now say: the respiration term
+was scoring a quantity the model does not determine continuously; with a tie-break, a variance
+floor at the model's own granularity and a continuous support the cliffs fall from 13–72
+log-likelihood units to single digits, and the surface is still not smooth by P9's criterion
+(one vertex jump above the floor, and kinks in the growth term of 1–3 units), so no chain has
+been sampled under the new term and the medians-only reading stands.

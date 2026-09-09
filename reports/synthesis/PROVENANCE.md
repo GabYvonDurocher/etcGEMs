@@ -6,7 +6,7 @@
 
 *Evidence:* `python reports/synthesis/build_evidence.py` regenerates evidence.csv (74 rows); `python reports/synthesis/fig_requirement_arithmetic.py` regenerates the one figure; `quarto render reports/synthesis/synthesis.qmd` produces the 10-page PDF.
 
-**This report was last written at** `69d34a5` (2026-09-09) — P9 TASK 1-2: the scan (ROUGH by the pre-registered rule: 12 of 22 lines with a 0.05 sd step > 20 % of range), the solver arms (cliffs unchanged under tight tolerances and dual simplex), the attribution (each large jump is the respiration term at one cold temperature where the LP's O2 switches vertex); OPEN_ITEMS 1.12 verdict and PI item 1.15; evidence P6b; README note extended
+**This report was last written at** `c0fcba7` (2026-09-09) — P10: record (part) -- 1.13 closed (pfba, face bounds, F LB caveat), 3.21 restated, Candida pfba PI item, evidence P7b/P8b, synthesis README note on E/F respiration R2
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 

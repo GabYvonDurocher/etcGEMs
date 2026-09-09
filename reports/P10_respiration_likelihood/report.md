@@ -1,8 +1,16 @@
 # P10 — fix the respiration likelihood: a tie-break for the faces, a variance the model can honour for the kinks
 
-@@STATUS@@
+| task | status | one line |
+|---|---|---|
+| **0** | **DONE** | #24 merged; baseline gates 79/79, 60/60; D0: the term read from the code and why `disc_resp` could not absorb the cliffs |
+| **1** — tie-break | **DONE, STOPPED on F LB** | core option, default OFF, gate byte-identical OFF; pfba at 1e-9 reproduces to 0.0000 on five of six fits; F LB 0.05–0.5; cost ×4.5 |
+| **2** — variance | **DONE** | two cliff mechanisms found (O2 vertex jumps, support-mask flips); floor 0.76 from P9's cliffs + a continuous support; P9's three jumps −70/−32/+23 → −6/−3/+2; `disc_resp` prior unchanged |
+| **3** — smoothness | **DONE — NOT SMOOTH** | (a) unchanged on D, (b) cliffs cut 10×, (c) ROUGH by P9's rule on two lines (7.8 and 2.2 units, 27 % and 32 % of shrunken ranges); residue named |
+| **4** — re-gate | **DONE** | all ten growth R² unchanged; D respiration unchanged; E LB 0.8014 → 0.7749 = the face width at his θ; dated note; Candida information run |
+| **5** — fit | **NOT RUN** | the surface did not qualify; rule committed unused |
+| **6** — record | **DONE** | OPEN_ITEMS, evidence P7b–P10b, README notes, stamps |
 
-Detail: [DECISIONS.md](DECISIONS.md) (D0–@@DLAST@@). Scripts beside this file: `task1_check.py`,
+Detail: [DECISIONS.md](DECISIONS.md) (D0–D5). Scripts beside this file: `task1_check.py`,
 `task1_d3a.py` (→ `task1_d3a.csv`, `task1_elb_face.csv`, `task1_cost.csv`), `lines.py`
 (→ `lines_<tag>.csv`, `lines_<tag>_summary.csv` for `baseline`, `tiebreak`, `variance`, `both`),
 `task2_floor.py` (→ `task2_floor.json`, `task2_jumps.csv`), `task4_regate.py`
@@ -102,7 +110,54 @@ both options are in the same block and both default off).
 
 ## TASK 3 — is the surface smooth now?
 
-@@TASK3@@
+P9's twelve ROUGH lines, the same MAP, ±1 sd at 0.05 sd, a fresh model per evaluation, single
+process, under (a) tie-break only, (b) variance + support only, (c) both — ~8 s per evaluation
+with the tie-break, ~4 s without; 63–70 min per condition, run concurrently. **P9's rule,
+quoted:** *SMOOTH if the median sign-change count is ≤ 2 AND no single step exceeds 5 % of the
+line's range; ROUGH if the median count is ≥ 5 OR any step exceeds 20 %; else MIXED* — with D4's
+clause (a line whose range is below 2 units counts as SMOOTH), written before the table existed.
+
+Per line — sign changes / largest step (units) / largest step (% of range):
+
+| line | baseline (P9) | (a) tie-break | (b) variance + support | (c) both |
+|---|---|---|---|---|
+| axis:topt_scale | 3 / 19.95 / 40.6 | 3 / 19.65 / 40.0 | 3 / 3.12 / 17.7 | 1 / 3.21 / 18.1 |
+| axis:dCp_scale | 7 / 71.78 / 52.6 | 7 / 71.76 / 52.6 | 3 / 7.83 / 26.6 | 3 / 7.83 / 26.6 |
+| axis:kcat_scale | 3 / 12.64 / 35.7 | 3 / 12.64 / 35.6 | 1 / 1.61 / 8.8 | 1 / 1.61 / 8.8 |
+| axis:f_maint | 7 / 18.19 / 98.3 | 1 / 18.19 / 98.2 | 5 / 0.18 / 23.5 | 1 / 0.10 / 14.3 |
+| axis:ngam_scale | 1 / 18.40 / 85.9 | 1 / 18.42 / 85.5 | 7 / 0.37 / 9.9 | 1 / 0.37 / 10.1 |
+| axis:clearance_mult | 6 / 16.71 / 99.0 | 4 / 16.72 / 98.9 | 3 / 0.23 / 15.4 | 3 / 0.14 / 9.5 |
+| PC1 | 1 / 18.46 / 38.2 | 1 / 18.48 / 38.3 | 1 / 1.41 / 20.1 | 1 / 0.88 / 12.7 |
+| PC2 | 15 / 22.79 / 40.7 | 13 / 23.17 / 41.4 | 13 / 2.18 / 32.1 | 5 / 2.18 / 32.3 |
+| PC3 | 3 / 11.81 / 46.3 | 5 / 11.82 / 45.7 | 1 / 0.68 / 7.6 | 1 / 0.68 / 7.6 |
+| random1 | 9 / 35.73 / 43.1 | 5 / 35.61 / 43.0 | 1 / 2.45 / 16.4 | 1 / 2.45 / 16.4 |
+| random2 | 1 / 13.58 / 55.2 | 1 / 13.31 / 54.3 | 3 / 0.93 / 9.0 | 1 / 0.90 / 8.8 |
+| random3 | 8 / 14.75 / 82.6 | 10 / 14.76 / 82.9 | 7 / 0.37 / 8.7 | 3 / 0.36 / 8.5 |
+
+| condition | sign changes, median / max | largest step, median / max (units) | % of range, median / max | lines > 20 % | **verdict** |
+|---|---|---|---|---|---|
+| baseline (P9) | 4 / 15 | 18.3 / 71.8 | 49 / 99 | 12 | ROUGH |
+| (a) tie-break only | 4 / 13 | 18.3 / 71.8 | 49 / 99 | 12 | ROUGH (unchanged on D, as predicted) |
+| (b) variance + support | 3 / 13 | **1.2 / 7.8** | 16 / 32 | 4 | ROUGH |
+| **(c) both** | **1 / 5** | **0.9 / 7.8** | 11 / 32 | **2** | **ROUGH** |
+
+**Each half does what it claims.** (a) leaves every D line unchanged — D's O2 was unique, so a
+tie-break has nothing to break. (b) cuts every cliff's height by an order of magnitude (72 → 7.8;
+median 18 → 1.2); six lines now span under 4 units over ±1 sd. (c) halves the sign-change count
+again. **And (c) does not read SMOOTH**: two lines keep a single step above 20 % of their range
+— dCp_scale (7.8 units of 29) and PC2 (2.2 of 6.8). **By the prompt's instruction the run stops
+here; no sampler ran.**
+
+**What remains** (`task3_attribution.csv`): dCp_scale's 7.8 is the one O2 vertex jump larger
+than the floor (1.42 in log at 25 °C; the floor is 20 °C's 0.76) at −6.2, plus growth-term
+steps; PC2's 2.2 is the 20 °C O2 jump (0.59 in log) at +1.9; topt_scale's 3.2 is **entirely
+the growth term** (growth 0.189 → 0.146 across one step at 25 °C — a kink in the growth LP's
+response, outside anything a respiration change can touch); random1's 2.5 is the 20 °C O2 jump
+plus the support weight sliding 1.00 → 0.81. Everything else is ≤ 1.6 units. Single digits
+everywhere, as TASK 2 promised — and not smooth by the criterion this series committed to.
+
+**D3a under (c)** (`task3_d3a_both.csv`): D NLDM, D LB, E NLDM, E LB, F NLDM all **0.0000**
+on every cell; F LB 0.76 / 0.25 (its tie-break is not exact, D1).
 
 ## TASK 4 — the gate, re-read
 
@@ -146,12 +201,32 @@ construction.)
 
 ## TASK 5 — one fit
 
-@@TASK5@@
+**Not run.** TASK 3 did not read SMOOTH under (c), and the prompt makes that a stop. The rule
+and the run's definition were written before TASK 3 reported (D3) and stand unused;
+`run_fit.py` is committed for the day the surface qualifies. **Costs, for the record:** with the
+tie-break each likelihood evaluation is ~2.0 s single-process (×4.5), so a 1500-step D NLDM chain
+at 40 walkers and 16 processes is ~3.5 h against P6's 47 min; D LB and D M9 similar; the six
+E/F fits ~2–4 h each if F LB's tie-break were exact, which it is not.
 
 ## TASK 6 — the record
 
-@@TASK6@@
+OPEN_ITEMS: **1.13 closed** (pfba, face bounds, F LB caveat); **1.15 restated** with the
+outcome; **3.21 restated** (E resolved, F LB not); **1.12 appended**; new PI item **1.16** (the
+Candida pfba question). No new item for the other eight fits: TASK 5 did not license them.
+`reports/synthesis/evidence.csv`: rows **P7b** (tie-break), **P8b** (variance), **P9b** (the
+smoothness verdict), **P10b** (no fit). Synthesis README correction note extended (section 7
+and the E/F respiration R² sentences). `reports/P3_gate/README.md` carries the dated restated
+criterion. Stamps regenerated.
 
 ## Verification
 
-@@VERIFY@@
+| check | result |
+|---|---|
+| TASK 0: #24 merged; baseline gates; D0 | `4bdaf18`; 79/79, 60/60; D0 quoted in full in DECISIONS and summarised above |
+| TASK 1: option and default; gate OFF; D3a under pfba; E LB face; cost | `flux_tpc(tiebreak=)`, default none; 79/79 byte-identical OFF; five of six 0.0000, **F LB 0.05/0.51 — STOPPED**; face bounds at four temperatures; 0.45 → 2.0 s |
+| TASK 2: the minimal change; prior before/after; the floor and its source; the three jumps; gate OFF | floor 0.76 in quadrature + continuous support (D2); `disc_resp` half-normal(0.5) unchanged; `task2_floor.json` from `lines_baseline.csv`; −70.2/−31.6/+23.1 → −6.2/−2.6/+1.9; 79/79 |
+| TASK 3: the twelve-line, three-condition table; rule quoted; verdict under (c); D3a under (c) | above; **ROUGH**; all 0.0000 but F LB |
+| TASK 4: growth R² unchanged (10); D respiration unchanged; E/F old vs new; dated note; Candida | yes, to four decimals; yes; E LB 0.8014 → 0.7749 (face width), others < 0.001; `reports/P3_gate/README.md`; translocation fraction unchanged, in-compartment figure moves for two strains, not adopted |
+| TASK 5 | not run — stop condition met; rule quoted before (D3) |
+| TASK 6 | OPEN_ITEMS 1.12, 1.13, 1.15, 1.16, 3.21; evidence P7b–P10b; README notes; stamps |
+| `git diff main --stat` | `src/etcgem/{gasflux,calibration_multi}.py` (options, default OFF), `strains/eciML1515/gas_exchange.yaml` (options ON; no prior changed), `reports/P10_respiration_likelihood/`, `reports/P3_gate/README.md`, OPEN_ITEMS, evidence.csv, synthesis README, `report_status.yaml`, stamps. **No fit output** (none was run). No other strain's config touched. |

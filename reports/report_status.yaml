@@ -330,3 +330,15 @@ P9_surface:
   evidence: >-
     task1_scan.py (~52 min, 902 fresh builds), task2_solver.py, task2_attribute.py,
     task2_fva_at_jump.py and task3_chains.py regenerate their CSV/JSON/PNG outputs.
+
+P10_respiration_likelihood:
+  status: CURRENT
+  note: >-
+    the first change to the model's likelihood in this series, made as two core options
+    (default OFF; ON for eciML1515 in gas_exchange.yaml) and measured on the instruments that
+    found the defect before anything sampled. No chain was run: the surface did not read
+    SMOOTH by P9's rule. Nothing in it is a posterior.
+  evidence: >-
+    task1_check.py, task1_d3a.py [--both], task1_tol.py, lines.py (four conditions, ~35-70 min
+    each, fresh model per evaluation), task2_floor.py, task3_table.py, task3_attribute.py,
+    task4_regate.py and task4_candida_pfba.py regenerate every CSV/JSON beside them.
