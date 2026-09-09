@@ -41,10 +41,43 @@ def _flux(m, rid):
     return float(m.reactions.get_by_id(rid).flux) if rid in m.reactions else 0.0
 
 
+TIEBREAKS = ("none", "pfba", "min_o2", "max_o2")
+
+
+def _tiebroken_solve(m, g, tiebreak, growth_tol, o2_fwd="EX_o2_e", o2_rev="EX_o2_e_REV"):
+    """(P10) Re-solve with growth held at its optimum and a second objective, so the exchange
+    fluxes read off the vertex are a FUNCTION of the model and not of the solver's path:
+    ``pfba`` minimises total absolute flux (cobra's add_pfba); ``min_o2`` / ``max_o2`` minimise /
+    maximise the net O2 uptake (the ends of the face; for reporting). Runs inside a cobra
+    context so the objective and the added constraint are reverted afterwards. Returns the
+    solver status; the fluxes are read by the caller while the context is open, so it is the
+    caller that opens it -- see flux_tpc."""
+    from optlang.symbolics import Zero
+    fix = m.problem.Constraint(m.objective.expression, lb=float(g) * (1.0 - growth_tol), name="_etcgem_fix_growth")
+    m.add_cons_vars([fix])
+
+    if tiebreak == "pfba":
+        # cobra's add_pfba re-optimises growth and pins it at EXACTLY the re-solved optimum
+        # (fraction 1.0, no tolerance); on the LB models that second pin is numerically fragile
+        # and whether it solves depends on the basis -- which is the state-dependence a
+        # tie-break exists to remove. So the parsimonious objective is built here directly:
+        # minimise the sum of every reaction's forward and reverse variable (all >= 0 in
+        # cobra's split formulation), with growth held by the tolerance constraint above.
+        m.objective = m.problem.Objective(Zero, direction="min")
+        m.objective.set_linear_coefficients({v: 1.0 for r in m.reactions for v in (r.forward_variable, r.reverse_variable)})
+    else:
+        rev = m.reactions.get_by_id(o2_rev).flux_expression if o2_rev in m.reactions else 0
+        fwd = m.reactions.get_by_id(o2_fwd).flux_expression if o2_fwd in m.reactions else 0
+        m.objective = m.problem.Objective(rev - fwd, direction="min" if tiebreak == "min_o2" else "max")
+    m.slim_optimize()
+    return str(m.solver.status)
+
+
 def flux_tpc(pm, temps_C: Sequence[float], pert: Optional[Perturbation] = None,
              metabolites: Sequence[str] = ("o2", "co2"),
              exchange_fmt: str = "EX_{met}_e",
-             min_growth: float = 1e-6) -> pd.DataFrame:
+             min_growth: float = 1e-6,
+             tiebreak: str = "none", growth_tol: float = 1e-6, tiebreak_tol: float = 1e-9) -> pd.DataFrame:
     """Growth **and exchange fluxes** vs temperature.
 
     Identical model states to :func:`etcgem.tpc.compute_tpc` -- both call
@@ -53,7 +86,42 @@ def flux_tpc(pm, temps_C: Sequence[float], pert: Optional[Perturbation] = None,
     forward/reverse exchange pair is found with ``exchange_fmt`` and its ``_REV`` partner, the
     GECKO convention. Returns one row per temperature with ``<met>_uptake`` and
     ``<met>_release`` (uptake positive), plus the solver status.
+
+    ``tiebreak`` (P10, default ``"none"`` = the single growth-objective solve every earlier run
+    used): ``"pfba"`` re-solves with growth held at its optimum (to ``growth_tol``, relative) and
+    total absolute flux minimised, and reads the exchange fluxes off THAT vertex, so O2 at the
+    optimum is a function of the model rather than of the solver's path; ``"min_o2"`` /
+    ``"max_o2"`` give the two ends of the face instead (reporting only).
     """
+    if tiebreak not in TIEBREAKS:
+        raise ValueError(f"tiebreak must be one of {TIEBREAKS}, got {tiebreak!r}")
+    # With a tie-break on, EVERY solve in this call (the growth solve and the tie-break solve)
+    # runs at ``tiebreak_tol`` optimality/feasibility tolerance, restored on exit. Measured
+    # (P10 TASK 1): on the LB models the parsimonious optimum is nearly flat in the O2
+    # direction, and at Gurobi's default 1e-7 vertices within tolerance differ two- to
+    # four-fold in O2 depending on the basis history; tightening the tie-break solve alone is
+    # not enough, because the growth optimum it pins is then itself tolerance-level
+    # history-dependent. At 1e-9 for both, the E-configuration cells reproduce to 0.0000.
+    _restored = {}
+    if tiebreak != "none":
+        try:
+            gp = pm.ec.model.solver.problem
+            for name in ("OptimalityTol", "FeasibilityTol"):
+                _restored[name] = gp.getParamInfo(name)[2]
+                gp.setParam(name, float(tiebreak_tol))
+        except Exception:
+            _restored = {}
+    try:
+        return _flux_tpc_body(pm, temps_C, pert, metabolites, exchange_fmt, min_growth, tiebreak, growth_tol)
+    finally:
+        try:
+            for name, val in _restored.items():
+                pm.ec.model.solver.problem.setParam(name, val)
+        except Exception:
+            pass
+
+
+def _flux_tpc_body(pm, temps_C, pert, metabolites, exchange_fmt, min_growth, tiebreak, growth_tol):
     pert = pert or Perturbation()
     ecm = pm.ec
     m = ecm.model
@@ -66,6 +134,18 @@ def flux_tpc(pm, temps_C: Sequence[float], pert: Optional[Perturbation] = None,
         row = {"temp_C": float(Tc),
                "growth": float(g) if (feasible and g >= min_growth) else 0.0,
                "status": str(m.solver.status)}
+        if feasible and tiebreak != "none" and g >= min_growth:
+            with m:
+                st2 = _tiebroken_solve(m, g, tiebreak, growth_tol)
+                row["tiebreak_status"] = st2
+                ok = st2 == "optimal"
+                for met in metabolites:
+                    fwd = exchange_fmt.format(met=met)
+                    up = (_flux(m, f"{fwd}_REV") - _flux(m, fwd)) if ok else np.nan
+                    row[f"{met}_uptake"] = up
+                    row[f"{met}_release"] = -up
+            rows.append(row)
+            continue
         for met in metabolites:
             fwd = exchange_fmt.format(met=met)
             if feasible:

@@ -1,0 +1,240 @@
+{
+ "none": {
+  "o2": [
+   NaN,
+   5.363,
+   11.9325,
+   18.1876,
+   23.4588,
+   30.8499,
+   34.5143,
+   38.1497,
+   37.4161,
+   43.9467,
+   20.763,
+   6.8015
+  ],
+  "growth": [
+   0.0,
+   0.11834,
+   0.53254,
+   0.82161,
+   1.1967,
+   1.52683,
+   1.59718,
+   1.65621,
+   1.6169,
+   1.40887,
+   0.38112,
+   0.00104
+  ],
+  "status": [
+   "infeasible",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal"
+  ],
+  "tiebreak_status": null,
+  "seconds": 0.57
+ },
+ "pfba": {
+  "o2": [
+   NaN,
+   5.3611,
+   11.9352,
+   18.1978,
+   23.4561,
+   30.8498,
+   34.5142,
+   38.146,
+   37.416,
+   43.9395,
+   20.7458,
+   6.8123
+  ],
+  "growth": [
+   0.0,
+   0.11834,
+   0.53254,
+   0.82161,
+   1.1967,
+   1.52683,
+   1.59718,
+   1.65621,
+   1.6169,
+   1.40887,
+   0.38112,
+   0.00104
+  ],
+  "status": [
+   "infeasible",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal"
+  ],
+  "tiebreak_status": [
+   NaN,
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal"
+  ],
+  "seconds": 2.07
+ },
+ "min_o2": {
+  "o2": [
+   NaN,
+   5.3611,
+   11.9321,
+   18.1867,
+   23.4561,
+   30.8494,
+   34.5137,
+   38.1417,
+   37.4127,
+   43.9395,
+   20.6935,
+   6.7941
+  ],
+  "growth": [
+   0.0,
+   0.11834,
+   0.53254,
+   0.82161,
+   1.1967,
+   1.52683,
+   1.59718,
+   1.65621,
+   1.6169,
+   1.40887,
+   0.38112,
+   0.00104
+  ],
+  "status": [
+   "infeasible",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal"
+  ],
+  "tiebreak_status": [
+   NaN,
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal"
+  ],
+  "seconds": 1.37
+ },
+ "max_o2": {
+  "o2": [
+   NaN,
+   5.3662,
+   11.9443,
+   18.1978,
+   23.4649,
+   30.8529,
+   34.5192,
+   38.1561,
+   37.4172,
+   44.0078,
+   20.7661,
+   6.8101
+  ],
+  "growth": [
+   0.0,
+   0.11834,
+   0.53254,
+   0.82161,
+   1.1967,
+   1.52683,
+   1.59718,
+   1.65621,
+   1.6169,
+   1.40887,
+   0.38112,
+   0.00104
+  ],
+  "status": [
+   "infeasible",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal"
+  ],
+  "tiebreak_status": [
+   NaN,
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal"
+  ],
+  "seconds": 1.35
+ },
+ "pfba_reuse_logL": [
+  2.348898774532582,
+  2.348792698477185,
+  2.020376779936585,
+  2.348944261367296
+ ],
+ "pfba_reuse_spread": 0.00015156289011120094,
+ "cost_s_per_eval": {
+  "none": 0.453,
+  "pfba": 2.081
+ },
+ "logL_none_vs_pfba_at_MAP": [
+  2.3643166223999525,
+  2.348792698477185
+ ]
+}

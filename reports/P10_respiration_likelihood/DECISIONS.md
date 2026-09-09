@@ -147,3 +147,58 @@ checkpoints — four samplers and configurations on the old surface, one on the 
 
 **If TASK 3 does not read SMOOTH under (c), no sampler runs.** The remaining rough lines are
 decomposed as P9 did and the surrogate route (1.15 c) is reported as the next decision.
+
+## D1 — TASK 1: the tie-break works for five of the six fits and STOPS on F LB; two things it needed that the prompt's sketch did not have
+
+**Where:** TASK 1, the D3a instrument (`task1_d3a.csv`).
+
+**What was built.** `flux_tpc(..., tiebreak="none" | "pfba" | "min_o2" | "max_o2", growth_tol,
+tiebreak_tol)`: after the growth solve, growth is held at its optimum (relative slack
+`growth_tol` = 1e-6) and a second objective is solved — pfba minimises the sum of every
+reaction's forward and reverse variable; min/max_o2 take the ends of the face — inside a cobra
+context, and the exchange fluxes are read off that vertex. The likelihood reads the option from
+the strain's `gas_exchange.respiration` block (`ctx["respiration"]`); every other caller keeps
+the default `none`, so `etcgem gasflux` outputs and the P1/P3 gate scripts are unchanged and
+the seven-strain gate with the option OFF is **79/79 and byte-identical** (only the two stale
+FBA dumps OPEN_ITEMS §4 already records).
+
+**Two things it needed.** (1) cobra's own `add_pfba` re-optimises growth and pins it at exactly
+the re-solved optimum with no tolerance; on the LB models that pin is numerically fragile and
+whether it solves depends on the basis — the first D3a run under it read **6.1 / 8.2 on E LB and
+0.0001 / 43.7 on F LB**, worse than no tie-break. The parsimonious objective is therefore built
+directly (`set_linear_coefficients`, as cobra does internally, after a first attempt as a
+symbolic sum proved quadratic in 24 000 variables) over the growth constraint with the stated
+tolerance. (2) At Gurobi's default optimality/feasibility tolerance of 1e-7 the parsimonious
+optimum on the LB models is nearly **flat in the O2 direction**: with growth *and* total flux
+fixed at their optima the O2 is a point (FVA width 0.000, `task1_why_lb.csv`), yet successive
+solves inside the likelihood returned O2 of 8.9, 10.0 and 12.8 at 30 °C — vertices within
+tolerance of the same objective value, two- to four-fold apart in O2, chosen by basis history.
+At **1e-9** for every solve in the call (`tiebreak_tol`; tightening the tie-break solve alone
+was not enough, because the growth optimum it pins was then itself history-dependent at the
+tolerance level) the E-configuration cells reproduce exactly (`task1_tol.csv`). The tolerance is
+scoped to calls with a tie-break on and restored on exit; nothing else in the repository sees it.
+
+**The D3a table under pfba (1e-9), same θ, same θ′, six fits:**
+
+| fit | none: reuse θ,θ / θ,θ′,θ | **pfba: reuse θ,θ / θ,θ′,θ** | pfba: rebuild twice / rebuild+history | s per evaluation none → pfba |
+|---|---|---|---|---|
+| D NLDM | 0.0000 / 0.0000 | **0.0000 / 0.0000** | 0.0000 / 0.0000 | 0.43 → 1.87 |
+| D LB | 0.0000 / 0.0000 | **0.0000 / 0.0000** | 0.0000 / 0.0000 | 0.26 → 1.81 |
+| E NLDM | 0.5153 / 0.5153 | **0.0000 / 0.0000** | 0.0000 / 0.0000 | 0.67 → 2.22 |
+| E LB | 2.4978 / 2.4992 | **0.0000 / 0.0000** | 0.0000 / 0.0000 | 0.39 → 2.34 |
+| F NLDM | 0.0000 / 0.0000 | **0.0000 / 0.0000** | 0.0000 / 0.0000 | 0.50 → 2.24 |
+| **F LB** | 2.3530 / 2.3530 | **0.0525 / 0.5055** | 0.0000 / 0.0525 | 0.48 → 2.33 |
+
+**Verdict.** The tie-break is a tie-break for D NLDM, D LB, E NLDM, E LB and F NLDM — every cell
+0.0000. **It is not one for F LB**, where a reused model still returns a value 0.05–0.5 away
+(down from 2.35, but not zero): on that model even the parsimonious optimum at 1e-9 leaves a
+residual freedom in O2. Per the prompt, **TASK 1 STOPS on the F LB cell**, and F LB stays held
+(3.21 restated rather than closed). The option is switched ON for eciML1515 with that scope
+written into the strain file; TASKS 2–5 concern D NLDM, where the tie-break is exact.
+
+**Where pfba lands on the E LB face at Parsa's θ** (37/40/45/50 °C): none 38.12 / 46.66 / 40.71
+/ 28.49; **pfba 38.07 / 46.60 / 40.71 / 28.49**; min_o2 38.07 / 46.60 / 40.70 / 28.48; max_o2
+38.24 / 46.66 / 40.74 / 28.49. At *his* θ the face is 0.17 wide at most and pfba sits at its
+low end; the [0, 190] face P6 D3a measured is at P4's MAP θ, not his. **Cost:** 0.45 → 2.0 s
+per likelihood evaluation single-process, ×4.5, not the ×2 the prompt estimated — the
+parsimonious LP over 24 000 split variables is the expensive half.

@@ -26,7 +26,7 @@ names = [s.name for s in build_gasflux_specs({"use_etc": False, "fit_clearance":
 
 def main():
     import emcee as _e
-ch = _e.backends.HDFBackend(os.path.join(OUT, "chain.h5"), read_only=True).get_chain() if os.path.exists(os.path.join(OUT, "chain.h5")) else np.load(os.path.join(OUT, "chain.npy")); N, W, D = ch.shape
+    ch = _e.backends.HDFBackend(os.path.join(OUT, "chain.h5"), read_only=True).get_chain() if os.path.exists(os.path.join(OUT, "chain.h5")) else np.load(os.path.join(OUT, "chain.npy")); N, W, D = ch.shape
     summ = json.load(open(os.path.join(OUT, "summary.json"))) if os.path.exists(os.path.join(OUT, "summary.json")) else {}
     zck = {c["step"]: c for c in (summ.get("sampler", {}).get("zeus", {}) or {}).get("checkpoints", [])}
     wall_s = summ.get("sampler", {}).get("wall_time_s", np.nan); sps = wall_s / N if np.isfinite(wall_s) else np.nan
