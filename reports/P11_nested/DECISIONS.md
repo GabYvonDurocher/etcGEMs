@@ -119,3 +119,24 @@ measurement of what this posterior actually costs — which TASK 4 needs regardl
 **and** the posterior n_eff dynesty reports is ≥ 600. **STALLED** if the cap is hit first. Both
 numbers are reported either way. A STALLED run is reported as STALLED, not extended past the
 cap, and its posterior is not quoted as a result.
+
+## D3 — TASK 3: the identifiability classification rule, written before the posterior exists
+
+**Where:** before the nested run finishes.
+
+Each of the sixteen parameters gets one line scan through the **new** posterior median, ±1
+**posterior** sd (not prior sd) at 0.05 sd steps, log-likelihood only, fresh model per
+evaluation — P9's instrument with a new centre and a new scale. Classified by a rule fixed now:
+
+* **FLAT** — the log-likelihood ranges by **less than 1 unit** over ±1 posterior sd. The data do
+  not distinguish the parameter locally at all; its posterior is its prior, reshaped by whatever
+  correlations it has with the others.
+* **WALL-BOUNDED** — not flat, and the largest single 0.05 sd step is **more than 25 % of the
+  line's range**. The parameter's posterior width is set by where the likelihood falls off a
+  step, not by curvature: an interval bounded by the model's piecewise structure.
+* **GRADIENT-DETERMINED** — not flat, and no step exceeds 25 % of the range. The line is a
+  curve and the interval is set by the data through the gradient, which is what a credible
+  interval normally means.
+
+Reported as three lists. This is the first time the identifiability of this model can be stated
+per parameter, because it is the first posterior worth centring on.
