@@ -518,6 +518,8 @@ reconstructed from the repository.
 
 ## 9. Sequencing
 
+*(2026-09-09) On ordering, this section is superseded by `docs/OPEN_ITEMS.md` §0 — E. coli first, then the port through the core; the K-series Candida result stands.*
+
     K1  port the four species onto the core (DONE - 57/57, mu to 0.000000 h^-1)
     K2  the core's thermal layer, one component per rung (DONE - gate now 79/79; required
         separation 32.5 -> 13.8 C; ceiling measured on all seven strains; sink audit added)

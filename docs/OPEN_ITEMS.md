@@ -10,6 +10,22 @@ Status: **BLOCKED** (waiting on something external) · **READY** (can start now)
 
 ---
 
+## 0. Sequencing — E. coli first (decided 2026-09-09)
+
+- **The E. coli model (`eciML1515`) is the best-constrained**: three media, gas exchange, a
+  measured meltome. Methods are developed and proven there first, then ported through the core.
+  The seven-strain gate (K1, 79/79) runs on every core change so the other strains cannot
+  silently break meanwhile.
+- **Order on E. coli:** (1) the sampling problem — P8; (2) the E/F tie-break on the LP face
+  (1.13, PI); (3) the −5.6 K Tm shift — whether a Li-style per-enzyme calibration against the
+  meltome removes it (1.14 generalised to E. coli, where the data exist); (4) the CT_max
+  disagreement with the yeast posterior (Y2) — definition first, then mechanism.
+- **Candida:** the K-series result (13.57 °C required against 1.6 °C measured, and why) stands
+  and is what the manuscript uses. No further Candida modelling until the E. coli calibration
+  recipe exists; then it ports against the measured TPCs.
+- **Cross-taxon questions already answered** (activation energies K6, seven-strain ceiling K9)
+  stay on record and are not re-opened by this.
+
 ## 1. Waiting on people
 
 | # | Item | Waiting on | Why it matters |
