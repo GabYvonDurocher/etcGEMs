@@ -18,6 +18,20 @@ import numpy as np
 from scipy.stats import norm
 
 
+class PriorTransform:
+    """The unit-cube transform as a module-level callable, so it pickles for a process pool
+    (a closure does not: dynesty sends the transform to every worker)."""
+
+    def __init__(self, loc, scale, Pa, Pb, take_log):
+        self.loc, self.scale, self.Pa, self.Pb, self.take_log = loc, scale, Pa, Pb, take_log
+
+    def __call__(self, u):
+        x = self.loc + self.scale * norm.ppf(self.Pa + np.asarray(u) * (self.Pb - self.Pa))
+        if self.take_log.any():
+            x = np.where(self.take_log, np.log(np.maximum(x, 1e-300)), x)
+        return x
+
+
 def transform_factory(specs):
     lo_z, hi_z, loc, scale, kind = [], [], [], [], []
     for s in specs:
@@ -31,13 +45,5 @@ def transform_factory(specs):
             raise ValueError(s.prior)
         loc.append(c); scale.append(sc); lo_z.append((l - c) / sc); hi_z.append((h - c) / sc); kind.append(s.prior)
     loc, scale = np.array(loc), np.array(scale)
-    Pa, Pb = norm.cdf(np.array(lo_z)), norm.cdf(np.array(hi_z))
-    take_log = np.array([k == "halfnormal" for k in kind])      # inverted in v, sampled in log v
-
-    def prior_transform(u):
-        x = loc + scale * norm.ppf(Pa + np.asarray(u) * (Pb - Pa))
-        if take_log.any():
-            x = np.where(take_log, np.log(np.maximum(x, 1e-300)), x)
-        return x
-
-    return prior_transform
+    return PriorTransform(loc, scale, norm.cdf(np.array(lo_z)), norm.cdf(np.array(hi_z)),
+                          np.array([k == "halfnormal" for k in kind]))

@@ -45,3 +45,77 @@ so the rule and the diagnosis that produced the fix use one number; a step of 5 
 ratio of 150 across 0.05 sd, which is a kink and not a wall.
 
 If any line still exceeds 5 units after the floor move, TASK 0 STOPS and reports which.
+
+## D1 — TASK 1: what had to be added to wire dynesty, and why the runner lives in the report directory
+
+**Where:** TASK 1, before any nested run.
+
+**In the core, one callable.** `_gwloglike` beside `_gwlogprob` in `calibration_multi.py`: the
+gas-flux log-likelihood on the worker's own ctx, without the log-prior, because a sampler that
+handles the prior itself needs the likelihood alone. Same pool initialiser, same ctx, same
+specs. A non-finite value is returned as −1e100 rather than −inf, because nested sampling needs
+a total ordering of likelihood values and −inf breaks it; the prior transform makes
+out-of-support points unreachable, so this only catches a solver failure. Nothing else in the
+core changed.
+
+**Everything else is in `reports/P11_nested/`** — the transform, the runner, the checks. Reason:
+`src/etcgem/` is the seven-strain core, gated on every change; a sampler used by one report is
+not core infrastructure until a second report needs it. The one thing that had to be core is the
+worker callable, because a process pool must import it from an installed module (a function
+defined in a run script is re-imported by every spawned worker — the failure that produced this
+session's runaway process).
+
+**The prior transform** (`prior_transform.py`) is the inverse CDF of each of P4's priors, in the
+space `log_prior` scores: `normal` in the natural value, `lognormal` in log, `halfnormal`
+inverted in the natural value and returned as its log (whose Jacobian is exactly the `+theta`
+term `log_prior` adds). Every one is truncated to its hard `[lo, hi]`. Proven two ways
+(`task1_transform.csv`): 10,000 draws match `scipy.stats.truncnorm`'s analytic quantiles (worst
+error 0.13 on dTopt, whose prior spans 30) and every marginal mean is within 1.6 Monte-Carlo
+standard errors; and on a 200-point grid per parameter the difference between `log_prior`'s
+contribution and the transform's implied log-density is **constant to 3.5e-14**. The first
+version of that second check disagreed by exactly 8.0 and 10.8 on the two half-normals — the
+range of their log-Jacobian — which was the check comparing spaces, not the transform being
+wrong; recorded because it is the kind of error that looks like a bug in the thing being tested.
+
+**The transform is a module-level callable object, not a closure**, because dynesty pickles it
+to every worker.
+
+**Proofs.** Pool path vs a single-process fresh evaluation at three points: **identical to
+0.00e+00**, and 32 evaluations over 16 workers in 4.5 s = **0.141 s per evaluation of wall
+clock**. Toy (16-d correlated Gaussian, P8's covariance, analytic log Z): dynesty recovers
+log Z = −72.90 ± 0.30 against −73.18, **0.93 sigma**, means within 2.8 Monte-Carlo errors,
+median relative covariance error 5.5 %. Checkpoint: a run halted at 301 iterations, restored
+from disk and continued, reaches the same log Z as an uninterrupted run **to 0.005 (0.00
+sigma)**. dynesty 3.1.0, added to `requirements.lock.txt`.
+
+## D2 — TASK 2: the settings, the projection, and the stopping rule, all written before the run
+
+**Where:** before the nested run starts.
+
+**Settings.** `nlive = 400`, `bound = "multi"`, `sample = "rslice"`, `slices = 3`, `dlogz = 0.1`,
+wall-clock cap **4 h**, checkpoint every 180 s, 16 processes, seed 1.
+
+* **nlive 400, not the prompt's 500.** dynesty's guidance for multi-ellipsoid bounding is
+  nlive ≳ 25 × D, which is exactly 400 in 16 dimensions. Cost scales linearly in nlive and the
+  budget is the binding constraint, so 400 is the smallest value that keeps the bounding
+  recommendation intact. Below it the ellipsoid decomposition degrades and log Z can bias.
+* **rslice, not rwalk**, and this is the point of the run: slice sampling needs only the
+  ordering of likelihood values, has no proposal scale to tune, and steps over a kink. A
+  random-walk kernel inside nested sampling would reintroduce the proposal-scale dependence
+  that defeated P6–P8, and a converged result would then be evidence about the kernel rather
+  than about the surface. `slices = 3` rather than dynesty's default 5 halves the per-iteration
+  cost and is dynesty's documented minimum for adequate decorrelation.
+
+**The projection, stated before the run rather than after it.** The information is estimated
+from P8's posterior/prior width ratios as H ≈ Σ log(1/ratio) ≈ 20 nats, and the new likelihood
+is wider than the one those ratios came from, so H ≈ 15–20. Nested sampling needs about
+nlive × H iterations, so 6,000–8,000, at an rslice cost of roughly 15–45 likelihood calls each:
+**90,000–360,000 evaluations, or 3.5–14 h at the measured 0.141 s**. The 4 h cap therefore may
+or may not be reached, and that is not a reason to weaken the settings: the run is
+checkpointed, so a cap-stop is a resumable state and not a loss, and its trajectory is the first
+measurement of what this posterior actually costs — which TASK 4 needs regardless of the verdict.
+
+**The stopping rule, verbatim:** **CONVERGED** if dynesty reaches dlogz < 0.1 within the 4 h cap
+**and** the posterior n_eff dynesty reports is ≥ 600. **STALLED** if the cap is hit first. Both
+numbers are reported either way. A STALLED run is reported as STALLED, not extended past the
+cap, and its posterior is not quoted as a result.
