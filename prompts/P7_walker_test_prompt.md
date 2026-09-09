@@ -30,9 +30,11 @@ modelling options are needed at all. Either outcome is the deliverable.
      uninformative, not negative. This test needs enough length for the τ(N) curve to show
      curvature or not — a minimum of 1500 steps, checkpointed every 250.
 
-NOTE TO USER: launch in an auto-approving mode. One emcee run on one fit, roughly 2.5–3.5 hours at
-128 walkers (per-step cost scales with walker count: 1.86 s/step at 40 → ~6 s/step at 128). It
-merges PR #18 first, so the primary tree changes branch; that is intended, since nothing is running.
+NOTE TO USER: launch in an auto-approving mode, from `etcGEMs` (the primary tree). One emcee run on
+one fit, roughly 2.5–3.5 hours at 128 walkers (per-step cost scales with walker count: 1.86 s/step at
+40 → ~6 s/step at 128), plus ~15 minutes of housekeeping first: it files the stray BRENDA page under
+K4's sources and rebuilds the venv outside the checkout, proving both gates pass on the new
+interpreter before the run uses it. The old venv is left for you to delete afterwards.
 
 REFERENCE, read first: `reports/P6_convergence/DECISIONS.md` D5, D6 and D3a; `reports/P6_convergence/
 run_fits.log` (the five logged checkpoints of the halted chain are the 40-walker control); `reports/
@@ -46,13 +48,38 @@ THE FIRST JUDGEMENT CALL. Standing rules carry over. Check exit codes explicitly
 `cmd && check`. Branch `p7/walkers` from main AFTER TASK 0; do not push to main; end in a PR that is
 NOT merged.
 
-TASK 0 - merge P6's diagnosis and start from main
-- Confirm nothing is running: no process with the primary tree as cwd, run_fits.log not written in
-  the last ten minutes. If something is running, STOP.
-- Merge PR #18 server-side, matching the style of #14-#17. Confirm MERGED from the API and report
-  the commit on origin/main. Then, in the primary tree, `git switch main` and `git pull`, and
-  confirm the tree is clean. Branch `p7/walkers`.
-- If the merge is blocked, STOP and report why.
+TASK 0 - start from a clean main, and settle two pieces of housekeeping R2 left for the user
+R2 already merged everything: main is 2af5815 on this machine, on origin and in ../etcGEMs-work,
+no PRs are open and main is the only branch. There is nothing to merge.
+- Confirm nothing is running: no process with either tree as cwd, nothing under reports/ written
+  in the last ten minutes. If something is running, STOP.
+- `git fetch origin`; confirm the primary tree is on main, equal to origin/main, and clean apart
+  from brenda_sdh.html. If it is not, STOP and report - do not reconcile here.
+- Branch `p7/walkers`.
+
+- **brenda_sdh.html.** It is a saved BRENDA page for EC 1.3.5.1 (S. cerevisiae succinate
+  dehydrogenase), dated 8 September, consulted during K4's sourcing of the complex II turnover.
+  Keep the provenance: move it to `reports/K4_membrane/sources/brenda_EC1.3.5.1_sce.html`, add one
+  line to K4's sourcing table pointing at it, and commit as "P7: file K4's BRENDA source". If K4's
+  report has no sources/ convention, look at how the other reports keep source material and match
+  that instead; report what you did.
+
+- **The venv.** It lives inside the primary checkout, so ../etcGEMs-work borrows this tree's
+  interpreter - a coupling that will bite the first time both trees run at once. Move it out
+  BEFORE the walker test runs, and prove the move changed nothing:
+    * `pip freeze` the existing venv to `requirements.lock.txt` (commit it) so the environment is
+      reproducible from the repository rather than from a directory.
+    * Create `../etcGEMs-venv` (a sibling of both trees, inside NO checkout) from the same Python
+      version and that lock file. Do not `mv` the old venv - venvs are not relocatable.
+    * Run BOTH gates (K1 79/79, P1 60/60) with the NEW interpreter from the primary tree. If either
+      fails, STOP: report the diff between the environments and run nothing further with the new
+      venv. If both pass, every subsequent command in this prompt uses the new venv.
+    * Confirm the stamp script runs from it (PyYAML present).
+    * README: one short "Environment" section - where the venv lives, that it is shared by both
+      worktrees, how to recreate it from the lock file, and that the stamp script needs it.
+    * Leave the old venv in place. Say so. Deleting it is the user's call once P7 has run clean on
+      the new one.
+  Commit as "P7: venv out of the checkout; requirements.lock.txt; README".
 
 TASK 1 - make the driver checkpoint, and prove it changes nothing
 D6 lost 1250 steps because the driver writes chain.npy only at run end. Fix that first.
@@ -103,14 +130,18 @@ State ONE of:
 - Update docs/OPEN_ITEMS.md 1.12 with the outcome and what it now needs.
 
 VERIFY (report all)
-1. TASK 0: PR #18 merged, the commit on origin/main, primary tree on p7/walkers from a clean main.
+1. TASK 0: primary tree on p7/walkers from main at 2af5815 or later, nothing running; where the
+   BRENDA page went and the K4 line pointing at it; the new venv's path, both gates 79/79 and
+   60/60 on the new interpreter BEFORE the run, the lock file committed, the README section, and
+   confirmation the old venv was left in place.
 2. TASK 1: checkpointing proven a no-op on the sample (identical chains) and proven resumable.
 3. TASK 2: the decision rule, written before TASK 3 ran, quoted verbatim in the report.
 4. TASK 3: the checkpoint table with the P6 40-walker rows beside it; ensemble spread start/end;
    wall-clock and s/step.
 5. TASK 4: the verdict, the rule it was decided by, and what it licenses; OPEN_ITEMS updated.
 6. `git diff main --stat`: driver checkpointing, reports/P7_walkers/, OPEN_ITEMS, one new fit output
-   directory. Nothing else. No change to any strain, prior, or fit definition.
+   directory, the BRENDA file under K4's sources plus its one-line citation, requirements.lock.txt,
+   the README section. Nothing else. No change to any strain, prior, or fit definition.
 
 CONSTRAINTS
 - Walker count is the only sampling change. Model, priors, data, c_max, move set, process count and
@@ -120,5 +151,7 @@ CONSTRAINTS
 - Checkpointing must be shown to leave the sample identical before it is used.
 - Either verdict is the deliverable. A negative result here is what licenses D6's options.
 - Do not run D LB, D M9 or any E/F fit. Do not implement a tie-break.
+- The new venv is used only after both gates pass on it. The old venv is not deleted. The BRENDA
+  file is moved, not deleted.
 - Autonomous; commit in parts.
 ```
