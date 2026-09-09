@@ -14,7 +14,7 @@ from task2_solver import direction_factory                               # noqa:
 sys.path.insert(0, os.path.join(ROOT, "reports", "P6_convergence"))
 from state_vs_identifiability import o2_fva_at                           # noqa: E402
 
-JUMPS = [("axis:dCp_scale", 18, 25.0), ("random1", 19, 20.0), ("PC2", 0, 20.0)]   # k index of the step start; the carrying temperature
+JUMPS = [("axis:dCp_scale", 38, 25.0), ("random1", 39, 20.0), ("PC2", 0, 20.0)]   # k = index of the step start in STEPS (argmax |diff| in task1_lines.csv); the carrying temperature
 fit = [f for f in FITS if f[0] == "D_NLDM"][0]
 meta = json.load(open(os.path.join(HERE, "task1_meta.json"))); theta0 = np.array(meta["theta0"]); sd = np.array(meta["sd"]); direction = direction_factory(meta["names"])
 rows = []

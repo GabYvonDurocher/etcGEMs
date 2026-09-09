@@ -62,3 +62,57 @@ lines and **re-run with a genuinely fresh model per evaluation**, 902 builds at 
 per evaluation, ≈ 70 min, single process — exactly the prompt's and D3a's pattern. The rule in
 D1 is untouched. The two lines scanned under the shortcut (`dTopt`, `topt_scale`: 3 sign changes
 each, jumps of 16.5 % and 40.5 % of range) are discarded from the summary and kept in the log.
+
+## D3 — the verdict: ROUGH, STRUCTURAL, by the rule in D1; what it licenses
+
+**Where:** after TASKS 1–3.
+
+**By D1's rule: ROUGH.** Twelve of twenty-two lines have a single 0.05 sd step exceeding 20 % of
+the line's range (median 39 %, maximum 99 %); the median sign-change count is 2, so the surface
+is not jagged — it is **piecewise smooth with cliffs**: exact parabolas between drops of 13–72
+log-likelihood units, plateaus at different levels, and two axes (kappa_scale, f_metab) exactly
+flat within ±1 sd of the MAP.
+
+**Not numerical.** On the three roughest lines the cliffs are the same height and place under
+Gurobi tolerances tightened a hundredfold (FeasibilityTol, OptimalityTol 1e-7 → 1e-9; BarConvTol
+1e-8 → 1e-12) and under a fixed dual simplex (Method 0 → 1): 16.7 / 18.2 / 18.4 units in every
+arm; the other points move by ≤ 0.14. The reset-versus-fresh difference D2 found (0.1) is the
+same order as that drift — solver-history noise sits at the 0.1 level, three orders below the
+cliffs.
+
+**Structural, and attributable.** Each of the three largest jumps, recomputed on fresh models at
+both ends with the likelihood's own arithmetic split per temperature and per term
+(`task2_attribution.csv`): the growth term moves by < 1 unit at every temperature; **the
+respiration term moves by −70.2 (dCp_scale, 25 °C), −34.2 (random1, 20 °C) and +22.6 (PC2,
+20 °C) at a single cold temperature**, where the LP's O2 uptake changes **1.50 → 0.36, 1.16 →
+0.54 and 0.67 → 1.21** mmol gDW⁻¹ h⁻¹ across the step while growth moves 3–30 %. And that O2 is
+**unique at both ends** — FVA at growth held to its optimum gives widths of 0.001–0.02
+(`task2_fva_at_jump.csv`) — so this is not the E/F degeneracy of P6 D3a; it is the LP's optimal
+vertex switching to one where the cell respires two to four times less (or more) for a change
+of 0.05 sd in θ. About a thousand of twelve thousand variables change basis status across any
+such step at every temperature (`task2_basis.csv`), which is what an LP does when every k_cat
+is rescaled; the cliff is the one temperature where the switch lands on a different O2. The
+respiration likelihood is on a log scale against a per-cell rate with a small variance, so a
+factor of four in O2 at one temperature costs tens of units. The cliffs are the model's
+piecewise-linear response to its parameters — real kinks at basis changes — magnified by how the
+respiration term is scored.
+
+**Verdict (c): ROUGH, STRUCTURAL.** No sampler, no walker count and no reduction of dimension
+gives credible intervals from this likelihood as written: the posterior mass sits on plateaus
+separated by walls, and an ensemble proposing at 0.05–0.5 sd is rejected at every wall and
+accepted only inside its plateau — which is exactly TASK 3's accepted-to-proposed ratio of 0.25
+and the third of walkers holding a constant log-posterior for fifty steps at a time. P6 D6's
+option (iv) stands, and options (i) and (ii) are not worth their runs. **Intervals need either a
+smoothed surrogate or a different respiration likelihood, and that is a modelling decision**
+(OPEN_ITEMS 1.15): a tie-break that makes the O2 at the optimum move continuously (pFBA or a
+lexicographic objective, the same change 3.21 needs for E/F, ~2× per evaluation, the P3 gate to
+re-run), a noise-aware respiration term that absorbs the vertex spread, or a surrogate for
+sampling only. None taken here.
+
+**The burn-in drift.** D6 saw the ensemble take ~1500 steps to find the scale of `disc_growth`.
+On this surface that is not slow learning of a scale; it is the ensemble draining off the cliffs
+into the plateau that contains the MAP. `disc_growth` and `disc_resp` are the two directions in
+which the surface is a smooth parabola (sign changes 1, jumps < 10 %), so they are the two
+directions the walkers can actually move in while every other coordinate is walled; the
+discrepancy scales shrink as walkers arrive on the plateau and the residuals they must absorb
+fall. The drift is the roughness seen from inside.
