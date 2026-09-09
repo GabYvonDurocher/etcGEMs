@@ -1,6 +1,6 @@
 # Open items — the running list
 
-_Started 2026-09-08 while P2 was running; last updated 2026-09-09 by Y1._ This is the standing list of what is outstanding across
+_Started 2026-09-08 while P2 was running; last updated 2026-09-09 by Y2._ This is the standing list of what is outstanding across
 the whole project, so nothing is lost between sessions. Update it when something lands; do not let
 it become a second decision log — decisions live in each prompt's `reports/*/DECISIONS.md`, this is
 only what is NOT yet done and who or what it waits on._
@@ -37,7 +37,7 @@ Status: **BLOCKED** (waiting on something external) · **READY** (can start now)
 | ~~2.2~~ | ~~**Membrane-area constraint on Candida**~~ | **DONE 2026-09-08 (K4).** Built and applied; `reports/K4_membrane/report.md`. **It cannot carry the interspecies comparison, for two independent reasons.** Structurally, the respiratory chain is not load-bearing in three of the four models (the three *Candidozyma*; TASK 1), so an area budget there binds on ATP synthase and not on respiration. Parametrically, no footprint differs between the species — there is no Candida or fungal equivalent of Szenk 2017 (TASK 2). The mechanism is **available and not tested**; 3.8-3.11 are what would change that. |
 | 2.3 | **K3 — retire the Candidas fork** | N1 prepared the patch (unapplied, `git apply --check` clean) and confirmed nothing in etcGEMs needs `$CANDIDAS_ROOT` at run time now the gate has a fixture. Needs a human to apply it in Ilgaz's repository. |
 | 2.4 | **`_toy/resolved_config.yaml`** structurally stale (numbers fine, 6.2e-15) | Listed by N2, not fixed. Trivial. |
-| 2.5 | **PART C at Li et al.'s POSTERIOR, not their prior** | Y1 ran the T_opt/CT_max regime test on their model with their code, but at the deposited PRIOR parameters: the 100 posterior parameter sets are on Zenodo (`record/3996543`, `results.tar.gz`) and were not downloaded. The asymmetry is 10.1 C against 0.8 C at the prior. Whether it survives at the posterior is untested and is one download plus a re-run of `reports/Y1_yeast_audit/task_c_regime_test.py`. **Re-run at the Zenodo posterior rather than the prior before the 10.09 / 0.81 C numbers are quoted. ~1 h.** (R2, 2026-09-09) |
+| ~~2.5~~ | ~~**PART C at Li et al.'s POSTERIOR, not their prior**~~ | **CLOSED 2026-09-09 (Y2).** Downloaded (10.5281/zenodo.3996543 v2.0, md5 verified) and run at the posterior median and all 100 posterior particles. **The asymmetry survives in direction and is far more consistent at the posterior** — the 99 % plateau widens under the substrate cap in **93 %** of their posterior models (1.5 → 7.3 °C) against 35 % of prior models, and T_opt moves further than CT_max in **92 %** against 50 %. **But the margin narrows and Y1's 10.09 / 0.81 °C must not be quoted as a property of their calibrated model:** at the posterior median it is 8.46 / 4.27 °C, because a substrate cap now drops CT_max from 43.0 to 38.7 °C. Y1's prior run reproduces byte-identically. `reports/Y2_regime_posterior/`. |
 | 2.6 | **The shared `.venv` lives in the main checkout** | `etcGEMs/.venv` is the only interpreter, so a second worktree borrows one from a directory a long run may be using. Read-only in practice; harmless so far. If `../etcGEMs-synthesis` becomes standing (Y1 PART F), move the venv somewhere neutral or duplicate it. |
 | 2.7 | **P7 walker test** (`prompts/P7_walker_test_prompt.md`) | Is P6's non-mixing a walker-count artefact? One bounded test, ~3–4 h, before any modelling decision. Decides whether D6's options (i)–(iii) are needed. See 1.12. |
 
@@ -179,6 +179,40 @@ Li et al. 2021, and the structural finding holds.** `reports/Y1_yeast_audit/repo
   concern, and it is theirs.
 * **Their thermal layer is Python, not MATLAB** (`code/etcpy`), which is why this cost an afternoon.
   Anyone extending Y1 can run their model directly.
+
+---
+
+## 4c. Y2 — the regime test at Li et al.'s posterior (2026-09-09)
+
+`reports/Y2_regime_posterior/report.md`. Closes 2.5.
+
+* **Quotable, with an interval.** Over their own 100 posterior models, switching the binding
+  constraint from enzyme capacity to substrate uptake widens the 99 % plateau of the TPC from
+  **1.5 °C [0.4, 2.7] to 7.3 °C [1.4, 7.5]**, in **93 %** of models, while CT_max moves
+  **4.6 °C [2.7, 11.0]**. T_opt moves 8.9 °C [4.4, 27.0] — a **lower bound** in 44 of 98 models,
+  because under a substrate cap the top of the curve is a ceiling, not a peak, and the optimum
+  leaves the 20–50 °C window.
+* **NOT quotable as a property of their calibrated model: 10.09 / 0.81 °C.** That is the prior
+  *point* table. At the posterior CT_max is no longer regime-insensitive.
+* **The prior distribution does not support the finding; the posterior does.** Prior draws: T_opt
+  beats CT_max in 50 % of draws, plateau widens in 35 %. Posterior draws: 92 % and 93 %. The
+  calibration's shrinkage — Topt 10.9 → 7.1 °C, Tm 4.9 → 4.0 °C — is what turns a coin flip into a
+  consistent effect.
+* **The signed calibration shift, which Y1 could not measure.** Across 764 enzymes, Tm moved
+  **+1.33 °C** and Topt **−6.32 °C**. But seven of the nine limit-setting enzymes moved *down* in
+  Tm (ATP1 −6.30, ERG1 −3.66), and only **three** of those nine were below 42 °C in the prior. The
+  identity of the limit-setting set is largely a product of the calibration.
+* **The file is the right one, checked three ways:** md5 matches Zenodo; the populations reproduce
+  the paper's average per-enzyme SDs (10.92 → 7.16, 4.90 → 4.01, 2.00 → 1.79 against 10.9 → 7.1,
+  4.9 → 4.0, 2.0 → 1.8, Supplementary Fig. 7); and the nine enzymes below 42 °C reproduce
+  Supplementary Fig. 8's named list exactly, nine of nine.
+* **An analysis error found and corrected inside Y2.** The first pass called a parameter set
+  "degenerate" when its T_opt landed at the grid edge, and dropped 44 of 100 posterior draws — the
+  ones showing the effect most cleanly, because a substrate ceiling makes the top an exact tie.
+  **The rule: before excluding a case as degenerate, check whether the degeneracy IS the effect.**
+  `reports/Y2_regime_posterior/DECISIONS.md` §9.
+* **New:** the σ-lever and chemostat conditions were not drawn over at the posterior, and the
+  anaerobic model was not run. Neither is needed for the quotable figure; both are cheap.
 
 ---
 

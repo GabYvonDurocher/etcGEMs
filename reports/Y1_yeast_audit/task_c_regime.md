@@ -72,6 +72,14 @@ no posterior; see `SOURCE.md`). Whether the asymmetry survives at the posterior 
 and would need `results.tar.gz`. It is a cheap follow-up and is recorded as such in
 `docs/OPEN_ITEMS.md`.
 
+> **Note added 2026-09-09 (Y2).** Done: `reports/Y2_regime_posterior/report.md`. The
+> asymmetry survives in direction and is far more consistent at the posterior — the
+> plateau widens under the substrate cap in **93 %** of their 100 posterior models against
+> 35 % of prior models, and T_opt moves further than CT_max in **92 %** against 50 %. But
+> the margin narrows: **10.09 / 0.81 °C** here becomes **8.46 / 4.27 °C** at the posterior
+> median, because CT_max is no longer regime-insensitive there. The numbers on this page
+> are unchanged and reproduce byte-identically.
+
 The σ lever is also a weaker test than it looks: scaling a budget is not a regime change, and the
 result reflects that — it moves T_opt about as little as it moves CT_max. The informative lever is
 the one that changes what binds.

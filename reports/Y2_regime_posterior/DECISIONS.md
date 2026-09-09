@@ -94,3 +94,59 @@ fail is not a verification.
 
 **Decision: no pipes in exit-code checks.** Redirect to a file, capture `$?` on the bare command,
 then read the file. Every exit code in this report is captured that way.
+
+## 8. The tolerance on the amortisation gate is measured, not chosen
+
+The first gate demanded that the amortised sweep match `etc.simulate_growth` **exactly**. It does
+not: it differs by **4.490e-10**. These are linear programs solved to a tolerance and the two
+routes reach the same LP from different bases, so exactness was never the right test.
+
+**Decision: measure the solver's own repeatability and gate against that.** Calling *their*
+function twice on the same model with the same arguments gives curves differing by **3.832e-07** —
+three orders of magnitude more than the amortisation does. The gate is now: the amortisation must
+move a curve by no more than ten times that measured noise, and must move no descriptor by more
+than 1e-4 °C (a hundred times finer than the 0.01 °C the report quotes). Measured descriptor
+movement: **3.7e-08 °C**.
+
+## 9. The `T_opt at the grid edge` cases are the finding, not noise — the first analysis was wrong
+
+The first version of `task3_tables.py` marked a parameter set "degenerate" if its `T_opt` landed at
+the edge of the 20–50 °C grid, and excluded it. That dropped **44 of 100 posterior draws**, and it
+was backwards.
+
+Under a tight glucose cap the model's growth rises with temperature until the **substrate** limit
+binds and then goes exactly flat at the ceiling the cap allows — 0.0968 h⁻¹ at cap 1, reached by
+about 15 °C and held to about 38 °C (probed directly, `DECISIONS` evidence in the report). The top
+of the curve is a **ceiling, not a peak**, so `argmax` returns the first point of an exact tie,
+which is the grid's own lower bound.
+
+So those 44 draws are the ones exhibiting the effect most cleanly, and excluding them biases the
+T_opt range downward — the filter would have been manufacturing a weaker result.
+
+**Decision: treat them as CENSORED (`T_opt ≤ 20 °C`, the range a lower bound), count them, and
+report the plateau instead.** Extending the grid downward was considered and rejected: growth is
+still rising at 5–13 °C and the ceiling is reached by 15 °C, so the tie — and the censoring — would
+simply move with the grid. The descriptor that survives a ceiling is the plateau width, which is
+what Y1 reported and what this reports.
+
+Genuinely degenerate, and still excluded: a curve that never falls back through 1 % of its own
+maximum inside the grid, or whose maximum growth is zero. Two of 100 posterior draws, six of 40
+prior draws.
+
+## 10. The ensemble is the result, not the median particle
+
+The point comparison and the ensemble comparison disagree in *direction*, and only one of them is
+the right answer to the question asked.
+
+* Point: prior table 12.5× asymmetry → posterior median 2.0×. The effect looks **weaker** at the
+  posterior.
+* Ensemble: T_opt range exceeds CT_max range in **50 %** of prior draws but **92 %** of posterior
+  draws; the plateau widens under the cap in **35 %** of prior draws but **93 %** of posterior
+  draws. The effect is far **more consistent** at the posterior.
+
+**Decision: quote the ensemble, and report the point estimates beside it.** The paper's own results
+are stated over 100 posterior models with percentile bands, not at a median particle; and the prior
+point table is a single smooth vector that the prior *distribution* does not resemble — its
+per-enzyme Topt width is 13 °C, drawn independently, which makes individual prior curves ragged.
+Quoting the point comparison alone would say the calibration weakens the finding, which the
+ensemble shows is the opposite of what it does.

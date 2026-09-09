@@ -177,6 +177,17 @@ E = [
   "scripts/stamp_reports.py", "CURRENT", "--check fails if any is stale"),
  ("R3", "Defects introduced by this project's own runs", "4 named",
   "reports/synthesis/evidence.csv", "CURRENT", "rows O1-O7 of this table"),
+
+ # ---- 11. the reference implementation ---------------------------------------
+ ("Y2", "T_opt/CT_max asymmetry at Li et al.'s CALIBRATED posterior, over their own 100 models",
+  "99 % plateau widens 1.5 C [0.4, 2.7] -> 7.3 C [1.4, 7.5] under the substrate cap, in 93 % of "
+  "posterior models; CT_max moves 4.6 C [2.7, 11.0]; T_opt moves 8.9 C [4.4, 27.0], a lower bound "
+  "in 44 of 98",
+  "reports/Y2_regime_posterior/report.md", "CURRENT",
+  "medians with 5-95 percentiles across their 100 posterior particles, run with their own etcpy. "
+  "Y1's 10.09/0.81 C is the PRIOR point table and is not a property of their calibrated model: at "
+  "the posterior median it is 8.46/4.27 C. Quote the plateau, not T_opt -- under a substrate cap "
+  "the top of the curve is a ceiling, not a peak."),
 ]
 
 OWN = [
