@@ -227,3 +227,16 @@ K9_criterion:
     `task1_is_it_arithmetic.py`, `task2_criteria.py` and `task3_common_term.py` all exit 0 and
     regenerate their committed tables; `python reports/candida_thermal_limit/gate_table.py`
     -> 79/79 PASS, exit 0, with $CANDIDAS_ROOT unset (2026-09-08).
+
+P5_lb_cmax:
+  status: CURRENT
+  note: >-
+    every number is produced by a script beside it against the present code. Its one emcee
+    chain (configuration D on LB at c_max 257) is TRAPPED IN A DEAD MODE by the warm start and
+    is kept as a record of that, not as a fit; the c_max question is answered at fixed
+    parameter points and by local re-optimisation, deterministically. Nothing in it is a
+    converged posterior, and it says so wherever an R2 appears.
+  evidence: >-
+    task1_parsa_lb_cmax.py, task1c_fixed_point.py, task1d_cap_sweep_fixed_point.py and
+    task1e_reoptimise.py regenerate their CSVs (the last three read $PARSA_ROOT, read only);
+    run_lb_fit.py regenerates the chain (~2.5 h) and lb_cmax_comparison.csv.

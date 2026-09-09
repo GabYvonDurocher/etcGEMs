@@ -1,0 +1,7 @@
+config,run,use_cap,use_etc,nominal,how,mult_MAP,mult_median,c_max_MAP,c_max_median,chain_iterations,walkers,meta_n_steps,note
+D,calibration_configD_LB_full,True,,230.0,fitted: 230 x C_max_LB_mult,1.1162183549514044,1.1608333110206361,256.7,267.0,2000,36,514,gated: his D LB 0.90 (P3)
+D,calibration_configD_LB_growthonly,False,,,no cap (use_cap=False),,,,,4000,36,533,no cap; growth only
+E,calibration_configE_LB_freecmax,True,True,450.0,fitted: 450 x C_max_LB_mult,1.0205575618429414,0.7865357289720124,459.3,353.9,1500,36,369,gated: his E LB 0.83 / 0.81 (P3)
+E,calibration_configE_LB,True,True,,pinned: cfg.cmax_fixed.LB,,,459.0,459.0,1500,36,1500,c_max pinned at 459 (from freecmax)
+F,calibration_configF_LB,True,True,450.0,fitted: 450 x C_max_LB_mult,1.133167637466437,0.870243619941571,509.9,391.6,1500,36,450,gated: his F LB 0.88 / 0.85 (P3)
+F,calibration_configF_LB_combined,True,True,450.0,fitted: 450 x C_max_LB_mult,0.9099306418607307,0.772328652628801,409.5,347.5,1500,36,179,not gated

@@ -58,6 +58,13 @@
 > a glucose/NLDM recommendation and was over-applied to LB.** One fit (configuration D on LB at
 > c_max ≈ 260, ~45 min) would settle it; it has not been run.
 >
+> *(2026-09-09, P5.) Run, and it settled it — though not by the chain, which the warm start
+> trapped in a zero-growth mode (OPEN_ITEMS 3.20). At fixed parameters the cap alone takes LB
+> growth R² from 0.64 / 0.05 / −0.10 (D / E / F at 120) to 0.90 / 0.83 / 0.88 at his own caps,
+> because 120 holds r_max at 1.1–1.8 against a measured 2.94 h⁻¹. **The LB cap is now 450**
+> (`gas_exchange.yaml` `carbon_cap.by_medium.LB`; his E/F nominal; 257 serves D only), with
+> the 120 scoped to glucose-minimal/NLDM beside it. `reports/P5_lb_cmax/`.*
+>
 > **The medium ceiling is a PRIOR CHOICE, not a fitted quantity.** The clearance K returns 57–64 %
 > of its prior width in every NLDM fit (median 4.15–4.78 against a prior [2, 10]). The data
 > barely constrain it.

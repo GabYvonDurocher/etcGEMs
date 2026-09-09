@@ -6,7 +6,7 @@
 
 *Evidence:* `python reports/P3_gate/gate_def.py` regenerates gate_def_table.csv; the c_max change is reproduced by re-running gasflux_configB and gasflux_configB_cmax60.
 
-**This report was last written at** `0582a4f` (2026-09-08) — P3 TASK 5 + summary: the method caveats in the gas-flux report, and the run summary
+**This report was last written at** `fa1fa42` (2026-09-08) — P5 TASK 2: the convergence caveat at the top of the gas-flux README and the P3 gate
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 
