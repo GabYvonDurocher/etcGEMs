@@ -6,7 +6,7 @@
 
 *Evidence:* `python3 reports/K4_membrane/task1_etc_complement.py`, `task2_build_tables.py` and `task3_sweep.py` all exit 0 and regenerate their committed tables; the CLI path `etcgem transfer --experiment candida_K4_etc_area` reproduces the sweep's 1 x A* row; `python reports/candida_thermal_limit/gate_table.py` -> 79/79 PASS, exit 0, with $CANDIDAS_ROOT unset, both before and after this work (2026-09-08).
 
-**This report was last written at** `9f8ea90` (2026-09-08) — K4: make task1_quinol.csv reproducible row-for-row
+**This report was last written at** `083cf06` (2026-09-09) — P7: file K4's BRENDA source
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 

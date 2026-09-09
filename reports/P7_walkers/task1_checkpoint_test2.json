@@ -1,0 +1,10 @@
+{
+  "A2_equals_B2": true,
+  "B2_equals_C2": false,
+  "A2_equals_C2": false,
+  "pool16_A_vs_Aprime_equal": false,
+  "pool16_A_vs_Aprime_first_differing_step": 11,
+  "pool16_A_vs_B_first_differing_step": 19,
+  "pool16_A_vs_Aprime_frac_walkersteps_differing": 0.6345,
+  "pool16_A_vs_B_frac_walkersteps_differing": 0.61075
+}

@@ -342,7 +342,8 @@ def run_gasflux_fit(strain, out_dir, *, medium, table, otu=None, experiment="gas
                     label="", n_walkers=36, n_steps_max=2000, n_burn=200, seed=1, n_proc=0,
                     check_every=250, target_neff=200, tau_factor=40, allow_glpk=False,
                     warm_start=True, progress=False, moves=None, init_state=None,
-                    init_label=None, warm_start_min_growth_frac=0.10) -> Dict:
+                    init_label=None, warm_start_min_growth_frac=0.10,
+                    checkpoint=False, resume=False) -> Dict:
     """Emcee fit of one gas-exchange configuration to measured growth + per-cell respiration.
 
     The fourth entry point beside :func:`run`, :func:`run_syn6803` and :func:`run_methanogen`,
@@ -363,6 +364,13 @@ def run_gasflux_fit(strain, out_dir, *, medium, table, otu=None, experiment="gas
                         zero-growth local optimum (the growth discrepancy term absorbing the
                         data) and seed every walker there, where they stay (OPEN_ITEMS 3.20).
                         A warm start into a dead mode is worse than none.
+    * ``checkpoint``  -- (P7) keep the chain in emcee's HDF5 backend, ``<out_dir>/chain.h5``,
+                        written every step, with the sampler's random state, so a halted run
+                        loses at most the block in flight. ``resume=True`` continues a run from
+                        that file (walkers, positions and random state come from it; the init
+                        arguments are ignored). The sampler's RNG is seeded from ``seed`` either
+                        way, so a checkpointed and an un-checkpointed run of the same seed give
+                        IDENTICAL chains -- proven, not assumed (reports/P7_walkers TASK 1).
     """
     import emcee
     os.makedirs(out_dir, exist_ok=True)
@@ -392,7 +400,18 @@ def run_gasflux_fit(strain, out_dir, *, medium, table, otu=None, experiment="gas
           f"{len(ctx['T'])} temperatures; logL={lp0:.1f}")
 
     n_proc = n_proc or max(1, min(10, (os.cpu_count() or 2) - 2))
-    if init_state is not None:
+    backend = None
+    resuming = False
+    if checkpoint:
+        backend = emcee.backends.HDFBackend(os.path.join(out_dir, "chain.h5"))
+        if resume and os.path.exists(os.path.join(out_dir, "chain.h5")) and backend.iteration > 0:
+            resuming = True
+            n_walkers = int(backend.shape[0])
+            print(f"[ckpt] {label}: resuming from chain.h5 at iteration {backend.iteration} "
+                  f"({n_walkers} walkers)", flush=True)
+    if resuming:
+        pass
+    elif init_state is not None:
         init_state = np.asarray(init_state, float)
         if init_state.ndim != 2 or init_state.shape[1] != ndim:
             raise SystemExit(f"[init] {label}: init_state has shape {init_state.shape}, "
@@ -406,7 +425,10 @@ def run_gasflux_fit(strain, out_dir, *, medium, table, otu=None, experiment="gas
     t0 = time.time()
     warm_rejected = False
     try:
-        if init_state is not None:
+        if resuming:
+            p0, mode = None, None
+            init_kind = f"resumed from chain.h5 at iteration {backend.iteration}"
+        elif init_state is not None:
             p0, mode = init_state, None
             init_kind = init_label or "init_state"
             print(f"[init] {label}: {n_walkers} walkers from {init_kind}", flush=True)
@@ -441,13 +463,23 @@ def run_gasflux_fit(strain, out_dir, *, medium, table, otu=None, experiment="gas
         else:
             p0, mode = init_walkers(specs, n_walkers, np.random.default_rng(seed)), None
             init_kind = "emergent-point ball"
-        sampler = emcee.EnsembleSampler(n_walkers, ndim, _gwlogprob, pool=pool, moves=moves)
-        state = p0; done = 0; tau_max = float("nan")
+        if backend is not None and not resuming:
+            backend.reset(n_walkers, ndim)
+        sampler = emcee.EnsembleSampler(n_walkers, ndim, _gwlogprob, pool=pool, moves=moves,
+                                        backend=backend)
+        if not resuming:
+            # seed the sampler's OWN RNG (emcee 3 does not read numpy's global seed), so the
+            # same seed gives the same chain with or without a backend; on resume the backend
+            # restores the random state it saved.
+            sampler.random_state = np.random.RandomState(seed).get_state()
+        state = p0; done = int(backend.iteration) if resuming else 0; tau_max = float("nan")
         stop_reason = f"n_steps_max ({n_steps_max})"
         while done < n_steps_max:
             n = min(check_every, n_steps_max - done)
             state = sampler.run_mcmc(state, n, progress=progress)
             done += n
+            if backend is not None:
+                print(f"[ckpt] {label}: chain.h5 holds {backend.iteration} steps", flush=True)
             try:
                 tau_max = float(np.nanmax(sampler.get_autocorr_time(tol=0)))
             except Exception:
@@ -505,6 +537,7 @@ def run_gasflux_fit(strain, out_dir, *, medium, table, otu=None, experiment="gas
                     "burn": burn, "thin": thin, "warm_started": bool(mode is not None),
                     "init": init_kind, "warm_start_rejected": bool(warm_rejected),
                     "moves": None if moves is None else str(moves),
+                    "checkpoint": bool(checkpoint), "resumed": bool(resuming),
                     "target": {"tau_factor": tau_factor, "target_neff": target_neff},
                     "stop_reason": stop_reason, "converged": bool(converged),
                     "acceptance_fraction": round(accept, 3),

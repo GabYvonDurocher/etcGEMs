@@ -296,3 +296,15 @@ Y2_regime_posterior:
     is checked three ways: md5 against Zenodo, the paper's per-enzyme SDs (task1_sd_crosscheck.csv)
     and Supplementary Fig. 8's nine named enzymes (task3_low_tm.csv).
   inputs: []
+
+P7_walkers:
+  status: CURRENT
+  note: >-
+    one bounded test -- configuration D NLDM at 128 walkers, otherwise P6's fit exactly -- read
+    by a decision rule written before the run. The verdict (NOT MIXING: tau still tracks chain
+    length, 26 -> 20 per 250 steps over 1500) is reproducible from chain.h5 by task3_table.py.
+    Nothing in it is a converged posterior and nothing is quoted as one.
+  evidence: >-
+    task1_checkpoint_test{,2}.py regenerate their JSON (scratch runs, ~30 min); run_walkers.py
+    regenerates the chain (~2.1 h); task3_table.py regenerates the checkpoint, spread and
+    verdict tables from chain.h5.
