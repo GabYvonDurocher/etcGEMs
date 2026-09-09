@@ -1,0 +1,41 @@
+{
+  "n_temperatures": 61,
+  "sigma": 0.5,
+  "caps": [
+    10.0,
+    4.0,
+    2.0,
+    1.0
+  ],
+  "curve_max_abs_diff": 4.4897372885460696e-10,
+  "solver_repeat_noise": 3.8321438247346083e-07,
+  "descriptor_max_abs_diff": 3.717094898547657e-08,
+  "descriptors_ours": {
+    "mu_max": 0.3362302045682114,
+    "T_opt": 31.04114145215904,
+    "T_opt_at_edge": false,
+    "plateau99_lo": 30.5,
+    "plateau99_hi": 32.0,
+    "plateau99_width": 1.5,
+    "CT_max_rel_1pct": 46.70586492683129,
+    "CT_max_rel_10pct": 45.47167144285022,
+    "T_first_zero": 50.0
+  },
+  "descriptors_theirs": {
+    "mu_max": 0.33623020457006947,
+    "T_opt": 31.041141452168024,
+    "T_opt_at_edge": false,
+    "plateau99_lo": 30.5,
+    "plateau99_hi": 32.0,
+    "plateau99_width": 1.5,
+    "CT_max_rel_1pct": 46.70586488966034,
+    "CT_max_rel_10pct": 45.47167144562853,
+    "T_first_zero": 50.0
+  },
+  "n_jobs": 143,
+  "workers": 10,
+  "wall_seconds": 3542.904402732849,
+  "posterior_draws": 100,
+  "prior_draws": 40,
+  "seed": 20260909
+}

@@ -1,0 +1,165 @@
+{
+  "zenodo": {
+    "doi": "10.5281/zenodo.3996543",
+    "concept_doi": "10.5281/zenodo.3686995",
+    "record": 3996543,
+    "version": "2.0",
+    "published": "2020-02-25",
+    "title": "Computed results for Bayesian genome scale modelling temperature effect on yeast metabolism",
+    "file": "results.tar.gz",
+    "zenodo_md5": "9367d7edcea41ecd50d9fb399f064582",
+    "bytes": 2356820868,
+    "md5": "9367d7edcea41ecd50d9fb399f064582",
+    "sha256": "ca6097c65f394443f394542c4654e0315b78479d2c76e21c3a0ef3ea1806a553",
+    "md5_matches_zenodo": true
+  },
+  "archive_members": [
+    {
+      "name": "results/32_vs_40_topt_exp_rxns.pkl",
+      "bytes": 441052
+    },
+    {
+      "name": "results/32_vs_40_topt_exp_rxns_1.pdf",
+      "bytes": 18768
+    },
+    {
+      "name": "results/32_vs_40_topt_exp_rxns_2.pdf",
+      "bytes": 12478
+    },
+    {
+      "name": "results/abc_gem_three_conditions.pkl",
+      "bytes": 33144166
+    },
+    {
+      "name": "results/chemostat_double_protein_limt.pkl",
+      "bytes": 715673321
+    },
+    {
+      "name": "results/chemostat_solutions_all_particles.pkl",
+      "bytes": 1485730568
+    },
+    {
+      "name": "results/chemostat_stable_mito.pkl",
+      "bytes": 672956801
+    },
+    {
+      "name": "results/down_regulate_erg_pathway_40.pkl",
+      "bytes": 182460
+    },
+    {
+      "name": "results/fcc_population_all_particles.pkl",
+      "bytes": 7796343
+    },
+    {
+      "name": "results/fccs_at_40_100_models_figure5a.csv",
+      "bytes": 1693218
+    },
+    {
+      "name": "results/figure5e_all_enzymes.csv",
+      "bytes": 1963
+    },
+    {
+      "name": "results/half_kcat_T_posterior.csv",
+      "bytes": 35695
+    },
+    {
+      "name": "results/machine_learning_feature_importance.csv",
+      "bytes": 127891
+    },
+    {
+      "name": "results/machine_learning_report.txt",
+      "bytes": 794
+    },
+    {
+      "name": "results/param_mean_prior_posterior_all_particles.pkl",
+      "bytes": 1485
+    },
+    {
+      "name": "results/rescue_ERG1_all_particles.pkl",
+      "bytes": 17198
+    },
+    {
+      "name": "results/sequentially_remove_temperature_constraints_ind_BS_all_particles.pkl",
+      "bytes": 2130708
+    },
+    {
+      "name": "results/smcabc_gem_three_conditions_save_all_particles.pkl",
+      "bytes": 702024454
+    },
+    {
+      "name": "results/smcabc_gem_three_conditions_save_all_particles_cv1.pkl",
+      "bytes": 1082115429
+    },
+    {
+      "name": "results/smcabc_gem_three_conditions_save_all_particles_cv2.pkl",
+      "bytes": 67168422
+    },
+    {
+      "name": "results/smcabc_gem_three_conditions_save_all_particles_cv3.pkl",
+      "bytes": 117300977
+    },
+    {
+      "name": "results/smcabc_gem_three_conditions_save_all_particles_train_test.pkl",
+      "bytes": 342829223
+    },
+    {
+      "name": "results/splited_factors_poppulation_all_particles.pkl",
+      "bytes": 73652
+    }
+  ],
+  "posterior_file": {
+    "path": "results/smcabc_gem_three_conditions_save_all_particles.pkl",
+    "bytes": 702024454,
+    "md5": "bea1639e7a5c9ba8d0584b240fe2f113",
+    "sha256": "4f96519aa4954a92caadf4c941c7d87d4a98f288e106173e4bd44dff71c9ecf4"
+  },
+  "populations": {
+    "prior_n": 128,
+    "posterior_n": 100,
+    "n_parameters": 2292,
+    "n_enzymes": 764,
+    "fields": [
+      "Tm",
+      "Topt",
+      "dCpt"
+    ],
+    "generations": 168,
+    "final_epsilon": -0.9025867096292437,
+    "simulations": 21504
+  },
+  "identity_check_max_abs_diff": 0.0,
+  "one_enzyme": {
+    "uniprot": "P32476",
+    "gene": "ERG1",
+    "values": {
+      "Tm": {
+        "prior_file": 313.60765611,
+        "prior_file_std": 3.4,
+        "prior_particles_mean": 313.5683876571576,
+        "prior_particles_sd": 3.793447335255655,
+        "posterior_median": 309.771254080279,
+        "posterior_particles_mean": 309.9444091673087,
+        "posterior_particles_sd": 1.4685782364965296
+      },
+      "Topt": {
+        "prior_file": 307.15,
+        "prior_file_std": 13.0,
+        "prior_particles_mean": 299.56056144845337,
+        "prior_particles_sd": 9.22480662753821,
+        "posterior_median": 297.2744798409334,
+        "posterior_particles_mean": 297.1508936287935,
+        "posterior_particles_sd": 3.8783246564966816
+      },
+      "dCpt": {
+        "prior_file": -6300.0,
+        "prior_file_std": 2000.0,
+        "prior_particles_mean": -6374.497440783089,
+        "prior_particles_sd": 2063.505512893076,
+        "posterior_median": -6405.118745990696,
+        "posterior_particles_mean": -6445.471378057065,
+        "posterior_particles_sd": 1217.9322050061542
+      }
+    }
+  },
+  "sd_crosscheck_passes": true
+}
