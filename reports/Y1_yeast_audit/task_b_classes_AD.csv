@@ -1,0 +1,5 @@
+state,model,status,growth,reactions,costed,uncosted,A,B,C,D
+batch_pristine,ecYeast7_v1.0_batch.mat,optimal,0.09702318242830792,6743,4003,2740,53,0,1,13
+aerobic_pristine,ecYeast7_v1.0_batch_minimal_thermo.mat,optimal,0.8653884798882957,6743,4003,2740,53,0,1,13
+aerobic_etcpy_30C,ecYeast7_v1.0_batch_minimal_thermo.mat,optimal,0.3776020700959112,6743,4003,2740,53,0,1,13
+anaerobic_etcpy_30C,ecYeast7_v1.0_batch_minimal_thermo_anaerobic.mat,optimal,0.330906874734951,6743,4003,2740,53,0,1,13

@@ -1,0 +1,99 @@
+reaction,twin,name,compartments,touches_energised,h,flux,reaction_string
+r_1104,r_1104_REV,8-Amino-7-oxononanoate transport,c e,False,c:+1 e:-1,0.0,s_0354 + s_0796 --> s_0352 + s_0794
+r_1136,r_1136_REV,D-lactate transport,c e,False,c:+1 e:-1,0.0,s_0026 + s_0796 --> s_0025 + s_0794
+r_1173,r_1173_REV,glycine transport,c e,False,c:+1 e:-1,0.0,s_0796 + s_1004 --> s_0794 + s_1003
+r_1176,r_1176_REV,guanine transport,c e,False,c:+1 e:-1,0.0,s_0788 + s_0796 --> s_0787 + s_0794
+r_1183,r_1183_REV,L-alanine transport,c e,False,c:+1 e:-1,0.0,s_0796 + s_0956 --> s_0794 + s_0955
+r_1184,r_1184_REV,L-arganine transport,c e,False,c:+1 e:-1,0.0,s_0796 + s_0966 --> s_0794 + s_0965
+r_1186,r_1186_REV,L-asparagine transport,c e,False,c:+1 e:-1,0.0,s_0796 + s_0970 --> s_0794 + s_0969
+r_1190,r_1190_REV,L-aspartate transport,c e,False,c:+1 e:-1,0.0,s_0796 + s_0974 --> s_0794 + s_0973
+r_1192,r_1192_REV,L-cystine transport,c e,False,c:+1 e:-1,0.0,s_0796 + s_0982 --> s_0794 + s_0981
+r_1196,r_1196_REV,L-glutamate transport,c e,False,c:+1 e:-1,0.0,s_0796 + s_0992 --> s_0794 + s_0991
+r_1199,r_1199_REV,L-glutamine transport,c e,False,c:+1 e:-1,0.0,s_0796 + s_1000 --> s_0794 + s_0999
+r_1201,r_1201_REV,L-histidine transport,c e,False,c:+1 e:-1,0.0,s_0796 + s_1007 --> s_0794 + s_1006
+r_1205,r_1205_REV,L-isoleucine transport,c e,False,c:+1 e:-1,0.0,s_0796 + s_1017 --> s_0794 + s_1016
+r_1211,r_1211_REV,L-leucine transport,c e,False,c:+1 e:-1,0.0,s_0796 + s_1022 --> s_0794 + s_1021
+r_1213,r_1213_REV,L-lysine transport,c e,False,c:+1 e:-1,0.0,s_0796 + s_1026 --> s_0794 + s_1025
+r_1214,r_1214_REV,L-methionine transport,c e,False,c:+1 e:-1,0.0,s_0796 + s_1030 --> s_0794 + s_1029
+r_1215,r_1215_REV,L-phenylalanine transport,c e,False,c:+1 e:-1,0.0,s_0796 + s_1033 --> s_0794 + s_1032
+r_1216,r_1216_REV,L-proline transport,c e,False,c:+1 e:-1,0.0,s_0796 + s_1036 --> s_0794 + s_1035
+r_1217,r_1217_REV,L-serine transport,c e,False,c:+1 e:-1,0.0,s_0796 + s_1041 --> s_0794 + s_1039
+r_1218,r_1218_REV,L-threonine transport,c e,False,c:+1 e:-1,0.0,s_0796 + s_1046 --> s_0794 + s_1045
+r_1219,r_1219_REV,L-tryptophan transport,c e,False,c:+1 e:-1,0.0,s_0796 + s_1049 --> s_0794 + s_1048
+r_1223,r_1223_REV,L-tyrosine transport,c e,False,c:+1 e:-1,0.0,s_0796 + s_1052 --> s_0794 + s_1051
+r_1224,r_1224_REV,L-valine transport,c e,False,c:+1 e:-1,0.0,s_0796 + s_1057 --> s_0794 + s_1056
+r_1238,r_1238_REV,orntithine transport,c e,False,c:+1 e:-1,0.0,s_0796 + s_1267 --> s_0794 + s_1266
+r_1241,r_1241_REV,pantothenate transport,c e,False,c:+1 e:-1,0.0,s_0032 + s_0796 --> s_0031 + s_0794
+r_1244,r_1244_REV,phosphate transport,c e,False,c:+1 e:-1,0.02175725007508606,s_0796 + s_1324 --> s_0794 + s_1322
+r_1249,r_1249_REV,potassium transport,c e,False,c:+1 e:-1,0.0,s_0796 + s_1374 --> s_0794 + s_1373
+r_1251,r_1251_REV,putrescine transport,c e,False,c:-1 e:+1,0.0,s_0794 + s_1390 --> s_0796 + s_1389
+r_1252,r_1252_REV,putrescine transport,c v,False,c:+1 v:-1,0.0,s_0802 + s_1389 --> s_0794 + s_1391
+r_1253,r_1253_REV,pyridoxine symport,c e,False,c:+1 e:-1,0.0,s_0796 + s_1397 --> s_0794 + s_1396
+r_1254,r_1254_REV,pyruvate transport,c e,False,c:+1 e:-1,0.0,s_0796 + s_1400 --> s_0794 + s_1399
+r_1258,r_1258_REV,sodium proton antiporter,c e,False,c:+1 e:-1,0.0,s_0796 + s_1437 --> s_0794 + s_1438
+r_1260,r_1260_REV,spermidine transport,c e,False,c:-1 e:+1,0.0,s_0794 + s_1440 --> s_0796 + s_1439
+r_1261,r_1261_REV,spermidine transport,c v,False,c:+1 v:-1,0.0,s_0802 + s_1439 --> s_0794 + s_1441
+r_1262,r_1262_REV,spermine transport,c e,False,c:-1 e:+1,0.0,s_0794 + s_1443 --> s_0796 + s_1442
+r_1263,r_1263_REV,spermine transport,c v,False,c:+1 v:-1,0.0,s_0802 + s_1442 --> s_0794 + s_1444
+r_1273,r_1273_REV,urea transport,c e,False,c:+2 e:-2,0.0,2.0 s_0796 + s_1553 --> 2.0 s_0794 + s_1552
+r_2079,r_2079_REV,trehalose transporter,c e,False,c:-1 e:+1,0.0,s_0794 + s_1520 --> s_0796 + s_1521
+r_1825,r_1825_REV,H+ diffusion,c er,False,c:-1 er:+1,0.0,s_0794 --> s_0795
+r_1826,r_1826_REV,H+ diffusion,c g,False,c:-1 g:+1,0.0,s_0794 --> s_0797
+r_1827,r_1827_REV,H+ diffusion,c lp,False,c:-1 lp:+1,0.00041142857142857143,s_0794 --> s_0798
+r_1829,r_1829_REV,H+ diffusion,c n,False,c:-1 n:+1,0.0,s_0794 --> s_0800
+r_1830,r_1830_REV,H+ diffusion,c p,False,c:-1 p:+1,0.0,s_0794 --> s_0801
+r_1831,r_1831_REV,H+ diffusion,c v,False,c:-1 v:+1,0.0,s_0794 --> s_0802
+r_3525,r_3525_REV,"H+ transport, cytoplasm-ER membrane",c erm,False,c:-1 erm:+1,0.0025039205983569566,s_0794 --> s_2783
+r_3603,r_3603_REV,"H+ transport, cytoplasm-cell envelope",c ce,False,c:-1 ce:+1,0.0,s_0794 --> s_0793
+r_3650,r_3650_REV,"H+ transport, cytoplasm-vacuolar membrane",c vm,False,c:-1 vm:+1,0.0,s_0794 --> s_3164
+r_3664,r_3664_REV,"H+ transport, cytoplasm-Golgi membrane",c gm,False,c:-1 gm:+1,0.0,s_0794 --> s_3146
+r_3957,r_3957_REV,"H+ transport, mitochondrion-mitochondrial membrane",m mm,False,m:-1 mm:+1,0.000518804247108728,s_0799 --> s_3094
+r_1104_REV,r_1104,8-Amino-7-oxononanoate transport (reversible),c e,False,c:-1 e:+1,0.0,s_0352 + s_0794 --> s_0354 + s_0796
+r_1136_REV,r_1136,D-lactate transport (reversible),c e,False,c:-1 e:+1,0.0,s_0025 + s_0794 --> s_0026 + s_0796
+r_1173_REV,r_1173,glycine transport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_1003 --> s_0796 + s_1004
+r_1176_REV,r_1176,guanine transport (reversible),c e,False,c:-1 e:+1,0.0,s_0787 + s_0794 --> s_0788 + s_0796
+r_1183_REV,r_1183,L-alanine transport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_0955 --> s_0796 + s_0956
+r_1184_REV,r_1184,L-arganine transport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_0965 --> s_0796 + s_0966
+r_1186_REV,r_1186,L-asparagine transport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_0969 --> s_0796 + s_0970
+r_1190_REV,r_1190,L-aspartate transport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_0973 --> s_0796 + s_0974
+r_1192_REV,r_1192,L-cystine transport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_0981 --> s_0796 + s_0982
+r_1196_REV,r_1196,L-glutamate transport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_0991 --> s_0796 + s_0992
+r_1199_REV,r_1199,L-glutamine transport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_0999 --> s_0796 + s_1000
+r_1201_REV,r_1201,L-histidine transport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_1006 --> s_0796 + s_1007
+r_1205_REV,r_1205,L-isoleucine transport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_1016 --> s_0796 + s_1017
+r_1211_REV,r_1211,L-leucine transport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_1021 --> s_0796 + s_1022
+r_1213_REV,r_1213,L-lysine transport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_1025 --> s_0796 + s_1026
+r_1214_REV,r_1214,L-methionine transport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_1029 --> s_0796 + s_1030
+r_1215_REV,r_1215,L-phenylalanine transport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_1032 --> s_0796 + s_1033
+r_1216_REV,r_1216,L-proline transport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_1035 --> s_0796 + s_1036
+r_1217_REV,r_1217,L-serine transport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_1039 --> s_0796 + s_1041
+r_1218_REV,r_1218,L-threonine transport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_1045 --> s_0796 + s_1046
+r_1219_REV,r_1219,L-tryptophan transport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_1048 --> s_0796 + s_1049
+r_1223_REV,r_1223,L-tyrosine transport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_1051 --> s_0796 + s_1052
+r_1224_REV,r_1224,L-valine transport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_1056 --> s_0796 + s_1057
+r_1238_REV,r_1238,orntithine transport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_1266 --> s_0796 + s_1267
+r_1241_REV,r_1241,pantothenate transport (reversible),c e,False,c:-1 e:+1,0.0,s_0031 + s_0794 --> s_0032 + s_0796
+r_1244_REV,r_1244,phosphate transport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_1322 --> s_0796 + s_1324
+r_1249_REV,r_1249,potassium transport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_1373 --> s_0796 + s_1374
+r_1251_REV,r_1251,putrescine transport (reversible),c e,False,c:+1 e:-1,0.0,s_0796 + s_1389 --> s_0794 + s_1390
+r_1252_REV,r_1252,putrescine transport (reversible),c v,False,c:-1 v:+1,0.0,s_0794 + s_1391 --> s_0802 + s_1389
+r_1253_REV,r_1253,pyridoxine symport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_1396 --> s_0796 + s_1397
+r_1254_REV,r_1254,pyruvate transport (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_1399 --> s_0796 + s_1400
+r_1258_REV,r_1258,sodium proton antiporter (reversible),c e,False,c:-1 e:+1,0.0,s_0794 + s_1438 --> s_0796 + s_1437
+r_1260_REV,r_1260,spermidine transport (reversible),c e,False,c:+1 e:-1,0.0,s_0796 + s_1439 --> s_0794 + s_1440
+r_1261_REV,r_1261,spermidine transport (reversible),c v,False,c:-1 v:+1,0.0,s_0794 + s_1441 --> s_0802 + s_1439
+r_1262_REV,r_1262,spermine transport (reversible),c e,False,c:+1 e:-1,0.0,s_0796 + s_1442 --> s_0794 + s_1443
+r_1263_REV,r_1263,spermine transport (reversible),c v,False,c:-1 v:+1,0.0,s_0794 + s_1444 --> s_0802 + s_1442
+r_1273_REV,r_1273,urea transport (reversible),c e,False,c:-2 e:+2,0.0,2.0 s_0794 + s_1552 --> 2.0 s_0796 + s_1553
+r_2079_REV,r_2079,trehalose transporter (reversible),c e,False,c:+1 e:-1,0.0,s_0796 + s_1521 --> s_0794 + s_1520
+r_1825_REV,r_1825,H+ diffusion (reversible),c er,False,c:+1 er:-1,0.05961495864273421,s_0795 --> s_0794
+r_1826_REV,r_1826,H+ diffusion (reversible),c g,False,c:+1 g:-1,0.0,s_0797 --> s_0794
+r_1827_REV,r_1827,H+ diffusion (reversible),c lp,False,c:+1 lp:-1,0.0,s_0798 --> s_0794
+r_1829_REV,r_1829,H+ diffusion (reversible),c n,False,c:+1 n:-1,0.0,s_0800 --> s_0794
+r_1830_REV,r_1830,H+ diffusion (reversible),c p,False,c:+1 p:-1,2.9755555555555568e-05,s_0801 --> s_0794
+r_1831_REV,r_1831,H+ diffusion (reversible),c v,False,c:+1 v:-1,0.0,s_0802 --> s_0794
+r_3525_REV,r_3525,"H+ transport, cytoplasm-ER membrane (reversible)",c erm,False,c:+1 erm:-1,0.0,s_2783 --> s_0794
+r_3603_REV,r_3603,"H+ transport, cytoplasm-cell envelope (reversible)",c ce,False,c:+1 ce:-1,0.0,s_0793 --> s_0794
+r_3650_REV,r_3650,"H+ transport, cytoplasm-vacuolar membrane (reversible)",c vm,False,c:+1 vm:-1,0.0,s_3164 --> s_0794
+r_3664_REV,r_3664,"H+ transport, cytoplasm-Golgi membrane (reversible)",c gm,False,c:+1 gm:-1,0.0,s_3146 --> s_0794
+r_3957_REV,r_3957,"H+ transport, mitochondrion-mitochondrial membrane (reversible)",m mm,False,m:+1 mm:-1,0.0,s_3094 --> s_0799

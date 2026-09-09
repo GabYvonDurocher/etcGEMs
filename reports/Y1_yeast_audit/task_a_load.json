@@ -1,0 +1,247 @@
+{
+  "source": {
+    "clone": "/private/tmp/claude-502/-Users-g-yvon-durocher-Library-CloudStorage-OneDrive-UniversityofExeter-Documents-work-MICROADAPT-etcGEMs/40c30d0f-fbc1-4eec-9d50-700e09b4b332/scratchpad/y1/BayesianGEM"
+  },
+  "models": {
+    "ecYeast7_v1.0_batch.mat": {
+      "file": "ecYeast7_v1.0_batch.mat",
+      "bytes": 515732,
+      "fidelity": {
+        "n_rxns": [
+          6743,
+          6743,
+          true
+        ],
+        "n_mets": [
+          3389,
+          3389,
+          true
+        ],
+        "rxn_ids_identical": true,
+        "met_ids_identical": true,
+        "lb_max_abs_diff": 0.0,
+        "ub_max_abs_diff": 0.0,
+        "c_max_abs_diff": 0.0,
+        "S_nnz_struct": 24805,
+        "S_nnz_model": 24805,
+        "objective_rxns_struct": [
+          "r_2111"
+        ],
+        "objective_rxns_model": [
+          "r_2111"
+        ]
+      },
+      "n_reactions": 6743,
+      "n_metabolites": 3389,
+      "n_genes": 909,
+      "compartments": {
+        "ce": "cell envelope",
+        "c": "cytoplasm",
+        "e": "extracellular",
+        "m": "mitochondrion",
+        "n": "nucleus",
+        "p": "peroxisome",
+        "er": "endoplasmic reticulum",
+        "g": "golgi",
+        "lp": "lipid particle",
+        "v": "vacuole",
+        "erm": "endoplasmic reticulum membrane",
+        "vm": "vacuolar membrane",
+        "gm": "golgi membrane",
+        "mm": "mitochondrial membrane"
+      },
+      "biomass": "r_2111",
+      "n_costed": 4003,
+      "n_prot_metabolites": 765,
+      "status": "optimal",
+      "growth": 0.09702318242830792,
+      "levers": {
+        "prot_pool_exchange": {
+          "lb": 0.0,
+          "ub": 0.078611742,
+          "flux": 0.036581388454694795
+        },
+        "r_1714_REV": {
+          "lb": 0.0,
+          "ub": 1.0,
+          "flux": 1.0
+        },
+        "r_1992_REV": {
+          "lb": 0.0,
+          "ub": Infinity,
+          "flux": 2.419991727745466
+        },
+        "r_1714": {
+          "lb": 0.0,
+          "ub": 0.0,
+          "flux": 0.0
+        },
+        "r_1992": {
+          "lb": 0.0,
+          "ub": 0.0,
+          "flux": 0.0
+        }
+      }
+    },
+    "ecYeast7_v1.0_batch_minimal_thermo.mat": {
+      "file": "ecYeast7_v1.0_batch_minimal_thermo.mat",
+      "bytes": 528272,
+      "fidelity": {
+        "n_rxns": [
+          6743,
+          6743,
+          true
+        ],
+        "n_mets": [
+          3389,
+          3389,
+          true
+        ],
+        "rxn_ids_identical": true,
+        "met_ids_identical": true,
+        "lb_max_abs_diff": 0.0,
+        "ub_max_abs_diff": 0.0,
+        "c_max_abs_diff": 0.0,
+        "S_nnz_struct": 24805,
+        "S_nnz_model": 24805,
+        "objective_rxns_struct": [
+          "r_2111"
+        ],
+        "objective_rxns_model": [
+          "r_2111"
+        ]
+      },
+      "n_reactions": 6743,
+      "n_metabolites": 3389,
+      "n_genes": 909,
+      "compartments": {
+        "ce": "cell envelope",
+        "c": "cytoplasm",
+        "e": "extracellular",
+        "m": "mitochondrion",
+        "n": "nucleus",
+        "p": "peroxisome",
+        "er": "endoplasmic reticulum",
+        "g": "golgi",
+        "lp": "lipid particle",
+        "v": "vacuole",
+        "erm": "endoplasmic reticulum membrane",
+        "vm": "vacuolar membrane",
+        "gm": "golgi membrane",
+        "mm": "mitochondrial membrane"
+      },
+      "biomass": "r_2111",
+      "n_costed": 4003,
+      "n_prot_metabolites": 765,
+      "status": "optimal",
+      "growth": 0.8653884798882957,
+      "levers": {
+        "prot_pool_exchange": {
+          "lb": 0.0,
+          "ub": 0.17866,
+          "flux": 0.17866
+        },
+        "r_1714_REV": {
+          "lb": 0.0,
+          "ub": Infinity,
+          "flux": 40.452425514710676
+        },
+        "r_1992_REV": {
+          "lb": 0.0,
+          "ub": Infinity,
+          "flux": 4.971768482267029
+        },
+        "r_1714": {
+          "lb": 0.0,
+          "ub": 0.0,
+          "flux": 0.0
+        },
+        "r_1992": {
+          "lb": 0.0,
+          "ub": 0.0,
+          "flux": 0.0
+        }
+      }
+    },
+    "ecYeast7_v1.0_batch_minimal_thermo_anaerobic.mat": {
+      "file": "ecYeast7_v1.0_batch_minimal_thermo_anaerobic.mat",
+      "bytes": 528498,
+      "fidelity": {
+        "n_rxns": [
+          6743,
+          6743,
+          true
+        ],
+        "n_mets": [
+          3389,
+          3389,
+          true
+        ],
+        "rxn_ids_identical": true,
+        "met_ids_identical": true,
+        "lb_max_abs_diff": 0.0,
+        "ub_max_abs_diff": 0.0,
+        "c_max_abs_diff": 0.0,
+        "S_nnz_struct": 24804,
+        "S_nnz_model": 24804,
+        "objective_rxns_struct": [
+          "r_2111"
+        ],
+        "objective_rxns_model": [
+          "r_2111"
+        ]
+      },
+      "n_reactions": 6743,
+      "n_metabolites": 3389,
+      "n_genes": 909,
+      "compartments": {
+        "ce": "cell envelope",
+        "c": "cytoplasm",
+        "e": "extracellular",
+        "m": "mitochondrion",
+        "n": "nucleus",
+        "p": "peroxisome",
+        "er": "endoplasmic reticulum",
+        "g": "golgi",
+        "lp": "lipid particle",
+        "v": "vacuole",
+        "erm": "endoplasmic reticulum membrane",
+        "vm": "vacuolar membrane",
+        "gm": "golgi membrane",
+        "mm": "mitochondrial membrane"
+      },
+      "biomass": "r_2111",
+      "n_costed": 4003,
+      "n_prot_metabolites": 765,
+      "status": "optimal",
+      "growth": 0.765784842317648,
+      "levers": {
+        "prot_pool_exchange": {
+          "lb": 0.0,
+          "ub": 0.17866,
+          "flux": 0.17866
+        },
+        "r_1714_REV": {
+          "lb": 0.0,
+          "ub": Infinity,
+          "flux": 50.8544649818005
+        },
+        "r_1992_REV": {
+          "lb": 0.0,
+          "ub": 0.0,
+          "flux": 0.0
+        },
+        "r_1714": {
+          "lb": 0.0,
+          "ub": 0.0,
+          "flux": 0.0
+        },
+        "r_1992": {
+          "lb": 0.0,
+          "ub": 0.0,
+          "flux": 0.0
+        }
+      }
+    }
+  }
+}

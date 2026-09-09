@@ -1,0 +1,6 @@
+test,n_blocked,blocked,status,atp_synthase_flux_before,atp_synthase_flux_after,objective_before,objective_after
+"chemostat, block costed chain proton translocators",2,r_0438No1 r_0439No1,infeasible,7.533147399218375,,0.03593920367168154,
+"max ATP synthase, chain intact",0,,optimal,,35.4110023819738,,35.4110023819738
+"max ATP synthase, costed chain blocked",2,r_0438No1 r_0439No1,optimal,,13.622600430093753,,13.622600430093753
+"all exchanges closed, max ATP synthase",-1,,optimal,,0.0,,0.0
+"all exchanges closed, max NGAM (ATP hydrolysis)",-1,,optimal,,0.0,,0.0

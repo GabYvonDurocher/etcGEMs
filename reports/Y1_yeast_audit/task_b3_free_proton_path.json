@@ -1,0 +1,41 @@
+{
+  "ion": "H+",
+  "inner": "m",
+  "outer": "c",
+  "atp_synthase": [
+    "r_0226No1"
+  ],
+  "n_proton_edges": 153,
+  "n_free_edges": 149,
+  "compartments_with_free_proton_edges": [
+    "c",
+    "ce",
+    "e",
+    "er",
+    "erm",
+    "g",
+    "gm",
+    "lp",
+    "m",
+    "mm",
+    "n",
+    "p",
+    "v",
+    "vm"
+  ],
+  "path_m_to_c__free_only": null,
+  "path_m_to_c__all_but_atp_synthase": [
+    {
+      "from": "m",
+      "to": "c",
+      "reaction": "r_0438No1"
+    }
+  ],
+  "path_c_to_m__free_only": [
+    {
+      "from": "c",
+      "to": "m",
+      "reaction": "r_1130"
+    }
+  ]
+}
