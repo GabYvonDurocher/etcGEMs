@@ -1,0 +1,5 @@
+fit,medium,c_max,point,growth_R2,resp_R2,rmax,Topt_C,acetate_37C,RQ_37C,resp_scale,steps,walkers,tau,chain_over_tau,n_eff,converged
+D_LB_cmax257,LB (recipe),257.0,MAP,-2.1892,-21.1639,0.0002,54.5,,,2.038,2000,40,172.4,11.6,384.2,False
+D_LB_cmax257,LB (recipe),257.0,posterior median,-2.1892,-16.8755,0.0,48.5,,,0.87,2000,40,172.4,11.6,384.2,False
+D_LB (P4),LB (recipe),120.0,MAP,0.1962,0.9231,1.6982,44.0,1.9023,1.1822,5.976,2000,40,224.3,8.9,276.7,False
+"D_LB (Parsa, P3 gate)",LB (blanket),256.7,MAP,0.8964,0.7931,,,,,,2000,36,211.9,9.4,,False

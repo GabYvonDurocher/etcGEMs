@@ -60,6 +60,28 @@ gas_exchange:
     # -- it is what his Figure B2 used, and it sits PAST the T_opt transition (T_opt is flat
     # from uncapped to ~150 and falls 39.0 -> 32.5 C on NLDM between 80 and 60).
     c_max: 120.0
+    # SCOPE OF THE 120 ABOVE (added 2026-09-09, P5): it is a GLUCOSE-MINIMAL / NLDM value. His
+    # sweep and the P2/P3 sensitivity behind it were computed on those two media only. P4
+    # applied it to LB as well and every LB growth R2 collapsed (0.83-0.90 -> 0.16-0.20)
+    # while NLDM was unchanged to better -- an over-application, ours not his. On LB the
+    # measured peak is 2.94 h^-1 and a 120 mmol C cap holds r_max at 1.1-1.8 whatever the
+    # parameters, so the cap binds where on NLDM it does not.
+    by_medium:                # per-medium caps, consumed by the fit runners
+      # (reports/P4_refit/fits.py-style c_max= arguments, P6), NOT by config.apply_gasflux,
+      # which reads the scalar c_max above; so no committed gasflux_* output changes.
+      LB: 450.0
+      # PROVENANCE (reports/P5_lb_cmax/, 2026-09-09): 450 is Parsa's own nominal cap for
+      # configurations E and F on LB (CAP_NOM_E in his calibration_configD_full.py); his
+      # fitted LB caps were 256.7 (D, on a nominal of 230), 459.3 (E) and 509.9 (F), all
+      # within 13 % of their nominal. Evidence, deterministic (no sampler): at fixed
+      # parameters the cap alone moves LB growth R2 from 0.64 / 0.05 / -0.10 (D / E / F at
+      # 120) to 0.90 / 0.83 / 0.88 at each fit's own cap; re-optimised at 450, D / E / F give
+      # growth R2 0.90 / 0.83-0.89 / 0.90 with respiration R2 0.78 / 0.86 / 0.85, the best
+      # log-posterior of the caps tried for every configuration. 257 (D's own value) is
+      # enough for D (0.89 / 0.83) but leaves E at 0.77 and F's respiration at 0.63.
+      # Above 450 nothing has been tested (r_max 2.4-2.7 against the measured 2.94), and no
+      # LB sensitivity to an unbounded cap has been run by anyone: that is the trigger to
+      # revisit. None of these R2 is a converged posterior (docs/OPEN_ITEMS.md 1.12).
 
   overflow_line:              # Basan et al. 2015, Nature 528:99 (doi:10.1038/nature15765),
     exchange_rxn: EX_ac_e     # Fig. 1: threshold lambda_ac ~ 0.76 /h (stated) and a red-line

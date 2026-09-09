@@ -1,0 +1,16 @@
+config,run,point,c_max,is_his_fitted,growth_R2,resp_R2,rmax,Topt_C,measured_peak
+D,calibration_configD_LB_full,MAP,120.0,False,0.6414,0.3969,1.796,42.5,2.945
+D,calibration_configD_LB_full,MAP,257.0,False,0.895,0.7952,2.437,44.0,2.945
+D,calibration_configD_LB_full,MAP,350.0,False,0.8981,0.813,2.46,44.0,2.945
+D,calibration_configD_LB_full,MAP,450.0,False,0.9011,0.6275,2.478,44.0,2.945
+D,calibration_configD_LB_full,MAP,256.7,True,0.895,0.7945,2.437,44.0,2.945
+E,calibration_configE_LB_freecmax,MAP,120.0,False,0.0485,0.4973,1.184,29.0,2.945
+E,calibration_configE_LB_freecmax,MAP,257.0,False,0.6994,0.387,1.975,42.5,2.945
+E,calibration_configE_LB_freecmax,MAP,350.0,False,0.7953,0.5978,2.234,44.0,2.945
+E,calibration_configE_LB_freecmax,MAP,450.0,False,0.8253,0.8024,2.385,44.0,2.945
+E,calibration_configE_LB_freecmax,MAP,459.3,True,0.826,0.8019,2.39,44.0,2.945
+F,calibration_configF_LB,MAP,120.0,False,-0.1015,0.4094,1.074,35.0,2.945
+F,calibration_configF_LB,MAP,257.0,False,0.6775,0.6305,1.909,41.0,2.945
+F,calibration_configF_LB,MAP,350.0,False,0.8126,0.4033,2.237,44.0,2.945
+F,calibration_configF_LB,MAP,450.0,False,0.8693,0.8996,2.485,44.0,2.945
+F,calibration_configF_LB,MAP,509.9,True,0.8799,0.8527,2.575,44.0,2.945
