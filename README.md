@@ -320,6 +320,24 @@ eciML1515`) before assembling.
 
 See `docs/RUNBOOK.md` for a step-by-step macOS walkthrough.
 
+## Environment
+
+The Python environment lives **outside every checkout**, at `../etcGEMs-venv` (a sibling of
+`etcGEMs/` and `etcGEMs-work/`), and is shared by both worktrees. It is built from the committed
+lock file, so it is reproducible from the repository rather than from a directory:
+
+```bash
+/usr/bin/python3 -m venv ../etcGEMs-venv            # the same 3.9.6 the project has always used
+../etcGEMs-venv/bin/pip install -r requirements.lock.txt
+../etcGEMs-venv/bin/pip install -e . --no-deps       # etcgem itself, editable, from THIS checkout
+```
+
+Two things to know. The editable `etcgem` resolves to the checkout it was installed from (the
+primary tree); a **worktree must run with `PYTHONPATH=<worktree>/src`** or it silently imports
+the primary tree's code. And `scripts/stamp_reports.py` needs this environment (PyYAML), so run it
+as `../etcGEMs-venv/bin/python scripts/stamp_reports.py`. The old in-checkout `.venv/` was left in
+place by P7 (2026-09-09) until the new one had run a full job clean; deleting it is a manual step.
+
 ## Development workflow
 
 The project is built by writing task **prompts** in `prompts/` that are executed
