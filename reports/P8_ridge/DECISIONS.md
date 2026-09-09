@@ -154,3 +154,45 @@ reported as *not reached*, and the verdict is **NOT MIXING per wall-hour**, with
 as measured and the cost stated. If zeus IS ahead by at least r at 250, the run continues to
 1500 and the D3 rule applies as written. This is a resource decision made on the cost the run
 has already revealed, recorded before its τ has; it does not touch the mixing rule.
+
+## D5 — the zeus run was stopped before its first checkpoint; the cost was measured instead; BRANCH B does not mix per wall-hour, and the 1500-step rule was not reached
+
+**Where:** TASK 2B, 2 h 2 min into the run.
+
+**What was seen.** No 250-step checkpoint after 122 minutes. The workers' cumulative CPU time
+went 15 756 s at 52 min → 21 228 s at 91 min → 22 867 s at 112 min: utilisation falling from
+~5 cores to ~1.3. A process listing showed **one worker at 78 % CPU and fifteen idle** — zeus's
+slice move expands and contracts sequentially within each walker's step (up to `maxiter`
+10 000 evaluations), the pool returns only when the slowest walker finishes, and on this
+likelihood (0.45 s per evaluation, a flat discrepancy tail to expand along) that walker starves
+the ensemble. The run was killed. It had written nothing but `resolved_config.yaml`: the
+per-block checkpoint needs a completed block. That loss is stated.
+
+**What was measured instead** (`task2b_cost.py`, `task2b_cost.json`): the same fit, 40
+walkers, 16 processes, 30 steps in blocks of 10 — **20.4 s per step** (blocks 192.9, 199.6,
+210.3 s), **11.0× emcee's 1.86 s** at the same walker count; 2 233 evaluations, **1.86 per
+walker per step** on average, so the ideal parallel cost would be 2.1 s/step and the realised
+**utilisation is 10 %**. zeus's own diagnostics at 30 steps: act_max 9.2 → 29.8 → 49.8,
+efficiency 0.035 → 0.022, ess 81 → 50. emcee's estimator on the same chain: **τ_max 0.9, 2.0,
+3.2 at steps 10, 20, 30 — 0.10 N, the same slope as every emcee chain in this family**, chain/τ
+9.4–11.2.
+
+**The verdict, by D4's cost stop.** D4 was to be applied at the 250-step checkpoint, which the
+run could not reach in any acceptable time; the same test is applied to what the diagnostic
+gives. zeus is ahead per wall-hour only if its τ_max is below emcee's at the same step divided
+by the cost ratio, 11.0. At step 30 emcee's τ (from its own 0.10 N slope) is ≈ 3 and zeus's is
+3.2 — zeus is not ahead by 11×, it is not ahead at all. In independent samples per wall-hour:
+emcee's 40-walker chain gave 40 × 1500 / 156 in 47 min ≈ 490 per hour (on an unconverged τ);
+zeus at 176 steps per hour would need τ ≤ 14 to match, and its τ is rising at 0.10 N from a
+chain of 30. **BRANCH B: NOT MIXING per wall-hour; the D3 τ(N) rule at 1500 steps was not
+reached and is reported as not reached, not as satisfied or failed.** The fix that would make
+zeus usable here — vectorising or batching the likelihood so a slice step is not serialised by
+its slowest walker, or a cheaper likelihood — is a change to the code the fits run on, not to
+the sampler, and is not this run's to make.
+
+**What this confirms.** P6 D6's option (iv) is the state of this family: no sampler
+configuration tried — 40 → 128 walkers (P7), DE moves (P6), an ensemble slice sampler (P8) —
+changes the τ ∝ N signature or is affordable, and the PCA (D2) says there is no ridge to remove.
+The remaining options change the model: fix the four prior-determined parameters, or narrow the
+discrepancy priors. Until one is taken, the configuration-D posteriors are quoted as P4's
+medians with a "not converged" label, and E/F wait on the LP tie-break (OPEN_ITEMS 3.21).

@@ -1,8 +1,14 @@
 # P8 — name the ridge from the chain on disk, then take the one branch it licenses
 
-@@STATUS@@
+| task | status | one line |
+|---|---|---|
+| **0** — merges, clean start | **DONE** | #21 merged clean; #22 conflicted on `report_status.yaml` only, both entries kept, merged; `p8/ridge` from `033c11e`; gates on `../etcGEMs-venv` 79/79, 60/60 |
+| **1** — name the ridge | **DONE — there is none** | variance spread evenly (PC1 16.5 %), τ 110–121 on every component, the four carry 14 % of the slow loading: isotropic slow mixing; **BRANCH B** by both clauses of a rule written first |
+| **2B** — zeus on all sixteen | **STOPPED — NOT MIXING per wall-hour** | wired and proven on a toy; on the E. coli likelihood 20.4 s/step (11× emcee, 10 % utilisation: one walker serialises the ensemble), τ rising at the same 0.10 N; the 1500-step rule not reached |
+| **2A** — fix the four | **not taken** | nothing to fix was named |
+| **3** — the record | **DONE** | 1.12 closed with a conclusion; §0 sequencing; evidence P3 superseded, P4b, P5b; synthesis README correction note; stamps |
 
-Detail: [DECISIONS.md](DECISIONS.md) (D0–@@DLAST@@); `task1_pca.py` → `task1_variance.csv`,
+Detail: [DECISIONS.md](DECISIONS.md) (D0–D5); `task1_pca.py` → `task1_variance.csv`,
 `task1_loadings.csv`, `task1_curvature.csv`, `task1_branch.json`, `task1_pca.png`;
 `task2b_toy.py` → `task2b_toy.json`; `run_zeus.py` →
 `strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P8_zeus/`; `task2b_table.py` →
@@ -79,12 +85,75 @@ walkers), initialised from P4's final ensemble, blocks of 250, 1500 steps, no ea
 750→1500 is below 10 per block AND τ_max(1500) < 100; PARTIAL if the mean over the last three is
 below 20 and each below the first block's, then extend once to 2500; anything else NOT MIXING.
 
-@@TASK2B@@
+**What happened.** The run was stopped after **2 h 2 min without reaching its first 250-step
+checkpoint** (D5). The workers' cumulative CPU time showed utilisation falling from ~5 cores to
+~1.3, and a process listing showed one worker at 78 % CPU and fifteen idle: zeus's slice move
+expands and contracts sequentially within each walker's step and the pool returns only when the
+slowest walker finishes, so on this likelihood — 0.45 s per evaluation, a flat discrepancy tail
+to expand along — one walker starves the ensemble. Nothing but `resolved_config.yaml` had been
+written (the per-block checkpoint needs a completed block). **A cost stop had been written
+before any zeus τ was seen (D4)**; it was applied to a measured 30-step diagnostic instead of the
+250-step checkpoint the run could not reach.
+
+**The cost, measured** (`task2b_cost.json`; D NLDM, 40 walkers, 16 processes, blocks of 10):
+
+| | zeus (this run) | emcee, 40 w (P6) | emcee, 128 w (P7) |
+|---|---|---|---|
+| s per step | **20.4** (blocks 192.9 / 199.6 / 210.3 s) | 1.86 | 5.02 |
+| evaluations per walker per step | 1.86 (2 233 in 30 steps) | 1 | 1 |
+| ideal parallel s per step at 16 processes | 2.1 | — | — |
+| **utilisation** | **10 %** | ~100 % | ~100 % |
+| cost ratio vs emcee 40 w | **11.0×** | 1 | 2.7× |
+
+**The τ(N) curve, as far as it goes**, with the emcee rows at the same steps (emcee's own 0.10 N
+slope gives its values at 10–30; its logged checkpoints start at 250):
+
+| N | zeus τ_max (emcee estimator) | zeus act_max / efficiency / ess | chain/τ | emcee 40 w τ (0.10 N) | emcee 128 w |
+|---|---|---|---|---|---|
+| 10 | 0.9 | 9.2 / 0.035 / 81 | 11.2 | ~1 | — |
+| 20 | 2.0 | 29.8 / 0.025 / 53 | 9.8 | ~2 | — |
+| 30 | 3.2 | 49.8 / 0.022 / 50 | 9.4 | ~3 | — |
+| 250 … 1500 | **not reached** | | | 28.1 … 155.9 | 26.1 … 140.8 |
+
+**τ per wall-hour.** zeus at 20.4 s/step makes 176 steps per hour; emcee's 40-walker chain
+delivered 40 × 1500 / 156 ≈ 385 walker-samples per τ in 47 min, ≈ 490 per hour (on an
+unconverged τ). To match that, zeus would need τ ≤ 14 at whatever chain length it reaches; its
+τ is rising at the same 0.10 N as every emcee chain in this family and reads 3.2 at N = 30,
+where emcee's reads ≈ 3. **It is not ahead by 11×; it is not ahead at all.**
+
+**Verdict: BRANCH B — NOT MIXING per wall-hour.** The D3 rule at 1500 steps was **not
+reached** and is reported as such, not as satisfied or failed. What would make zeus usable here
+is not a sampler setting: batching or vectorising the likelihood so a slice step is not
+serialised by its slowest walker, or a cheaper likelihood, both changes to the code the fits
+run on. Not made.
 
 ## TASK 3 — the record
 
-@@TASK3@@
+* **OPEN_ITEMS 1.12** — **closed with a conclusion**: the family is sampler-limited and no
+  sampling change tried (walkers, moves, slice sampling) fixes it; quote the configuration-D
+  medians (P4) with a "not converged" label; intervals are not available from these chains; any
+  change from here is a model decision (fix the four, or narrow the discrepancy priors), for the
+  user.
+* **OPEN_ITEMS §0 "Sequencing — E. coli first (decided 2026-09-09)"** added above §1 in the
+  house style, with the four points the prompt gives and no more; `docs/CANDIDA_DISCUSSION_2026-09-07.md`
+  §9 carries one dated line saying it is superseded on ordering by §0.
+* **`reports/synthesis/evidence.csv`**: P1 and P2 re-read (still true as measured; sampler-limited,
+  not step-limited), **P3 SUPERSEDED**, **P4b** (the PCA finding) and **P5b** (the branch verdict)
+  added. CRLF preserved; the file parses (76 rows).
+* **`reports/synthesis/README.md`**: a dated correction note listing, sentence by sentence, what
+  the sampling section, the housekeeping list, the closing summary and the [C6]/[C8] update
+  slots must say at the next render, with the evidence rows. `synthesis.qmd` not edited.
+* **The synthesis's section 7 sentence** ("reaching the criterion is ~8000 steps") is now wrong
+  three times over — steps (P6), walkers (P7), sampler (P8) — and the note says so.
+* Stamps regenerated; `report_status.yaml` gains `P8_ridge`.
 
 ## Verification
 
-@@VERIFY@@
+| check | result |
+|---|---|
+| TASK 0: #21, #22 merged; conflicts file by file; main commit; gates on the venv | #21 clean → `c3d71fb`; #22: `report_status.yaml` one hunk, both kept; `docs/OPEN_ITEMS.md` auto-merged; stamps regenerated → `033c11e`; K1 79/79, P1 60/60, seven strains byte-identical on `../etcGEMs-venv` |
+| TASK 1: variance fractions; τ per component; ridge and signed loadings; the four's share vs the 50 % rule (written first); curvature; branch | above and in `task1_*.csv`; 14.3 % (28.4 %) < 50 %; not one clean direction; curvature +6.7 z / −2.8 z; BRANCH B |
+| TASK 2: checkpoint table beside P6/P7; the rule verbatim; verdict; wall-clock; τ per wall-hour | above; D3 rule quoted; NOT MIXING per wall-hour, 1500-step rule not reached; 20.4 s/step; zeus needs τ ≤ 14 to match emcee's ≈ 490 samples/h and reads 0.10 N |
+| TASK 3: 1.12; §0 (quoted in OPEN_ITEMS); evidence rows; README note; stamps | done |
+| `git diff main --stat` | `reports/P8_ridge/`, `src/etcgem/calibration_multi.py` (zeus wiring), `requirements.lock.txt` (zeus + 7 deps), `docs/OPEN_ITEMS.md`, `docs/CANDIDA_DISCUSSION_2026-09-07.md` (one line), `reports/synthesis/evidence.csv`, `reports/synthesis/README.md`, `reports/report_status.yaml`, stamps, one fit output directory (`calibration_configD_NLDM_recipe_P8_zeus/`, the 30-step diagnostic with a README saying so). Nothing else under `strains/`. No prior changed. |
+| the old `.venv`; `../etcGEMs-work` | untouched |

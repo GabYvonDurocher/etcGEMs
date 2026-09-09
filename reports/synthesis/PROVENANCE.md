@@ -6,7 +6,7 @@
 
 *Evidence:* `python reports/synthesis/build_evidence.py` regenerates evidence.csv (74 rows); `python reports/synthesis/fig_requirement_arithmetic.py` regenerates the one figure; `quarto render reports/synthesis/synthesis.qmd` produces the 10-page PDF.
 
-**This report was last written at** `ceddd93` (2026-09-09) — Y2: evidence row, report_status entry and the provenance stamps
+**This report was last written at** `eca5e3e` (2026-09-09) — P8 TASK 3 (part): evidence rows P1-P3 re-read, P3 superseded, P4b (the PCA finding) added; report skeleton; checkpoint-table script
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 
