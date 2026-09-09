@@ -341,12 +341,28 @@ def run_gasflux_fit(strain, out_dir, *, medium, table, otu=None, experiment="gas
                     c_max=None, etc_table=None, apply_protons=False, fit_clearance=True,
                     label="", n_walkers=36, n_steps_max=2000, n_burn=200, seed=1, n_proc=0,
                     check_every=250, target_neff=200, tau_factor=40, allow_glpk=False,
-                    warm_start=True, progress=False) -> Dict:
+                    warm_start=True, progress=False, moves=None, init_state=None,
+                    init_label=None, warm_start_min_growth_frac=0.10) -> Dict:
     """Emcee fit of one gas-exchange configuration to measured growth + per-cell respiration.
 
     The fourth entry point beside :func:`run`, :func:`run_syn6803` and :func:`run_methanogen`,
     on the same machinery (PSpec / to_pert / log_prior / warm start / autocorr early-stop). It
     is a configuration of that machinery, not a second calibrator.
+
+    SAMPLER-ONLY options added by P6 (none of them touches the model, likelihood or priors):
+
+    * ``moves``      -- passed straight to ``emcee.EnsembleSampler``; None keeps emcee's default
+                        stretch move, which every earlier fit in this family used.
+    * ``init_state`` -- an (n_walkers, ndim) array of starting positions, e.g. the final
+                        ensemble state of an earlier chain for the same fit. Overrides the warm
+                        start and the emergent-point ball; ``n_walkers`` is then taken from it.
+                        ``init_label`` is recorded in summary.json so the provenance is visible.
+    * ``warm_start_min_growth_frac`` -- the warm start is REJECTED, and the emergent-point ball
+                        used instead, if the DE mode's predicted peak growth is below this
+                        fraction of the measured peak. P5 found the mode-seeker can return a
+                        zero-growth local optimum (the growth discrepancy term absorbing the
+                        data) and seed every walker there, where they stay (OPEN_ITEMS 3.20).
+                        A warm start into a dead mode is worse than none.
     """
     import emcee
     os.makedirs(out_dir, exist_ok=True)
@@ -376,18 +392,56 @@ def run_gasflux_fit(strain, out_dir, *, medium, table, otu=None, experiment="gas
           f"{len(ctx['T'])} temperatures; logL={lp0:.1f}")
 
     n_proc = n_proc or max(1, min(10, (os.cpu_count() or 2) - 2))
-    n_walkers = int(np.ceil(max(n_walkers, 2 * ndim + 2) / n_proc)) * n_proc
+    if init_state is not None:
+        init_state = np.asarray(init_state, float)
+        if init_state.ndim != 2 or init_state.shape[1] != ndim:
+            raise SystemExit(f"[init] {label}: init_state has shape {init_state.shape}, "
+                             f"need (n_walkers, {ndim})")
+        n_walkers = int(init_state.shape[0])
+    else:
+        n_walkers = int(np.ceil(max(n_walkers, 2 * ndim + 2) / n_proc)) * n_proc
 
     from multiprocessing import Pool
     pool = Pool(processes=n_proc, initializer=_gwinit, initargs=(dict(payload, solver=solver),))
     t0 = time.time()
+    warm_rejected = False
     try:
-        if warm_start:
+        if init_state is not None:
+            p0, mode = init_state, None
+            init_kind = init_label or "init_state"
+            print(f"[init] {label}: {n_walkers} walkers from {init_kind}", flush=True)
+        elif warm_start:
             p0, mode = _warm_start(specs, n_walkers, seed, pool, progress,
                                    negpost=_gwnegpost, logprob=_gwlogprob)
+            init_kind = "warm-start (DE mode ball)"
+            if mode is not None:
+                # P6 / OPEN_ITEMS 3.20: does the mode GROW? A zero-growth mode is a local
+                # optimum of this posterior and every walker seeded there stays there.
+                from .gasflux import flux_tpc as _ftpc
+                try:
+                    _g = _ftpc(ctx["pm"], ctx["T"], to_pert(mode, specs),
+                               metabolites=("o2",))["growth"].to_numpy(float)
+                    gmax = float(np.nanmax(_g))
+                except Exception:
+                    gmax = 0.0
+                peak = float(np.nanmax(ctx["growth_obs"]))
+                if not (gmax >= warm_start_min_growth_frac * peak):
+                    print(f"[warm-start] {label}: REJECTED -- the DE mode predicts peak growth "
+                          f"{gmax:.4f} h^-1 against a measured {peak:.3f} (floor "
+                          f"{warm_start_min_growth_frac:.0%}); using emergent-point init",
+                          flush=True)
+                    p0, mode = init_walkers(specs, n_walkers, np.random.default_rng(seed)), None
+                    warm_rejected = True
+                    init_kind = "emergent-point ball (warm start rejected: dead mode)"
+                else:
+                    print(f"[warm-start] {label}: mode predicts peak growth {gmax:.3f} h^-1 "
+                          f"against a measured {peak:.3f} -- accepted", flush=True)
+            else:
+                init_kind = "emergent-point ball (warm start found no mode)"
         else:
             p0, mode = init_walkers(specs, n_walkers, np.random.default_rng(seed)), None
-        sampler = emcee.EnsembleSampler(n_walkers, ndim, _gwlogprob, pool=pool)
+            init_kind = "emergent-point ball"
+        sampler = emcee.EnsembleSampler(n_walkers, ndim, _gwlogprob, pool=pool, moves=moves)
         state = p0; done = 0; tau_max = float("nan")
         stop_reason = f"n_steps_max ({n_steps_max})"
         while done < n_steps_max:
@@ -449,6 +503,9 @@ def run_gasflux_fit(strain, out_dir, *, medium, table, otu=None, experiment="gas
         "preflight_single_eval_ms": round(pf_ms, 1),
         "sampler": {"n_walkers": n_walkers, "n_steps": done, "n_steps_max": n_steps_max,
                     "burn": burn, "thin": thin, "warm_started": bool(mode is not None),
+                    "init": init_kind, "warm_start_rejected": bool(warm_rejected),
+                    "moves": None if moves is None else str(moves),
+                    "target": {"tau_factor": tau_factor, "target_neff": target_neff},
                     "stop_reason": stop_reason, "converged": bool(converged),
                     "acceptance_fraction": round(accept, 3),
                     "autocorr_time_max": None if not np.isfinite(tau_max) else round(tau_max, 1),

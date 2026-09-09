@@ -1,0 +1,10 @@
+fit,config,medium,media,cap_enabled,c_max_resolved,c_max_requested,etc_enabled,etc_table,protons_config,protons_requested,fit_clearance,data_table,otu,growth_law,allocation_from_data
+D_NLDM,D,NLDM,['NLDM'],True,120.0,120.0,False,,False,False,True,respirometry/derived_R2A_LB_current.csv,1,True,
+D_LB,D,LB,['LB'],True,450.0,450.0,False,,False,False,False,respirometry/derived_R2A_LB_current.csv,2,True,
+E_NLDM,E,NLDM,['NLDM'],False,,,True,etc/complexes_szenk_merged_bd.csv,False,False,True,respirometry/derived_R2A_LB_current.csv,1,True,
+E_LB,E,LB,['LB'],True,450.0,450.0,True,etc/complexes_szenk_merged_bd.csv,False,False,False,respirometry/derived_R2A_LB_current.csv,2,True,
+F_NLDM,F,NLDM,['NLDM'],False,,,True,etc/complexes_configF_as_fitted.csv,True,True,True,respirometry/derived_R2A_LB_current.csv,1,True,
+F_LB,F,LB,['LB'],True,450.0,450.0,True,etc/complexes_configF_as_fitted.csv,True,True,False,respirometry/derived_R2A_LB_current.csv,2,True,
+D_M9,D,glucose_minimal,['glucose_minimal'],True,120.0,120.0,False,,False,False,False,respirometry/derived_M9_current.csv,1,True,
+E_M9,E,glucose_minimal,['glucose_minimal'],True,120.0,120.0,True,etc/complexes_szenk_merged_bd.csv,False,False,False,respirometry/derived_M9_current.csv,1,True,
+F_M9,F,glucose_minimal,['glucose_minimal'],True,120.0,120.0,True,etc/complexes_configF_as_fitted.csv,True,True,False,respirometry/derived_M9_current.csv,1,True,
