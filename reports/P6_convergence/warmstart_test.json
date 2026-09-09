@@ -1,0 +1,18 @@
+{
+  "D_NLDM": {
+    "init": "emergent-point ball (warm start rejected: dead mode)",
+    "warm_started": false,
+    "warm_start_rejected": true,
+    "n_walkers": 40,
+    "n_steps": 50,
+    "acceptance_fraction": 0.321
+  },
+  "D_LB": {
+    "init": "emergent-point ball (warm start rejected: dead mode)",
+    "warm_started": false,
+    "warm_start_rejected": true,
+    "n_walkers": 40,
+    "n_steps": 50,
+    "acceptance_fraction": 0.274
+  }
+}

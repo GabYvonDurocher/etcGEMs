@@ -1,0 +1,5 @@
+{
+  "moves": "stretch",
+  "n_proc": 16,
+  "reason": "TASK 0b (bench.csv): DE+DESnooker left tau unchanged (49.9 vs 51.2 on 500 steps) and cut acceptance from 0.166 to 0.051, so it is not adopted; the stretch move is P4's and Parsa's, so the target is unchanged by construction. n_proc 16 (all physical cores; 12 performance + 4 efficiency) is 1.86 s/step against 2.08 at P4's 10, an 11% saving; 20 gives the same 1.86. A process count cannot change the target distribution."
+}

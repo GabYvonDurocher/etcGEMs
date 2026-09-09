@@ -267,3 +267,15 @@ Y1_yeast_audit:
     `--bayesiangem <clone>`. The audit-tool fix underneath them was proved inert on all seven
     strains before use (task0_k5_budget_recheck.csv, task0_classes_AD_recheck.json).
   inputs: []
+P6_convergence:
+  status: CURRENT
+  note: >-
+    a HALTED run. No fit reached a convergence target and nothing in it is quoted as a result.
+    What it holds is diagnosis, all reproducible from the scripts beside it: the pre-flight
+    (settings, tau, jitter), the benchmark, the E/F likelihood degeneracy and its mechanism, and
+    why tau tracks chain length on configuration D. The three sampler-only options it added to
+    run_gasflux_fit default to the old behaviour.
+  evidence: >-
+    preflight.py, jitter_diagnosis.py, degeneracy.py, state_vs_identifiability.py,
+    state_detail.py, diffusion.py and bench.py regenerate their CSV/JSON outputs against the
+    committed P4 chains (bench.py needs ~1 h of sampling; the rest are evaluations only).
