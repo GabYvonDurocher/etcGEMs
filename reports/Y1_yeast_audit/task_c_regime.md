@@ -68,7 +68,7 @@ these settings.
 
 It is one organism, one model, one temperature sweep, and the parameters are their **prior**, not
 their calibrated posterior — the posterior samples are on Zenodo and were not downloaded (Y1 needs
-no posterior; see `PROVENANCE.md`). Whether the asymmetry survives at the posterior is untested
+no posterior; see `SOURCE.md`). Whether the asymmetry survives at the posterior is untested
 and would need `results.tar.gz`. It is a cheap follow-up and is recorded as such in
 `docs/OPEN_ITEMS.md`.
 

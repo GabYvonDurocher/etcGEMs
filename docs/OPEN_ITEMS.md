@@ -1,6 +1,6 @@
 # Open items — the running list
 
-_Started 2026-09-08 while P2 was running; last updated 2026-09-08 by K9._ This is the standing list of what is outstanding across
+_Started 2026-09-08 while P2 was running; last updated 2026-09-09 by Y1._ This is the standing list of what is outstanding across
 the whole project, so nothing is lost between sessions. Update it when something lands; do not let
 it become a second decision log — decisions live in each prompt's `reports/*/DECISIONS.md`, this is
 only what is NOT yet done and who or what it waits on._
@@ -35,6 +35,8 @@ Status: **BLOCKED** (waiting on something external) · **READY** (can start now)
 | ~~2.2~~ | ~~**Membrane-area constraint on Candida**~~ | **DONE 2026-09-08 (K4).** Built and applied; `reports/K4_membrane/report.md`. **It cannot carry the interspecies comparison, for two independent reasons.** Structurally, the respiratory chain is not load-bearing in three of the four models (the three *Candidozyma*; TASK 1), so an area budget there binds on ATP synthase and not on respiration. Parametrically, no footprint differs between the species — there is no Candida or fungal equivalent of Szenk 2017 (TASK 2). The mechanism is **available and not tested**; 3.8-3.11 are what would change that. |
 | 2.3 | **K3 — retire the Candidas fork** | N1 prepared the patch (unapplied, `git apply --check` clean) and confirmed nothing in etcGEMs needs `$CANDIDAS_ROOT` at run time now the gate has a fixture. Needs a human to apply it in Ilgaz's repository. |
 | 2.4 | **`_toy/resolved_config.yaml`** structurally stale (numbers fine, 6.2e-15) | Listed by N2, not fixed. Trivial. |
+| 2.5 | **PART C at Li et al.'s POSTERIOR, not their prior** | Y1 ran the T_opt/CT_max regime test on their model with their code, but at the deposited PRIOR parameters: the 100 posterior parameter sets are on Zenodo (`record/3996543`, `results.tar.gz`) and were not downloaded. The asymmetry is 10.1 C against 0.8 C at the prior. Whether it survives at the posterior is untested and is one download plus a re-run of `reports/Y1_yeast_audit/task_c_regime_test.py`. |
+| 2.6 | **The shared `.venv` lives in the main checkout** | `etcGEMs/.venv` is the only interpreter, so a second worktree borrows one from a directory a long run may be using. Read-only in practice; harmless so far. If `../etcGEMs-synthesis` becomes standing (Y1 PART F), move the venv somewhere neutral or duplicate it. |
 
 ## 3. Deferred, with triggers
 
@@ -131,6 +133,39 @@ Status: **BLOCKED** (waiting on something external) · **READY** (can start now)
   conditions it was established on (here, the medium), and when a value is applied outside those
   conditions say so where it is applied, not only where it was derived.** See 1.11 and
   `reports/P5_lb_cmax/`.
+
+---
+
+## 4b. Y1 — the published yeast etcGEM (2026-09-09)
+
+**The gate on the fourth-paper idea was run and it came back (b): the defect class is ABSENT from
+Li et al. 2021, and the structural finding holds.** `reports/Y1_yeast_audit/report.md`.
+
+* **Coupling-ion audit: does not fire.** Their chain supplies 92.7 % (pristine batch) and 93.1 %
+  (chemostat) of ATP synthase's protons. All twelve uncosted proton movers on the mitochondrial
+  membrane run the dissipative way; none has an uncosted `_REV` twin; **no free path `m -> c`
+  exists at any length**; and with every exchange shut, maximum ATP synthase flux and maximum ATP
+  hydrolysis are both exactly 0. Verified pristine, under their own thermal layer, by
+  counterfactual, and by the exchange-closed test.
+* **T_opt / CT_max asymmetry: reproduces independently.** In their model with their `etcpy`, a
+  change of binding constraint moves T_opt **10.1 C** and CT_max **0.8 C**. Five organisms, two
+  codebases.
+* **Calibration shift: does NOT generalise.** Their posterior left Tm at the measured meltome
+  (r = 0.97 with experiment, Fig. 2g) and moved Topt instead; the nine enzymes carrying their
+  thermal limit already had measured prior Tm of 40.5-43.8 C. Our E. coli needed dTm = -5.6 K;
+  theirs needed nothing. What is common is the tension, not the shift.
+* **A defect in OUR audit, found first.** `sink_audit`'s anchored patterns were matched against the
+  metabolite id and the joined `"id name"`, so the Yeast7 convention (opaque id `s_0437`, plain
+  name `ATP`) matched nothing: **zero hits in classes A-D on 6743 reactions and no ATP synthase
+  found**, on a model with an intact chain. A clean bill of health for the wrong reason. Fixed and
+  proved inert on all seven strains (every class-E cell identical to 0.0; every A-D count
+  unchanged). **The rule: when an audit returns a clean result on a model from an unfamiliar
+  namespace, verify the matcher found ANYTHING before believing the absence.**
+* **Their Topt is a sequence prediction** (Tome v1.0, R^2 = 0.5) carried as a wide prior with the
+  predictor's own RMSE (13.0 C) as the prior width. That is the methodological answer to our Seq2Tm
+  concern, and it is theirs.
+* **Their thermal layer is Python, not MATLAB** (`code/etcpy`), which is why this cost an afternoon.
+  Anyone extending Y1 can run their model directly.
 
 ---
 

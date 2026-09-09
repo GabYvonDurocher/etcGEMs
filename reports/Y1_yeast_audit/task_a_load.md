@@ -3,7 +3,7 @@
 **Yes to all three.** The model loads in cobrapy, solves, and their thermal layer runs. The audit
 did not need a MATLAB environment and did not turn into a project.
 
-Provenance in `PROVENANCE.md`; the judgement calls in `DECISIONS.md`; the numbers in
+Provenance in `SOURCE.md`; the judgement calls in `DECISIONS.md`; the numbers in
 `task_a_load.json`, written by `task_a_load.py`.
 
 ## 1. The format

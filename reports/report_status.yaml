@@ -252,3 +252,18 @@ P5_lb_cmax:
     task1_parsa_lb_cmax.py, task1c_fixed_point.py, task1d_cap_sweep_fixed_point.py and
     task1e_reoptimise.py regenerate their CSVs (the last three read $PARSA_ROOT, read only);
     run_lb_fit.py regenerates the chain (~2.5 h) and lb_cmax_comparison.csv.
+
+Y1_yeast_audit:
+  status: CURRENT
+  note: >-
+    an audit of a model outside this repository. It reads a read-only clone of
+    SysBioChalmers/BayesianGEM at a68307e, which is NOT committed here, so its scripts each take
+    --bayesiangem <path> and none of them runs unattended. It reads no strains/ output and writes
+    nothing under strains/. What it obtained and from where is in SOURCE.md.
+  evidence: >-
+    every number regenerates from the clone: `task_a_load.py`, `task_b_coupling_audit.py`,
+    `task_b2_verifications.py`, `task_b3_free_proton_path.py`,
+    `task_b4_what_etcpy_constrains.py` and `task_c_regime_test.py`, each with
+    `--bayesiangem <clone>`. The audit-tool fix underneath them was proved inert on all seven
+    strains before use (task0_k5_budget_recheck.csv, task0_classes_AD_recheck.json).
+  inputs: []

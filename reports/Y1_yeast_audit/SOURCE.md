@@ -1,5 +1,7 @@
 # Y1 — what was obtained, from where
 
+_Named `SOURCE.md`, not `PROVENANCE.md`: `scripts/stamp_reports.py` owns that filename in every report directory and would overwrite this._
+
 ## The deposit
 
 | | |
