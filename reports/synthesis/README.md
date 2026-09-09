@@ -60,3 +60,12 @@ Not edited into `synthesis.qmd`; to be applied at the next render. Evidence rows
 The "What is provisional" section above — "Three claims depend on P6, which was still running" —
 should read that P6 was halted (its D6) and the three claims wait on the decision in
 OPEN_ITEMS 1.12, not on a run.
+
+**Extended 2026-09-09 (P9), evidence row P6b.** The sampling section must also say WHY no
+sampler mixes: the configuration-D log-likelihood is not smooth. Line scans through the MAP
+(fresh model per evaluation) find a piecewise-smooth surface — exact parabolas between cliffs
+of 13–72 log-likelihood units within one posterior sd, unchanged by solver tolerances or
+method — each cliff carried by the respiration term at one cold temperature where the LP's
+O2 uptake switches vertex. "Reaching the criterion" is therefore not a sampling question at
+all; it is a decision about the respiration likelihood (OPEN_ITEMS 1.15), and the sentence
+about ~8000 steps should be replaced by that statement. [C6] and [C8] wait on the same decision.

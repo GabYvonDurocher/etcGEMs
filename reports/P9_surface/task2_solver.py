@@ -61,18 +61,15 @@ def basis_snapshot(ctx, th, sp):
         if g is None or not np.isfinite(g):
             out.append((float(T), np.nan, np.nan, None)); continue
         o2 = float(m.reactions.get_by_id("EX_o2_e_REV").flux - m.reactions.get_by_id("EX_o2_e").flux)
-        vb = np.array([var.VBasis for var in gp(ctx).getVars()], int)
+        vb = {var.VarName: int(var.VBasis) for var in gp(ctx).getVars()}
         out.append((float(T), float(g), o2, vb))
     return out
 
 
-def main():
-    fit = [f for f in FITS if f[0] == "D_NLDM"][0]
-    meta = json.load(open(os.path.join(HERE, "task1_meta.json"))); theta0 = np.array(meta["theta0"]); sd = np.array(meta["sd"]); names = meta["names"]; D = len(names)
-    summ = pd.read_csv(os.path.join(HERE, "task1_summary.csv")).sort_values("max_jump_frac", ascending=False)
-    top = summ.line.head(3).tolist(); print(f"[solver] roughest three lines: {top}", flush=True)
-    # rebuild the directions exactly as task1 did
+def direction_factory(names):
+    """the 22 directions exactly as task1_scan built them"""
     import emcee
+    D = len(names)
     b = emcee.backends.HDFBackend(os.path.join(ROOT, "strains", "eciML1515", "outputs", "calibration_configD_NLDM_recipe_P7_w128", "chain.h5"), read_only=True)
     X = b.get_chain()[250:].reshape(-1, D); Z = (X - X.mean(0)) / X.std(0); ev, evecs = np.linalg.eigh(np.cov(Z, rowvar=False)); evecs = evecs[:, np.argsort(ev)[::-1]]
     rng = np.random.default_rng(11); rnd = []
@@ -82,8 +79,18 @@ def main():
         if lname.startswith("axis:"): e = np.zeros(D); e[names.index(lname[5:])] = 1.0; return e
         if lname.startswith("PC"): v = evecs[:, int(lname[2:]) - 1]; return v / np.linalg.norm(v)
         return rnd[int(lname[6:]) - 1]
+    return direction
+
+
+def main():
+    fit = [f for f in FITS if f[0] == "D_NLDM"][0]
+    meta = json.load(open(os.path.join(HERE, "task1_meta.json"))); theta0 = np.array(meta["theta0"]); sd = np.array(meta["sd"]); names = meta["names"]; D = len(names)
+    summ = pd.read_csv(os.path.join(HERE, "task1_summary.csv")).sort_values("max_jump_frac", ascending=False)
+    top = summ.line.head(3).tolist(); print(f"[solver] roughest three lines: {top}", flush=True)
+    direction = direction_factory(names)
     rows, params = [], {}
-    for lname in top:
+    basis_only = "--basis-only" in sys.argv
+    for lname in ([] if basis_only else top):
         v = direction(lname)
         ctx, sp = build(fit)
         params["defaults_read_back"] = {k: gp(ctx).getParamInfo(k)[2] for k in list(TIGHT) + list(FIXED)}
@@ -98,7 +105,8 @@ def main():
                              max_abs_diff_vs_defaults=float(np.max(np.abs(vals - vals_def)))))
             print(f"[solver] {lname:22s} {kind:18s} sign changes {sc:2d}  max jump {j:8.3f} ({100*jf:5.1f} %)  max |diff vs defaults| {np.max(np.abs(vals-vals_def)):.2e}", flush=True)
         pd.DataFrame(rows).to_csv(os.path.join(HERE, "task2_lines.csv"), index=False)
-    json.dump(params, open(os.path.join(HERE, "task2_params.json"), "w"), indent=2, default=float)
+    if not basis_only:
+        json.dump(params, open(os.path.join(HERE, "task2_params.json"), "w"), indent=2, default=float)
     # basis changes at the three largest jumps (default scan, across all lines of task1)
     L = pd.read_csv(os.path.join(HERE, "task1_lines.csv")); jumps = []
     for lname, sub in L.groupby("line"):
@@ -109,11 +117,15 @@ def main():
         a = basis_snapshot(ctx, theta0 + STEPS[k] * sd * v, sp); bb = basis_snapshot(ctx, theta0 + STEPS[k + 1] * sd * v, sp)
         nvar = len(a[0][3]) if a[0][3] is not None else 0
         for (T, ga, oa, va), (_, gb, ob, vb) in zip(a, bb):
-            nchg = int(np.sum(va != vb)) if (va is not None and vb is not None) else -1
+            if va is not None and vb is not None:
+                common = set(va) & set(vb); nchg = int(sum(va[n] != vb[n] for n in common)); nadd = len(set(vb) - set(va)); nrem = len(set(va) - set(vb))
+                changed = sorted([n for n in common if va[n] != vb[n]])[:12]
+            else:
+                nchg, nadd, nrem, changed = -1, 0, 0, []
             brows.append(dict(line=lname, step_from=float(STEPS[k]), step_to=float(STEPS[k + 1]), jump_logL=jval, T_C=T,
                               growth_from=ga, growth_to=gb, d_growth=(gb - ga) if np.isfinite(ga) and np.isfinite(gb) else np.nan,
                               o2_from=oa, o2_to=ob, d_o2=(ob - oa) if np.isfinite(oa) and np.isfinite(ob) else np.nan,
-                              n_vars=nvar, n_basis_changes=nchg))
+                              n_vars=nvar, n_basis_changes=nchg, n_vars_added=nadd, n_vars_removed=nrem, changed_examples=";".join(changed)))
         sub = pd.DataFrame([r for r in brows if r["line"] == lname])
         print(f"[solver] jump {jval:.3f} on {lname} between {STEPS[k]:+.2f} and {STEPS[k+1]:+.2f} sd: basis changes per T "
               f"{sub.n_basis_changes.tolist()} of {nvar} vars; max |d growth| {np.nanmax(np.abs(sub.d_growth)):.4f}; max |d O2| {np.nanmax(np.abs(sub.d_o2)):.3f}", flush=True)

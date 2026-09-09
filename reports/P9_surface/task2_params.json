@@ -1,0 +1,24 @@
+{
+  "defaults_read_back": {
+    "FeasibilityTol": 1e-07,
+    "OptimalityTol": 1e-07,
+    "BarConvTol": 1e-08,
+    "Method": 0
+  },
+  "tight_before": {
+    "FeasibilityTol": 1e-07,
+    "OptimalityTol": 1e-07,
+    "BarConvTol": 1e-08
+  },
+  "tight_after": {
+    "FeasibilityTol": 1e-09,
+    "OptimalityTol": 1e-09,
+    "BarConvTol": 1e-12
+  },
+  "fixed_before": {
+    "Method": 0
+  },
+  "fixed_after": {
+    "Method": 1
+  }
+}
