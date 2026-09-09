@@ -76,18 +76,35 @@ MAINTENANCE_RE = re.compile(
     r"|non[- ]?growth[- ]?associated|\bmaintenance\b", re.I)
 
 
+def _search(met, pats) -> bool:
+    """Match a metabolite against the patterns: its id, its NAME ON ITS OWN, and the two joined.
+
+    The name has to be tested as its own string. Every pattern in this module is anchored at
+    `^`, and the models here split into two naming conventions: BiGG and ModelSEED put the
+    chemistry in the id (`atp_c`, `cpd00002_c0`) and a description in the name, while
+    Yeast7-derived SBML puts an OPAQUE id (`s_0437`) beside a plain chemical name (`ATP`).
+    Searching only the id and the joined `"s_0437 ATP"` sees the first convention and is blind
+    to the second, because an anchored pattern cannot match a joined string from the left.
+
+    Found in Y1 on Li et al.'s deposited ecYeast7, where it made the entire audit read clean:
+    zero hits in classes A-D and no ATP synthase found at all, on a model that has one carrying
+    flux. It is a defect in THIS audit, not in that model.
+    """
+    name = getattr(met, "name", "") or ""
+    joined = f"{met.id} {name}"
+    return any(p.search(met.id) or p.search(name) or p.search(joined) for p in pats)
+
+
 def _acceptor(met) -> Optional[str]:
-    text = f"{met.id} {getattr(met, 'name', '') or ''}"
     for name, pats in _ACCEPTORS.items():
-        if any(p.search(met.id) or p.search(text) for p in pats):
+        if _search(met, pats):
             return name
     return None
 
 
 def _carrier(met) -> Optional[str]:
-    text = f"{met.id} {getattr(met, 'name', '') or ''}"
     for carrier, pats in _COMPILED.items():
-        if any(p.search(met.id) or p.search(text) for p in pats):
+        if _search(met, pats):
             return carrier
     return None
 
@@ -122,8 +139,7 @@ _WATER_RE = [re.compile(p, re.I) for p in (r"^h2o(_|\[|$)", r"^C00001(__|$)", r"
 
 
 def _matches(met, pats) -> bool:
-    text = f"{met.id} {getattr(met, 'name', '') or ''}"
-    return any(p.search(met.id) or p.search(text) for p in pats)
+    return _search(met, pats)
 
 
 def _ion_of(met) -> Optional[str]:
@@ -202,7 +218,13 @@ def _gecko_groups(model):
     groups = {}
     for r in model.reactions:
         groups.setdefault(find(r.id), []).append(r)
-    return groups
+    # Key each group by its lexicographically smallest member. Union-find's own
+    # representative comes from `met.reactions`, a set of objects hashed by identity, so it
+    # varies between processes: two runs of the same audit on eciML1515 label ATP synthase
+    # 'ATPS4rpp_REVNo1' and 'ATPS4rpp_REVNo2'. The membership, and therefore every number, is
+    # identical either way -- but a report should not change its labels when re-run.
+    return {min(r.id for r in members): sorted(members, key=lambda r: r.id)
+            for members in groups.values()}
 
 
 def _group_ion_by_compartment(members, ion):
