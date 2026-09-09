@@ -6,7 +6,7 @@
 
 *Evidence:* `python reports/synthesis/build_evidence.py` regenerates evidence.csv (74 rows); `python reports/synthesis/fig_requirement_arithmetic.py` regenerates the one figure; `quarto render reports/synthesis/synthesis.qmd` produces the 10-page PDF.
 
-**This report was last written at** `eca5e3e` (2026-09-09) — P8 TASK 3 (part): evidence rows P1-P3 re-read, P3 superseded, P4b (the PCA finding) added; report skeleton; checkpoint-table script
+**This report was last written at** `78b7307` (2026-09-09) — P8 TASK 2B-3: zeus stopped before its first checkpoint on the pre-registered cost rule (20.4 s/step, 11x emcee, 10 % utilisation, tau at the same 0.10 N); NOT MIXING per wall-hour; 1.12 closed with a conclusion; the record
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 

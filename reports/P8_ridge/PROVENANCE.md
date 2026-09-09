@@ -6,13 +6,13 @@
 
 *Evidence:* task1_pca.py regenerates task1_*.csv and the figure from chain.h5 / chain.npy; task2b_toy.py regenerates task2b_toy.json (seconds); task2b_cost.py regenerates task2b_cost.json (~11 min).
 
-**This report was last written at** `f90628f` (2026-09-09) — P8 D4: a cost stop for the zeus run, written before its first checkpoint
+**This report was last written at** `78b7307` (2026-09-09) — P8 TASK 2B-3: zeus stopped before its first checkpoint on the pre-registered cost rule (20.4 s/step, 11x emcee, 10 % utilisation, tau at the same 0.10 N); NOT MIXING per wall-hour; 1.12 closed with a conclusion; the record
 
 **Committed inputs it reads (found by scanning this report's own files), and the commit each was last written at:**
 
 | input directory | last written | date | commit subject |
 |---|---|---|---|
-| `strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P8_zeus` | *(untracked)* | — | — |
+| `strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P8_zeus` | `78b7307` | 2026-09-09 | P8 TASK 2B-3: zeus stopped before its first checkpoint on the pre-regi |
 
 ---
 
