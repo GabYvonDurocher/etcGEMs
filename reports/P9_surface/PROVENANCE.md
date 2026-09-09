@@ -6,7 +6,7 @@
 
 *Evidence:* task1_scan.py (~52 min, 902 fresh builds), task2_solver.py, task2_attribute.py, task2_fva_at_jump.py and task3_chains.py regenerate their CSV/JSON/PNG outputs.
 
-**This report was last written at** `69d34a5` (2026-09-09) — P9 TASK 1-2: the scan (ROUGH by the pre-registered rule: 12 of 22 lines with a 0.05 sd step > 20 % of range), the solver arms (cliffs unchanged under tight tolerances and dual simplex), the attribution (each large jump is the respiration term at one cold temperature where the LP's O2 switches vertex); OPEN_ITEMS 1.12 verdict and PI item 1.15; evidence P6b; README note extended
+**This report was last written at** `dbb2e3d` (2026-09-09) — P9 TASK 4: ROUGH, STRUCTURAL -- the cliffs are the respiration term at one cold temperature where the LP's optimal O2 switches vertex (unique at each end, unchanged by tolerances or method); no sampler or reduction gives intervals from this likelihood; the decision is the likelihood (OPEN_ITEMS 1.15)
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 
