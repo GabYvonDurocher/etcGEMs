@@ -56,3 +56,6 @@ reports/**/*.synctex.gz
 /tools/reconstruction/external/
 /tools/reconstruction/work/
 /tools/reconstruction/external/predictor_venv/
+
+# S1: the synthesis report renders here; the PDF is a build artefact like the others
+reports/synthesis/_output/

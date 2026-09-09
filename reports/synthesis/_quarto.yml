@@ -1,0 +1,23 @@
+project:
+  type: default
+  output-dir: _output
+  render:
+    - synthesis.qmd
+
+format:
+  pdf:
+    documentclass: article
+    colorlinks: true
+    geometry: margin=2.5cm
+    toc: true
+    number-sections: true
+    include-in-header:
+      file: header.tex
+
+crossref:
+  fig-prefix: "Fig."
+  tbl-prefix: "Table"
+
+execute:
+  echo: false
+  warning: false

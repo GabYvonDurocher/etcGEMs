@@ -16,6 +16,18 @@
 #           audit has established them. Overrides the generator's scan, which misses paths built
 #           by string join and picks up directories merely mentioned in prose.
 
+synthesis:
+  status: CURRENT
+  note: >-
+    every number in it is cited to a file by row id in evidence.csv, and evidence.csv looks the
+    commit up from git rather than carrying a typed one. It assembles; it runs no model. Three
+    claims are marked PROVISIONAL-ON-P6 and have named slots in the document's own "how to
+    update" section.
+  evidence: >-
+    `python reports/synthesis/build_evidence.py` regenerates evidence.csv (74 rows);
+    `python reports/synthesis/fig_requirement_arithmetic.py` regenerates the one figure;
+    `quarto render reports/synthesis/synthesis.qmd` produces the 10-page PDF.
+
 activation_energy:
   status: UNKNOWN
   note: >-
