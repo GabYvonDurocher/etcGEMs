@@ -1,0 +1,154 @@
+reaction,name,src,dst,costed,h
+r_1101,4-aminobutyrate transport,e,c,False,c:+1 e:-1
+r_1102,5-aminolevulinate transport,e,c,False,c:+1 e:-1
+r_1104,8-Amino-7-oxononanoate transport,e,c,False,c:+1 e:-1
+r_1108,adenine transport,e,c,False,c:+1 e:-1
+r_1109,adenosine transport,e,c,False,c:+1 e:-1
+r_1111,ADP/ATP transporter,p,c,False,c:+1 p:-1
+r_1116,AMP/ATP transporter,p,c,False,c:+1 p:-1
+r_1119,biotin uptake,e,c,False,c:+1 e:-1
+r_1125,choline transport,e,c,False,c:+1 e:-1
+r_1130,CTP transport,c,m,False,c:-1 m:+1
+r_1131,CTP/CMP antiport,c,m,False,c:-2 m:+2
+r_1132,cytidine transport,e,c,False,c:+1 e:-1
+r_1133,cytosine transport,e,c,False,c:+1 e:-1
+r_1134,D-fructose transport,e,c,False,c:+1 e:-1
+r_1135,D-galactose transport,e,c,False,c:+1 e:-1
+r_1136,D-lactate transport,e,c,False,c:+1 e:-1
+r_1137,D-lactate transport,c,m,False,c:-1 m:+1
+r_1139,D-mannose transport,e,c,False,c:+1 e:-1
+r_1171,glycerol transport,e,c,False,c:+1 e:-1
+r_1173,glycine transport,e,c,False,c:+1 e:-1
+r_1175,GTP/GDP translocase,c,m,False,c:-1 m:+1
+r_1176,guanine transport,e,c,False,c:+1 e:-1
+r_1177,inositol transport,e,c,False,c:+1 e:-1
+r_1183,L-alanine transport,e,c,False,c:+1 e:-1
+r_1184,L-arganine transport,e,c,False,c:+1 e:-1
+r_1185,L-arganine transport,v,c,False,c:+1 v:-1
+r_1186,L-asparagine transport,e,c,False,c:+1 e:-1
+r_1187,L-asparagine transport,v,c,False,c:+1 v:-1
+r_1188,L-aspartate transport,v,c,False,c:+1 v:-1
+r_1189,L-aspartate transport,v,c,False,c:+1 v:-1
+r_1190,L-aspartate transport,e,c,False,c:+1 e:-1
+r_1192,L-cystine transport,e,c,False,c:+1 e:-1
+r_1193,L-cystine transport,v,c,False,c:+1 v:-1
+r_1195,L-glutamate transport,v,c,False,c:+1 v:-1
+r_1196,L-glutamate transport,e,c,False,c:+1 e:-1
+r_1197,L-glutamine transport,v,c,False,c:+1 v:-1
+r_1198,L-glutamine transport,v,c,False,c:+1 v:-1
+r_1199,L-glutamine transport,e,c,False,c:+1 e:-1
+r_1200,"L-histidine transport, vacuolar",v,c,False,c:+1 v:-1
+r_1201,L-histidine transport,e,c,False,c:+1 e:-1
+r_1203,L-isoleucine transport,v,c,False,c:+1 v:-1
+r_1204,L-isoleucine transport,v,c,False,c:+1 v:-1
+r_1205,L-isoleucine transport,e,c,False,c:+1 e:-1
+r_1207,L-lactate transport,e,c,False,c:+1 e:-1
+r_1209,"L-leucine transport, vacuoluar",v,c,False,c:+1 v:-1
+r_1210,"L-leucine transport, vacuoluar",v,c,False,c:+1 v:-1
+r_1211,L-leucine transport,e,c,False,c:+1 e:-1
+r_1212,L-lysine transport,v,c,False,c:+1 v:-1
+r_1213,L-lysine transport,e,c,False,c:+1 e:-1
+r_1214,L-methionine transport,e,c,False,c:+1 e:-1
+r_1215,L-phenylalanine transport,e,c,False,c:+1 e:-1
+r_1216,L-proline transport,e,c,False,c:+1 e:-1
+r_1217,L-serine transport,e,c,False,c:+1 e:-1
+r_1218,L-threonine transport,e,c,False,c:+1 e:-1
+r_1219,L-tryptophan transport,e,c,False,c:+1 e:-1
+r_1221,L-tyrosine transport,v,c,False,c:+1 v:-1
+r_1222,L-tyrosine transport,v,c,False,c:+1 v:-1
+r_1223,L-tyrosine transport,e,c,False,c:+1 e:-1
+r_1224,L-valine transport,e,c,False,c:+1 e:-1
+r_1227,maltose transport,e,c,False,c:+1 e:-1
+r_1237,ornithine transport,c,m,False,c:-1 m:+1
+r_1238,orntithine transport,e,c,False,c:+1 e:-1
+r_1239,oxaloacetate transport,c,m,False,c:-1 m:+1
+r_1241,pantothenate transport,e,c,False,c:+1 e:-1
+r_1244,phosphate transport,e,c,False,c:+1 e:-1
+r_1245,phosphate transport,c,m,False,c:-1 m:+1
+r_1249,potassium transport,e,c,False,c:+1 e:-1
+r_1251,putrescine transport,c,e,False,c:-1 e:+1
+r_1252,putrescine transport,v,c,False,c:+1 v:-1
+r_1253,pyridoxine symport,e,c,False,c:+1 e:-1
+r_1254,pyruvate transport,e,c,False,c:+1 e:-1
+r_1255,S-adenosyl-L-methionine transport,e,c,False,c:+1 e:-1
+r_1257,S-methylmethionine permease,e,c,False,c:+1 e:-1
+r_1258,sodium proton antiporter,e,c,False,c:+1 e:-1
+r_1260,spermidine transport,c,e,False,c:-1 e:+1
+r_1261,spermidine transport,v,c,False,c:+1 v:-1
+r_1262,spermine transport,c,e,False,c:-1 e:+1
+r_1263,spermine transport,v,c,False,c:+1 v:-1
+r_1270,thiamine transport,e,c,False,c:+1 e:-1
+r_1272,uracil transport,e,c,False,c:+1 e:-1
+r_1273,urea transport,e,c,False,c:+2 e:-2
+r_1274,uridine transport,e,c,False,c:+1 e:-1
+r_1275,UTP transport,c,m,False,c:-1 m:+1
+r_1276,UTP/UMP antiport,c,m,False,c:-2 m:+2
+r_1657,arginine transport,c,m,False,c:-1 m:+1
+r_2034,pyruvate transport,c,m,False,c:-1 m:+1
+r_2079,trehalose transporter,c,e,False,c:-1 e:+1
+r_1824,H+ diffusion,e,c,False,c:+1 e:-1
+r_1825,H+ diffusion,c,er,False,c:-1 er:+1
+r_1826,H+ diffusion,c,g,False,c:-1 g:+1
+r_1827,H+ diffusion,c,lp,False,c:-1 lp:+1
+r_1829,H+ diffusion,c,n,False,c:-1 n:+1
+r_1830,H+ diffusion,c,p,False,c:-1 p:+1
+r_1831,H+ diffusion,c,v,False,c:-1 v:+1
+r_2129,proton leak,c,m,False,c:-1 m:+1
+r_3525,"H+ transport, cytoplasm-ER membrane",c,erm,False,c:-1 erm:+1
+r_3603,"H+ transport, cytoplasm-cell envelope",c,ce,False,c:-1 ce:+1
+r_3650,"H+ transport, cytoplasm-vacuolar membrane",c,vm,False,c:-1 vm:+1
+r_3664,"H+ transport, cytoplasm-Golgi membrane",c,gm,False,c:-1 gm:+1
+r_3957,"H+ transport, mitochondrion-mitochondrial membrane",m,mm,False,m:-1 mm:+1
+r_1104_REV,8-Amino-7-oxononanoate transport (reversible),c,e,False,c:-1 e:+1
+r_1136_REV,D-lactate transport (reversible),c,e,False,c:-1 e:+1
+r_1173_REV,glycine transport (reversible),c,e,False,c:-1 e:+1
+r_1176_REV,guanine transport (reversible),c,e,False,c:-1 e:+1
+r_1183_REV,L-alanine transport (reversible),c,e,False,c:-1 e:+1
+r_1184_REV,L-arganine transport (reversible),c,e,False,c:-1 e:+1
+r_1186_REV,L-asparagine transport (reversible),c,e,False,c:-1 e:+1
+r_1190_REV,L-aspartate transport (reversible),c,e,False,c:-1 e:+1
+r_1192_REV,L-cystine transport (reversible),c,e,False,c:-1 e:+1
+r_1196_REV,L-glutamate transport (reversible),c,e,False,c:-1 e:+1
+r_1199_REV,L-glutamine transport (reversible),c,e,False,c:-1 e:+1
+r_1201_REV,L-histidine transport (reversible),c,e,False,c:-1 e:+1
+r_1205_REV,L-isoleucine transport (reversible),c,e,False,c:-1 e:+1
+r_1211_REV,L-leucine transport (reversible),c,e,False,c:-1 e:+1
+r_1213_REV,L-lysine transport (reversible),c,e,False,c:-1 e:+1
+r_1214_REV,L-methionine transport (reversible),c,e,False,c:-1 e:+1
+r_1215_REV,L-phenylalanine transport (reversible),c,e,False,c:-1 e:+1
+r_1216_REV,L-proline transport (reversible),c,e,False,c:-1 e:+1
+r_1217_REV,L-serine transport (reversible),c,e,False,c:-1 e:+1
+r_1218_REV,L-threonine transport (reversible),c,e,False,c:-1 e:+1
+r_1219_REV,L-tryptophan transport (reversible),c,e,False,c:-1 e:+1
+r_1223_REV,L-tyrosine transport (reversible),c,e,False,c:-1 e:+1
+r_1224_REV,L-valine transport (reversible),c,e,False,c:-1 e:+1
+r_1238_REV,orntithine transport (reversible),c,e,False,c:-1 e:+1
+r_1241_REV,pantothenate transport (reversible),c,e,False,c:-1 e:+1
+r_1244_REV,phosphate transport (reversible),c,e,False,c:-1 e:+1
+r_1249_REV,potassium transport (reversible),c,e,False,c:-1 e:+1
+r_1251_REV,putrescine transport (reversible),e,c,False,c:+1 e:-1
+r_1252_REV,putrescine transport (reversible),c,v,False,c:-1 v:+1
+r_1253_REV,pyridoxine symport (reversible),c,e,False,c:-1 e:+1
+r_1254_REV,pyruvate transport (reversible),c,e,False,c:-1 e:+1
+r_1258_REV,sodium proton antiporter (reversible),c,e,False,c:-1 e:+1
+r_1260_REV,spermidine transport (reversible),e,c,False,c:+1 e:-1
+r_1261_REV,spermidine transport (reversible),c,v,False,c:-1 v:+1
+r_1262_REV,spermine transport (reversible),e,c,False,c:+1 e:-1
+r_1263_REV,spermine transport (reversible),c,v,False,c:-1 v:+1
+r_1273_REV,urea transport (reversible),c,e,False,c:-2 e:+2
+r_2079_REV,trehalose transporter (reversible),e,c,False,c:+1 e:-1
+r_1825_REV,H+ diffusion (reversible),er,c,False,c:+1 er:-1
+r_1826_REV,H+ diffusion (reversible),g,c,False,c:+1 g:-1
+r_1827_REV,H+ diffusion (reversible),lp,c,False,c:+1 lp:-1
+r_1829_REV,H+ diffusion (reversible),n,c,False,c:+1 n:-1
+r_1830_REV,H+ diffusion (reversible),p,c,False,c:+1 p:-1
+r_1831_REV,H+ diffusion (reversible),v,c,False,c:+1 v:-1
+r_3525_REV,"H+ transport, cytoplasm-ER membrane (reversible)",erm,c,False,c:+1 erm:-1
+r_3603_REV,"H+ transport, cytoplasm-cell envelope (reversible)",ce,c,False,c:+1 ce:-1
+r_3650_REV,"H+ transport, cytoplasm-vacuolar membrane (reversible)",vm,c,False,c:+1 vm:-1
+r_3664_REV,"H+ transport, cytoplasm-Golgi membrane (reversible)",gm,c,False,c:+1 gm:-1
+r_3957_REV,"H+ transport, mitochondrion-mitochondrial membrane (reversible)",mm,m,False,m:+1 mm:-1
+r_0438No1,r_0438No1,m,c,True,c:+0.633 m:-1.266
+r_0439No1,r_0439No1,m,c,True,c:+2.532 m:-1.266
+r_1085No1,"V-ATPase, Golgi (No1)",c,g,True,c:-1 g:+2
+r_1086No1,"V-ATPase, vacuole (No1)",c,v,True,c:-1 v:+2

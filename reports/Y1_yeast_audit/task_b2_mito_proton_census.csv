@@ -1,0 +1,16 @@
+reaction,name,costed,lb,ub,h_inner,h_outer,direction,twin,twin_costed,reaction_string,flux
+r_1130,CTP transport,False,0.0,inf,1.0,-1.0,from_energised,,,s_0528 + s_0539 + s_0794 --> s_0526 + s_0541 + s_0799,0.0
+r_1131,CTP/CMP antiport,False,0.0,inf,2.0,-2.0,from_energised,,,s_0528 + s_0539 + 2.0 s_0794 --> s_0526 + s_0541 + 2.0 s_0799,0.0
+r_1137,D-lactate transport,False,0.0,inf,1.0,-1.0,from_energised,,,s_0025 + s_0794 --> s_0027 + s_0799,0.0
+r_1175,GTP/GDP translocase,False,0.0,inf,1.0,-1.0,from_energised,,,s_0741 + s_0785 + s_0794 --> s_0739 + s_0786 + s_0799,0.0
+r_1237,ornithine transport,False,0.0,inf,1.0,-1.0,from_energised,,,s_0794 + s_1268 --> s_0799 + s_1266,0.020062421972534335
+r_1239,oxaloacetate transport,False,0.0,inf,1.0,-1.0,from_energised,,,s_0794 + s_1271 --> s_0799 + s_1273,0.0
+r_1245,phosphate transport,False,0.0,inf,1.0,-1.0,from_energised,,,s_0794 + s_1322 --> s_0799 + s_1326,5.876178178627977
+r_1275,UTP transport,False,0.0,inf,1.0,-1.0,from_energised,,,s_0716 + s_0794 + s_1547 + s_1559 --> s_0714 + s_0799 + s_1545 + s_1560,0.0
+r_1276,UTP/UMP antiport,False,0.0,inf,2.0,-2.0,from_energised,,,2.0 s_0794 + s_1547 + s_1559 --> 2.0 s_0799 + s_1545 + s_1560,0.0
+r_1657,arginine transport,False,0.0,inf,1.0,-1.0,from_energised,,,s_0794 + s_0965 --> s_0799 + s_0967,0.0
+r_2034,pyruvate transport,False,0.0,inf,1.0,-1.0,from_energised,,,s_0794 + s_1399 --> s_0799 + s_1401,0.3562884530586767
+r_2129,proton leak,False,0.0,inf,1.0,-1.0,from_energised,,,s_0794 --> s_0799,0.0
+r_0226No1,r_0226No1,True,0.0,1000.0,2.0,-3.0,from_energised,,,7.413071584879889e-06 prot_P00830 + 3.2222602983963286e-06 prot_P00854 + 3.596311989974026e-06 prot_P00856 + 2.3531803711070347e-06 prot_P05626 + 7.059263776240942e-06 prot_P07251 + 2.471062146974301e-06 prot_P09457 + 3.,7.533147399218375
+r_0438No1,r_0438No1,True,0.0,1000.0,-1.266,0.633,to_energised,,,4.885897092924271e-07 prot_P00401 + 4.4362131184722823e-07 prot_P00410 + 5.197793920817589e-07 prot_P00420 + 6.228795970703263e-07 prot_P00425 + 5.201866826435638e-07 prot_P00427 + 4.4474827602678027e-07 prot_P04037 + 1.,11.088458166249263
+r_0439No1,r_0439No1,True,0.0,1000.0,-1.266,2.532,to_energised,,,7.173624183775288e-06 prot_P00127 + 2.9487094365216446e-06 prot_P00128 + 2.923173231255733e-06 prot_P00163 + 3.274116340477677e-06 prot_P07143 + 2.795903827582197e-06 prot_P07256 + 3.503977459825009e-06 prot_P07257 + 2.6,5.5418445137894015
