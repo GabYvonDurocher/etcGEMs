@@ -73,6 +73,7 @@ divergence is the question; *C. parapsilosis* is the outgroup.
 ## 2. What the complex tables are actually made of
 
 Built by `task2_build_tables.py`; per-value provenance in `task2_sourcing.csv`.
+Source material kept beside it: `sources/brenda_EC1.3.5.1_sce.html`, the BRENDA page for EC 1.3.5.1 (*S. cerevisiae* succinate dehydrogenase) consulted on 8 September 2026 for the complex II turnover — filed by P7, 2026-09-09.
 
 | column | provenance | count |
 |---|---|---|

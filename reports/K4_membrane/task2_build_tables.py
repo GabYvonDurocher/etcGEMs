@@ -86,7 +86,7 @@ COMPLEX_DATA = {
                   "enzyme, 1ZOY, gives 10.6, which is the value Szenk's E. coli row of "
                   "10 nm^2 also sits at).",
         kcat_s=100.0, kcat_class="ecoli",
-        kcat_note="Szenk 2017 / BRENDA physiological midpoint, as eciML1515 uses it. No "
+        kcat_note="Szenk 2017 / BRENDA physiological midpoint, as eciML1515 uses it (BRENDA EC 1.3.5.1 page consulted: sources/brenda_EC1.3.5.1_sce.html). No "
                   "Candida value exists."),
     "complex III": dict(
         area_nm2=68.2, area_class="structure_fungus",
