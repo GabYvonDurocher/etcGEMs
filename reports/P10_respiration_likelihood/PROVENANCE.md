@@ -6,7 +6,7 @@
 
 *Evidence:* task1_check.py, task1_d3a.py [--both], task1_tol.py, lines.py (four conditions, ~35-70 min each, fresh model per evaluation), task2_floor.py, task3_table.py, task3_attribute.py, task4_regate.py and task4_candida_pfba.py regenerate every CSV/JSON beside them.
 
-**This report was last written at** `930d038` (2026-09-09) — P10: D4 -- the TASK 3 reading rule's flat-line clause, written before the table exists
+**This report was last written at** `409d70b` (2026-09-09) — P10: smoothness -- (a) unchanged on D, (b) cuts every cliff 10x (72 -> 7.8 units), (c) still ROUGH by P9's rule on two lines; STOP before any sampler; the residue named (one vertex jump above the floor, 1-2 unit O2 jumps at 20 C, growth-term kinks of 1-3 units)
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 
