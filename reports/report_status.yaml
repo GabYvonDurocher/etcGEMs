@@ -252,3 +252,16 @@ P5_lb_cmax:
     task1_parsa_lb_cmax.py, task1c_fixed_point.py, task1d_cap_sweep_fixed_point.py and
     task1e_reoptimise.py regenerate their CSVs (the last three read $PARSA_ROOT, read only);
     run_lb_fit.py regenerates the chain (~2.5 h) and lb_cmax_comparison.csv.
+
+P6_convergence:
+  status: CURRENT
+  note: >-
+    a HALTED run. No fit reached a convergence target and nothing in it is quoted as a result.
+    What it holds is diagnosis, all reproducible from the scripts beside it: the pre-flight
+    (settings, tau, jitter), the benchmark, the E/F likelihood degeneracy and its mechanism, and
+    why tau tracks chain length on configuration D. The three sampler-only options it added to
+    run_gasflux_fit default to the old behaviour.
+  evidence: >-
+    preflight.py, jitter_diagnosis.py, degeneracy.py, state_vs_identifiability.py,
+    state_detail.py, diffusion.py and bench.py regenerate their CSV/JSON outputs against the
+    committed P4 chains (bench.py needs ~1 h of sampling; the rest are evaluations only).

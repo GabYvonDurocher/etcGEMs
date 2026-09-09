@@ -1,0 +1,7 @@
+run,moves,n_proc,steps,walkers,wall_s,s_per_step,wall_per_500_min,tau_max,chain_over_tau,accept
+stretch_p10,stretch,10,500,40,1039.7,2.08,17.3,51.2,9.8,0.166
+DE_p10,DE+Snooker,10,500,40,1156.5,2.31,19.3,49.9,10.0,0.051
+stretch_p12,stretch,12,150,40,323.6,2.16,18.0,16.3,9.2,0.178
+stretch_p16,stretch,16,150,40,279.0,1.86,15.5,15.7,9.5,0.176
+stretch_p20,stretch,20,150,40,279.3,1.86,15.5,16.4,9.2,0.187
+DE_p16,DE+Snooker,16,150,40,289.5,1.93,16.1,16.5,9.1,0.064
