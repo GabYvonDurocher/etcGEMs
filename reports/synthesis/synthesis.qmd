@@ -1,0 +1,484 @@
+---
+title: "The etcGEM work: what has been established, what is missing, and what the evidence supports"
+subtitle: "A shared record for the group, assembled 2026-09-09"
+date: last-modified
+format:
+  pdf:
+    documentclass: article
+    colorlinks: true
+    geometry: margin=2.5cm
+    toc: true
+    number-sections: true
+    include-in-header: header.tex
+---
+
+# How to read this document
+
+This is a record of where the enzyme- and temperature-constrained genome-scale model (etcGEM)
+work stands, written for the three of us. It covers the **framework** — the shared core, the
+seven organism models on it, and what has been learned by testing them. Empirical work appears
+only where the framework consumes it: measured thermal performance curves as calibration or
+validation targets, the measured meltome as a predictor benchmark, measured activation energies
+as comparators. The Candida manuscript's own empirical results are not ours to assess and are
+not assessed here.
+
+**Every number in this document comes from a file.** `evidence.csv` in this directory carries one
+row per claim: the value, the file, the commit that last wrote that file, and whether the claim
+is CURRENT, HISTORICAL (true of an earlier model state) or PROVISIONAL-ON-P6. Claims are cited
+by their row id, like [W1]. Nothing is quoted from memory or from another summary.
+
+**Several of the sharpest findings came from correcting things this project itself got wrong.**
+Those are in §[-@sec-own], with the same prominence as everything else. That section is not
+throat-clearing: two of the seven changed a conclusion.
+
+A caution that applies throughout. A large fraction of this week's results are **negative** —
+things that do not work, do not generalise, or turn out to be arithmetic. Some negatives are
+valuable because they close a question or invalidate a comparison; others are simply absent
+effects. §[-@sec-pub] distinguishes them where it matters, and does not inflate either kind.
+
+# Where things stood {#sec-start}
+
+Two implementations of the same idea existed side by side [W1]. `src/etcgem` carried three
+organisms — *E. coli*, *M. maripaludis*, *Synechocystis* — with a config model, providers, one
+thermal layer and one enzyme-cost layer [W2]. Ilgaz's `gem/` carried four *Candida* species with
+its own thermal function, its own path map and species handled by a dictionary. Parsa's six
+gas-exchange configurations sat on a July snapshot of the core with new modules beside it.
+
+Nothing was wrong with any of them individually. The problem was that the method existed in
+three places, so a change in one could not be checked against the others, and the published
+*Candida* result rested on numbers whose absolute scale nobody could reproduce from the shared
+code.
+
+# The merge, and what the gates prove {#sec-merge}
+
+Both bodies of work are now on one core. Four *Candida* strains are `strains/` folders carrying
+data and configuration and no code [W3]; Parsa's configurations are `configs/experiments/`
+overlays and one CLI verb. Seven organism models share one thermal layer, one enzyme-cost layer
+and one config model.
+
+Three gates hold that together, and all three are re-run at every merge:
+
+| gate | what it proves | result |
+|---|---|---|
+| K1 | the *Candida* port reproduces the standalone implementation | **79/79 PASS** [G1] |
+| P1 | configurations A, B and C reproduce Parsa's committed gas-flux numbers | **60/60 PASS**, worst difference 8.3×10⁻⁴ [G2, G3] |
+| P3 | configurations D, E and F reproduce the R² his reports print | **10 of 10, worst 0.009** [G4] |
+
+The K1 gate reproduces the standalone *including a ~0.4 % error its own solver made* at two
+points, which is why the repository now distinguishes **fidelity to the original** from
+**numerical correctness** and keeps both configurations. His v3 posterior is identical to the one
+committed here to every stored digit [G5], so the two codebases share a calibration and not just
+a method.
+
+**What a gate does not prove.** It checks the fields it compares. The P3 gate evaluates one
+parameter point once, after a fresh build, on both sides — as a *port* check it stands. It says
+nothing about whether the quantity being scored is well defined, which §[-@sec-sampling] returns
+to.
+
+# What the models turned out to be doing {#sec-shortcuts}
+
+The most consequential class of finding this week was not about temperature at all. It is that
+these reconstructions contain **uncosted shortcuts**: routes that carry flux without paying the
+enzyme cost the whole method is built on. Four instances, three organisms, one of them in a
+published reconstruction.
+
+**E. coli: four O₂ sinks.** Four O₂-consuming side reactions carry ~zero enzyme cost and
+short-circuit the electron transport chain, creating a futile cycle that was ~75 % of gross O₂
+turnover at LB/40 °C. Closing them costs ~0.3 % growth and is now a provider default [S1]. This
+was Parsa's audit, and it is the template for the rest.
+
+**The three *Candidozyma*: a free proton circuit.** Their respiratory chain supplies **0.04–0.05 %**
+of the protons ATP synthase consumes; *C. parapsilosis* supplies 112 % and *E. coli* 124 % [S2].
+Eleven uncosted, **reversible** metabolite/H⁺ symporters close the circuit outside the chain. The
+separating feature is reversibility, not uncostedness: *E. coli* has twelve uncosted proton
+movers and none reversible [S3]. Constraining the direction repairs it at a cost of 36–38 % of
+predicted growth [S4]; costing the transport does not. The defect is in the published *iRV973*,
+verified read-only, and is shared by the three models derived from it.
+
+**And a second defect in the same scaffold:** complex III moves its protons cytosol→matrix, the
+opposite direction to a mitochondrion, so it *spends* the gradient rather than building it [S5].
+
+**The audit had a blind spot, and it was structural.** `etcgem audit-sinks` watched chemical
+carriers and terminal acceptors — classes A to D. **None watched the ion ATP synthase runs on**
+[S6]. A free proton circuit passed an audit that reported 44–47 class-A hits in the same models.
+Class E now covers it, and getting it right required three things that would each have
+mis-diagnosed an organism: inferring the coupling ion per strain (*M. maripaludis* is
+sodium-driven [S7]), counting chemistry as well as translocation (*Synechocystis* scores 19 % on
+translocation and 100 % with the lumen's water splitting counted), and handling GECKO's
+arm/isozyme split (a naive test finds no ATP synthase in *eciML1515* at all).
+
+**What this means for the method, stated carefully.** An enzyme-constrained model's central claim
+is that flux costs protein. A route that carries flux for free is not a modelling approximation;
+it is a hole in that claim, and it is invisible to every check that looks at growth. Four have now
+been found by looking, and the fourth was found only because a class of check did not exist. That
+is a statement about how these reconstructions are built and audited, not about any one of them.
+
+# What the predictors turned out to be doing {#sec-predictors}
+
+Every species-specific input the *Candida* etcGEM has comes from sequence predictors. A1 tested
+the load-bearing one against measurement.
+
+**Seq2Tm resolves thermostability between organisms and not within a proteome.** Across the tree
+of life, r = **+0.762** [A1]. Within one proteome, against 1947 measured *S. cerevisiae* melting
+points, r = **−0.048** [A2]. Where it can be checked against a measured congeneric difference it
+under-states it **17-fold** [A3].
+
+**The bias is not uniform, and that matters more than its size.** The mean is +5.43 °C [A4], but
+it rises **1.06 °C per °C of predicted Tm** — from +2.44 °C in the lowest predicted octile to
++12.78 °C in the highest [A5]. The cause is A1's own headline: measured Tm barely responds to the
+prediction (slope −0.061 [A6]), so almost all of the predicted spread is error, and the error
+grows with the prediction. A flat offset therefore corrects the *location* of the Tm distribution
+and not its *shape*.
+
+**What could not be obtained.** Per-protein measured *S. cerevisiae*/*S. uvarum* Tm; the authors
+publish the summary only [A8]. So the strongest test — the correlation of measured against
+predicted *differences* — cannot be computed, and the congeneric comparison is summary to
+summary. Nothing was substituted for it.
+
+# What sets a thermal curve in these models {#sec-curve}
+
+Three separate constraints have each been shown to relocate the growth optimum, on the same
+organism and model:
+
+| constraint | effect on $T_\text{opt}$ | effect on $CT_\text{max}$ |
+|---|---|---|
+| the sector re-grounding (`a416fd1`) | 37 → 30 °C [T1] | +0.05 % |
+| the translation cap, where it binds | $T_\text{opt}$ *is* where the cap starts to bind [T2] | unmoved |
+| a total-carbon cap | 39.0 → 32.5 °C between $c_\text{max}$ 80 and 60 [T3] | ≤0.66 % [T4] |
+
+The pattern is mechanical rather than coincidental. $CT_\text{max}$ is where the unfolding
+envelope takes growth to zero, and a capacity constraint can only lower the curve — it cannot
+move the temperature at which enzymes denature. $T_\text{opt}$ is wherever the *binding*
+constraint's ceiling peaks or crosses the rising envelope-limited branch, so it moves whenever
+**which** constraint binds changes, with no change to the envelope at all.
+
+The standing rule that follows is now written down: **$T_\text{opt}$ is quoted with its binding
+constraint named; $CT_\text{max}$ may be quoted plainly** [T5]. A variance decomposition that
+reports "$T_\text{opt}$ is owned by protein stability" is a statement about one operating point,
+measured with local perturbations that do not cross a regime boundary. It is not wrong; it is
+conditional, and the condition is now stated in the E. coli report.
+
+**Two structural limitations of the growth envelope, found separately.** The model's growth
+activation energy is too steep against measurement in every *Candida* species, by **1.24–2.29×**,
+and the error barely moves between configurations — it is structural, not a tuning failure [T7].
+About **88 %** of it is the shared ΔCp prior [T8]; a value inside the literature range reconciles
+the activation energy *and* improves the fit. But the same parameter **cannot** close the ceiling
+over-prediction and pushes it slightly the wrong way [T9]: two failures, not one failure with one
+cause.
+
+And one artefact worth knowing about because it looks like biology: the *E. coli* glucose
+proteome was measured at 25, 30 and 37 °C only, so above 37 °C the allocation is held constant
+and the nominal curve is **bit-identical across eight grid points** at 0.524757 h⁻¹ [T6]. The
+model is answering the same question eight times; the shoulder is the data table running out.
+
+# The arithmetic behind the *Candida* figure {#sec-figure}
+
+Figure 4's claim is a ratio: the Tm separation the model *requires* between relatives, over the
+separation the predictors say is *available*. Both halves have moved, for different reasons, and
+the sequence is the finding.
+
+![**Figure 4's arithmetic, stage by stage.** **A)** the Tm separation the model requires between
+relatives, at four model states, against the only measured congeneric benchmark there is
+(1.6 °C over 827 ortholog pairs, dashed). **B)** the fold gap that constitutes the claim, with
+A1's two corrections and the credible interval on the corrected value. Every value is read from a
+committed table; producing script `reports/synthesis/fig_requirement_arithmetic.py`, sources named
+in its docstring.](assets/figures/requirement_arithmetic.png){#fig-arith width=100%}
+
+**The requirement fell by more than half when the model changed, and has been stable since.**
+32.54 °C as published [F1]; 13.77 °C once it runs on this repository's thermal form (K2), and
+13.64 °C on this repository's own recompute of that state; **13.57 °C** after the K5 proton-circuit
+repair [F3]. It is also **convention-independent** — the two growth conventions differ by 0.00 °C
+on the repaired model [F4] — because the counterfactual makes zero calls to the predicted strain's
+measured curve. That retires a worry about a number already in circulation.
+
+**The available separation rose 6-fold when the predictor was corrected**, from 0.411 °C to
+2.56 °C [1.33, 5.56], and the fold gap with it: **~79× → 34× → 5.4× [2.5, 10.3]** [A7]. Still a
+failure, and a materially different sentence.
+
+**Two things about the remaining gap.** First, applying A1's measured bias — untuned, at exactly
+the value A1 measured — closes the ceiling gaps by **a third to a half** in all four species, and
+the rising limb does not move [F8]. Full closure would need **1.8–2.8× that bias, differing by
+5 °C between species** [F9], which no uniform predictor bias can produce. Second, and this is the
+harder constraint: the model's $CT_\text{max}$ spans **1.6 °C** across the four species while the
+**observed** limits span **6 °C** [F10]. The variation in the gap is almost entirely
+observational, so no uniform correction can differentially fix the gaps — only their average.
+
+**And the interspecies requirement turns out to be arithmetic, not a model constraint** [F6].
+Recomputing the required per-species offset under five model states, the model's own ceiling
+spread varies **4.5-fold** while the required-offset spread moves by **±3 %**, pinned to the
+observed 6.00 °C throughout. The interspecies difference is the observed thermal-limit difference
+wearing a model's clothes, and must not be set beside a measured congeneric difference as though
+the two were commensurable. What survives is the *per-species* statement — "this model's ceiling
+is 9.8 °C too high for *C. auris*" is a real model statement — and that is what §[-@sec-pub] uses.
+
+The other candidate explanation did not generalise either: the ~5.6 K common ceiling term that
+looked like it might be shared is a **one-organism observation**, with residuals spanning
+0.05–10.48 °C across the strains where they can be computed [F7].
+
+# The membrane-area mechanism {#sec-membrane}
+
+P1 collapsed Parsa's configurations E and F into one table-driven ETC membrane-area constraint in
+the core — an area budget $\sum_i (A_i/k_{\text{cat},i})\,v_i \le A_\text{ETC}$ driven by a
+per-strain table, where configuration F is one column of that table rather than a second module.
+P3 gated it on measured *E. coli* respiration [M1].
+
+K4 carried it to the four *Candida* strains, which is what §6a of the discussion notes had wanted
+for months. **It cannot carry the interspecies comparison**, for two independent reasons, and
+neither is the one anticipated [M3]. Structurally, in three of the four models the chain carries
+no load, so an area budget on ETC flux has nothing to bind on — the same proton-circuit defect as
+§[-@sec-shortcuts], seen from a different direction. Parametrically, no measured fungal ETC
+footprint or mitochondrial inner-membrane area exists. Re-tested with both escape routes closed,
+the required area factor is **122-fold** and still points the wrong way [M4].
+
+Also worth recording: **alternative oxidase is in all four proteomes and in none of the four
+models** [M2] — the one genuinely fungal branch of the ETC, and the mechanism Xiao et al. propose,
+has no reaction to attach a footprint to.
+
+# Sampling, and a quantity that is not well defined {#sec-sampling}
+
+**No chain in this family is converged, and that applies evenly.** The nine refits run
+τ 146–245 against 1500–2000 steps — chain/τ 6–12 against the ≥40 criterion [P1]. Measured with the
+same estimator, **all six of Parsa's committed chains** give chain/τ 8.2–9.4, n_eff 148–170 [P2].
+Both families have run about nine autocorrelation times. Reaching the criterion is ~8000 steps,
+≈40 h for all nine [P3]. This is a sampling-budget property, not a failure of model or diligence,
+and the arithmetic is given so the decision to spend it is a considered one.
+
+**And a sharper problem underneath it, found by P6's pre-flight** [EF1] *(on branch
+`p6/convergence`; PROVISIONAL-ON-P6 as to location, not as to measurement)*. For configurations E
+and F the log-likelihood **varies by 0.13–7.49 at a fixed parameter vector**, against a posterior
+width of about 7. The growth term is stable; the **O₂ uptake is not** — it differs by up to
+9.4 mmol gDW⁻¹ h⁻¹ on a mean of 19.8 between repeats at the same vector. The cause is identified:
+the model's O₂ uptake at optimal growth is **not unique**, and which vertex the solver returns
+depends on the basis left by the previous solve. Configurations E and F restructure the problem on
+every call (remove and re-add the area constraint); configuration D does not, and its jitter is
+≤0.0004.
+
+So the "respiration R²" those chains report was scored on a quantity the model does not determine.
+**This does not touch the P3 gate as a port check** — it evaluates one point once after a fresh
+build on both sides — and it does not touch configuration D. It does mean that any respiration
+conclusion from configuration E or F needs the degeneracy resolved first, by fixing the flux
+distribution (a secondary objective, or parsimonious FBA) rather than by longer chains.
+
+# Defects this project introduced {#sec-own}
+
+Seven, listed because the document's credibility depends on their being here rather than in a
+footnote. Two changed a conclusion.
+
+| | what | how it surfaced |
+|---|---|---|
+| O1 | a default flip broke `etcgem tpc` outright for every gecko-provider strain with sectors | the next prompt's own merge verification, before it was pushed |
+| O2 | `cli.main` returned the output path into `sys.exit()`, so every successful run exited 1 | it made a verification pass silently vacuous — `cmd && check` skipped the run and compared a file with itself |
+| O3 | **the wrong ETC table was wired as configuration F** | the P3 gate; his fits use configuration E's table plus one column |
+| O4 | a gate run left an overlay's carbon cap on, so E and F silently carried a cap they were never fitted with | it made NLDM look irreproducible (respiration R² −2.5); caught before any conclusion was drawn |
+| O5 | the warm start failed silently in all nine refits | chains started at the emergent point, lengthening burn-in; repaired |
+| O6 | **K5's activation-energy sign result did not stand** | K6 checked the comparator: two measured activation energies are not the same quantity |
+| O7 | a prompt's own headline table did not survive its test | K9 corrected it: the interspecies requirement is arithmetic |
+
+O3 and O6 changed conclusions. O2 is the instructive one: it did not corrupt a number, it
+disabled a *check*, and the check then reported success. The standing responses adopted are
+(i) read settings back from the resolved config rather than assuming them, (ii) never verify with
+`cmd && check`, and (iii) a generated provenance stamp on every report [R2], because the audit
+that started this found **8 of 11** input directories no longer reproducing [R1].
+
+# What is missing {#sec-gaps}
+
+Three kinds, because they need different responses.
+
+## Measurement gaps — no amount of modelling closes these
+
+| what is missing | what it would license | cost |
+|---|---|---|
+| **a measured meltome for any *Candida*** | replaces the load-bearing predictor with data; would settle §[-@sec-figure] directly | a thermal proteome profiling experiment |
+| **per-protein *S. cerevisiae*/*S. uvarum* Tm** | A1's strongest test — the correlation of measured against predicted *differences* | an email to the authors |
+| **mitochondrial inner-membrane area per gDW, per species, at 30 and 40 °C** | the measurement an ETC-area budget actually consumes; without it the mechanism is parameterised from *E. coli* | electron microscopy / organelle fractionation |
+| **measured fungal ETC footprints and turnovers** | the same, for the table's rows | literature or structure-based estimation |
+| **organelle-resolved *Candida* lipidomics** | whole-cell data are rich; fractionated data do not exist | fractionation + lipidomics |
+| **the *E. coli* proteome above 37 °C** | removes the bit-identical 37–44 °C shoulder [T6] | extend an existing series |
+| **per-cell carbon conversion for the respirometry** | the inoculum back-projection is off in every row, and `cell_volume_um3`/`cell_carbon_fg` are typed constants that disagree with the pipeline's own log by ~6× | a cell-count and dry-weight calibration |
+
+## Model gaps — mechanisms the framework cannot express
+
+* **The membrane as a physical structure.** The area budget is a bound on ETC flux, not a
+  representation of a membrane. It cannot express lipid composition, curvature, or the trade-off
+  between respiratory and transport machinery for the same surface.
+* **Whatever kills cells below the unfolding ceiling.** The model's $CT_\text{max}$ is set by
+  enzyme denaturation, and it over-predicts by 9–14 °C. Applying the measured predictor bias
+  closes a third to a half [F8]; the residual differs by species [F9] and no uniform correction
+  can produce that. Something the model does not contain sets the real limit.
+* **Alternative oxidase** [M2], and more generally fungal-specific ETC branches: absent from the
+  reconstructions, so absent from every conclusion.
+* **The interspecies term is arithmetic** [F6]. The framework as it stands cannot make a
+  *difference between species* a model prediction rather than a restatement of the observed
+  difference. That is the deepest gap in §[-@sec-figure], and it is structural.
+
+## Housekeeping — known, bounded, and costed
+
+* **Under-converged chains** [P1, P2, P3] — ~40 h for all nine; and for configurations E and F,
+  longer chains are the *wrong* fix until the flux degeneracy is resolved [EF1].
+* **The unexplained 10 °C** — *Synechocystis*' committed ceiling is not reproducible from a
+  strain build (OPEN_ITEMS 3.19); recorded with strain and evidence, not investigated.
+* **Stale artefacts** — 8 of 11 directories behind the E. coli report [R1]; the standing fix is
+  the provenance stamp, not recomputation, and regeneration is deferred to paper time.
+* **`resolved_config.yaml` records an absolute `model_path`**, so "byte-identical on re-run" is
+  only checkable from the same directory (OPEN_ITEMS 3.15).
+
+# The publication assessment {#sec-pub}
+
+> **FOR PI JUDGEMENT.** This section lays out the evidence for and against each candidate. It
+> reaches no verdict and makes no recommendation on which to pursue. That is deliberate.
+
+## (a) The *Candida* thermal-limit paper
+
+**The claim it would make.** That the growth-limit difference between *C. auris* and its
+relatives cannot be explained by the thermostability difference their proteomes carry — the model
+requires far more separation than is available.
+
+**Evidence in hand.** The requirement is now stable across model states and repairs: 13.57 °C
+[F3], convention-independent [F4], and reproduced by an independent implementation [G1]. The
+predictor validation is quantitative and unusually direct [A1–A3, A5, A6]. The corrected fold gap
+is 5.4× [2.5, 10.3] [A7] — still a failure of the explanation, on corrected arithmetic.
+
+**What is missing.** A measured *Candida* meltome. Everything on the "available" side is
+predicted by a tool shown not to resolve within-proteome variation [A2].
+
+**The strongest referee objection.** *The interspecies requirement is a restatement of the
+observed difference, not a model prediction* [F6] — the model's own ceiling spread varies 4.5×
+across states while the requirement moves ±3 %. A referee who sees this will ask what the model
+contributed. **The defensible form of the claim is per-species**: "this model, with these
+predicted stabilities, puts *C. auris*'s thermal ceiling 9.8 °C too high, and the predictor bias
+A1 measured accounts for a third to a half of that" [F8]. That is a real model statement and it
+survives. The four-species *comparison* is the part that does not.
+
+**A second objection to expect.** The model's growth envelope is too steep by 1.24–2.29× [T7] and
+the ΔCp prior accounts for ~88 % of it [T8] — a referee will ask why a parameter known to be
+wrong was not corrected before the requirement was computed. The answer available is that the
+requirement is insensitive to it (the required-offset spread moves ±3 % across ΔCp −3.0 to −6.0
+[F6]), which is a good answer but requires the interspecies framing to be dropped first.
+
+## (b) The *E. coli* gas-flux and overflow work
+
+**The claim it would make.** That gas exchange and overflow can be made determinate and
+mechanistic in an enzyme-constrained model, and that a membrane-area budget on the electron
+transport chain reproduces measured per-cell respiration.
+
+**Evidence in hand.** Six configurations ported and reproduced [G2, G4]; two independent
+mechanisms (carbon cap, membrane area) implemented generically and gated; the O₂-sink correction
+[S1]; a real measured dataset in two media, ingested with provenance; and configuration D's
+growth fits on M9 among the best in the exercise [C8].
+
+**What is missing, and it is load-bearing.** No chain is converged [P1, P2] — and for
+configurations E and F the respiration likelihood is not a function of the parameters [EF1], so
+the respiration R² those configurations report is scored on a degenerate quantity. **The
+membrane-area result is the headline of this work and it is the one directly affected.**
+
+**The strongest referee objection.** *Your respiration fit is not identifiable.* The answer is
+not a longer chain; it is to make the flux distribution unique (a secondary objective or
+parsimonious FBA) and refit. That is a bounded piece of work and it is the single highest-value
+next step for this line.
+
+**A second objection.** The medium ceiling K is not identified — posterior/prior width 0.57–0.64
+[C6] — so the defined medium's carbon ceiling is a prior choice, not a fitted quantity. And
+$c_\text{max}$ is medium-dependent in a way that was learned the hard way [C3, C4, C5].
+
+## (c) The cross-organism activation-energy comparison
+
+*Read before assessing: `reports/activation_energy/report.qmd`, which predates this week's work.*
+
+**The claim it makes.** That the ordering methanogenesis > respiration > photosynthesis in
+thermal sensitivity arises from three distinct cellular routes — where growth control sits on the
+enzyme $E_a$ distribution, and how much the allocation law buffers it — rather than one mechanism
+scaled.
+
+**Evidence in hand.** Three organisms, each calibrated to its own measured curve, each
+reproducing its observed $E_a$ and the full ordering; a control-weighted decomposition; each
+organism's allocation term grounded in its own measured strategy.
+
+**Does this week's work bear on it? Yes, in two specific ways, and one is favourable.**
+
+*Favourable:* the paper quantifies $E_a$ with the **window-independent Sharpe–Schoolfield $E$**.
+K6 established independently that this is the valid comparator and that the alternative (an OLS
+Arrhenius slope through a curve that turns over) is not — the two differ fourfold on growth and
+not at all on respiration [D1]. The paper already uses the convention that survived a test it did
+not know it was taking.
+
+*Unfavourable, and it needs an answer:* $E_a$ is a **rising-limb** quantity, and the rising limb
+moves with the binding constraint. A carbon cap moved NLDM's $E_a$ from 0.949 to 1.230 eV — +30 %
+— between $c_\text{max}$ 80 and 60 [T3]. The paper's three $E_a$ values are each computed at one
+operating point per organism. **A referee could ask whether the ordering is a property of the
+organisms or of three particular constraint regimes.** The defence is available and should be
+made explicitly: each organism is calibrated to its own measured curve, so its operating point is
+pinned by data rather than chosen; and the decomposition attributes the ordering to *where control
+sits*, which is a structural property. But the question is now on the record and the paper does
+not currently address it.
+
+*A third, smaller point:* the *E. coli* strain in that paper is the same one whose report renders
+from 8 of 11 directories that no longer reproduce [R1]. Nothing found contradicts a scientific
+claim — $T_\text{opt}$, $CT_\text{max}$ and curve shape are stable across every test — but if a
+specific number is quoted it should be regenerated first.
+
+## (d) A methods paper on what enzyme-constrained thermal models can and cannot do
+
+**The claim it would make.** That this model class has characteristic, findable failure modes,
+and that the checks currently applied to it do not find them.
+
+**The material.** Four uncosted-shortcut instances across three organisms, one in a published
+reconstruction [S1–S5]; an audit blind spot that let a free proton circuit pass a clean audit
+[S6]; a predictor validated and found to work between organisms and not within a proteome
+[A1–A3]; the $T_\text{opt}$/$CT_\text{max}$ asymmetry with its mechanical explanation [T1–T5]; a
+likelihood that is not a function of its parameters [EF1]; and a whole family of published and
+unpublished chains at ~9 autocorrelation times [P1, P2].
+
+**Being sceptical of this case, as instructed.** There are two ways to read that list.
+
+*As one argument:* every item is an instance of the same thing — **a model-level claim that no
+routine check tests**. "Flux costs protein" is falsified by an uncosted route and growth looks
+fine. "The optimum is set by stability" is falsified by a change of binding constraint and the
+descriptor still has a value. "The fit is good" is falsified by a degenerate objective and R²
+still computes. Each failure is silent, each is found only by a check designed for it, and the
+paper would be the set of checks. That is a coherent argument with a clear deliverable, and the
+class-E audit is proof the checks can be written.
+
+*As a list:* the items are also just things that went wrong in one week on two codebases. The
+predictor validation is about a tool, not a model class. The convergence finding is about a
+sampling budget and is not specific to thermal models. The $T_\text{opt}$ result is arguably a
+restatement of how LP optima work. A referee could reasonably say that three of the five are
+generic computational-practice observations that happen to have been made here.
+
+**The strongest referee objection**, if it were written as one argument: *what is the general
+claim, and is it tested?* The honest answer is that the general claim would be "these failure
+modes are common and current practice does not detect them", and this work supports the second
+half far better than the first — it has one deep instance of each, not a survey. **A survey is
+what would make it a paper**: run the class-E audit and the shortcut audit across a set of
+published GEMs and report the incidence. That is a bounded, well-defined piece of work, and it
+would convert a set of anecdotes into a result.
+
+**What is genuinely novel here, and what is not.** Novel: the coupling-ion audit class and its
+finding in a published reconstruction; the within-proteome predictor failure measured against a
+meltome; the demonstration that a widely-used likelihood is degenerate. Not novel: that GEMs
+contain artefacts, that MCMC needs to converge, that LP optima are non-unique. The paper's value
+would rest on the first three and on the survey it does not yet have.
+
+# How to update this document {#sec-update}
+
+Re-rendering after P6 lands is the intended workflow.
+
+**Three claims are PROVISIONAL-ON-P6** and have defined slots:
+
+| row | claim | where it lives | what replaces it |
+|---|---|---|---|
+| [EF1] | the E/F respiration likelihood is not a function of its parameters | §[-@sec-sampling], ¶2 | P6's finished report; if the degeneracy is resolved, the sentence changes from "is not" to "was not, and the fix is X" |
+| [C6] | the medium clearance K is not identified | §[-@sec-pub](b) | P6's converged configuration-D posteriors; the width ratio is re-read from `compare_posteriors.csv` |
+| [C8] | M9 growth R² 0.959 / 0.987 / 0.982 | §[-@sec-pub](b) | P6's converged configuration-D M9 fit; E and F remain blocked by [EF1] |
+
+**To update:**
+
+1. `python reports/synthesis/build_evidence.py` — re-reads every source file's commit; a row
+   whose source has moved gets the new commit automatically.
+2. `python reports/synthesis/fig_requirement_arithmetic.py` — only if a *Candida* requirement
+   changes; it reads `reports/K7_envelope/task1_conventions.csv`.
+3. `quarto render reports/synthesis/synthesis.qmd`.
+4. `python scripts/stamp_reports.py`.
+
+**What must not be done silently.** If a number here disagrees with a number in a report, the
+disagreement is a finding — `evidence.csv` has a `kind=disagreement` row format for exactly that,
+and there are five already. Record it; do not reconcile it by choosing one.
