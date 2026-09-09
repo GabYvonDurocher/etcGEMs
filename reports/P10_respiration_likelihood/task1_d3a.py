@@ -21,8 +21,11 @@ import gate_def as G                                                            
 WANT = ("D_NLDM", "D_LB", "E_NLDM", "E_LB", "F_NLDM", "F_LB")
 
 
+BOTH = "--both" in sys.argv
+
+
 def ll(th, ctx, sp, tb):
-    ctx["respiration"] = {"tiebreak": tb}
+    ctx["respiration"] = ({"tiebreak": tb, "log_o2_floor": 0.76, "alive_soft_growth": 0.01} if BOTH else {"tiebreak": tb})
     return gasflux_log_likelihood(th, ctx, sp)
 
 
@@ -42,8 +45,10 @@ def main():
                              rebuild_then_history=abs(R3 - R1), fresh_vs_reused_first=abs(R1 - L1), logL=L1))
             cost.append(dict(fit=label, tiebreak=tb, s_per_eval=round(dt, 3)))
             print(f"[d3a] {label:7s} {tb:5s} reuse: consecutive {abs(L1-L1b):.4f} after-theta' {abs(L3-L1):.4f} | rebuild: twice {abs(R1-R2):.4f} history {abs(R3-R1):.4f} | fresh-vs-reused {abs(R1-L1):.4f} | {dt:.2f} s/eval", flush=True)
-    pd.DataFrame(rows).to_csv(os.path.join(HERE, "task1_d3a.csv"), index=False)
-    pd.DataFrame(cost).to_csv(os.path.join(HERE, "task1_cost.csv"), index=False)
+    pd.DataFrame(rows).to_csv(os.path.join(HERE, "task3_d3a_both.csv" if BOTH else "task1_d3a.csv"), index=False)
+    pd.DataFrame(cost).to_csv(os.path.join(HERE, "task3_cost_both.csv" if BOTH else "task1_cost.csv"), index=False)
+    if BOTH:
+        print("[d3a] done", flush=True); return
     # E LB at Parsa's theta: the face under the four tie-breaks at 37/40/45/50 C
     fit = [f for f in FITS if f[0] == "E_LB"][0]
     cdir = os.path.join(os.environ.get("PARSA_ROOT", "/Users/g.yvon-durocher/Downloads/etcGEMs-main_3"), "strains", "eciML1515", "outputs", "calibration_configE_LB_freecmax")
