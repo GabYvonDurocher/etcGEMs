@@ -54,3 +54,21 @@ demonstration. `git status models data code` is empty.
 `/Users/…/MICROADAPT/etcGEMs/.venv/bin/python` — the primary checkout's existing venv, borrowed
 read-only: Python 3.9, cobra 0.31.1, numpy 2.0.2, pandas 2.3.3, Gurobi. `../etcGEMs-venv`, which
 P7 was rebuilding, was **not used and not touched**; it never appeared on `PATH`.
+
+## What Y2 touched, and what it did not
+
+Every script here takes `--bayesiangem <clone>` and `--results <extracted>` explicitly and writes
+only into `reports/Y2_regime_posterior/`, plus the one deliberate re-run of Y1's own
+`task_c_regime_test.py`, which rewrote `reports/Y1_yeast_audit/task_c_*.csv` **byte-identically**
+(that is the reproduction check, and `git status` there was empty afterwards).
+
+**Nothing under `../etcGEMs` was written.** Its only use was `sys.executable` — recorded as
+`/Users/…/etcGEMs/.venv/bin/python`, `sys.prefix` the same — and `git -C ../etcGEMs status` shows
+only P7's own untracked files. Many files there do have recent modification times; those are P7's,
+from its branch switch (`p6/convergence` → `p7/walkers`) and its run, not Y2's.
+
+**`../etcGEMs-venv` was not used.** It never appeared on `PATH`, and the ~18 000 files with recent
+modification times inside it are P7 rebuilding it, as its prompt said it would.
+
+**The BayesianGEM clone was not written.** `git status models data code` in it is empty and the
+three checksums above are unchanged from Y1.
