@@ -130,3 +130,27 @@ three is below the first block's, then extend once to 2500 by resume and apply t
 conditions to 1750→2500 and τ_max(2500) < 100; anything else **NOT MIXING**. If MIXING, run on
 to the P6 target (n_eff ≥ 600 AND chain/τ ≥ 25) and report the posterior against P4's. If NOT
 MIXING, STOP: that is P6 D6's option (iv) confirmed as the state of this family.
+
+## D4 — a cost stop, written before zeus's first checkpoint has been seen
+
+**Where:** 111 minutes into the zeus run, no 250-step checkpoint yet.
+
+The prompt estimated ~3 h for 1500 steps. From the workers' cumulative CPU time (21 000 s at
+91 min, ≈ 47 000 likelihood evaluations at ~0.45 s each) the run is doing roughly 5–10
+evaluations per walker per step with an effective parallelism of ~5 of 16 processes — zeus's
+slice move is sequential within each walker's step and the pool waits for the slowest walker —
+so a step costs **≥ 20 s against emcee's 1.86 s**, and 1500 steps would be ≥ 8 h, possibly 12.
+That is a fact about the sampler on this likelihood and is part of the answer (the prompt asks
+for τ per wall-hour for exactly this reason).
+
+**Decided, before any zeus τ is known:** the D3 rule on τ(N) is not revised. But the prompt's
+honest comparison is per wall-hour, and a per-wall-hour verdict can be reached earlier than
+1500 steps. So: at the 250-step checkpoint the per-step cost ratio r = (zeus s/step) /
+(emcee 40-walker s/step, 1.86) is measured. If zeus's τ_max(250) is **not below emcee's
+40-walker τ_max(250) = 28.1 divided by r** — i.e. zeus is not ahead per wall-hour by at least
+its cost — then it cannot win on the wall-hour criterion whatever τ does later, and the run is
+stopped **at 500 steps** (one more block, so that an increment exists), the 1500-step rule is
+reported as *not reached*, and the verdict is **NOT MIXING per wall-hour**, with the τ(N) curve
+as measured and the cost stated. If zeus IS ahead by at least r at 250, the run continues to
+1500 and the D3 rule applies as written. This is a resource decision made on the cost the run
+has already revealed, recorded before its τ has; it does not touch the mixing rule.
