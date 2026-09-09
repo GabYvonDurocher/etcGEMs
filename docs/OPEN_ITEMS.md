@@ -146,6 +146,17 @@ Status: **BLOCKED** (waiting on something external) · **READY** (can start now)
   clear it in a housekeeping commit that says so. **The rule: re-run the byte-identity check
   AFTER the last change, not at the point it seems safe; diff the whole tree, not the fields
   the gate names; and treat a `resolved_config.yaml` diff as a finding until it is explained.**
+- **A SMOOTHNESS RULE MUST BE ABSOLUTE IN LOG-LIKELIHOOD UNITS; A RELATIVE ONE FLAGS KINKS ONCE
+  THE CLIFFS ARE GONE** (added 2026-09-09, P11). P9 judged a likelihood surface by whether any
+  0.05 sd step exceeded 20 % of its line's range. That was the right instrument for cliffs of
+  13–72 units on ranges of 15–137. But a fix that removes the cliffs shrinks the ranges with
+  them, so the same rule kept reading ROUGH on lines whose largest step was 0.8 units — a
+  likelihood ratio of about 2, which no sampler notices. What decides whether a sampler can
+  cross a step is e^−Δ: e^−30 is a wall, e^−2 is a kink. **The rule: state smoothness criteria in
+  absolute log-likelihood units** (P11 used 5, the same threshold P10 used to identify the steps
+  it fixed), **and re-derive a relative criterion whenever the thing it normalises by has
+  changed.** Under both readings the same twelve lines are SAMPLEABLE (largest step 3.53 units)
+  and ROUGH (two lines above 20 % of ranges of 3.6 and 15.8) at once. See `reports/P11_nested/`.
 - **A RECOMMENDATION IS SCOPED TO THE CONDITIONS IT WAS DERIVED UNDER** (added 2026-09-08, P5,
   from P4). `c_max ≈ 100–120` came from Parsa's sweep on glucose-minimal and NLDM; P3 adopted 120
   as canonical from that sweep; P4's settings table applied it to LB, where every LB growth R²
