@@ -1,0 +1,17 @@
+{
+  "N": 1500,
+  "walkers": 128,
+  "tau_max_1500": 140.8,
+  "mean_increment_last3": 21.433333333333337,
+  "increments": [
+    26.1,
+    26.0,
+    24.4,
+    23.1,
+    21.1,
+    20.1
+  ],
+  "first_increment": 26.1,
+  "verdict_at_1500": "NOT MIXING",
+  "rule": "MIXING: mean increment over steps 750->1500 < 10 per block AND tau_max(1500) < 100; PARTIAL: mean < 20 and each of the last three below the first; else NOT MIXING"
+}
