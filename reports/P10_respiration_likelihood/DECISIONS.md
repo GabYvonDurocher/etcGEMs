@@ -202,3 +202,19 @@ written into the strain file; TASKS 2–5 concern D NLDM, where the tie-break is
 low end; the [0, 190] face P6 D3a measured is at P4's MAP θ, not his. **Cost:** 0.45 → 2.0 s
 per likelihood evaluation single-process, ×4.5, not the ×2 the prompt estimated — the
 parsimonious LP over 24 000 split variables is the expensive half.
+
+## D4 — how TASK 3 will be read, written with four of twelve lines in and before the table exists
+
+**Where:** during the (a)/(b)/(c) scans, after lines 1–4 of each had printed.
+
+P9's rule is applied as written and quoted: *SMOOTH if the median sign-change count is ≤ 2 AND
+no single 0.05 sd step exceeds 5 % of its line's range; ROUGH if the median count is ≥ 5 OR any
+step exceeds 20 %; else MIXED.* It was written for lines whose range over ±1 sd was 15–137
+units. Under (c) the early lines show ranges collapsing to under a unit (f_maint: range 0.71,
+largest step 0.10), where a 5 % threshold is 0.035 units — below the 0.1 reproducibility the
+solver itself has (P9 D2) — and a fraction becomes noise. So, stated before the table exists:
+**a line whose range over ±1 sd is below 2 log-likelihood units is counted as SMOOTH regardless
+of its fraction** (its largest step is then by construction below 2 units, single digits by the
+prompt's own standard), and the absolute step in units is reported for every line beside the
+fraction. Everything else in the rule stands. The TASK 5 gate is the rule's SMOOTH under (c)
+with that one clause.
