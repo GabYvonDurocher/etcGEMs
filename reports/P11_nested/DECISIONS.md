@@ -140,3 +140,92 @@ evaluation — P9's instrument with a new centre and a new scale. Classified by 
 
 Reported as three lists. This is the first time the identifiability of this model can be stated
 per parameter, because it is the first posterior worth centring on.
+
+## D4 — the run is single-core for its first 1,200 iterations, and that is dynesty's design, not a defect
+
+**Where:** during the run, from direct measurement.
+
+The prompt's case for nested sampling includes "its parallelism is over independent likelihood
+calls — no worker starves the rest, which is what killed zeus". Measured on this run, with the
+workers' cumulative CPU time over 20–30 s windows:
+
+| phase | iterations | cores busy |
+|---|---|---|
+| unit-cube sampling (dynesty's start) | 1 – ~1,250 | **1.0** |
+| bounded rslice, after the first bound update | ~1,250 onward | **6.0** |
+
+dynesty samples uniformly from the prior until its `first_update` criterion is met — by default
+`ncall > 2 × nlive` **and** efficiency < 10 %. In that phase each iteration is one proposal
+evaluated in the main process, so the pool sits idle; efficiency fell 38 % → 13 % over 1,200
+iterations and 9,000 evaluations, which took **62 minutes on one core**. Only after the switch
+does `_fill_queue` map `queue_size` independent point evolutions over the pool, and utilisation
+rises to ~6 of 16 cores (the queue empties and refills, so it is bursty rather than saturated).
+
+**Not corrected mid-run.** `first_update` is a tuning knob that could have been set to switch
+earlier, and doing so would have engaged the pool within minutes. It was not in the settings
+pre-registered in D2, and changing a sampler setting after seeing the trajectory is the kind of
+post-hoc adjustment this series has avoided everywhere else; the honest course is to run what
+was registered and report what it cost. **For a future run this is the first thing to change**:
+`first_update={'min_eff': 30}` would have saved most of an hour, and the claim "nested sampling
+parallelises where zeus could not" is true only after the first bound update.
+
+## D5 — (addendum 1) the cap is lifted to 08:00, the run is resumed from its checkpoint, and why that is not a silent extension
+
+**Where:** at 23:04, 1 h 44 m into a 4 h cap, on the user's instruction.
+
+**What changed: the deadline, the checkpoint interval and the logging. Nothing else.** nlive 400,
+`sample="rslice"`, `slices=3`, `bound="multi"`, `queue_size=16`, dlogz 0.1, seed 1, the priors,
+the likelihood and both P10 options are exactly as pre-registered in D2. The stopping rule is
+unchanged: dlogz < 0.1 and n_eff ≥ 600 is CONVERGED, the deadline is now 08:00 rather than
+01:20.
+
+**Why this is not the silent extension the standing constraints forbid.** That rule exists
+because an MCMC chain extended after inspection is an unbounded search for a result: the run is
+*not* monotone, the criterion (τ) is estimated from the same samples being extended, and
+stopping when it finally looks good is selection on noise. Nested sampling has neither property.
+Its progress is monotone — each iteration shrinks the prior volume by a fixed factor, and the
+remaining evidence dlogz falls whatever the surface does — and the stopping criterion is
+computed from the live points ahead of the run, not from the samples already taken. Extending it
+is buying more of the same integral, not re-rolling a die. It is checkpointed, so the extension
+is literally the same run continuing. The extension was the user's decision and is recorded as
+theirs.
+
+**Resume 1** (recorded per the instruction): stopped at 23:04 with the checkpoint at **iteration
+1,585, 17,354 evaluations**; restored and continued at 23:04. A read-only restore of that same
+file, done before stopping, reported iteration 1,516 and 16,195 evaluations — the state the last
+progress line showed — which is the proof that a restore resumes where the run was.
+
+**Utilisation, diagnosed before the evening** (the instruction's third point): workers **8.5 of
+16 cores** over a 45 s window; **main process 0.0 cores**. So bound updates and bootstrap are not
+the bottleneck — `use_pool_update` is on and `nbound` was 3 after 1,500 iterations — and
+`queue_size` is already 16. The 53 % is the **straggler effect inside each parallel map**: the
+sixteen queued rslice chains take different numbers of likelihood calls, and the map returns
+when the slowest finishes. Raising `queue_size` above the worker count would average stragglers
+out but proposes more points against a staler likelihood threshold, which is a sampling change
+rather than a parallelism one; the bound method and `bootstrap` are not implicated because the
+main process is idle. **No settings change was applied**, and the utilisation is reported as
+measured. Earlier, before the first bound update, the same measurement read **1.0 core** — see
+D4.
+
+## D6 — the projection to dlogz < 0.1, made at 23:16 from the run's own information measure
+
+**What it rests on.** dynesty tracks the information H (nats) alongside log Z. Nested sampling
+compresses the prior volume by 1/nlive per iteration, so the bulk of the posterior mass is
+reached at about nlive × H iterations and the run terminates at roughly
+**nlive × (H + 3√H)** — the usual rule, with the 3√H allowing for the width of the mass in
+log-volume. The remaining evidence dlogz is read directly from the live points as
+log(1 + exp(max live logl + logvol − logz)), which is dynesty's own stopping quantity.
+
+**At iteration 1,836** (21,654 evaluations, 0.18 h since the resume, **6.6 evaluations/s**,
+efficiency 8.5 %): log Z = −28.41, **H = 4.13 nats and still rising** (3.99 → 4.13 over the last
+five saves), **dlogz = 10.15**.
+
+**The projection.** nlive × H = 1,650, which the run has just passed — consistent with dlogz
+still being of order 10. With H rising to somewhere between 5 and 8, termination is expected at
+**nlive × (H + 3√H) ≈ 4,000–6,000 iterations**, i.e. **2,200–4,200 more**. The independent check
+from dlogz itself: 10.15 → 0.1 is 4.6 e-folds, and logvol falls 1 nat per nlive = 400
+iterations, so ~1,850 more iterations if log Z were static and more if it keeps rising — the same
+order. At the measured 28 iterations/min that is **1.3–2.5 h, finishing between about 00:40 and
+02:00**; at half that rate, which is the pessimistic case as efficiency falls, **02:00–04:15**.
+Either is inside the 08:00 budget, so the run continues unchanged. Projected total cost:
+**60,000–110,000 evaluations**, which is the range the prompt anticipated.

@@ -14,6 +14,11 @@ P4's priors (proven in task1_prove_transform.py).
     python run_nested.py --calibrate 120                # cost only: N iterations, no output kept
 """
 import argparse, json, os, sys, time
+from datetime import datetime
+
+
+def _ts():
+    return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
 sys.path.insert(0, os.path.join(ROOT, "src")); sys.path.insert(0, os.path.join(ROOT, "reports", "P6_convergence")); sys.path.insert(0, HERE)
@@ -35,7 +40,10 @@ def main():
     ap.add_argument("--tag", default="main"); ap.add_argument("--nlive", type=int, default=500)
     ap.add_argument("--sample", default="rslice"); ap.add_argument("--slices", type=int, default=3)
     ap.add_argument("--bound", default="multi"); ap.add_argument("--dlogz", type=float, default=0.1)
-    ap.add_argument("--hours", type=float, default=4.0); ap.add_argument("--seed", type=int, default=1)
+    ap.add_argument("--hours", type=float, default=4.0); ap.add_argument("--until", default=None,
+                    help="absolute wall-clock deadline, 'YYYY-MM-DD HH:MM' local, overriding --hours")
+    ap.add_argument("--seed", type=int, default=1)
+    ap.add_argument("--chunk", type=int, default=250); ap.add_argument("--ckpt-every", type=float, default=1800.0)
     ap.add_argument("--nproc", type=int, default=16); ap.add_argument("--resume", action="store_true")
     ap.add_argument("--calibrate", type=int, default=0)
     a = ap.parse_args()
@@ -73,23 +81,36 @@ def main():
         # chunk that adds no iterations means dynesty's own dlogz criterion was met, which is
         # the CONVERGED branch of the rule in DECISIONS D2. add_live is deferred to the end so
         # the final live points are folded in exactly once.
-        deadline = t0 + a.hours * 3600.0
-        chunk, prev_it, converged, trace = 100, s.it, False, []
+        if a.until:
+            import datetime as _dt
+            deadline = _dt.datetime.strptime(a.until, "%Y-%m-%d %H:%M").timestamp()
+        else:
+            deadline = t0 + a.hours * 3600.0
+        prog = os.path.join(HERE, "run.log")
+        chunk, prev_it, prev_ncall, prev_t, converged, trace = a.chunk, s.it, s.ncall, t0, False, []
         while True:
             s.run_nested(maxiter=chunk, dlogz=a.dlogz, add_live=False, print_progress=False,
-                         checkpoint_file=ckpt, checkpoint_every=180)
+                         checkpoint_file=ckpt, checkpoint_every=a.ckpt_every)
             now = time.time()
-            dlz = float(s.saved_run["logz"][-1]) if len(s.saved_run["logz"]) else float("nan")
+            lz = float(s.saved_run["logz"][-1]) if len(s.saved_run["logz"]) else float("nan")
+            lv = float(s.saved_run["logvol"][-1]) if len(s.saved_run["logvol"]) else float("nan")
+            lmax = float(np.max(s.live_logl))
+            dlz = float(np.logaddexp(lz, lmax + lv) - lz)      # dynesty's own stopping quantity
+            eps = (s.ncall - prev_ncall) / max(1e-9, now - prev_t)
+            line = (f"{_ts()}  it {s.it:7d}  evals {s.ncall:9d}  eff {s.eff:6.3f}%  "
+                    f"logZ {lz:10.3f}  dlogz {dlz:8.3f}  wall {(now-t0)/3600:6.2f} h  {eps:5.2f} evals/s")
+            with open(prog, "a") as fh:
+                fh.write(line + "\n")
             trace.append(dict(t_min=round((now - t0) / 60, 2), it=int(s.it), ncall=int(s.ncall),
-                              logz=dlz, eff=float(s.eff)))
-            print(f"[nested] {(now-t0)/60:7.1f} min  it {s.it:6d}  ncall {s.ncall:8d}  "
-                  f"logz {dlz:10.3f}  eff {s.eff:.3f}%", flush=True)
+                              logz=lz, dlogz=dlz, eff=float(s.eff), evals_per_s=round(eps, 3)))
+            print("[nested] " + line, flush=True)
+            prev_ncall, prev_t = s.ncall, now
             if s.it == prev_it:
                 converged = True
                 print("[nested] dynesty stopped on its own dlogz criterion", flush=True); break
             prev_it = s.it
             if now >= deadline:
-                print(f"[nested] wall-clock cap of {a.hours} h reached -- stopping", flush=True); break
+                print(f"[nested] wall-clock deadline reached -- stopping", flush=True); break
         s.add_final_live(print_progress=False)
         json.dump(trace, open(os.path.join(HERE, f"trace_{a.tag}.json"), "w"), indent=1)
     r = s.results; wall = time.time() - t0
