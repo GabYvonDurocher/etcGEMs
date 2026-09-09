@@ -68,14 +68,36 @@ def main():
                        nlive=a.nlive, sample=a.sample, slices=a.slices, nproc=a.nproc)
             json.dump(out, open(os.path.join(HERE, f"calibrate_{a.tag}.json"), "w"), indent=1)
             print(f"[nested] CALIBRATION {out}", flush=True); return
-        s.run_nested(dlogz=a.dlogz, print_progress=False, checkpoint_file=ckpt, checkpoint_every=180,
-                     maxcall=int(1e12), maxiter=int(1e9))
+        # The 4 h cap is enforced here, in wall clock, because dynesty has no time limit of its
+        # own: the run proceeds in chunks of `chunk` iterations and stops at the deadline. A
+        # chunk that adds no iterations means dynesty's own dlogz criterion was met, which is
+        # the CONVERGED branch of the rule in DECISIONS D2. add_live is deferred to the end so
+        # the final live points are folded in exactly once.
+        deadline = t0 + a.hours * 3600.0
+        chunk, prev_it, converged, trace = 100, s.it, False, []
+        while True:
+            s.run_nested(maxiter=chunk, dlogz=a.dlogz, add_live=False, print_progress=False,
+                         checkpoint_file=ckpt, checkpoint_every=180)
+            now = time.time()
+            dlz = float(s.saved_run["logz"][-1]) if len(s.saved_run["logz"]) else float("nan")
+            trace.append(dict(t_min=round((now - t0) / 60, 2), it=int(s.it), ncall=int(s.ncall),
+                              logz=dlz, eff=float(s.eff)))
+            print(f"[nested] {(now-t0)/60:7.1f} min  it {s.it:6d}  ncall {s.ncall:8d}  "
+                  f"logz {dlz:10.3f}  eff {s.eff:.3f}%", flush=True)
+            if s.it == prev_it:
+                converged = True
+                print("[nested] dynesty stopped on its own dlogz criterion", flush=True); break
+            prev_it = s.it
+            if now >= deadline:
+                print(f"[nested] wall-clock cap of {a.hours} h reached -- stopping", flush=True); break
+        s.add_final_live(print_progress=False)
+        json.dump(trace, open(os.path.join(HERE, f"trace_{a.tag}.json"), "w"), indent=1)
     r = s.results; wall = time.time() - t0
     np.save(os.path.join(OUT, f"samples_{a.tag}.npy"), r.samples)
     np.save(os.path.join(OUT, f"logwt_{a.tag}.npy"), r.logwt)
     np.save(os.path.join(OUT, f"logl_{a.tag}.npy"), r.logl)
     w = np.exp(r.logwt - r.logz[-1]); n_eff = float(w.sum() ** 2 / np.sum(w ** 2))
-    summ = dict(tag=a.tag, nlive=a.nlive, sample=a.sample, slices=a.slices, bound=a.bound, seed=a.seed, nproc=a.nproc,
+    summ = dict(tag=a.tag, converged_on_dlogz=bool(converged), hours_cap=a.hours, nlive=a.nlive, sample=a.sample, slices=a.slices, bound=a.bound, seed=a.seed, nproc=a.nproc,
                 dlogz_target=a.dlogz, iters=int(r.niter), ncall=int(sum(r.ncall)), wall_s=round(wall, 1),
                 wall_h=round(wall / 3600, 3), evals_per_s=round(sum(r.ncall) / wall, 2),
                 calls_per_iter=round(sum(r.ncall) / max(1, r.niter), 1), logz=float(r.logz[-1]),
