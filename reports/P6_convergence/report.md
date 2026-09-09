@@ -1,8 +1,16 @@
 # P6 — run the fits to convergence
 
-@@STATUS_TABLE@@
+| task | status | one line |
+|---|---|---|
+| **0** — pre-flight | **DONE** | P5 merged on instruction; settings read back (LB at 450); τ re-measured; warm start tested and **rejected** (dead mode on both D fits); E/F likelihood found non-deterministic and diagnosed |
+| **0b** — benchmark | **DONE** | stretch move kept, 16 processes adopted (+11 %); DE+Snooker not adopted |
+| **0c** — target | **DONE** | n_eff ≥ 600 AND chain/τ ≥ 25, stated as weaker than 40 τ |
+| **0d** — E/F degeneracy | **DONE** | non-unique O2 at optimal growth at specific temperatures, selected by solver basis history; E and F **held**; fix recommended, not made |
+| **1** — the fits | **HALTED** | D NLDM stopped at ~1250 steps on instruction: τ ∝ chain length for every parameter; D LB, D M9 not started; E/F not run. **Nothing converged, nothing quoted** |
+| **2** — what converging changed | **NOT RUN** | no converged posterior exists |
+| **3** — closing the loop | **NOT RUN** | P5's caveat stands; OPEN_ITEMS 1.12 restated, not closed |
 
-Detail: [DECISIONS.md](DECISIONS.md) (D0–@@DLAST@@); `preflight.py` → `preflight_settings.csv`,
+Detail: [DECISIONS.md](DECISIONS.md) (D0–D6); `preflight.py` → `preflight_settings.csv`,
 `preflight_tau.csv`, `preflight_jitter.csv`; `jitter_diagnosis.py` → `jitter_diagnosis.json`;
 `warmstart_test.py` → `warmstart_test.json`; `bench.py` → `bench.csv`, `bench_posteriors.csv`,
 `sampler_config.json`; `run_fits.py` → `fits_table.csv` and
@@ -196,16 +204,65 @@ walkers × (steps − 2 τ) / τ; the simple walkers × steps / τ is reported b
 
 ## TASK 1 — the fits
 
-@@TASK1@@
+**Halted by the user (addendum 6) after five checkpoints of D NLDM**, at step ~1250 of a
+7500-step cap: τ_max 28.1, 53.4, 78.5, 103.5, 128.9 at steps 250–1250, chain/τ pinned at 9.7,
+n_eff plateaued at ~308. Neither adopted criterion was reachable by running longer. **The
+in-flight steps were not preserved**: the driver writes the chain only at the end of a run, so
+stopping it discarded ~1250 steps (~40 min); the diagnosis below uses the chains on disk. **D LB
+and D M9 were not started**, on instruction, pending a decision. No fit in this run reached
+either target, and none is quoted.
+
+### Why τ tracks chain length (`diffusion.py`, D6)
+
+On P4's 2000-step D NLDM chain plus the 500-step stretch-move continuation from its final state:
+
+* **no single parameter carries it** — τ is 187–298 for all sixteen; the top is `disc_growth`
+  (298, ×1.16 the next, `sigma` 257); `clearance_mult` (K) is rank 6 at 216. τ_max measured on
+  250-step prefixes: 25.9, 55.9, 90.6, 127.8, 158.5, 185.9, 213.3, 244.7, 271.5, 298.4 —
+  linear, chain/τ 7.8–9.7 — which is emcee's estimator saturating (window c = 5) because the
+  autocorrelation has not decayed inside the chain. **The true τ is unknown and > 300.**
+* **the top parameter drifts, then mixes slowly; it does not excurse** — 38 of 40 walkers move
+  down in `disc_growth` between first and last quarter (0.43 → 0.23); its ensemble median
+  0.470 → … → 0.186 over 2500 steps, flattening in the last 750; σ 0.58 → 0.77 then flat;
+  log-posterior median −26.8 → −14.4, flat over the last 1000 steps. ~1500 steps of burn-in,
+  then stationary in level — and the P6 chain, started at the end of that drift, still read
+  chain/τ 9.7, so the ensemble is stationary and not mixing on any measurable time scale.
+* **it is not K** — K's τ is mid-pack and its width ratio is 0.55 (P4: 0.57–0.64): prior-
+  determined, unchanged, and not the slow direction.
+* **width ratios, every parameter** (last half): prior-determined **topt_scale 0.79, dCp_scale
+  0.75, sigma 0.56, clearance_mult 0.55**; data-determined dTopt 0.41, f_metab 0.33, ngam_scale
+  0.33, f_maint 0.31, ngam_steepness 0.30, kcat_scale 0.27, tm_scale 0.26, dTm 0.25, kappa_scale
+  0.15, disc_resp 0.13, disc_growth 0.12, resp_scale 0.07. Medians of the twelve data-determined
+  parameters are stable to a few per cent across the last three 500-step blocks.
+
+**Recommendation (c):** stop; do not start D LB or D M9 under this sampler expecting
+convergence (their P4 chains carry the same signature). Report the D family as medians stable
+and quotable *with a "not converged" label*, intervals not converged, four parameters
+prior-determined. The options that would change it — fixing the four prior-determined
+parameters (16 → 12 dimensions), narrowing the discrepancy priors to the decade the data occupy,
+a different sampler, or accepting the diagnostic status — are decisions, listed in D6, none
+taken here.
 
 ## TASK 2 — what converging changed
 
-@@TASK2@@
+Not run: no fit reached a convergence target (TASK 1), so there is no converged posterior to compare with P4's. `compare.py` is in place for when one exists.
 
 ## TASK 3 — closing the loop
 
-@@TASK3@@
+Not run: nothing here replaces P5's "not converged" caveat, which stands. OPEN_ITEMS 1.12 is restated by this run's findings (see 3.21 and D6) rather than closed. P3's gate is a port-fidelity check and is unaffected by anything in this run.
 
 ## Verification
 
-@@VERIFY@@
+| check | result |
+|---|---|
+| P5 merged; tree clean at start | yes (`50cbffd`; battery 79/79, 60/60, seven strains byte-identical, stamps clean) |
+| settings read back from resolved configs; LB c_max | `preflight_settings.csv`: all nine as P4 set them; **LB 450** in all three LB fits |
+| warm start | runs; finds the zero-growth mode on both D NLDM and D LB; rejected by the growth check; not used |
+| P5 left LB unsettled? | no — 450 settled; fallback not needed |
+| per-fit target length and total, before starting | 25 τ: 27.3 h all nine / ≈ 8 h the three D fits at 16 processes; stated in D5 |
+| benchmark; cores; adopted configuration; posterior unchanged | `bench.csv`; 12 P + 4 E cores, idle at 10; stretch + 16 proc, +11 %; same move as P4 so unchanged by construction |
+| adopted target stated as weaker than 40 τ | yes, TASK 0c |
+| likelihood jitter | ≤ 0.0004 D; 0.5–7.5 E/F; mechanism measured (addendum 5) |
+| per-fit table | none converged; D NLDM halted at ~1250 steps (chain not preserved); D LB, D M9 not started; E/F held |
+| `git diff main --stat` | code: `src/etcgem/calibration_multi.py` only — three sampler-only options, defaults unchanged; no model, prior or likelihood change; no committed output regenerated; `strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P6/` holds a `resolved_config.yaml` only |
+| read-only trees | `$PARSA_ROOT`, `$CANDIDAS_ROOT` untouched |

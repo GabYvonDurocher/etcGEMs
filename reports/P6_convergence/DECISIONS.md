@@ -211,3 +211,76 @@ call on the evidence then available and remains so; **E and F return to scope on
 optimal growth is made unique (pFBA or a lexicographic O2 objective), and this run did not fit
 them.** The `p6_fits.py` comment is corrected the same way, with the original kept as dated
 history. No fix was implemented, and the three configuration-D fits in flight were not touched.
+
+## D6 — (2026-09-09, addendum 6) D NLDM halted at step ~1250; τ tracks chain length because the whole ensemble mixes slowly, not because one direction diffuses
+
+**Where:** TASK 1, on the user's instruction, after five checkpoints of the P6 D NLDM chain read
+τ_max = 28.1, 53.4, 78.5, 103.5, 128.9 at steps 250–1250 — 25.2 ± 0.2 per 250 steps, chain/τ
+pinned at 9.7, n_eff plateaued at ~308.
+
+**What was lost.** The driver writes `chain.npy` only when a run ends, so stopping the process
+at step ~1250 discarded those steps (~40 min at 16 processes). Stated rather than hidden. The
+diagnosis therefore uses what is on disk: P4's committed D NLDM chain (2000 steps, same
+signature — τ 244.7, chain/τ 8.2) concatenated with the 500-step TASK 0b stretch-move chain that
+continues from its final state (2500 steps of one history), and the 500-step DE chain
+(`diffusion.py`; `diffusion_tau.csv`, `diffusion_walkers.csv`, `diffusion_widths.csv`).
+A per-checkpoint chain save is the obvious driver change; not made now (this is diagnosis).
+
+**1. τ per parameter.** No single carrier. On the 2500-step history every one of the 16
+parameters has τ between 187 and 298; the top, `disc_growth` (298), is ×1.16 the next
+(`sigma` 257), then `disc_resp` 242, `dCp_scale` 230, `dTm` 218, `clearance_mult` 216 … `f_maint`
+187. On P4's 2000 steps the same order, 150–245. And τ_max grows linearly with the length of
+the prefix it is measured on — 25.9, 55.9, 90.6, 127.8, 158.5, 185.9, 213.3, 244.7, 271.5,
+298.4 at 250-step increments, chain/τ 7.8–9.7 throughout. That is the estimator's saturation:
+emcee's window (c = 5) caps τ near N/5–N/10 whenever the autocorrelation function has not decayed
+inside the chain. **The true τ is therefore unknown and larger than ~300**, for every parameter.
+
+**2. The top parameter drifts, then mixes slowly; it does not excurse.** `disc_growth` (the
+growth discrepancy scale): 38 of 40 walkers move DOWN between the first and last quarter
+(per-walker mean 0.429 → 0.232, mean |shift| 0.23); the ensemble median falls 0.470 → 0.394 →
+0.307 → 0.259 → 0.232 → 0.224 → 0.212 → 0.193 → 0.186 → 0.186 per 250-step block — a coherent
+drift over ~1500 steps that flattens in the last 750. `sigma` rises 0.58 → 0.77 and flattens.
+The log-posterior median rises −26.8 → −14.4 and is flat over the last 1000 steps (−14.4,
+−14.1, −14.4). So ~1500 steps of burn-in drift (the walkers finding the scale of the
+discrepancy term), then a stationary level. But the P6 chain — started from the END of that
+drift — still showed chain/τ pinned at 9.7 over 1250 steps, so after the drift the ensemble is
+stationary in level and **still not mixing on any measurable time scale**. Within a block the
+5–95 % range of `disc_growth` is [0.08, 0.70]: wide, unimodal, not two clusters.
+
+**3. It is not K.** `clearance_mult` has τ 216, rank 6 of 16, in the middle of the pack, and its
+posterior/prior width ratio is 0.55 — P4's 0.57–0.64 again. K is prior-determined, as P4 said,
+and this run adds nothing to that either way; but the slow direction is not K's, it is all of
+them.
+
+**4. Width ratios, every parameter, last half of 2500 steps** (`diffusion_widths.csv`):
+prior-determined (> 0.5): **topt_scale 0.79, dCp_scale 0.75, sigma 0.56, clearance_mult 0.55**;
+data-determined: dTopt 0.41, f_metab 0.33, ngam_scale 0.33, f_maint 0.31, ngam_steepness 0.30,
+kcat_scale 0.27, tm_scale 0.26, dTm 0.25, kappa_scale 0.15, disc_resp 0.13, disc_growth 0.12,
+resp_scale 0.07. The medians of the twelve data-determined parameters are stable to a few per
+cent across the last three 500-step blocks (kcat_scale 1.41–1.50, dTopt 2.9–3.6, f_metab
+0.285–0.293, resp_scale 3.83–3.97, dTm −3.6 to −4.0, disc_growth 0.229 → 0.186 still creeping).
+
+**5. Recommendation — (c), and not (a) or (b) as written.** Not (a): the slow mixing is not
+confined to a parameter nothing is quoted from; it is every parameter, with the discrepancy
+nuisance and σ at the top. Not (b) as stated: the family is not "prior-determined in that
+direction" — four parameters are prior-determined (K, σ, topt_scale, dCp_scale) and the rest
+are data-determined with stable medians; what fails is the *interval* estimate on all of them.
+**Recommended: stop the run; do not start D LB or D M9 under this sampler expecting them to
+converge** (their P4 chains show the identical signature, chain/τ 8.9 and 9.9). Report the
+configuration-D family as: point estimates (medians) of the twelve data-determined parameters
+stable and quotable with a "not converged" label; credible intervals not converged; K, σ,
+topt_scale and dCp_scale prior-determined. Brute force is not a plan: τ is unknown and > 300,
+so 25 τ is > 7500 steps with no ceiling — at 1.86 s/step, 40 000 steps would be ~20 h per fit
+and might still read chain/τ ≈ 9.
+
+What would change the picture, each a decision rather than a fix, none taken here:
+(i) **fix the four prior-determined parameters at their nominal values** (σ at the literature
+0.45–0.5 — P4's M9 fits put it there — K at 5, topt_scale and dCp_scale at 1): 16 → 12
+dimensions and the σ–kcat ridge P2 found is gone; it changes what the fit *is*, so it needs its
+own before-and-after; (ii) **narrow the discrepancy priors** — `disc_growth` is a half-normal of
+scale 0.5 sampled in log space over [1e-4, 5], a factor 5 × 10⁴, and the walkers spend 1500 steps
+finding its scale; a prior in the decade the data occupy (0.08–0.7) removes the drift, not the
+slow mixing; (iii) a different sampler for a 16-dimensional correlated posterior with a 0.3-second
+likelihood — nested sampling, or an ensemble of far more walkers, both costing a new
+verification; (iv) accept the diagnostic status and quote medians only, which is what the
+numbers in this repository already are.
