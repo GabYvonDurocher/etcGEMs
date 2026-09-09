@@ -94,3 +94,39 @@ load.
 named: the four carry a seventh of the slow directions' loading, and fixing them would leave
 twelve parameters mixing at the same isotropic rate. A 12-dimensional refit would be a
 dimensionality test, not a ridge removal, and the prompt allows one branch.
+
+## D3 — TASK 2B: the wiring, the walker count, the checkpoint, and the decision rule — written before the run
+
+**Where:** before any zeus chain on the E. coli model.
+
+**Wiring.** `run_gasflux_fit` gains `sampler_kind="emcee" | "zeus"`. For zeus the ensemble is
+`zeus.EnsembleSampler(n_walkers, ndim, _gwlogprob, pool=pool)` with zeus's default move
+(differential) and default tuning of the slice width (`tune=True`); the block loop is the same
+as emcee's — `check_every` steps, then τ with the SAME estimator P6/P7 used
+(`emcee.autocorr.integrated_time`, `tol=0`) so the checkpoint rows are comparable, plus zeus's own
+`act` (its integrated autocorrelation time per parameter) and `efficiency` quoted beside them.
+The block runner is one helper (`run_zeus_blocks`) used identically by the toy check and the
+driver, so the toy proves the wiring the driver uses.
+
+**Checkpoint.** zeus has no resumable HDF5 backend of emcee's kind; the helper saves the full
+chain and log-probability (`chain.npy`, `log_prob.npy`) after **every block of 250 steps**, so a
+halt loses at most one block — P7's requirement — and `resume=True` restarts from the saved
+last positions and concatenates. The random state is not restorable across a resume in zeus;
+that is stated, and a resumed zeus chain is therefore "same ensemble, fresh proposals", which is
+fine for τ and the posterior and not bit-identical.
+
+**Walkers.** zeus's guidance is "at least twice the number of parameters" (≥ 32 here); **40 is
+used**, P6's count, so the comparison with the emcee rows is at equal walkers and the only thing
+that changes is the move. Initialised from P4's final 40-walker ensemble state (D2 of P6), no
+warm start. 16 processes, seed 1.
+
+**Cost.** zeus's slice move takes several likelihood evaluations per walker per step (typically
+3–10, tuned), so the honest comparison is **τ per wall-hour**, reported beside τ per step.
+
+**Decision rule** (P7's form, verbatim in substance): at every 250-step checkpoint τ_max on the
+chain so far; **MIXING** if the mean increment over steps 750→1500 is below 10 per block AND
+τ_max(1500) < 100; **PARTIAL** if the mean over the last three is below 20 and each of the last
+three is below the first block's, then extend once to 2500 by resume and apply the same
+conditions to 1750→2500 and τ_max(2500) < 100; anything else **NOT MIXING**. If MIXING, run on
+to the P6 target (n_eff ≥ 600 AND chain/τ ≥ 25) and report the posterior against P4's. If NOT
+MIXING, STOP: that is P6 D6's option (iv) confirmed as the state of this family.

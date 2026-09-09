@@ -337,13 +337,73 @@ def _build_gasflux_ctx(strain, medium, experiment, table, otu, c_max, etc_table,
                                      "fit_clearance": fit_clearance})
 
 
+def run_zeus_blocks(logprob, p0, n_steps_max, check_every, pool, out_dir=None, label="",
+                    prev=None, seed=1, tau_factor=25, target_neff=600, n_burn=200):
+    """(P8) Run zeus in blocks of ``check_every`` steps -- the same loop, tau estimator and
+    stopping rule as the emcee path of :func:`run_gasflux_fit` -- saving chain.npy /
+    log_prob.npy after every block (the checkpoint) and quoting zeus's own diagnostics
+    (``act``, ``efficiency``) beside emcee's tau at each checkpoint.
+
+    ``prev`` = (chain, log_prob) of an earlier run to continue from (positions only: zeus
+    cannot restore its random state, so a resumed chain is the same ensemble with fresh
+    proposals). Returns (chain, log_prob, n_steps, tau_max, stop_reason, info)."""
+    import zeus
+    import emcee
+    n_walkers, ndim = p0.shape
+    np.random.seed(seed)
+    sampler = zeus.EnsembleSampler(n_walkers, ndim, logprob, pool=pool, verbose=False)
+    state = p0; done = 0; tau_max = float("nan")
+    stop_reason = f"n_steps_max ({n_steps_max})"
+    info = {"ncall": 0, "checkpoints": []}
+    while done < n_steps_max:
+        n = min(check_every, n_steps_max - done)
+        t0 = time.time()
+        sampler.run_mcmc(state, n, progress=False)
+        state = sampler.get_last_sample()
+        done += n
+        chain = sampler.get_chain(); lp = sampler.get_log_prob()
+        if prev is not None:
+            chain = np.concatenate([prev[0], chain], axis=0); lp = np.concatenate([prev[1], lp], axis=0)
+        if out_dir:
+            np.save(os.path.join(out_dir, "chain.npy"), chain)
+            np.save(os.path.join(out_dir, "log_prob.npy"), lp)
+        total = chain.shape[0]
+        try:
+            tau_max = float(np.nanmax(emcee.autocorr.integrated_time(chain, tol=0)))
+        except Exception:
+            tau_max = float("nan")
+        try:
+            z_act = float(np.max(sampler.act)); z_eff = float(sampler.efficiency); z_ess = float(sampler.ess)
+        except Exception:
+            z_act = z_eff = z_ess = float("nan")
+        info["ncall"] = int(sampler.ncall)
+        ck = dict(step=total, tau_max_emcee=tau_max, zeus_act_max=z_act, zeus_efficiency=z_eff, zeus_ess=z_ess,
+                  ncall=int(sampler.ncall), block_wall_s=round(time.time() - t0, 1),
+                  evals_per_walker_step=round(sampler.ncall / (n_walkers * (total - (prev[0].shape[0] if prev is not None else 0))), 2))
+        info["checkpoints"].append(ck)
+        if np.isfinite(tau_max) and tau_max > 0:
+            burn_now = min(int(max(n_burn, 2 * tau_max)), total - 10)
+            n_eff_min = n_walkers * (total - burn_now) / tau_max
+            print(f"[zeus] {label} step {total}: tau_max={tau_max:.1f} (emcee estimator) chain/tau={total / tau_max:.1f} "
+                  f"(need >{tau_factor}) min n_eff~{n_eff_min:.0f} (need >={target_neff}) | zeus act_max={z_act:.1f} "
+                  f"efficiency={z_eff:.4f} ess={z_ess:.0f} evals/walker/step={ck['evals_per_walker_step']} "
+                  f"block {ck['block_wall_s']} s", flush=True)
+            if total > tau_factor * tau_max and n_eff_min >= target_neff:
+                stop_reason = (f"converged: chain {total} > {tau_factor}*tau_max AND min n_eff {n_eff_min:.0f} >= {target_neff}")
+                break
+        else:
+            print(f"[zeus] {label} step {total}: autocorr not yet estimable", flush=True)
+    total = chain.shape[0]
+    return chain, lp, total, tau_max, stop_reason, info
+
+
 def run_gasflux_fit(strain, out_dir, *, medium, table, otu=None, experiment="gasflux_configD",
                     c_max=None, etc_table=None, apply_protons=False, fit_clearance=True,
                     label="", n_walkers=36, n_steps_max=2000, n_burn=200, seed=1, n_proc=0,
                     check_every=250, target_neff=200, tau_factor=40, allow_glpk=False,
                     warm_start=True, progress=False, moves=None, init_state=None,
                     init_label=None, warm_start_min_growth_frac=0.10,
-                    checkpoint=False, resume=False) -> Dict:
+                    checkpoint=False, resume=False, sampler_kind="emcee") -> Dict:
     """Emcee fit of one gas-exchange configuration to measured growth + per-cell respiration.
 
     The fourth entry point beside :func:`run`, :func:`run_syn6803` and :func:`run_methanogen`,
@@ -371,6 +431,12 @@ def run_gasflux_fit(strain, out_dir, *, medium, table, otu=None, experiment="gas
                         arguments are ignored). The sampler's RNG is seeded from ``seed`` either
                         way, so a checkpointed and an un-checkpointed run of the same seed give
                         IDENTICAL chains -- proven, not assumed (reports/P7_walkers TASK 1).
+    * ``sampler_kind`` -- (P8) ``"emcee"`` (the default, everything above) or ``"zeus"``: the
+                        ensemble slice sampler (zeus-mcmc), same log-probability, same pool, same
+                        block loop and tau estimator, run through :func:`run_zeus_blocks`. Its
+                        checkpoint is a per-block save of chain.npy / log_prob.npy (zeus has no
+                        resumable backend); ``resume=True`` restarts from the saved last positions
+                        and concatenates. Walkers are taken as given (zeus asks for >= 2 * ndim).
     """
     import emcee
     os.makedirs(out_dir, exist_ok=True)
@@ -463,51 +529,68 @@ def run_gasflux_fit(strain, out_dir, *, medium, table, otu=None, experiment="gas
         else:
             p0, mode = init_walkers(specs, n_walkers, np.random.default_rng(seed)), None
             init_kind = "emergent-point ball"
-        if backend is not None and not resuming:
+        if sampler_kind == "zeus":
+            prev = None
+            if resume and os.path.exists(os.path.join(out_dir, "chain.npy")):
+                prev = (np.load(os.path.join(out_dir, "chain.npy")), np.load(os.path.join(out_dir, "log_prob.npy")))
+                p0 = prev[0][-1]; n_walkers = int(p0.shape[0])
+                init_kind = f"resumed (zeus) from chain.npy at step {prev[0].shape[0]}"
+                print(f"[ckpt] {label}: {init_kind}", flush=True)
+            zres = run_zeus_blocks(_gwlogprob, np.asarray(p0, float), n_steps_max, check_every, pool,
+                                   out_dir=out_dir, label=label, prev=prev, seed=seed,
+                                   tau_factor=tau_factor, target_neff=target_neff, n_burn=n_burn)
+            chain, lp_all, done, tau_max, stop_reason, zinfo = zres
+            sampler = None
+        else:
+          if backend is not None and not resuming:
             backend.reset(n_walkers, ndim)
-        sampler = emcee.EnsembleSampler(n_walkers, ndim, _gwlogprob, pool=pool, moves=moves,
+          sampler = emcee.EnsembleSampler(n_walkers, ndim, _gwlogprob, pool=pool, moves=moves,
                                         backend=backend)
-        if not resuming:
+          if not resuming:
             # seed the sampler's OWN RNG (emcee 3 does not read numpy's global seed), so the
             # same seed gives the same chain with or without a backend; on resume the backend
             # restores the random state it saved.
             sampler.random_state = np.random.RandomState(seed).get_state()
-        state = p0; done = int(backend.iteration) if resuming else 0; tau_max = float("nan")
-        stop_reason = f"n_steps_max ({n_steps_max})"
-        while done < n_steps_max:
-            n = min(check_every, n_steps_max - done)
-            state = sampler.run_mcmc(state, n, progress=progress)
-            done += n
-            if backend is not None:
-                print(f"[ckpt] {label}: chain.h5 holds {backend.iteration} steps", flush=True)
-            try:
-                tau_max = float(np.nanmax(sampler.get_autocorr_time(tol=0)))
-            except Exception:
-                tau_max = float("nan")
-            if np.isfinite(tau_max) and tau_max > 0:
-                burn_now = min(int(max(n_burn, 2 * tau_max)), done - 10)
-                n_eff_min = n_walkers * (done - burn_now) / tau_max
-                print(f"[emcee] {label} step {done}: tau_max={tau_max:.1f} "
-                      f"chain/tau={done / tau_max:.1f} (need >{tau_factor}) "
-                      f"min n_eff~{n_eff_min:.0f} (need >={target_neff})", flush=True)
-                if done > tau_factor * tau_max and n_eff_min >= target_neff:
-                    stop_reason = (f"converged: chain {done} > {tau_factor}*tau_max "
-                                   f"AND min n_eff {n_eff_min:.0f} >= {target_neff}")
-                    break
-            else:
-                print(f"[emcee] {label} step {done}: autocorr not yet estimable", flush=True)
+          state = p0; done = int(backend.iteration) if resuming else 0; tau_max = float("nan")
+          stop_reason = f"n_steps_max ({n_steps_max})"
+          zinfo = {}
+          while done < n_steps_max:
+              n = min(check_every, n_steps_max - done)
+              state = sampler.run_mcmc(state, n, progress=progress)
+              done += n
+              if backend is not None:
+                  print(f"[ckpt] {label}: chain.h5 holds {backend.iteration} steps", flush=True)
+              try:
+                  tau_max = float(np.nanmax(sampler.get_autocorr_time(tol=0)))
+              except Exception:
+                  tau_max = float("nan")
+              if np.isfinite(tau_max) and tau_max > 0:
+                  burn_now = min(int(max(n_burn, 2 * tau_max)), done - 10)
+                  n_eff_min = n_walkers * (done - burn_now) / tau_max
+                  print(f"[emcee] {label} step {done}: tau_max={tau_max:.1f} "
+                        f"chain/tau={done / tau_max:.1f} (need >{tau_factor}) "
+                        f"min n_eff~{n_eff_min:.0f} (need >={target_neff})", flush=True)
+                  if done > tau_factor * tau_max and n_eff_min >= target_neff:
+                      stop_reason = (f"converged: chain {done} > {tau_factor}*tau_max "
+                                     f"AND min n_eff {n_eff_min:.0f} >= {target_neff}")
+                      break
+              else:
+                  print(f"[emcee] {label} step {done}: autocorr not yet estimable", flush=True)
     finally:
         pool.close(); pool.join()
     wall = time.time() - t0
 
     burn = min(int(n_burn if not np.isfinite(tau_max) else max(n_burn, 2 * tau_max)), done - 10)
     thin = max(1, int(tau_max / 2)) if np.isfinite(tau_max) else 1
-    flat = sampler.get_chain(discard=burn, thin=thin, flat=True)
-    lpf = sampler.get_log_prob(discard=burn, thin=thin, flat=True)
-    chain = sampler.get_chain()
-    lp_all = sampler.get_log_prob()
+    if sampler is not None:
+        chain = sampler.get_chain()
+        lp_all = sampler.get_log_prob()
+        accept = float(np.mean(sampler.acceptance_fraction))
+    else:
+        accept = float("nan")          # a slice sampler has no acceptance fraction
+    flat = chain[burn::thin].reshape(-1, chain.shape[2])
+    lpf = lp_all[burn::thin].reshape(-1)
     i, j = np.unravel_index(np.nanargmax(lp_all), lp_all.shape)
-    accept = float(np.mean(sampler.acceptance_fraction))
     n_eff = flat.shape[0] if not np.isfinite(tau_max) else float(n_walkers * (done - burn) / tau_max)
     converged = stop_reason.startswith("converged")
 
@@ -538,6 +621,7 @@ def run_gasflux_fit(strain, out_dir, *, medium, table, otu=None, experiment="gas
                     "init": init_kind, "warm_start_rejected": bool(warm_rejected),
                     "moves": None if moves is None else str(moves),
                     "checkpoint": bool(checkpoint), "resumed": bool(resuming),
+                    "sampler_kind": sampler_kind, "zeus": zinfo,
                     "target": {"tau_factor": tau_factor, "target_neff": target_neff},
                     "stop_reason": stop_reason, "converged": bool(converged),
                     "acceptance_fraction": round(accept, 3),
