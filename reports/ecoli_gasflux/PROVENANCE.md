@@ -6,7 +6,7 @@
 
 *Evidence:* `python reports/P1_parsa_port/gate.py` -> 60 comparisons, 60 PASS, 0 FAIL (A/B/C); `python reports/P3_gate/gate_def.py` -> all ten R2 values his reports print reproduced, worst difference 0.009 (D/E/F).
 
-**This report was last written at** `fa1fa42` (2026-09-08) — P5 TASK 2: the convergence caveat at the top of the gas-flux README and the P3 gate
+**This report was last written at** `6e470a3` (2026-09-09) — P5 TASK 1: c_max is the cause of the LB collapse; the LB cap is set to 450, his E/F nominal
 
 **Committed inputs it reads (from `reports/report_status.yaml`), and the commit each was last written at:**
 

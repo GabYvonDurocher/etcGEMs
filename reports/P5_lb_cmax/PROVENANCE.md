@@ -6,9 +6,13 @@
 
 *Evidence:* task1_parsa_lb_cmax.py, task1c_fixed_point.py, task1d_cap_sweep_fixed_point.py and task1e_reoptimise.py regenerate their CSVs (the last three read $PARSA_ROOT, read only); run_lb_fit.py regenerates the chain (~2.5 h) and lb_cmax_comparison.csv.
 
-**This report is not yet committed.**
+**This report was last written at** `6e470a3` (2026-09-09) — P5 TASK 1: c_max is the cause of the LB collapse; the LB cap is set to 450, his E/F nominal
 
-**Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
+**Committed inputs it reads (found by scanning this report's own files), and the commit each was last written at:**
+
+| input directory | last written | date | commit subject |
+|---|---|---|---|
+| `strains/eciML1515/outputs/calibration_configD_LB_recipe_cmax257` | `6e470a3` | 2026-09-09 | P5 TASK 1: c_max is the cause of the LB collapse; the LB cap is set to |
 
 ---
 
