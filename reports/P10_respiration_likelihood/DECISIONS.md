@@ -118,3 +118,32 @@ Both live in the strain's `gas_exchange.respiration` block, consumed by the like
 `etcgem gasflux` runs and the gate scripts keep `flux_tpc`'s defaults, so no committed
 `gasflux_*` output changes and the seven-strain gate is byte-identical with them OFF (recorded
 in the report). ON for eciML1515 only.
+
+## D3 — TASK 5: the decision rule and the run's definition, written before TASK 3 has reported and before any sampler runs
+
+**Where:** before TASK 3's verdict. Written now so that neither the smoothness table nor the
+run can shape it.
+
+**The run, if TASK 3 reads SMOOTH under (c):** D NLDM, both halves ON through the strain config
+(`gas_exchange.respiration`: pfba tie-break at tolerance 1e-9, log-O2 floor 0.76, continuous
+support at 0.01), everything else P4's and P6's — the data, `c_max` 120, the recipe medium with
+the clearance sampled, every prior including `disc_resp`'s (unchanged, D2) — under the
+**original sampler**: emcee's stretch move, 40 walkers, 16 processes, seed 1, P7's driver with
+the HDF5 checkpoint every step, initialised from P4's final ensemble state (P6 D2). No warm
+start. So a plateau, if one appears, is attributable to the surface and to nothing else. The
+tie-break makes each evaluation ~4.5× dearer (2.0 s against 0.45 s single-process; ~8–9 s per
+step at 16 processes against 1.86), so 1500 steps is ~3.5 h.
+
+**Decision rule** (P7's form, verbatim in substance): τ_max at every 250-step checkpoint with
+P6's estimator. **MIXING** if the mean increment over steps 750→1500 is below 10 per block AND
+τ_max(1500) < 100. **PARTIAL** if the mean over the last three is below 20 and each of the last
+three is below the first block's; then extend once, by resume, to 2500 and apply the same two
+conditions to 1750→2500 and τ_max(2500) < 100. Anything else **NOT MIXING**. If MIXING, run on
+to the P6 target (n_eff ≥ 600 AND chain/τ ≥ 25) and report the posterior against P4's medians,
+the width ratios, and one line scan per parameter at the new MAP classed gradient-determined or
+wall-bounded. If NOT MIXING, STOP and say that the surface was smooth by P9's instrument and the
+chain still did not mix. The comparison rows are P6's 40-walker, P7's 128-walker and P8's zeus
+checkpoints — four samplers and configurations on the old surface, one on the new.
+
+**If TASK 3 does not read SMOOTH under (c), no sampler runs.** The remaining rough lines are
+decomposed as P9 did and the surrogate route (1.15 c) is reported as the next decision.
