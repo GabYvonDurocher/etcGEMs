@@ -1,0 +1,21 @@
+{
+  "A_shape": [
+    100,
+    40,
+    16
+  ],
+  "B_shape": [
+    100,
+    40,
+    16
+  ],
+  "C_shape": [
+    100,
+    40,
+    16
+  ],
+  "A_equals_B": false,
+  "B_equals_C": false,
+  "max_abs_diff_AB": 3.8449676430911497,
+  "max_abs_diff_BC": 5.810219427115813
+}

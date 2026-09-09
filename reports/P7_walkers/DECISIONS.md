@@ -47,3 +47,72 @@ worktree must run with `PYTHONPATH=<worktree>/src` (as K4–K9 did) or it silent
 primary tree's code. The interpreter is the same one the old venv wraps
 (`/Library/Developer/CommandLineTools/…/3.9`, 3.9.6), so the move is a re-installation, not an
 upgrade. The old venv is left in place.
+
+## D3 — TASK 2: the decision rule, written before the 128-walker run starts
+
+**Where:** before TASK 3. Not revised after it.
+
+The quantity that decides is **τ_max as a function of chain length N**, measured at every 250-step
+checkpoint with the same estimator P6 used (`emcee.autocorr.integrated_time`, `tol=0`, maximum
+over parameters). n_eff is reported and does **not** decide (128 walkers triples it at fixed τ).
+
+* **Null — NOT MIXING:** the per-block increment in τ_max stays near what P6 measured, ~25 per
+  250 steps (τ_max ≈ 0.10 N; P6's six checkpoints: 28.1, 53.4, 78.5, 103.5, 128.9, 155.9), i.e.
+  chain/τ pinned near 10 and no curvature.
+* **MIXING:** the increment falls and τ_max approaches a plateau. Threshold, committed now: the
+  **mean increment over the last three blocks (steps 750→1500) below 10 per block AND τ_max at
+  N = 1500 below 100**. Both must hold.
+* **PARTIAL:** the increments fall (mean over the last three blocks below 20 per block, and each
+  of the last three below the first block's) but one of the two MIXING conditions fails at 1500.
+  Then the run is extended **once**, by resume from its checkpoint, to 2500 steps, and both the
+  1500- and 2500-step readings are reported; the verdict at 2500 uses the same two conditions
+  applied to steps 1750→2500 and τ_max at 2500 < 100. If it still fails, the verdict is PARTIAL
+  and the report gives the τ(N) curve and the cost of doubling walkers again.
+* **Anything else** (increments not falling, or falling but chain/τ still pinned) is NOT MIXING.
+
+The comparison row is P6's 40-walker chain, same fit, same start (P4's final ensemble state),
+same everything but the walker count. Initialisation for 128 walkers (D4 below) is fixed before
+the run so it cannot be tuned to the outcome.
+
+## D4 — the 128-walker initialisation rule and seed
+
+**Where:** TASK 3, before the run.
+
+P6's D2 used P4's final 40-walker ensemble state as the start, with no jitter. 128 walkers need
+128 distinct positions: **each is a P4 final walker drawn with replacement (`rng.integers(0, 40)`)
+plus Gaussian jitter of 5 % of each parameter's prior scale in sampled space** — the same ball
+width the driver's own warm start uses (`_warm_start`: `0.05 × s.scale`) — clipped inside the
+prior bounds. Seed 7 for the draw (recorded in the runner). So the ensemble starts where the
+40-walker chain ended, spread as that chain was spread plus a small jitter, and the comparison
+with P6's checkpoints is not confounded by burn-in. The spread per parameter at the start and at
+the end is reported so a collapse toward, or a blow-out beyond, the 40-walker spread is visible.
+
+## D5 — TASK 1: the checkpoint is a no-op and resumes exactly; what is not reproducible is the likelihood under a process pool, and that predates P7
+
+**Where:** TASK 1, before TASK 3.
+
+The driver gained `checkpoint=` (emcee's HDF5 backend, `chain.h5`, written every step with the
+sampler's random state) and `resume=`, and — necessarily — an explicit seeding of the sampler's
+own RNG from `seed`, because emcee 3 ignores numpy's global seed and every earlier run in this
+family was therefore unseeded at the sampler level. Tests, D NLDM from P4's final state:
+
+| test | result |
+|---|---|
+| one process: 20 steps with vs without checkpoint (A2 vs B2) | **bit-identical** |
+| one process: 10 steps, halt, resume to 20 (C2) vs uninterrupted 20 (B2) | steps 0–9 identical; **step 10 (the resume step) identical for all 40 walkers**; from step 11 one walker differs, five by step 19 (3.5 % of walker-steps) |
+| 16 processes: 100 steps with vs without checkpoint (A vs B) | differ from step 19; 61 % of walker-steps by step 100 |
+| 16 processes: two runs WITHOUT checkpoint, same seed (A vs A′) | differ from step 11; **63 %** of walker-steps by step 100 |
+
+So the backend changes nothing, and resume restores positions and random state exactly. The
+divergence after a resume, and the run-to-run divergence at 16 processes with no checkpoint at
+all, have the same cause: the configuration-D likelihood reproduces only to ~1e-4 (P6's
+pre-flight jitter, the clearance re-application and Gurobi's basis history), the pool hands
+walkers to workers in an order that is not fixed, a restarted worker starts with a fresh solver
+history, and a 1e-4 change occasionally flips an accept/reject that then propagates. **No chain
+in this family — P4's nine, P6's, this one — is bit-reproducible run-to-run under a pool.** That
+is a property of the likelihood and the pool, not of the checkpoint, and it predates P7; it does
+not bias the sample (the flips are decisions at the 1e-4 margin), and it is recorded here so
+that "same seed, same chain" is never assumed of these fits.
+
+**Decided:** the prompt's STOP clause is for a checkpoint that alters the sample, and this one
+does not; checkpointing is used for TASK 3.
