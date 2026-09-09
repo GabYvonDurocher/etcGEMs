@@ -116,3 +116,34 @@ that "same seed, same chain" is never assumed of these fits.
 
 **Decided:** the prompt's STOP clause is for a checkpoint that alters the sample, and this one
 does not; checkpointing is used for TASK 3.
+
+## D6 — TASK 4: the verdict is NOT MIXING, decided by D3's rule, and what it licenses
+
+**Where:** after TASK 3; the rule was not touched.
+
+Read mechanically by `task3_table.py` (`task3_verdict.json`): increments 26.1, 26.0, 24.4,
+23.1, 21.1, 20.1; mean over steps 750→1500 = **21.4**, against 10 for MIXING and 20 for PARTIAL;
+τ_max(1500) = 140.8 against 100. **NOT MIXING.** The PARTIAL branch's extension to 2500 is
+therefore not run: its own condition (mean < 20) failed, and D3 says anything else is NOT
+MIXING. A reader can see the whole curve and that it is 10 % below the 40-walker one at 1500
+(140.8 vs 155.9) with the increment easing from 26 to 20; that is real, small, and not a plateau.
+The carrier rotates between checkpoints (topt_scale, dCp_scale, dTm, sigma) exactly as in D6 of
+P6: no single direction. The ensemble neither collapsed nor blew out (spread end/start 0.85–1.36
+per parameter, equal to the 40-walker final spread within 20 %). n_eff read 1225–1364 from the
+first checkpoint — the trap the prompt named, and it decided nothing.
+
+**What it licenses.** The cheap option — D6(iii) of P6, more walkers — is ruled out at 3.2× the
+walkers and 2.7× the cost per step. P6 D6's remaining options are the real menu: fix the four
+prior-determined parameters (σ, K, topt_scale, dCp_scale; 16 → 12 dimensions), narrow the
+discrepancy priors to the decade the data occupy, a different sampler, or accept the diagnostic
+status and quote medians only. Each changes what the fit is or what is claimed of it, and each
+is a decision for the user. A further doubling to 256 walkers would cost ~10 s/step, ~4.2 h for
+1500 steps, and on this curve (increment falling ~1 per block per 88 extra walkers) would be
+expected to read ~18 per block — a test of the same null, not a fix; not recommended.
+
+**Does it apply to the six committed chains?** Yes. They are the same sampler at 36 walkers on
+the same likelihood family, and their τ ≈ N/9 (P4) is the same signature; nothing in P7 says
+40 → 128 changes it, so 36 is not the reason either. **The synthesis's section 7 sentence
+"reaching the criterion is ~8000 steps" is therefore not true of this sampler at any walker
+count tried**, and its evidence rows [C6] and [C8], which wait on "P6's converged
+configuration-D posteriors", wait on a decision, not on compute.
