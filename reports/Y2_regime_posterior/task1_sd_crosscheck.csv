@@ -1,0 +1,4 @@
+field,units,sd_prior_here,sd_prior_paper,sd_posterior_here,sd_posterior_paper,tolerance,matches
+Tm,C,4.898968431327379,4.9,4.012647033499692,4.0,0.4,True
+Topt,C,10.920704646434078,10.9,7.162256308766593,7.1,0.6,True
+dCpt,kJ/mol/K,1.9968773860537545,2.0,1.7871919636059832,1.8,0.3,True

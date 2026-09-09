@@ -127,6 +127,21 @@ from 2.5 °C to 7.0 °C, and at the tightest cap growth reads 0.0931 / 0.0968 / 
 is quoted as one. It is that **a substrate-limited regime removes the sharply-defined optimum
 altogether, while leaving the upper thermal limit where it was.**
 
+> **Note added 2026-09-09 (Y2).** PARTS C and D above ran at Li *et al.*'s **prior** parameters;
+> the test has since been repeated at their calibrated posterior, over their own 100 posterior
+> models. See `reports/Y2_regime_posterior/report.md`. Nothing above is edited, and three things
+> there qualify it. (i) The prior run reproduces exactly — byte-identically, and again through an
+> independent code path. (ii) The **10.09 / 0.81 °C** pair is a property of the prior *point*
+> table: at the posterior it is 8.46 / 4.27 °C, because CT_max is no longer regime-insensitive
+> there. Over the ensemble the effect is nonetheless far more consistent at the posterior — the
+> plateau widens under the substrate cap in **93 %** of posterior models against 35 % of prior
+> models, and T_opt moves further than CT_max in **92 %** against 50 %. (iii) With the posterior
+> file in hand the signed shift PART D could not measure is measurable: Tm moved **+1.33 °C** on
+> average across 764 enzymes while Topt moved **−6.32 °C**, but seven of the nine limit-setting
+> enzymes moved *down* in Tm (ERG1 by 3.7 °C), and only three of those nine were below 42 °C in
+> the prior — so the sentence below about seven against nine is true but reads as a continuity
+> there is not.
+
 ## D — their calibration did not pull stability down
 
 Their priors: **Tm** measured for 266 of 764 enzymes from the yeast meltome, the rest assigned the

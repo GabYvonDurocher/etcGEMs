@@ -1,0 +1,32 @@
+{
+  "n_low_posterior": 9,
+  "n_low_prior": 7,
+  "paper_nine": [
+    "ERG1",
+    "ATP1",
+    "ALA1",
+    "KRS1",
+    "SER1",
+    "HEM1",
+    "PDB1",
+    "ADH1",
+    "TRP3"
+  ],
+  "matched": [
+    "ADH1",
+    "ALA1",
+    "ATP1",
+    "ERG1",
+    "HEM1",
+    "KRS1",
+    "PDB1",
+    "SER1",
+    "TRP3"
+  ],
+  "extra": [],
+  "missing": [],
+  "Tm_shift_mean": 1.3249463925053884,
+  "Tm_shift_median": 1.2379287440298583,
+  "Topt_shift_mean": -6.321346491962958,
+  "Topt_shift_median": -6.278391160853431
+}
