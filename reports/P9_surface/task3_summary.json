@@ -1,0 +1,36 @@
+{
+  "128w (P7) 250-1500": {
+    "walkers": 128,
+    "steps": 1250,
+    "acceptance_min": 0.04083266613290633,
+    "acceptance_q25": 0.1455164131305044,
+    "acceptance_median": 0.1753402722177742,
+    "acceptance_q75": 0.20276220976781426,
+    "acceptance_max": 0.24179343474779824,
+    "walkers_below_5pct": 1,
+    "walkers_with_frozen_run_ge50": 40,
+    "longest_constant_run_max": 160,
+    "longest_constant_run_median": 41.0,
+    "accepted_step_median": 0.4371057434388052,
+    "proposed_step_median": 1.7782894564383072,
+    "accepted_over_proposed_median": 0.24580123435825443,
+    "sqrt_dim": 4.0
+  },
+  "40w (P4+P6) 1500-2500": {
+    "walkers": 40,
+    "steps": 1000,
+    "acceptance_min": 0.056056056056056056,
+    "acceptance_q25": 0.14364364364364365,
+    "acceptance_median": 0.16966966966966968,
+    "acceptance_q75": 0.20745745745745744,
+    "acceptance_max": 0.25825825825825827,
+    "walkers_below_5pct": 0,
+    "walkers_with_frozen_run_ge50": 10,
+    "longest_constant_run_max": 98,
+    "longest_constant_run_median": 36.5,
+    "accepted_step_median": 0.41597591362856534,
+    "proposed_step_median": 1.7684361152073165,
+    "accepted_over_proposed_median": 0.23522247145455963,
+    "sqrt_dim": 4.0
+  }
+}
