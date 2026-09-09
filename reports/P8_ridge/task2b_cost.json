@@ -1,0 +1,18 @@
+{
+  "steps": 30,
+  "walkers": 40,
+  "wall_s": 612.5,
+  "s_per_step": 20.4,
+  "block_wall_s": [
+    192.9,
+    199.6,
+    210.3
+  ],
+  "ncall_total": 2233,
+  "evals_per_walker_step": 1.86,
+  "emcee_40w_s_per_step": 1.86,
+  "cost_ratio_vs_emcee": 11.0,
+  "single_eval_s": 0.45,
+  "ideal_parallel_s_per_step": 2.1,
+  "utilisation": 0.1
+}

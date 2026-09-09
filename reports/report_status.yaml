@@ -308,3 +308,14 @@ P7_walkers:
     task1_checkpoint_test{,2}.py regenerate their JSON (scratch runs, ~30 min); run_walkers.py
     regenerates the chain (~2.1 h); task3_table.py regenerates the checkpoint, spread and
     verdict tables from chain.h5.
+
+P8_ridge:
+  status: CURRENT
+  note: >-
+    a diagnosis and a stopped branch. The PCA (task1_pca.py) is reproducible from the committed
+    P7 and P4 chains; BRANCH B (zeus) was stopped before its first checkpoint on a cost rule
+    written before its tau was seen, and the 30-step cost diagnostic that replaced it is what
+    the run directory holds. Nothing in it is a posterior and nothing is quoted as one.
+  evidence: >-
+    task1_pca.py regenerates task1_*.csv and the figure from chain.h5 / chain.npy; task2b_toy.py
+    regenerates task2b_toy.json (seconds); task2b_cost.py regenerates task2b_cost.json (~11 min).

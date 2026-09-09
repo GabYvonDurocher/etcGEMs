@@ -1,0 +1,36 @@
+{
+  "steps": 500,
+  "walkers": 40,
+  "tau_max_emcee": 24.161757098455546,
+  "tau_per_param": [
+    16.7,
+    18.0,
+    20.4,
+    20.3,
+    18.4,
+    18.9,
+    19.2,
+    22.7,
+    19.5,
+    20.5,
+    17.8,
+    18.7,
+    19.2,
+    20.1,
+    19.4,
+    20.6
+  ],
+  "burn": 72,
+  "n_eff_min": 752.7613550032527,
+  "max_abs_z_mean": 2.713956808375539,
+  "max_abs_sd_err": 0.04817571209139915,
+  "rms_corr_err": 0.027217677241224786,
+  "zeus_act_max": 49.790225465555814,
+  "zeus_efficiency": 0.028808175250235116,
+  "evals_per_walker_step": 0.97,
+  "checkpoint_files": [
+    "chain.npy",
+    "log_prob.npy"
+  ],
+  "passed": true
+}
