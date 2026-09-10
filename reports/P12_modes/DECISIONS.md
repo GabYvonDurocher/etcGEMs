@@ -97,3 +97,156 @@ modes is a point in neither.
 
 Consequence for the report: the 6.8-sigma log Z disagreement in P11 is not necessarily two
 different modes. It may be one mode explored to different depths. TASK 2 decides.
+
+## D4 — the support weight: what it is, and the counterfactual (addendum 1, characterisation only)
+
+Nothing was changed. The likelihood, the weight, the floor and the tie-break are as P11 left them.
+
+### 1. The exact form, quoted
+
+`src/etcgem/calibration_multi.py:282` and `:294-301`:
+
+```python
+keep = (g >= _MASK_G) & (o2 > 0)          # _MASK_G = 1e-4  (line 144)
+...
+        # P10: the support of the term. The hard mask above switches a whole temperature in or
+        # out of the term as growth crosses 1e-4, which is a discontinuity by construction --
+        # half of P9's cliffs were this, not O2 (P10 D2). With ``alive_soft_growth`` = g_s set,
+        # a temperature's contribution is weighted by min(1, g / g_s), continuous in theta and
+        # equal to 1 wherever the model grows faster than g_s. Default None = the hard mask.
+        gs = resp.get("alive_soft_growth")
+        w = np.minimum(1.0, g[keep] / float(gs)) if gs else np.ones(int(keep.sum()))
+        ll += float(-0.5 * np.sum(w * ((obsl - pred) ** 2 / varr + np.log(2 * np.pi * varr))))
+```
+
+- **A function of** the model's PREDICTED growth `g` at each temperature, not of the observation.
+  The addendum reads this correctly.
+- **Multiplies the RESPIRATION term only.** It does not touch growth. The growth term is
+  `calibration_multi.py:279-281`, and it is on a **LINEAR** scale:
+  `-0.5 * ((growth_obs - g)**2 / var + log(2*pi*var))`. So the addendum's premise that "a model
+  that predicts no growth has its own growth penalty discounted" is **not what the code does**:
+  at theta_B the growth penalty is paid in full, and it is -20.109, the largest single term in
+  the decomposition. What is discounted is the model's RESPIRATION penalty.
+- **How it enters:** a multiplier on the whole per-temperature respiration term, outside the
+  variance. It scales the term, it does not widen the error bar.
+- **P10's intent,** from the comment above and P10 D2: the pre-existing HARD mask at g >= 1e-4
+  switched an entire temperature in or out as growth crossed a threshold, which is a step
+  discontinuity by construction, and P10 attributed half of P9's measured cliffs to it. The soft
+  weight makes the support continuous in theta. That is a real defect being fixed, and the weight
+  is on record as a reasonable response to it before anything below is said.
+
+Note the hard mask is still applied (`keep`); the weight operates on top of it. At the mask
+boundary g = 1e-4 the weight is 0.01, so the residual step is 1 % of the term rather than 100 %.
+That is the smoothing, and it works.
+
+### 2. The arithmetic reconciled
+
+Per-scheme totals (`addendum1_schemes.csv`), all from ONE LP solve per point, re-scored:
+
+| point | growth term | resp term (as is) | TOTAL (i) | P11's best sample |
+|---|---|---|---|---|
+| theta_A     | +2.951  | -13.373 | **-10.422** | main run best -7.40 |
+| theta_B     | -20.109 | -14.848 | **-34.957** | seed 2 best -9.11 |
+| theta_B*    | +4.212  | -13.317 | **-9.106**  | = seed 2's best sample |
+| theta_P4    | -0.060  | -14.770 | **-14.830** | — |
+
+The columns combine as growth + respiration, both already summed over the twelve temperatures.
+
+theta_B at -34.96 is **25.9 units worse than seed 2's own best sample** at -9.11. The addendum's
+test is therefore met: **theta_B is a MEDIAN ARTEFACT**, not a mode. This was already caught in
+D1 and acted on before the addendum arrived — theta_B* (seed 2's best sample) was carried as B's
+representative from TASK 0 onward, and TASK 1 already ran the A -> B* line, which is the extra
+line the addendum asks for. Both lines are reported (D3). **theta_B* is B's representative from
+here on**; theta_B is retained only as the object whose artefactual status is being demonstrated.
+
+### 3. The counterfactual
+
+The addendum's schemes (ii) and (iii) are both premised on the growth term being log-scale with a
+zero-prediction problem. It is linear, so:
+
+- **(ii) as written is a no-op.** Flooring the growth PREDICTION at 1e-3 before scoring moves the
+  total by 0.002 units at theta_A and 0.001 at theta_B. Computed and reported for the record:
+  A - B = +24.537 against +24.535. It answers nothing, through no fault of the reasoning — the
+  term simply was not where the hazard was.
+- **(iii) as written cannot return -inf from the growth term** for the same reason.
+
+So the counterfactual that actually answers "does the weight BOUND the penalty or DISCOUNT it"
+was restated to act where the weight acts:
+
+- **(ii') no discount** — hard mask kept, `w == 1`: the respiration penalty paid in full wherever
+  it is scored.
+- **(iii') no support handling** — no mask, `w == 1`, every temperature scored.
+
+| gap | (i) as is | (ii) addendum floor | (ii') no discount |
+|---|---|---|---|
+| A - B      | +24.535 | +24.537 | **+39.967** |
+| A - B*     | -1.316  | -1.317  | -1.464 |
+
+Units the weight hands back (resp term as is, minus resp term at w == 1):
+
+| theta_A | theta_B | theta_B* | theta_P4 |
+|---|---|---|---|
+| 1.263 | **16.696** | 1.115 | 1.234 |
+
+**The weight DISCOUNTS; it does not bound.** It is worth ~1.2 units to every live point and
+**16.7 units to theta_B**, and removing it widens the A - B gap by 15.4 units. The addendum's
+inference is correct in its conclusion even though its mechanism was the wrong term: the weight
+is what keeps theta_B's score respectable.
+
+**But theta_B was already established as a median artefact, and the weight does not prop up
+theta_B*.** At B* the discount is 1.115 units, the same as at A, and B* stays better than A under
+both schemes (-1.316 as is, -1.464 with no discount). So the weight is not manufacturing the
+seed-2 result. It flatters one point that was never a mode.
+
+**(iii') is UNDEFINED at every good point, and that is the finding.** At 15 C the model does not
+grow at theta_A, theta_B* or theta_P4, and `flux_tpc` returns **NaN** for O2 there -- there is no
+prediction to score, not a zero whose log is large. Scoring every temperature is therefore not
+merely harsh at these points, it is impossible, and (iii') returns NaN for A, B* and P4.
+
+It is finite only at **theta_B**, at -53.780, and for a revealing reason: theta_B is alive-but-
+negligible at 15 C rather than dead, so O2 is defined there. The scheme that pays the full penalty
+everywhere can be evaluated at the dead-model point and NOT at the three live ones.
+
+So some support handling is structurally required, which is on record as the addendum asked, and
+it strengthens rather than weakens P10's position: the question was only ever WHICH handling, and
+the answer "none" is not available.
+
+### 4. Deadness
+
+Peak predicted growth against the observed peak (2.076 /h):
+
+| theta_A | theta_B | theta_B* | theta_P4 |
+|---|---|---|---|
+| 1.627 (78 %) | **0.163 (7.8 %)** | 1.648 (79 %) | 1.558 (75 %) |
+
+theta_B is a DEAD-MODEL point by the addendum's own criterion (peak below half the observed
+peak). A, B* and P4 are not, and all three sit near 75-80 %.
+
+TASK 2 will carry this: every basin gets its peak predicted growth reported beside its
+log-likelihood, any basin below 50 % of the observed peak is flagged **DEAD-MODEL** and is not
+presented as an alternative explanation of the thermal curve, and every basin centre is re-scored
+under (ii') so the reader sees which basins survive a full-strength respiration penalty.
+
+### 5. Scope of what this does and does not touch
+
+P11's twelve smoothness lines and both nested runs were measured on the weighted likelihood. The
+**floor and the tie-break are unaffected** by this question: they act on the respiration variance
+and on the LP's choice of vertex, neither of which involves the weight. The **sampleability
+verdict on the cold lines (15-25 C) is not independent of it** — those are exactly the
+temperatures where predicted growth is small and the weight is below 1, so a change to the weight
+would change those lines and they would need re-scanning. Not re-scanned here.
+
+### 6. Consequence — recorded, not acted on
+
+The weight discounts rather than bounds. Under section 0c that is a new PI item under 1.15 with
+the numbers above beneath it, and the sequence in section 0b gains a step before per-basin
+sampling: decide the support handling. **No change is made in P12.**
+
+### 7. Reconciliation against section 0c
+
+This bears on **R1** (the posterior). It **qualifies P11's framing of the seed disagreement as
+multimodality**: the disagreement in MEDIANS is now partly explained without invoking two modes at
+all, because one of the two medians is a dead point that the weight flatters and that neither run
+would have visited as a mode. It does not touch R2 or R4. P11's numbers are not edited; a dated
+note is added to P11's report pointing here. Whether two modes exist remains TASK 2's question,
+and TASK 1 has already shown there is no barrier between A and B*.
