@@ -354,3 +354,56 @@ mode count is reported from that, not from here.**
 
 **Recorded as a correction of my own reasoning, not of the data.** The 1,476 evaluations stand;
 the three-component reading survived about ten minutes and never left this file.
+
+## D7 — the barrier threshold, set against the kink scale, BEFORE TASK 2c reports
+
+Written on the user's addendum 2 (2026-09-10) while TASK 2c was still running and had returned
+**zero** endpoints — `task2c_run.log` contained no result lines when this was committed. The rule
+is therefore fixed before its data are seen, as P9's, P11's and TASK 1's rules were.
+
+**The argument.** This likelihood is piecewise-smooth by measurement, not by supposition. P9/P10
+put the growth term's LP kinks at **1–3 log-likelihood units**, and P11's sampleability rule
+accepts steps up to **5**. A dip of that size on a chord is what **one** piecewise basin floor
+looks like when the chord crosses a basis change; it is not evidence of two basins. The TASK 2b
+barrier threshold of 0.5 was inherited from TASK 1, where it was calibrated against the 0.02-unit
+*evaluation jitter* — the wrong scale for this question, and it is why four points spanning 0.74
+units appeared "mutually separated".
+
+**The rule, in force from here:**
+
+1. Two endpoints are **SEPARATE BASINS** only if **both** hold:
+   - the barrier on their chord **exceeds 5.0 log-likelihood units**, and
+   - **both endpoints are local optima by TASK 2c's termination reason** — Powell terminated on
+     its tolerance, not on the 3,000-evaluation cap. A capped endpoint is not a demonstrated
+     optimum and cannot found a basin, however deep the chord between it and something else.
+2. Barriers of **1.0–5.0** units are **SUB-STRUCTURE of one basin** — kink-bounded plateaus, the
+   piecewise floor P9 and P10 measured.
+3. Barriers **below 1.0** unit are **noise**.
+
+**Reported at three thresholds — 3, 5 and 8 — with 5 as the headline**, so the reader sees the
+count's sensitivity rather than a single number presented as robust.
+
+**This retracts nothing in D6 except its scale.** D6's two substantive findings are unaffected and
+in fact strengthened: the 64-endpoint cluster at 0.178 was already below every threshold here, and
+the elimination of P4, p50 and p38 as non-optima rests on monotone descent, not on any threshold
+at all. What D7 changes is D6's tentative reading of "four candidate modes": under a 5-unit rule
+the four best screen endpoints, spanning 0.74 units across barriers of 0.53–5.0, are **one basin
+with sub-structure**, not four basins — pending 2c, which is what the count is taken from.
+
+**The ceiling test (addendum 2 item 3), stated before the data.** P11's runs, read from their own
+samples: **main best −7.3964**, seed-2 best **−9.1058** — the latter is exactly θ_B\*, confirming
+D1's identification. Every one of the four best screen endpoints (−8.06 to −8.80) sits **below**
+the main run's best sample. If **no** 2c continuation reaches or beats **−7.40**, then a
+derivative-free local optimiser with a 3,000-evaluation budget does not find the top of the basin
+a nested sampler already reached, and that is **a statement about Powell on this surface, not
+about the mode count** — and it caps how much weight any basin *height* comparison in TASK 4 can
+carry. It would also mean the screen's prior-volume fractions are the more reliable half of TASK 2
+and its heights the less reliable half.
+
+**Deadness and the weight, per 2c endpoint (addendum 2 item 4).** Every 2c endpoint is reported
+with its **peak predicted growth against the observed 2.076 /h** and its score under the
+no-discount scheme, so a dead or weight-propped optimum is visible at the point it is quoted. Note
+from D4 that the addendum's literal scheme (ii) — flooring the growth prediction before the log —
+is a **no-op** here, because the growth term is linear (it moved θ_A by 0.002); the informative
+counterfactual is **(ii′)**, `w ≡ 1` on the respiration term with the hard mask kept, and that is
+what is reported, labelled as such.
