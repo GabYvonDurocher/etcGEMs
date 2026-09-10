@@ -138,3 +138,17 @@ the next render. Evidence rows: **P13a–P13g**, of which **P13b** and **P13f** 
 | anywhere a likelihood value is compared between points | add the mask caveat | The growth mask at 1e-4 is an **attractor**: 4 of 12 converged endpoints sit on it exactly, worth ~2.8 units of unscored 15 °C respiration [P13c]. Under `clamp` that advantage is gone; comparisons across the change are not like-for-like. |
 
 No re-render.
+
+## Correction note — 2026-09-10 (P14): the smoothness rule ranked the lines backwards
+
+Extends the P8, P9/P10, P11, P12 and P13 notes above. Not edited into `synthesis.qmd`; to be applied
+at the next render. Evidence rows **P14a–P14d**.
+
+| where in `synthesis.qmd` | what must change | what the evidence says |
+|---|---|---|
+| any statement that the surface is or is not **sampleable** | replace the criterion | The absolute step-size rule **measured steepness, not discontinuity**. Refined on a grid, the 8.55-unit step that stopped P13 **halves cleanly (0.507, 0.515, 0.504) and is smooth**, while steps of **0.05–0.59 units elsewhere do not shrink and are real jumps** [P14a]. Step size ranked them backwards. |
+| any statement about what could make this family unconvergeable | the fatal property is **absent** | The surface has **no plateaus at all** — 0 of 480 adjacent evaluations exactly equal across twelve lines [P14b]. A plateau puts an atom in the distribution of L and voids nested sampling's volume shrinkage; a jump does not. What remains are **0.05–0.59 unit** discontinuities from the LP's O₂ vertex at cold temperatures [P14c]. |
+| anywhere a converged posterior is anticipated | still none | The two runs at nlive 800 were **not started** [P14d]. OPEN_ITEMS 1.19, 1.23. |
+| anywhere the flat parameters are described | distinguish the two things | A flat **direction** is not a plateau: the level set is codimension-1 extruded along that axis and has zero 16-D volume, so dynesty simply returns the prior as that parameter's marginal. That is **unidentifiability (R2)**, not a sampling failure (R1) [P14b]. |
+
+No re-render.
