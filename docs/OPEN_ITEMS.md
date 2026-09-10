@@ -199,6 +199,23 @@ temperatures, LP kinks), the T_opt/CT_max asymmetry, the predictor validation, a
   clear it in a housekeeping commit that says so. **The rule: re-run the byte-identity check
   AFTER the last change, not at the point it seems safe; diff the whole tree, not the fields
   the gate names; and treat a `resolved_config.yaml` diff as a finding until it is explained.**
+- **NEVER RUN A `multiprocessing` SCRIPT FROM STDIN. IT RESPAWNS FOREVER AND SURVIVES THE
+  SESSION** (added 2026-09-10, P12; **second occurrence**). macOS uses the *spawn* start method,
+  so every worker re-imports the parent's `__main__`. When `__main__` is stdin — `python - <<'EOF'`,
+  a heredoc, or a piped script — each worker re-executes the whole module top level, creates its
+  own `Pool`, and spawns more workers, without limit. The first occurrence (P9/P10 week) was
+  caught only because the user heard the fan. The second, **pid 43407, ran undetected from
+  2026-09-09 22:00 for 13.6 hours**, orphaned to `launchd` (PPID 1) with its heredoc temp file
+  already deleted, respawning continuously — its worker PIDs rotated 85783→87519 within seconds
+  of each other while being inspected — and had consumed ~58 minutes of CPU. It was found only
+  because the user asked whether the workers were still consuming CPU.
+  **The rules, all three:** (1) any script that imports `multiprocessing` is written to a FILE
+  with an `if __name__ == "__main__": main()` guard and run as a file, never fed to `python -`;
+  (2) after any pooled run, sweep for stray interpreters that are not in the live run's process
+  tree and check their PPID — **PPID 1 on a compute process means orphaned, not finished**;
+  (3) `ps -o pcpu` is a lifetime average and reads low on a sleeping parent, so a runaway hides
+  from it — check process STATE and whether the child PIDs are CHANGING, which is the only
+  signature that distinguishes a respawn loop from a long job.
 - **A SMOOTHNESS RULE MUST BE ABSOLUTE IN LOG-LIKELIHOOD UNITS; A RELATIVE ONE FLAGS KINKS ONCE
   THE CLIFFS ARE GONE** (added 2026-09-09, P11). P9 judged a likelihood surface by whether any
   0.05 sd step exceeded 20 % of its line's range. That was the right instrument for cliffs of
