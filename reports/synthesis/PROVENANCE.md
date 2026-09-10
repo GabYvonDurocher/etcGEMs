@@ -6,7 +6,7 @@
 
 *Evidence:* `python reports/synthesis/build_evidence.py` regenerates evidence.csv (74 rows); `python reports/synthesis/fig_requirement_arithmetic.py` regenerates the one figure; `quarto render reports/synthesis/synthesis.qmd` produces the 10-page PDF.
 
-**This report was last written at** `a86f6e8` (2026-09-10) — P11: run CONVERGED -- dlogz 0.100, n_eff 4,052, log Z -22.886 +/- 0.164 in 7,118 iterations and 111,420 evaluations (4.8 h); the posterior, the identifiability classification, the costs and the record
+**This report was last written at** `e8d8dd1` (2026-09-10) — P11: the second-seed check FAILED -- two converged runs disagree, so the posterior is NOT established
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 

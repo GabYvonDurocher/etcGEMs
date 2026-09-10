@@ -6,7 +6,7 @@
 
 *Evidence:* task1_prove_transform.py, toy.py, task1_pool_check.py and task1_checkpoint.py regenerate their JSON in minutes; lines.py --floor 1.42 regenerates the twelve-line scan (~54 min); run_nested.py regenerates the chain (~4.8 h, checkpointed and resumable); task0_two_rules.py, task2_jitter.py, task3_posterior.py, task3_identifiability.py (~70 min), task3_r2.py and task4_costs.py regenerate every table from the committed run output.
 
-**This report was last written at** `a86f6e8` (2026-09-10) — P11: run CONVERGED -- dlogz 0.100, n_eff 4,052, log Z -22.886 +/- 0.164 in 7,118 iterations and 111,420 evaluations (4.8 h); the posterior, the identifiability classification, the costs and the record
+**This report was last written at** `e8d8dd1` (2026-09-10) — P11: the second-seed check FAILED -- two converged runs disagree, so the posterior is NOT established
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 
