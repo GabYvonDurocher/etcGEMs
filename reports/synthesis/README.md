@@ -123,3 +123,18 @@ Extends the P8, P9/P10 and P11 notes above rather than replacing them. Not edite
 | anywhere `dTm` is quoted as a fitted parameter | flag it as a modelling decision, not a fit | Every converged live endpoint requires **dTm −3.07 to −4.50 K against a measured meltome**, and the **only** point in the map with dTm = 0 is a model that does not grow [P12f]. This is a failure to explain, not a nuisance parameter. OPEN_ITEMS 1.20. |
 
 No re-render.
+
+## Correction note — 2026-09-10 (P13): the convergence story gains its last cause, and one verdict is qualified
+
+Extends the P8, P9/P10, P11 and P12 notes above. Not edited into `synthesis.qmd`; to be applied at
+the next render. Evidence rows: **P13a–P13g**, of which **P13b** and **P13f** are typed
+`retraction`.
+
+| where in `synthesis.qmd` | what must change | what the evidence says |
+|---|---|---|
+| `{#sec-sampling}` | the cause is now **two** things, not one | Section 7 must say the convergence problem was **a cliffed likelihood AND a support discount**, not a sampling budget. The cliffs were the respiration term at cold temperatures (P9), fixed by a tie-break and a variance floor (P10/P11). The discount was the support weight, which handed a near-dead model 16.7 log-likelihood units where it handed a live one ~1.2 (P12), replaced in P13 by `clamp` [P13a]. |
+| anywhere the surface is called **sampleable** | name the centre | **QUALIFIED [P13f].** Sampleability is a statement about a neighbourhood, not a function: the same twelve lines give a largest step of 3.20 on `axis:topt_scale` at θ_A and **8.55 at p38**. Quote a sampleability verdict with the point it was measured at, always. |
+| anywhere a posterior for this family is promised as imminent | it is not | The two nested runs at nlive 800 were **not started**: the surface fails the absolute rule at p38 under **both** the old and the new support handling, identically to 0.0002 [P13e]. OPEN_ITEMS 1.19, 1.23. |
+| anywhere a likelihood value is compared between points | add the mask caveat | The growth mask at 1e-4 is an **attractor**: 4 of 12 converged endpoints sit on it exactly, worth ~2.8 units of unscored 15 °C respiration [P13c]. Under `clamp` that advantage is gone; comparisons across the change are not like-for-like. |
+
+No re-render.

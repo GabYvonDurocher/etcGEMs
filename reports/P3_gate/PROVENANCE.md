@@ -6,7 +6,7 @@
 
 *Evidence:* `python reports/P3_gate/gate_def.py` regenerates gate_def_table.csv; the c_max change is reproduced by re-running gasflux_configB and gasflux_configB_cmax60.
 
-**This report was last written at** `16f844d` (2026-09-09) — P10: re-gate -- all ten growth R2 unchanged to four decimals at Parsa's theta; D respiration unchanged; E/F respiration compared at the pfba point (E LB 0.8014 -> 0.7749, the width of the face at his theta); dated criterion note in reports/P3_gate/README.md; Candida pfba information run (translocation fraction unchanged, in-compartment chemistry moves for two strains; not adopted)
+**This report was last written at** `dea5535` (2026-09-10) — P13: gate and surface -- clamp adopted for eciML1515; TASK 3 FAILS and TASK 4 does not run
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 

@@ -1,5 +1,25 @@
 # P12 — map the modes: how many basins, how deep, how big, and what separates them
 
+> **Dated note, 2026-09-10 (P13): the CEILING TEST is qualified. The basin count is not. No number
+> below is edited.**
+>
+> TASK 2's ceiling test reported that **p38 (−7.186) and A (−7.213) beat P11's main-run best sample
+> (−7.3964)** and concluded that Powell reaches the top of the basin the sampler found. P13 measured
+> why, and the margin is **partly an artefact of the growth mask**.
+>
+> The mask at `_MASK_G = 1e-4` is an **attractor**: **5 of these 12 converged endpoints park a
+> temperature within 1 % of it, and 4 sit on it exactly** — p38's 15 °C growth is
+> 9.999999859874725e-05, **1.4e-12 below the threshold**. Sitting there means the 15 °C respiration
+> prediction is never scored, which is worth **~2.8 log-likelihood units**. Score it, as P13's
+> adopted `clamp` support does, and p38 falls from −7.186 to **−9.989**.
+>
+> So the optimiser exploited a discontinuity the sampler did not, and the comparison is **not
+> like-for-like**. The qualification is to the ceiling test only. **The basin count is untouched** —
+> it rests on bottleneck barriers of 13.868 against a maximum of 1.785 elsewhere, which no support
+> rule affects — and so are the retraction of the multimodality reading and the identification of
+> basin 2 as a dead model. See `reports/P13_support/` D4.
+
+
 _Run 2026-09-10 on `../etcGEMs-venv`, branch `p12/modes`, from main after PR #26 (P11) merged._
 
 **What this run moves, under §0c.** It moves **R1** (a posterior two runs agree on) by establishing

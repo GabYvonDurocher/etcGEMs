@@ -1,5 +1,27 @@
 # P11 — the last wall, an absolute smoothness rule, and a sampler matched to a piecewise surface
 
+> **Dated note, 2026-09-10 (P13): the SAMPLEABLE verdict is QUALIFIED as centre-dependent. No
+> number below is edited.**
+>
+> TASK 0 measured twelve lines through **θ_A** and reported the surface SAMPLEABLE by the absolute
+> rule — largest step 3.53, and **3.20 on `axis:topt_scale`**. P13 re-scanned **the same twelve
+> lines, with the same instrument, the same 0.05 sd step and the same 5-unit rule**, through
+> **p38** — the better optimum P12 found, which beats this run's own best sample — and
+> `axis:topt_scale` gives **8.55**, failing the rule. Nothing about the likelihood changed between
+> the two measurements.
+>
+> So "the surface is sampleable" is a statement about a **neighbourhood**, not about the function,
+> and this report established it at one point. That does **not** invalidate the two nested runs, and
+> it does **not** explain their disagreement — P12 settled that as one basin explored to two depths.
+> It does mean the surface was never verified where a later run would go. A standing hazard is now
+> recorded in OPEN_ITEMS §4, and the decision on how the rule should treat curvature is item 1.23.
+>
+> Separately: the likelihood these runs were computed on is **state-dependent at the growth mask**.
+> P13 found it fails P10's own 0.0000 reproducibility rule at p38 by **0.0157** — small, and the
+> only endpoint of twelve where it fails, but non-zero, and it is the knife-edge showing through the
+> support ramp's 0.01 floor. See `reports/P13_support/` D4, D7.
+
+
 | task | status | one line |
 |---|---|---|
 | **0** — the floor and the absolute rule | **DONE — SAMPLEABLE** | floor 0.76 → 1.42 (the largest measured vertex jump); all twelve of P9's lines under 5 log-likelihood units, largest 3.53; P9's relative rule would still read ROUGH, which is why the rule changed |
