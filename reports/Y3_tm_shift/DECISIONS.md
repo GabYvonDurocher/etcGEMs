@@ -111,3 +111,34 @@ p38's −7.19 and OPEN_ITEMS 1.20 describes it as weight-propped.
 **Decision: apply the rule as written and keep it, rather than adding a log-L criterion after
 seeing that it is the point driving the correlations.** Adding an exclusion at that moment would
 be exactly the revision the prompt forbids. Its influence is instead quantified in D4 and reported.
+
+## D6. `tm_scale` is not catalytic, and the profile forced a follow-up the prompt did not anticipate
+
+TASK 2 holds a **living** model at `dTm` = 0 for **0.077 log L units**, which reads as "catalysis
+compensates". But the five parameters the prompt names as catalytic include **`tm_scale`**, and
+`tm_scale` is a property of the **Tm distribution**, not of catalysis: it multiplies each enzyme's
+`(Tm − mean Tm)` about the distribution mean. Along the profile it is the parameter that moves
+most — **0.990 at `dTm` = −4.02 rising monotonically to 1.467 at `dTm` = 0** — while `dCp_scale`
+moves 1.98 → 2.14, `kcat_scale` stays 1.33–1.43 and `topt_scale` 0.954–0.965.
+
+A measured meltome fixes **both moments** of Tm. Honouring the mean (`dTm` = 0) while stretching
+the spread by 47 % contradicts the measurement just as surely, in a different moment.
+
+**Decision: add `task2b`, four fits separating the two — `dTm` = 0 with `tm_scale` free, `dTm` = 0
+with `tm_scale` = 1 (both moments honoured), and the two reference points at p38's `dTm`.** This is
+the configuration §0b step 2 was actually asking about, and without it the screen would report
+"catalysis can do it" when the profile shows the work being done by a second stability parameter.
+The rule is not changed; this sharpens what its profile arm is measuring.
+
+## D7. Every Powell fit hit the 300-evaluation cap
+
+All eleven profile steps and all four follow-up fits report `nfev = 300` and
+`success = False` ("Maximum number of function evaluations has been exceeded"). Powell had not
+converged at any of them.
+
+**Decision: report the values as LOWER BOUNDS on the achievable log L, and let the direction of
+the bias do the arguing.** More evaluations can only raise each step's log L, so a profile that is
+already flat would only get flatter — the compensability conclusion is conservative. The converse
+would not be true: had the profile collapsed, the cap would have been a candidate explanation and
+the fits would have had to be rerun. The cap is the prompt's own figure ("300 evaluations is enough
+for five parameters"); it is not, and that is recorded rather than quietly raised.
