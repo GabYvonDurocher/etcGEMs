@@ -1,5 +1,25 @@
 # Y2 — the T_opt / CT_max regime test at Li et al.'s calibrated posterior
 
+> **Dated note, 2026-09-10 (P12): what this report says about Li et al.'s posterior is UNAFFECTED;
+> what the project inferred from it about OUR posterior is qualified. No number below is edited.**
+>
+> Y2's results are conditional on **their** calibrated posterior over 100 models, and nothing in
+> P12 touches that: the regime test, the plateau, the T_opt/CT_max asymmetry and the 92 % figure
+> all stand exactly as reported.
+>
+> What changes is the inference that ran in the other direction. Between Y2 and P11 the project
+> treated Pettersen & Almaas's finding of **multimodality and seed-instability in Li et al.'s
+> model** as a property that any thermal etcGEM would inherit, and read P11's seed disagreement as
+> a confirmation. **P12 tested that on our own model and it does not hold**: with endpoints
+> converged and basins defined by bottleneck barriers rather than clustering, there is **one live
+> basin**, and the two nested runs' best samples are separated by **0.266**, which is noise. The
+> only separated basin contains models that do not grow.
+>
+> So a mode-conditional reading of our posterior is **not** required, and any statement that our
+> results are conditional on which mode a run found should be dropped rather than softened. See
+> `reports/P12_modes/` D8 and OPEN_ITEMS §0c, 1.19, 1.22.
+
+
 Y1 PART C found the asymmetry in the published yeast etcGEM but ran it at their **prior**
 parameters, and flagged that itself (`docs/OPEN_ITEMS.md` 2.5). This repeats the test at the
 posterior their paper's results are stated at, over their own 100 posterior models.
