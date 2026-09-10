@@ -2,7 +2,7 @@
 
 # Provenance — `reports/P11_nested/`
 
-**STATUS: CURRENT** — the first CONVERGED posterior in the gas-flux family: configuration D on NLDM under nested sampling (dynesty), after the respiration floor was moved to the largest measured vertex jump. Every claim in it is either a proof run before the sampling (the prior transform, the pool path, the toy evidence, the checkpoint restore) or a measurement from the run itself. The second-seed reproducibility check is INCOMPLETE and is flagged as such wherever it is mentioned; nothing in the report leans on it.
+**STATUS: CURRENT** — two nested runs (dynesty) of configuration D on NLDM, after the respiration floor was moved to the largest measured vertex jump. Both met dlogz < 0.1 and THEY DISAGREE -- log Z by 6.8 combined standard errors and 15 of 16 medians by more than two Monte-Carlo errors -- so the report states plainly that no posterior is established and quotes none as a result. What it does establish, independent of any sampler, is that the surface is sampleable by an absolute rule. Every other claim is either a proof run before the sampling (the prior transform, the pool path, the toy evidence, the checkpoint restore) or a measurement from the runs.
 
 *Evidence:* task1_prove_transform.py, toy.py, task1_pool_check.py and task1_checkpoint.py regenerate their JSON in minutes; lines.py --floor 1.42 regenerates the twelve-line scan (~54 min); run_nested.py regenerates the chain (~4.8 h, checkpointed and resumable); task0_two_rules.py, task2_jitter.py, task3_posterior.py, task3_identifiability.py (~70 min), task3_r2.py and task4_costs.py regenerate every table from the committed run output.
 

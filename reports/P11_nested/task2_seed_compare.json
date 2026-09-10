@@ -1,0 +1,15 @@
+{
+ "logz_main": -22.8863323100227,
+ "logzerr_main": 0.16388009059957778,
+ "logz_seed2": -24.567456909647028,
+ "logzerr_seed2": 0.18482942926143017,
+ "logz_diff": 1.6811245996243294,
+ "logz_combined_err": 0.24701943651468367,
+ "logz_sigma": 6.80563693021135,
+ "logz_agree": false,
+ "H_main": 9.223672289093782,
+ "H_seed2": 6.387734408034074,
+ "medians_agreeing": 1,
+ "n_params": 16,
+ "max_median_sigma": 50.0922206859062
+}

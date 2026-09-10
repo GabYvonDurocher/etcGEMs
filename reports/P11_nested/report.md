@@ -4,16 +4,62 @@
 |---|---|---|
 | **0** — the floor and the absolute rule | **DONE — SAMPLEABLE** | floor 0.76 → 1.42 (the largest measured vertex jump); all twelve of P9's lines under 5 log-likelihood units, largest 3.53; P9's relative rule would still read ROUGH, which is why the rule changed |
 | **1** — dynesty wired | **DONE** | prior transform proven to 3.5e-14; pool path exact; toy log Z within 0.93 sigma; checkpoint restore reproduces log Z to 0.005 |
-| **2** — the run | **CONVERGED** | dlogz **0.100**, n_eff **4,052**, log Z **−22.886 ± 0.164**, 7,118 iterations, 111,420 evaluations, **4.8 h** — stopped on its own criterion, 4 h inside the budget |
-| **3** — the posterior | **DONE** | no median outside P4's invalid intervals; 10 narrower, 6 wider; **11 gradient-determined, 0 wall-bounded, 5 flat**; growth R² 0.900 against P4's 0.854, respiration 0.626 against 0.795 |
+| **2** — the run | **CONVERGED, but the check FAILED** | dlogz **0.100**, n_eff **4,052**, log Z **−22.886 ± 0.164** in 7,118 iterations and 111,420 evaluations — and a second converged run at nlive 250 disagrees by **6.8 sigma** in log Z and up to **50** in the medians |
+| **3** — the posterior | **REPORTED, NOT ESTABLISHED** | no median outside P4's invalid intervals; 10 narrower, 6 wider; **11 gradient-determined, 0 wall-bounded, 5 flat**; growth R² 0.900 against P4's 0.854, respiration 0.626 against 0.795 — all of it contingent on a run the second seed contradicts |
 | **4** — the rest, costed | **DONE** | ≈ 33 h for seven fits; F LB held |
 | **5** — the record | **DONE** | 1.12 and 1.15 closed, two PI items, the absolute-rule hazard, four evidence rows, the synthesis note |
-| — second seed | **INCOMPLETE** | started 04:04 at nlive 250; had not converged by the morning; outstanding as a PI item |
+| — second seed | **DONE — DISAGREES** | converged at 08:17 (4,443 iterations, 68,947 evaluations); log Z −24.567 ± 0.185 against −22.886 ± 0.164; it never reached the first run's region |
 
 Detail: [DECISIONS.md](DECISIONS.md) (D0–D6). Scripts beside this file:
 `prior_transform.py`, `task1_prove_transform.py`, `toy.py`, `task1_pool_check.py`,
 `task1_checkpoint.py`, `run_nested.py`, `task0_two_rules.py`, `task3_posterior.py`,
 `task3_identifiability.py`, `task3_r2.py`, `task4_costs.py`.
+
+---
+
+## The finding that governs this report: two converged runs disagree
+
+Both nested runs met the pre-registered stopping rule — dlogz 0.100, n_eff far above 600. They
+converged to **different posteriors**.
+
+| | main | second seed |
+|---|---|---|
+| nlive / seed | 400 / 1 | 250 / 2 |
+| iterations / evaluations | 7,117 / 111,420 | 4,443 / 68,947 |
+| **log Z** | **−22.886 ± 0.164** | **−24.567 ± 0.185** |
+| information H | 9.22 nats | 6.39 nats |
+| **maximum log-likelihood found** | **−7.40** | **−9.11** |
+| **weighted mean log-likelihood** | **−13.56** | **−18.03** |
+
+log Z differs by **1.68 nats = 6.8 combined standard errors**. **15 of the 16 posterior
+medians differ by more than two Monte-Carlo errors**, the largest by **50** (dTopt 1.51
+against 9.39; disc_growth 0.18 against 0.78; sigma 0.85 against 0.61). Only `ngam_steepness`
+agrees.
+
+**Why**, and it is not a bias in the evidence estimator: the second run **never reached the
+region the first occupies** — its best likelihood is 1.7 nats worse and its posterior mass sits
+4.5 nats lower. Its dlogz criterion was satisfied regardless, because dlogz is the remaining
+prior volume times *the live points' own* maximum likelihood; a live set that has lost the
+high-likelihood region reports a small remainder and declares itself finished. **dlogz < 0.1 is
+necessary, not sufficient.**
+
+**Consequences, stated before the sections that would otherwise imply otherwise.**
+
+* **The posterior in TASK 3 is not established.** It is what the nlive = 400 run gives. It is
+  reported because it is the better of the two runs and because its shape is informative, but it
+  is **not** the model's posterior and must not be quoted as one. The identifiability
+  classification rests on the same samples and carries the same status.
+* **TASK 0's result is unaffected.** The floor move and the SAMPLEABLE verdict are measurements
+  of the likelihood surface itself — 902 fresh-model evaluations along fixed lines — and do not
+  depend on any sampler.
+* **The wiring proofs are unaffected**: the prior transform, the exact pool path, the toy
+  evidence and the checkpoint restore all stand.
+* **What would settle it:** two runs at **nlive ≥ 800** with different seeds, agreeing on log Z
+  and on the medians. From this run's 0.155 s per evaluation and the H = 9.22 scaling that is
+  about **10–12 h each**. Recorded as the user's decision (OPEN_ITEMS), not taken here.
+
+This is the check the prompt asked for in the words "that is the reproducibility check MCMC
+could never pass in this family". Nested sampling could run it. It did not pass it.
 
 ---
 
@@ -158,7 +204,10 @@ chains. No setting was changed mid-run. **For a future run, `first_update={'min_
 the first thing to change**, and it would have saved most of an hour.
 
 **Reproducibility.** The prompt's second-seed run (nlive 250, seed 2) was started at 04:04 and
-@@SEED2@@
+reached its own dlogz criterion at 08:17, after a resume past its deadline taken because an
+unfinished check is worse than none (D7): **4,443 iterations, 68,947 evaluations, log Z
+−24.567 ± 0.185, n_eff 1,974**. **The two runs do not agree, and that is the most important
+result of this run.** See the section below; it changes what the rest of this report may claim.
 
 Beside it, the check dynesty makes available from the run itself: the prior-volume shrinkage at
 each iteration is random, and resampling it 200 times (`task2_jitter.py`) gives
@@ -167,6 +216,9 @@ medians stable to between 0.0004 and 0.05 in natural units. That is not an indep
 re-rolls the volumes, not the sampling — and is reported as what it is.
 
 ## TASK 3 — the posterior
+
+**Read this section under the caveat above: these numbers are what the nlive = 400 run gives,
+and the second seed contradicts them. They are not quoted as the model's posterior.**
 
 **How it is summarised.** dynesty's importance weights w = exp(logwt − log Z) are resampled to
 equal weight (`resample_equal`, seed 42), so every median and 5/95 interval below is an ordinary

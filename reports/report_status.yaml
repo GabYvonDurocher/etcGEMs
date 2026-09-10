@@ -346,12 +346,13 @@ P10_respiration_likelihood:
 P11_nested:
   status: CURRENT
   note: >-
-    the first CONVERGED posterior in the gas-flux family: configuration D on NLDM under nested
-    sampling (dynesty), after the respiration floor was moved to the largest measured vertex
-    jump. Every claim in it is either a proof run before the sampling (the prior transform, the
-    pool path, the toy evidence, the checkpoint restore) or a measurement from the run itself.
-    The second-seed reproducibility check is INCOMPLETE and is flagged as such wherever it is
-    mentioned; nothing in the report leans on it.
+    two nested runs (dynesty) of configuration D on NLDM, after the respiration floor was moved
+    to the largest measured vertex jump. Both met dlogz < 0.1 and THEY DISAGREE -- log Z by 6.8
+    combined standard errors and 15 of 16 medians by more than two Monte-Carlo errors -- so the
+    report states plainly that no posterior is established and quotes none as a result. What it
+    does establish, independent of any sampler, is that the surface is sampleable by an absolute
+    rule. Every other claim is either a proof run before the sampling (the prior transform, the
+    pool path, the toy evidence, the checkpoint restore) or a measurement from the runs.
   evidence: >-
     task1_prove_transform.py, toy.py, task1_pool_check.py and task1_checkpoint.py regenerate
     their JSON in minutes; lines.py --floor 1.42 regenerates the twelve-line scan (~54 min);

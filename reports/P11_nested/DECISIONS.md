@@ -229,3 +229,80 @@ order. At the measured 28 iterations/min that is **1.3–2.5 h, finishing betwee
 02:00**; at half that rate, which is the pessimistic case as efficiency falls, **02:00–04:15**.
 Either is inside the 08:00 budget, so the run continues unchanged. Projected total cost:
 **60,000–110,000 evaluations**, which is the range the prompt anticipated.
+
+## D7 — the second-seed run is resumed past its deadline, because an unfinished reproducibility check is worse than none
+
+**Where:** 07:51, when the second run stopped at the deadline I had set it (07:40).
+
+It stopped at **iteration 4,017, 61,520 evaluations, dlogz 0.301**, log Z −24.570 ± 0.210 —
+about half an hour short of its own criterion. At that point its log Z sat **1.68 nats below the
+main run's −22.886 ± 0.164, roughly six combined standard errors apart**, and its remaining
+evidence (0.30) accounts for only a fifth of that gap.
+
+That is not a result yet: a nested run's log Z rises monotonically toward its final value, so an
+unconverged estimate is a lower bound and comparing it to a converged one is not a comparison.
+But it is not nothing either — it is either an artefact of stopping early or a real
+disagreement, and **the difference between those two readings is thirty minutes of compute**.
+Leaving it unresolved would report a reproducibility check that neither passed nor failed.
+
+**Decided:** resume from the checkpoint (which holds the full state, iteration 4,017 — nothing
+was lost to the deadline stop) with a deadline of 09:00, the same dlogz 0.1 rule, the same
+settings. This is the second resume of the run and is recorded as such. If the two log Z agree
+once both are converged, the check passes; if the gap survives, that is a finding about nested
+sampling at nlive = 250 in sixteen dimensions — below dynesty's own guidance of 25 × D = 400 for
+multi-ellipsoid bounding — and it will be reported as one, with the main run's nlive = 400
+result standing as the deliverable.
+
+## D8 — the second-seed check FAILED, and it overturns the headline. The posterior is not established.
+
+**Where:** 08:17, when the second run reached its own dlogz criterion.
+
+Both runs converged on the stated rule. They do not agree.
+
+| | main | second seed |
+|---|---|---|
+| nlive | 400 | 250 |
+| seed | 1 | 2 |
+| iterations / evaluations | 7,117 / 111,420 | 4,443 / 68,947 |
+| dlogz reached | 0.100 | 0.100 |
+| **log Z** | **−22.886 ± 0.164** | **−24.567 ± 0.185** |
+| n_eff | 4,052 | 1,974 |
+| information H | 9.22 nats | 6.39 nats |
+| **maximum log-likelihood found** | **−7.40** | **−9.11** |
+| **weighted mean log-likelihood** | **−13.56** | **−18.03** |
+
+**log Z differs by 1.68 nats — 6.8 combined standard errors. Fifteen of the sixteen posterior
+medians differ by more than two Monte-Carlo errors, up to 50** (`task2_seed_compare.csv`):
+dTopt 1.51 against 9.39, disc_growth 0.18 against 0.78, sigma 0.85 against 0.61, ngam_scale
+1.48 against 0.87. Only `ngam_steepness` agrees. These are not two estimates of one posterior;
+they are two different answers.
+
+**The mechanism, and it is not a bias in the estimator.** The main run found a maximum
+log-likelihood of −7.40 and its posterior mass sits at a weighted mean of −13.56; the second
+found −9.11 and −18.03. **The second run never reached the region the first one occupies.** Its
+dlogz criterion was satisfied anyway, because dlogz measures the remaining prior volume times
+the *live points'* own maximum likelihood — if the live set has lost the high-likelihood region,
+the remaining evidence looks small and the run declares itself finished. That is how nested
+sampling fails silently, and it is why the criterion is necessary but not sufficient.
+
+**What this costs.** The headline I had already written — "the first converged posterior in this
+family" — **does not survive**. dlogz < 0.1 and n_eff ≥ 600 were both met by a run that a second
+run contradicts, so meeting them does not establish the posterior. The numbers in TASK 3 are
+what the nlive = 400 run gives; they are **not** the model's posterior and must not be quoted as
+one. The identifiability classification rests on the same samples and inherits the same status.
+The earlier commit stating otherwise is corrected here and in the report rather than amended
+away.
+
+**What survives, and it is not nothing.** TASK 0's surface result is independent of the
+sampler: the floor move makes all twelve lines SAMPLEABLE by an absolute rule, and that is a
+measurement of the likelihood, not of a run. The wiring proofs stand. And the failure itself is
+informative in a way the P6–P8 sequence never managed: two runs that both *claim* convergence
+and disagree is a far stronger diagnostic than a chain that never converges, because it bounds
+what nlive is needed rather than leaving it open.
+
+**What it needs.** nlive = 250 is below dynesty's own guidance for multi-ellipsoid bounding in
+sixteen dimensions (25 × D = 400); nlive = 400 sits exactly at it, so the main run is not
+demonstrated to be adequate either — it is only the better of two. The check that would settle
+it is **two runs at nlive ≥ 800 with different seeds**, agreeing on log Z and on the medians;
+projected from this run's 0.155 s per evaluation and the H = 9.22 scaling, that is roughly
+**10–12 h each**. Recorded as the user's decision, not taken here.
