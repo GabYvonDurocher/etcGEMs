@@ -142,3 +142,31 @@ already flat would only get flatter — the compensability conclusion is conserv
 would not be true: had the profile collapsed, the cap would have been a candidate explanation and
 the fits would have had to be rerun. The cap is the prompt's own figure ("300 evaluations is enough
 for five parameters"); it is not, and that is recorded rather than quietly raised.
+
+## D8. The meltome-honouring fit is boxed into the corner of the prior, and that is part of the answer
+
+`task2b` case C (`dTm` = 0, `tm_scale` = 1, four catalytic parameters free) hit the 300-evaluation
+cap at log L −17.05, so it was rerun to convergence: **1 000 evaluations, then a restart that
+converged in 167 — log L −14.7856, peak growth 1.6592 h⁻¹, ALIVE.** Cost against p38: **7.60 log L
+units**, and this one is a real optimum rather than a capped pass.
+
+It sits on **two prior ceilings**: `dCp_scale` = **4.0** against a bound of 4.0, and `topt_scale` =
+**1.35** against a bound of 1.35, with `dTopt` = −8.66 against p38's +1.91. Two of its four free
+parameters are pressed against the edge of the box.
+
+**Decision: report 7.60 units as a converged UPPER bound that is partly set by the prior, and name
+which bounds.** The constrained fit is asking for more thermal curvature and more spread of enzyme
+optima than the prior allows, which is a statement about the prior as much as about the data.
+Widening `dCp_scale` and `topt_scale` is a one-line experiment; it is named as a follow-up rather
+than run, because changing a prior is exactly what this screen was told not to do.
+
+## D9. Total solving time overran the screen's budget, deliberately and once
+
+The prompt budgeted ~15 minutes of solving and ~2 hours overall. TASK 2's profile took 19 minutes
+on eight workers, `task2b` 10 minutes on four, and `task2c` 31 minutes on one.
+
+**Decision: spend the extra half-hour on `task2c` only, and say so.** It is the one run that bounds
+a **retraction of a committed claim** — OPEN_ITEMS 1.20's "the meltome-honouring region contains no
+growing model" — and reporting that retraction on a capped, unconverged fit would have been worse
+than reporting it late. P13 was not running at any point (no Python process in the primary tree,
+load average 5–12 throughout), so nothing was slowed. Everything else stayed inside the budget.

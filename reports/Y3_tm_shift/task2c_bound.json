@@ -1,0 +1,9 @@
+{
+  "base_logl": -7.1859751439245985,
+  "best_meltome_logl": -14.785631623621784,
+  "cost_upper_bound": 7.5996564796971855,
+  "alive": true,
+  "peak_growth": 1.6591930041962202,
+  "converged": true,
+  "wall_s": 1832.9624671936035
+}
