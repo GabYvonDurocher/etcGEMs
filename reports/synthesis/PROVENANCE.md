@@ -6,7 +6,7 @@
 
 *Evidence:* `python reports/synthesis/build_evidence.py` regenerates evidence.csv (74 rows); `python reports/synthesis/fig_requirement_arithmetic.py` regenerates the one figure; `quarto render reports/synthesis/synthesis.qmd` produces the 10-page PDF.
 
-**This report was last written at** `409d70b` (2026-09-09) — P10: smoothness -- (a) unchanged on D, (b) cuts every cliff 10x (72 -> 7.8 units), (c) still ROUGH by P9's rule on two lines; STOP before any sampler; the residue named (one vertex jump above the floor, 1-2 unit O2 jumps at 20 C, growth-term kinks of 1-3 units)
+**This report was last written at** `e8d8dd1` (2026-09-10) — P11: the second-seed check FAILED -- two converged runs disagree, so the posterior is NOT established
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 

@@ -1,0 +1,308 @@
+# P11 — decisions
+
+Standing rules carry over. Branch `p11/nested` from `main` after the P10 merge; no push to
+`main`; end in a PR that is not merged. Interpreter `../etcGEMs-venv`. Two decisions are
+**executed, not revisited**: the respiration floor moves to the largest measured vertex jump,
+and the growth term is not floored. Exit codes checked explicitly.
+
+---
+
+## D0 — TASK 0: the floor moves 0.76 → 1.42, and the absolute smoothness rule, both written before the re-scan
+
+PR #25 merged server-side clean → `97411f1`; `p11/nested` branched; gates on
+`../etcGEMs-venv` with the options OFF recorded in the report.
+
+**The floor.** P10 set `log_o2_floor` = **0.76** by a rule that took the largest |Δ log O2| at
+the *modal* cliff temperature (20 °C, 14 of the 17 O2-carried cliff steps; largest there 0.759).
+The largest measured vertex jump **anywhere** in that scan is **1.4216**, on the `axis:dCp_scale`
+line between +0.90 and +0.95 sd, carried by **25 °C**, and it is the step that still cost 7.8
+units under the 0.76 floor and left the surface ROUGH (P10 D5, `task2_jumps.csv`). The prompt's
+first decision is to move the floor to that number: **`log_o2_floor` 0.76 → 1.42**. One value,
+one commit. Its cost is stated rather than hidden: the respiration term's sd at every temperature
+is now at least 1.42 in log, i.e. the model is granted a factor-4 band on O2 everywhere, which is
+a real loss of information about respiration and is the price of a sampleable surface. The three
+temperatures whose measured relative sd is 0.06–0.09 are the ones that lose most.
+
+**The growth term is untouched** (the prompt's second decision, executed): its 1–3 unit kinks are
+the growth LP's piecewise-linear response to θ, present in every enzyme-constrained model.
+Flooring the primary data's variance to make a sampler comfortable would trade information for
+convenience. They will appear in the re-scan and are **reported, not fixed**.
+
+**The absolute smoothness rule, written now, before the re-scan exists:**
+
+> A line is **SAMPLEABLE** if no single 0.05 sd step along it exceeds **5 log-likelihood units**.
+> The surface is **SAMPLEABLE** if every one of P9's twelve lines is.
+
+Why absolute rather than P9's relative rule: what decides whether a sampler can cross a step is
+the likelihood ratio across it, e^{−Δ}. e^{−30} is a wall no random-walk proposal crosses;
+e^{−2} is a kink any sampler steps over and a nested sampler does not even notice, since it uses
+only the ordering of likelihood values. A relative rule (step > 20 % of the line's range) was the
+right instrument while the cliffs were 13–72 units and the ranges 15–137; once the floor shrinks
+the cliffs it shrinks the ranges with them, and the rule then flags kinks that are not obstacles.
+Both readings are reported side by side. Five units is chosen as the threshold because it is the
+same cliff threshold P10 used to *identify* the steps it fixed (`task2_floor.py`, CLIFF = 5.0),
+so the rule and the diagnosis that produced the fix use one number; a step of 5 is a likelihood
+ratio of 150 across 0.05 sd, which is a kink and not a wall.
+
+If any line still exceeds 5 units after the floor move, TASK 0 STOPS and reports which.
+
+## D1 — TASK 1: what had to be added to wire dynesty, and why the runner lives in the report directory
+
+**Where:** TASK 1, before any nested run.
+
+**In the core, one callable.** `_gwloglike` beside `_gwlogprob` in `calibration_multi.py`: the
+gas-flux log-likelihood on the worker's own ctx, without the log-prior, because a sampler that
+handles the prior itself needs the likelihood alone. Same pool initialiser, same ctx, same
+specs. A non-finite value is returned as −1e100 rather than −inf, because nested sampling needs
+a total ordering of likelihood values and −inf breaks it; the prior transform makes
+out-of-support points unreachable, so this only catches a solver failure. Nothing else in the
+core changed.
+
+**Everything else is in `reports/P11_nested/`** — the transform, the runner, the checks. Reason:
+`src/etcgem/` is the seven-strain core, gated on every change; a sampler used by one report is
+not core infrastructure until a second report needs it. The one thing that had to be core is the
+worker callable, because a process pool must import it from an installed module (a function
+defined in a run script is re-imported by every spawned worker — the failure that produced this
+session's runaway process).
+
+**The prior transform** (`prior_transform.py`) is the inverse CDF of each of P4's priors, in the
+space `log_prior` scores: `normal` in the natural value, `lognormal` in log, `halfnormal`
+inverted in the natural value and returned as its log (whose Jacobian is exactly the `+theta`
+term `log_prior` adds). Every one is truncated to its hard `[lo, hi]`. Proven two ways
+(`task1_transform.csv`): 10,000 draws match `scipy.stats.truncnorm`'s analytic quantiles (worst
+error 0.13 on dTopt, whose prior spans 30) and every marginal mean is within 1.6 Monte-Carlo
+standard errors; and on a 200-point grid per parameter the difference between `log_prior`'s
+contribution and the transform's implied log-density is **constant to 3.5e-14**. The first
+version of that second check disagreed by exactly 8.0 and 10.8 on the two half-normals — the
+range of their log-Jacobian — which was the check comparing spaces, not the transform being
+wrong; recorded because it is the kind of error that looks like a bug in the thing being tested.
+
+**The transform is a module-level callable object, not a closure**, because dynesty pickles it
+to every worker.
+
+**Proofs.** Pool path vs a single-process fresh evaluation at three points: **identical to
+0.00e+00**, and 32 evaluations over 16 workers in 4.5 s = **0.141 s per evaluation of wall
+clock**. Toy (16-d correlated Gaussian, P8's covariance, analytic log Z): dynesty recovers
+log Z = −72.90 ± 0.30 against −73.18, **0.93 sigma**, means within 2.8 Monte-Carlo errors,
+median relative covariance error 5.5 %. Checkpoint: a run halted at 301 iterations, restored
+from disk and continued, reaches the same log Z as an uninterrupted run **to 0.005 (0.00
+sigma)**. dynesty 3.1.0, added to `requirements.lock.txt`.
+
+## D2 — TASK 2: the settings, the projection, and the stopping rule, all written before the run
+
+**Where:** before the nested run starts.
+
+**Settings.** `nlive = 400`, `bound = "multi"`, `sample = "rslice"`, `slices = 3`, `dlogz = 0.1`,
+wall-clock cap **4 h**, checkpoint every 180 s, 16 processes, seed 1.
+
+* **nlive 400, not the prompt's 500.** dynesty's guidance for multi-ellipsoid bounding is
+  nlive ≳ 25 × D, which is exactly 400 in 16 dimensions. Cost scales linearly in nlive and the
+  budget is the binding constraint, so 400 is the smallest value that keeps the bounding
+  recommendation intact. Below it the ellipsoid decomposition degrades and log Z can bias.
+* **rslice, not rwalk**, and this is the point of the run: slice sampling needs only the
+  ordering of likelihood values, has no proposal scale to tune, and steps over a kink. A
+  random-walk kernel inside nested sampling would reintroduce the proposal-scale dependence
+  that defeated P6–P8, and a converged result would then be evidence about the kernel rather
+  than about the surface. `slices = 3` rather than dynesty's default 5 halves the per-iteration
+  cost and is dynesty's documented minimum for adequate decorrelation.
+
+**The projection, stated before the run rather than after it.** The information is estimated
+from P8's posterior/prior width ratios as H ≈ Σ log(1/ratio) ≈ 20 nats, and the new likelihood
+is wider than the one those ratios came from, so H ≈ 15–20. Nested sampling needs about
+nlive × H iterations, so 6,000–8,000, at an rslice cost of roughly 15–45 likelihood calls each:
+**90,000–360,000 evaluations, or 3.5–14 h at the measured 0.141 s**. The 4 h cap therefore may
+or may not be reached, and that is not a reason to weaken the settings: the run is
+checkpointed, so a cap-stop is a resumable state and not a loss, and its trajectory is the first
+measurement of what this posterior actually costs — which TASK 4 needs regardless of the verdict.
+
+**The stopping rule, verbatim:** **CONVERGED** if dynesty reaches dlogz < 0.1 within the 4 h cap
+**and** the posterior n_eff dynesty reports is ≥ 600. **STALLED** if the cap is hit first. Both
+numbers are reported either way. A STALLED run is reported as STALLED, not extended past the
+cap, and its posterior is not quoted as a result.
+
+## D3 — TASK 3: the identifiability classification rule, written before the posterior exists
+
+**Where:** before the nested run finishes.
+
+Each of the sixteen parameters gets one line scan through the **new** posterior median, ±1
+**posterior** sd (not prior sd) at 0.05 sd steps, log-likelihood only, fresh model per
+evaluation — P9's instrument with a new centre and a new scale. Classified by a rule fixed now:
+
+* **FLAT** — the log-likelihood ranges by **less than 1 unit** over ±1 posterior sd. The data do
+  not distinguish the parameter locally at all; its posterior is its prior, reshaped by whatever
+  correlations it has with the others.
+* **WALL-BOUNDED** — not flat, and the largest single 0.05 sd step is **more than 25 % of the
+  line's range**. The parameter's posterior width is set by where the likelihood falls off a
+  step, not by curvature: an interval bounded by the model's piecewise structure.
+* **GRADIENT-DETERMINED** — not flat, and no step exceeds 25 % of the range. The line is a
+  curve and the interval is set by the data through the gradient, which is what a credible
+  interval normally means.
+
+Reported as three lists. This is the first time the identifiability of this model can be stated
+per parameter, because it is the first posterior worth centring on.
+
+## D4 — the run is single-core for its first 1,200 iterations, and that is dynesty's design, not a defect
+
+**Where:** during the run, from direct measurement.
+
+The prompt's case for nested sampling includes "its parallelism is over independent likelihood
+calls — no worker starves the rest, which is what killed zeus". Measured on this run, with the
+workers' cumulative CPU time over 20–30 s windows:
+
+| phase | iterations | cores busy |
+|---|---|---|
+| unit-cube sampling (dynesty's start) | 1 – ~1,250 | **1.0** |
+| bounded rslice, after the first bound update | ~1,250 onward | **6.0** |
+
+dynesty samples uniformly from the prior until its `first_update` criterion is met — by default
+`ncall > 2 × nlive` **and** efficiency < 10 %. In that phase each iteration is one proposal
+evaluated in the main process, so the pool sits idle; efficiency fell 38 % → 13 % over 1,200
+iterations and 9,000 evaluations, which took **62 minutes on one core**. Only after the switch
+does `_fill_queue` map `queue_size` independent point evolutions over the pool, and utilisation
+rises to ~6 of 16 cores (the queue empties and refills, so it is bursty rather than saturated).
+
+**Not corrected mid-run.** `first_update` is a tuning knob that could have been set to switch
+earlier, and doing so would have engaged the pool within minutes. It was not in the settings
+pre-registered in D2, and changing a sampler setting after seeing the trajectory is the kind of
+post-hoc adjustment this series has avoided everywhere else; the honest course is to run what
+was registered and report what it cost. **For a future run this is the first thing to change**:
+`first_update={'min_eff': 30}` would have saved most of an hour, and the claim "nested sampling
+parallelises where zeus could not" is true only after the first bound update.
+
+## D5 — (addendum 1) the cap is lifted to 08:00, the run is resumed from its checkpoint, and why that is not a silent extension
+
+**Where:** at 23:04, 1 h 44 m into a 4 h cap, on the user's instruction.
+
+**What changed: the deadline, the checkpoint interval and the logging. Nothing else.** nlive 400,
+`sample="rslice"`, `slices=3`, `bound="multi"`, `queue_size=16`, dlogz 0.1, seed 1, the priors,
+the likelihood and both P10 options are exactly as pre-registered in D2. The stopping rule is
+unchanged: dlogz < 0.1 and n_eff ≥ 600 is CONVERGED, the deadline is now 08:00 rather than
+01:20.
+
+**Why this is not the silent extension the standing constraints forbid.** That rule exists
+because an MCMC chain extended after inspection is an unbounded search for a result: the run is
+*not* monotone, the criterion (τ) is estimated from the same samples being extended, and
+stopping when it finally looks good is selection on noise. Nested sampling has neither property.
+Its progress is monotone — each iteration shrinks the prior volume by a fixed factor, and the
+remaining evidence dlogz falls whatever the surface does — and the stopping criterion is
+computed from the live points ahead of the run, not from the samples already taken. Extending it
+is buying more of the same integral, not re-rolling a die. It is checkpointed, so the extension
+is literally the same run continuing. The extension was the user's decision and is recorded as
+theirs.
+
+**Resume 1** (recorded per the instruction): stopped at 23:04 with the checkpoint at **iteration
+1,585, 17,354 evaluations**; restored and continued at 23:04. A read-only restore of that same
+file, done before stopping, reported iteration 1,516 and 16,195 evaluations — the state the last
+progress line showed — which is the proof that a restore resumes where the run was.
+
+**Utilisation, diagnosed before the evening** (the instruction's third point): workers **8.5 of
+16 cores** over a 45 s window; **main process 0.0 cores**. So bound updates and bootstrap are not
+the bottleneck — `use_pool_update` is on and `nbound` was 3 after 1,500 iterations — and
+`queue_size` is already 16. The 53 % is the **straggler effect inside each parallel map**: the
+sixteen queued rslice chains take different numbers of likelihood calls, and the map returns
+when the slowest finishes. Raising `queue_size` above the worker count would average stragglers
+out but proposes more points against a staler likelihood threshold, which is a sampling change
+rather than a parallelism one; the bound method and `bootstrap` are not implicated because the
+main process is idle. **No settings change was applied**, and the utilisation is reported as
+measured. Earlier, before the first bound update, the same measurement read **1.0 core** — see
+D4.
+
+## D6 — the projection to dlogz < 0.1, made at 23:16 from the run's own information measure
+
+**What it rests on.** dynesty tracks the information H (nats) alongside log Z. Nested sampling
+compresses the prior volume by 1/nlive per iteration, so the bulk of the posterior mass is
+reached at about nlive × H iterations and the run terminates at roughly
+**nlive × (H + 3√H)** — the usual rule, with the 3√H allowing for the width of the mass in
+log-volume. The remaining evidence dlogz is read directly from the live points as
+log(1 + exp(max live logl + logvol − logz)), which is dynesty's own stopping quantity.
+
+**At iteration 1,836** (21,654 evaluations, 0.18 h since the resume, **6.6 evaluations/s**,
+efficiency 8.5 %): log Z = −28.41, **H = 4.13 nats and still rising** (3.99 → 4.13 over the last
+five saves), **dlogz = 10.15**.
+
+**The projection.** nlive × H = 1,650, which the run has just passed — consistent with dlogz
+still being of order 10. With H rising to somewhere between 5 and 8, termination is expected at
+**nlive × (H + 3√H) ≈ 4,000–6,000 iterations**, i.e. **2,200–4,200 more**. The independent check
+from dlogz itself: 10.15 → 0.1 is 4.6 e-folds, and logvol falls 1 nat per nlive = 400
+iterations, so ~1,850 more iterations if log Z were static and more if it keeps rising — the same
+order. At the measured 28 iterations/min that is **1.3–2.5 h, finishing between about 00:40 and
+02:00**; at half that rate, which is the pessimistic case as efficiency falls, **02:00–04:15**.
+Either is inside the 08:00 budget, so the run continues unchanged. Projected total cost:
+**60,000–110,000 evaluations**, which is the range the prompt anticipated.
+
+## D7 — the second-seed run is resumed past its deadline, because an unfinished reproducibility check is worse than none
+
+**Where:** 07:51, when the second run stopped at the deadline I had set it (07:40).
+
+It stopped at **iteration 4,017, 61,520 evaluations, dlogz 0.301**, log Z −24.570 ± 0.210 —
+about half an hour short of its own criterion. At that point its log Z sat **1.68 nats below the
+main run's −22.886 ± 0.164, roughly six combined standard errors apart**, and its remaining
+evidence (0.30) accounts for only a fifth of that gap.
+
+That is not a result yet: a nested run's log Z rises monotonically toward its final value, so an
+unconverged estimate is a lower bound and comparing it to a converged one is not a comparison.
+But it is not nothing either — it is either an artefact of stopping early or a real
+disagreement, and **the difference between those two readings is thirty minutes of compute**.
+Leaving it unresolved would report a reproducibility check that neither passed nor failed.
+
+**Decided:** resume from the checkpoint (which holds the full state, iteration 4,017 — nothing
+was lost to the deadline stop) with a deadline of 09:00, the same dlogz 0.1 rule, the same
+settings. This is the second resume of the run and is recorded as such. If the two log Z agree
+once both are converged, the check passes; if the gap survives, that is a finding about nested
+sampling at nlive = 250 in sixteen dimensions — below dynesty's own guidance of 25 × D = 400 for
+multi-ellipsoid bounding — and it will be reported as one, with the main run's nlive = 400
+result standing as the deliverable.
+
+## D8 — the second-seed check FAILED, and it overturns the headline. The posterior is not established.
+
+**Where:** 08:17, when the second run reached its own dlogz criterion.
+
+Both runs converged on the stated rule. They do not agree.
+
+| | main | second seed |
+|---|---|---|
+| nlive | 400 | 250 |
+| seed | 1 | 2 |
+| iterations / evaluations | 7,117 / 111,420 | 4,443 / 68,947 |
+| dlogz reached | 0.100 | 0.100 |
+| **log Z** | **−22.886 ± 0.164** | **−24.567 ± 0.185** |
+| n_eff | 4,052 | 1,974 |
+| information H | 9.22 nats | 6.39 nats |
+| **maximum log-likelihood found** | **−7.40** | **−9.11** |
+| **weighted mean log-likelihood** | **−13.56** | **−18.03** |
+
+**log Z differs by 1.68 nats — 6.8 combined standard errors. Fifteen of the sixteen posterior
+medians differ by more than two Monte-Carlo errors, up to 50** (`task2_seed_compare.csv`):
+dTopt 1.51 against 9.39, disc_growth 0.18 against 0.78, sigma 0.85 against 0.61, ngam_scale
+1.48 against 0.87. Only `ngam_steepness` agrees. These are not two estimates of one posterior;
+they are two different answers.
+
+**The mechanism, and it is not a bias in the estimator.** The main run found a maximum
+log-likelihood of −7.40 and its posterior mass sits at a weighted mean of −13.56; the second
+found −9.11 and −18.03. **The second run never reached the region the first one occupies.** Its
+dlogz criterion was satisfied anyway, because dlogz measures the remaining prior volume times
+the *live points'* own maximum likelihood — if the live set has lost the high-likelihood region,
+the remaining evidence looks small and the run declares itself finished. That is how nested
+sampling fails silently, and it is why the criterion is necessary but not sufficient.
+
+**What this costs.** The headline I had already written — "the first converged posterior in this
+family" — **does not survive**. dlogz < 0.1 and n_eff ≥ 600 were both met by a run that a second
+run contradicts, so meeting them does not establish the posterior. The numbers in TASK 3 are
+what the nlive = 400 run gives; they are **not** the model's posterior and must not be quoted as
+one. The identifiability classification rests on the same samples and inherits the same status.
+The earlier commit stating otherwise is corrected here and in the report rather than amended
+away.
+
+**What survives, and it is not nothing.** TASK 0's surface result is independent of the
+sampler: the floor move makes all twelve lines SAMPLEABLE by an absolute rule, and that is a
+measurement of the likelihood, not of a run. The wiring proofs stand. And the failure itself is
+informative in a way the P6–P8 sequence never managed: two runs that both *claim* convergence
+and disagree is a far stronger diagnostic than a chain that never converges, because it bounds
+what nlive is needed rather than leaving it open.
+
+**What it needs.** nlive = 250 is below dynesty's own guidance for multi-ellipsoid bounding in
+sixteen dimensions (25 × D = 400); nlive = 400 sits exactly at it, so the main run is not
+demonstrated to be adequate either — it is only the better of two. The check that would settle
+it is **two runs at nlive ≥ 800 with different seeds**, agreeing on log Z and on the medians;
+projected from this run's 0.155 s per evaluation and the H = 9.22 scaling, that is roughly
+**10–12 h each**. Recorded as the user's decision, not taken here.

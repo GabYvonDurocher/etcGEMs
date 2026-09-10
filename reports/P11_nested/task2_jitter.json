@@ -1,0 +1,90 @@
+{
+ "tag": "main",
+ "n_realisations": 200,
+ "logz_mean": -22.925118555203916,
+ "logz_sd": 0.14885541147769868,
+ "logz_reported": -22.91265861921936,
+ "logzerr_reported": 0.15175771709172753,
+ "medians": [
+  {
+   "param": "dTopt",
+   "median_of_medians": 1.5115545838158062,
+   "sd_of_medians": 0.04824411466852191
+  },
+  {
+   "param": "topt_scale",
+   "median_of_medians": 0.8947047721081846,
+   "sd_of_medians": 0.003574675752825582
+  },
+  {
+   "param": "dCp_scale",
+   "median_of_medians": 2.203293540883149,
+   "sd_of_medians": 0.021510669707601435
+  },
+  {
+   "param": "dTm",
+   "median_of_medians": -3.914959613655301,
+   "sd_of_medians": 0.025229054997255602
+  },
+  {
+   "param": "tm_scale",
+   "median_of_medians": 1.0025472129361348,
+   "sd_of_medians": 0.002311444034140961
+  },
+  {
+   "param": "kcat_scale",
+   "median_of_medians": 1.3179337621191425,
+   "sd_of_medians": 0.007011247961588138
+  },
+  {
+   "param": "kappa_scale",
+   "median_of_medians": 1.061751189982295,
+   "sd_of_medians": 0.005413105898523603
+  },
+  {
+   "param": "sigma",
+   "median_of_medians": 0.8426827193445781,
+   "sd_of_medians": 0.00398631934028486
+  },
+  {
+   "param": "f_metab",
+   "median_of_medians": 0.28863311005018993,
+   "sd_of_medians": 0.0004518835612832716
+  },
+  {
+   "param": "f_maint",
+   "median_of_medians": 0.36528672110707816,
+   "sd_of_medians": 0.000439860715547918
+  },
+  {
+   "param": "ngam_scale",
+   "median_of_medians": 1.4754519749305341,
+   "sd_of_medians": 0.014820334093977152
+  },
+  {
+   "param": "ngam_steepness",
+   "median_of_medians": 0.7548980974885381,
+   "sd_of_medians": 0.008122359335125959
+  },
+  {
+   "param": "clearance_mult",
+   "median_of_medians": 0.7845182877987499,
+   "sd_of_medians": 0.004254634633931605
+  },
+  {
+   "param": "resp_scale",
+   "median_of_medians": 3.499567199440892,
+   "sd_of_medians": 0.040402877292998976
+  },
+  {
+   "param": "disc_resp",
+   "median_of_medians": 0.31493964957933557,
+   "sd_of_medians": 0.004143113719878289
+  },
+  {
+   "param": "disc_growth",
+   "median_of_medians": 0.178921134990036,
+   "sd_of_medians": 0.0020432957466023295
+  }
+ ]
+}

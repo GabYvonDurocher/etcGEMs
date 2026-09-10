@@ -1,0 +1,16 @@
+{
+ "dim": 16,
+ "nlive": 500,
+ "sample": "rslice",
+ "niter": 20760,
+ "ncall": 1913532,
+ "wall_min": 0.15,
+ "logz": -72.89946675522027,
+ "logzerr": 0.3006915219755784,
+ "logz_true": -73.17782387084947,
+ "logz_error_in_sigma": 0.9257231923279796,
+ "n_eff": 5113.293698247875,
+ "max_abs_z_mean": 2.7775782773921684,
+ "median_rel_cov_error": 0.05538114137819531,
+ "passed": true
+}

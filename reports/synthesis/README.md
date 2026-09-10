@@ -85,3 +85,25 @@ floor at the model's own granularity and a continuous support the cliffs fall fr
 log-likelihood units to single digits, and the surface is still not smooth by P9's criterion
 (one vertex jump above the floor, and kinks in the growth term of 1–3 units), so no chain has
 been sampled under the new term and the medians-only reading stands.
+
+**Extended 2026-09-10 (P11, rows P11a–P11e) — section 7 needs rewriting, not annotating, and
+the rewrite must not claim a posterior.** The sampling section still describes the convergence
+problem as a sampling budget ("reaching the criterion is ~8000 steps"). The finished sequence
+says something different and simpler: **the likelihood was cliffed** — discontinuous by 13–72
+log-likelihood units within one posterior sd, because the respiration term scored an LP vertex
+that jumps — **and no sampler can integrate that**. Three changes to the model and one to the
+sampler class addressed it: a pFBA tie-break so O2 at the optimum is a function of the
+parameters (P10), a variance floor at the model's own vertex granularity with a continuous
+support (P10, P11), and nested sampling, which needs only the ordering of likelihood values
+(P11). The surface is now demonstrably sampleable: all twelve line scans pass an absolute
+5-unit rule, largest step 3.53 (row P11b).
+
+**But the posterior is still not established, and the document must not imply it is.** Two
+nested runs that both met dlogz < 0.1 disagree — log Z by 6.8 combined standard errors, and 15
+of 16 posterior medians by more than two Monte-Carlo errors (row P11e) — because the smaller run
+never reached the larger one's region and its stopping criterion could not tell. So [C6] and
+[C8], the claims that were waiting on P6, **still cannot be filled**: they wait on two agreeing
+runs at nlive ≥ 800 (OPEN_ITEMS 1.19, ≈ 20–24 h). What section 7 can now say is what the problem
+actually was, that it was in the likelihood rather than the budget, and that the surface has
+been fixed — with the floor quoted beside any respiration R², since it grants the model a
+factor-four band on O2.

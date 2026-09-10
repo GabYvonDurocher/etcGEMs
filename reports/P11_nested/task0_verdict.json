@@ -1,0 +1,11 @@
+{
+ "absolute_rule": "no single 0.05 sd step above 5 log-likelihood units",
+ "lines": 12,
+ "lines_failing_absolute": 0,
+ "max_step_units": 3.5289760838305995,
+ "max_step_line": "axis:dCp_scale",
+ "SAMPLEABLE": true,
+ "p9_relative_verdict": "ROUGH",
+ "lines_over_20pct_relative": 2,
+ "median_sign_changes": 1.0
+}

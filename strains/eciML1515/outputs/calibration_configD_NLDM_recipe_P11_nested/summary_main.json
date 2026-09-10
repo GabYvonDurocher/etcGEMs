@@ -1,0 +1,30 @@
+{
+ "tag": "main",
+ "converged_on_dlogz": true,
+ "hours_cap": 4.0,
+ "nlive": 500,
+ "sample": "rslice",
+ "slices": 3,
+ "bound": "multi",
+ "seed": 1,
+ "nproc": 16,
+ "dlogz_target": 0.1,
+ "iters": 7117,
+ "ncall": 111420,
+ "wall_s": 17320.9,
+ "wall_h": 4.811,
+ "evals_per_s": 6.43,
+ "calls_per_iter": 15.7,
+ "logz": -22.8863323100227,
+ "logzerr": 0.16388009059957778,
+ "dlogz_final": 0.16388009059957778,
+ "n_eff": 4051.9878725994013,
+ "eff_percent": 6.746544605995333,
+ "respiration": {
+  "tiebreak": "pfba",
+  "tiebreak_tol": 1e-09,
+  "growth_tol": 1e-06,
+  "log_o2_floor": 1.42,
+  "alive_soft_growth": 0.01
+ }
+}

@@ -1,0 +1,7 @@
+{
+ "n_draws": 10000,
+ "all_densities_consistent": true,
+ "max_density_spread": 3.552713678800501e-14,
+ "max_quantile_error": 0.1273901289062458,
+ "worst_mean_z": 1.5834490052043342
+}
