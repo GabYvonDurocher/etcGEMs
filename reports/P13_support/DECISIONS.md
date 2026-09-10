@@ -178,3 +178,53 @@ lines.** State-independence is proven. Sampleability is not, and the cliff above
 road to the dead basin (t ≈ 0.9 of p38 → b3), not necessarily inside the posterior's own region.
 **TASK 3 decides it** with P11's twelve lines at ±1 sd of p38, cold lines called out. TASK 4 does
 not start unless every line, cold ones included, is under 5 units per 0.05 sd.
+
+## D6 — TASK 3's stop condition, refined; and TWO PREDICTIONS PRE-REGISTERED BEFORE TASK 4
+
+Both on the user's addendum 2, written while TASK 3 was still scanning and **before any nested run
+had been started**.
+
+### 1. The refined stop condition, and why it is right
+
+A step above 5 units disqualifies a scheme **only if it lies between two FEASIBLE points**. A step
+at a feasible/infeasible transition is **the boundary of the model's feasible set, not a cliff**:
+past it the model makes no claim, the likelihood is genuinely undefined, and smoothing it would be
+inventing a prediction. Nested sampling handles hard boundaries natively — it proposes, receives
+−inf, discards — which is precisely the property the random-walk ensembles of P6–P8 lacked, and why
+a wall broke them but does not break this.
+
+This **changes how D5's unresolved problem must be read**. The 4.14-unit step (64 per 0.05 sd) that
+clamp showed on the p38 → b3 scan sits at t ≈ 0.9, which is exactly where the model tips into
+infeasibility on the way to the dead basin. Under the refined rule that is a **feasible-set
+boundary, not a disqualifying cliff** — and clamp scoring feasible-not-growing points at full
+weight is the correct behaviour right up to it.
+
+Reported per line, therefore: **(a) the largest step between two feasible points** — the number
+SAMPLEABLE is decided on — and **(b) the location and size of any feasibility transition**,
+separately, with where it sits relative to ±1 sd of p38. Nothing about the boundary is smoothed,
+floored or softened. If any line shows a >5-unit step **between two feasible points**, the original
+stop stands and TASK 4 does not run.
+
+### 2. Two predictions, registered now so they cannot be told as a story afterwards
+
+D4 established that the mask is an **attractor**: 5 of 12 converged endpoints park a temperature
+within 1 % of `_MASK_G`, 4 of them exactly on it, and the reward is a free ~2.8 log-likelihood
+units at 15 °C. That was measured on an **optimiser**. The **sampler** could exploit the same
+thing, and P11's posterior is what fed the medians now in `reports/ecoli_tpc/`. Under clamp the
+advantage is gone, because the 15 °C prediction is scored whatever the growth is.
+
+**Prediction (a).** The clamp posterior moves **away** from parameter values that place any
+temperature within 1 % of `_MASK_G`. To be reported as the **fraction of posterior samples with at
+least one temperature within 1 % of `_MASK_G`**, under the clamp posterior against **P11's
+posterior as the comparator** (`samples_main.npy`, importance-weighted the same way).
+*If it holds, the attractor is confirmed by a second, independent route — a sampler as well as an
+optimiser. If it does not, the attractor was optimiser-specific, and P12's dated qualification of
+the ceiling test can be narrowed accordingly.*
+
+**Prediction (b).** The 15 °C growth residual becomes more expensive to ignore, so the fit should
+trade **toward growing at the cold end**. To be reported as the **posterior-predictive growth at
+15 °C** under both posteriors, against the measured 0.0937 /h.
+
+Both are reported against this text as written, whichever way they come out. **Neither is a
+criterion for TASK 4**; they are diagnostics of the change, and the agreement rule for the two runs
+(TASK 4) is written separately and independently.
