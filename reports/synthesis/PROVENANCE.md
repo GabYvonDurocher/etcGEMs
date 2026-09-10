@@ -6,7 +6,7 @@
 
 *Evidence:* `python reports/synthesis/build_evidence.py` regenerates evidence.csv (74 rows); `python reports/synthesis/fig_requirement_arithmetic.py` regenerates the one figure; `quarto render reports/synthesis/synthesis.qmd` produces the 10-page PDF.
 
-**This report was last written at** `4f4c56f` (2026-09-10) — P13: record -- OPEN_ITEMS, evidence, README note, four dated notes, stamps
+**This report was last written at** `1571307` (2026-09-10) — Y3: TASK 3-5 -- the Li comparison, the costing, the record, and one retraction
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 

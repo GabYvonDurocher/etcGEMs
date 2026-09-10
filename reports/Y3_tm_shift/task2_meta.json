@@ -1,0 +1,33 @@
+{
+  "base_key": "p38(b22)",
+  "base_dTm": -4.021352847306332,
+  "base_logl": -7.1859751439245985,
+  "steps": 11,
+  "maxfev": 300,
+  "workers": 8,
+  "wall_s": 1134.023178100586,
+  "free": [
+    "dCp_scale",
+    "kcat_scale",
+    "dTopt",
+    "topt_scale",
+    "tm_scale"
+  ],
+  "live_threshold": 1.038,
+  "at_dTm0": {
+    "logl": -7.263396121633629,
+    "logpost": -20.072353833128243,
+    "peak_growth": 1.7390104353337603,
+    "alive": true,
+    "cost_logl": 0.07742097770903023
+  },
+  "compensating_direction_exists": true,
+  "compensating_steps": [
+    -2.010676423653166,
+    -1.6085411389225328,
+    -1.2064058541918996,
+    -0.8042705694612664,
+    -0.4021352847306332,
+    0.0
+  ]
+}
