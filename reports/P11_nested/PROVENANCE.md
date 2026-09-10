@@ -6,7 +6,7 @@
 
 *Evidence:* task1_prove_transform.py, toy.py, task1_pool_check.py and task1_checkpoint.py regenerate their JSON in minutes; lines.py --floor 1.42 regenerates the twelve-line scan (~54 min); run_nested.py regenerates the chain (~4.8 h, checkpointed and resumable); task0_two_rules.py, task2_jitter.py, task3_posterior.py, task3_identifiability.py (~70 min), task3_r2.py and task4_costs.py regenerate every table from the committed run output.
 
-**This report was last written at** `9e0e800` (2026-09-10) — P12: addendum 1 record -- OPEN_ITEMS 1.21, the 0b step, the P11 dated note
+**This report was last written at** `4f4c56f` (2026-09-10) — P13: record -- OPEN_ITEMS, evidence, README note, four dated notes, stamps
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 

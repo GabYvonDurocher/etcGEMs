@@ -6,7 +6,7 @@
 
 *Evidence:* task0_fixed_points.py and task1_lines.py regenerate the decomposition and the four line profiles in ~2 min; addendum1_weight.py regenerates the counterfactual schemes in ~2 min; task2_basins.py regenerates the 100-start screen (~2.9 h on 16 processes, seed 21); task2b_barriers.py (~5 min) and task2c_converge.py (~1.7 h) regenerate the barrier test and the continuations; task2d_modes.py (~10 min) regenerates the mode count under D7's rule and the per-endpoint deadness and no-discount scores; task2e_minimax.py and task3_per_basin.py are arithmetic and LP reads over the committed CSVs and take under two minutes.
 
-**This report was last written at** `fdb280e` (2026-09-10) — P12: record -- README correction note, stamps, and the prompts
+**This report was last written at** `4f4c56f` (2026-09-10) — P13: record -- OPEN_ITEMS, evidence, README note, four dated notes, stamps
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 
