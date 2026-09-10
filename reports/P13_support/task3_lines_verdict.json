@@ -1,0 +1,12 @@
+{
+ "rule": 5.0,
+ "wall_h": 0.27,
+ "max_step": {
+  "current": 8.551867392036634,
+  "clamp": 8.55174457252265
+ },
+ "sampleable": {
+  "current": false,
+  "clamp": false
+ }
+}

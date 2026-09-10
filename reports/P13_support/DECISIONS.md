@@ -228,3 +228,66 @@ trade **toward growing at the cold end**. To be reported as the **posterior-pred
 Both are reported against this text as written, whichever way they come out. **Neither is a
 criterion for TASK 4**; they are diagnostics of the change, and the agreement rule for the two runs
 (TASK 4) is written separately and independently.
+
+## D7 — TASK 3 FAILS the stop condition. TASK 4 does not run. The cause is not the support scheme.
+
+Under D6's refined rule — the largest step **between two feasible points** decides — **both schemes
+fail on one line**:
+
+| scheme | largest feasible-to-feasible step | line | at | verdict |
+|---|---|---|---|---|
+| current | **8.5519** | `axis:topt_scale` | +0.90 → +0.95 sd | NOT SAMPLEABLE |
+| clamp | **8.5517** | `axis:topt_scale` | +0.90 → +0.95 sd | NOT SAMPLEABLE |
+
+Every other line passes under both (next largest: `axis:dCp_scale` 4.82, `axis:kcat_scale` 2.73).
+
+**The two numbers differ by 0.0002, so the support handling is not the cause.** Whatever this is, it
+was there before P13 and is unaffected by the change P13 makes. The stop is real, and by the user's
+instruction — *"If a line does have a >5-unit step between two feasible points, the original stop
+stands"* — **TASK 4 is not started.**
+
+### What the step actually is
+
+Decomposed P9-style (`task3_step_decomposition.csv`): **96 % growth term (−8.1775), 4 % respiration
+(−0.3743)**, spread across the cold end — 25 °C contributes −1.66 (growth 0.0861 → 0.0539), 27 °C
+−3.40 (0.2224 → 0.1512), 30 °C −2.97 (0.6226 → 0.5185). This is the growth term's LP response,
+which P11 deliberately left unfloored, and no support rule touches it.
+
+### And it is CURVATURE, not a cliff — reported, but NOT used to override the rule
+
+The steps along `axis:topt_scale` from +0.40 sd are:
+
+`−0.71, −0.83, −1.11, −1.18, −1.44, −1.83, −2.39, −3.05, −4.15, −5.63, −7.25, −8.55, −8.46`
+
+**Monotone, smoothly increasing, with small second differences.** A cliff is an isolated jump among
+small steps (P9's were `0.1, 0.1, 70, 0.1`); this is the far tail of the likelihood steepening as
+`topt_scale` rises and the model dies, at a log-likelihood of **−47.8, some 40 units below p38** —
+a region carrying essentially no posterior mass.
+
+**I am not overriding the rule on that basis.** Inventing a curvature criterion after seeing the
+data is exactly the error D5/D7 of P12 recorded, and the rule was set by the user in advance. The
+evidence is reported so the decision can be made on it; the decision is not mine to take.
+
+### A finding about P11 that follows, and it is not small
+
+P11 verified SAMPLEABLE **at θ_A only**, where this same line's largest step was **3.20** (its
+table, `lines_p11floor_summary.csv`). At **p38** — the better optimum, which P12 found and which
+beats P11's own best sample — the same line, same instrument, same rule gives **8.55**. So:
+
+**P11's sampleability verdict is centre-dependent, and it was established at a single point.** Its
+two nested runs were computed on a surface whose sampleability had been checked in one place. That
+does not invalidate P11's runs, and it does not explain their disagreement — P12 settled that as
+one basin explored to two depths. But "the surface is sampleable" is a weaker claim than it read
+as, and it is qualified here by dated note without editing P11's numbers.
+
+### What this leaves
+
+- **`clamp` is still the right scheme** and is adopted: it scores feasible-not-growing points that
+  the mask discarded (4 of 4 dead temperatures at live endpoints carry a real O₂ prediction), it
+  passes P10's state-independence gate at 0.0000 where **`current` fails at 0.0157**, and it
+  removes the discount that 1.21 was raised for. Its cost is measured and stated: p38 loses 2.8
+  units, and the live–dead gap moves 11.691 → 11.245.
+- **TASK 4, TASK 5 and the two 10-hour runs do not happen in P13.** Reported as blocked, not
+  attempted, not quoted.
+- **The pre-registered predictions of D6 cannot be evaluated**, because they require the clamp
+  posterior. They stand as written for whoever runs it.
