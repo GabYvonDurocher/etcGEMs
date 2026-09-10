@@ -72,3 +72,28 @@ not acted on: warm-start the tie-break LP from the growth solve's basis rather t
 from scratch; or solve the two objectives lexicographically in one Gurobi call, which is exactly
 what Pettersen & Almaas propose for their chemostat instability. Both are changes to the
 evaluation path and belong in their own run with their own verification.
+
+## D3 — the line profiles say A and B are separated by a valley, but A and B* are not
+
+TASK 1's six line scans (`task1_profiles.csv`, `task1_valleys.json`) put a genuine barrier between
+theta_A and theta_B: the log-likelihood dips to -35.58 at t=0.88, +0.62 below the lower endpoint,
+and P4->B dips +1.10 below its lower end. Those are VALLEYS by the rule written before the scan
+(a dip strictly below the lower endpoint by more than the 0.02 evaluation jitter P5 measured).
+
+But A -> B* — the second seed's MAP rather than its median — is MONOTONE, with no dip at all, and
+B* is *better* than A (-9.11 against -10.42; -9.07 at t=0.93 on the extended line). So along this
+one line the two seeds' best points are not separated by anything.
+
+Judgement: this does not settle whether the seeds found different modes, and TASK 1 is not the
+instrument that can settle it. A single straight line finding no barrier is weak evidence of a
+shared basin: two basins can be connected along one chord and separated along another, and a
+monotone chord is exactly what a long curved ridge would also produce. The claim "seed 2's mode
+lies inside seed 1's basin" therefore waits for TASK 2, whose local optimisations follow the
+surface rather than a chord, and whose clustering is the actual test. What TASK 1 establishes is
+narrower and still worth having: the seed-2 MEDIAN sits in a region separated from A by a real
+barrier, which is why the two runs' medians disagreed on 15 of 16 parameters, and the seed-2
+MEDIAN is not a good point of the posterior at all (-34.96, nearly dead). A median between two
+modes is a point in neither.
+
+Consequence for the report: the 6.8-sigma log Z disagreement in P11 is not necessarily two
+different modes. It may be one mode explored to different depths. TASK 2 decides.
