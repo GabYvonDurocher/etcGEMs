@@ -6,7 +6,7 @@
 
 *Evidence:* `python reports/synthesis/build_evidence.py` regenerates evidence.csv (74 rows); `python reports/synthesis/fig_requirement_arithmetic.py` regenerates the one figure; `quarto render reports/synthesis/synthesis.qmd` produces the 10-page PDF.
 
-**This report was last written at** `e8d8dd1` (2026-09-10) — P11: the second-seed check FAILED -- two converged runs disagree, so the posterior is NOT established
+**This report was last written at** `fdb280e` (2026-09-10) — P12: record -- README correction note, stamps, and the prompts
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 

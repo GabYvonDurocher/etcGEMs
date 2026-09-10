@@ -1,6 +1,6 @@
 # Open items — the running list
 
-_Started 2026-09-08 while P2 was running; last updated 2026-09-09 by Y2._ This is the standing list of what is outstanding across
+_Started 2026-09-08 while P2 was running; last updated 2026-09-10 by P12._ This is the standing list of what is outstanding across
 the whole project, so nothing is lost between sessions. Update it when something lands; do not let
 it become a second decision log — decisions live in each prompt's `reports/*/DECISIONS.md`, this is
 only what is NOT yet done and who or what it waits on._
@@ -10,21 +10,81 @@ Status: **BLOCKED** (waiting on something external) · **READY** (can start now)
 
 ---
 
-## 0. Sequencing — E. coli first (decided 2026-09-09)
+## 0. Sequencing — E. coli first (decided 2026-09-09, sequence added 2026-09-10)
 
 - **The E. coli model (`eciML1515`) is the best-constrained**: three media, gas exchange, a
   measured meltome. Methods are developed and proven there first, then ported through the core.
   The seven-strain gate (K1, 79/79) runs on every core change so the other strains cannot
   silently break meanwhile.
-- **Order on E. coli:** (1) the sampling problem — P8; (2) the E/F tie-break on the LP face
-  (1.13, PI); (3) the −5.6 K Tm shift — whether a Li-style per-enzyme calibration against the
-  meltome removes it (1.14 generalised to E. coli, where the data exist); (4) the CT_max
-  disagreement with the yeast posterior (Y2) — definition first, then mechanism.
 - **Candida:** the K-series result (13.57 °C required against 1.6 °C measured, and why) stands
   and is what the manuscript uses. No further Candida modelling until the E. coli calibration
   recipe exists; then it ports against the measured TPCs.
 - **Cross-taxon questions already answered** (activation energies K6, seven-strain ceiling K9)
   stay on record and are not re-opened by this.
+
+### 0a. What "a reliable model" means — four separate things, in order
+
+Written 2026-09-10, **before P12 reported**, so that each new result is reconciled against it
+rather than replacing it. These were tangled together for most of the P-series; separating them
+is what the last week bought.
+
+| | Requirement | State | What closes it | Cost |
+|---|---|---|---|---|
+| **R1** | **Statistically reliable** — a posterior two independent runs agree on | Surface sampleable (P10/P11); mode structure unknown | P12's basin map, then per-basin sampling on restricted priors | ~1 day of runs after P12 |
+| **R2** | **Identified** — parameters set by data, not prior | 5 of 16 flat: `kappa_scale`, `f_metab`, `f_maint`, `ngam_steepness`, `clearance_mult` (P11 TASK 3) | Short term: fix at nominal and say so. Properly: proteome allocation vs temperature (sectors), maintenance vs temperature from low-dilution chemostat (NGAM) | Days / months (experimental) |
+| **R3** | **Right for the right reason** — the mechanism is discriminated, not just fitted | Unknown, and this is where the multimodality is a *result*: dTopt 1.5 vs 9.4 = shift enzyme optima **or** shift stability, differently compensated | Per-enzyme data. Tm side **held** (meltome); Topt side **absent** (temperature-dependent kcat; DLTKcat in `refs/` could serve as Li used Tome) | See 0b |
+| **R4** | **Predictively reliable** — holds out of sample | **Nothing has ever been tested against data it was not fit to** | Cooper 2007 (`refs/`): TPCs of *E. coli* lines after 20,000 generations. Predicting how a curve *shifts* under evolution is the real test of a temperature-dependence framework | ~1 day once R1 holds |
+
+### 0b. The sequence
+
+1. **P12 — map the modes.** No sampler. Basin count, heights, prior-volume fractions, and what
+   separates them. Licenses the sampler choice. *(prompt written; not yet run)*
+2. **The dTm decision — PI.** Currently `dTm` is a free parameter with a wide prior landing at
+   −3.9 to −5.6 K against a **measured** meltome. If the meltome is trusted, that shift becomes a
+   model failure to explain rather than a number to fit — and constraining it may collapse the
+   multimodality on its own, because the stability-shift mode dies. This is the single highest-
+   leverage decision outstanding and P12's per-basin `dTm` will sharpen it. See 1.14, 1.20.
+3. **Fix the five flat parameters** at nominal, stated as a limitation (R2, short form).
+4. **Decide the respiration term's support — PI.** *(added 2026-09-10 by P12 addendum 1.)* The
+   current weight discounts a dead model's respiration penalty by up to 16.7 log-likelihood
+   units where a live one gets 1.2, so basins can be kept alive by the likelihood's support
+   rather than by the data. This must be settled BEFORE per-basin sampling, because sampling
+   a basin that only exists under a discount spends a day on an artefact. See 1.21.
+5. **Per-basin posteriors** on restricted priors, combined by volume fraction (R1). Supersedes
+   1.19's "two runs at nlive ≥ 800" unless P12 returns verdict (a).
+6. **Cooper 2007 as holdout** (R4). Only meaningful after 5.
+7. **Then, and only then, port the recipe to Candida** against Ilgaz's measured TPCs.
+
+### 0c. Reconciliation rule — read before absorbing any new result
+
+Every run in this series has produced a result that looked like the answer and was one layer of a
+stack. **A new result does not replace this section; it is reconciled against it.** Each report
+must state, explicitly:
+
+- **which of R1–R4 it moves**, and which it leaves untouched;
+- **what it retracts or qualifies** in an earlier report, by dated note, numbers unedited
+  (P8's "unimodal" reading and Y2's mode-conditional posterior are the live examples);
+- **what it does NOT license** — the standing hazard is that a result is quoted outside the
+  conditions it was derived under (§4).
+
+Precedent for the whole exercise: **Pettersen & Almaas 2023** (`refs/PettersenAlmaas_2023.pdf`)
+found seed-dependent posteriors and multimodality in Li et al.'s yeast etcGEM with 2,292 per-enzyme
+parameters; P11 found the same with 16 global ones. **The multimodality is in the thermal
+formulation, not the parameter count.** They name proteomics and fluxomics as the cure and did not
+have them; Parsa's gas-exchange data is that data, which is the argument for E. coli first. What
+remains ours beyond their prior art: the *mechanism* (cliffs from the respiration term at cold
+temperatures, LP kinks), the T_opt/CT_max asymmetry, the predictor validation, and the data.
+
+> **Dated note, 2026-09-10 (P12) — one sentence of this section is withdrawn; the rest stands.**
+> "**The multimodality is in the thermal formulation, not the parameter count**" was written on
+> P11's seed disagreement. P12 tested it directly and it does not hold: with endpoints converged
+> (11 of 12 on tolerance) and basins defined by bottleneck barriers rather than clustering, there
+> is **one live basin**, and theta_A and theta_B* — the two runs' best samples — are separated by
+> **0.266**, which is noise. The only separated basin is a model with zero predicted growth at
+> every measured temperature. So this reformulation does **not** reproduce Pettersen & Almaas's
+> multimodality, and the claim that it is intrinsic to the thermal formulation is **unsupported by
+> our own evidence**. Everything else in this section stands, including the reconciliation rule
+> itself, which is what caught this. See `reports/P12_modes/` D8 and OPEN_ITEMS 1.19, 1.22.
 
 ## 1. Waiting on people
 
@@ -44,11 +104,14 @@ Status: **BLOCKED** (waiting on something external) · **READY** (can start now)
 | 1.5 | **`common_network.py` result** — does the optimum still compress on a common scaffold? | Ilgaz | Never recorded in `gem/notes/`. Note the K1 finding that makes it partly moot: the two draft models ARE the *auris* network with genes reassigned, so the control is near a no-op for them and informative only for *C. parapsilosis*. |
 | 1.6 | **Did any Candida audit touch lipid or membrane pathways?** | Ilgaz | Bears on §6a. `allocation_and_trehalose.py` suggests compatible solutes were looked at; membranes unknown. |
 | 1.7 | **`15_run_seq2tm.py` truncation bug** — truncates at 1022 aa citing a non-existent ESM-2 positional limit; committed predictions are untruncated, so the script cannot reproduce the data beside it (up to 2.6 °C) | Ilgaz — **told, not yet fixed** | A live reproducibility break in his repository. |
-| 1.15 | **Decide the respiration likelihood: the surface is discontinuous where the LP's O2 uptake jumps** | PI | P9 found the configuration-D log-likelihood is piecewise smooth with cliffs of 13–72 units within one posterior sd of the MAP, each carried by the respiration term at one cold temperature where O2 uptake changes 2–4× between LP vertices while growth barely moves (`reports/P9_surface/`). No sampler and no model reduction gives credible intervals from that surface. Three ways to make the likelihood a smooth function of the parameters, none taken: (a) a tie-break that makes O2 unique at the growth optimum at every temperature — pFBA or a lexicographic O2 objective — the same change 3.21 needs for E/F, costing ~2× per evaluation and a re-run of the P3 gate; (b) a noise-aware respiration term that treats the vertex spread as model error (an interval or a widened variance at low O2), which changes what the respiration R² means; (c) a smoothed surrogate of the growth/O2 response for sampling only. Until one is chosen, the family's posteriors are medians with a "not converged" label. **RESTATED 2026-09-09 (P10):** routes (a) and (b) were built as core options (default OFF, ON for eciML1515) and measured. The tie-break resolves the E faces (F LB not); the variance floor (0.76, the model's O2 granularity at 20 °C) with a continuous support cuts every cliff by an order of magnitude — P9's −70/−32/+23 become −6/−3/+2 — **and the surface still reads ROUGH by P9's rule on two of twelve lines** (steps of 7.8 and 2.2 units, 27 % and 32 % of ranges that shrank to 29 and 7). What remains is single digits: the one vertex jump above the floor (1.42 in log at 25 °C), 1–2-unit O2 jumps at 20 °C, and **growth-term kinks of 1–3 units** that no respiration change touches. No fit was run. The decision now: a floor at the largest jump (≈ 1.4), the same treatment of the growth term, or the surrogate route (c) for both — `reports/P10_respiration_likelihood/` D5. **ACTED ON 2026-09-10 (P11); the surface question is closed, the posterior is not.** The route taken was (a) the tie-break plus (b) the variance floor, with two decisions executed: the floor sits at the **largest measured vertex jump (1.42 in log O2), not the modal temperature's**, and the **growth term is not floored** — its 1–3 unit kinks are the LP's piecewise response and inflating the primary data's variance to suit a sampler would trade information for convenience. The surrogate route (c) was not needed. Cost, stated: the respiration sd is now at least 1.42 in log everywhere, a factor-4 band, and the converged fit accordingly buys growth R² (0.900 against P4's 0.854) at the price of respiration R² (0.626 against 0.795). Any respiration R² from this family must be quoted with the floor beside it. |
+| 1.15 | **Decide the respiration likelihood: the surface is discontinuous where the LP's O2 uptake jumps** | PI | P9 found the configuration-D log-likelihood is piecewise smooth with cliffs of 13–72 units within one posterior sd of the MAP, each carried by the respiration term at one cold temperature where O2 uptake changes 2–4× between LP vertices while growth barely moves (`reports/P9_surface/`). No sampler and no model reduction gives credible intervals from that surface. Three ways to make the likelihood a smooth function of the parameters, none taken: (a) a tie-break that makes O2 unique at the growth optimum at every temperature — pFBA or a lexicographic O2 objective — the same change 3.21 needs for E/F, costing ~2× per evaluation and a re-run of the P3 gate; (b) a noise-aware respiration term that treats the vertex spread as model error (an interval or a widened variance at low O2), which changes what the respiration R² means; (c) a smoothed surrogate of the growth/O2 response for sampling only. Until one is chosen, the family's posteriors are medians with a "not converged" label. **RESTATED 2026-09-09 (P10):** routes (a) and (b) were built as core options (default OFF, ON for eciML1515) and measured. The tie-break resolves the E faces (F LB not); the variance floor (0.76, the model's O2 granularity at 20 °C) with a continuous support cuts every cliff by an order of magnitude — P9's −70/−32/+23 become −6/−3/+2 — **and the surface still reads ROUGH by P9's rule on two of twelve lines** (steps of 7.8 and 2.2 units, 27 % and 32 % of ranges that shrank to 29 and 7). What remains is single digits: the one vertex jump above the floor (1.42 in log at 25 °C), 1–2-unit O2 jumps at 20 °C, and **growth-term kinks of 1–3 units** that no respiration change touches. No fit was run. The decision now: a floor at the largest jump (≈ 1.4), the same treatment of the growth term, or the surrogate route (c) for both — `reports/P10_respiration_likelihood/` D5. **ACTED ON 2026-09-10 (P11); the surface question is closed, the posterior is not.** The route taken was (a) the tie-break plus (b) the variance floor, with two decisions executed: the floor sits at the **largest measured vertex jump (1.42 in log O2), not the modal temperature's**, and the **growth term is not floored** — its 1–3 unit kinks are the LP's piecewise response and inflating the primary data's variance to suit a sampler would trade information for convenience. The surrogate route (c) was not needed. Cost, stated: the respiration sd is now at least 1.42 in log everywhere, a factor-4 band, and the converged fit accordingly buys growth R² (0.900 against P4's 0.854) at the price of respiration R² (0.626 against 0.795). Any respiration R² from this family must be quoted with the floor beside it. **ADDENDUM 2026-09-10 (P12 addendum 1): the SUPPORT handling is a separate, unclosed decision inside this item, and it discounts rather than bounds.** The term's support is `w = min(1, g/g_s)`, `g_s = 0.01`, a function of the model's PREDICTED growth, multiplying the respiration term only (`calibration_multi.py:299-301`); the growth term is linear and untouched. P10 introduced it for a real defect — the hard mask at `g ≥ 1e-4` switched a whole temperature in or out as a step, which was half of P9's cliffs — and it fixes that. But at a near-dead point it hands back **16.7 log-likelihood units** against ~1.2 at every live point, so a model that predicts almost no growth is charged almost nothing for predicting the wrong respiration. Removing the discount (`w ≡ 1`, hard mask kept) widens the θ_A − θ_B gap from +24.5 to **+40.0**. Removing support handling altogether is **not available**: at 15 °C the model does not grow at θ_A, θ_B* or θ_P4 and `flux_tpc` returns **NaN** for O₂, so there is no prediction to score. The open question is therefore which BOUNDED form replaces a discount, not whether support handling is needed. Not changed in P12. Numbers: `reports/P12_modes/addendum1_schemes.csv`, DECISIONS D4. See 1.21. |
 | 1.16 | **Should the Candida strains' respiratory audits use the parsimonious vertex?** | PI (K-series) | P10 ran the K5 coupling-ion audit on the four repaired Candida models at both the plain growth optimum and cobra's pfba solution at the same growth (information only, nothing adopted): the translocation-only chain-supply fraction is unchanged to three decimals in all four (2.000 / 2.722 / 2.133 / 1.120), but the figure including in-compartment proton chemistry moves for two — *C. haemulonii* 3.25 → 3.53, *C. duobushaemulonii* 2.68 → 3.23 — so the solver's vertex choice was carrying part of the K5 story there. Whether the Candida likelihoods and audits should read the pfba vertex is a K-series decision, to be made against the measured TPCs when the E. coli recipe ports (§0). `reports/P10_respiration_likelihood/task4_candida_pfba.csv`. |
 | 1.17 | **Run the remaining eight gas-flux fits under the new likelihood, or not** | PI (blocked) | P11 converged configuration D on NLDM in 4.8 h and 111,420 evaluations. Projected at the same evaluation count and P10's per-fit tie-break costs: **D LB 4.5 h, D M9 4.8, E NLDM 4.7, E LB 5.0, E M9 4.8, F NLDM 4.8, F M9 4.8 — about 33 h in total**; **F LB is HELD** (P10 D1: its tie-break is not exact at 1e-9, so its likelihood is not yet a function of its parameters). Two caveats: the projection assumes each fit needs a comparable number of iterations, which scales with its own information H and is unmeasured elsewhere; and ~1 h of P11's run was dynesty's single-core unit-cube phase, which `first_update={'min_eff': 30}` would remove. `reports/P11_nested/task4_costs.csv`. **Blocked by 1.19:** running eight more fits at settings whose reproducibility has not been established would multiply the problem rather than solve it. |
 | ~~1.18~~ | ~~**Finish the second-seed reproducibility check**~~ | — | **DONE 2026-09-10 (P11): it FAILED.** The nlive 250 / seed 2 run converged on its own criterion and disagrees with the nlive 400 run by 6.8 sigma in log Z and by up to 50 Monte-Carlo errors in the medians; it never reached the first run's region. Superseded by 1.19. `reports/P11_nested/task2_seed_compare.csv`. |
-| 1.19 | **Establish a posterior that two runs agree on: two nested runs at nlive ≥ 800, different seeds** | PI | P11 showed dlogz < 0.1 is necessary and not sufficient here: runs at nlive 400 and 250 both met it and disagree (log Z 6.8 sigma; 15 of 16 medians beyond two MC errors). nlive 250 is below dynesty's guidance for multi-ellipsoid bounding in 16 dimensions (25 × D = 400) and 400 sits exactly at it, so neither is demonstrated adequate. **Cost, from P11's measured 0.155 s per evaluation and its H = 9.22: ≈ 10–12 h per run, so ≈ 20–24 h for the pair.** Cheaper things to try first, in order: `first_update={'min_eff': 30}` (P11 D4 — dynesty ran its first 1,250 iterations on one core, costing an hour); and checking whether the disagreement is multimodality by seeding one run's live points from the other's high-likelihood region. Until this is settled, **no posterior from this family should be quoted**, and 1.17 is blocked. `reports/P11_nested/` D8. |
+| 1.19 | **Establish a posterior that two runs agree on: two nested runs at nlive ≥ 800, different seeds** | PI | P11 showed dlogz < 0.1 is necessary and not sufficient here: runs at nlive 400 and 250 both met it and disagree (log Z 6.8 sigma; 15 of 16 medians beyond two MC errors). nlive 250 is below dynesty's guidance for multi-ellipsoid bounding in 16 dimensions (25 × D = 400) and 400 sits exactly at it, so neither is demonstrated adequate. **Cost, from P11's measured 0.155 s per evaluation and its H = 9.22: ≈ 10–12 h per run, so ≈ 20–24 h for the pair.** Cheaper things to try first, in order: `first_update={'min_eff': 30}` (P11 D4 — dynesty ran its first 1,250 iterations on one core, costing an hour); and checking whether the disagreement is multimodality by seeding one run's live points from the other's high-likelihood region. Until this is settled, **no posterior from this family should be quoted**, and 1.17 is blocked. `reports/P11_nested/` D8.  **RESTATED 2026-09-10 (P12): the requirement is unchanged but its PURPOSE has narrowed, and one prerequisite is now ahead of it.** P12's basin map finds **ONE live basin**: theta_A and theta_B* — the two runs' best samples — have a bottleneck barrier of **0.266**, which is noise. So the two runs did not find two modes; they explored one basin to different depths, and the disagreement is a stopping-rule failure, exactly as P11 concluded. Two agreeing runs at nlive ≥ 800 are therefore still what closes this, but they are no longer needed to *arbitrate between modes* — only to establish the single posterior. **Do not start them until 1.21 is settled**: as the likelihood stands a sampler can spend real mass on the dead basin (peak predicted growth 0.000 /h, respiration term −0.017), which is what the second seed did. Per-basin sampling on restricted priors (§0b) is **not needed** — there is one live basin. Cost unchanged at 10–12 h each. `reports/P12_modes/`. |
+| 1.20 | **The `dTm` decision: the fit needs a 3–4.5 K shift against a MEASURED meltome** | PI | Forward-referenced by §0b step 2 since 2026-09-10; P12 now puts numbers under it and they are worse than the sequence anticipated. **Every** converged live endpoint requires `dTm` between **−3.07 and −4.50 K** (A −3.81, p38 −4.02, B\* −4.08, p81 −4.08, P4 −4.07, p50 −3.07, p83 −4.50), and the two weight-propped poor endpoints require −10.18 and −13.07. **The only point in the whole map with `dTm` = 0 is the DEAD basin** — 0.000 exactly, with `dTopt` 13.873 and predicted growth 0.000 /h at every measured temperature. §0b step 2 hoped that constraining `dTm` would collapse the multimodality by killing a stability-shift mode; P12 shows there is no second live mode to kill, and that **the meltome-honouring region of parameter space contains no growing model**. So the choice is starker: either the measured meltome is not the right constraint on this model's `Tm`, or the model cannot fit these data without contradicting it and the shift is a **failure to explain**, not a parameter to fix. Either way it is a modelling decision, not a fit. See 1.14, §0a R3, `reports/P12_modes/` D8. |
+| 1.22 | **One live basin: replace per-basin sampling with a single run, once the support is settled** | us | P12 recommends **(c) one dominant basin**, stronger than that phrasing: among models that grow there is exactly one, and the second basin is a zero-growth model separated by 13.9 units that survives scoring only because the support weight charges it −0.017 instead of a full respiration penalty. **§0b step 5 (per-basin posteriors on restricted priors, combined by volume fraction) is therefore unnecessary** and should be struck once 1.21 is decided; what replaces it is a single well-converged run on the live basin, which is 1.19. This is a simplification of the plan, not a new task, and it is recorded so the sequence is not run as written. `reports/P12_modes/` TASK 4. |
+| 1.21 | **Decide the respiration term's SUPPORT: a bounded penalty, not a discount** | PI | Raised by P12 addendum 1 (2026-09-10), characterised and deliberately not acted on. The weight `w = min(1, g/g_s)` with `g_s = 0.01` scales the whole per-temperature respiration term by the model's own predicted growth, so the less a parameter set grows, the less it pays for getting respiration wrong. Measured credit, in log-likelihood units: **θ_A 1.263, θ_B 16.696, θ_B\* 1.115, θ_P4 1.234**; the A−B gap moves +24.535 → **+39.967** with the discount removed. It is not manufacturing the P11 seed disagreement — θ_B is a median artefact that neither run visited as a mode (25.9 units worse than seed 2's own best sample, peak predicted growth 0.163 /h against an observed 2.076), and θ_B\* is not propped up. But it does let dead regions of parameter space score far better than they should, which is exactly what a basin map is sensitive to. Options: (a) keep it, and always report peak predicted growth beside any log-likelihood; (b) replace it with a bounded penalty — score respiration at full weight but cap each temperature's contribution, so the term is continuous AND a dead model is charged in full; (c) make aliveness explicit in the model rather than in the likelihood's support. **Constraint on all three:** support handling cannot simply be dropped — where the model is dead `flux_tpc` returns NaN for O₂ and there is nothing to score. **Anything decided here invalidates P11's sampleability scan on the cold lines (15–25 °C)**, where predicted growth is small and `w < 1`; the floor and the tie-break are unaffected. `reports/P12_modes/` D4. |
 
 ## 2. Ready to start
 
@@ -149,6 +212,23 @@ Status: **BLOCKED** (waiting on something external) · **READY** (can start now)
   clear it in a housekeeping commit that says so. **The rule: re-run the byte-identity check
   AFTER the last change, not at the point it seems safe; diff the whole tree, not the fields
   the gate names; and treat a `resolved_config.yaml` diff as a finding until it is explained.**
+- **NEVER RUN A `multiprocessing` SCRIPT FROM STDIN. IT RESPAWNS FOREVER AND SURVIVES THE
+  SESSION** (added 2026-09-10, P12; **second occurrence**). macOS uses the *spawn* start method,
+  so every worker re-imports the parent's `__main__`. When `__main__` is stdin — `python - <<'EOF'`,
+  a heredoc, or a piped script — each worker re-executes the whole module top level, creates its
+  own `Pool`, and spawns more workers, without limit. The first occurrence (P9/P10 week) was
+  caught only because the user heard the fan. The second, **pid 43407, ran undetected from
+  2026-09-09 22:00 for 13.6 hours**, orphaned to `launchd` (PPID 1) with its heredoc temp file
+  already deleted, respawning continuously — its worker PIDs rotated 85783→87519 within seconds
+  of each other while being inspected — and had consumed ~58 minutes of CPU. It was found only
+  because the user asked whether the workers were still consuming CPU.
+  **The rules, all three:** (1) any script that imports `multiprocessing` is written to a FILE
+  with an `if __name__ == "__main__": main()` guard and run as a file, never fed to `python -`;
+  (2) after any pooled run, sweep for stray interpreters that are not in the live run's process
+  tree and check their PPID — **PPID 1 on a compute process means orphaned, not finished**;
+  (3) `ps -o pcpu` is a lifetime average and reads low on a sleeping parent, so a runaway hides
+  from it — check process STATE and whether the child PIDs are CHANGING, which is the only
+  signature that distinguishes a respawn loop from a long job.
 - **A SMOOTHNESS RULE MUST BE ABSOLUTE IN LOG-LIKELIHOOD UNITS; A RELATIVE ONE FLAGS KINKS ONCE
   THE CLIFFS ARE GONE** (added 2026-09-09, P11). P9 judged a likelihood surface by whether any
   0.05 sd step exceeded 20 % of its line's range. That was the right instrument for cliffs of
@@ -185,6 +265,8 @@ Status: **BLOCKED** (waiting on something external) · **READY** (can start now)
 
 **The gate on the fourth-paper idea was run and it came back (b): the defect class is ABSENT from
 Li et al. 2021, and the structural finding holds.** `reports/Y1_yeast_audit/report.md`.
+
+**Dated note, 2026-09-10 (P12).** Pettersen & Almaas 2023 found Li et al.'s yeast etcGEM **multimodal and seed-unstable across 2,292 per-enzyme parameters**, and P11 read the same signature into this 16-parameter reformulation. **P12 does not reproduce it.** With the endpoints actually converged and basins defined by bottleneck barriers rather than by clustering, there is **one live basin**; the only separated basin is a model that does not grow. So the precedent's multimodality is **not** simply inherited by any thermal etcGEM — on this evidence it is not present here at all, and the earlier framing ("the multimodality is in the thermal formulation, not the parameter count", §0c) is **withdrawn as unsupported**. What does carry over from their work is the *method* — FVA on equally-fit particles, hierarchical clustering of endpoints — and their cost finding does **not**: their 8.5× came from replacing COBRApy because 80 % of their time was model preparation, whereas here **92 % is LP solving and 8 % preparation**, so that route could buy at most 8 %.
 
 * **Coupling-ion audit: does not fire.** Their chain supplies 92.7 % (pristine batch) and 93.1 %
   (chemostat) of ATP synthase's protons. All twelve uncosted proton movers on the mitochondrial

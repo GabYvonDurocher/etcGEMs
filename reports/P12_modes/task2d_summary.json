@@ -1,0 +1,94 @@
+{
+ "thresholds": {
+  "3.0": {
+   "n_components": 2,
+   "n_with_optimum": 2,
+   "components": [
+    [
+     "A(b20)",
+     "Bstar(b8)",
+     "P4(b13)",
+     "big(b10,n=64)",
+     "big(b6,n=2)",
+     "big(b9,n=3)",
+     "p38(b22)",
+     "p50(b19)",
+     "p81(b7)",
+     "p83(b21)",
+     "worst(b5)"
+    ],
+    [
+     "B(b3)"
+    ]
+   ]
+  },
+  "5.0": {
+   "n_components": 2,
+   "n_with_optimum": 2,
+   "components": [
+    [
+     "A(b20)",
+     "Bstar(b8)",
+     "P4(b13)",
+     "big(b10,n=64)",
+     "big(b6,n=2)",
+     "big(b9,n=3)",
+     "p38(b22)",
+     "p50(b19)",
+     "p81(b7)",
+     "p83(b21)",
+     "worst(b5)"
+    ],
+    [
+     "B(b3)"
+    ]
+   ]
+  },
+  "8.0": {
+   "n_components": 2,
+   "n_with_optimum": 2,
+   "components": [
+    [
+     "A(b20)",
+     "Bstar(b8)",
+     "P4(b13)",
+     "big(b10,n=64)",
+     "big(b6,n=2)",
+     "big(b9,n=3)",
+     "p38(b22)",
+     "p50(b19)",
+     "p81(b7)",
+     "p83(b21)",
+     "worst(b5)"
+    ],
+    [
+     "B(b3)"
+    ]
+   ]
+  }
+ },
+ "headline": 5.0,
+ "n_eligible": 11,
+ "eligible": [
+  "worst(b5)",
+  "B(b3)",
+  "big(b6,n=2)",
+  "Bstar(b8)",
+  "P4(b13)",
+  "p81(b7)",
+  "A(b20)",
+  "big(b9,n=3)",
+  "p50(b19)",
+  "p38(b22)",
+  "big(b10,n=64)"
+ ],
+ "p11_main_best": -7.3964,
+ "best_2c": -7.1859751439245985,
+ "best_2c_key": "p38(b22)",
+ "n_reaching": 2,
+ "dead_endpoints": [
+  "B(b3)",
+  "worst(b5)"
+ ],
+ "wall_min": 9.9
+}

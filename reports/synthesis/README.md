@@ -107,3 +107,19 @@ runs at nlive ≥ 800 (OPEN_ITEMS 1.19, ≈ 20–24 h). What section 7 can now s
 actually was, that it was in the likelihood rather than the budget, and that the surface has
 been fixed — with the floor quoted beside any respiration R², since it grants the model a
 factor-four band on O2.
+
+## Correction note — 2026-09-10 (P12): section 7's cause is settled, and one framing must not be written in
+
+Extends the P8, P9/P10 and P11 notes above rather than replacing them. Not edited into
+`synthesis.qmd`; to be applied at the next render. Evidence rows: **P12a–P12g**, of which
+**P12b** is typed `retraction`.
+
+| where in `synthesis.qmd` | what must change | what the evidence says |
+|---|---|---|
+| `{#sec-sampling}`, the whole convergence story | the arc now has an end, and it is not "sampler-limited" | The chain of causes is complete: **not a step budget** (P6), **not walker count** (P7), **not a ridge** (P8), but a **cliffed likelihood** (P9) from the respiration term at cold temperatures, **fixed** by a tie-break and a variance floor (P10/P11) — after which the surface is sampleable and a nested sampler converges. What remained open was the *posterior*, not the surface. [P12a] |
+| any sentence attributing the P11 seed disagreement to **multimodality** | **must not be written.** | **RETRACTED [P12b].** θ_A and θ_B\* — the two runs' best samples — have a bottleneck barrier of **0.266**, which is noise. There is **one live basin**. The two runs explored it to different depths; the disagreement is a stopping-rule failure. P11's own conclusion that **dlogz < 0.1 is necessary and not sufficient** is unaffected and is the sentence to keep. |
+| any sentence generalising **Pettersen & Almaas 2023** to our model | drop the generalisation | Their multimodality is real for Li et al.'s 2,292-parameter model. It **does not reproduce** in this 16-parameter reformulation [P12a], their FVA diagnostic **does not fire** (O₂ face 0.001–0.28 % of the pFBA value under the tie-break, [P12e]), and their **cost** finding inverts — 80 % preparation there against **92 % LP solving** here [P12g note]. Their *method* is what carries over, and it is what P12 used. |
+| anywhere respiration R² or a likelihood value is quoted | add the support caveat | The respiration term's support weight **discounts** rather than bounds: it hands a near-dead model **16.7** log-likelihood units where it hands a live one ~1.2 [P12d]. A model with zero predicted growth is charged **−0.017** for respiration against a live basin's −13.549 [P12c]. Any likelihood comparison must be quoted with peak predicted growth beside it. OPEN_ITEMS 1.21. |
+| anywhere `dTm` is quoted as a fitted parameter | flag it as a modelling decision, not a fit | Every converged live endpoint requires **dTm −3.07 to −4.50 K against a measured meltome**, and the **only** point in the map with dTm = 0 is a model that does not grow [P12f]. This is a failure to explain, not a nuisance parameter. OPEN_ITEMS 1.20. |
+
+No re-render.

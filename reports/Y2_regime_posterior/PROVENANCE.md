@@ -6,7 +6,7 @@
 
 *Evidence:* the prior arm reproduces Y1's committed task_c_curves.csv and task_c_summary.csv byte-identically (git status empty after re-running Y1's own script), and reproduces them again through Y2's independent amortised path. The amortisation is gated against the solver's own measured repeatability (4.5e-10 against 3.8e-7) in task2_verify.json. The posterior file is checked three ways: md5 against Zenodo, the paper's per-enzyme SDs (task1_sd_crosscheck.csv) and Supplementary Fig. 8's nine named enzymes (task3_low_tm.csv).
 
-**This report was last written at** `3b99ce8` (2026-09-09) — Y2: record what was touched and what was not
+**This report was last written at** `c45fe27` (2026-09-10) — P12: TASK 5 records -- OPEN_ITEMS, evidence rows, and four dated notes
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 

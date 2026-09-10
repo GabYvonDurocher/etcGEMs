@@ -1,5 +1,20 @@
 # P8 — name the ridge from the chain on disk, then take the one branch it licenses
 
+> **Dated note, 2026-09-10 (P12): this report's geometric reading is INTACT and vindicated. No
+> number below is edited.**
+>
+> P8 concluded the ensemble is **unimodal** with **no ridge** — PC1 carrying 16.5 % of the variance
+> and tau between 110 and 121 on every one of the sixteen components. P12 mapped the basins
+> directly, by local optimisation from 96 prior draws followed by bottleneck-barrier tests on
+> converged endpoints, and found **one live basin** containing every point these chains and both of
+> P11's nested runs ever occupied. The isotropy and the unimodality were right.
+>
+> What was wrong in this era was never the geometry — it was the **explanation** for tau growing in
+> proportion to chain length, which P8 attributed to the sampler being outmatched. P9 corrected that
+> to a **cliffed likelihood** and P10 fixed the cliffs. Read together: P8 measured the shape
+> correctly and misdiagnosed the cause; P12 confirms the shape.
+
+
 | task | status | one line |
 |---|---|---|
 | **0** — merges, clean start | **DONE** | #21 merged clean; #22 conflicted on `report_status.yaml` only, both entries kept, merged; `p8/ridge` from `033c11e`; gates on `../etcGEMs-venv` 79/79, 60/60 |

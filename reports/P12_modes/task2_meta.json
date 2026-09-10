@@ -1,0 +1,17 @@
+{
+ "n_prior_starts": 96,
+ "seed": 21,
+ "optimiser": "Powell",
+ "maxfev": 600,
+ "xtol": 0.001,
+ "ftol": 0.001,
+ "threshold": 2.0,
+ "n_clusters": {
+  "1.0": 76,
+  "2.0": 23,
+  "4.0": 10
+ },
+ "wall_h": 2.92,
+ "n_ok": 100,
+ "n_failed": 0
+}

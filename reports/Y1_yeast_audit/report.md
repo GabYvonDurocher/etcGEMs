@@ -1,5 +1,27 @@
 # Y1 — does the defect class we found exist in the published yeast etcGEM?
 
+> **Dated note, 2026-09-10 (P12): PART C's asymmetry stands. One inference drawn from this
+> report's precedent is withdrawn. No number below is edited.**
+>
+> Y1's four verdicts are untouched by P12 — the coupling-ion audit still does not fire on Li et
+> al. 2021, and the T_opt/CT_max asymmetry still reproduces independently in their model with their
+> own `etcpy`.
+>
+> The withdrawal concerns **Pettersen & Almaas 2023**, the follow-up to this paper, which found Li
+> et al.'s posterior **multimodal and seed-unstable across 2,292 per-enzyme parameters**. That was
+> taken as the precedent explaining P11's seed disagreement in our own 16-parameter reformulation,
+> and recorded in OPEN_ITEMS §0c as "the multimodality is in the thermal formulation, not the
+> parameter count". **P12 mapped our basins directly and does not reproduce it**: one live basin,
+> the two runs' best samples 0.266 apart, and the single separated basin populated only by models
+> with zero predicted growth. The precedent is real for *their* model; it is not evidence about
+> ours, and the generalisation is withdrawn.
+>
+> Their *method* does carry over and was used here (barrier and FVA tests on equally-fit points,
+> hierarchical clustering of endpoints). Their *cost* finding does not: their 8.5× speedup came
+> from replacing COBRApy because **80 % of their time was model preparation**, whereas in this
+> model **92 % is LP solving and 8 % preparation**, so the same change could buy at most 8 %.
+
+
 **Li G., Hu Y., Zrimec J., Luo H., Wang H., Zelezniak A., Ji B., Nielsen J. (2021)
 *Bayesian genome scale modelling identifies thermal determinants of yeast metabolism.*
 Nature Communications 12:190.** Code and models: `SysBioChalmers/BayesianGEM` at `a68307e`,
