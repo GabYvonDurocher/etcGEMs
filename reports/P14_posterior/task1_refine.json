@@ -1,0 +1,24 @@
+{
+ "windows": {
+  "smooth": [
+   0.35,
+   0.65
+  ],
+  "jump": 0.8
+ },
+ "n_smooth": 2,
+ "n_lines": 12,
+ "not_smooth": [
+  "axis:dCp_scale",
+  "axis:f_maint",
+  "axis:ngam_scale",
+  "axis:clearance_mult",
+  "PC1",
+  "PC2",
+  "PC3",
+  "random1",
+  "random2",
+  "random3"
+ ],
+ "wall_min": 4.6
+}
