@@ -10,21 +10,65 @@ Status: **BLOCKED** (waiting on something external) · **READY** (can start now)
 
 ---
 
-## 0. Sequencing — E. coli first (decided 2026-09-09)
+## 0. Sequencing — E. coli first (decided 2026-09-09, sequence added 2026-09-10)
 
 - **The E. coli model (`eciML1515`) is the best-constrained**: three media, gas exchange, a
   measured meltome. Methods are developed and proven there first, then ported through the core.
   The seven-strain gate (K1, 79/79) runs on every core change so the other strains cannot
   silently break meanwhile.
-- **Order on E. coli:** (1) the sampling problem — P8; (2) the E/F tie-break on the LP face
-  (1.13, PI); (3) the −5.6 K Tm shift — whether a Li-style per-enzyme calibration against the
-  meltome removes it (1.14 generalised to E. coli, where the data exist); (4) the CT_max
-  disagreement with the yeast posterior (Y2) — definition first, then mechanism.
 - **Candida:** the K-series result (13.57 °C required against 1.6 °C measured, and why) stands
   and is what the manuscript uses. No further Candida modelling until the E. coli calibration
   recipe exists; then it ports against the measured TPCs.
 - **Cross-taxon questions already answered** (activation energies K6, seven-strain ceiling K9)
   stay on record and are not re-opened by this.
+
+### 0a. What "a reliable model" means — four separate things, in order
+
+Written 2026-09-10, **before P12 reported**, so that each new result is reconciled against it
+rather than replacing it. These were tangled together for most of the P-series; separating them
+is what the last week bought.
+
+| | Requirement | State | What closes it | Cost |
+|---|---|---|---|---|
+| **R1** | **Statistically reliable** — a posterior two independent runs agree on | Surface sampleable (P10/P11); mode structure unknown | P12's basin map, then per-basin sampling on restricted priors | ~1 day of runs after P12 |
+| **R2** | **Identified** — parameters set by data, not prior | 5 of 16 flat: `kappa_scale`, `f_metab`, `f_maint`, `ngam_steepness`, `clearance_mult` (P11 TASK 3) | Short term: fix at nominal and say so. Properly: proteome allocation vs temperature (sectors), maintenance vs temperature from low-dilution chemostat (NGAM) | Days / months (experimental) |
+| **R3** | **Right for the right reason** — the mechanism is discriminated, not just fitted | Unknown, and this is where the multimodality is a *result*: dTopt 1.5 vs 9.4 = shift enzyme optima **or** shift stability, differently compensated | Per-enzyme data. Tm side **held** (meltome); Topt side **absent** (temperature-dependent kcat; DLTKcat in `refs/` could serve as Li used Tome) | See 0b |
+| **R4** | **Predictively reliable** — holds out of sample | **Nothing has ever been tested against data it was not fit to** | Cooper 2007 (`refs/`): TPCs of *E. coli* lines after 20,000 generations. Predicting how a curve *shifts* under evolution is the real test of a temperature-dependence framework | ~1 day once R1 holds |
+
+### 0b. The sequence
+
+1. **P12 — map the modes.** No sampler. Basin count, heights, prior-volume fractions, and what
+   separates them. Licenses the sampler choice. *(prompt written; not yet run)*
+2. **The dTm decision — PI.** Currently `dTm` is a free parameter with a wide prior landing at
+   −3.9 to −5.6 K against a **measured** meltome. If the meltome is trusted, that shift becomes a
+   model failure to explain rather than a number to fit — and constraining it may collapse the
+   multimodality on its own, because the stability-shift mode dies. This is the single highest-
+   leverage decision outstanding and P12's per-basin `dTm` will sharpen it. See 1.14, 1.20.
+3. **Fix the five flat parameters** at nominal, stated as a limitation (R2, short form).
+4. **Per-basin posteriors** on restricted priors, combined by volume fraction (R1). Supersedes
+   1.19's "two runs at nlive ≥ 800" unless P12 returns verdict (a).
+5. **Cooper 2007 as holdout** (R4). Only meaningful after 4.
+6. **Then, and only then, port the recipe to Candida** against Ilgaz's measured TPCs.
+
+### 0c. Reconciliation rule — read before absorbing any new result
+
+Every run in this series has produced a result that looked like the answer and was one layer of a
+stack. **A new result does not replace this section; it is reconciled against it.** Each report
+must state, explicitly:
+
+- **which of R1–R4 it moves**, and which it leaves untouched;
+- **what it retracts or qualifies** in an earlier report, by dated note, numbers unedited
+  (P8's "unimodal" reading and Y2's mode-conditional posterior are the live examples);
+- **what it does NOT license** — the standing hazard is that a result is quoted outside the
+  conditions it was derived under (§4).
+
+Precedent for the whole exercise: **Pettersen & Almaas 2023** (`refs/PettersenAlmaas_2023.pdf`)
+found seed-dependent posteriors and multimodality in Li et al.'s yeast etcGEM with 2,292 per-enzyme
+parameters; P11 found the same with 16 global ones. **The multimodality is in the thermal
+formulation, not the parameter count.** They name proteomics and fluxomics as the cure and did not
+have them; Parsa's gas-exchange data is that data, which is the argument for E. coli first. What
+remains ours beyond their prior art: the *mechanism* (cliffs from the respiration term at cold
+temperatures, LP kinks), the T_opt/CT_max asymmetry, the predictor validation, and the data.
 
 ## 1. Waiting on people
 
