@@ -6,7 +6,7 @@
 
 *Evidence:* task0_verify.py re-confirms state-independence after the merge in ~4 min (ten fresh builds); task1_refine.py and task1_refine2.py regenerate the refinement series in ~7 and ~20 min (fresh model per evaluation, single process); task1_plateau.py is arithmetic over P13's committed clamp scan; task1_jump_diag.py bisects and decomposes the four residual jumps in ~7 min. The seven-strain gate (79/79, 60/60) comes from the standard battery.
 
-**This report was last written at** `030c4cf` (2026-09-10) — P14: corrected test -- (b) passes perfectly, (a) fails on four lines, TASK 2 does not start
+**This report was last written at** `84db0c5` (2026-09-10) — P14: record -- OPEN_ITEMS, evidence, README note, stamps
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 
