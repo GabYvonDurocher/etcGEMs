@@ -83,3 +83,60 @@ the new position is defensible. The correction required someone who was not hold
 **right**. A reproducible posterior over a model with six or more unidentified parameters and an
 unexplained low-tail stability requirement is still a model with a problem, and the agreement
 verdict must not be quoted as if it settled more than it does.
+
+## D1 — the settings, the agreement rule, and the two predictions, ALL written before either run starts
+
+Committed before any sampler was launched. None of it is revised afterwards.
+
+### Settings
+
+| | |
+|---|---|
+| sampler | `dynesty.NestedSampler`, P11's wiring unchanged |
+| nlive | **800** |
+| sample / bound | **`rslice`**, slices 3 / `multi` |
+| stopping | **dlogz < 0.1** |
+| `first_update` | **`{'min_eff': 30}`** (P11 D4: ~1 h of single-core unit-cube phase without it) |
+| runs | **two, SEQUENTIAL, different seeds** (1 and 2) |
+| checkpoint | every 30 min; wall-clock cap **16 h each** |
+| processes | 16, `queue_size` 16 |
+| likelihood | P10's with clamp (P13), asserted from the strain config at start-up |
+
+**If run 1 hits the 16 h cap**: checkpoint cleanly, report **STALLED** with a projection, and **do
+not start run 2** — a second stalled run answers nothing.
+
+### The agreement rule
+
+> **AGREED** if the two log Z agree within their combined reported error **AND** no posterior median
+> differs by more than two Monte-Carlo errors.
+> **DISAGREED** otherwise, reported with the same table P11 produced.
+
+### The two predictions, orphaned by P13 and P14 and now evaluable
+
+Both follow from D4 of P13: the growth mask at `_MASK_G = 1e-4` is an **attractor**, and **four of
+twelve independent optimisations parked a temperature on it exactly**, worth ~2.8 log-likelihood
+units of unscored 15 °C respiration. That was measured on an **optimiser**. Under clamp the
+advantage is gone, because the 15 °C prediction is scored whatever the growth is.
+
+> **(i)** The clamp posterior **moves AWAY** from parameter values placing any temperature within
+> **1 % of `_MASK_G`**. Reported as the **fraction of posterior samples** with at least one
+> temperature in that band, against **P11's posterior** (`samples_main.npy`, importance-weighted the
+> same way) as comparator.
+>
+> **(ii)** The 15 °C growth residual becomes more expensive to ignore, so the fit should trade
+> **toward growing at the cold end**. Reported as **posterior-predictive growth at 15 °C** under both
+> posteriors, against the measured **0.0937 /h**.
+
+**If (i) holds, the attractor is confirmed by a second and independent route — a sampler as well as
+an optimiser. If it does not, the attractor was optimiser-specific and P12's dated qualification of
+its ceiling test narrows accordingly.** Either way it is reported against this text as written.
+
+**Neither prediction is a criterion for anything.** They are diagnostics of the support change; the
+agreement rule above is independent of them.
+
+### One thing that will NOT be read as a failure
+
+If a marginal comes back equal to its prior, that is **R2 unidentifiability surfacing honestly**, not
+an R1 sampling failure. P14 established that a flat direction has **zero 16-dimensional volume** and
+so is not an atom: dynesty is behaving correctly by returning the prior. Any such parameter is
+reported that way in TASK 2.
