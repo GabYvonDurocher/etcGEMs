@@ -64,3 +64,50 @@ for the ten remaining points.
 `common.decompose`, and apply the prompt's threshold (half of the observed 2.076 h⁻¹ = 1.038).**
 Twelve twelve-temperature sweeps, a few minutes, and it makes the exclusion evidential rather than
 inherited. The numbers and the excluded set are in the report.
+
+---
+
+_Everything below was written after the corresponding computation._
+
+## D3. Eleven profile steps, not twenty-one
+
+One likelihood evaluation costs **1.87 s**, measured (five calls at p38, which also reproduces
+P12's committed log L of −7.185975 to 1e-11). Twenty-one steps at the 300-evaluation cap is
+therefore up to **3.3 hours of solving**; on eight workers that is ~28 minutes of wall-clock with
+eight cores held, against a screen budget of ~15 minutes and P13 owning the primary tree.
+
+**Decision: eleven steps — the prompt's own stated fallback — at the 300-evaluation cap, on eight
+workers, and say so.** The grid still lands exactly on p38's dTm and on dTm = 0, which are the two
+points the verdict turns on, and the spacing is 0.402 K.
+
+## D4. The correlation arm is uninformative, and the report says so rather than leaning on it
+
+The rule's correlation arm fires: over the ten live endpoints, `dTm`'s partial correlations are
++0.696 (`dTopt`), +0.663 (`topt_scale`), +0.661 (`dCp_scale`) — three above |0.6|.
+
+**It should not be believed, and the reason is in the numbers rather than in a general worry about
+small n.** Removing a single endpoint — `big(b6,n=2)`, the one live point with `dTm` = −10.18
+against the others' −3.07 to −4.50 — moves those partials to +0.299, −0.084 and −0.277, and moves
+`kcat_scale` from −0.533 to −0.964 and `tm_scale` from +0.204 to +0.997. The correlation matrix's
+condition number is **233 on n = 10** and **1188 on n = 9**, and the catalytic parameters are
+near-collinear among themselves (`dTopt` vs `topt_scale` = −0.986, `dCp_scale` vs `topt_scale` =
+−0.962). The raw Pearson correlations are all small (|r| ≤ 0.38) and the Spearman ones change sign
+between subsets.
+
+**Decision: report the arm as the rule requires, report the sensitivity beside it, and rest the
+verdict on TASK 2.** These are ten optima chosen by an optimiser, not ten posterior draws; a
+partial correlation over them estimates the shape of the set the optimiser happened to return, not
+the geometry of the likelihood. The prompt anticipated this — "correlation across optima is
+suggestive; a direct scan is decisive" — and the sensitivity confirms it empirically. The rule is
+not revised; its correlation arm is simply reported as not load-bearing.
+
+## D5. `big(b6,n=2)` is live by the stated rule and is kept
+
+The prompt's exclusion is peak predicted growth below half the observed 2.076 h⁻¹. Computed per
+endpoint: `worst(b5)` peaks at **0.970** and is excluded; `B(b3)` at **0.0001** and is excluded;
+`big(b6,n=2)` peaks at **1.282** and is therefore **live**, though its log L is −23.79 against
+p38's −7.19 and OPEN_ITEMS 1.20 describes it as weight-propped.
+
+**Decision: apply the rule as written and keep it, rather than adding a log-L criterion after
+seeing that it is the point driving the correlations.** Adding an exclusion at that moment would
+be exactly the revision the prompt forbids. Its influence is instead quantified in D4 and reported.
