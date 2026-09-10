@@ -1,0 +1,13 @@
+{
+ "iters": 81,
+ "ncall": 342,
+ "wall_s": 84.6,
+ "calls_per_iter": 4.2,
+ "s_per_call_wall": 0.2472,
+ "evals_per_s": 4.04,
+ "dlogz_now": 1.5982610308445517,
+ "nlive": 250,
+ "sample": "rslice",
+ "slices": 3,
+ "nproc": 16
+}

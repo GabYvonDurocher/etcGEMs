@@ -85,3 +85,17 @@ floor at the model's own granularity and a continuous support the cliffs fall fr
 log-likelihood units to single digits, and the surface is still not smooth by P9's criterion
 (one vertex jump above the floor, and kinks in the growth term of 1–3 units), so no chain has
 been sampled under the new term and the medians-only reading stands.
+
+**Extended 2026-09-10 (P11, rows P11a–P11d) — section 7 needs rewriting, not annotating.** The
+sampling section still describes the convergence problem as a sampling budget ("reaching the
+criterion is ~8000 steps"). The finished sequence says something different and simpler: **the
+likelihood was cliffed** — discontinuous by 13–72 log-likelihood units within one posterior sd,
+because the respiration term scored an LP vertex that jumps — **and no sampler can integrate
+that**. What resolved it was three changes to the model and one to the sampler class: a pFBA
+tie-break so O2 at the optimum is a function of the parameters (P10), a variance floor at the
+model's own vertex granularity and a continuous support (P10, P11), and nested sampling, which
+needs only the ordering of likelihood values (P11). The result is **the first converged
+posterior in this family**: log Z −22.886 ± 0.164, n_eff 4,052, 111,420 evaluations, 4.8 h. At
+the next render, section 7 should say that, and the claims that waited on P6 ([C6], [C8]) can be
+taken from `reports/P11_nested/task3_posterior.csv` — with the floor quoted beside any
+respiration R², since the converged fit buys growth (0.900) at respiration's expense (0.626).

@@ -1,0 +1,10 @@
+fit,held,note,rel_cost_per_eval,basis,projected_evaluations,projected_hours,status
+D_NLDM,False,,1.0,P10 measured 2.27 s/eval vs D_NLDM's 2.27,111420,4.8,MEASURED (this run)
+D_LB,False,,0.94,P10 measured 2.13 s/eval vs D_NLDM's 2.27,111420,4.5,projected
+D_M9,False,,1.0,assumed equal to its NLDM sibling (no P10 measurement),111420,4.8,projected
+E_NLDM,False,,0.98,P10 measured 2.22 s/eval vs D_NLDM's 2.27,111420,4.7,projected
+E_LB,False,,1.03,P10 measured 2.34 s/eval vs D_NLDM's 2.27,111420,5.0,projected
+E_M9,False,,1.0,assumed equal to its NLDM sibling (no P10 measurement),111420,4.8,projected
+F_NLDM,False,,0.99,P10 measured 2.24 s/eval vs D_NLDM's 2.27,111420,4.8,projected
+F_M9,False,,1.0,assumed equal to its NLDM sibling (no P10 measurement),111420,4.8,projected
+F_LB,True,no tie-break at 1e-9 (P10 D1): its likelihood is still not a function of theta,1.03,P10 measured 2.33 s/eval vs D_NLDM's 2.27,111420,,HELD
