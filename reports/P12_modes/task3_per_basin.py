@@ -41,8 +41,12 @@ def o2_face(th, ctx, sp):
 
 def main():
     ctx, _sp = build()
-    good = pd.read_csv(os.path.join(HERE, "task2_endpoints_clustered.csv"))
+    good = pd.read_csv(os.path.join(HERE, "task2c_converged.csv"))
     xcols = [f"x_{n}" for n in NAMES]
+    # D8: the basin assignment comes from the BOTTLENECK barriers (2e), not from the screen's
+    # clustering, which D5 showed is a budget artefact. Component 2 is B(b3) alone.
+    good["basin"] = np.where(good.key == "B(b3)", 2, 1)
+    good["kind"] = good.key
     T = np.asarray(ctx["T"], float)
     rows, curves = [], {"T": T.tolist(), "growth_obs": np.asarray(ctx["growth_obs"], float).tolist(),
                         "resp_obs": np.asarray(ctx["resp_obs"], float).tolist()}
@@ -54,8 +58,8 @@ def main():
         nat = to_natural(th, SPECS)
         width = f["max_o2"] - f["min_o2"]
         alive = np.asarray(d["growth"], float) > 1e-4
-        rows.append(dict(basin=int(b), n=len(g), n_from_prior=int((g.kind == "prior").sum()),
-                         holds=",".join(sorted(set(g.kind) - {"prior"})),
+        rows.append(dict(basin=int(b), n=len(g), best_key=str(g.loc[g.logl.idxmax(), "key"]),
+                         holds=",".join(sorted(g.key)),
                          logl=float(d["logl"]), growth_term=float(np.sum(d["growth_term"])),
                          resp_term=float(np.sum(d["resp_term"])),
                          peak_growth=float(np.max(d["growth"])),
@@ -71,7 +75,7 @@ def main():
     json.dump(curves, open(os.path.join(HERE, "task3_curves.json"), "w"), indent=1)
     pd.set_option("display.width", 260)
     print("\n[t3] per basin (at its best endpoint)")
-    print(df[["basin", "n", "n_from_prior", "holds", "logl", "growth_term", "resp_term",
+    print(df[["basin", "n", "best_key", "logl", "growth_term", "resp_term",
               "peak_growth", "face_width_mean", "face_width_max", "dTm", "dTopt"]].round(3).to_string(index=False))
     near = df[df.dTm.abs() < DTM_NEAR_ZERO]
     print(f"\n[t3] *** basins with |dTm| < {DTM_NEAR_ZERO} K (fit WITHOUT contradicting the measured "

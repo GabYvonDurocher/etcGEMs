@@ -159,3 +159,213 @@ growth is small and `w < 1`, so a change to the support would require re-scannin
 re-scanned here. Recorded as OPEN_ITEMS **1.21**, with a new step 4 in the §0b sequence placing this
 decision **before** per-basin sampling.
 
+---
+
+## TASK 2 — the basin map, in four stages, because the first one did not answer the question
+
+### Stage 1: the screen (100 optimisations, 2.92 h) — and why it is only a screen
+
+96 prior draws through P11's proven transform (seed 21) plus θ_A, θ_B, θ_B\* and θ_P4; Powell on
+the log-posterior, 16 processes, 600-evaluation cap; 0 failures.
+
+**96 of the 100 starts hit the cap** (nfev min 433, median 600, max 600 — no overshoot). In sixteen
+dimensions one Powell sweep is sixteen Brent line searches, roughly 400–600 evaluations, so the cap
+bought about **one sweep per start** and no endpoint is a local minimum. The output says so without
+needing to be argued:
+
+| single-linkage threshold | 1.0 | 2.0 | 4.0 |
+|---|---|---|---|
+| clusters | 76 | 23 | 10 |
+
+A factor of 7.6 across a factor of 4 — **the stability check the prompt itself asks for, failed.**
+16 of the 23 clusters at threshold 2.0 hold one endpoint, and the six best endpoints are mutually
+2.87–9.79 apart at nearly equal likelihood.
+
+The 600 cap came from the prompt. It is the one place the task as specified cannot deliver what it
+asks, and the honest response is to say so rather than report a budget artefact as a mode count
+(**D5**). The screen is kept: it cost 2.92 h and it bounds the answer, since descent can only merge
+endpoints, never split them.
+
+### Stage 2: barriers, not clustering
+
+A basin is the absence of a barrier, not a distance threshold, and unlike clustering the test does
+not need converged endpoints — a hump between two points separates them whatever their provenance.
+Nine representatives, 36 chords, 41 points each, 1,476 evaluations, 4.8 min.
+
+**My first reduction of that table was wrong and is retracted in D6 before it reached any
+conclusion.** Union-find over "no barrier" gave three components — but six of the ten unseparated
+pairs have depth **exactly 0.000 with the minimum at an endpoint**, which is a *monotone descent*
+and means the lower point is not a local optimum at all. That is the opposite of "same basin", and
+it merged A and B\* — separated by 0.532 — through P4, a point downhill from both. Two claims died
+with it, both of which the screen alone would have supported:
+
+- **the 64-endpoint cluster carrying 66.7 % of prior volume is not a mode** — it lies 0.178 below
+  B\* on their chord;
+- the four best points were not "four candidate modes"; under D7's scale they are one basin.
+
+### Stage 3: the threshold, fixed before the data (D7, on the user's addendum 2)
+
+The 0.5-unit threshold was inherited from TASK 1, where it was calibrated against the **0.02-unit
+evaluation jitter** — the wrong scale for this question. The right scale is the **kink** scale:
+P9/P10 measured the growth term's LP kinks at **1–3 units** and P11's sampleability rule accepts
+**5**. A dip of that size is what one piecewise basin floor looks like where a chord crosses a
+basis change.
+
+> **Separate basins** only if the barrier exceeds **5.0** units **and both endpoints are local
+> optima by the termination reason** — a capped endpoint cannot found a basin. **1.0–5.0 is
+> sub-structure** of one basin. **Below 1.0 is noise.** Counted at 3, 5 and 8; headline 5.
+
+Written into DECISIONS.md and committed while `task2c_run.log` still held **zero** result lines.
+
+### Stage 4: convergence, and the bottleneck barrier
+
+Twelve representatives continued from the endpoints already paid for, 3,000-evaluation cap,
+xtol/ftol 1e-4, termination reason recorded (1.73 h). **11 of 12 terminated on tolerance** and are
+demonstrated local optima; p83 capped and is therefore ineligible to found a basin. The barrier
+test was re-run on the converged points (66 chords, 2,706 evaluations) and reduced to **bottleneck
+(minimax) barriers** — the minimum over paths of the maximum barrier — because a straight chord is
+only a *sufficient* witness of connection (D3). Chord-connectivity therefore gives an **upper
+bound** on the basin count: curved paths can merge further, never split.
+
+**The bottleneck matrix is sharply bimodal, and that is the entire result.**
+
+| | value |
+|---|---|
+| B(b3) to every other endpoint | **13.868**, identically |
+| every other pair, maximum | **1.785** |
+
+Nothing lies between. **Any threshold from 1.79 to 13.87 returns two components** — a factor of
+7.8 — so 3, 5 and 8 all give **2**. This is the stability the screen's clustering could not
+provide.
+
+## TASK 2 — the answer
+
+**TWO basins.**
+
+| | basin 1 — LIVE | basin 2 — DEAD |
+|---|---|---|
+| members | A, B\*, P4, p38, p50, p81, p83, big(b10, n=64), big(b9), big(b6), worst(b5) | B(b3) alone |
+| best log L | **−7.186** (p38) | −18.877 |
+| growth term | **+6.363** | −18.860 |
+| respiration term | −13.549 | **−0.017** |
+| peak predicted growth | **1.713 /h (82 %** of the observed 2.076) | **0.000 /h (0 %)** |
+| dTm | −3.07 to −4.50 | **0.000** |
+| internal bottleneck barriers | 0.00–1.785 (noise + kink-scale sub-structure) | — |
+
+**Prior-volume fractions** come from the screen and are labelled as such: the live basin takes
+essentially all of it — the single 64-endpoint cluster alone is 66.7 % — and θ_B's region draws
+10.4 % (10 of 96 prior starts reached basin 3 in one sweep). These are basins-of-one-sweep and are
+an **upper bound** on the number of true basins.
+
+### What this retracts
+
+**P11's seed disagreement is not evidence of multimodality among live models. P12 retracts that
+reading rather than qualifying it.** θ_A and θ_B\* — the two runs' best points — have a bottleneck
+barrier of **0.266**, which is *noise* by D7's bands. They are the same basin. The two nested runs
+explored **one** basin to different depths and disagreed because dlogz stopped them at different
+places, which is exactly P11's own "necessary and not sufficient" conclusion — with the mode
+question now closed rather than open.
+
+The one genuinely separated basin is reachable only by a model that does not grow, and **addendum 1
+showed that the support weight is what lets such points score at all**. The two threads meet: *the
+only multimodality in this posterior is an artefact the likelihood's support handling keeps alive.*
+
+### The ceiling test — passed
+
+**Two continuations beat P11's main-run best sample of −7.3964: p38 at −7.186 and A at −7.213.** So
+a derivative-free optimiser with a real budget reaches the top of the basin the sampler found and
+passes it by 0.21 — and the sampler was not sitting at the optimum either. The caveat D7
+provisionally attached to height comparisons is **lifted**.
+
+The optimiser targets the log-**posterior**, so small negative moves in log-likelihood
+(B\* −8.300 → −8.311) are not failures; both columns are in `task2c_converged.csv`. Repeated
+evaluation of one point differs by ~0.02 (P5), which is why A appears as −7.213 and −7.197 in
+different tables.
+
+### Deadness and the weight, per endpoint
+
+DEAD-MODEL by the addendum's criterion (peak growth below half the observed): **B(b3)** at 0 % and
+**worst(b5)** at 47 %. Every live endpoint of interest sits at **79–84 %**. The discount credit
+separates them just as cleanly — **1.05–1.24 units** for every good live endpoint against **8.10**
+for big(b6) and **9.15** for worst(b5). *The weight most flatters the two worst models in the set.*
+
+## TASK 3 — what each basin is
+
+### The thermal curve
+
+| T (°C) | measured | basin 1 | basin 2 |
+|---|---|---|---|
+| 15 | 0.094 | 0.000 | 0.000 |
+| 20 | 0.256 | 0.124 | 0.000 |
+| 25 | 0.585 | 0.500 | 0.000 |
+| 30 | 1.055 | 1.169 | 0.000 |
+| 35 | 1.563 | 1.564 | 0.000 |
+| 37 | 1.853 | 1.661 | 0.000 |
+| **40** | **2.076** | **1.713** | 0.000 |
+| 43 | 1.594 | 1.663 | 0.000 |
+| 45 | 0.915 | 1.211 | 0.000 |
+| 47 | 0.457 | 0.433 | 0.000 |
+| 50 | 0.094 | 0.001 | 0.000 |
+
+Basin 1 reproduces the curve's shape and its optimum at 40 °C, underestimating the peak by 17 %
+and the cold tail at 15–20 °C. Basin 2 is flat zero.
+
+### The O2 face — the Pettersen & Almaas reproduction, and it does NOT reproduce
+
+At optimal growth, min and max O2 uptake through P10's own `min_o2`/`max_o2` tie-breaks:
+
+| basin 1 | value |
+|---|---|
+| face width, mean over live temperatures | **0.009 mmol/gDW/h** |
+| face width, max | **0.021** |
+| as a fraction of the pFBA O2 | **0.001 %–0.28 %** |
+
+**The face has essentially collapsed.** Pettersen & Almaas found equally-fit particles differing
+widely in cytochrome-oxidase flux; in this model, at the optimum, under P10's pFBA tie-break, O2 is
+pinned to within a quarter of a percent. That is the tie-break doing exactly what 1.13 adopted it
+for, measured here for the first time across the whole curve rather than at four temperatures.
+
+Basin 2's face is the opposite and is diagnostic: O2 is **NaN at 11 of the 12 temperatures** (no
+growth, so no solution to read O2 from), and at 50 °C alone it spans **4.355 to 8.710 — a 100 %
+face**. Its respiration term is therefore **−0.017**: a model that grows nowhere is charged
+essentially nothing for respiration, against basin 1's −13.549. This is the support-weight artefact
+of addendum 1 shown at the level of the fit rather than the arithmetic.
+
+### dTm — reported prominently, as the prompt requires
+
+**The only endpoint with dTm at or near zero is B(b3), the dead basin: dTm = 0.000 exactly, with
+dTopt = 13.873.** Every live endpoint requires **dTm between −3.07 and −4.50** (A −3.81, p38 −4.02,
+B\* −4.08, p81 −4.08, P4 −4.07, p50 −3.07, p83 −4.50); the two weight-propped poor endpoints go
+further still (big(b6) −10.18, worst(b5) −13.07).
+
+**This sharpens §0b step 2 decisively, and not in the direction it hoped.** Fitting these data with
+this model requires shifting the melting temperature 3–4.5 K below a **measured** meltome, and the
+one place in parameter space where the meltome is honoured is a model that does not grow. So
+constraining dTm to zero would not merely "collapse the multimodality" — on this evidence it
+removes the fit, and the shift becomes **a model failure to explain rather than a nuisance
+parameter to fix**. That is the PI's decision, now with numbers under it.
+
+## TASK 4 — the recommendation
+
+**(c) ONE DOMINANT BASIN** — with the qualification that the second is not a scientific alternative
+at all, and that this is stronger than (c) as the prompt framed it.
+
+Among models that grow, there is **one** basin. The second basin is a model with zero predicted
+growth at every measured temperature, separated by 13.9 units, which survives scoring only because
+the respiration term's support weight charges it −0.017 instead of a full penalty. It is not an
+alternative explanation of the thermal curve and must not be presented as one.
+
+**What this licenses, and what it does not.** Per-basin sampling on restricted priors (§0b step 5)
+is **not needed**: there is one live basin, so a single well-converged run on it is the posterior.
+But that run should not be started until **1.21** is settled, because as the likelihood stands a
+sampler can spend real mass on the dead region — that is what the second nested seed did. The
+cheapest sound sequence is: settle the support handling, then one nested run at nlive ≥ 800 with a
+second seed for agreement (1.19), on the live basin only. Estimated **10–12 h each**, unchanged
+from P11's costing.
+
+**Is P8's "unimodal, isotropic" reading retracted, qualified or intact?** **Intact, and
+vindicated.** P8 found the chains' ensemble unimodal with no ridge (PC1 16.5 %, τ 110–121 on every
+component); P12 finds one live basin containing every point those chains and both nested runs ever
+occupied. What was wrong in that era was never the unimodality — it was the *explanation* for
+τ ∝ N, which P9 corrected to a cliffed likelihood and P10 fixed. P8's geometric reading survives
+P12 unchanged.
