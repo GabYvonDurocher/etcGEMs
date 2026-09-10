@@ -6,7 +6,7 @@
 
 *Evidence:* every number regenerates from the clone: `task_a_load.py`, `task_b_coupling_audit.py`, `task_b2_verifications.py`, `task_b3_free_proton_path.py`, `task_b4_what_etcpy_constrains.py` and `task_c_regime_test.py`, each with `--bayesiangem <clone>`. The audit-tool fix underneath them was proved inert on all seven strains before use (task0_k5_budget_recheck.csv, task0_classes_AD_recheck.json).
 
-**This report was last written at** `aac3c3d` (2026-09-09) — Y2: TASK 4 -- the report, the note on Y1, and OPEN_ITEMS 2.5 closed
+**This report was last written at** `c45fe27` (2026-09-10) — P12: TASK 5 records -- OPEN_ITEMS, evidence rows, and four dated notes
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 

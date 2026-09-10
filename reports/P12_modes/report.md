@@ -369,3 +369,74 @@ component); P12 finds one live basin containing every point those chains and bot
 occupied. What was wrong in that era was never the unimodality — it was the *explanation* for
 τ ∝ N, which P9 corrected to a cliffed likelihood and P10 fixed. P8's geometric reading survives
 P12 unchanged.
+
+## TASK 5 — against the precedent, and the record
+
+### Pettersen & Almaas 2023, and why the comparison inverts
+
+The precedent for this whole exercise is Pettersen & Almaas's finding that Li et al.'s yeast
+etcGEM, calibrated by SMC-ABC over **2,292 per-enzyme parameters**, is seed-unstable and
+multimodal. P11's seed disagreement in a **16-parameter** reformulation looked like the same
+disease in a smaller body, and the project recorded the conclusion that **"the multimodality is in
+the thermal formulation, not the parameter count"** (§0c).
+
+**P12 tested that claim directly and it does not survive.** With endpoints actually converged and
+basins defined by bottleneck barriers rather than by a clustering threshold, this posterior has
+**one live basin**. The two nested runs' best samples are **0.266** apart — noise. The one
+separated basin contains only models that do not grow, and it is kept scoring by the likelihood's
+support weight rather than by the data. So the multimodality is **not** intrinsic to the thermal
+formulation, at least not at 16 parameters with gas-exchange data; the sentence is withdrawn in
+§0c by dated note.
+
+Two further inversions of the precedent are worth recording, because both cut against reusing
+their solutions here:
+
+- **Their cost route does not transfer.** Their 8.5× speedup came from replacing COBRApy with
+  ReFramed, because **80 % of their time was model preparation** and 19.7 % optimisation. Here the
+  split is the mirror image — **92 % LP solving, 8 % preparation** (growth LP 1.07 s, tie-break LP
+  0.81 s, of 2.06 s total) — so the same change could buy at most 8 %. The route worth taking here
+  is *fewer or cheaper LP solves*: warm-starting the tie-break from the growth solve, or one
+  lexicographic objective instead of two sequential ones (D2, not acted on).
+- **Their central diagnostic does not fire.** Their FVA on equally-fit particles found wide
+  variation in cytochrome-oxidase flux. Under P10's pFBA tie-break, measured here across all twelve
+  temperatures, the O2 face at optimal growth is **0.001 %–0.28 %** of the pFBA value. The
+  degeneracy they diagnosed is, in this model, already closed.
+
+What does carry over is their **method**, and it is what produced this report: local optimisation
+from prior draws, hierarchical clustering of endpoints, and testing equally-fit points rather than
+trusting a sampler's summary.
+
+### The record
+
+- **`docs/OPEN_ITEMS.md`**: **1.19 restated** (two agreeing runs still close R1, but they no longer
+  arbitrate between modes, and must not start before 1.21); **1.20 added** — the `dTm` decision,
+  filling §0b step 2's forward reference with numbers; **1.21 added** (addendum 1) — decide the
+  respiration term's support, a bounded penalty rather than a discount; **1.22 added** — per-basin
+  sampling is unnecessary and §0b step 5 should be struck. A **§4b note** and a **§0c note**
+  withdrawing one sentence.
+- **Dated notes, no numbers edited**: `reports/P8_ridge/report.md` (intact and vindicated),
+  `reports/Y2_regime_posterior/report.md` and `reports/Y1_yeast_audit/report.md` (their own results
+  unaffected; the inference to *our* posterior withdrawn), `reports/P11_nested/report.md`
+  (multimodality framing qualified, then retracted by D8).
+- **`reports/synthesis/evidence.csv`**: rows **P12a–P12g**, one of them typed `retraction`.
+- **A new standing hazard** in §4: `multiprocessing` from stdin respawns forever — found as a
+  13.6-hour orphan during this run, the second occurrence.
+
+### Verification
+
+| # | item | result |
+|---|---|---|
+| 1 | TASK 0 fixed points and decomposition | θ_A −10.422, θ_B −34.957, θ_B\* −9.106, θ_P4 −14.830; A−B = +24.53 of which +23.06 is growth |
+| 2 | evaluation profile | 2.06 s, 92 % LP / 8 % preparation — inverts the precedent |
+| 3 | TASK 1 lines | 4 lines, 244 evaluations, pool exact to 1.18e-09; VALLEY to θ_B, monotone to θ_B\* |
+| 4 | addendum 1 | weight multiplies respiration only; growth term linear; credit 1.26/16.70/1.12/1.23; (iii′) undefined at every live point |
+| 5 | TASK 2 screen | 100 optimisations, 0 failures, 2.92 h; **96/100 capped**; clustering unstable 76/23/10 |
+| 6 | TASK 2c convergence | 12 continued, **11/12 terminated on tolerance**, 1.73 h |
+| 7 | TASK 2d/2e barriers | 66 chords, 2,706 evaluations; bottleneck 13.868 vs max 1.785 |
+| 8 | basin count at 3, 5, 8 | **2, 2, 2** — stable over any threshold in 1.79–13.87 |
+| 9 | ceiling test | **passed** — p38 −7.186 and A −7.213 beat P11's −7.3964 |
+| 10 | deadness | basin 2 peak growth 0.000 (0 %); basin 1 82 % |
+| 11 | O2 face | 0.001 %–0.28 % — the precedent's diagnostic does not fire |
+| 12 | dTm | live −3.07 to −4.50; **dTm = 0 only in the dead basin** |
+| 13 | stamps | see below |
+| 14 | PR | opened, **not merged** |
