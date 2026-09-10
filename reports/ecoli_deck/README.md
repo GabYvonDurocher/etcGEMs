@@ -1,0 +1,40 @@
+# `reports/ecoli_deck/` — the *E. coli* deck for the Pawar group
+
+**Re-render:**
+
+```bash
+cd reports/ecoli_deck && quarto render deck.qmd      # -> _output/deck.pdf, 20 slides
+```
+
+The three figures that are not assembled from other reports are rebuilt with:
+
+```bash
+python3 reports/ecoli_deck/make_figures.py           # -> assets/figures/*.png
+```
+
+Everything else is **pointed at by relative path in its producing report** rather than copied, so
+there is one source of truth per figure: `../ecoli_tpc/assets/figures/`,
+`../ecoli_gasflux/assets/figures/`, `../P9_surface/`.
+
+## What is here
+
+| file | what it is |
+|---|---|
+| `deck.qmd` | the deck. Beamer, 16:9, lualatex |
+| `_output/deck.pdf` | the rendered deck, committed (the convention in `reports/activation_energy/` and `reports/synthesis/`) |
+| `make_figures.py` | the three figures drawn here, from committed tables only |
+| `figure_inventory.csv` | all 54 candidate figures, marked AS IS / CAVEAT / NOT USABLE, with the deciding fact for each |
+| `DECISIONS.md` | the judgement calls, including the MRes baseline (D1) and Pettersen & Almaas (D2) |
+| `references.bib`, `nature-communications.csl` | house convention, copied per report directory |
+
+## Two things to know before reusing anything from it
+
+* **No interval from the older *E. coli* fits appears on any slide**, and seven otherwise
+  attractive figures are excluded because the unsupported interval is drawn *inside the image*
+  (`DECISIONS.md` D4).
+* **Gas-flux slides carry the mechanism and say so.** The R² behind them are point estimates from
+  chains that ran ~9 autocorrelation times against a ≥ 40 criterion — see the banner at the top of
+  `../ecoli_gasflux/README.md`.
+
+**Nothing from P15 appears.** The posterior slide says the runs are in flight and what the
+criterion is.

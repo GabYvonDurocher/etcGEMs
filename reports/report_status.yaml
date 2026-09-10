@@ -455,3 +455,21 @@ P14_posterior:
     (fresh model per evaluation, single process); task1_plateau.py is arithmetic over P13's
     committed clamp scan; task1_jump_diag.py bisects and decomposes the four residual jumps in
     ~7 min. The seven-strain gate (79/79, 60/60) comes from the standard battery.
+
+ecoli_deck:
+  status: CURRENT
+  note: >-
+    a slide deck, not an analysis: it assembles committed figures and draws three from committed
+    tables. No fit, no solve, no prior change. Seven candidate figures are excluded because the
+    unsupported interval from the older E. coli posterior is drawn inside the image; no interval
+    from that family appears on any slide, and gas-flux slides are labelled mechanism. Nothing
+    from P15 appears.
+  evidence: >-
+    `python3 reports/ecoli_deck/make_figures.py` rebuilds the three local figures from
+    `strains/eciML1515/respirometry/derived_*_current.csv` and
+    `reports/Y2_regime_posterior/task3_posterior_draws.csv`; `cd reports/ecoli_deck && quarto
+    render deck.qmd` produces the committed `_output/deck.pdf` (20 slides, no overfull box, no
+    unresolved citation). Every other figure is pointed at by relative path in its producing
+    report. figure_inventory.csv carries the three-way marking and the deciding fact for each of
+    54 candidates.
+  inputs: []

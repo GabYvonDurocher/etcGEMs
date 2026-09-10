@@ -167,3 +167,60 @@ this range. Respiration's are well determined (0.345–0.591 eV, R² 0.35–0.88
 numbers to a room of thermal biologists without the estimator argument would invite exactly the
 wrong conclusion, and the estimator argument is a slide of its own that this deck does not have
 room for.
+
+## D7. Three slides carry no figure, and the reason is that no honest one exists
+
+The prompt asks that every substantive slide carry a figure. Three do not.
+
+* **Pettersen & Almaas** — the slide is three verbatim quotations. Their figures are theirs, and
+  putting one of ours next to their words would imply we had reproduced their result. We have not.
+* **The MRes baseline** — no figure of that model exists in this repository; it was a separate
+  codebase on a different reconstruction. A figure of the *current* model on that slide would
+  misattribute it.
+* **One live basin / the posterior status** — P12 and P14 produced tables, not figures, and the
+  slide's content is two retractions and a statement that nothing is being quoted. A figure would
+  be decoration.
+
+Every other substantive slide carries one, and every figure names its producing report on the
+slide.
+
+## D8. The bibliography's entry for the MRes thesis was wrong
+
+`reports/ecoli_tpc/references.bib` gives the title as *"Predicting the temperature dependence of
+microbial metabolism with enzyme- and temperature-constrained genome-scale models"*. The thesis is
+titled **"Predicting the thermal niche of a ubiquitous bacterium using whole genome sequence"**
+(Imperial College London, MRes Computational Methods in Ecology and Evolution, August 2023).
+
+**Decision: correct it in this directory's own copy, and raise it rather than reach into
+`ecoli_tpc/`.** That file is cited by the paper and by `reports/activation_energy/`; changing it is
+a paper edit, and E1 — the run that was to produce the correction register — has not happened.
+Recorded in `docs/OPEN_ITEMS.md`.
+
+## D9. In-text citations had to be written out
+
+The house CSL (`nature-communications.csl`) is a **numeric** style, so a bare `@Key` renders as a
+superscript number with no author — the first render produced a slide reading "**1** — the only
+published etcGEM". Every in-text mention is now written out with the key in brackets beside it.
+Caught by looking at the rendered slide rather than at the source.
+
+## D10. The Beamer theme is `default`, not `metropolis`
+
+`metropolis` requires Fira Sans, which is not installed on this machine; the first render fell back
+with a page of font warnings. **Decision: use the stock Beamer theme with `seahorse` colours and
+`professionalfonts`** — it needs nothing external, matches the plain-font habit of the other
+rendered reports, and does not put a font install into a shared venv while P15 runs.
+
+## D11. What this deck deliberately does not claim (reconciled against §0c)
+
+**It moves none of R1–R4.** It is a presentation of state: no fit, no sampler, no prior change, no
+new measurement. Specifically it does not claim:
+
+* **any interval on any parameter of the *E. coli* model.** None is available (D3, D4).
+* **that the gas-flux configurations are validated.** They are gated as a *port* — his computation
+  reproduces here — which is a different claim from validated performance.
+* **anything about the posterior.** Two runs are in flight; the criterion is stated and no number
+  from them appears.
+* **that Li et al.'s model is wrong.** Y1 found the defect class absent from it. The register is an
+  audit applied to the reference implementation.
+* **that per-enzyme parameters would fix our −4 K.** Y3 screened that and the answer was no.
+* **anything about the Candida models.** Their Tm is predicted, not measured.

@@ -9,6 +9,11 @@ against the prompt's cap of three:
 
   fig_respirometry.png   measured per-cell growth and respiration against temperature, by medium
   fig_cue.png            measured carbon-use efficiency against temperature, by medium
+  fig_y2_asymmetry.png   the T_opt/CT_max asymmetry over Li et al.'s own 100 posterior models
+
+The third is drawn from `reports/Y2_regime_posterior/task3_posterior_draws.csv` and
+`task2_summary.csv`, both committed. Y2 produced tables and no figure, and the audit slide needs
+one: it is the only figure in the deck that is about the PUBLISHED model rather than ours.
 
 Sources, both under `strains/eciML1515/respirometry/`:
   derived_R2A_LB_current.csv   R2A (OTU 1) and LB (OTU 2), 12 temperatures, 117 replicate rows
@@ -96,11 +101,47 @@ def main():
     fig.savefig(p2, dpi=200)
     plt.close(fig)
 
+    # --- the Y2 panel: the published model's own behaviour, from Y2's committed tables ------
+    y2 = os.path.join(ROOT, "reports", "Y2_regime_posterior")
+    dr = pd.read_csv(os.path.join(y2, "task3_posterior_draws.csv"))
+    dr = dr[~dr.degenerate]
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 3.7))
+    ax = axes[0]
+    for lab, col, colour in (("enzyme-limited\n(glucose $\\leq$ 10)", "plateau_loose", "#1b6ca8"),
+                             ("substrate-limited\n(glucose $\\leq$ 1)", "plateau_tight", "#c1440e")):
+        ax.hist(dr[col], bins=np.arange(0, 9.1, 0.5), alpha=0.62, color=colour, label=lab)
+    ax.set_xlabel("width of the curve's top, 99 % plateau (°C)")
+    ax.set_ylabel(f"posterior models (of {len(dr)})")
+    ax.set_title("a  the optimum stops being sharp", fontsize=10, loc="left")
+    ax.legend(frameon=False, fontsize=7.5)
+    ax.grid(alpha=0.25, lw=0.5)
+    ax = axes[1]
+    ax.scatter(dr.CT_max_range, dr.T_opt_range, s=16, alpha=0.6, color="#4a148c",
+               edgecolor="none")
+    lim = max(dr.CT_max_range.max(), dr.T_opt_range.max()) * 1.05
+    ax.plot([0, lim], [0, lim], "k--", lw=0.9)
+    ax.text(lim * 0.62, lim * 0.5, "equal", fontsize=8, rotation=38, color="0.35")
+    ax.set_xlim(0, lim)
+    ax.set_ylim(0, lim)
+    ax.set_xlabel("CT$_{max}$ moves (°C)")
+    ax.set_ylabel("T$_{opt}$ moves (°C)")
+    ax.set_title(f"b  T$_{{opt}}$ moves more in "
+                 f"{100*(dr.T_opt_range > dr.CT_max_range).mean():.0f} % of models",
+                 fontsize=10, loc="left")
+    ax.grid(alpha=0.25, lw=0.5)
+    fig.tight_layout()
+    p3 = os.path.join(OUT, "fig_y2_asymmetry.png")
+    fig.savefig(p3, dpi=200)
+    plt.close(fig)
+    print(f"[e2fig] Y2 panel: n={len(dr)} usable posterior draws; plateau median "
+          f"{dr.plateau_loose.median():.2f} -> {dr.plateau_tight.median():.2f} C; "
+          f"widens in {100*(dr.plateau_tight > dr.plateau_loose).mean():.0f} %")
+
     for label, (d, _) in data.items():
         g = d.groupby("T")["respiration_fgC_h"].mean()
         print(f"[e2fig] {label:4s} n={len(d):3d}  T {d['T'].min()}-{d['T'].max()} C  "
               f"respiration peak at {g.idxmax()} C  CUE {d.CUE.min():.2f}-{d.CUE.max():.2f}")
-    print(f"[e2fig] wrote {os.path.relpath(p1, ROOT)} and {os.path.relpath(p2, ROOT)}")
+    print(f"[e2fig] wrote {os.path.relpath(p1, ROOT)}, {os.path.relpath(p2, ROOT)} and {os.path.relpath(p3, ROOT)}")
     return 0
 
 
