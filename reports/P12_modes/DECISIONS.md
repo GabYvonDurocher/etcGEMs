@@ -250,3 +250,107 @@ all, because one of the two medians is a dead point that the weight flatters and
 would have visited as a mode. It does not touch R2 or R4. P11's numbers are not edited; a dated
 note is added to P11's report pointing here. Whether two modes exist remains TASK 2's question,
 and TASK 1 has already shown there is no barrier between A and B*.
+
+## D5 — the 600-evaluation cap is about ONE Powell sweep in 16 dimensions; the TASK 2 run is a screen, not a basin map
+
+**96 of the 100 starts hit the 600-evaluation cap** (`task2_endpoints.csv`: nfev min 433, median
+600, max 600 — no overshoot). In 16 dimensions Powell's outer loop is a sweep of 16 Brent line
+searches, and one sweep costs roughly 400–600 evaluations. So the cap bought approximately **one
+sweep per start**, and essentially no endpoint is a local minimum. What the run produced is a map
+of *where Powell gets to in one sweep*, not a map of basins.
+
+This is visible in the output rather than inferred:
+
+- **the cluster count is not stable to the prompt's own stability check** — 76 clusters at
+  standardised threshold 1.0, 23 at 2.0, 10 at 4.0, a factor of 7.6 across a factor of 4;
+- **most clusters are singletons** (16 of the 23 at threshold 2.0 hold one endpoint);
+- the **six best endpoints are mutually far apart** — standardised distances 2.87 to 9.79 — at
+  almost the same log-likelihood (−8.06 to −8.98).
+
+The cap of 600 came from the prompt. It is the one place where the task as specified cannot
+deliver what it asks for, and the honest response is to say so and fix it rather than report a
+basin count that is an artefact of the budget. **The 100-start run is kept and reported as a
+SCREEN** — it is still evidence about where prior mass flows under descent, and it cost 2.92 h —
+and two further steps are added, both of which are cheap because they are targeted:
+
+1. **A barrier test between representatives (TASK 2b).** A basin is defined by the absence of a
+   barrier, not by a clustering threshold, and TASK 1 already built the instrument. Line scans
+   between ~10 representative endpoints is ~1,800 evaluations, about five minutes on 16 processes.
+   This measures basin identity DIRECTLY and does not depend on the endpoints being converged: a
+   hump between two points separates them whatever their provenance.
+2. **A continuation to convergence on those representatives (TASK 2c)**, warm-started from the
+   endpoints already paid for, with a cap of 3,000 rather than 600 and the termination reason
+   recorded. ~1.4 h. If well-separated endpoints collapse onto each other under a real budget,
+   they were one basin and the screen's 23 clusters were budget artefacts; if they do not, they
+   are candidate modes and the barrier test says whether they are separated.
+
+**What is NOT done:** the prior-volume fractions the prompt asks for are a property of the full
+96-start sample, and re-running all 96 to convergence would be ~9 h. They are therefore reported
+from the SCREEN, with the caveat that they are basins-of-one-sweep and are an upper bound on the
+number of true basins (descent can only merge endpoints further, never split them). That caveat
+is stated wherever the number appears.
+
+**A design fault of mine, recorded so it is not repeated:** `task2_basins.py` used `pool.map`,
+which returns nothing until every task finishes, so partial results could not be taken and the two
+tail workers held 14 idle cores for ~25 minutes. `imap_unordered` with incremental writes to the
+CSV would have made the run resumable and let a straggler be dropped. The continuation runs use
+that pattern.
+
+## D6 — "not separated" does not mean "same basin": the connectivity rule in TASK 2b was wrong, and correcting it changes the answer
+
+TASK 2b ran 36 barrier tests between nine representatives and reported **3 connected components**
+by union-find over the pairs that showed no barrier. **That reduction is wrong and is retracted
+here**, before it reached the report. The pair table (`task2b_barriers.csv`) is correct and is
+kept; only the reduction of it changes.
+
+**The defect.** Six of the ten "unseparated" pairs have `depth_below_lower_end` **exactly 0.000
+with the minimum at t = 1.000** — the minimum of the chord IS one of its endpoints. That is a
+**monotone descent**, and its meaning is the opposite of "these two are one basin": it says the
+LOWER point is not a local optimum at all, because the likelihood rises continuously from it to
+the higher point. Treating it as an edge merges everything downhill of a mode into that mode, and
+then merges two genuine modes through the valley floor between them.
+
+That is exactly what happened: **A(b20) and Bstar(b8) are SEPARATED** by a barrier of 0.532
+units, and the union-find nevertheless put them in one component **via P4(b13)** — because
+A→P4 is a monotone descent (depth 0.000, min at P4) and Bstar→P4 is nearly one (0.163). The
+component was an artefact of routing through a point that is not a mode.
+
+**The corrected rule, applied to the same table:**
+
+1. **Eliminate non-modes.** If a chord from Y to a better X is monotone (its minimum is Y's own
+   endpoint), Y is on a slope and is not a local optimum. This eliminates **P4(b13)**
+   (monotone from A, p38, p83 and p50), **p50(b19)** (monotone from p83) and **p38(b22)**
+   (monotone from A).
+2. **Then read barriers among the survivors only.**
+
+| survivor | log L | separated from every other survivor? |
+|---|---|---|
+| p83(b21) | −8.062 | yes — barriers 1.08 to 7.28 |
+| Bstar(b8) | −8.300 | yes, but **marginally** from A (0.532) and p81 (0.621) |
+| A(b20) | −8.447 | yes — 0.532 to 3.04 |
+| p81(b7) | −8.797 | yes — 0.62 to 5.54 |
+| big(b10, n=64) | −12.135 | **no** — 0.178 below Bstar, i.e. essentially downhill from it |
+| worst(b5) | −25.960 | yes — 2.19 to 10.68 |
+
+**Two findings that matter more than the count.**
+
+- **The 64-endpoint cluster carrying 66.7 % of the prior volume is NOT a mode.** It sits 0.178
+  below Bstar and 0.064 below P4 on their chords — inside the noise of the barrier rule and far
+  below the 0.5 threshold. It is where one Powell sweep from two-thirds of prior draws happens to
+  land on a broad slope, not an optimum. **Any statement of the form "the dominant basin holds
+  two-thirds of the prior volume" would have been wrong**, and the screen alone would have
+  supported it.
+- **The four best points are mutually separated but only just, and they are nearly equal in
+  height** — p83 −8.062, Bstar −8.300, A −8.447, p81 −8.797, a spread of 0.74 units across
+  barriers of 0.53 to 5.0. Four candidate modes within three-quarters of a log-likelihood unit is
+  the multimodality question in its sharpest form.
+
+**Why this is still not the answer.** All of these are endpoints of ONE Powell sweep (D5). A
+barrier of 0.53 units between two unconverged points is exactly what two points on the same
+curved basin floor would also show, and the barrier test on a straight chord cannot tell those
+apart (D3). TASK 2c continues the twelve representatives to a 3,000-evaluation cap with the
+termination reason recorded, and the barrier test is then re-run on the converged points. **The
+mode count is reported from that, not from here.**
+
+**Recorded as a correction of my own reasoning, not of the data.** The 1,476 evaluations stand;
+the three-component reading survived about ten minutes and never left this file.

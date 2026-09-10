@@ -1,0 +1,37 @@
+{
+ "n_representatives": 9,
+ "keys": [
+  "p83(b21)",
+  "Bstar(b8)",
+  "A(b20)",
+  "p38(b22)",
+  "p81(b7)",
+  "p50(b19)",
+  "big(b10,n=64)",
+  "P4(b13)",
+  "worst(b5)"
+ ],
+ "barrier_units": 0.5,
+ "npts": 41,
+ "n_pairs": 36,
+ "n_separated": 26,
+ "n_components": 3,
+ "components": [
+  [
+   "p83(b21)",
+   "Bstar(b8)",
+   "A(b20)",
+   "p38(b22)",
+   "p50(b19)",
+   "big(b10,n=64)",
+   "P4(b13)"
+  ],
+  [
+   "p81(b7)"
+  ],
+  [
+   "worst(b5)"
+  ]
+ ],
+ "wall_min": 4.8
+}
