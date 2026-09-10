@@ -1,0 +1,7 @@
+{
+ "rule_frac": 0.1,
+ "longest_plateau_intervals": 0,
+ "frac_all_on_plateau": 0.0,
+ "plateau_pass": true,
+ "n_crossings": 13
+}
