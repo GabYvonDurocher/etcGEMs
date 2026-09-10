@@ -33,3 +33,26 @@ MAP it is [0, 190]. F LB's tie-break is not exact (P10 D1: 0.05–0.5 between ca
 respiration row carries that caveat. The gate is not re-opened against his numbers: his chains
 remain what they were, and the gate still says what it said — the port reproduces his
 computation.
+
+## Dated note — 2026-09-10 (P13): the respiration term gained a support option; this gate is unaffected
+
+Extends P10's note above. `strains/eciML1515/gas_exchange.yaml` now sets
+`respiration.support: clamp` (with `weight_floor: 1.0`), which changes how the **calibration
+likelihood** scores a temperature at which the model does not grow: a FEASIBLE-NOT-GROWING
+temperature is now scored at full weight instead of being discarded by the growth mask at
+`_MASK_G = 1e-4`.
+
+**This gate does not change, and the reason is structural rather than numerical.** `gate_def.py`
+calls `flux_tpc` directly and computes R² from the predicted curves; it never reads
+`ctx["respiration"]`, so no support, floor or tie-break option can reach it. Verified rather than
+asserted: `gate_def_table.csv` re-run under the new option is **byte-identical** to the committed
+table. Growth R² at Parsa's θ is unchanged in all ten comparisons, and configuration D's
+respiration R² is unchanged (MAP 0.7039 / 0.7062 pre-fix / current; posterior median 0.7246 /
+0.7268).
+
+**What the gate now means is therefore also unchanged** — it remains the port-fidelity check P3
+defined and P10 restated. The support option is a property of the *likelihood* the calibration
+maximises, not of the *prediction* this gate compares. A future change that moved a tie-break or a
+mask into `flux_tpc` itself would touch this gate, and would need this note revisited.
+
+The gate's history is not rewritten.

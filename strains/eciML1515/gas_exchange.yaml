@@ -108,6 +108,30 @@ gas_exchange:
                               # 1.42 in log at every temperature, a factor-4 band on O2, and the
                               # three cold points whose measured relative sd is 0.06-0.09 lose
                               # most. That is the price of a sampleable surface (P11 D0).
+    support: clamp            # P13 (2026-09-10): how a temperature with no growth is scored.
+                              # "current" is the alive_soft_growth ramp below, unchanged; "clamp"
+                              # keeps the ramp's form but floors the weight at `weight_floor`, and
+                              # masks ONLY a missing O2 -- so a FEASIBLE-NOT-GROWING temperature is
+                              # scored at full weight instead of being discarded by the growth mask.
+                              # Chosen on measurement, not on the recommended form (P13 D3-D5):
+                              #  * the mask was discarding REAL predictions. Of the 15 dead
+                              #    temperatures across P12's twelve converged endpoints, 11 are
+                              #    genuinely INFEASIBLE (all of them the dead basin b3) and 4 are
+                              #    FEASIBLE-NOT-GROWING with O2 = 0.525-5.674. Among the ELEVEN LIVE
+                              #    endpoints it is 4 of 4. A non-growing cell still respires for
+                              #    maintenance, so clamp is right because it SCORES those, not
+                              #    merely because it drops a discount.
+                              #  * the ramp DISCOUNTS: it handed a near-dead point 16.7 log-likelihood
+                              #    units where it hands a live one ~1.2 (P12 addendum 1, item 1.21).
+                              #  * the third candidate, imputing O2 = 0 where growth stops, was
+                              #    WITHDRAWN: it replaces a real O2 of 0.5-5.7 with an epsilon, fails
+                              #    P10's D3a state test at b3 by 119.14 log-likelihood units, and its
+                              #    apparent live-dead gap is the epsilon (774/1553/2511 at 1e-6/-9/-12).
+                              # Cost, stated: p38 loses 2.8 units because its 15 C prediction is now
+                              # scored, and the live-dead gap moves 11.691 -> 11.245.
+    weight_floor: 1.0         # the floor on min(1, growth/alive_soft_growth). 1.0 = no discount at
+                              # all. The ramp's shape is retained in the code so a value below 1
+                              # remains available; nothing in this project uses one.
     alive_soft_growth: 0.01   # the term's support: a temperature's contribution is weighted by
                               # min(1, growth / 0.01), continuous, instead of switching in or out
                               # as growth crosses 1e-4 -- 13 of P9's 33 cliff steps were that

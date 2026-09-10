@@ -1,0 +1,18 @@
+{
+ "rule": 5.0,
+ "refined": "step between FEASIBLE points only (D6)",
+ "schemes": {
+  "clamp": {
+   "max_feasible_step": 8.55174457252265,
+   "sampleable": false,
+   "n_transitions": 13,
+   "transition_sd_min": 0.0
+  },
+  "current": {
+   "max_feasible_step": 8.551867392036634,
+   "sampleable": false,
+   "n_transitions": 13,
+   "transition_sd_min": 0.0
+  }
+ }
+}

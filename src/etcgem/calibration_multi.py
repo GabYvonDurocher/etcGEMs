@@ -279,11 +279,31 @@ def gasflux_log_likelihood(theta, ctx, specs) -> float:
     dg = float(nat["disc_growth"])
     var = ctx["growth_sd"] ** 2 + dg ** 2
     ll = float(-0.5 * np.sum((ctx["growth_obs"] - g) ** 2 / var + np.log(2 * np.pi * var)))
-    keep = (g >= _MASK_G) & (o2 > 0)
+    # P13: how the term treats a temperature where the model does not grow. Default "current"
+    # is P10's behaviour exactly -- hard mask at _MASK_G, then the alive_soft_growth ramp -- so
+    # the option is inert until a strain config sets it. The two alternatives pay the FULL
+    # respiration penalty and differ only in what they score it against:
+    #   "impute" -- every temperature scored; where the model is dead or the LP returned no
+    #               solution, O2 is imputed at `o2_epsilon` before the log.
+    #   "clamp"  -- the ramp's form is kept but floored at `weight_floor` (1.0 = no discount at
+    #               all); the mask is retained for a missing O2 only, not for growth.
+    # See reports/P13_support/ D1-D3.
+    support = str(resp.get("support", "current"))
+    finite_o2 = np.isfinite(o2) & (o2 > 0)
+    if support == "impute":
+        eps_o2 = float(resp.get("o2_epsilon", 1e-9))
+        o2s = np.where(finite_o2 & (g >= _MASK_G), o2, eps_o2)
+        keep = np.ones_like(g, dtype=bool)
+    elif support == "clamp":
+        o2s = o2
+        keep = finite_o2
+    else:
+        o2s = o2
+        keep = (g >= _MASK_G) & (o2 > 0)
     if keep.sum() >= 1:
         dr = float(nat["disc_resp"])
         rs = float(nat["resp_scale"])
-        pred = np.log(o2[keep] * ctx["o2_conv"] * rs)
+        pred = np.log(o2s[keep] * ctx["o2_conv"] * rs)
         obsl = np.log(ctx["resp_obs"][keep])
         rel = ctx["resp_sd"][keep] / ctx["resp_obs"][keep]
         # P10: a floor on the log-O2 sd, in quadrature -- the model's own vertex granularity
@@ -297,7 +317,14 @@ def gasflux_log_likelihood(theta, ctx, specs) -> float:
         # a temperature's contribution is weighted by min(1, g / g_s), continuous in theta and
         # equal to 1 wherever the model grows faster than g_s. Default None = the hard mask.
         gs = resp.get("alive_soft_growth")
-        w = np.minimum(1.0, g[keep] / float(gs)) if gs else np.ones(int(keep.sum()))
+        if support == "current":
+            w = np.minimum(1.0, g[keep] / float(gs)) if gs else np.ones(int(keep.sum()))
+        elif support == "clamp":
+            wf = float(resp.get("weight_floor", 1.0))
+            w = np.maximum(np.minimum(1.0, g[keep] / float(gs)), wf) if gs \
+                else np.ones(int(keep.sum()))
+        else:                                    # impute: full weight everywhere
+            w = np.ones(int(keep.sum()))
         ll += float(-0.5 * np.sum(w * ((obsl - pred) ** 2 / varr + np.log(2 * np.pi * varr))))
     return ll
 
