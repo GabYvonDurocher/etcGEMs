@@ -188,6 +188,20 @@ E = [
   "Y1's 10.09/0.81 C is the PRIOR point table and is not a property of their calibrated model: at "
   "the posterior median it is 8.46/4.27 C. Quote the plateau, not T_opt -- under a substrate cap "
   "the top of the curve is a ceiling, not a peak."),
+ ("Y3a", "Profile likelihood of dTm with catalysis free, from p38 (E. coli, config D NLDM)",
+  "dTm = 0 costs 0.077 log L units and the model still grows at 1.739 /h; the whole 4.02 K profile "
+  "spans log L -6.84 to -7.45",
+  "reports/Y3_tm_shift/report.md", "CURRENT",
+  "the compensator is tm_scale (0.990 -> 1.467), a Tm-distribution parameter, NOT catalysis: with "
+  "tm_scale pinned to 1 the meltome-honouring fit converges 7.60 units worse (log L -14.786, "
+  "growth 1.659 /h) against two prior ceilings. Both solutions put the 1st percentile of Tm at "
+  "36.7-38.7 C against 42.6 C measured"),
+ ("Y3b", "Y3 verdict on the -4 K dTm shift", "PARAMETERISATION, by the rule fixed before the data",
+  "reports/Y3_tm_shift/report.md", "CURRENT",
+  "narrower than the label: the VALUE -4 K is a parameterisation artefact (dTm and tm_scale are "
+  "not jointly identified), the contradiction with the meltome's LOW TAIL is not. Per-enzyme "
+  "catalysis cannot pay for it, so the DLTKcat route is recommended against -- its own output has "
+  "36 interior thermal optima in 1149 fits. Screens R3 only; licenses nothing about Candida"),
 ]
 
 OWN = [
