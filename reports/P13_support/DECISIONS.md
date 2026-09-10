@@ -81,3 +81,100 @@ the prompt anticipates exactly this outcome: *"If imputation introduces a step a
 log-likelihood unit, it is a mask in disguise; say so and prefer (ii)."*
 
 This is a prediction, not a verdict. TASK 1's continuity scan measures it.
+
+## D3 — `impute` is withdrawn, on evidence, and the physiology is the reason
+
+The user withdrew the recommended scheme mid-run (addendum 1) on the physiology; the measurements
+had independently reached the same place, and both are recorded.
+
+**The premise that failed.** The prompt argued O₂ falls to zero continuously as growth does. It
+does not, because a non-growing cell still respires for maintenance. Measured at the twelve
+converged endpoints, at every temperature with growth ≤ `_MASK_G`:
+
+| endpoint | T (°C) | growth | O₂ | status |
+|---|---|---|---|---|
+| A(b20) | 15 | 1.00e-4 | **1.570** | FEASIBLE-NOT-GROWING |
+| Bstar(b8) | 15 | 1.00e-4 | **0.525** | FEASIBLE-NOT-GROWING |
+| p81(b7) | 15 | 1.00e-4 | **2.237** | FEASIBLE-NOT-GROWING |
+| worst(b5) | 50 | 4.7e-5 | **5.674** | FEASIBLE-NOT-GROWING |
+| B(b3) | 11 temperatures | 0.000 | NaN | INFEASIBLE |
+
+**Imputing O₂ := 1e-9 where the true prediction is 0.5–5.7 is a factor of ~1e9, i.e. ~21 in log**,
+which at `varr ≈ 1.42²` costs ~110 log-likelihood units. Measured:
+
+- **P10's D3a instrument, the gate the tie-break had to pass: `impute` FAILS at b3 with
+  |Δ| = 119.1447** between an evaluation after itself and after a different point. `clamp` is
+  0.0000 at all twelve.
+- The continuity scan gives `impute` a step of **2,300 log-likelihood units per 0.05 sd**.
+- The gap it produces is **the epsilon, not the evidence**: live−dead is 774 / 1,553 / 2,511 at
+  ε = 1e-6 / 1e-9 / 1e-12.
+
+Withdrawn. It is the hard mask in different clothes, exactly as the prompt's own fallback clause
+anticipated.
+
+## D4 — the mask is an ATTRACTOR, and it qualifies P12's ceiling test
+
+The user asked whether p38's 15 °C growth landing on 1.000e-4 is coincidence. **It is not.**
+
+| endpoint | temperatures within 1 % of `_MASK_G` | relative distance to the threshold |
+|---|---|---|
+| **B(b3)** | 1 | **0.000000** |
+| **A(b20)** | 1 | **0.000000** |
+| **Bstar(b8)** | 1 | **0.000000** |
+| **p38(b22)** | 1 | **0.000000** |
+| p81(b7) | 1 | 0.004320 |
+| the other seven | 0 | 0.53 – 13.4 |
+
+**Five of twelve converged endpoints park a temperature within 1 % of the threshold, and four sit
+on it exactly** — p38's 15 °C growth is 9.999999859874725e-05, 1.4e-12 below 1e-4. Independent
+optimisations from unrelated prior draws do not land on the same knife-edge by chance. **The
+optimiser is parking a temperature on the mask to escape the 15 °C respiration penalty**, which is
+a free −2.8 units at p38 (its clamp score is −9.989 against −7.186).
+
+**Consequence, recorded as a dated qualification of P12 and NOT as an edit to its numbers.** P12's
+ceiling test reported that p38 (−7.186) and A (−7.213) beat P11's main-run best sample (−7.396) and
+concluded that Powell reaches the top of the basin the sampler found. **That margin is partly an
+artefact of the mask**: both winning points sit exactly on the threshold, and both lose ~2.8 units
+once their 15 °C prediction is actually scored. The qualification is that the *optimiser exploited
+a discontinuity the sampler did not*, so the comparison is not like-for-like. P12's basin count,
+which rests on bottleneck barriers of 13.868 against 1.785, is untouched by this.
+
+**And the current likelihood is itself state-dependent there.** TEST A: `current` FAILS P10's
+0.0000 rule at p38 with **|Δ| = 0.0157** — small, but non-zero, and it is the same knife-edge
+showing through the ramp at its 0.01 floor. Every other endpoint is 0.0000. This is a property of
+the likelihood P11's two nested runs were computed on.
+
+## D5 — `clamp` wins on scoring, passes state-independence, and has ONE unresolved problem
+
+**Why clamp is right, stated the strong way the user asked for.** `clamp`'s mask is
+`keep = isfinite(o2) & (o2 > 0)`: it drops the growth mask entirely and **scores feasible-not-
+growing points at full weight**. It is therefore already the variant the addendum proposed —
+"scores every finite O2 and masks only genuine infeasibility" — and no separate test is needed.
+
+Across the twelve endpoints there are 15 dead temperatures: **11 INFEASIBLE (all of them b3, the
+dead basin) and 4 FEASIBLE-NOT-GROWING**. Among the **eleven live endpoints, 4 of 4 dead
+temperatures are feasible with a finite O₂ prediction**. So for every model that grows at all,
+**the mask was discarding real predictions, and clamp is right because it scores them** — not
+merely because it removes a discount. That is the justification of record.
+
+**State-independence at the boundary (addendum item 3): PASS.** Ten evaluations at p38, fresh
+model built each time, under clamp: **−9.9893897954 ten times, spread 0.0000000000.**
+
+**The unresolved problem, stated plainly.** Clamp scores a feasible-not-growing temperature at
+**full** weight and then drops it **entirely** when the LP tips infeasible. That is a hard on/off at
+the *feasibility* boundary, and the fine continuity scan measures it: **4.14 log-likelihood units
+across 0.0032 sd = 64 units per 0.05 sd**, against the SAMPLEABLE rule's 5. Calibrated against the
+same rule, `current` is 0.80 and `impute` 2,300.
+
+So clamp has not removed the discontinuity; it has **relocated it from the growth threshold to the
+feasibility threshold**, which is the same class of defect P10 fixed. P10's ramp is, structurally,
+the right answer to *this* boundary — as growth → 0 the weight → 0.01, so the term is only 1 % of
+itself when it vanishes — and its defect is only that its floor is a discount and its threshold is
+an attractor.
+
+**This is the third discontinuity found at the cold end, and the user's instruction is explicit:
+do not proceed to TASK 4 until the chosen scheme is state-independent AND sampleable on the cold
+lines.** State-independence is proven. Sampleability is not, and the cliff above is measured on the
+road to the dead basin (t ≈ 0.9 of p38 → b3), not necessarily inside the posterior's own region.
+**TASK 3 decides it** with P11's twelve lines at ±1 sd of p38, cold lines called out. TASK 4 does
+not start unless every line, cold ones included, is under 5 units per 0.05 sd.
