@@ -407,3 +407,87 @@ from D4 that the addendum's literal scheme (ii) — flooring the growth predicti
 is a **no-op** here, because the growth term is linear (it moved θ_A by 0.002); the informative
 counterfactual is **(ii′)**, `w ≡ 1` on the respiration term with the hard mask kept, and that is
 what is reported, labelled as such.
+
+## D8 — the verdict: TWO basins, one of which is dead. The multimodality among LIVE models does not exist.
+
+TASK 2c continued twelve representatives to a 3,000-evaluation cap with the termination reason
+recorded; **11 of 12 terminated on tolerance** and are demonstrated local optima under D7. TASK 2d
+re-ran the barrier test on the converged points (66 chords, 2,706 evaluations) and TASK 2e reduced
+it to **bottleneck (minimax) barriers** — the minimum over paths of the maximum barrier — because a
+straight chord is only a *sufficient* witness of connection (D3), so chord-connectivity gives an
+**upper bound** on the basin count: curved paths can merge further, never split.
+
+**The bottleneck barrier matrix is sharply bimodal, and that is the whole result:**
+
+| | value |
+|---|---|
+| B(b3) to every other endpoint | **13.868**, identically |
+| every other pair, maximum | **1.785** |
+
+There is nothing in between. **Any threshold from 1.79 to 13.87 returns the same two components** —
+a factor of 7.8 — so D7's three requested thresholds (3, 5, 8) all give **2**, and the count is not
+an artefact of where the line was drawn. This is the stability check the screen's clustering failed
+(76/23/10 at 1.0/2.0/4.0, D5).
+
+**Component 1 — the live basin.** A(b20), Bstar(b8), P4(b13), p38(b22), p50(b19), p81(b7),
+p83(b21), big(b10, n=64), big(b9), big(b6), worst(b5). Best point **p38 at −7.186**. Internal
+bottleneck barriers **0.00 to 1.785**, i.e. **noise and kink-scale sub-structure** by D7's own
+bands — exactly the piecewise floor P9/P10 measured, not distinct optima.
+
+**Component 2 — the dead basin.** B(b3) alone, log L −18.877, **peak predicted growth 0.000 /h
+against an observed 2.076** — not merely a poor model, a model that does not grow at any measured
+temperature.
+
+### What this retracts
+
+**P11's seed disagreement is NOT evidence of multimodality among live models, and P12 retracts that
+reading rather than qualifying it.** θ_A and θ_B\* — the two runs' best points — have a bottleneck
+barrier of **0.266**, which is *noise* by D7's bands and below the 0.02-unit evaluation jitter's
+scale only by a factor of ten. They are the same basin. TASK 1 saw this along one chord; the
+converged, path-aware test confirms it. The two nested runs explored **one** basin to different
+depths and disagreed because dlogz stopped them at different places — which is precisely P11's own
+"necessary and not sufficient" conclusion, now with the mode question closed rather than open.
+
+The one genuinely separated basin is reachable only by a dead model, and **addendum 1 showed it is
+the support weight that makes such points score as well as they do** (θ_B's 16.7-unit discount).
+The two threads meet: the only multimodality in this posterior is an artefact the likelihood's
+support handling keeps alive.
+
+### The ceiling test (addendum 2 item 3) — PASSED, and it matters
+
+**Two continuations beat P11's main-run best sample of −7.3964: p38 at −7.186 and A at −7.213.**
+So Powell with a real budget does reach the top of the basin the sampler found, and passes it by
+0.21. The caveat D7 provisionally attached to TASK 4's height comparisons is therefore **lifted**:
+the heights are trustworthy. It also means the sampler was not sitting at the optimum either.
+
+Note the optimiser targets the log-POSTERIOR, so small negative moves in log-LIKELIHOOD
+(Bstar −8.300 → −8.311, B −18.860 → −18.877) are not failures; both columns are reported. Repeated
+evaluations of the same point differ by ~0.02 (P5), which is why A appears as both −7.213 and
+−7.197 in different tables.
+
+### Deadness and the weight, per endpoint (addendum 2 item 4)
+
+DEAD-MODEL (peak predicted growth below half the observed 2.076 /h): **B(b3)** at 0.000 (0 %) and
+**worst(b5)** at 0.970 (47 %). Every live-basin endpoint of interest sits at **79–84 %**.
+
+The discount credit separates them just as cleanly: **1.05–1.24 units** for every good live
+endpoint, against **8.10 for big(b6), 9.15 for worst(b5), and 1.71 for B(b3)**. The two points the
+weight most flatters are the two worst models in the set. B(b3)'s credit is small only because a
+model with *zero* growth fails the hard mask at nearly every temperature and is barely scored at
+all — a further argument that the support handling, not the data, is deciding what these points are
+worth (1.21).
+
+### dTm — reported prominently, as the prompt requires
+
+**The only endpoint with dTm at or near zero is B(b3), the dead basin: dTm = 0.000 exactly, with
+dTopt = 13.873.** Every live-basin endpoint requires **dTm between −3.07 and −4.50** (A −3.81,
+p38 −4.02, Bstar −4.08, p81 −4.08, P4 −4.07, p50 −3.07, p83 −4.50), and the two weight-propped
+poor endpoints go further still (big(b6) −10.18, worst(b5) −13.07).
+
+**This is the sharpest form yet of the R3 question and it sharpens §0b step 2 decisively.** Fitting
+these data with this model requires shifting the melting temperature 3–4.5 K below a **measured**
+meltome. The one place in parameter space where the meltome is honoured (dTm = 0) is a model that
+does not grow. So constraining dTm to zero will not merely "collapse the multimodality" as §0b
+step 2 hoped — on this evidence it removes the fit altogether, and the shift becomes a model
+failure to explain rather than a nuisance parameter to fix. That is a stronger and less comfortable
+conclusion than the sequence anticipated, and it is the PI's decision.
