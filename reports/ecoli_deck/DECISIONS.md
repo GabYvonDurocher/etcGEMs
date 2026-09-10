@@ -106,3 +106,64 @@ unconverged chain, *indicative and not validated model performance*. The gate re
 
 **Decision: gas-flux slides carry the mechanism and say so on the slide; where a fit quality is
 mentioned at all it is labelled an unconverged point estimate, and no interval is given.**
+
+## D4. The figure inventory, and the seven figures that cannot be used at all
+
+`figure_inventory.csv`: 54 candidates — 33 in `reports/ecoli_tpc/assets/figures/`, 14 in
+`reports/ecoli_gasflux/assets/figures/`, 5 elsewhere, 2 new here. **26 AS IS, 21 WITH A CAVEAT,
+7 NOT USABLE.** Ten are used.
+
+**A correction to the prompt's count.** It says `reports/ecoli_tpc/` holds "66 committed figures".
+It holds **33 figures and 33 tables** under `assets/` — 66 assets. Nothing turns on it; recorded so
+the next reader is not looking for thirty figures that do not exist.
+
+**The seven NOT USABLE, and the reason is the same for five of them: the unsupported interval is
+drawn INSIDE the image, where no slide caveat can reach it.** `prior_vs_posterior_tpc.png` carries
+a 90 % posterior band; the three `elasticity_tornado*.png` carry 90 % CI whiskers over posterior
+draws; `calibrated_ensemble.png` is an ensemble over those draws. `corner_v3.png` is the old
+posterior in its entirety. That is why the elasticity result reaches slide 7 as
+`elasticity_heatmap.png` — the same finding, computed deterministically at the tuned point, with no
+interval in it. The seventh, `requirement_arithmetic.png`, is Candida and Y3 forbids reading it
+across.
+
+**Every gas-flux figure is CAVEAT, none is AS IS**, on the strength of the `ecoli_gasflux/README.md`
+banner (D3). One is used, and its slide says mechanism.
+
+## D5. Two new figures, not three
+
+Parsa's respirometry has no committed figure anywhere in the repository, so it is the one thing the
+deck cannot assemble. `make_figures.py` draws two from committed tables only:
+`fig_respirometry.png` (per-cell growth and respiration against temperature, three media) and
+`fig_cue.png` (carbon-use efficiency, the quantity `report.qmd` lists as future work). The third
+allowed figure was not spent: the activation energies are three rows and belong on a slide as
+numbers, not as a plot.
+
+**Two things the prompt asked for that the tables do not contain, and the slides say so.**
+**No acetate** — the derived tables carry O₂-based respiration, growth and CUE and no acetate
+column; acetate appears only as a *model* output, in the gas-flux figures. **No model curve on the
+same axes** — no committed table gives the model's prediction against these measurements, so the
+measurements are plotted alone and model-against-measurement is left to the committed
+`configD_gasflux.png`.
+
+`M9`'s OTU 2 (7 rows) is the blank control P4 TASK 4 excluded as a control rather than a series;
+only OTU 1 is plotted for M9, stated in the script rather than done silently.
+
+## D6. What the measured data itself says, which shaped two slides
+
+Reading the tables to draw them produced two facts worth a slide each, neither of which is in any
+committed report:
+
+* **Respiration peaks 3–5 °C above growth.** Mean respiration peaks at 45 °C (R2A) and 43 °C
+  (LB, M9); growth peaks near 40 °C and is already collapsing where respiration is still rising.
+* **CUE is flat then falls off a cliff.** ~0.6 (R2A, LB) and ~0.4 (M9) from 25 to 40 °C, then
+  0.29 / 0.52 / 0.05 at 45 °C.
+
+Both are measurement, not model, and are labelled as such.
+
+**Deliberately not on a slide:** the committed OLS activation energies. `growth_E_eV` is
+−0.167 ± 0.23 (R2A), 0.172 ± 0.18 (LB) and −1.003 ± 0.31 (M9) with R² of 0.009–0.159 — a straight
+line through a curve that turns over, which K6 established is the wrong estimator for growth over
+this range. Respiration's are well determined (0.345–0.591 eV, R² 0.35–0.88). Quoting the growth
+numbers to a room of thermal biologists without the estimator argument would invite exactly the
+wrong conclusion, and the estimator argument is a slide of its own that this deck does not have
+room for.

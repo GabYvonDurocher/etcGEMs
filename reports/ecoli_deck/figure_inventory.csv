@@ -1,0 +1,55 @@
+path,source_report,what_it_shows,status,deciding_fact,used_in_deck
+reports/ecoli_tpc/assets/figures/example_enzyme_kcatT.png,ecoli_tpc,per-enzyme relative turnover k(T) and native folded fraction f_N(T) for ~12 enzymes,AS IS,deterministic layer illustration; no fitted interval. USED - slide 2,USED
+reports/ecoli_tpc/assets/figures/reference_tpc.png,ecoli_tpc,"model growth TPC at the reference point with T_opt, r_max, CT_min/CT_max and E_a marked",AS IS,single deterministic curve at the tuned point. USED - slide 6,USED
+reports/ecoli_tpc/assets/figures/proteome_sector_fractions.png,ecoli_tpc,MEASURED proteome-sector mass fractions vs LB temperature; chaperone sector ramps above 37 C,AS IS,"measured data, no model. USED - slide 7",USED
+reports/ecoli_tpc/assets/figures/validation_trusted_curves.png,ecoli_tpc,"a-priori prediction vs the exact-strain curve (Van Derlinden MG1655/BHI, 7-46 C), nothing fit",AS IS,no fitted parameters and therefore no interval; the ~2.3-fold peak deficit is the point. USED - slide 6,USED
+reports/ecoli_tpc/assets/figures/decomp_iqr_bands.png,ecoli_tpc,growth curves reachable by moving one lever group alone over a standardised range,AS IS,"band is a LEVER SWEEP, not posterior draws. USED - slide 12 arc",USED
+reports/ecoli_tpc/assets/figures/elasticity_heatmap.png,ecoli_tpc,elasticities of every descriptor to every lever at the tuned point,AS IS,deterministic finite differences at one point; no interval. USED - slide 7,USED
+reports/ecoli_tpc/assets/figures/decomp_variance.png,ecoli_tpc,"Shapley variance shares, envelope vs magnitude, per curve descriptor",AS IS,deterministic decomposition,
+reports/ecoli_tpc/assets/figures/control_thermal.png,ecoli_tpc,enzymes ranked by thermal-envelope control coefficient; acpP dominates,AS IS,deterministic control coefficients,
+reports/ecoli_tpc/assets/figures/corner_v3.png,ecoli_tpc,13-parameter corner plot of the old E. coli posterior,NOT USABLE,the whole figure IS the old posterior that P8/P11/P12 showed cannot be summarised by one distribution; superseded by P12's basin map,
+reports/ecoli_tpc/assets/figures/prior_vs_posterior_tpc.png,ecoli_tpc,prior vs posterior-predictive TPC with a 90 % band,NOT USABLE,"the 90 % band is drawn from the old posterior - an UNSUPPORTED interval INSIDE the image, which no slide caveat can remove",
+reports/ecoli_tpc/assets/figures/elasticity_tornado_rmax.png,ecoli_tpc,"levers ranked by elasticity on r_max, whiskers = 90 % CI over posterior draws",NOT USABLE,same: the whiskers are old-posterior intervals drawn into the image. The heatmap carries the same result without them,
+reports/ecoli_tpc/assets/figures/elasticity_tornado_CTmax_C.png,ecoli_tpc,as above for CT_max,NOT USABLE,same reason,
+reports/ecoli_tpc/assets/figures/elasticity_tornado.png,ecoli_tpc,"as above, combined",NOT USABLE,same reason,
+reports/ecoli_tpc/assets/figures/calibrated_ensemble.png,ecoli_tpc,TPC ensemble over calibrated draws,NOT USABLE,an ensemble over the old posterior's draws,
+reports/ecoli_tpc/assets/figures/tpc_ensemble.png,ecoli_tpc,TPC ensemble over prior draws,CAVEAT,"prior-predictive, not posterior - usable if the slide says prior; not needed",
+reports/ecoli_tpc/assets/figures/calibrated_vs_default.png,ecoli_tpc,calibrated vs default parameter TPC,CAVEAT,"the calibrated point is from the old fit; a slide would have to say 'the tuned point', not 'the posterior'",
+reports/ecoli_tpc/assets/figures/enzyme_param_densities.png,ecoli_tpc,distributions of per-enzyme Topt/Tm/dCp inputs,AS IS,"input data, no fit",
+reports/ecoli_tpc/assets/figures/descriptor_distributions.png,ecoli_tpc,distributions of curve descriptors over draws,CAVEAT,over which draws matters; not needed,
+reports/ecoli_tpc/assets/figures/complete_vs_empirical_tpc.png,ecoli_tpc,model TPC against empirical curves,CAVEAT,check which parameter point before use; superseded for this purpose by validation_trusted_curves,
+reports/ecoli_tpc/assets/figures/validation_minimal_vs_rich.png,ecoli_tpc,predicted TPC on minimal vs rich medium,AS IS,deterministic medium comparison,
+reports/ecoli_tpc/assets/figures/percurve_R2_distribution.png,ecoli_tpc,R2 across the 25 held-out E. coli curves,AS IS,"validation spread over CURVES, not over posterior draws",
+reports/ecoli_tpc/assets/figures/percurve_smallmultiples.png,ecoli_tpc,the held-out curves individually against prediction,AS IS,as above,
+reports/ecoli_tpc/assets/figures/proteome_sector_pred_vs_meas.png,ecoli_tpc,predicted vs measured sector fractions,AS IS,deterministic,
+reports/ecoli_tpc/assets/figures/proteome_usage_pred_vs_meas.png,ecoli_tpc,predicted vs measured proteome usage,AS IS,deterministic,
+reports/ecoli_tpc/assets/figures/sector_tradeoff.png,ecoli_tpc,the allocation trade-off between sectors,AS IS,deterministic,
+reports/ecoli_tpc/assets/figures/sectors_sensitivity.png,ecoli_tpc,sensitivity of the TPC to sector settings,AS IS,deterministic sweep,
+reports/ecoli_tpc/assets/figures/ablation_comparison.png,ecoli_tpc,TPC with layers ablated one at a time,AS IS,deterministic ablation,
+reports/ecoli_tpc/assets/figures/control_bottleneck.png,ecoli_tpc,flux-control bottleneck ranking,AS IS,deterministic,
+reports/ecoli_tpc/assets/figures/decomp_achievable.png,ecoli_tpc,achievable descriptor space per lever group,AS IS,lever sweep,
+reports/ecoli_tpc/assets/figures/decomp_recast_variance.png,ecoli_tpc,"variance decomposition, recast grouping",AS IS,deterministic,
+reports/ecoli_tpc/assets/figures/decomp_shapley.png,ecoli_tpc,Shapley shares per lever,AS IS,deterministic,
+reports/ecoli_tpc/assets/figures/dltkcat_ensemble.png,ecoli_tpc,TPC ensemble under DLTKcat-derived kcat(T),CAVEAT,Y3 established that DLTKcat's fits are degenerate for 97 % of these enzymes; a slide using it must say so,
+reports/ecoli_tpc/assets/figures/sensitivity_heatmap.png,ecoli_tpc,one-at-a-time sensitivity heatmap,AS IS,deterministic,
+reports/ecoli_gasflux/assets/figures/configD_gasflux.png,ecoli_gasflux,configuration D: predicted O2 uptake and acetate secretion vs temperature against Parsa's measurements,CAVEAT,MECHANISM only. Its fit quality is a point estimate from a chain that ran ~9 autocorrelation times against a >=40 criterion (gasflux README banner); the slide says mechanism and gives no interval. USED - slide 8,USED
+reports/ecoli_gasflux/assets/figures/configD_growth.png,ecoli_gasflux,configuration D: predicted growth vs temperature against measurement,CAVEAT,same banner; mechanism only,
+reports/ecoli_gasflux/assets/figures/configA_gasflux.png,ecoli_gasflux,configuration A gas fluxes,CAVEAT,same banner,
+reports/ecoli_gasflux/assets/figures/configA_growth.png,ecoli_gasflux,configuration A growth,CAVEAT,same banner,
+reports/ecoli_gasflux/assets/figures/configB_gasflux.png,ecoli_gasflux,configuration B gas fluxes,CAVEAT,same banner,
+reports/ecoli_gasflux/assets/figures/configB_growth.png,ecoli_gasflux,configuration B growth,CAVEAT,same banner,
+reports/ecoli_gasflux/assets/figures/configB_cmax60_gasflux.png,ecoli_gasflux,configuration B at c_max 60,CAVEAT,"same banner; and c_max 60 is superseded (120 canonical, 450 on LB)",
+reports/ecoli_gasflux/assets/figures/configB_cmax60_growth.png,ecoli_gasflux,configuration B growth at c_max 60,CAVEAT,same,
+reports/ecoli_gasflux/assets/figures/configC_gasflux.png,ecoli_gasflux,configuration C gas fluxes,CAVEAT,same banner,
+reports/ecoli_gasflux/assets/figures/configC_growth.png,ecoli_gasflux,configuration C growth,CAVEAT,same banner,
+reports/ecoli_gasflux/assets/figures/configE_gasflux.png,ecoli_gasflux,"configuration E: ETC membrane-area constraint, gas fluxes",CAVEAT,same banner; E and F collapse to one mechanism (P1),
+reports/ecoli_gasflux/assets/figures/configE_growth.png,ecoli_gasflux,configuration E growth,CAVEAT,same banner,
+reports/ecoli_gasflux/assets/figures/configF_gasflux.png,ecoli_gasflux,configuration F gas fluxes,CAVEAT,same banner; the table P1 first wired was not the one he fitted (P3),
+reports/ecoli_gasflux/assets/figures/configF_growth.png,ecoli_gasflux,configuration F growth,CAVEAT,same banner,
+reports/P9_surface/task1_scan.png,P9_surface,"the likelihood surface scanned along parameter lines: cliffs, not noise",AS IS,a deterministic scan of the likelihood; no sampling claim. USED - slide 11,USED
+reports/P8_ridge/task1_pca.png,P8_ridge,PCA of the chain showing the magnitude ridge,CAVEAT,"derived from the same chain family; usable only to illustrate geometry, never to quote an interval",
+reports/synthesis/assets/figures/requirement_arithmetic.png,synthesis,the Tm-separation requirement arithmetic (Candida),NOT USABLE,"Candida, not E. coli, and Y3 forbids reading it across",
+reports/activation_energy/assets/figures/ecoli_calibration_vdl.png,activation_energy,E. coli calibration against Van Derlinden,CAVEAT,from the same old fit family; the report it belongs to is marked UNKNOWN in report_status.yaml,
+reports/predictor_calibration/fig_partA_predicted_vs_measured.png,predictor_calibration,"Seq2Tm predicted vs measured Tm, 1947 S. cerevisiae proteins",AS IS,"measured benchmark, no model fit; yeast not E. coli, used only for the predictor point",
+reports/ecoli_deck/assets/figures/fig_respirometry.png,ecoli_deck (NEW),"MEASURED per-cell growth and respiration vs temperature, three media, from derived_*_current.csv",AS IS,measurements only; no committed figure of Parsa's data exists anywhere. USED - slide 10,USED
+reports/ecoli_deck/assets/figures/fig_cue.png,ecoli_deck (NEW),"MEASURED carbon-use efficiency vs temperature, three media, same tables",AS IS,measurements only; CUE is the quantity report.qmd calls future work. USED - slide 10,USED
