@@ -17,6 +17,27 @@ Detail: [DECISIONS.md](DECISIONS.md) (D0–D6). Scripts beside this file:
 
 ---
 
+> **Dated note, 2026-09-10 (P12 addendum 1) — this section's framing is QUALIFIED. No number
+> below is edited.**
+>
+> P12 measured the two runs' representative points directly. The seed-2 **median** quoted below,
+> θ_B, is **not a mode**: its log-likelihood is −34.96 against seed 2's own best sample at −9.11,
+> and its peak predicted growth is 0.163 /h against a measured 2.076 — a nearly dead model. A
+> median that falls between modes is a point in neither, so "15 of 16 medians disagree" partly
+> measures the shape of a broad posterior rather than two distinct optima.
+>
+> Two further findings bear on it. First, the likelihood's respiration **support weight** hands
+> θ_B back 16.7 log-likelihood units where it hands a live point ~1.2, so the dead region scores
+> far better than it should; removing the discount widens the θ_A − θ_B gap from +24.5 to +40.0
+> (OPEN_ITEMS 1.21). Second, a line scan from θ_A to seed 2's **best** sample is **monotone with
+> no barrier**, and that sample is the better of the two (−9.11 against −10.42).
+>
+> What stands unchanged: the two runs' **log Z estimates disagree by 6.8 combined standard
+> errors**, both satisfied dlogz < 0.1, and therefore **dlogz is necessary and not sufficient
+> here and no posterior is established**. That was P11's central claim and P12 does not touch it.
+> What is qualified is only the *attribution* of the disagreement to multimodality. See
+> `reports/P12_modes/` D3 and D4.
+
 ## The finding that governs this report: two converged runs disagree
 
 Both nested runs met the pre-registered stopping rule — dlogz 0.100, n_eff far above 600. They
