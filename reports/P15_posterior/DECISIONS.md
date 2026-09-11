@@ -140,3 +140,67 @@ If a marginal comes back equal to its prior, that is **R2 unidentifiability surf
 an R1 sampling failure. P14 established that a flat direction has **zero 16-dimensional volume** and
 so is not an atom: dynesty is behaving correctly by returning the prior. Any such parameter is
 reported that way in TASK 2.
+
+## D2 — run 1 CRASHED at 9.9 h. It did not converge and it did not hit the cap, and those are three different outcomes.
+
+At **08:04 on 2026-09-11**, after **~9.9 h** and **11,547 iterations**, run 1 died with:
+
+```
+RuntimeError: Slice sampler has failed to find a valid point.
+nstep_left: -5.4e-323   nstep_right: 5e-323   nstep_hat: 1.04e-322
+u_prop == u   (bit-identical)
+loglstar: -14.169843617724203
+```
+
+Those step sizes are **denormal doubles — numerically zero**. The slice bracket collapsed, and the
+proposed point was bit-identical to the current one. **No summary, samples or weights were written**;
+the only artefact is the 07:15 checkpoint at iteration 11,547, dlogz **2.168**, log Z **−25.730**.
+
+**This is reported as CRASHED, not STALLED.** D1's rule covers a run that hits the 16 h cap; this
+one did neither that nor converge. Calling it "stalled" would make a software failure sound like a
+budget finding, and the two license different next steps.
+
+### The cause, diagnosed from the checkpoint's own live points
+
+`task1_crash_diag.py` restores the checkpoint and takes the covariance of the 800 live points **in
+the unit cube**, which is the space `rslice` actually works in:
+
+| smallest eigenvalues | λ | √λ | dominant loadings |
+|---|---|---|---|
+| 1 | **1.947e-04** | 1.395e-02 | **`dTm` +0.903**, `sigma` +0.274, **`tm_scale` −0.217** |
+| 2 | 6.305e-04 | 2.511e-02 | `dTopt` −0.625, `resp_scale` −0.560 |
+| 3 | 7.880e-04 | 2.807e-02 | `sigma` −0.816, `kcat_scale` −0.313 |
+
+Largest eigenvalue 2.835e-01; **condition number 1,457**.
+
+**`corr(dTm, tm_scale) = +0.831` among the live points**, with that 2×2 block conditioned at 49.3.
+
+**This is Y3's non-identified pair, confirmed by an independent route.** Y3 found `dTm` and
+`tm_scale` not jointly identified by profiling the likelihood; here the *sampler's own live points*
+collapse onto that correlation as the constraint tightens. It also explains the **1,124
+divide-by-zero warnings** dynesty emitted from `bounding.py:273` (`1./l1` with a zero eigenvalue) —
+the bounding ellipsoid was singular for hours before the slice sampler finally failed.
+
+Note what this is **not**: `dTm` is the *most tightly constrained* parameter (live sd 0.0506 in the
+unit cube against the prior's 0.289), not a flat one. The pathology is a **thin, correlated ridge**,
+not a plateau — consistent with P14's census, which found no plateaus at all.
+
+For the record, the same table shows three parameters sitting essentially **at their priors** —
+`f_metab` 0.273, `dCp_scale` 0.266, `f_maint` 0.265 against 0.289 — which is **R2 unidentifiability
+surfacing exactly as D1 said it would be read.**
+
+### What was done about it, and what was not
+
+**Resumed from the checkpoint with identical settings.** The prompt provides `--resume`, the restore
+was proven in TASK 1, and the question worth answering first is whether the failure is
+*deterministic*. It is not: the resume picked up at iteration 11,546 and continued. So the crash is
+a **numerical fragility of `rslice` on this geometry**, hit stochastically, not a wall the run
+cannot pass.
+
+**What was NOT done, deliberately:** the sampler was not changed. Switching `rslice` → `rwalk` would
+very likely avoid the failure, but it is a setting fixed in D1, it would break comparability with
+P11's runs, and choosing it after a crash is the pattern this series has refused three times. If the
+resumed run crashes again, that is reported and the choice is the PI's.
+
+**The wall-clock envelope is honoured rather than reset:** the resume was given **5.8 h**, so the
+total stays inside the original 16 h from 22:07, which ends at **14:07**.
