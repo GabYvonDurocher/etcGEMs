@@ -581,3 +581,113 @@ describe, visible on a panel with data on it. The slide points at it rather than
 **One honest presentation choice:** the O₂ log axis is clipped to the measured range, because the
 predicted collapse runs three orders of magnitude below anything measured and squashes the
 comparison otherwise. Stated in the script and on the slide.
+
+---
+
+## D23. E5 — three factual corrections, two jargon explanations, and the retraction framing removed (2026-09-11)
+
+**The branch was merged with `main` first.** `reports/P15_posterior/` had landed on main after this
+branch was cut, so the sources for TASKS 1 and 2 were not in the tree. A rebase hit conflicts across
+sixteen commits; a **merge** resolved it in one step — both conflicts (`docs/OPEN_ITEMS.md`,
+`reports/report_status.yaml`) were appends by different runs and both sides were kept.
+
+### The stopping rule (ERROR 1) — quoted from `reports/P15_posterior/DECISIONS.md` D1
+
+The slide described **emcee**, a sampler abandoned at P8, and autocorrelation time is not a
+nested-sampling concept. What was actually pre-registered:
+
+> sampler `dynesty.NestedSampler`, **nlive 800**, `rslice` / `multi`, **stopping dlogz < 0.1**,
+> two **sequential** runs on different seeds, 16 h wall cap each, checkpoint every 30 min
+>
+> **AGREED** if the two log Z agree within their combined reported error **AND** no posterior
+> median differs by more than two Monte-Carlo errors.
+
+**One other emcee-era description was found and corrected**, on "…and the three things that went
+wrong". It was not wrong to describe the MCMC family there — that slide *is* about the earlier
+family — but its criterion was. The brief's "n_eff ≥ 600 and chain/τ ≥ 25" is confirmed by
+`reports/P6_convergence/report.md:194`, which also records that the deck's "≥ 40" is the *stricter*
+figure that target was deliberately weaker than. The slide now says the adopted target and that
+running longer could not reach it, which is why the method changed.
+
+### The posterior slide (ERROR 2) — every number from `reports/P15_posterior/`
+
+Run 1 **crashed** after 9.9 h at iteration **11,547** with dlogz **2.168** against a target of 0.1;
+the resume died **bit-identically**, so the failure is deterministic and run 1 is terminal; **run 2
+was never started and no posterior exists**. From `task1_crash_diag.json`: smallest live-point
+covariance eigenvalue **1.9466e-04**, largest 0.2835, **condition number 1,457**; the degenerate
+direction loads $dT_m$ **+0.9026**, $\sigma$ **+0.2743**, `tm_scale` **−0.2170**;
+**corr($dT_m$, `tm_scale`) = +0.8312**; **1,124** divide-by-zero warnings from the bounding code.
+
+**One correction to the brief:** it describes the direction as "dominated by dTm (+0.903) and
+`tm_scale` (−0.217)". The file puts **$\sigma$ (+0.274) ahead of `tm_scale` in magnitude**. The
+slide names all three in order, and attributes the *pair* to the correlation, which is what
+identifies it.
+
+**Two things the slides deliberately do not say.** Nothing about whether the reduced re-run will
+work — it has not reported. And nothing about etcGEMs in general: the degeneracy is measured **in
+this model, by two routes**, and that is the claim.
+
+### The holdout (ERROR 3) — `reports/ecoli_tpc/report.qmd` §563–570
+
+*"the model tracks the shape but under-predicts the magnitude ~2.3-fold"*, predicted peak
+**1.04 h⁻¹** against an observed **2.40**, with *"Nothing is fit to growth"* (§580). So the slide's
+"nothing has ever been asked to predict data it was not fitted to" was **false and undersold the
+work**. The honest version is on its own slide now: one a priori test, **shape held and magnitude
+did not**, and the test curve was then **consumed by the calibration** — so it is the *calibrated*
+model that has no holdout. `docs/OPEN_ITEMS.md` §0a R4 corrected to the same statement.
+
+### Line scans in plain words (JOB 4), verified against `reports/P9_surface/report.md`
+
+**22 lines, 41 points each, 902 fresh model builds, 52.4 min** — all confirmed. The step is
+**0.05 prior standard deviations** with each line running to ±1 sd; the brief's "a twentieth of the
+plausible range" is a twentieth of *one standard deviation*, and the slide says so. **12 of 22**
+lines have a single step exceeding 20 % of that line's whole range, **median 39 %, worst 99 %**, and
+two axes are exactly flat. The slide explains what a line scan is, what the step is, what "20 % of
+the range" means, and why a cliff defeats an algorithm that feels its way downhill.
+
+**Figure 12 got its own slide**: `task1_scan.png` went from `height=66%` (rendered 181.5 pt,
+$f$ 0.35) to **`height=82%` (rendered 234.3 pt, $f$ 0.19)** — wait: the earlier figure was measured
+at `height=66%` giving 188.6 pt and $f$ **0.15**; it is now 234.3 pt and $f$ **0.19**, a 24 %
+enlargement. **It is still far below the legibility threshold and always will be** — 1 224 pt native
+against a 398 pt slide (D18, `OPEN_ITEMS` 2.10). That is why the slide before it carries the whole
+explanation in words and the figure's own line says *"read the pattern, not the axes"*.
+
+### Basins in plain words (JOB 5), from `reports/P12_modes/` and `reports/P13_support/`
+
+**100 optimisations from random starts**; pairwise straight-line scans between endpoints; the
+valley rule **written before the scan** — a line counts as a valley only if its minimum dips below
+the lower endpoint by more than the **0.02-unit** evaluation jitter measured earlier. A **dead**
+basin is one whose organism does not grow: peak predicted growth **0.000 h⁻¹** against a measured
+2.08, with **11 of its 12 temperatures infeasible**, which is *why it scores* — its respiration term
+is not evaluated there.
+
+**Does the dead basin survive the current likelihood? Yes**, and the deck says so. `P13_support`
+reports the live–dead gap moving only **11.691 → 11.245** under the clamp, and states that *"the
+discount was never the dead basin's main protection — the NaN mask is"*. **No claim of removal is
+made**, because the files do not support one.
+
+### The retractions (JOB 6)
+
+**Framing removed** from the title and body — these were corrections to claims that never left the
+group. **Retraction 1's finding survives, relocated** to the −4 K slide as the two-number statement:
+**0.079** units with one lever pinned (`reports/Y3_tm_shift/task2b_meta.json`, `cost_B_vs_A`) against
+**7.600** units with both pinned, growth **1.659 h⁻¹**, converged, against two prior bounds
+(`task2c_bound.json`). It is explicitly connected to the $dT_m$/`tm_scale` pair the posterior run's
+geometry found — the same finding in readable units. Retraction 2 went without replacement.
+
+**Checked, as asked: neither retraction touches anything shared outside the group.** The synthesis
+report went to both postdocs, and `reports/synthesis/synthesis.qmd` **predates P12** and mentions
+neither `dTm` nor a basin (zero occurrences). Its `evidence.csv` carries only the **corrected**
+statements, added afterwards. So both framings could go.
+
+**One reading of a conflicting instruction, recorded.** "Do not touch the −4 K stability shift
+slide" against "fold retraction 1 into it". Read as: do not *alter* what is there, because it is
+right — the two-number statement is **appended** as a new slide following it, and not one existing
+word on that slide is changed.
+
+### An addendum arrived mid-run and was withdrawn
+
+A pre-registration addendum about posterior eigendecomposition, `tm_scale` railing and the
+correlation continuum arrived during TASK 5 and the user then said it was meant for another session.
+**Not acted on, and not recorded as E5 content.** It concerns a posterior run that does not exist in
+this branch, and E5 has no posterior to analyse.

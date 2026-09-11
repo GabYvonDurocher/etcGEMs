@@ -136,6 +136,12 @@ Three kinds, and the difference matters — not two.
 - **Four are not model levers at all.** `clearance_mult` is a property of the experiment;
   `resp_scale`, `disc_resp`, `disc_growth` are the observation model
 
+## …and a fourth kind the categories above miss
+
+- **A jointly-constrained PAIR.** $dT_m$ and `tm_scale` are **tightly constrained together, and neither is determined on its own**
+- **This is the opposite of a flat lever.** $dT_m$ is the *most* tightly constrained parameter in the model — live spread 0.051 against a prior of 0.289. A flat lever is one the data cannot move; this is a pair the data pins only in combination
+- **Two independent methods found it**: profiling the likelihood, and the geometry of a sampler's own point cloud. It is the reason the posterior run failed, and it comes back twice later in this deck
+
 ## Development 1: proteome allocation, from measured proteomes
 
 - The enzyme budget is split into three **sectors** [@Basan2015; @Scott2010]:
@@ -307,31 +313,54 @@ Flat from 25 to 40 °C, then a cliff — and the medium sets the level, not the 
 
 ## …and the three things that went wrong
 
-1. **The chains are too short.** Every chain in this family — ours and Parsa's — ran about **9 autocorrelation times** where the standard is **$\geq 40$**. So **no interval on any parameter is available**, and none appears in this deck. Fixing it is arithmetic: 4–5× the chain length
+1. **The chains were too short.** In the earlier MCMC-based family — ours and Parsa's — no chain reached the adopted target (effective sample size $\geq 600$), and running longer did not help. **No interval on any parameter is available**, and none appears here. That is why the method changed to nested sampling
 2. **The surface itself is not smooth.** We stopped blaming the sampler and looked at the likelihood: 22 line scans, 902 model builds, **12 of 22 lines jump by >20 % of their range on a small step**. Not the solver — unchanged at $10^{-9}$ tolerances and on a different algorithm
 3. **The cause is the respiration term, and it is the degeneracy again.** At cold temperatures the O$_2$ flux at the growth optimum **jumps between equally-optimal solutions** — so the prediction moves discontinuously while the growth rate does not. *Exactly* what Pettersen & Almaas saw by FVA [@Pettersen2023], here as cliffs in a likelihood
 
 - **Three fixes, each for a named mechanism:** a **tie-break** to choose one point on the degenerate face; a **variance floor** so the likelihood is not shocked by a jump the model cannot avoid; a **continuous support** clamp at the growth threshold. Cliffs cut ~10×. **Still not smooth, and we say so**
 
+## What a line scan is, and what it found
+
+- **The method.** Start from the best-fitting parameter set. Pick a direction in parameter space. Step along it in small increments, **rebuilding and re-solving the whole metabolic model at every step**, and record how well it fits. **22 directions, 41 steps each, 902 full model solves** — transects: walking out from a summit in 22 directions, recording the altitude every few metres
+- **The step is deliberately small:** one twentieth of a standard deviation of that parameter's plausible range, with each line running out to ±1 sd
+- **What "20 % of the range" means.** The range is the *total* change in fit quality along that whole line. So in **12 of the 22 directions, a single small step changed the fit by more than a fifth of everything that changed along the entire line** — median 39 %, worst 99 %. That is a **cliff**, not a slope
+- **Why it matters, and this is the point.** Fitting algorithms feel their way downhill. A cliff means a tiny parameter change makes the model look catastrophically worse, so the algorithm cannot cross it and gets stuck against it. **The landscape was not a hill to climb; it was a plateau with sheer drops** — and two of the 22 directions were exactly flat
+
 ## The surface, scanned
 
-**One panel per parameter line — read the pattern, not the axes:** parabolas broken by cliffs, and two panels flat all the way across.
+![The log-likelihood along 22 parameter lines. `reports/P9_surface`](../P9_surface/task1_scan.png){height=82%}
 
-![22 line scans, 902 model builds. `reports/P9_surface`](../P9_surface/task1_scan.png){height=66%}
+## How many answers are there? First, what a basin is
 
-## How many answers are there? — and two retractions
+- **A basin** is a region of parameter space from which the optimiser, started anywhere inside it, ends at the same bottom. A valley: drop a ball anywhere in it and it rolls to the same place
+- **How we found them.** Start the optimiser from **100 randomly drawn parameter sets** and record where each stops. Then test every pair of endpoints: walk in a straight line between them and see whether the fit has to get **worse** in between. A ridge means two separate basins; no ridge means one basin reached from two directions
+- **The threshold was fixed before the scan:** a line counts as a valley only if its minimum dips below the lower endpoint by more than **0.02 log-likelihood units**, the evaluation jitter measured earlier
+- **A "dead" basin** is a mathematically valid solution in which the organism **does not grow** — peak predicted growth **0.000 h⁻¹** against a measured 2.08. A set of parameters that fits by describing a corpse
 
-- We then mapped the **basins**: run the optimiser from many starting points, cluster where it lands, and ask how many distinct good solutions there are
-- **Result: one live basin and one dead one**, of twelve converged endpoints. **Not** the many-modes picture Pettersen & Almaas [@Pettersen2023] found in yeast — but also **not yet a posterior**
-- **Retraction 1 (ours).** We had concluded the model *cannot* fit these data while honouring the measured melting temperatures. **It can**: with both melting-temperature levers pinned to the measurement the fit converges and the organism grows at 1.66 h⁻¹ — 7.6 log-likelihood units worse, and pressed against two prior bounds
-- **Retraction 2 (ours).** The test we used to claim the optimiser reaches the top of the basin was **partly an artefact**: five of twelve endpoints park a temperature on an internal threshold that acts as an attractor
+## How many answers are there? The result
 
-## Where the posterior stands
+- **One live basin and one dead one**, of twelve converged endpoints. **Not** the many-modes picture Pettersen & Almaas [@Pettersen2023] found in yeast — but also **not a posterior**
+- **Why the dead one scores at all:** eleven of its twelve temperatures are *infeasible*, so its respiration term is simply not evaluated there — it is rewarded for predicting nothing
+- **Does it survive the current likelihood? Yes.** Tightening the support handling moved the live–dead gap only **11.69 → 11.25** units. What keeps the dead basin out is that its predictions are infeasible, **not** the fitting criterion — which is worth knowing, because it means the criterion is not what is protecting us
 
-- **Two runs are in flight.** The stopping rule was fixed **before** they started: chain length $> 40$ autocorrelation times **and** effective sample size $\geq 200$
-- **Nothing is quoted from them here** — that is the whole point of pre-registering the criterion
-- What we will be able to say when they land: an interval on each of the sixteen levers, conditional on the mode, and a posterior-predictive band on the TPC and on the gas fluxes
-- What we will **still** not know: `kappa_scale` and `ngam_steepness` — those need a measurement, not a longer chain
+## The posterior: the run, and how it failed
+
+- The plan, **fixed before either run started**: nested sampling (`dynesty`), **800 live points**, two runs on different seeds, stopping at **dlogz < 0.1** — and an agreement rule, *"the two log Z agree within their combined reported error **and** no posterior median differs by more than two Monte-Carlo errors"*
+- **Run 1 crashed** after 9.9 h at iteration **11,547**, with dlogz still at **2.168** against a target of 0.1. Resumed from its checkpoint it died again **bit-identically** — the failure is deterministic. **Run 2 was never started. No posterior exists, and nothing is quoted here**
+- **But the crash localised itself.** From the sampler's own 800 live points, the smallest covariance eigenvalue is **1.9 × 10⁻⁴** against a largest of 0.28 — **condition number 1,457**
+
+## The posterior: what the crash localised
+
+- The degenerate direction loads almost entirely on **$dT_m$ (+0.90)**, with $\sigma$ (+0.27) and `tm_scale` (−0.22) next; among the live points **corr($dT_m$, `tm_scale`) = +0.83**
+- **That is the same pair found by profiling the likelihood** — two routes sharing no machinery: one an optimiser walking the surface, the other the geometry of a sampler's point cloud
+- The bounding ellipsoid had been **singular for hours** (1,124 divide-by-zero warnings) before the sampler finally failed
+
+## What that does and does not mean
+
+- **It is not a flat direction.** $dT_m$ is the **most tightly constrained parameter in the model** — live spread 0.051 against a prior of 0.289. This is a thin **correlated ridge**, not a plateau, and a sampler that brackets along a direction will eventually fail on one
+- **What is being done:** fix one member of the pair at nominal, re-run at **15 dimensions**, with the full eigenspectrum checked first for further degenerate pairs. That converts an unidentifiability into a stated limitation. **Whether it works is not yet known** — the run has not reported
+- **The claim is narrow, deliberately.** This degeneracy is measured **in this model, by two routes**. Nothing here says it is a general property of enzyme- and temperature-constrained models
+- Also visible in the live points, and expected: $f_{metab}$, $\Delta C_p$`_scale` and $f_{maint}$ sit **essentially at their priors** — the first fixed by measurement, the others not moved by these data
 
 ::: {.block}
 ### The honest position today: mechanisms that reproduce, a likelihood we understand, and no intervals.
@@ -357,15 +386,27 @@ Flat from 25 to 40 °C, then a cliff — and the medium sets the level, not the 
 - Two readings, and we screened them: **biology** (*in vitro* $T_m$ is not *in vivo* inactivation) or **our parameterisation** (16 global levers where Li et al. [@Li2021] had 2 292)
 - **The shift is not uniquely required** — an equally good, living fit exists at zero shift, for 0.08 log-likelihood units
 - **But catalysis is not what pays for it.** The compensator is `tm_scale`, the *spread* of melting temperatures. Both solutions put the least-stable few per cent of enzymes **4–6 °C below measurement**
+
 - So the **number** is a parameterisation artefact; the **contradiction with the meltome's low tail** is not. Per-enzyme $k_{cat}(T)$ would not fix it — and the predictor we would have used has no usable optimum for 97 % of these enzymes
 
-## Settled · in flight · needs measurement
+## …and the same degeneracy in two numbers
+
+- **Pin one melting-temperature lever and the other compensates: 0.08 log-likelihood units.** Effectively free
+- **Pin both to the measurement and it costs 7.6 units.** The organism still grows — 1.66 h⁻¹ — but the fit is pressed against two prior bounds
+- **So the two levers are constrained together and neither alone.** That is the same $dT_m$/`tm_scale` pair the posterior run's own geometry found, in units anyone can read
+- One method was an optimiser profiling the likelihood; the other was a sampler's live points collapsing onto a correlation. **They share no machinery**
+
+## Settled · failed · needs measurement
 
 - **Settled.** One shared codebase with seven organism models on it, under the regression suite. The mechanisms: measured proteome sectors, overflow emerging from a carbon cap, the ETC area budget. The audits — including the reference implementation passing ours
 - **Settled, and uncomfortable.** No interval from the older *E. coli* fits is available. The likelihood surface is structurally rough. The meltome's low tail is contradicted by every fit
-- **In flight.** The posterior, on a pre-registered convergence criterion
+- **Failed, and informatively.** The posterior run crashed on a degenerate direction the run itself identified. A reduced re-run is under way; no posterior yet
 - **Needs measurement — not more modelling.** Proteome allocation **above 37 °C on glucose** — the measurement exists, its *range* does not, and that is where $CT_{max}$ is set; maintenance vs temperature from a low-dilution chemostat (`ngam_*` are borrowed); *in vivo* stability for the enzymes that set the thermal limit
-- **Never yet tested.** Nothing in this framework has been asked to predict data it was not fitted to. Cooper et al.'s evolved *E. coli* lines [@Cooper2007] are the obvious holdout
+
+## Has it ever predicted anything it was not fitted to?
+
+- **Once, and it half-worked.** The *uncalibrated* model was asked to predict the exact-strain Van Derlinden curve with **nothing fitted to growth**: it tracked the **shape** ($T_{opt}$, $E_a$) and under-predicted the **peak ~2.3-fold** (1.04 against 2.40 h⁻¹). Shape held; magnitude did not
+- **And then that curve was consumed by the calibration**, so the *calibrated* model has no holdout left. Cooper et al.'s evolved *E. coli* lines [@Cooper2007] are the obvious next one
 
 ## Three questions for the group
 
