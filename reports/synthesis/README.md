@@ -152,3 +152,17 @@ at the next render. Evidence rows **P14a–P14d**.
 | anywhere the flat parameters are described | distinguish the two things | A flat **direction** is not a plateau: the level set is codimension-1 extruded along that axis and has zero 16-D volume, so dynesty simply returns the prior as that parameter's marginal. That is **unidentifiability (R2)**, not a sampling failure (R1) [P14b]. |
 
 No re-render.
+
+## Correction note — 2026-09-11 (P15): the convergence obstacle has a name, and it is a non-identified pair
+
+Extends the P8, P9/P10, P11, P12, P13 and P14 notes above. Not edited into `synthesis.qmd`; to be
+applied at the next render. Evidence rows **P15a–P15d**.
+
+| where in `synthesis.qmd` | what must change | what the evidence says |
+|---|---|---|
+| the sampleability discussion | the criterion is settled | Only **plateaus** break nested sampling — an atom in the distribution of L voids X_i ≈ exp(−i/nlive). A **jump** leaves a gap in L's support carrying no prior mass and is harmless. The surface has **no plateaus at all** [P15a, P14b]. |
+| any statement of why this family will not converge | replace it — the cause is now named | Not a step budget (P6), not walker count (P7), not a ridge in the chains (P8), not a cliffed likelihood any more (P9→P11), not a support discount (P13), not sampleability (P14). It is a **thin correlated ridge from a non-identified pair**: `dTm`/`tm_scale`, **corr = +0.831** among live points, smallest covariance eigenvalue **1.947e-04**, condition number **1,457** [P15c]. |
+| anywhere a posterior is anticipated | still none, and now for a structural reason | Run 1 **crashed deterministically** at iteration 11,547 (dlogz 2.168) on that direction; run 2 was not started [P15b]. The fix is to remove the degeneracy (fix `tm_scale` or `dTm` at nominal), not to change sampler. OPEN_ITEMS 1.24. |
+| anywhere `dTm` is discussed | two independent routes now agree | Y3 found `dTm`/`tm_scale` non-identified by **profiling the likelihood**; P15 found the same pair by watching a **sampler's live points collapse onto it**. The agreement of two unrelated methods is stronger than either [P15c]. |
+
+No re-render.
