@@ -264,6 +264,25 @@ The medium ladder is the measured sector split at work: $r_{max}$ **1.19** (gluc
 
 ![`strains/eciML1515/respirometry/`](assets/figures/fig_respirometry.png){height=66%}
 
+## How well does it fit? Growth
+
+Lines are the model, points the measurement; two media, three configurations. **At Parsa's gated parameters — not a converged posterior, and no intervals.**
+
+![$R^2$ from `reports/P3_gate/gate_def_headline.csv`. `make_fit_figures.py`](assets/figures/fig_fit_growth.png){height=66%}
+
+## How well does it fit? Oxygen
+
+**Gated parameters, no posterior.** A **fitted** scale converts model to measurement: this tests **shape**, not level. **The jagged cold limb is the vertex-jumping from the cliff slides.**
+
+![`make_fit_figures.py`](assets/figures/fig_fit_o2.png){height=60%}
+
+## …and carbon-use efficiency, which we cannot yet overlay
+
+- The model would need **biomass carbon over total carbon consumed**
+- The second term is a sum over the **64 open carbon sources** of the NLDM recipe, which the prediction path does not return; the first needs a **biomass carbon fraction** that is not in the strain data
+- Both would have to be invented, so **CUE stays measurement-only** — the measured curve is two slides back
+- **This is the next thing to close**, and it is a small piece of plumbing rather than a new experiment
+
 ## …and what it costs the cell
 
 - **Carbon-use efficiency** — the share of assimilated carbon kept as biomass rather than respired

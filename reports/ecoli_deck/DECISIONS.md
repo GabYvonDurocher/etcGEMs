@@ -490,3 +490,94 @@ text size, not whether a figure is the right object; D17 said so in advance.
 
 **`measure_figures.py` is committed and exits 1 while any figure is below threshold**, so the eight
 outstanding cannot quietly become acceptable.
+
+---
+
+## D19. The attribution (E4, 2026-09-11)
+
+"Parsa Amirmoeini" is not his surname. Replaced with **"Parsa"** — the form the rest of the
+repository uses — in all four places it occurred: `strains/eciML1515/respirometry/README.md:7`,
+`strains/eciML1515/media/NLDM_media.csv:3`, `reports/P2_settle/SUMMARY.md:30` and
+`reports/ecoli_deck/deck.qmd:210`. **No surname was invented.** Checked that it appears in no
+`references.bib`, so it was never formatted as a literature citation — his work is unpublished and
+team-internal.
+
+## D20. Five sentences depended on the audience knowing our internal documents
+
+| slide | cut | replaced with |
+|:--|:--|:--|
+| CUE | *"CUE is listed in our own E. coli paper as future work"* | what is true of the **model**: it does not predict CUE yet, because that needs the carbon budget closed |
+| What the model is now | *"79/79 structural gates and 60/60 reproduction checks"* | "79 structural checks and 60 numerical ones… so a fix to one organism cannot silently move another" |
+| The data nobody else has | *"Ported and **gated**"* | "checked against his own results… the worst to within 0.009" |
+| the overflow ladder | *"ported here and gated"* | "reproduced against his numbers" |
+| Settled | *"the seven-organism port, gated"* | "one shared codebase with seven organism models on it, under the regression suite" |
+
+"Gated" is our word for our own regression suite. An external group hears a gate and thinks of a
+quality bar someone else set.
+
+## D21. The carbon cap — and two places where the files disagree with the brief
+
+Written from `add_total_carbon_constraint` in `src/etcgem/gasflux.py`,
+`strains/eciML1515/gas_exchange.yaml`, `reports/P2_settle/task3_cmax_table.csv` and
+`reports/P5_lb_cmax/cap_sweep_fixed_point.csv`. **Two corrections, and the files win.**
+
+**(i) The cap does not make O₂ and CO₂ unique.** The brief says the docstring records that it
+*"pins the flux distribution, making O₂ and CO₂ unique"*. It does not. The module docstring says
+gas exchange is **under-determined** and that the cap is **one of three ways offered to pin it**;
+no uniqueness is claimed anywhere. And P9/P10 established that it does **not** succeed — the O₂
+flux at the growth optimum still jumps between equally-optimal vertices, which is the cliff
+problem the deck spends two slides on. Had the slide claimed uniqueness it would have contradicted
+the identifiability slides in the same deck. **The slide says the honest version.**
+
+**(ii) The LB collapse numbers.** The brief gives "0.83–0.90 → 0.16–0.20", which are **P4's
+refitted** values. The cleaner evidence — same parameters, only the cap changed — is
+`cap_sweep_fixed_point.csv`: growth $R^2$ **0.64 / 0.05 / −0.10** at $c_{max}=120$ against
+**0.90 / 0.83 / 0.88** at the LB caps, with $r_{max}$ 1.796 / 1.184 at 120. The slide uses those,
+because they isolate the cap. Measured LB peak is **2.945** h⁻¹, not 2.94.
+
+**Verified as the brief states:** at $c_{max}=60$ acetate overflow is exactly zero on **both** media
+(`task3_cmax_table.csv`: `acetate_at_Topt` = −0.000 for glucose_minimal and NLDM); 120 is the
+lowest value in the sweep at which it is non-zero on both (23.5 and 3.9 mmol gDW⁻¹ h⁻¹); $T_{opt}$
+on NLDM falls **39.0 → 32.5 °C** between 80 and 60; LB is settled at **450**. Also verified: the
+constraint's units are **mmol C gDW⁻¹ h⁻¹**, the carbon counts come from the model's own metabolite
+formulae, and CO₂/bicarbonate are excluded from the budget.
+
+## D22. The model against the data — what was overlaid, and what was not
+
+**Nothing was re-fitted.** `make_fit_figures.py` imports the gate's own `predict` and reads the
+parameters out of Parsa's six committed chains at exactly the point
+`reports/P3_gate/gate_def_headline.csv` reports. Which combination the headline reports was
+**established rather than assumed**, by matching its `cur_g` against every row of
+`gate_def_table.csv`: model medium **`NLDM_blanket`** for NLDM (his construction — his fits predate
+the recipe medium), the **current** data version, posterior median for configuration D on NLDM and
+MAP for the other five. Confirmation that the right points were read: the `resp_scale` values come
+back 3.369 / 10.230 / 5.325 / 11.041 / 4.705, matching the headline to three decimals.
+
+**Budget: 192 model solves** (6 fits × 32 temperatures), **single process**, against the brief's cap
+of 300. Predictions are committed to `fit_predictions.csv` and the script takes `--no-solve` to
+redraw from it, so the figures are reproducible without touching the model.
+
+**Overlaid: growth and O₂**, two media, three configurations, $R^2$ read from the gate file rather
+than recomputed, and **the gated-parameters caveat is the first line on both slides**.
+
+**Not overlaid: CUE**, and the reason is not laziness. The model's CUE is biomass carbon over total
+carbon consumed; the second term is a sum of $n_{C,i} v_i$ over the **64 open carbon sources** of
+the NLDM recipe, which the committed prediction path does not return, and the first needs a biomass
+carbon fraction that is not in the strain data. Both would have to be invented, so CUE stays
+**measurement-only** and a slide says so explicitly.
+
+**The O₂ panel carries a fitted scale, and the slide says so.** The measurement is a per-cell rate
+and the model is mmol gDW⁻¹ h⁻¹; the conversion is `resp_scale`, a **fitted** observation
+parameter running 3.3–11.0 across the six fits. So the O₂ comparison tests the **shape** of the
+temperature response and is not evidence about the absolute level — `reports/ecoli_gasflux/README.md`
+says exactly that, and `docs/OPEN_ITEMS.md` 1.9 is the reason: the per-cell constants (N₀ and fg C
+per cell) are about 6× off, so absolutes are unreliable while shapes and scale-free quantities are
+immune. **Nothing was rescaled to improve agreement** — the scale is the one the fit chose.
+
+**An unplanned benefit.** The O₂ overlay shows the model's **jagged cold limb** — configuration D
+on NLDM at 15–20 °C, E and F on LB at 20–32 °C. That is the vertex-jumping the cliff slides
+describe, visible on a panel with data on it. The slide points at it rather than hiding it.
+
+**One honest presentation choice:** the O₂ log axis is clipped to the measured range, because the
+predicted collapse runs three orders of magnitude below anything measured and squashes the
+comparison otherwise. Stated in the script and on the slide.
