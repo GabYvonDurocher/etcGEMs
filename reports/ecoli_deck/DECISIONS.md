@@ -384,3 +384,44 @@ row it should carry is a **WITHDRAWN** entry stating the misreading: *"Measured 
 tight priors (measurement wiggle only — the proteome is not free-fit)"* sits in the prior
 specification and describes a design choice, not a conclusion from the posterior. The paper is
 right. This paragraph exists so that the withdrawal is on the record even though its file is not.
+
+## D17. The legibility threshold, fixed before any figure was measured (E3, 2026-09-11)
+
+Written and committed before the assessment, so it cannot be tuned to excuse a figure.
+
+**The geometry.** The slide is `aspectratio=169` at Beamer's default 128 mm × 96 mm scaled to
+16:9, so the text block is **`\linewidth` = 307.28 pt** wide (measured from the render, not
+assumed) and `\textheight` ≈ 192 pt. A figure declared `{width=W%}` is rendered `W% × 307.28` pt
+wide; one declared `{height=H%}` is `H% × 192` pt tall.
+
+**The scale factor.** Matplotlib wrote every figure in this deck at a known figure size in inches
+and a known dpi, so its native width in PostScript points is `figsize_in × 72`. The rendered
+scale is then
+
+$$ f = \frac{\text{rendered width in pt}}{\text{native width in pt}} $$
+
+and any text element drawn at $s$ pt in the source appears at $f \times s$ pt on the slide.
+
+**The threshold: a text element must render at $\geq$ 9 pt to count as legible**, and the element
+that governs is the **smallest** one that has to be read — in practice the **tick labels**, since
+every figure here has smaller ticks than axis labels, titles or legends. Matplotlib's default tick
+label size is **10 pt** (`xtick.labelsize`), so the criterion reduces to a scale factor
+
+$$ f \geq 0.9 . $$
+
+Figures whose own script sets a smaller tick size are measured against their own value, not the
+default.
+
+**Why 9 pt.** It is the bottom of the range typography guides give for projected body text, and it
+is roughly the size of the deck's own caption text — so the rule is "a tick label must be no
+smaller than the caption under it", which is checkable by eye afterwards as well as by arithmetic
+beforehand.
+
+**What the rule is not.** It says nothing about whether a figure is *useful* at that size — a
+22-panel scan can be legible by this rule and still be a gestalt rather than something to read.
+Those are handled separately and named where they occur.
+
+**Remedy order, as the prompt sets it:** (a) move the bullets to a preceding slide and give the
+figure the whole frame; (b) split a multi-panel figure across two slides; (c) crop to the
+informative region, stated; (d) last resort, regenerate at a different aspect — and then the
+producing script is edited and committed, never the PNG alone.
