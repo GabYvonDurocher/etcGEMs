@@ -690,3 +690,38 @@ A pre-registration addendum about posterior eigendecomposition, `tm_scale` raili
 correlation continuum arrived during TASK 5 and the user then said it was meant for another session.
 **Not acted on, and not recorded as E5 content.** It concerns a posterior run that does not exist in
 this branch, and E5 has no posterior to analyse.
+
+
+## D24. E6 premise and E5 carry-forward
+
+Run in `etcGEMs-work`, on `e2/deck`, starting at bc356e3. The worktree was clean on
+`q1/n0-check`; switched back without merging or changing Q1. Git worktree bookkeeping resides
+in the shared primary `.git` directory; no primary working files are changed. Interpreter:
+`../etcGEMs-venv/bin/python` 3.9.6. Quarto baseline rendered successfully: 49 source frames,
+52 PDF pages, frame check 0 missing. Rendering required sandbox approval for Quarto's sysctl.
+
+E5 errors 1 and 3 and jobs 4, 5, 6 are carried forward; ERROR 2 is superseded by P16.
+Contrary to E6's premise, E5 had already run (D23): R4 already distinguishes emergent validation
+from calibrated holdout, the line scan already has its own 82%-height slide, and retraction
+framing is absent. E1's register is absent in both worktrees and all available Git history.
+
+Source wins: P12 report TASK 2 stage 3 and D7 set the FINAL basin threshold at 5.0, not the
+earlier 0.02 evaluation jitter. There were 100 screened starts (96 random plus four anchors),
+12 continuations, 11 converged. Updated definitions before the result, finite statistical
+score distinguished from a feasible metabolic solution. The line-scan explanation now correctly
+says 41 points (40 increments) per line, step 0.05 prior SD; 22 x 41 = 902, 12/22 cliffs,
+median largest jump 39%, worst 99%, as in P9.
+
+The joint-pair slide no longer mistakes failed-run live-point spread for full-posterior
+identifiability. This follows P16 D5's correction, without using its unweighted correlation
+values (the review found those calculations omit importance weights).
+
+The -4 K slide is untouched. The adjacent two-number slide retains 0.079 (rounded 0.08),
+7.600 and growth 1.659 (rounded 1.66), verified in Y3 task2b_meta.json/task2c_bound.json.
+Synthesis prose contains neither dTm nor basins; its later evidence rows carry corrections,
+so no public retraction framing is needed. Holdout source: report.qmd lines 563, 570, 580,
+a priori 1.04 versus 2.40 h^-1, about 2.3-fold.
+
+Q1 read at b163bad without merging: carbon-per-cell conversion changes CUE shape and level.
+Added that caveat to the measured-CUE slide. The local Cooper bibliography entry already
+gives year 2001, so corrected its misleading key from Cooper2007 to Cooper2001.

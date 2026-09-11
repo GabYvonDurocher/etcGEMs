@@ -86,7 +86,7 @@ Every descriptor a thermal biologist wants is read off **one predicted curve** �
 ::: {.columns}
 ::: {.column width="42%"}
 - One shared core in Python; **seven organisms** on it (*E. coli* best-constrained)
-- **16 global levers**, deliberately — an identifiable handful in place of 4 101 unconstrainable ones
+- **16 global levers**, deliberately — a manageable set whose identifiability we can test
 - Everything is under a regression suite — **79 structural checks and 60 numerical ones**, re-run on every change, so a fix to one organism cannot silently move another
 - The figure is **a priori**: nothing was fitted to that curve
 :::
@@ -138,9 +138,10 @@ Three kinds, and the difference matters — not two.
 
 ## …and a fourth kind the categories above miss
 
-- **A jointly-constrained PAIR.** $dT_m$ and `tm_scale` are **tightly constrained together, and neither is determined on its own**
-- **This is the opposite of a flat lever.** $dT_m$ is the *most* tightly constrained parameter in the model — live spread 0.051 against a prior of 0.289. A flat lever is one the data cannot move; this is a pair the data pins only in combination
-- **Two independent methods found it**: profiling the likelihood, and the geometry of a sampler's own point cloud. It is the reason the posterior run failed, and it comes back twice later in this deck
+- **Two stability levers can compensate for each other.** Likelihood profiles find similarly good growing fits with different combinations of $dT_m$ and `tm_scale`
+- **That differs from an unmeasured lever.** The fit constrains an effective low-temperature tail of the meltome more strongly than it distinguishes these two ways of moving it
+- The failed 16-parameter run also had a thin direction involving this pair among its remaining sampling points
+- **Those points describe the run's remaining high-likelihood region, not the full posterior.** Their spread cannot establish which parameters the posterior determines individually
 
 ## Development 1: proteome allocation, from measured proteomes
 
@@ -292,7 +293,7 @@ Lines are the model, points the measurement; two media, three configurations. **
 
 ## Measured carbon-use efficiency
 
-Flat from 25 to 40 °C, then a cliff — and the medium sets the level, not the shape.
+The plotted conversion gives a warm-end decline. An unresolved carbon-per-cell constant changes both CUE levels and temperature dependence.
 
 ![`strains/eciML1515/respirometry/`](assets/figures/fig_cue.png){height=66%}
 
@@ -309,11 +310,11 @@ Flat from 25 to 40 °C, then a cliff — and the medium sets the level, not the 
 
 - **Li et al.** used **SMC-ABC**: draw parameter sets from the prior, simulate, keep the ones whose predictions land close to the data, narrow the tolerance, repeat. Reported a posterior over 2 292 parameters [@Li2021]
 - **Pettersen & Almaas** re-ran it **from different random seeds and got different answers**. The method assumes the good parameter sets form a single hill; in this problem there are many. They swapped in an **evolutionary algorithm** to collect a *diversity* of good solutions instead — then showed those solutions disagree wildly on internal fluxes [@Pettersen2023]
-- **What we do differently:** **16 parameters, not 2 292** — small enough for a proper MCMC sampler (an ensemble sampler) rather than an approximate one — and a likelihood that includes the **measured respiration**, not growth alone
+- **Our inference problem:** 16 global parameters and a likelihood combining growth with **measured respiration**. We started with ensemble MCMC and moved to nested sampling after diagnosing the fitting surface
 
 ## …and the three things that went wrong
 
-1. **The chains were too short.** In the earlier MCMC-based family — ours and Parsa's — no chain reached the adopted target (effective sample size $\geq 600$), and running longer did not help. **No interval on any parameter is available**, and none appears here. That is why the method changed to nested sampling
+1. **The chains were too short.** In the earlier MCMC-based family — ours and Parsa's — no chain reached the adopted target (effective sample size $\geq 600$), and running longer did not help. **Intervals from those older chains are unsupported.** That is why the method changed to nested sampling
 2. **The surface itself is not smooth.** We stopped blaming the sampler and looked at the likelihood: 22 line scans, 902 model builds, **12 of 22 lines jump by >20 % of their range on a small step**. Not the solver — unchanged at $10^{-9}$ tolerances and on a different algorithm
 3. **The cause is the respiration term, and it is the degeneracy again.** At cold temperatures the O$_2$ flux at the growth optimum **jumps between equally-optimal solutions** — so the prediction moves discontinuously while the growth rate does not. *Exactly* what Pettersen & Almaas saw by FVA [@Pettersen2023], here as cliffs in a likelihood
 
@@ -321,10 +322,10 @@ Flat from 25 to 40 °C, then a cliff — and the medium sets the level, not the 
 
 ## What a line scan is, and what it found
 
-- **The method.** Start from the best-fitting parameter set. Pick a direction in parameter space. Step along it in small increments, **rebuilding and re-solving the whole metabolic model at every step**, and record how well it fits. **22 directions, 41 steps each, 902 full model solves** — transects: walking out from a summit in 22 directions, recording the altitude every few metres
-- **The step is deliberately small:** one twentieth of a standard deviation of that parameter's plausible range, with each line running out to ±1 sd
-- **What "20 % of the range" means.** The range is the *total* change in fit quality along that whole line. So in **12 of the 22 directions, a single small step changed the fit by more than a fifth of everything that changed along the entire line** — median 39 %, worst 99 %. That is a **cliff**, not a slope
-- **Why it matters, and this is the point.** Fitting algorithms feel their way downhill. A cliff means a tiny parameter change makes the model look catastrophically worse, so the algorithm cannot cross it and gets stuck against it. **The landscape was not a hill to climb; it was a plateau with sheer drops** — and two of the 22 directions were exactly flat
+- **A transect through parameter space.** Start at the best fit, choose a parameter or combination, and step along it. Rebuild and solve the whole model at each point, recording fit quality
+- **22 directions, 41 points each: 902 model builds.** Each step is 0.05 prior standard deviations. Each line spans $-1$ to $+1$ standard deviation
+- **12 of 22 directions have a cliff.** One small step changes fit quality by more than one fifth of its total change along the whole line. Median largest jump: 39 % of that line's range, worst: 99 %
+- Small parameter changes can therefore give abruptly worse fits and impede local searches. Two directions are flat. The next slide shows all 22 transects
 
 ## The surface, scanned
 
@@ -332,16 +333,17 @@ Flat from 25 to 40 °C, then a cliff — and the medium sets the level, not the 
 
 ## How many answers are there? First, what a basin is
 
-- **A basin** is a region of parameter space from which the optimiser, started anywhere inside it, ends at the same bottom. A valley: drop a ball anywhere in it and it rolls to the same place
-- **How we found them.** Start the optimiser from **100 randomly drawn parameter sets** and record where each stops. Then test every pair of endpoints: walk in a straight line between them and see whether the fit has to get **worse** in between. A ridge means two separate basins; no ridge means one basin reached from two directions
-- **The threshold was fixed before the scan:** a line counts as a valley only if its minimum dips below the lower endpoint by more than **0.02 log-likelihood units**, the evaluation jitter measured earlier
-- **A "dead" basin** is a mathematically valid solution in which the organism **does not grow** — peak predicted growth **0.000 h⁻¹** against a measured 2.08. A set of parameters that fits by describing a corpse
+- **A basin is a valley of the fitting problem.** Nearby starting parameters lead an optimiser towards the same good fit
+- **A live basin predicts growth. A dead basin predicts essentially none**, although its parameters still receive a finite statistical score
+- We screened **100 starts**, then continued 12 representative endpoints. **11 converged**. We scanned paths between endpoints to look for barriers in fit quality
+- **The final rule was fixed before those results:** separate basins require a barrier above **5 log-likelihood units** and locally optimal endpoints. Barriers of 1--5 are substructure, below 1 is noise
 
 ## How many answers are there? The result
 
-- **One live basin and one dead one**, of twelve converged endpoints. **Not** the many-modes picture Pettersen & Almaas [@Pettersen2023] found in yeast — but also **not a posterior**
-- **Why the dead one scores at all:** eleven of its twelve temperatures are *infeasible*, so its respiration term is simply not evaluated there — it is rewarded for predicting nothing
-- **Does it survive the current likelihood? Yes.** Tightening the support handling moved the live–dead gap only **11.69 → 11.25** units. What keeps the dead basin out is that its predictions are infeasible, **not** the fitting criterion — which is worth knowing, because it means the criterion is not what is protecting us
+- **The map found one live and one dead region.** The result holds at barrier thresholds of 3, 5 and 8 units. Straight-line paths give an upper bound on the number of basins
+- The dead region predicts peak growth **0.000 h⁻¹**, against a measured **2.076 h⁻¹**
+- **Eleven of its twelve temperatures are infeasible:** the metabolic constraints admit no flux solution. Those temperatures receive no respiration score
+- **The dead region survives the current support rule.** The live--dead likelihood gap changed only from 11.69 to 11.25 units. Infeasibility remains exempted from respiration scoring
 
 ## The posterior: the run, and how it failed
 
@@ -406,7 +408,7 @@ Flat from 25 to 40 °C, then a cliff — and the medium sets the level, not the 
 ## Has it ever predicted anything it was not fitted to?
 
 - **Once, and it half-worked.** The *uncalibrated* model was asked to predict the exact-strain Van Derlinden curve with **nothing fitted to growth**: it tracked the **shape** ($T_{opt}$, $E_a$) and under-predicted the **peak ~2.3-fold** (1.04 against 2.40 h⁻¹). Shape held; magnitude did not
-- **And then that curve was consumed by the calibration**, so the *calibrated* model has no holdout left. Cooper et al.'s evolved *E. coli* lines [@Cooper2007] are the obvious next one
+- **And then that curve was consumed by the calibration**, so the *calibrated* model has no holdout left. Cooper et al.'s evolved *E. coli* lines [@Cooper2001] are the obvious next one
 
 ## Three questions for the group
 
@@ -414,7 +416,7 @@ Flat from 25 to 40 °C, then a cliff — and the medium sets the level, not the 
 
 2. **Respiration peaks 3–5 °C above growth, and carbon-use efficiency falls off a cliff at 43–45 °C.** Is that a general property of bacterial thermal performance, or a feature of these three media?
 
-3. **What would you accept as a real test?** Our candidate is predicting how a TPC *shifts* after 20 000 generations of thermal selection [@Cooper2007]. Is there a better one?
+3. **What would you accept as a real test?** Our candidate is predicting how a TPC *shifts* after 20 000 generations of thermal selection [@Cooper2001]. Is there a better one?
 
 ## References {.allowframebreaks}
 
