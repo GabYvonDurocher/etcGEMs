@@ -32,8 +32,8 @@ reports/ecoli_tpc/assets/figures/decomp_recast_variance.png,ecoli_tpc,"variance 
 reports/ecoli_tpc/assets/figures/decomp_shapley.png,ecoli_tpc,Shapley shares per lever,AS IS,deterministic,
 reports/ecoli_tpc/assets/figures/dltkcat_ensemble.png,ecoli_tpc,TPC ensemble under DLTKcat-derived kcat(T),CAVEAT,Y3 established that DLTKcat's fits are degenerate for 97 % of these enzymes; a slide using it must say so,
 reports/ecoli_tpc/assets/figures/sensitivity_heatmap.png,ecoli_tpc,one-at-a-time sensitivity heatmap,AS IS,deterministic,
-reports/ecoli_gasflux/assets/figures/configD_gasflux.png,ecoli_gasflux,configuration D: predicted O2 uptake and acetate secretion vs temperature against Parsa's measurements,CAVEAT,MECHANISM only. Its fit quality is a point estimate from a chain that ran ~9 autocorrelation times against a >=40 criterion (gasflux README banner); the slide says mechanism and gives no interval. USED - slide 8,USED
-reports/ecoli_gasflux/assets/figures/configD_growth.png,ecoli_gasflux,configuration D: predicted growth vs temperature against measurement,CAVEAT,same banner; mechanism only,
+reports/ecoli_gasflux/assets/figures/configD_gasflux.png,ecoli_gasflux,configuration D: PREDICTED O2 consumption, CO2 formation and respiratory quotient vs temperature, four media; NO measurement overlaid and no acetate panel,CAVEAT,MECHANISM only. Its fit quality is a point estimate from a chain that ran ~9 autocorrelation times against a >=40 criterion (gasflux README banner); the slide says mechanism and gives no interval. USED - slide 8,USED
+reports/ecoli_gasflux/assets/figures/configD_growth.png,ecoli_gasflux,configuration D: PREDICTED growth vs temperature, four media, r_max and T_opt annotated,CAVEAT,same banner; mechanism only. Model output, no measurement overlaid. USED - the growth slide,USED
 reports/ecoli_gasflux/assets/figures/configA_gasflux.png,ecoli_gasflux,configuration A gas fluxes,CAVEAT,same banner,
 reports/ecoli_gasflux/assets/figures/configA_growth.png,ecoli_gasflux,configuration A growth,CAVEAT,same banner,
 reports/ecoli_gasflux/assets/figures/configB_gasflux.png,ecoli_gasflux,configuration B gas fluxes,CAVEAT,same banner,

@@ -224,3 +224,96 @@ new measurement. Specifically it does not claim:
   audit applied to the reference implementation.
 * **that per-enzyme parameters would fix our −4 K.** Y3 screened that and the answer was no.
 * **anything about the Candida models.** Their Tm is predicted, not measured.
+
+---
+
+## D12. Revision round, 2026-09-11 — six notes from the PI
+
+The deck went from 20 slides to **37 pages / 34 frames**. What changed, note by note.
+
+**1. A slide for the sixteen levers.** Two table slides (thermal envelope; budget / maintenance /
+medium / observation) plus a third that says **which of the sixteen the data can actually move**.
+The third is the one that matters: twelve are model levers, four are the experiment and the
+observation model, and **five are flat** — `kappa_scale`, $f_{metab}$, $f_{maint}$,
+`ngam_steepness`, `clearance_mult`. The honest count is "six thermal levers and $\sigma$ doing the
+work, four bookkeeping terms, and five passengers", and the slide says so.
+
+**2. Where the sector numbers come from, and the gap.** The source is now named on the slide:
+**Wang et al. 2026** measured the *E. coli* proteome at a series of temperatures, in separate
+LB / glucose / glycerol series. The gap gets a slide of its own, with the concrete numbers: the
+**glucose series was measured at 25, 30 and 37 °C only**, the allocation is held at its endpoint
+outside that range, and the consequence is a prediction that is **bit-identical from 37 to 44 °C**
+(0.524757 h⁻¹ at all eight grid points). *"That shoulder is the proteomics table running out, not a
+property of the cell."* The rendered figure makes the point visible on its own — the LB series has
+five markers.
+
+**3. Words to levers, and why the heatmap has 12 rows not 16.** The elasticity slide now defines
+each word as a set of levers — catalysis = $\sigma$ + `kcat_scale`; kinetic envelope = $dT_{opt}$ +
+`topt_scale` + $\Delta C_p$`_scale`; stability = $dT_m$ + `tm_scale`; allocation/maintenance = the
+rest — and states that the missing four are `clearance_mult` (the experiment) and
+`resp_scale`/`disc_resp`/`disc_growth` (the observation model), none of which touches the predicted
+curve. Verified against `reports/ecoli_tpc/assets/tables/elasticity_table.csv`, which has exactly
+those twelve rows.
+
+**4. Overflow metabolism, expanded from one slide to four.** What it is (acetate excreted while O₂
+is available; the measured law, threshold 0.76 h⁻¹ and slope 21 mmol gDW⁻¹ h⁻¹, from Basan et al.
+2015) · **why a temperature model needs it at all** (an enzyme-constrained TPC fixes growth but not
+the flux distribution, so O₂ and CO₂ are under-determined — *the same degeneracy Pettersen & Almaas
+found by FVA, seen from the other side*) · the four-mechanism ladder A–F with imposed-or-emergent
+marked · why D is the interesting one (nothing imposed on the acetate branch; the oxidase choice
+becomes a prediction because *bd* and *bo₃* have different $T_m$) · the data behind it (the acetate
+law, Szenk's membrane geometry, Parsa's respirometry, and $c_{max}$ from **his** sweep with his
+verbatim conclusion) · and the advance: **Li et al. and the MRes both stop at growth.**
+
+**5. The Bayesian work in plain terms, two new slides.** What everyone is trying to do, in one
+sentence. Then what Li et al. did (SMC-ABC: simulate, keep the close ones, narrow, repeat) and what
+Pettersen & Almaas found (different seeds, different answers; the method assumes one hill).
+Then ours: 16 parameters not 2 292, a proper MCMC sampler rather than an approximate one, and a
+likelihood that includes the measured respiration. Then **the three things that went wrong**, named
+without jargon: chains ~9 autocorrelation times against a standard of ≥ 40, so **no interval
+exists**; the surface itself is cliffed; and the cause is the O₂ flux jumping between equally
+optimal solutions — *the degeneracy again*. **No report codes ("P9", "P12") appear on any slide.**
+
+**6. Figures enlarged.** Eight figures moved to slides of their own, sized 52–100 % and set by
+**height** where the figure is square or tall (see D13). The message and every honesty label moved
+**above** the figure, where a clipped frame cannot eat them.
+
+## D13. Beamer silently clips overfull frames, and it ate content four times
+
+**This is the defect of the round and it would not have been caught by reading the render log.**
+LaTeX emits **no Overfull warning** for a Beamer frame whose content exceeds the slide: it simply
+truncates. The render log said `0 Overfull` at every stage while:
+
+* the two lever tables dropped **every bullet that followed them**;
+* the overflow ladder table lost **two of its five rows and both trailing bullets**;
+* four figure slides lost their **captions** — one of them mid-sentence, taking the words *"no
+  measurement is plotted here"* with it, which is an honesty label.
+
+**Decision: add `check_frames.py` and make it part of the re-render instruction.** For every frame
+it takes the last substantive source line — figure captions included — reduces it to letters-only
+words (a numeric CSL glues the reference number to the preceding word, which defeats substring
+matching) and requires 90 % of them to appear on the page carrying that frame's title. Exit 1 if
+any frame has lost content. It found all four clips, and it found them again each time a fix
+introduced a new one.
+
+**Two lessons worth keeping.** A clean LaTeX log is not evidence that a deck is complete. And
+shrinking a figure's **width** does nothing for a square figure that is too **tall** — the first
+attempt shrank five figures by 30 % without fixing anything, which is the opposite of what was
+asked for; the sizes are now set per figure by aspect.
+
+## D14. One figure was mis-captioned, and the caption claimed a measurement that is not there
+
+The first version's overflow slide read *"predicted O₂ uptake and acetate secretion … over Parsa's
+measurements"*. Opening `configD_gasflux.png` shows three panels — **O₂ consumption, CO₂ formation
+and respiratory quotient** — across four media, with **no measurement overlaid and no acetate
+panel**.
+
+**Decision: correct the caption, split the slide, and say on both halves that no measurement is
+plotted.** `configD_growth.png` (predicted growth, four media, $r_{max}$ and $T_{opt}$ annotated)
+now carries the medium-ladder point, and the gas-exchange slide points at the respiratory-quotient
+panel, which is the one the carbon-cap argument rests on. `figure_inventory.csv` carried the same
+wrong description and is corrected too.
+
+This is the second time in this deck that a claim was checked by *looking at the artefact* rather
+than at its filename, and both times the artefact disagreed. The rule from D4 applies to captions
+as well as to intervals: **read the figure before describing it.**

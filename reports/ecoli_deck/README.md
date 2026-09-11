@@ -3,8 +3,14 @@
 **Re-render:**
 
 ```bash
-cd reports/ecoli_deck && quarto render deck.qmd      # -> _output/deck.pdf, 20 slides
+cd reports/ecoli_deck && quarto render deck.qmd      # -> _output/deck.pdf, 34 frames / 37 pages
+python3 check_frames.py                              # exit 1 if any frame lost content
 ```
+
+**Always run `check_frames.py` after rendering.** Beamer silently truncates a frame whose content
+overruns the slide and LaTeX emits **no** Overfull warning for it, so a clean render log does not
+mean the deck is complete — it ate two lever tables' bullets, two rows of a table and four figure
+captions while this deck was being written (`DECISIONS.md` D13).
 
 The three figures that are not assembled from other reports are rebuilt with:
 
@@ -23,6 +29,7 @@ there is one source of truth per figure: `../ecoli_tpc/assets/figures/`,
 | `deck.qmd` | the deck. Beamer, 16:9, lualatex |
 | `_output/deck.pdf` | the rendered deck, committed (the convention in `reports/activation_energy/` and `reports/synthesis/`) |
 | `make_figures.py` | the three figures drawn here, from committed tables only |
+| `check_frames.py` | the frame-clipping check; run it after every render |
 | `figure_inventory.csv` | all 54 candidate figures, marked AS IS / CAVEAT / NOT USABLE, with the deciding fact for each |
 | `DECISIONS.md` | the judgement calls, including the MRes baseline (D1) and Pettersen & Almaas (D2) |
 | `references.bib`, `nature-communications.csl` | house convention, copied per report directory |
@@ -32,6 +39,12 @@ there is one source of truth per figure: `../ecoli_tpc/assets/figures/`,
 * **No interval from the older *E. coli* fits appears on any slide**, and seven otherwise
   attractive figures are excluded because the unsupported interval is drawn *inside the image*
   (`DECISIONS.md` D4).
+* **Figure sizes are set per figure, by aspect** — `{height=...}` for a square or tall figure,
+  `{width=...}` for a wide one. Shrinking the width of a tall figure does nothing; it is the
+  height that overruns the frame.
+* **No slide claims a model-over-measurement overlay**, because no committed table provides one.
+  The gas-flux figures are model output; the respirometry figures are measurement; they are on
+  separate slides and both say which they are.
 * **Gas-flux slides carry the mechanism and say so.** The R² behind them are point estimates from
   chains that ran ~9 autocorrelation times against a ≥ 40 criterion — see the banner at the top of
   `../ecoli_gasflux/README.md`.
