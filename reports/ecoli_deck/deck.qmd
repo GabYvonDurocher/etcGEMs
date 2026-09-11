@@ -345,28 +345,26 @@ The plotted conversion gives a warm-end decline. An unresolved carbon-per-cell c
 - **Eleven of its twelve temperatures are infeasible:** the metabolic constraints admit no flux solution. Those temperatures receive no respiration score
 - **The dead region survives the current support rule.** The live--dead likelihood gap changed only from 11.69 to 11.25 units. Infeasibility remains exempted from respiration scoring
 
-## The posterior: the run, and how it failed
+## The reduced posterior: run 1 converged
 
-- The plan, **fixed before either run started**: nested sampling (`dynesty`), **800 live points**, two runs on different seeds, stopping at **dlogz < 0.1** — and an agreement rule, *"the two log Z agree within their combined reported error **and** no posterior median differs by more than two Monte-Carlo errors"*
-- **Run 1 crashed** after 9.9 h at iteration **11,547**, with dlogz still at **2.168** against a target of 0.1. Resumed from its checkpoint it died again **bit-identically** — the failure is deterministic. **Run 2 was never started. No posterior exists, and nothing is quoted here**
-- **But the crash localised itself.** From the sampler's own 800 live points, the smallest covariance eigenvalue is **1.9 × 10⁻⁴** against a largest of 0.28 — **condition number 1,457**
+- We fixed the uniform melting-temperature shift **$dT_m=0$**, leaving **15 free parameters**. Configuration D on the NLDM recipe, with the current respiration likelihood
+- **The first clean nested run in this family:** 14,088 iterations, 221,781 likelihood evaluations, **9.585 hours**, no crash
+- **Log evidence $\log Z=-26.030\pm0.109$**, effective sample size **5,988**. The recorded stopping statistic reached **0.09999**, below 0.1
+- **Seed 2 is in flight. Independent confirmation is pending.** All posterior numbers shown here come from seed 1 alone
 
-## The posterior: what the crash localised
+## The stopping and reproducibility rules
 
-- The degenerate direction loads almost entirely on **$dT_m$ (+0.90)**, with $\sigma$ (+0.27) and `tm_scale` (−0.22) next; among the live points **corr($dT_m$, `tm_scale`) = +0.83**
-- **That is the same pair found by profiling the likelihood** — two routes sharing no machinery: one an optimiser walking the surface, the other the geometry of a sampler's point cloud
-- The bounding ellipsoid had been **singular for hours** (1,124 divide-by-zero warnings) before the sampler finally failed
+- **Pre-registered sampler:** `dynesty`, 800 live points, random-direction slice sampling (`rslice`, 3 slices), multiple ellipsoidal bounds
+- **Stopping rule:** estimated remaining change in log evidence, **dlogz $<0.1$**. Evidence uncertainty is a separate quantity
+- **Agreement requires both:** the two log evidences agree within their combined reported errors **and** no parameter median differs by more than two Monte-Carlo errors
+- Seed 1 meets its stopping rule. **The two-seed agreement test has no result yet.** Sampler convergence alone does not establish useful biological predictions
 
-## What that does and does not mean
+## What the reduction assumes
 
-- **It is not a flat direction.** $dT_m$ is the **most tightly constrained parameter in the model** — live spread 0.051 against a prior of 0.289. This is a thin **correlated ridge**, not a plateau, and a sampler that brackets along a direction will eventually fail on one
-- **What is being done:** fix one member of the pair at nominal, re-run at **15 dimensions**, with the full eigenspectrum checked first for further degenerate pairs. That converts an unidentifiability into a stated limitation. **Whether it works is not yet known** — the run has not reported
-- **The claim is narrow, deliberately.** This degeneracy is measured **in this model, by two routes**. Nothing here says it is a general property of enzyme- and temperature-constrained models
-- Also visible in the live points, and expected: $f_{metab}$, $\Delta C_p$`_scale` and $f_{maint}$ sit **essentially at their priors** — the first fixed by measurement, the others not moved by these data
-
-::: {.block}
-### The honest position today: mechanisms that reproduce, a likelihood we understand, and no intervals.
-:::
+- **`tm_scale` does not pile up at its upper bound:** median **1.069**, 5th--95th percentiles **[0.793, 1.515]**, prior bounds **[0.4, 2.2]**
+- **0.00% of seed 1's posterior weight** lies within 5% of that upper bound. There is no observed boundary pile-up in this run
+- The failed 16-parameter run identified a numerical difficulty in its remaining sampling points. **That geometry cannot be treated as the full posterior**
+- **Fixing $dT_m$ assumes the meltome's mean is right.** Any uniform error in measured melting temperatures must now be absorbed by `tm_scale` and the catalytic parameters
 
 ## Auditing the published model
 
@@ -398,11 +396,11 @@ The plotted conversion gives a warm-end decline. An unresolved carbon-per-cell c
 - **So the two levers are constrained together and neither alone.** That is the same $dT_m$/`tm_scale` pair the posterior run's own geometry found, in units anyone can read
 - One method was an optimiser profiling the likelihood; the other was a sampler's live points collapsing onto a correlation. **They share no machinery**
 
-## Settled · failed · needs measurement
+## Established results and pending confirmation
 
 - **Settled.** One shared codebase with seven organism models on it, under the regression suite. The mechanisms: measured proteome sectors, overflow emerging from a carbon cap, the ETC area budget. The audits — including the reference implementation passing ours
 - **Settled, and uncomfortable.** No interval from the older *E. coli* fits is available. The likelihood surface is structurally rough. The meltome's low tail is contradicted by every fit
-- **Failed, and informatively.** The posterior run crashed on a degenerate direction the run itself identified. A reduced re-run is under way; no posterior yet
+- **Converged, awaiting confirmation.** The reduced 15-parameter run reached its stopping rule. Seed 2 is in flight. Seed 1 gives substantial weight to very-low-growth predictions
 - **Needs measurement — not more modelling.** Proteome allocation **above 37 °C on glucose** — the measurement exists, its *range* does not, and that is where $CT_{max}$ is set; maintenance vs temperature from a low-dilution chemostat (`ngam_*` are borrowed); *in vivo* stability for the enzymes that set the thermal limit
 
 ## Has it ever predicted anything it was not fitted to?

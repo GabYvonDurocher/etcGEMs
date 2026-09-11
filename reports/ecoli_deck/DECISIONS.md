@@ -725,3 +725,22 @@ a priori 1.04 versus 2.40 h^-1, about 2.3-fold.
 Q1 read at b163bad without merging: carbon-per-cell conversion changes CUE shape and level.
 Added that caveat to the measured-CUE slide. The local Cooper bibliography entry already
 gives year 2001, so corrected its misleading key from Cooper2007 to Cooper2001.
+
+## D25. E6 posterior: source-verified seed 1 only
+
+Replaced the three obsolete P15 posterior slides with the converged P16 result, stopping and
+agreement rules, and the cost of the reduction. Sources read-only from primary at 191b4b0:
+P16 D2/D3/D4, summary_red1.json, trace_red1.json, task5_summary.json/task5_marginals.csv.
+14,088 iterations, 221,781 evaluations, 9.585 h, logZ -26.0298936831 +/- 0.1093582543,
+ESS 5987.5599. The source summary MISLABELS logzerr as dlogz_final; the true final trace
+value is 0.09999335448 and the slide uses it. No inference from the mislabel is made.
+
+tm_scale upper quantile is 1.515456, so rounded to 1.515 rather than the prompt's 1.516.
+Median 1.068839, lower quantile 0.793060, zero mass near upper bound 2.2. Non-railing is
+reported as an observation, not proof that all degeneracies are removed. No unweighted
+P16 pair correlations quoted. The full meltome-mean assumption is on the slide.
+
+Primary run.log records seed-2 progress, with no summary_red2.json present. This deck is
+a dated snapshot of that pending state, as required; no seed-2 numeric results are quoted.
+Process inspection was sandbox-blocked, so liveness is based on recorded progress and the
+user's run context, not an independently inspected process. No solver or sampler was run.
