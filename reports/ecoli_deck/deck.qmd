@@ -276,13 +276,6 @@ Lines are the model, points the measurement; two media, three configurations. **
 
 ![`make_fit_figures.py`](assets/figures/fig_fit_o2.png){height=60%}
 
-## …and carbon-use efficiency, which we cannot yet overlay
-
-- The model would need **biomass carbon over total carbon consumed**
-- The second term is a sum over the **64 open carbon sources** of the NLDM recipe, which the prediction path does not return; the first needs a **biomass carbon fraction** that is not in the strain data
-- Both would have to be invented, so **CUE stays measurement-only** — the measured curve is two slides back
-- **This is the next thing to close**, and it is a small piece of plumbing rather than a new experiment
-
 ## …and what it costs the cell
 
 - **Carbon-use efficiency** — the share of assimilated carbon kept as biomass rather than respired
@@ -296,6 +289,13 @@ Lines are the model, points the measurement; two media, three configurations. **
 Flat from 25 to 40 °C, then a cliff — and the medium sets the level, not the shape.
 
 ![`strains/eciML1515/respirometry/`](assets/figures/fig_cue.png){height=66%}
+
+## …and carbon-use efficiency, which we cannot yet overlay
+
+- The model would need **biomass carbon over total carbon consumed**
+- The second term is a sum over the **64 open carbon sources** of the NLDM recipe, which the prediction path does not return; the first needs a **biomass carbon fraction** that is not in the strain data
+- Both would have to be invented, so **CUE stays measurement-only** — the measured curve is the previous slide
+- **This is the next thing to close**, and it is a small piece of plumbing rather than a new experiment
 
 ## The statistical problem, in plain terms
 
