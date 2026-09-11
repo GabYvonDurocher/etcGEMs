@@ -213,3 +213,73 @@ If this run converges, **it converges over a model with `dTm` fixed**. Comparing
 P11's or P15's would be comparing evidences for **different models**, which is a legitimate thing
 to do only as a Bayes factor and is **not** what the agreement rule is testing. The agreement rule
 compares **two seeds of the same reduced model** and nothing else.
+
+## D4 — addendum 1, pre-registered while the reduced run is still sampling and no posterior exists
+
+Written at 10:2x on 2026-09-11, with `red1` at an early iteration and **no samples, weights or
+summary written**. Every item below is therefore a prediction or a reporting commitment, not an
+interpretation.
+
+### 1. The eigendecomposition is reported ALONGSIDE the marginals, not instead of them
+
+TASK 5 will report, for the posterior covariance of the 15 free parameters **in the unit cube**:
+each direction's **eigenvalue**, its **loadings on all fifteen parameters**, and its
+**posterior/prior width ratio**.
+
+That ratio is exactly defined here because the prior is **uniform on the unit cube**: along any unit
+direction the prior sd is **1/√12 = 0.2887**, so the ratio is **√(12 λ_k)**. A classification,
+stated now rather than after:
+
+> **CONSTRAINED** if the ratio is **< 0.5** (the data halve the prior width or better);
+> **PRIOR-DOMINATED** if **> 0.8**; **INTERMEDIATE** in between.
+> The count in each class is reported.
+
+**Why this matters and is not decoration.** With correlations of 0.80–0.86 the **marginals will be
+wide while the combinations are tight**, and fifteen marginals alone would *understate* what the
+data determine. That is the mirror image of P4's error, whose unconverged intervals were
+misleadingly *narrow*. Both are failures to report the geometry; they simply point in opposite
+directions.
+
+### 2. A prediction that can be checked rather than explained afterwards
+
+**Predicted:** the three pairs stronger than the one fixed — **`sigma~kcat_scale` −0.857**,
+**`dCp_scale~dTopt` −0.853**, **`kappa_scale~tm_scale` +0.804** — will appear in the posterior as
+**prior-dominated directions with tight orthogonal complements**: a wide direction along the
+correlation and a narrow one across it.
+
+**If they do not** — if the data constrain those parameters individually — that is reported as a
+failed prediction, and it means **the live-point covariance from a crashed run was not
+representative of the posterior**. That would be worth knowing in its own right, because P15's
+entire diagnosis, P16's spectrum and the choice of which parameter to fix all rest on that
+covariance.
+
+### 3. `tm_scale` railing is a finding, not a nuisance
+
+TASK 2 established that with `dTm` pinned at 0, Y3's 4–6 K tail requirement needs **`tm_scale`
+1.32–1.62**, against a prior bound of **[0.4, 2.2]**.
+
+> `tm_scale`'s posterior is reported **with its bound printed beside it**, together with the
+> **fraction of posterior mass within 5 % of 2.2**.
+>
+> **If it piles against 2.2, the reduction relocated the degeneracy rather than removing it, and
+> that is reported as prominently as the convergence verdict** — in the report's opening, in
+> OPEN_ITEMS, and in an evidence row.
+
+### 4. The hidden uncertainty travels with every summary
+
+In the words fixed in D2: **this posterior assumes the meltome's mean is exactly right, and any
+uniform error in the measured melting temperatures is now absorbed by `tm_scale` and the catalytic
+parameters.** That sentence appears in the parameter table's caption, in the report's
+reconciliation, and in every evidence row that quotes a number from this posterior.
+
+### 5. If it crashes again: diagnose, name the direction, STOP
+
+> Diagnose the live-point covariance exactly as P15 did, name the degenerate direction, and **stop**.
+> **Do not fix a second parameter in response.** That would be the fifth threshold moved after
+> seeing its data.
+
+And it would be **the expected outcome, not a surprise**: D1 documented that this spectrum is a
+**continuum with no gap**, so removing its leading direction leaves the next one only 3.24× larger.
+A second crash would therefore make the case for **a different approach entirely** — reparameterise,
+re-specify the thermal model, or bring data that breaks the redundancies — rather than for another
+reduction.
