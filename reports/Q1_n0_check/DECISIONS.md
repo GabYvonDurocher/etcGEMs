@@ -70,3 +70,50 @@ fit in units this table does not expose. Whether an `N0` error therefore scales
 here**; it is decided empirically in TASK 1 instead. And the mg-O₂→fg-C step assumes **one carbon
 per O₂** (a respiratory quotient of 1), which is a modelling choice in the pipeline, not a
 measurement.
+
+## D1 — replicates are the mean per (medium, temperature), because that is what the likelihood sees
+
+`gate_def.load_obs` does `groupby("T")[col].mean()`, so the fit compares the model against the
+replicate mean. The residual is formed on the same means — one point per (medium, temperature), 12
+temperatures per medium. Per-replicate `sd` and `n` are carried in `task1_residuals.csv` so the
+weight behind each point is visible, but they do **not** weight the regressions: the likelihood does
+not weight them either, and weighting here would measure something the fit never optimised.
+
+## D2 — the residual is computed for all three configurations D, E and F
+
+One configuration cannot distinguish "the conversion imprints itself on the data" from "this
+particular model is wrong". A trend present in D, E and F alike points at the data; a trend in one
+points at that model. Cost is nil — the predictions are all in the committed
+`reports/ecoli_deck/fit_predictions.csv`. `fit_predictions.csv` is on a 1.5 °C dense grid and the
+measurements are not, so the model curve is linearly interpolated onto the measured temperatures;
+the grid is fine enough (1.5 °C) that interpolation error is far below the residual scale.
+
+## D3 — the paired-media regression carries a free intercept, and that is not a concession
+
+Read from `make_fit_figures.py`: the model's per-cell rate is `mmol gDW⁻¹ h⁻¹ × gdw_per_cell ×
+resp_scale`, where `gdw_per_cell = 2.8e-13` is a **single constant** in
+`strains/eciML1515/gas_exchange.yaml` — no growth-rate dependence anywhere in the conversion. That
+is precisely the configuration in which a Schaechter-type size/growth relation would surface as a
+residual tracking growth rate.
+
+But `resp_scale` is fitted **separately per (config, medium)** — D: 3.336 / 3.369, E: 10.230 /
+5.325, F: 11.041 / 4.705 for NLDM / LB. So any *constant* offset in per-cell scale between the two
+media has already been absorbed into `resp_scale` and cannot appear in the residual. The paired test
+therefore regresses Δresidual on Δgrowth-rate **with a free intercept**: the intercept absorbs the
+absorbed offset, and the slope — which `resp_scale` cannot absorb, because it is one number per
+medium and the growth-rate difference varies across temperatures — is the informative quantity.
+This is the reason the test is a slope test and not a comparison of residual levels.
+
+## D4 — TASK 1 verdict: no growth-rate imprint at fixed temperature
+
+The marginal regressions are mixed and configuration-specific: in configuration D the NLDM residual
+trends with temperature (slope +0.0268 per °C, 95 % CI [+0.0121, +0.0414], p = 0.0022, R² = 0.62)
+and, confoundedly, with growth rate (+0.331 [+0.023, +0.638], p = 0.038, R² = 0.36); in E and F
+nothing reaches p < 0.05 on either axis in either medium. That mixture is what the confound
+predicts and it settles nothing on its own.
+
+The paired-media test — temperature held exactly, growth rate varying by up to 2.0 h⁻¹ between
+media — finds no relation in any configuration: D slope −0.252 [−0.622, +0.118] p = 0.16, E −0.020
+[−0.524, +0.485] p = 0.93, F +0.006 [−0.273, +0.284] p = 0.96. The sign in D is *opposite* to the
+artefact's prediction, and D's and F's intervals exclude the Schaechter-scale slope of +0.35 to
++0.75 (TASK 3 sources the band). This is a null result and is reported as such.
