@@ -6,7 +6,7 @@
 
 *Evidence:* task0_verify.py re-confirms state-independence in ~4 min; task1_proofs.py re-runs the three dynesty proofs (the prior transform deferred to P11's own script, which regenerates its committed output byte-identically); run_nested.py is P11's runner changed only in its output directory, first_update, log location and an assertion that the strain config is on clamp; task1_crash_diag.py restores the committed checkpoint and recomputes the live-point covariance in seconds. The seven-strain gate (79/79, 60/60) comes from the standard battery. The crash is reproducible by resuming dynesty_run1.save with the same settings.
 
-**This report was last written at** `23abd16` (2026-09-11) — P15: D3 -- CORRECTION: the crash is deterministic; run 1 is terminal; run 2 not started
+**This report was last written at** `2688ab3` (2026-09-11) — P15: record -- report, OPEN_ITEMS, evidence, README note, stamps
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 
