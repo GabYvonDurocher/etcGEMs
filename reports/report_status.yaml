@@ -497,3 +497,19 @@ P15_posterior:
     task1_crash_diag.py restores the committed checkpoint and recomputes the live-point covariance
     in seconds. The seven-strain gate (79/79, 60/60) comes from the standard battery. The crash is
     reproducible by resuming dynesty_run1.save with the same settings.
+Q1_n0_check:
+  status: CURRENT
+  note: >-
+    a diagnosis, not an experiment: no solves, no fits, no data altered and no conversion changed.
+    Arithmetic on committed tables only -- the respirometry derived tables and E4's committed
+    fit_predictions.csv. Its headline is a NULL result on the question asked, and it contradicts
+    OPEN_ITEMS 1.9's framing rather than confirming it: the respiration likelihood's observable
+    contains N0 but not cell_carbon_fg, so "respiration R2 is at risk" is wrong, while CUE moves
+    materially and changes shape. 1.9 remains Parsa's to resolve.
+  evidence: >-
+    `python3 reports/Q1_n0_check/task1_residuals.py` (72 residuals, the marginal regressions and the
+    paired-media test, seconds); `task1_figure.py`; `task2_sensitivity.py` -- which first reproduces
+    all seven derived columns from the table's own constants to <=8.5e-14 and asserts it, so the
+    TASK 0 chain is re-checked on every run, then recomputes under config.R's constants;
+    `task3_size_growth.py` (power against the Schaechter band). The biomass-integral identity
+    N0*(exp(r*T_end)-1)/r holds to 6.9e-14 on R2A/LB (n=117) and 7.1e-14 on M9 (n=66).
