@@ -690,3 +690,21 @@ A pre-registration addendum about posterior eigendecomposition, `tm_scale` raili
 correlation continuum arrived during TASK 5 and the user then said it was meant for another session.
 **Not acted on, and not recorded as E5 content.** It concerns a posterior run that does not exist in
 this branch, and E5 has no posterior to analyse.
+
+## Noted from Q1 (2026-09-11) — the CUE slide needs a caveat, and the deck is NOT edited here
+
+Q1 (`reports/Q1_n0_check/`) recomputed the respirometry chain under Parsa's `config.R` conversion
+(2120.58 fg C per cell) against the derived tables' typed constant (350 fg) and **CUE moves
+materially, and its shape moves** — it is `growthC/(growthC + respC)` and so not linear in the
+constant. R2A/LB CUE goes from **0.072–0.664 to 0.241–0.922**; `d log CUE/dT` from −0.0587 to
+−0.0436 (NLDM), −0.0476 to −0.0362 (LB), −0.1646 to −0.1461 (M9). At 15 °C LB CUE goes 0.40 → 0.80.
+
+So **`fig_cue.png` and its slide carry an unstated dependence on an unresolved constant**
+(OPEN_ITEMS 1.9), and the right caveat is roughly: *the CUE level depends on an unresolved
+carbon-per-cell constant and could be ~2× higher; the shape of its temperature dependence shifts by
+~25 %.* The measured **O₂** panels are safe — `R_O2_mg_cell_min` has factor exactly 1.0000 under
+the alternative conversion, so the deck's existing per-cell caveat is, if anything, stronger than it
+needed to be on that quantity.
+
+**Recorded here and not acted on.** Editing `deck.qmd` is E5's branch and it may be mid-flight; Q1's
+remit was diagnosis only. Whoever next touches the deck should add the caveat.
