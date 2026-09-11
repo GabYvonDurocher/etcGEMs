@@ -17,9 +17,9 @@ from scipy import stats
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 COL = {"NLDM": "#1b6ca8", "LB": "#c0392b"}
-# Schaechter band: d(ln cell mass)/d(mu) in h^-1, the slope a constant-mass conversion would
+# Schaechter band: d(ln cell mass)/d(mu) in h, the slope a constant-mass conversion would
 # induce in the residual if cell mass followed the growth law. Sourced in TASK 3.
-SCHAECHTER = (0.35, 0.75)
+SCHAECHTER = (0.45, 0.80)
 
 
 def fit_line(ax, x, y, c, ls="-"):

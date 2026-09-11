@@ -115,8 +115,10 @@ predicts and it settles nothing on its own.
 The paired-media test — temperature held exactly, growth rate varying by up to 2.0 h⁻¹ between
 media — finds no relation in any configuration: D slope −0.252 [−0.622, +0.118] p = 0.16, E −0.020
 [−0.524, +0.485] p = 0.93, F +0.006 [−0.273, +0.284] p = 0.96. The sign in D is *opposite* to the
-artefact's prediction, and D's and F's intervals exclude the Schaechter-scale slope of +0.35 to
-+0.75 (TASK 3 sources the band). This is a null result and is reported as such.
+artefact's prediction. TASK 3 sources the literature band as k = 0.45-0.80 h and finds that D's and
+F's intervals exclude it entirely while E's is too wide to (upper bound +0.485 against a band
+starting at 0.45); the band quoted in an earlier draft of this entry, 0.35-0.75, was provisional
+and is superseded by D7's sourced value. This is a null result and is reported as such.
 
 ## D5 — the biomass integral is exponential and exactly proportional to N0, which closes what D0 left open
 
@@ -179,3 +181,63 @@ constant, so its *shape* moves: R2A/LB CUE goes from 0.072–0.664 to 0.241–0.
 TASK 1's residual is built from `R_O2_mg_cell_min` and `growth_C_per_C_h`, both factor exactly
 1.0000 (verified to 0 relative deviation), so **every slope, CI, p and R² in TASK 1 is unchanged by
 the conversion**. The null result is conversion-independent.
+
+## D7 — the size/growth band, and the fact that the repository cites nothing for it
+
+**The repository cites no cell-size/growth-rate reference.** `references.bib` (identical in
+`ecoli_deck/`, `ecoli_tpc/` and `activation_energy/`) has `Basan2015` and `Scott2010` — proteome
+allocation against growth rate, not cell size — and `Mairet2021` on the temperature dependence of
+growth laws. `Cooper2007` is not a cell-size paper: despite the key it is Cooper, Bennett & Lenski
+**2001**, *Evolution* **55**:889–896, on the evolution of thermal dependence. So this band is
+sourced from outside the repository and that is stated in the report rather than hidden behind a
+citation key.
+
+**The band.** The nutrient growth law — Schaechter, Maaløe & Kjeldgaard 1958, *J. Gen. Microbiol.*
+**19**:592–606 — has mean cell mass rising exponentially with growth rate,
+`M(µ) = M₀ exp(k µ)`. Reading `k` through the Donachie/Cooper replication-plus-division period,
+`k = (C + D) ln 2` with `C + D` ≈ 40–70 min in E. coli, gives **k = 0.45–0.80 h**. An earlier draft
+of D4 used a provisional 0.35–0.75 before this was sourced; 0.45–0.80 supersedes it and
+`task1_figure.py`'s band was regenerated to match.
+
+**Why the paired-media test is the right test and not merely a convenient one.** Schaechter et
+al.'s own central result is that cell size tracks growth rate when growth rate is set by **medium
+composition**, and is very nearly **invariant** when growth rate is set by **temperature** at fixed
+medium. So the axis on which a constant fg-C-per-cell is genuinely in danger is the medium axis —
+which is exactly the axis the paired comparison isolates with temperature held. This makes the
+paired test not a workaround for the confound but the directly appropriate measurement, and it also
+means the marginal growth-rate regression was never the right question.
+
+## D8 — TASK 3: the test was powered, and the artefact's signature is the wrong shape anyway
+
+**Power.** The artefact predicts `residual = k µ + const`, so the paired regression's slope
+estimates `k` *directly* — no conversion needed. Against the band 0.45–0.80: configuration **D**
+excludes it entirely (CI upper bound +0.118) and so does **F** (+0.284); **E** does not (+0.485,
+against a band beginning at 0.45), because E's residuals are the noisiest. **2 of 3 configurations
+exclude the entire literature band at 95 %** — reported as 2 of 3, not 3 of 3.
+
+**Shape.** Along the temperature axis a size effect must be proportional to `µ(T)`, which is
+hump-shaped, so it cannot produce a clean monotone trend; growth rate is only weakly *linear* in
+temperature over the full series (µ-vs-T R² = 0.09 for NLDM, 0.31 for LB). Propagating the band
+through `dµ/dT` gives the induced `dr/dT` against the observed:
+
+| config / medium | observed dr/dT | artefact dr/dT (band) | fraction |
+|---|---|---|---|
+| D / NLDM | +0.0268 | +0.0085 .. +0.0151 | **0.32–0.56** |
+| D / LB | +0.0094 | +0.0249 .. +0.0442 | 2.6–4.7 |
+| E / NLDM | −0.0105 | +0.0085 .. +0.0151 | opposite sign |
+| E / LB | +0.0154 | +0.0249 .. +0.0442 | 1.6–2.9 |
+| F / NLDM | −0.0103 | +0.0085 .. +0.0151 | opposite sign |
+| F / LB | +0.0014 | +0.0249 .. +0.0442 | 18–32 |
+
+Only one of six cells sits in `(0, 1)`: a literature-magnitude size effect could account for
+**roughly a third to a half** of configuration D's NLDM temperature trend — the one marginal trend
+that was significant. In the other five it predicts the wrong sign or a trend 1.6–32× larger than
+observed. So the data are, if anything, *less* consistent with a size effect than with none. These
+are order-of-magnitude estimates from a literature band, not fits, and are labelled as such.
+
+**The measurement that would settle it.** Per-condition cell size or dry mass measured alongside
+the respirometry — cell counts with a sizing channel, or dry weight per cell — at each temperature
+and on each medium, which would replace both constants with a measured `fg C cell⁻¹ (medium, T)`.
+The fitted `K` in the derived tables is in OD-like units (8.1e-6–2.2e-2) and is not a cell count, so
+it cannot substitute. **Whether such data exist is Parsa's to answer; this run does not assume
+either way.**
