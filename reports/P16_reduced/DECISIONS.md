@@ -168,3 +168,48 @@ be pushed into `tm_scale` (as a spread change) and into the catalytic parameters
 that follows is a posterior over a model that assumes the meltome's mean is exactly right.** That
 is a stated limitation, not a silent reduction, and it appears in TASK 5's table, in the report's
 reconciliation, and in OPEN_ITEMS 1.24.
+
+## D3 — the reduced run: settings, the agreement rule, and the predictions carried forward
+
+Written before the sampler was launched.
+
+### Settings — P15's D1 exactly, except the dimension
+
+| | |
+|---|---|
+| free parameters | **15** (`dTm` pinned at 0.0) |
+| nlive | 800 |
+| sample / bound | `rslice`, slices 3 / `multi` |
+| stopping | dlogz < 0.1 |
+| `first_update` | `{'min_eff': 30}` |
+| checkpoint | every 30 min; wall-clock cap **16 h** |
+| processes | 16 |
+
+**The sampler is NOT changed**, in particular not in response to P15's crash. If this run crashes,
+it is reported with the same covariance diagnosis P15 used, and the sampler still is not changed.
+
+The reduction was verified before launch: `log L` at p38 with `dTm` pinned reproduces TASK 3's
+**−60.3092** exactly, and the 15→16 expansion round-trips on every other coordinate.
+
+### The agreement rule
+
+> **AGREED** if a second seed's log Z agrees within combined reported error **AND** no posterior
+> median differs by more than two Monte-Carlo errors. **The second seed runs ONLY if the first
+> converges.**
+
+### The two predictions, carried forward unchanged from P15 D1
+
+> **(i)** The posterior moves **away** from parameter values placing any temperature within **1 % of
+> `_MASK_G`**, reported as the fraction of posterior samples doing so, with **P11's posterior** as
+> comparator.
+>
+> **(ii)** Posterior-predictive growth at **15 °C rises**, against the measured **0.0937 /h**.
+
+Unchanged in wording, and still diagnostics rather than criteria.
+
+### One thing that must not be read as success
+
+If this run converges, **it converges over a model with `dTm` fixed**. Comparing its log Z to
+P11's or P15's would be comparing evidences for **different models**, which is a legitimate thing
+to do only as a Bayes factor and is **not** what the agreement rule is testing. The agreement rule
+compares **two seeds of the same reduced model** and nothing else.
