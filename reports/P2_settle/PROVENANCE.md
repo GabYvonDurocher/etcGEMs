@@ -6,7 +6,7 @@
 
 *Evidence:* task1_kcat.py, task2_nldm.py and task3_cmax.py regenerate their own tables.
 
-**This report was last written at** `5fefbe3` (2026-09-08) — P2: summary
+**This report was last written at** `4461b78` (2026-09-11) — E4: attribution, internal framing, and the carbon cap explained
 
 **Committed inputs it reads (found by scanning this report's own files), and the commit each was last written at:**
 

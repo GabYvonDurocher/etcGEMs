@@ -27,7 +27,7 @@ The notice sits at the **top** of `reports/ecoli_gasflux/README.md` and as a fiv
 > **A, B, C — gated. D, E, F — ported, ungated.** … The growth and respiration R² values his
 > report quotes for them … are **his numbers, not reproduced here**, and must not be quoted as
 > though they were. **What is missing:** `derived_N0_R_results_with_carbon.csv` … it exists only
-> on Parsa Amirmoeini's machine and a search of the whole 1.0 GB snapshot he supplied finds no
+> on Parsa's machine and a search of the whole 1.0 GB snapshot he supplied finds no
 > copy. It has been requested.
 
 **Verified after the merge, exit codes checked explicitly and never chained with `&&`:**
