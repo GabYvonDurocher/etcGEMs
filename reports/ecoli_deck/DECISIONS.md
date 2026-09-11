@@ -646,8 +646,7 @@ two axes are exactly flat. The slide explains what a line scan is, what the step
 the range" means, and why a cliff defeats an algorithm that feels its way downhill.
 
 **Figure 12 got its own slide**: `task1_scan.png` went from `height=66%` (rendered 181.5 pt,
-$f$ 0.35) to **`height=82%` (rendered 234.3 pt, $f$ 0.19)** — wait: the earlier figure was measured
-at `height=66%` giving 188.6 pt and $f$ **0.15**; it is now 234.3 pt and $f$ **0.19**, a 24 %
+$f$ 0.15) to **`height=82%` — rendered 188.6 pt to 234.3 pt, $f$ 0.15 to 0.19, a 24 %
 enlargement. **It is still far below the legibility threshold and always will be** — 1 224 pt native
 against a 398 pt slide (D18, `OPEN_ITEMS` 2.10). That is why the slide before it carries the whole
 explanation in words and the figure's own line says *"read the pattern, not the axes"*.

@@ -6,7 +6,7 @@
 
 *Evidence:* `python3 reports/ecoli_deck/make_figures.py` rebuilds the three local figures from `strains/eciML1515/respirometry/derived_*_current.csv` and `reports/Y2_regime_posterior/task3_posterior_draws.csv`; `cd reports/ecoli_deck && quarto render deck.qmd` produces the committed `_output/deck.pdf` (20 slides, no overfull box, no unresolved citation). Every other figure is pointed at by relative path in its producing report. figure_inventory.csv carries the three-way marking and the deciding fact for each of 54 candidates.
 
-**This report was last written at** `17c171c` (2026-09-11) — E4: render -- CUE slides in the right order, 45 pages
+**This report was last written at** `04c3da2` (2026-09-11) — E5: the stopping rule, the crash, the holdout, and jargon in plain words
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 
