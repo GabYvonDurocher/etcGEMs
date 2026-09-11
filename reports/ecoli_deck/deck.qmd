@@ -448,13 +448,36 @@ Earlier basin-map scores, before the current support rule:
 - **Once, and it half-worked.** The *uncalibrated* model was asked to predict the exact-strain Van Derlinden curve with **nothing fitted to growth**: it tracked the **shape** ($T_{opt}$, $E_a$) and under-predicted the **peak ~2.3-fold** (1.04 against 2.40 h⁻¹). Shape held; magnitude did not
 - **And then that curve was consumed by the calibration**, so the *calibrated* model has no holdout left. Cooper et al.'s evolved *E. coli* lines [@Cooper2001] are the obvious next one
 
+## The next controlled comparison: configuration D on M9
+
+- **Change the medium, keep the configuration.** M9 plus glucose is fully defined. NLDM is a defined model recipe standing in for the experiments' undefined R2A medium
+- If the degeneracy and low-growth mass recur on M9, the explanation extends beyond NLDM. If they change, the medium is implicated
+- **Before fitting:** resolve infeasibility scoring, check oxygen-flux tie-breaking on M9 and whether D's carbon cap binds. Keep the excluded M9 control series explicit
+- A more restrictive medium could increase infeasibility. This comparison follows the likelihood diagnosis
+
+## Model evidence asks which mechanism the data support
+
+- **D: a total-carbon cap** produces overflow
+- **E: a respiratory membrane-area budget** limits respiratory capacity
+- **F: that area budget with non-electrogenic bd-II** changes respiratory coupling
+- These are **competing mechanisms**. Compare their log evidences on the **same medium and observations**, with a common scoring rule and declared comparable priors
+- Nested sampling returns evidence with the posterior. D on NLDM currently gives **$-26.030\pm0.109$ from seed 1**. It is a provisional starting value, not a D/E/F comparison; changing the likelihood requires a new D result too
+
+## What happens next
+
+- Confirm seed reproducibility against the pre-registered rule.
+- Resolve the infeasibility exemption before further fits.
+- Test D on fully defined M9.
+- Compare D/E/F evidences on one medium.
+- Measure glucose proteome allocation above 37 °C.
+
 ## Three questions for the group
 
-1. **Is a few-kelvin gap between an *in vitro* meltome and *in vivo* functional inactivation expected?** If it is, the model is asking the meltome the wrong question and we should say so. If it is not, the model is wrong somewhere we have not looked
+1. **Which respiratory mechanism should the data distinguish?** A carbon cap, a membrane-area limit, or altered respiratory coupling? What independent measurement would make the evidence comparison convincing?
 
-2. **Respiration peaks 3–5 °C above growth, and carbon-use efficiency falls off a cliff at 43–45 °C.** Is that a general property of bacterial thermal performance, or a feature of these three media?
+2. **How should infeasible predictions be scored?** We can identify the exemption. What observation model would make a model with no feasible flux solution appropriately unlikely?
 
-3. **What would you accept as a real test?** Our candidate is predicting how a TPC *shifts* after 20 000 generations of thermal selection [@Cooper2001]. Is there a better one?
+3. **What would count as a strong external test?** Predicting thermal-curve shifts after 20,000 generations [@Cooper2001], or another held-out experiment? Glucose proteome measurements above 37 °C would constrain the uncertain allocation layer
 
 ## References {.allowframebreaks}
 

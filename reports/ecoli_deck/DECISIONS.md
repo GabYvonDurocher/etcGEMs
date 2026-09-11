@@ -768,3 +768,19 @@ conversion; CUE is not. No claim that Q1 diagnosed the dead basin.
 exp(-11.7) = 8.29e-6, exp(-11.7/15) = 0.4584. The volume calculation is explicitly an
 illustration, not a measured posterior-volume ratio or proof of the cause. The earlier
 P12 scores are labelled historical and not substituted for P16 likelihoods.
+
+## D27. E6 next steps and closing questions
+
+Read primary OPEN_ITEMS section 0d directly (uncommitted evening plan). Added its sequence
+to this branch's OPEN_ITEMS and deck. The next-steps slide has 39 words by whitespace count,
+five bullets in the requested order, immediately before the three closing questions.
+Two preceding slides explain the M9 comparison and D/E/F mechanisms so the short list can
+remain intelligible. Model evidence must compare the same data under compatible likelihoods
+and declared priors; changing infeasibility treatment invalidates using old D evidence as
+a matched baseline. M9 recurrence implicates effects beyond NLDM, not definitive proof
+that the thermal layer alone is responsible.
+
+All three closing questions rewritten to ask about discriminating mechanisms, defensible
+infeasibility scoring, and an external predictive test. Cooper's existing local citation
+is 2001. Exactly three questions retained. No sampling, data changes or experimental
+claims added.

@@ -58,6 +58,28 @@ is what the last week bought.
 6. **Cooper 2007 as holdout** (R4). Only meaningful after 5.
 7. **Then, and only then, port the recipe to Candida** against Ilgaz's measured TPCs.
 
+### 0d. E6 deck snapshot and next steps (2026-09-11)
+
+P16 seed 1 converged with dTm fixed to zero, log Z -26.030 +/- 0.109 and effective sample
+size 5,988. Seed 2 remains pending in this deck snapshot. The agreement rule requires log Z
+within combined error AND no parameter median differing by more than two Monte-Carlo errors.
+
+1. Confirm reproducibility and whether seed 2 reproduces seed 1's low-growth predictive mass.
+2. Quantify infeasibility among low-growth predictions and settle its respiration-likelihood
+   exemption before any new fit. The 50.7% figure estimates draws growing below half the measured
+   peak, not the fraction proven infeasible. MAP and weighted predictive distributions are the
+   useful summaries; the vector of marginal medians is unrepresentative.
+3. Run D on M9, changing the medium only. NLDM stands in for experimental R2A; M9 + glucose is
+   fully defined. First check the M9 oxygen tie-break, carbon-cap binding and excluded control
+   series. A stricter medium may increase infeasibility.
+4. Compare D/E/F evidences on the same medium and observations, with the same likelihood and
+   comparable declared priors. Any likelihood repair requires recomputing D evidence too.
+5. Measure proteome allocation above 37 C on glucose.
+
+The emergent model DID predict Van Derlinden a priori (1.04 versus 2.40 per hour, shape held).
+The calibrated model has no independent holdout. R4 already records E5's correction in this
+branch. E6 supersedes E5's P15-crash slide and carries forward its other corrections.
+
 ### 0c. Reconciliation rule — read before absorbing any new result
 
 Every run in this series has produced a result that looked like the answer and was one layer of a
