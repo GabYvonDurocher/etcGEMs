@@ -1,6 +1,6 @@
 # NLDM -- Nutrient-Limited Defined Medium, FINAL (post-dilution) per-compound concentrations.
 #
-# PROVENANCE. Transcribed from Parsa Amirmoeini's `scripts_posterior_multimedia_tpc.py`
+# PROVENANCE. Transcribed from Parsa's `scripts_posterior_multimedia_tpc.py`
 # (`NLDM_COMPONENTS` + `_NLDM_CLASS_mM`) in the etcGEMs-main_3 snapshot, which cites
 # de Raad et al. 2022 (Front. Microbiol.), Table 1 of the NLDM note. Nothing was imported
 # from his outputs; this is the recipe as his source code states it (P1 DECISIONS D1).

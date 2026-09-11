@@ -87,7 +87,7 @@ Every descriptor a thermal biologist wants is read off **one predicted curve** �
 ::: {.column width="42%"}
 - One shared core in Python; **seven organisms** on it (*E. coli* best-constrained)
 - **16 global levers**, deliberately — an identifiable handful in place of 4 101 unconstrainable ones
-- Guarantee against regression: **79/79** structural gates and **60/60** reproduction checks, re-run on every change
+- Everything is under a regression suite — **79 structural checks and 60 numerical ones**, re-run on every change, so a fix to one organism cannot silently move another
 - The figure is **a priori**: nothing was fitted to that curve
 :::
 ::: {.column width="58%"}
@@ -205,9 +205,22 @@ The three zero rows are zero for **different reasons**: `kappa_scale` and `ngam_
 - That is the *same* degeneracy Pettersen & Almaas found by FVA on the oxidase reaction [@Pettersen2023], seen from the other side
 - **Until it is pinned, an etcGEM cannot predict a gas flux at all**
 
+## The total-carbon cap: what it is
+
+- **From the code:** $\sum_i n_{C,i}\,v_{i} \le c_{max}$ over **every open carbon uptake**, with $n_{C,i}$ the carbon count read from the model's own metabolite formula. Units **mmol C gDW⁻¹ h⁻¹**; inorganic carbon is not charged to it
+- **What it produces:** a finite carbon budget *and* a finite protein budget make the LP excrete acetate on its own. **Overflow emerges; it is not written in.** That is the difference between configuration D and configuration C
+- **A second role, honestly stated:** an enzyme-constrained curve fixes growth but not the internal fluxes, so O₂ and CO₂ are under-determined. The cap is **one of three ways offered to pin them** — and it does **not** fully succeed: the O₂ flux at the optimum still jumps between equally-optimal solutions, which is the cliff problem later in this deck
+
+## The total-carbon cap: why the value matters
+
+- **At $c_{max} = 60$ acetate overflow is exactly zero on both media** — the cap suppresses the very mechanism it exists to create. On NLDM, $T_{opt}$ also drops **39.0 → 32.5 °C** between 80 and 60
+- **120 is the lowest value in his sweep at which overflow is non-zero on both** (23.5 on glucose, 3.9 on NLDM mmol gDW⁻¹ h⁻¹) — which is why it was adopted
+- **It is medium-dependent, and 60 / 120 / 450 is one quantity, not three guesses.** Applying the glucose/NLDM value of 120 to LB holds $r_{max}$ at **1.1–1.8 h⁻¹** against a measured **2.945**, and growth $R^2$ falls to **0.64 / 0.05 / −0.10** across three configurations; at the LB-appropriate cap they are **0.90 / 0.83 / 0.88**
+- **LB is settled at 450.** That was the resolution of a real disagreement, not a compromise
+
 ## …and how it is made to emerge
 
-Four ways to pin it — Parsa Amirmoeini's configurations A–F, ported here and gated.
+Four ways to pin it — Parsa's configurations A–F, ported here and reproduced against his numbers.
 
 | | mechanism | imposed or emergent |
 |:--|:--|:--|
@@ -242,7 +255,7 @@ The medium ladder is the measured sector split at work: $r_{max}$ **1.19** (gluc
 - Parsa's respirometry: **O$_2$ flux and growth per cell, 15–50 °C, three media** (R2A, LB, M9), ~60 replicate runs each
 - This is exactly the **fluxomics on the O$_2$-consuming reaction** that Pettersen & Almaas [@Pettersen2023] name as the missing data
 - And it is a **measurement**, not a model output — which is what makes it able to break the degeneracy
-- Ported and **gated**: Parsa's own numbers reproduce here (60/60 on the configurations, 10/10 on the respirometry fits)
+- Ported and **checked against his own results**: all sixty of his configuration numbers and all ten of his respirometry fits reproduce here, the worst to within 0.009
 - Look at the shape: **respiration peaks 3–5 °C above growth** (43–45 °C vs ~40 °C) and is still climbing where growth has begun to fail
 
 ## Measured growth and respiration, three media
@@ -257,7 +270,7 @@ The medium ladder is the measured sector split at work: $r_{max}$ **1.19** (gluc
 - Flat at **~0.6** (R2A, LB) and **~0.4** (M9) from 25 to 40 °C
 - Then a **cliff**: 0.29 / 0.52 / 0.05 at 45 °C
 - Medium sets the *level*; temperature sets the *cliff*
-- CUE is listed in our own *E. coli* paper as **future work**. It is measured, in three media, and not yet folded in
+- **The model does not yet predict it.** CUE needs the carbon budget closed — biomass carbon against total carbon consumed — and that is the next thing the gas-exchange layer can be asked for
 
 ## Measured carbon-use efficiency
 
@@ -329,7 +342,7 @@ Flat from 25 to 40 °C, then a cliff — and the medium sets the level, not the 
 
 ## Settled · in flight · needs measurement
 
-- **Settled.** The shared core and the seven-organism port, gated. The mechanisms: measured proteome sectors, overflow emerging from a carbon cap, the ETC area budget. The audits — including the reference implementation passing ours
+- **Settled.** One shared codebase with seven organism models on it, under the regression suite. The mechanisms: measured proteome sectors, overflow emerging from a carbon cap, the ETC area budget. The audits — including the reference implementation passing ours
 - **Settled, and uncomfortable.** No interval from the older *E. coli* fits is available. The likelihood surface is structurally rough. The meltome's low tail is contradicted by every fit
 - **In flight.** The posterior, on a pre-registered convergence criterion
 - **Needs measurement — not more modelling.** Proteome allocation **above 37 °C on glucose** — the measurement exists, its *range* does not, and that is where $CT_{max}$ is set; maintenance vs temperature from a low-dilution chemostat (`ngam_*` are borrowed); *in vivo* stability for the enzymes that set the thermal limit
