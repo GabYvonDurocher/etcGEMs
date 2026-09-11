@@ -317,3 +317,70 @@ wrong description and is corrected too.
 This is the second time in this deck that a claim was checked by *looking at the artefact* rather
 than at its filename, and both times the artefact disagreed. The rule from D4 applies to captions
 as well as to intervals: **read the figure before describing it.**
+
+---
+
+## D15. `f_metab` and `f_maint` are FIXED BY MEASUREMENT, and calling them flat was wrong (E3, 2026-09-11)
+
+The PI's correction, and it withdraws an earlier reading of his own. Verified against the paper
+rather than taken on trust:
+
+* the sector fractions $(f_{metab}, f_{bio}, f_{maint})(m,T)$ are *"taken from the measured
+  proteome, matched to growth medium $m$ and temperature $T$ — **never fit to growth**"*
+  (`report.qmd`, the allocation equation);
+* in the calibration, *"Measured sector fractions get **tight** priors (measurement wiggle only —
+  the proteome is not free-fit)"* (`report.qmd`, "The free set and priors"). That sentence is in
+  the **prior specification** — a design choice — not a conclusion drawn from a posterior.
+
+So the likelihood being insensitive to them **within one posterior standard deviation is the design
+working.** Growth and respiration are not asked to re-derive a proteomics measurement. **The phrase
+is "fixed by measurement", never "unidentified" and never "flat for want of data".**
+
+**The five "flat" parameters are three different things**, and the deck now says so on the
+"Which of the sixteen the data can actually move" slide as a **three-way** split:
+
+| | levers | why |
+|:--|:--|:--|
+| the data move them | $dT_{opt}$, `topt_scale`, $\Delta C_p$`_scale`, $dT_m$, `tm_scale`, `kcat_scale`, $\sigma$, `ngam_scale` | eight |
+| **fixed by measurement** | $f_{metab}$, $f_{maint}$ | measured proteome, tight priors |
+| **genuinely unidentified** | `kappa_scale`, `ngam_steepness` | nothing measures them here |
+| not model levers | `clearance_mult`, `resp_scale`, `disc_resp`, `disc_growth` | the experiment and the observation model |
+
+**`ngam_scale` / `ngam_steepness` checked rather than assumed.** The paper's own free-set list calls
+them *"the borrowed maintenance"*, and the NGAM constants ($a_m \approx 8.5$ mmol ATP gDW⁻¹ h⁻¹,
+$b \approx 0.62$, $E_m \approx 0.5$ eV, $T_{ref} = 298.15$ K) are **ported from the MRes *E. coli*
+model**, not measured for this strain or condition. So the NGAM half of R2 is a **genuine** gap and
+stands. `ngam_scale` is moved by the data; `ngam_steepness` is not.
+
+**`kappa_scale` likewise checked.** $\kappa$ (`translation_coeff`) is *auto-calibrated once at build
+time* so that the metabolic pool and the translation cap are exactly co-limiting at the nominal
+point. It is neither measured nor borrowed from a paper — a derived quantity nothing measures
+independently. Genuinely unidentified.
+
+**Three other places in the deck carried the wrong framing and are corrected:** the elasticity
+slide (the two near-zero rows are now named as *different reasons, same appearance*); the
+posterior-status slide (what we still will not know is `kappa_scale`/`ngam_steepness`, and
+$f_{metab}$/$f_{maint}$ *"need nothing: they are already measurements"*); and the
+needs-measurement slide (the gap is the **range** of the allocation measurement, not its
+existence).
+
+**Left alone, because it was already right:** the *"…and this is where we need more data"* slide.
+It never said the sectors were unidentified — it said the measured series stops at 37 °C on
+glucose and the allocation is then frozen, which is the real gap and is where $CT_{max}$ is set.
+
+**`docs/OPEN_ITEMS.md` §0a R2** restated accordingly: the classification was wrong, P11's
+measurement of the flatness was not, and the allocation gap is **range, not existence** — one
+proteomics series, not a modelling problem.
+
+## D16. E1 is still absent, so only the OPEN_ITEMS half of the withdrawal could be done
+
+`reports/E1_paper_register/` does not exist — still not on `main`, on any branch, or anywhere in
+the history, and there is still no commit prefixed "E1:". **There is therefore no
+`corrections.csv` and no INVERTED row to withdraw.**
+
+**Decision: do the OPEN_ITEMS half, record that the other half has no target, and do not
+reconstruct E1's register** — the prompt forbids it and D0 already records why. When E1 runs, the
+row it should carry is a **WITHDRAWN** entry stating the misreading: *"Measured sector fractions get
+tight priors (measurement wiggle only — the proteome is not free-fit)"* sits in the prior
+specification and describes a design choice, not a conclusion from the posterior. The paper is
+right. This paragraph exists so that the withdrawal is on the record even though its file is not.

@@ -124,17 +124,19 @@ Each acts on **every** enzyme at once, on top of the per-enzyme data.
 
 ## Which of the sixteen the data can actually move
 
-- **Twelve are model levers** — they change the predicted curve. The other four do not:
-  `clearance_mult` is a property of the experiment, and `resp_scale`, `disc_resp`, `disc_growth`
-  are the **observation model** (unit conversion and how wrong the model is allowed to be)
-- **Five of the sixteen are flat** — one growth curve and one respiration series cannot move them:
-  `kappa_scale`, $f_{metab}$, $f_{maint}$, `ngam_steepness`, `clearance_mult`
-- They are **held at nominal and declared**, not quietly fitted. What would move them is
-  measurement, not a longer chain:
-  - proteome allocation vs temperature $\to$ $f_{metab}$, $f_{maint}$, `kappa_scale`
-  - maintenance vs temperature from a low-dilution chemostat $\to$ `ngam_*`
-- **So the honest count is not "16 parameters". It is six thermal levers and $\sigma$ doing the
-  work, four bookkeeping terms, and five passengers**
+Three kinds, and the difference matters — not two.
+
+- **Eight the data move.** $dT_{opt}$, `topt_scale`, $\Delta C_p$`_scale`, $dT_m$, `tm_scale`,
+  `kcat_scale`, $\sigma$, `ngam_scale`
+- **Two are FIXED BY MEASUREMENT — $f_{metab}$, $f_{maint}$.** They enter from the measured
+  proteome, matched to medium *and* temperature, and carry **tight priors: measurement wiggle
+  only**. The likelihood not moving them within that width is **the design working**, not a
+  deficiency — growth and respiration are not asked to re-derive a proteomics measurement
+- **Two are genuinely unidentified.** `kappa_scale` (effective translation demand, derived once at
+  build time — nothing measures it independently) and `ngam_steepness` (maintenance steepness,
+  *borrowed* from the MRes model). **These** are the ones a measurement would fix
+- **Four are not model levers at all.** `clearance_mult` is a property of the experiment;
+  `resp_scale`, `disc_resp`, `disc_growth` are the observation model
 
 ## Development 1: proteome allocation, from measured proteomes
 
@@ -177,7 +179,7 @@ Each acts on **every** enzyme at once, on top of the per-enzyme data.
 ## Elasticity: every descriptor against every lever
 
 Twelve model levers (rows) against five curve descriptors (columns), at the operating point.
-**Deterministic — there are no intervals in this figure.** `kappa_scale` and $f_{metab}$ are the flat rows.
+**Deterministic — there are no intervals in this figure.** The two near-zero rows are `kappa_scale` (unidentified) and $f_{metab}$ (fixed by measurement) — different reasons, same appearance.
 
 ![Elasticities, standardised step $h=0.10$. `reports/ecoli_tpc`](../ecoli_tpc/assets/figures/elasticity_heatmap.png){height=58%}
 
@@ -287,7 +289,7 @@ Faint points are individual replicate runs; bars are s.e.m. of the replicate mea
 - **Two runs are in flight.** The stopping rule was fixed **before** they started: chain length $> 40$ autocorrelation times **and** effective sample size $\geq 200$
 - **Nothing is quoted from them here** — that is the whole point of pre-registering the criterion
 - What we will be able to say when they land: an interval on each of the sixteen levers, conditional on the mode, and a posterior-predictive band on the TPC and on the gas fluxes
-- What we will **still** not be able to say: anything about the eleven parameters the current data cannot move (five flat, and the observation model)
+- What we will **still** not be able to say: anything about `kappa_scale` or `ngam_steepness` — those need a measurement, not a longer chain. $f_{metab}$ and $f_{maint}$ need nothing: they are already measurements
 
 ::: {.block}
 ### The honest position today: mechanisms that reproduce, a likelihood we understand, and no intervals.
@@ -321,7 +323,7 @@ Faint points are individual replicate runs; bars are s.e.m. of the replicate mea
 - **Settled.** The shared core and the seven-organism port, gated. The mechanisms: measured proteome sectors, overflow emerging from a carbon cap, the ETC area budget. The audits — including the reference implementation passing ours
 - **Settled, and uncomfortable.** No interval from the older *E. coli* fits is available. The likelihood surface is structurally rough. The meltome's low tail is contradicted by every fit
 - **In flight.** The posterior, on a pre-registered convergence criterion
-- **Needs measurement — not more modelling.** Proteome allocation above 37 °C on glucose (the gap on slide 13); maintenance vs temperature from a low-dilution chemostat; *in vivo* stability for the enzymes that actually set the thermal limit
+- **Needs measurement — not more modelling.** Proteome allocation **above 37 °C on glucose** — the measurement exists, its *range* does not, and that is where $CT_{max}$ is set; maintenance vs temperature from a low-dilution chemostat (`ngam_*` are borrowed); *in vivo* stability for the enzymes that set the thermal limit
 - **Never yet tested.** Nothing in this framework has been asked to predict data it was not fitted to. Cooper et al.'s evolved *E. coli* lines [@Cooper2007] are the obvious holdout
 
 ## Three questions for the group
