@@ -3,8 +3,9 @@
 **Re-render:**
 
 ```bash
-cd reports/ecoli_deck && quarto render deck.qmd      # -> _output/deck.pdf, 34 frames / 37 pages
+cd reports/ecoli_deck && quarto render deck.qmd      # -> _output/deck.pdf, 37 frames / 40 pages
 python3 check_frames.py                              # exit 1 if any frame lost content
+python3 measure_figures.py                           # exit 1 if any figure is illegible
 ```
 
 **Always run `check_frames.py` after rendering.** Beamer silently truncates a frame whose content
@@ -30,6 +31,7 @@ there is one source of truth per figure: `../ecoli_tpc/assets/figures/`,
 | `_output/deck.pdf` | the rendered deck, committed (the convention in `reports/activation_energy/` and `reports/synthesis/`) |
 | `make_figures.py` | the three figures drawn here, from committed tables only |
 | `check_frames.py` | the frame-clipping check; run it after every render |
+| `measure_figures.py` | the legibility check: rendered tick-label size per figure, against the threshold in `DECISIONS.md` D17 |
 | `figure_inventory.csv` | all 54 candidate figures, marked AS IS / CAVEAT / NOT USABLE, with the deciding fact for each |
 | `DECISIONS.md` | the judgement calls, including the MRes baseline (D1) and Pettersen & Almaas (D2) |
 | `references.bib`, `nature-communications.csl` | house convention, copied per report directory |
@@ -39,6 +41,11 @@ there is one source of truth per figure: `../ecoli_tpc/assets/figures/`,
 * **No interval from the older *E. coli* fits appears on any slide**, and seven otherwise
   attractive figures are excluded because the unsupported interval is drawn *inside the image*
   (`DECISIONS.md` D4).
+* **`measure_figures.py` exits 1 and will keep doing so.** The three figures drawn here pass
+  ($f$ 0.91–0.94, tick labels 9.1–9.4 pt); the **eight borrowed ones cannot** — they are journal
+  figures, natively 432–1224 pt wide against a 398 pt slide, so their ceiling is $f \approx 0.47$
+  whatever the layout. Fixing them means re-running their producing scripts at slide width, which
+  rewrites other reports' committed assets. `DECISIONS.md` D18; `docs/OPEN_ITEMS.md`.
 * **Figure sizes are set per figure, by aspect** — `{height=...}` for a square or tall figure,
   `{width=...}` for a wide one. Shrinking the width of a tall figure does nothing; it is the
   height that overruns the frame.

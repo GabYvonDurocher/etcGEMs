@@ -38,25 +38,23 @@ csl: nature-communications.csl
 
 ## The two temperature responses, per enzyme
 
-**Left:** relative turnover $\widehat{k}(T)$, each enzyme peaking at its own $T_{opt}$.
-**Right:** native folded fraction $f_N(T)$, each collapsing at its own $T_m$. The whole-cell curve is what the LP makes of these.
+**Left:** turnover $\widehat{k}(T)$, each enzyme peaking at its own $T_{opt}$. **Right:** folded fraction $f_N(T)$, each collapsing at its own $T_m$.
 
-![~12 *E. coli* enzymes. `reports/ecoli_tpc`](../ecoli_tpc/assets/figures/example_enzyme_kcatT.png){height=52%}
+![~12 *E. coli* enzymes. `reports/ecoli_tpc`](../ecoli_tpc/assets/figures/example_enzyme_kcatT.png){height=66%}
 
 ## The state of the art: Li et al. 2021
 
-::: {.columns}
-::: {.column width="42%"}
 - Yeast `ecYeast7`; **764 enzymes, 2 292 parameters** ($T_m$, $T_{opt}$, $\Delta C_p^\ddagger$ each)
 - $T_m$ **measured** (266 of 764); $T_{opt}$ **predicted** from sequence, carried as a wide prior
 - Fitted to **growth and chemostat fluxes**
 - **No gas exchange** — no O$_2$, no acetate
 - Headline: ERG1 controls flux at 40 °C, confirmed in the wet lab [@Li2021]
-:::
-::: {.column width="58%"}
-![The class of object — a model TPC with its descriptors marked; here *our E. coli* model at its reference point. `reports/ecoli_tpc`](../ecoli_tpc/assets/figures/reference_tpc.png){width=100%}
-:::
-:::
+
+## What one of these curves looks like
+
+Every descriptor a thermal biologist wants is read off **one predicted curve** — and each is a different question of the model.
+
+![Our *E. coli* model at its reference point. `reports/ecoli_tpc`](../ecoli_tpc/assets/figures/reference_tpc.png){height=66%}
 
 ## The problem the field found: Pettersen & Almaas 2023
 
@@ -149,9 +147,9 @@ Three kinds, and the difference matters — not two.
 
 ## The measured sectors
 
-**The chaperone sector (red) ramps sharply above 37 °C** — that is the measured heat-stress response entering the model as an allocation change, not as a fitted parameter.
+**The chaperone sector (red) ramps sharply above 37 °C** — the measured heat-stress response entering as an allocation change, not a fitted parameter.
 
-![Measured *E. coli* proteome-sector mass fractions across LB temperature. Data: Wang et al. [@Wang2026]; figure: `reports/ecoli_tpc`](../ecoli_tpc/assets/figures/proteome_sector_fractions.png){height=54%}
+![Wang et al. [@Wang2026]; figure `reports/ecoli_tpc`](../ecoli_tpc/assets/figures/proteome_sector_fractions.png){height=66%}
 
 ## …and this is where we need more data
 
@@ -176,12 +174,28 @@ Three kinds, and the difference matters — not two.
 - **The result:** $r_{max}$ is owned by catalysis ($\sigma$ alone has elasticity $\approx 1$); $T_{opt}$ and $CT_{max}$ by stability; $E_a$ and niche width by the spread of optima
 - **So a TPC descriptor is not a parameter.** Each one asks the model a different question — which is why fitting to peak height tells you nothing about the hot edge
 
-## Elasticity: every descriptor against every lever
+## Elasticity: the numbers
 
-Twelve model levers (rows) against five curve descriptors (columns), at the operating point.
-**Deterministic — there are no intervals in this figure.** The two near-zero rows are `kappa_scale` (unidentified) and $f_{metab}$ (fixed by measurement) — different reasons, same appearance.
+Fractional change in each descriptor per fractional change in each lever, at the operating point. **Deterministic — no intervals.** Bold is |E| > 0.3.
 
-![Elasticities, standardised step $h=0.10$. `reports/ecoli_tpc`](../ecoli_tpc/assets/figures/elasticity_heatmap.png){height=58%}
+| lever | $T_{opt}$ | $r_{max}$ | $CT_{max}$ | niche width | $E_a$ |
+|:--|--:|--:|--:|--:|--:|
+| $dT_{opt}$ | 0.00 | −0.09 | 0.00 | **−0.34** | **0.26** |
+| `topt_scale` | 0.00 | −0.23 | 0.00 | **−1.05** | **1.41** |
+| $\Delta C_p$`_scale` | 0.00 | −0.02 | 0.00 | 0.29 | 0.22 |
+| $dT_m$ | 0.13 | 0.09 | 0.13 | 0.18 | −0.24 |
+| `tm_scale` | **−0.26** | −0.14 | −0.16 | −0.21 | 0.24 |
+| `kcat_scale` | 0.00 | **0.40** | 0.00 | 0.07 | **−0.37** |
+| $\sigma$ | 0.00 | **1.00** | 0.00 | −0.11 | **0.36** |
+| $f_{maint}$ | 0.00 | **−0.56** | 0.00 | 0.06 | **−0.37** |
+| `ngam_scale` | 0.00 | −0.00 | 0.00 | −0.01 | 0.01 |
+| the three zero rows | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
+
+## …and the same numbers as a pattern
+
+The three zero rows are zero for **different reasons**: `kappa_scale` and `ngam_steepness` unidentified, $f_{metab}$ fixed by measurement.
+
+![Elasticity heatmap, $h=0.10$. `reports/ecoli_tpc`](../ecoli_tpc/assets/figures/elasticity_heatmap.png){height=66%}
 
 ## Development 2: overflow metabolism — what it is
 
@@ -213,17 +227,15 @@ Four ways to pin it — Parsa Amirmoeini's configurations A–F, ported here and
 
 ## Configuration D: the growth curve it predicts
 
-The medium ladder is the measured sector split doing its work: $r_{max}$ **1.19 h⁻¹** on glucose-minimal to **2.02 h⁻¹** on BHI/LB, $T_{opt}$ 38–40 °C.
-**Model output — no measurement is plotted here.**
+The medium ladder is the measured sector split at work: $r_{max}$ **1.19** (glucose) to **2.02 h⁻¹** (BHI/LB), $T_{opt}$ 38–40 °C. **Model output; no measurement plotted.**
 
-![Predicted growth, configuration D, four media. `reports/ecoli_gasflux`](../ecoli_gasflux/assets/figures/configD_growth.png){height=54%}
+![`reports/ecoli_gasflux`](../ecoli_gasflux/assets/figures/configD_growth.png){height=66%}
 
 ## …and the gas exchange it predicts
 
-**Look at the right-hand panel: RQ $\approx 1$ around the optimum** — respiratory, not fermentative. That is the carbon cap doing its job.
-**Model output; no measurement plotted; the fit behind it is a point estimate from an unconverged chain. Mechanism, not interval.**
+**Right-hand panel: RQ $\approx 1$ around the optimum** — respiratory, not fermentative. **Model output; no measurement plotted; mechanism, not interval.**
 
-![O$_2$ consumption, CO$_2$ formation, respiratory quotient. `reports/ecoli_gasflux`](../ecoli_gasflux/assets/figures/configD_gasflux.png){width=100%}
+![`reports/ecoli_gasflux`](../ecoli_gasflux/assets/figures/configD_gasflux.png){width=100%}
 
 ## The data nobody else has
 
@@ -235,25 +247,23 @@ The medium ladder is the measured sector split doing its work: $r_{max}$ **1.19 
 
 ## Measured growth and respiration, three media
 
-**Respiration peaks 3–5 °C above growth** and is still climbing where growth has begun to fail.
-Faint points are individual replicate runs; bars are s.e.m. of the replicate mean.
+**Respiration peaks 3–5 °C above growth** and is still climbing where growth has begun to fail. Faint points are replicate runs; bars s.e.m.
 
-![Measured per-cell growth (**a**) and respiration (**b**). From `strains/eciML1515/respirometry/`](assets/figures/fig_respirometry.png){width=94%}
+![`strains/eciML1515/respirometry/`](assets/figures/fig_respirometry.png){height=66%}
 
 ## …and what it costs the cell
 
-::: {.columns}
-::: {.column width="42%"}
 - **Carbon-use efficiency** — the share of assimilated carbon kept as biomass rather than respired
 - Flat at **~0.6** (R2A, LB) and **~0.4** (M9) from 25 to 40 °C
 - Then a **cliff**: 0.29 / 0.52 / 0.05 at 45 °C
 - Medium sets the *level*; temperature sets the *cliff*
 - CUE is listed in our own *E. coli* paper as **future work**. It is measured, in three media, and not yet folded in
-:::
-::: {.column width="58%"}
-![Measured carbon-use efficiency against temperature, same tables and script as the previous slide.](assets/figures/fig_cue.png){width=100%}
-:::
-:::
+
+## Measured carbon-use efficiency
+
+Flat from 25 to 40 °C, then a cliff — and the medium sets the level, not the shape.
+
+![`strains/eciML1515/respirometry/`](assets/figures/fig_cue.png){height=66%}
 
 ## The statistical problem, in plain terms
 
@@ -273,9 +283,9 @@ Faint points are individual replicate runs; bars are s.e.m. of the replicate mea
 
 ## The surface, scanned
 
-**One panel per parameter line — read the pattern, not the axes:** smooth parabolas broken by vertical cliffs, and two panels flat all the way across. This is what a sampler has to explore.
+**One panel per parameter line — read the pattern, not the axes:** parabolas broken by cliffs, and two panels flat all the way across.
 
-![22 line scans of the log-likelihood, 902 model builds. `reports/P9_surface`](../P9_surface/task1_scan.png){height=60%}
+![22 line scans, 902 model builds. `reports/P9_surface`](../P9_surface/task1_scan.png){height=66%}
 
 ## How many answers are there? — and two retractions
 
@@ -289,7 +299,7 @@ Faint points are individual replicate runs; bars are s.e.m. of the replicate mea
 - **Two runs are in flight.** The stopping rule was fixed **before** they started: chain length $> 40$ autocorrelation times **and** effective sample size $\geq 200$
 - **Nothing is quoted from them here** — that is the whole point of pre-registering the criterion
 - What we will be able to say when they land: an interval on each of the sixteen levers, conditional on the mode, and a posterior-predictive band on the TPC and on the gas fluxes
-- What we will **still** not be able to say: anything about `kappa_scale` or `ngam_steepness` — those need a measurement, not a longer chain. $f_{metab}$ and $f_{maint}$ need nothing: they are already measurements
+- What we will **still** not know: `kappa_scale` and `ngam_steepness` — those need a measurement, not a longer chain
 
 ::: {.block}
 ### The honest position today: mechanisms that reproduce, a likelihood we understand, and no intervals.
@@ -305,10 +315,9 @@ Faint points are individual replicate runs; bars are s.e.m. of the replicate mea
 
 ## The asymmetry at Li et al.'s own posterior
 
-**Left:** the top of the curve widens from ~1.5 °C to ~7.3 °C when the binding constraint changes.
-**Right:** $T_{opt}$ moves further than $CT_{max}$ in 92 % of their models — but $CT_{max}$ is **not** immune.
+**Left:** the top of the curve widens from ~1.5 to ~7.3 °C. **Right:** $T_{opt}$ moves further than $CT_{max}$ in 92 % of their models — but $CT_{max}$ is **not** immune.
 
-![Li et al.'s 100 posterior models. From `reports/Y2_regime_posterior` tables](assets/figures/fig_y2_asymmetry.png){width=94%}
+![`reports/Y2_regime_posterior`](assets/figures/fig_y2_asymmetry.png){height=66%}
 
 ## The awkward one: our model needs a −4 K stability shift
 

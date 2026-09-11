@@ -32,6 +32,12 @@ TWO THINGS THE FIGURES DO NOT SHOW, and the slides say so.
 `M9`'s OTU 2 (7 rows, non-monotonic) is the blank control that P4 TASK 4 excluded as a control
 rather than a series; only OTU 1 is plotted for M9, and the exclusion is stated here rather than
 made silently.
+
+SIZED FOR THE SLIDE, NOT FOR A PAGE (E3). A figure drawn at journal width and shown at a third of
+that size has 3 pt tick labels. Every figure here is drawn at exactly the width it will occupy on
+the slide -- `SLIDE_W_IN` for a full-width figure, `FRAME_W_IN` for a height-limited one -- so the
+rendered scale factor is 1.0 and a 10 pt tick label arrives as a 10 pt tick label. The threshold
+and the arithmetic are in DECISIONS.md D17-D18.
 """
 from __future__ import annotations
 
@@ -42,6 +48,12 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt          # noqa: E402
 import numpy as np                       # noqa: E402
 import pandas as pd                      # noqa: E402
+
+# The slide's text block, measured with a one-frame Beamer probe (`\the\linewidth`) rather than
+# assumed: 398.34 pt wide. A figure drawn at this width renders at scale 1.0.
+SLIDE_W_PT = 398.3386
+SLIDE_W_IN = SLIDE_W_PT / 72.0            # 5.53 in
+FRAME_W_IN = SLIDE_W_IN * 0.66            # a figure on its own frame, height-limited
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
@@ -66,14 +78,14 @@ def _panel(ax, data, col, ylab, title, logy=True):
         g = d.groupby("T")[col]
         m, s, n = g.mean(), g.std(), g.size()
         se = s / np.sqrt(n.clip(lower=1))
-        ax.plot(d["T"], d[col], "o", ms=2.6, alpha=0.22, color=colour, zorder=1)
-        ax.errorbar(m.index, m.values, yerr=se.values, fmt="o-", ms=5, lw=1.6,
+        ax.plot(d["T"], d[col], "o", ms=2.0, alpha=0.22, color=colour, zorder=1)
+        ax.errorbar(m.index, m.values, yerr=se.values, fmt="o-", ms=3.4, lw=1.2,
                     color=colour, label=f"{label} (n={len(d)})", capsize=2.5, zorder=3)
     if logy:
         ax.set_yscale("log")
     ax.set_xlabel("temperature (°C)")
     ax.set_ylabel(ylab)
-    ax.set_title(title, fontsize=10, loc="left")
+    ax.set_title(title, fontsize=9, loc="left")
     ax.grid(alpha=0.25, lw=0.5)
 
 
@@ -81,7 +93,7 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     data = load()
 
-    fig, axes = plt.subplots(1, 2, figsize=(9.2, 3.9))
+    fig, axes = plt.subplots(1, 2, figsize=(SLIDE_W_IN * 0.94, 2.55))
     _panel(axes[0], data, "growth_fgC_h", "growth (fg C cell$^{-1}$ h$^{-1}$)",
            "a  growth", logy=True)
     _panel(axes[1], data, "respiration_fgC_h", "respiration (fg C cell$^{-1}$ h$^{-1}$)",
@@ -89,34 +101,34 @@ def main():
     axes[0].legend(frameon=False, fontsize=8, loc="lower center")
     fig.tight_layout()
     p1 = os.path.join(OUT, "fig_respirometry.png")
-    fig.savefig(p1, dpi=200)
+    fig.savefig(p1, dpi=300)
     plt.close(fig)
 
-    fig, ax = plt.subplots(figsize=(5.0, 3.9))
+    fig, ax = plt.subplots(figsize=(FRAME_W_IN, 2.45))
     _panel(ax, data, "CUE", "carbon-use efficiency", "measured CUE", logy=False)
     ax.set_ylim(0, 1)
-    ax.legend(frameon=False, fontsize=8)
+    ax.legend(frameon=False, fontsize=7.5)
     fig.tight_layout()
     p2 = os.path.join(OUT, "fig_cue.png")
-    fig.savefig(p2, dpi=200)
+    fig.savefig(p2, dpi=300)
     plt.close(fig)
 
     # --- the Y2 panel: the published model's own behaviour, from Y2's committed tables ------
     y2 = os.path.join(ROOT, "reports", "Y2_regime_posterior")
     dr = pd.read_csv(os.path.join(y2, "task3_posterior_draws.csv"))
     dr = dr[~dr.degenerate]
-    fig, axes = plt.subplots(1, 2, figsize=(9.2, 3.7))
+    fig, axes = plt.subplots(1, 2, figsize=(SLIDE_W_IN * 0.94, 2.5))
     ax = axes[0]
     for lab, col, colour in (("enzyme-limited\n(glucose $\\leq$ 10)", "plateau_loose", "#1b6ca8"),
                              ("substrate-limited\n(glucose $\\leq$ 1)", "plateau_tight", "#c1440e")):
         ax.hist(dr[col], bins=np.arange(0, 9.1, 0.5), alpha=0.62, color=colour, label=lab)
     ax.set_xlabel("width of the curve's top, 99 % plateau (°C)")
     ax.set_ylabel(f"posterior models (of {len(dr)})")
-    ax.set_title("a  the optimum stops being sharp", fontsize=10, loc="left")
-    ax.legend(frameon=False, fontsize=7.5)
+    ax.set_title("a  the optimum stops being sharp", fontsize=9, loc="left")
+    ax.legend(frameon=False, fontsize=7)
     ax.grid(alpha=0.25, lw=0.5)
     ax = axes[1]
-    ax.scatter(dr.CT_max_range, dr.T_opt_range, s=16, alpha=0.6, color="#4a148c",
+    ax.scatter(dr.CT_max_range, dr.T_opt_range, s=9, alpha=0.6, color="#4a148c",
                edgecolor="none")
     lim = max(dr.CT_max_range.max(), dr.T_opt_range.max()) * 1.05
     ax.plot([0, lim], [0, lim], "k--", lw=0.9)
@@ -127,11 +139,11 @@ def main():
     ax.set_ylabel("T$_{opt}$ moves (°C)")
     ax.set_title(f"b  T$_{{opt}}$ moves more in "
                  f"{100*(dr.T_opt_range > dr.CT_max_range).mean():.0f} % of models",
-                 fontsize=10, loc="left")
+                 fontsize=9, loc="left")
     ax.grid(alpha=0.25, lw=0.5)
     fig.tight_layout()
     p3 = os.path.join(OUT, "fig_y2_asymmetry.png")
-    fig.savefig(p3, dpi=200)
+    fig.savefig(p3, dpi=300)
     plt.close(fig)
     print(f"[e2fig] Y2 panel: n={len(dr)} usable posterior draws; plateau median "
           f"{dr.plateau_loose.median():.2f} -> {dr.plateau_tight.median():.2f} C; "

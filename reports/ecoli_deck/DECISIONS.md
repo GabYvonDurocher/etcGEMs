@@ -425,3 +425,68 @@ Those are handled separately and named where they occur.
 figure the whole frame; (b) split a multi-panel figure across two slides; (c) crop to the
 informative region, stated; (d) last resort, regenerate at a different aspect — and then the
 producing script is edited and committed, never the PNG alone.
+
+## D18. The legibility measurement, and what it found (E3, 2026-09-11)
+
+**A correction to D17 first.** D17 said the slide's text block was "measured from the render" at
+307.28 × 192 pt. It was not measured — it was assumed, and it was wrong. Measured with a one-frame
+Beamer probe (`\typeout{\the\linewidth}` under `lualatex`): **`\linewidth` = 398.3386 pt,
+`\textheight` = 252.0748 pt.** The threshold ($f \geq 0.9$) is unchanged; only the arithmetic
+behind the rendered widths moves. `measure_figures.py` now computes the table from the measured
+values, so it cannot drift again.
+
+**The result, and it is not a near miss.** At the sizes the deck had, **every figure failed** —
+$f$ between 0.14 and 0.57, tick labels rendering at **1.4 to 5.7 pt**. The cause is structural, not
+layout: these are **journal figures**. `task1_scan.png` is 17 inches wide natively and the slide is
+5.5 inches, so nothing done to the slide can make its tick labels 9 pt.
+
+**What was fixed, properly.** The three figures this directory owns are regenerated **at the width
+they occupy on the slide** — `make_figures.py` now carries `SLIDE_W_IN = 398.3386/72` and
+`FRAME_W_IN`, and draws at those sizes rather than at journal width. The producing script is
+edited and committed, never the PNG. All three now pass:
+
+| figure | before | after |
+|:--|--:|--:|
+| `fig_respirometry.png` | $f$ 0.57 (5.7 pt) | **$f$ 0.91 (9.1 pt)** |
+| `fig_y2_asymmetry.png` | $f$ 0.57 (5.7 pt) | **$f$ 0.92 (9.2 pt)** |
+| `fig_cue.png` | $f$ 0.46 (4.6 pt) | **$f$ 0.94 (9.4 pt)** |
+
+`fig_cue` also came out of its 58 % column onto its own frame — the column gives a figure only
+167 pt, and a figure drawn for 167 pt is mostly axis.
+
+**What could not be fixed, and the honest number for each.** The eight borrowed figures were moved
+to their frame maximum, which raised them but nowhere near the threshold. The ceiling is set by
+native width against a 398 pt slide:
+
+| figure | before | after (frame maximum) | ceiling |
+|:--|--:|--:|:--|
+| `example_enzyme_kcatT.png` | 0.37 | **0.47** | native 809 pt |
+| `reference_tpc.png` | 0.29 (in column) | **0.46** | out of the column, own frame |
+| `proteome_sector_fractions.png` | 0.38 | **0.46** | native 504 pt |
+| `configD_growth.png` | 0.34 | **0.41** | native 619 pt |
+| `elasticity_heatmap.png` | 0.31 | **0.35** | native 518 pt, nearly square |
+| `configD_gasflux.png` | 0.35 | **0.35** | already full width; native 1152 pt |
+| `validation_trusted_curves.png` | 0.39 | 0.39 | left in its column; own frame gains 0.03 |
+| `task1_scan.png` | 0.14 | **0.15** | native 1224 pt — hopeless by any layout |
+
+**The fix for those eight is not a layout change**: it is re-running their producing scripts
+(`reports/ecoli_tpc/assemble.py`, `scripts/gasflux_figures.py`,
+`reports/P9_surface/task1_lines.py`) with slide-width figure sizes. That rewrites other reports'
+committed assets and needs model runs — outside a deck run, and recorded in `docs/OPEN_ITEMS.md`
+rather than done here.
+
+**The named case — the elasticity heatmap — is resolved a different way, and better.** Its image
+went from $f$ 0.31 to 0.35 (159 → 182 pt rendered), which is not legible and never will be at
+518 pt native. So **the numbers are now a typeset table on a slide of their own**, at full slide
+width and perfectly readable, with the heatmap kept on the following frame as the pattern view.
+Same content, same source (`reports/ecoli_tpc/assets/tables/elasticity_table.csv`), read rather
+than squinted at. That is the remedy the prompt's order does not list and it is the right one for
+a 12 × 5 table of numbers that had been drawn as a picture.
+
+**Two figures are legible by the rule and still not readable as data**, and the slides say so
+rather than pretending: `task1_scan.png` (22 panels — *"read the pattern, not the axes"*) and
+`configD_gasflux.png` (three panels — *"look at the right-hand panel"*). The threshold measures
+text size, not whether a figure is the right object; D17 said so in advance.
+
+**`measure_figures.py` is committed and exits 1 while any figure is below threshold**, so the eight
+outstanding cannot quietly become acceptable.

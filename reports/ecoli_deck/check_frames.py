@@ -34,14 +34,27 @@ def norm(t):
     return re.sub(r"\s+", " ", t).strip().lower()
 
 
+def lint_source(src):
+    """A heading with no blank line before it is not a heading: pandoc folds it into the
+    preceding paragraph and Beamer merges the two frames. It has happened twice."""
+    bad = []
+    ls = src.split("\n")
+    for i, l in enumerate(ls):
+        if l.startswith("## ") and i and ls[i - 1].strip():
+            bad.append((i + 1, l[:48]))
+    for n, t in bad:
+        print(f"  NO BLANK LINE before heading at line {n}: {t}")
+    return len(bad)
+
+
 def main():
     src = io.open("deck.qmd", encoding="utf-8").read()
+    bad = lint_source(src)
     frames = re.split(r"\n## ", src.split("---\n", 2)[2])[1:]
     n = int(subprocess.run(["pdfinfo", PDF], capture_output=True, text=True)
             .stdout.split("Pages:")[1].split()[0])
     pages = [subprocess.run(["pdftotext", "-f", str(p), "-l", str(p), PDF, "-"],
                             capture_output=True, text=True).stdout for p in range(1, n + 1)]
-    bad = 0
     for f in frames:
         title = f.split("\n", 1)[0].strip()
         if title.startswith("References"):
