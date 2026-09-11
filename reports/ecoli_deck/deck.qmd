@@ -366,6 +366,46 @@ The plotted conversion gives a warm-end decline. An unresolved carbon-per-cell c
 - The failed 16-parameter run identified a numerical difficulty in its remaining sampling points. **That geometry cannot be treated as the full posterior**
 - **Fixing $dT_m$ assumes the meltome's mean is right.** Any uniform error in measured melting temperatures must now be absorbed by `tm_scale` and the catalytic parameters
 
+## Run 1 assigns about half its weight to very low growth
+
+Measured peak: **2.0761 h⁻¹**. Results below are provisional, from seed 1.
+
+| summary | log likelihood | peak growth, h⁻¹ |
+|:--|--:|--:|
+| Best posterior sample (MAP) | **−10.704** | **1.7255** |
+| Separate median of each parameter | −30.558 | 0.0043 |
+
+- The MAP reaches **83% of the measured peak**
+- **300 draws sampled using posterior weights:** median peak **0.0016 h⁻¹**, 5th--95th percentiles **[0.0000, 1.7106]**
+- **50.7% of these draws grow below half the measured peak.** This estimates low-growth posterior mass, not the fraction proven infeasible
+
+## Why separate parameter medians give a misleading model
+
+- Correlated parameters work in combinations. Taking each parameter's median separately can put the resulting vector far from combinations that jointly fit well
+- Here that vector predicts peak growth **0.0043 h⁻¹**, against **1.7255 h⁻¹** at the best posterior sample
+- Its growth $R^2=-2.01$ describes this unrepresentative vector. It cannot summarise the predictive performance of the full posterior
+- **Report the MAP alongside predictions drawn from the weighted joint posterior.** The median vector appears here only to show why it is unusable
+
+## The infeasibility exemption: a diagnosis under test
+
+Earlier basin-map scores, before the current support rule:
+
+| log-likelihood contribution | live region | dead region |
+|:--|--:|--:|
+| Growth | +6.363 | −18.860 |
+| Respiration | −13.549 | −0.017 |
+
+- **The dead region gains about 13.5 units on respiration** because 11 of 12 temperatures have no feasible flux solution and receive no respiration score
+- The current clamp still skips missing or non-positive oxygen uptake. It addresses feasible low growth, but leaves this exemption
+- **Test now:** quantify infeasibility among low-growth posterior predictions and its contribution to their statistical weight. The basin example identifies a mechanism, not its share of the full posterior
+
+## Why a converged posterior can favour poor predictions
+
+- The earlier live--dead gap is about **11.7 log-likelihood units**, a **dead-to-live likelihood ratio of roughly $8\times10^{-6}$**
+- Posterior mass also depends on **how much prior volume each region occupies**. A sufficiently larger dead region can outweigh that fit disadvantage
+- Illustration only: in 15 dimensions, a live region occupying **46% of prior width per axis** has volume about $8\times10^{-6}$ of the full box. The actual regions need not be rectangular
+- **The cause remains under test.** Seed 1 converged, but convergence does not validate the likelihood. This finding concerns this model and scoring rule, not enzyme-constrained models in general
+
 ## Auditing the published model
 
 - We built an audit for a defect class we had found in our **own** models — a free ion path that lets ATP synthase run without the respiratory chain paying for it — and ran it on Li et al.'s deposited model [@Li2021]

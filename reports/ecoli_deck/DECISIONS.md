@@ -744,3 +744,27 @@ Primary run.log records seed-2 progress, with no summary_red2.json present. This
 a dated snapshot of that pending state, as required; no seed-2 numeric results are quoted.
 Process inspection was sandbox-blocked, so liveness is based on recorded progress and the
 user's run context, not an independently inspected process. No solver or sampler was run.
+
+## D26. E6 low-growth result and diagnosis
+
+Four slides separate the observed predictions, the median-vector problem, the known masking
+mechanism, and the prior-volume illustration. P16 D6 is the source for MAP (-10.704, 1.7255),
+median vector (-30.558, 0.0043), and 300 importance-weighted draws (peak median 0.0016,
+5/95 [0,1.7106], 50.7% below half measurement). task5_r2.csv independently confirms
+0.0043073, measured peak 2.0760669 and median-vector R2 -2.01113.
+
+The supplied saved record does not include all 300 per-draw solver statuses; this text-only
+run verifies D6's account, not the unrecorded predictive solves. No fresh model evaluation.
+50.7% is labelled a finite-draw estimate below HALF the measured peak, not an exact
+infeasible fraction or a count of strictly non-growing models. The MAP is presented as a
+reference fit, never as representative of all posterior weight.
+
+P12 report TASK 2 provides the historical decomposition +6.363/-13.549 vs -18.860/-0.017
+and 11/12 infeasible temperatures. P13 confirms the mask persists under clamp. Q1 concerns
+cell-carbon/N0 conversion, not infeasibility; E6's attribution of that diagnosis to Q1 is
+incorrect. Read Q1 at b163bad: the respiration observable is invariant to cell-carbon
+conversion; CUE is not. No claim that Q1 diagnosed the dead basin.
+
+exp(-11.7) = 8.29e-6, exp(-11.7/15) = 0.4584. The volume calculation is explicitly an
+illustration, not a measured posterior-volume ratio or proof of the cause. The earlier
+P12 scores are labelled historical and not substituted for P16 likelihoods.
