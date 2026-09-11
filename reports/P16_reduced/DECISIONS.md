@@ -283,3 +283,79 @@ And it would be **the expected outcome, not a surprise**: D1 documented that thi
 A second crash would therefore make the case for **a different approach entirely** — reparameterise,
 re-specify the thermal model, or bring data that breaks the redundancies — rather than for another
 reduction.
+
+## D5 — D4's prediction FAILED, and the consequence is the one D4 named in advance
+
+D4 predicted that `sigma~kcat_scale`, `dCp_scale~dTopt` and `kappa_scale~tm_scale` would appear in
+the reduced posterior as **prior-dominated directions with tight orthogonal complements**. They do
+not.
+
+| pair | P15 live points | **P16 posterior** | most-loaded direction |
+|---|---|---|---|
+| `sigma~kcat_scale` | **−0.857** | **+0.334** (sign flipped) | #7, ratio 0.605, INTERMEDIATE |
+| `dCp_scale~dTopt` | **−0.853** | **−0.308** | #2, ratio 0.306, **CONSTRAINED** |
+| `kappa_scale~tm_scale` | **+0.804** | **+0.106** | #3, ratio 0.425, **CONSTRAINED** |
+| *(`dTm~tm_scale`, fixed)* | +0.831 | — | absent by construction |
+
+**The prediction is falsified, and D4 said what that would mean: the live-point covariance from a
+crashed run was not representative of the posterior.** One correlation even reverses sign.
+
+**Why, mechanically.** Late in a nested run the live points occupy a thin **iso-likelihood shell**,
+not the posterior bulk. On a shell, any two parameters that trade off *along* a likelihood contour
+appear strongly anti-correlated by construction — the shell is a level set, so movement is confined
+to it. The posterior integrates over **all** shells from the prior down, and those contour-following
+correlations largely cancel. **D0's caveat was therefore too generous:** it said the live-point
+covariance describes "the posterior's **bulk** at iteration 11,547"; it describes the **shell** at
+that likelihood level, which is a different and much narrower object.
+
+**What this does and does not undercut.**
+
+- **Undercut:** any inference from P15's live-point correlations to *posterior* correlations. P15's
+  report, P16 D1's "the model is pervasively correlated", and the framing of Y3's pair as a
+  *posterior* ridge all over-reached. They are statements about a shell.
+- **NOT undercut:** P15's explanation of *why the sampler crashed*. The live points at that
+  iteration really were degenerate along `dTm`/`tm_scale` — that is what `rslice` samples in, and
+  it is what collapsed the slice bracket. The diagnosis of the failure stands; the extrapolation to
+  the posterior does not.
+- **NOT undercut:** the choice to fix `dTm`. It was made on the **synthetic conditioning check**
+  (458 versus 708) and on the **code's definition** of `tm_scale`, and it is vindicated by outcome —
+  the run converged in 9.59 h where the 16-D run crashed, with `tm_scale` **not** railing.
+
+A correction, not a rescue: the remedy was right for a reason narrower than the one given.
+
+## D6 — the run converged and the posterior is HALF DEAD. The componentwise median is unusable.
+
+| | log L | peak predicted growth |
+|---|---|---|
+| MAP sample | **−10.704** | **1.7255 /h** (83 % of the measured 2.0761) |
+| **componentwise median** | **−30.558** | **0.0043 /h** |
+| 95th percentile of weighted log L | −13.420 | — |
+
+**Posterior-predictive peak growth over 300 importance-weighted draws: median 0.0016 /h, 5/95
+[0.0000, 1.7106], against a measured peak of 2.0761. 50.7 % of the posterior mass has a peak growth
+below half the measurement.**
+
+**So roughly half of this converged posterior is on models that do not grow.**
+
+**This is not a sampling failure.** The run met its own dlogz criterion, n_eff is 5,988, and the MAP
+is a good fit. It is what the posterior of *this model under this likelihood* actually is: P12
+measured the live-dead gap at ~11.7 log-likelihood units, and **e^−11.7 ≈ 8×10⁻⁶ is easily
+outweighed if the dead region carries more than ~10⁵ times the prior volume of the live one** —
+which, in 15 dimensions, it plainly can. **Likelihood ratio loses to volume ratio.**
+
+**Consequences, taken now rather than at writing-up time:**
+
+1. **"R² at the posterior median" is meaningless here and will not be quoted as such.** The median
+   is a dead model, so its R² (growth −2.01, respiration −3.17) measures the median's
+   unrepresentativeness, not the model's fit. This is **P12 D1's finding recurring**: a
+   componentwise median of a correlated, multi-region posterior is a point in none of its regions.
+   TASK 5 reports R² **at the MAP sample** and **as a posterior-predictive distribution**, with the
+   median's value shown only as evidence that it is unusable.
+2. **The same applies to every marginal median in the parameter table.** They are reported, because
+   the prompt asks for them and they are what a reader expects, but each is labelled with the fact
+   that the vector of medians is not a posterior sample and scores 20 units worse than the MAP.
+3. **This is the sharpest form yet of the R2/R3 problem**, and it is a *result*: the data as
+   currently used do not exclude non-growing parameterisations. Whether that is the support
+   handling (1.21 chose `clamp` precisely to charge dead models more), the prior volumes, or a
+   missing constraint is a modelling question, and it is now stated with a number rather than
+   suspected.
