@@ -1,0 +1,26 @@
+[
+ {
+  "fixed": "dTm",
+  "new_smallest": 0.0006176821561350397,
+  "new_largest": 0.2829270871520121,
+  "new_condition": 458.04639868883896,
+  "passes_500": true,
+  "p38_logl_fixed": -60.309228563466284,
+  "cost": 50.31983876806439,
+  "natural_at_p38": -4.021352847306332,
+  "nominal": 0.0,
+  "space": "add"
+ },
+ {
+  "fixed": "tm_scale",
+  "new_smallest": 0.0003999094392547125,
+  "new_largest": 0.2832057250205986,
+  "new_condition": 708.1746446105205,
+  "passes_500": false,
+  "p38_logl_fixed": -10.07314169278482,
+  "cost": 0.08375189738292832,
+  "natural_at_p38": 0.9892112754158581,
+  "nominal": 1.0,
+  "space": "log"
+ }
+]
