@@ -162,7 +162,7 @@ Three kinds, and the difference matters — not two.
 
 - **The measurement is thin where it matters most.** The glucose series was measured at **25, 30 and 37 °C only**; the LB series adds 16 and 43 °C
 - Outside a series' range the allocation is **held at its endpoint** — so above 37 °C on glucose the sector split, and with it the translation cap, **stops varying with temperature**
-- The consequence is visible in the curve: the glucose-minimal prediction is **bit-identical from 37 to 44 °C** (growth exactly 0.524757 h⁻¹ at all eight grid points)
+- The consequence is visible in the curve: the glucose-minimal prediction is **bit-identical from 37 to 44 °C** (growth exactly 0.524757 h$^{-1}$ at all eight grid points)
 - **That shoulder is the proteomics table running out, not a property of the cell** — and it is why "$T_{opt}$" from such a run is the argmax of a tie
 
 ::: {.block}
@@ -207,22 +207,22 @@ The three zero rows are zero for **different reasons**: `kappa_scale` and `ngam_
 ## Development 2: overflow metabolism — what it is
 
 - Grow *E. coli* fast enough and it **excretes acetate while oxygen is still available** — it ferments and respires at once, wasting carbon. The bacterial analogue of the Crabtree effect
-- Measured law: excretion is zero below a growth-rate threshold, then linear. **Threshold $\approx 0.76$ h⁻¹, slope $\approx 21$ mmol gDW⁻¹ h⁻¹** [@Basan2015]
+- Measured law: excretion is zero below a growth-rate threshold, then linear. **Threshold $\approx 0.76$ h$^{-1}$, slope $\approx 21$ mmol gDW$^{-1}$ h$^{-1}$** [@Basan2015]
 - **Why any of this matters for a temperature model:** an enzyme-constrained TPC fixes the growth rate but *not* the internal flux distribution, so **O$_2$ and CO$_2$ exchange are under-determined** — the model can hit the right growth rate by respiring or by fermenting
 - That is the *same* degeneracy Pettersen & Almaas found by FVA on the oxidase reaction [@Pettersen2023], seen from the other side
 - **Until it is pinned, an etcGEM cannot predict a gas flux at all**
 
 ## The total-carbon cap: what it is
 
-- **From the code:** $\sum_i n_{C,i}\,v_{i} \le c_{max}$ over **every open carbon uptake**, with $n_{C,i}$ the carbon count read from the model's own metabolite formula. Units **mmol C gDW⁻¹ h⁻¹**; inorganic carbon is not charged to it
+- **From the code:** $\sum_i n_{C,i}\,v_{i} \le c_{max}$ over **every open carbon uptake**, with $n_{C,i}$ the carbon count read from the model's own metabolite formula. Units **mmol C gDW$^{-1}$ h$^{-1}$**; inorganic carbon is not charged to it
 - **What it produces:** a finite carbon budget *and* a finite protein budget make the LP excrete acetate on its own. **Overflow emerges; it is not written in.** That is the difference between configuration D and configuration C
-- **A second role, honestly stated:** an enzyme-constrained curve fixes growth but not the internal fluxes, so O₂ and CO₂ are under-determined. The cap is **one of three ways offered to pin them** — and it does **not** fully succeed: the O₂ flux at the optimum still jumps between equally-optimal solutions, which is the cliff problem later in this deck
+- **A second role, honestly stated:** an enzyme-constrained curve fixes growth but not the internal fluxes, so O$_2$ and CO$_2$ are under-determined. The cap is **one of three ways offered to pin them** — and it does **not** fully succeed: the O$_2$ flux at the optimum still jumps between equally-optimal solutions, which is the cliff problem later in this deck
 
 ## The total-carbon cap: why the value matters
 
 - **At $c_{max} = 60$ acetate overflow is exactly zero on both media** — the cap suppresses the very mechanism it exists to create. On NLDM, $T_{opt}$ also drops **39.0 → 32.5 °C** between 80 and 60
-- **120 is the lowest value in his sweep at which overflow is non-zero on both** (23.5 on glucose, 3.9 on NLDM mmol gDW⁻¹ h⁻¹) — which is why it was adopted
-- **It is medium-dependent, and 60 / 120 / 450 is one quantity, not three guesses.** Applying the glucose/NLDM value of 120 to LB holds $r_{max}$ at **1.1–1.8 h⁻¹** against a measured **2.945**, and growth $R^2$ falls to **0.64 / 0.05 / −0.10** across three configurations; at the LB-appropriate cap they are **0.90 / 0.83 / 0.88**
+- **120 is the lowest value in his sweep at which overflow is non-zero on both** (23.5 on glucose, 3.9 on NLDM mmol gDW$^{-1}$ h$^{-1}$) — which is why it was adopted
+- **It is medium-dependent, and 60 / 120 / 450 is one quantity, not three guesses.** Applying the glucose/NLDM value of 120 to LB holds $r_{max}$ at **1.1–1.8 h$^{-1}$** against a measured **2.945**, and growth $R^2$ falls to **0.64 / 0.05 / −0.10** across three configurations; at the LB-appropriate cap they are **0.90 / 0.83 / 0.88**
 - **LB is settled at 450.** That was the resolution of a real disagreement, not a compromise
 
 ## …and how it is made to emerge
@@ -239,15 +239,15 @@ Four ways to pin it — Parsa's configurations A–F, ported here and reproduced
 
 ## Why configuration D is the interesting one
 
-- **Nothing is imposed on the acetate branch.** Overflow falls out of the protein budget plus a carbon budget — the model is not told that acetate appears above 0.76 h⁻¹, it produces it
+- **Nothing is imposed on the acetate branch.** Overflow falls out of the protein budget plus a carbon budget — the model is not told that acetate appears above 0.76 h$^{-1}$, it produces it
 - The **terminal-oxidase choice becomes a prediction**: *bd* and *bo3* have different melting temperatures, so which one the cell uses shifts with temperature on its own
-- $c_{max}$ is **not our number**: Parsa's own sweep (60 / 100 / 120 / 180 mmol C gDW⁻¹ h⁻¹) concludes 100–120 is the sweet spot — *"a tight cap gives respiratory gas but a flat growth plateau; a loose cap gives a peaked TPC but fermentative gas"*. 120 adopted; 450 on LB
-- Data behind the layer: the **acetate law** [@Basan2015], the **membrane geometry** (Szenk et al., surface-to-volume 4.5 µm⁻¹), and Parsa's own **respirometry** for the fits
+- $c_{max}$ is **not our number**: Parsa's own sweep (60 / 100 / 120 / 180 mmol C gDW$^{-1}$ h$^{-1}$) concludes 100–120 is the sweet spot — *"a tight cap gives respiratory gas but a flat growth plateau; a loose cap gives a peaked TPC but fermentative gas"*. 120 adopted; 450 on LB
+- Data behind the layer: the **acetate law** [@Basan2015], the **membrane geometry** (Szenk et al., surface-to-volume 4.5 µm$^{-1}$), and Parsa's own **respirometry** for the fits
 - **The advance over Li et al. [@Li2021] and the MRes [@Madkaikar2023]: both stop at growth.** This turns O$_2$, CO$_2$ and acetate into predictions that a measurement can check — and Parsa's respirometry is that measurement
 
 ## Configuration D: the growth curve it predicts
 
-The medium ladder is the measured sector split at work: $r_{max}$ **1.19** (glucose) to **2.02 h⁻¹** (BHI/LB), $T_{opt}$ 38–40 °C. **Model output; no measurement plotted.**
+The medium ladder is the measured sector split at work: $r_{max}$ **1.19** (glucose) to **2.02 h$^{-1}$** (BHI/LB), $T_{opt}$ 38–40 °C. **Model output; no measurement plotted.**
 
 ![`reports/ecoli_gasflux`](../ecoli_gasflux/assets/figures/configD_growth.png){height=66%}
 
@@ -341,7 +341,7 @@ The plotted conversion gives a warm-end decline. An unresolved carbon-per-cell c
 ## How many answers are there? The result
 
 - **The map found one live and one dead region.** The result holds at barrier thresholds of 3, 5 and 8 units. Straight-line paths give an upper bound on the number of basins
-- The dead region predicts peak growth **0.000 h⁻¹**, against a measured **2.076 h⁻¹**
+- The dead region predicts peak growth **0.000 h$^{-1}$**, against a measured **2.076 h$^{-1}$**
 - **Eleven of its twelve temperatures are infeasible:** the metabolic constraints admit no flux solution. Those temperatures receive no respiration score
 - **The dead region survives the current support rule.** The live--dead likelihood gap changed only from 11.69 to 11.25 units. Infeasibility remains exempted from respiration scoring
 
@@ -350,6 +350,7 @@ The plotted conversion gives a warm-end decline. An unresolved carbon-per-cell c
 - We fixed the uniform melting-temperature shift **$dT_m=0$**, leaving **15 free parameters**. Configuration D on the NLDM recipe, with the current respiration likelihood
 - **The first clean nested run in this family:** 14,088 iterations, 221,781 likelihood evaluations, **9.585 hours**, no crash
 - **Log evidence $\log Z=-26.030\pm0.109$**, effective sample size **5,988**. The recorded stopping statistic reached **0.09999**, below 0.1
+- At the previous run's failure point, **iteration 11,547**, dlogz was **0.666 versus 2.168**, at a comparable evaluation count
 - **Seed 2 is in flight. Independent confirmation is pending.** All posterior numbers shown here come from seed 1 alone
 
 ## The stopping and reproducibility rules
@@ -368,21 +369,21 @@ The plotted conversion gives a warm-end decline. An unresolved carbon-per-cell c
 
 ## Run 1 assigns about half its weight to very low growth
 
-Measured peak: **2.0761 h⁻¹**. Results below are provisional, from seed 1.
+Measured peak: **2.0761 h$^{-1}$**. Results below are provisional, from seed 1.
 
-| summary | log likelihood | peak growth, h⁻¹ |
+| summary | log likelihood | peak growth, h$^{-1}$ |
 |:--|--:|--:|
 | Best posterior sample (MAP) | **−10.704** | **1.7255** |
 | Separate median of each parameter | −30.558 | 0.0043 |
 
 - The MAP reaches **83% of the measured peak**
-- **300 draws sampled using posterior weights:** median peak **0.0016 h⁻¹**, 5th--95th percentiles **[0.0000, 1.7106]**
+- **300 draws sampled using posterior weights:** median peak **0.0016 h$^{-1}$**, 5th--95th percentiles **[0.0000, 1.7106]**
 - **50.7% of these draws grow below half the measured peak.** This estimates low-growth posterior mass, not the fraction proven infeasible
 
 ## Why separate parameter medians give a misleading model
 
 - Correlated parameters work in combinations. Taking each parameter's median separately can put the resulting vector far from combinations that jointly fit well
-- Here that vector predicts peak growth **0.0043 h⁻¹**, against **1.7255 h⁻¹** at the best posterior sample
+- Here that vector predicts peak growth **0.0043 h$^{-1}$**, against **1.7255 h$^{-1}$** at the best posterior sample
 - Its growth $R^2=-2.01$ describes this unrepresentative vector. It cannot summarise the predictive performance of the full posterior
 - **Report the MAP alongside predictions drawn from the weighted joint posterior.** The median vector appears here only to show why it is unusable
 
@@ -432,7 +433,7 @@ Earlier basin-map scores, before the current support rule:
 ## …and the same degeneracy in two numbers
 
 - **Pin one melting-temperature lever and the other compensates: 0.08 log-likelihood units.** Effectively free
-- **Pin both to the measurement and it costs 7.6 units.** The organism still grows — 1.66 h⁻¹ — but the fit is pressed against two prior bounds
+- **Pin both to the measurement and it costs 7.6 units.** The organism still grows — 1.66 h$^{-1}$ — but the fit is pressed against two prior bounds
 - **So the two levers are constrained together and neither alone.** That is the same $dT_m$/`tm_scale` pair the posterior run's own geometry found, in units anyone can read
 - One method was an optimiser profiling the likelihood; the other was a sampler's live points collapsing onto a correlation. **They share no machinery**
 
@@ -445,7 +446,7 @@ Earlier basin-map scores, before the current support rule:
 
 ## Has it ever predicted anything it was not fitted to?
 
-- **Once, and it half-worked.** The *uncalibrated* model was asked to predict the exact-strain Van Derlinden curve with **nothing fitted to growth**: it tracked the **shape** ($T_{opt}$, $E_a$) and under-predicted the **peak ~2.3-fold** (1.04 against 2.40 h⁻¹). Shape held; magnitude did not
+- **Once, and it half-worked.** The *uncalibrated* model was asked to predict the exact-strain Van Derlinden curve with **nothing fitted to growth**: it tracked the **shape** ($T_{opt}$, $E_a$) and under-predicted the **peak ~2.3-fold** (1.04 against 2.40 h$^{-1}$). Shape held; magnitude did not
 - **And then that curve was consumed by the calibration**, so the *calibrated* model has no holdout left. Cooper et al.'s evolved *E. coli* lines [@Cooper2001] are the obvious next one
 
 ## The next controlled comparison: configuration D on M9

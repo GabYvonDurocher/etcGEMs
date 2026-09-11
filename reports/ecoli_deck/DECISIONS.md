@@ -742,8 +742,8 @@ P16 pair correlations quoted. The full meltome-mean assumption is on the slide.
 
 Primary run.log records seed-2 progress, with no summary_red2.json present. This deck is
 a dated snapshot of that pending state, as required; no seed-2 numeric results are quoted.
-Process inspection was sandbox-blocked, so liveness is based on recorded progress and the
-user's run context, not an independently inspected process. No solver or sampler was run.
+Process inspection initially hit the sandbox; an approved read-only retry confirmed PID 57126
+running run_reduced.py --tag red2 --seed 2. No process was interrupted. No solver or sampler was run.
 
 ## D26. E6 low-growth result and diagnosis
 
@@ -772,7 +772,7 @@ P12 scores are labelled historical and not substituted for P16 likelihoods.
 ## D27. E6 next steps and closing questions
 
 Read primary OPEN_ITEMS section 0d directly (uncommitted evening plan). Added its sequence
-to this branch's OPEN_ITEMS and deck. The next-steps slide has 39 words by whitespace count,
+to this branch's OPEN_ITEMS and deck. The next-steps slide has 33 words by whitespace count,
 five bullets in the requested order, immediately before the three closing questions.
 Two preceding slides explain the M9 comparison and D/E/F mechanisms so the short list can
 remain intelligible. Model evidence must compare the same data under compatible likelihoods
@@ -784,3 +784,24 @@ All three closing questions rewritten to ask about discriminating mechanisms, de
 infeasibility scoring, and an external predictive test. Cooper's existing local citation
 is 2001. Exactly three questions retained. No sampling, data changes or experimental
 claims added.
+
+## D28. E6 final rendering and verification
+
+Final render: 56 source frames, 59 pages (baseline 49/52), Quarto exit 0. The frame
+checker finds zero missing tails. All images resolve, no overfull boxes or unresolved
+citations. Contact sheets inspected across all 59 pages and new evidence slides inspected
+individually. Visual review caught missing superscript-minus and subscript-two glyphs
+in inherited and new text; LaTeX math now renders those units correctly. Final PDF text
+extraction has no replacement characters. The original -4 K slide remains unchanged.
+
+The line scan retains its E5 enlargement (82% height, 234.3 pt calculated width). Five
+local figures pass the old tick-size rule; eight borrowed figures still fail, so the
+figure checker honestly exits 1. This is disclosed rather than called fully legible.
+The shared source figures were not edited. All verification requested by E6, including
+exact slide text and source ledger, is in E6_VERIFICATION.md.
+
+README and report_status now describe the actual artifact and its limitations. The E6
+change set touches only the deck, OPEN_ITEMS and report metadata/provenance. `git diff
+main --stat` also includes older E4 attribution edits to strain text and P2_settle,
+which predate E6. No model code, strain data or primary working files changed in E6.
+Commits stay on e2/deck; no push or merge. The primary seed-2 run continues independently.
