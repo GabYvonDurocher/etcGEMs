@@ -1,0 +1,27 @@
+{
+ "prior_transform": {
+  "deferred_to": "reports/P11_nested/task1_prove_transform.py",
+  "verdict": "density consistent for every parameter: True (max spread 3.55e-14); largest |mean - analytic| in MC se: 1.58",
+  "passes": true,
+  "note": "the first check written in task1_proofs.py was WRONG (a meaningless reference quantile) and reported a spurious 1.274e-01; P11's script is the authority and regenerates byte-identically"
+ },
+ "pool_vs_single": {
+  "single": -9.989389795401891,
+  "pooled": [
+   -9.989389795401891,
+   -9.989389795401891,
+   -9.989389795401891,
+   -9.989389795401891
+  ],
+  "max_abs_diff": 0.0,
+  "passes_1e_4": true
+ },
+ "checkpoint": {
+  "it_before": 62,
+  "it_after": 62,
+  "ncall_before": 168,
+  "resumes_at_same_iteration": true,
+  "wall_s": 84.7
+ },
+ "all_pass": true
+}
