@@ -204,3 +204,65 @@ resumed run crashes again, that is reported and the choice is the PI's.
 
 **The wall-clock envelope is honoured rather than reset:** the resume was given **5.8 h**, so the
 total stays inside the original 16 h from 22:07, which ends at **14:07**.
+
+## D3 — CORRECTION to D2: the crash IS deterministic. Run 1 cannot pass iteration 11,547 with these settings.
+
+**D2 concluded "the crash is a numerical fragility of `rslice` hit stochastically, not a wall the run
+cannot pass." That was wrong, and it is corrected here rather than edited away.**
+
+The resume ran 08:08 → 08:58 and died with **bit-identical** state:
+
+| | first crash | resume |
+|---|---|---|
+| `loglstar` | −14.169843617724203 | **−14.169843617724203** |
+| `u` | [0.36994767, 0.88398444, 0.90041486, …] | **identical** |
+| `nstep_left / right / hat` | −5.4e-323 / 5e-323 / 1.04e-322 | **identical** |
+| progress chunks completed | — | **0** |
+
+The checkpoint is still the 07:15 one; the resume never completed a 250-iteration chunk. dynesty
+restores its `rstate`, so the resume replays the same random sequence, draws the same slice
+direction at the same live point, and fails the same way. **The evidence for "not deterministic" was
+only that the resume started and kept running for a while; that was a weak inference from a
+50-minute window, and it did not survive the run finishing.**
+
+**Run 1 is therefore terminal at iteration 11,547, dlogz 2.168, log Z −25.730, ~9.9 h.** No samples,
+weights or summary were ever written. **Run 2 is not started** and **no posterior is quoted**, per
+D1 and the prompt.
+
+### The settings were still not changed, and why that is the right call rather than timidity
+
+The obvious fixes — `rslice` → `rwalk`, fewer `slices`, a different `bound` — would very probably get
+past this. None was applied, because:
+
+1. they are settings fixed in **D1 before the run**, and changing them after a failure is precisely
+   the pattern this series has refused three times;
+2. `rslice` is what **P11** used, so changing it forfeits the comparability that makes an agreement
+   verdict meaningful;
+3. D2 committed in advance that a second crash is **reported, and the choice is the PI's**.
+
+### The recommendation that follows from the diagnosis, offered not taken
+
+The crash is not really a dynesty bug to be worked around — it is **the geometry telling the truth**.
+The failing direction is `dTm` (+0.903) / `tm_scale` (−0.217) with **corr = +0.831**, which is
+exactly the pair **Y3 showed is not jointly identified**. Two redundant knobs on one axis produce a
+ridge of ever-shrinking width, and any sampler that must bracket along a direction will eventually
+fail on it; `rwalk` would not fail the same way but would still be exploring a degeneracy rather
+than a posterior.
+
+So the cheapest principled fix is not a sampler setting. It is **§0b step 3 and item 1.20: fix one
+of the pair at nominal**, which removes the ridge *and* addresses R2 rather than papering over it.
+Three options for the PI, in order of what they buy:
+
+- **(a) Fix `tm_scale` (or `dTm`) at nominal and re-run.** Removes the degenerate direction at
+  source, reduces the problem to 15 dimensions, and converts an unidentifiability into a stated
+  limitation. Same cost as this run.
+- **(b) Change the sampler** (`rwalk`, or `rslice` with more `slices`) and re-run unchanged
+  otherwise. Cheapest in thought, but samples a known degeneracy and forfeits comparability with
+  P11.
+- **(c) Both**, with (a) as the scientific run and (b) as a robustness check.
+
+**What this run did establish, and it is not nothing:** the geometry of this posterior has been
+measured for the first time from the sampler's own live points — condition number **1,457**, the
+degenerate direction named, `corr(dTm, tm_scale) = +0.831` confirming Y3 by an independent route,
+and three parameters (`f_metab`, `dCp_scale`, `f_maint`) sitting **at their priors**, which is R2
+surfacing exactly as D1 predicted it would.
