@@ -43,7 +43,7 @@ now committed regenerated. Confirmed: after the battery ran on merged main,
 
 | # | Item | Waiting on | Why it matters |
 |---|---|---|---|
-| 1.28 | **Relocate the P17 archive worktree out of `/private/tmp`** | us | `/private/tmp/etcGEMs-p17` is the only checkout of `codex/p17-inactive-prior`, and this machine **does** run `com.apple.tmp_cleaner`; it has survived only because there has been no reboot in 58 days. **The evidence itself is not at risk** — the worktree's `.git` is a 141-byte pointer, every P17 blob lives in the primary repository's 1.9 GB object store in OneDrive, and the branch ref is in `.git/refs/heads/`; a reboot would cost a 2.9 GB checkout recreatable with one command. Recommended: `git worktree move /private/tmp/etcGEMs-p17 ../etcGEMs-p17-archive`. Not done by R3, which was asked to recommend rather than act. |
+| ~~1.28~~ | ~~**Relocate the P17 archive worktree out of `/private/tmp`**~~ | — | **DONE 2026-09-13 (T1 0a).** `git worktree move` to `../etcGEMs-p17-archive`; verified at `ef1961b`, clean, manifest readable, old path gone. Original note follows. `/private/tmp/etcGEMs-p17` is the only checkout of `codex/p17-inactive-prior`, and this machine **does** run `com.apple.tmp_cleaner`; it has survived only because there has been no reboot in 58 days. **The evidence itself is not at risk** — the worktree's `.git` is a 141-byte pointer, every P17 blob lives in the primary repository's 1.9 GB object store in OneDrive, and the branch ref is in `.git/refs/heads/`; a reboot would cost a 2.9 GB checkout recreatable with one command. Recommended: `git worktree move /private/tmp/etcGEMs-p17 ../etcGEMs-p17-archive`. Not done by R3, which was asked to recommend rather than act. |
 
 **Next scientific step:** `docs/TARGET_REVISION_SPEC.md`, **awaiting PI approval** (item 1.27). No
 revised fit launches before that approval and the full validation protocol. See
@@ -398,6 +398,14 @@ temperatures, LP kinks), the T_opt/CT_max asymmetry, the predictor validation, a
   (3) `ps -o pcpu` is a lifetime average and reads low on a sleeping parent, so a runaway hides
   from it — check process STATE and whether the child PIDs are CHANGING, which is the only
   signature that distinguishes a respawn loop from a long job.
+- **`codex/p17-inactive-prior` IS THE ONLY REF KEEPING ~2.9 GB OF P17 OBJECTS REACHABLE IN THE
+  PRIMARY REPOSITORY** (added 2026-09-13, T1). It is local-only by decision (R3). Deleting it, or
+  any "clean up merged branches" pass that touches it, makes those objects prunable by `git gc`.
+  **It is never merged, never pushed, never deleted.** Its checkout lives in the archive worktree
+  at `../etcGEMs-p17-archive` (a sibling of the repository, on the same OneDrive volume as the
+  object store; relocated from `/private/tmp` by T1 on 2026-09-13 because that path is cleared on
+  reboot). **The worktree is recreatable from the branch with one command; the branch is not
+  recreatable from anything.** `git worktree list` must always show it at `ef1961b`.
 - **A CRITERION MUST TEST THE FAILURE MODE IT NAMES** (added 2026-09-11, P15). The sampleability
   criterion specified for P14 **named plateaus** as nested sampling's failure mode — correctly — and
   then **also required no jumps**. Those are different objects, and only one is fatal: a plateau puts
