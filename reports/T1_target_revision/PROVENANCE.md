@@ -6,7 +6,7 @@
 
 *Evidence:* alarm.py self-tests the deadline; task1_invariant.py (+ --only-missing) regenerates the proof from the registered audit set (~92 min); task2_classify.py (+ --only-missing) the solver-status classification (~2-4 h in two batches); task2_datum_table.py the reconciled datum tables (minutes); task3_trace.py (+ task3_fixbase.py, task3_refine_minus.py) the seven-axis trace (~35 min) and task3_analyse.py its D7 classification; gates_worktree.sh the seven-strain battery in the worktree. Input hashes are recorded in task1_invariant.json and the trace's JSON; the red2/6800 set lives only in the archive worktree.
 
-**This report was last written at** `6251605` (2026-09-13) — T1: curvature -- seven axes traced at D44 and five diverse points; 5 SUPPORTED, 2 UNDETERMINED (27 C O2 vertex change), 0 IMPLEMENTATION DEFECT; clip not implicated; two script corrections recorded, outcomes retained
+**This report was last written at** `81906c0` (2026-09-13) — T1: decision package -- four decisions offered, TASK 5 reconciliation, status entry, D11; stamps
 
 **Committed inputs it reads (found by scanning this report's own files), and the commit each was last written at:**
 
