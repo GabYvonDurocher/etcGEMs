@@ -62,12 +62,16 @@ def _ladder(m, first_status):
     statuses = [str(first_status)]
     gp = m.solver.problem
     saved = {name: gp.getParamInfo(name)[2] for name in ("OptimalityTol", "FeasibilityTol", "Method")}
+    # Rung 2 re-solves at the TIGHTEST tolerances Gurobi accepts: its documented minimum for both
+    # OptimalityTol and FeasibilityTol is 1e-9 (setParam refuses 1e-12 -- T2 D3). Read from the
+    # parameter info rather than hard-coded, so a solver with a different floor is honoured.
+    tol = max(float(gp.getParamInfo("OptimalityTol")[3]), float(gp.getParamInfo("FeasibilityTol")[3]))
     try:
-        gp.setParam("OptimalityTol", 1e-12); gp.setParam("FeasibilityTol", 1e-12)
-        m.slim_optimize(); st = str(m.solver.status); statuses.append(st)
+        gp.setParam("OptimalityTol", tol); gp.setParam("FeasibilityTol", tol)
+        m.slim_optimize(); st = str(m.solver.status); statuses.append(f"{st}@tol{tol:g}")
         if st not in ("optimal", "infeasible"):
             gp.setParam("Method", 1)
-            m.slim_optimize(); st = str(m.solver.status); statuses.append(st)
+            m.slim_optimize(); st = str(m.solver.status); statuses.append(f"{st}@dual")
     finally:
         for name, val in saved.items():
             gp.setParam(name, val)

@@ -168,3 +168,30 @@ temperature whose model O₂ uptake is exactly ≤ 0 is still unscored (the `o2 
 approval covers infeasibility only; T2 leaves that case as it was and **counts it** (every TASK 2
 and TASK 5 script reports unscored positive measurements). If it ever occurs it is reported, not
 silently absorbed.
+
+## D3 — a dated correction to the retry ladder's rung 2, forced by the solver's parameter bounds; and a correction to T1's record
+
+**What happened.** TASK 2's prior-rejection sample (2,000 draws, seed 17302) crashed in a pool
+worker: `GurobiError: Unable to set parameter OptimalityTol to value 1e-12 (minimum is 1e-09)`.
+The ladder had fired — a tie-break solve on a prior draw returned a status that is neither optimal
+nor infeasible — and its rung 2, registered in D0 as "1e-12 tolerances", cannot be set: Gurobi's
+documented floor for `OptimalityTol` and `FeasibilityTol` is **1e-9**. The argument for the
+correction is the solver's parameter bound, independent of and predating any judged data (RIGOUR 2).
+
+**The correction.** `_ladder` rung 2 now re-solves at the **tightest tolerances the solver
+accepts**, read from `getParamInfo` (1e-9 for Gurobi) rather than hard-coded; rung 3 is unchanged
+(dual simplex). Since the registered first solve already runs at `tiebreak_tol` = 1e-9, rung 2 is a
+re-solve from the current basis at the same tolerances — a legitimate retry, and the statuses it
+returns are recorded with their tolerance (`optimal@tol1e-09`, `…@dual`) so the record shows which
+rung resolved what. Nothing else in the ladder or the likelihood changes. The rejection sample is
+re-run from scratch with the same seed; the crashed attempt produced no data.
+
+**Consequence for T1's record (RIGOUR 4: dated addition, nothing erased).** T1's
+`task2_classify.py` passed `tiebreak_tol=1e-12` to `flux_tpc` for its rung 2, and `flux_tpc`'s
+P10-era `try/except` around `setParam` swallows the failure and leaves the model's tolerances as
+they were. **T1's rung 2 therefore ran at the model's existing tolerances, not at 1e-12**, and the
+same holds for rung 3 (dual simplex at those tolerances). The *classification* is unaffected as a
+fact — every non-optimal temperature was `infeasible` on all three rungs as executed, and 0 were
+UNRESOLVED — but T1 D8's and the T1 package's phrase "at tolerances 1e-12" is wrong and is
+corrected here; OPEN_ITEMS 1.25/1.30 get the dated note in TASK 6. The P10 `except` is not changed
+by T2 (it is the default path's behaviour and the gates depend on it); the ladder reads the floor.
