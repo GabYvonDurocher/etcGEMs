@@ -270,3 +270,30 @@ draws — the "solver tolerances and warm-state effects" the spec's item 3 names
 coordinates. Recorded as a hazard for interpretation: the runs' pool workers are warm (as P16's
 were), and check (e)'s predictive draws are evaluated fresh under the ladder. The 1e-12 bar is
 reported failed as written (RIGOUR 2); the exact-Perturbation criterion of D5 is the proof.
+
+## D7 — TASK 3 (ii): the driver, dry-run on P17's smooth analytical target; kill-and-resume proven bit-identical
+
+`run_protocol.py` (properties in its header: idempotent, sequential, self-auditing, self-stopping,
+checkpointed, detachable, alarmed). Toy mode uses `controls.Target('smooth')` (15-D, identity
+transform) through the same code path — pool, chunks, checkpoints, status writes, manifest,
+audit — with its own `status_toy.json` so the real `status.json` is untouched.
+
+**A — two seeds (17304, 17305), nlive 100, 4 processes, foreground:** both complete (1,343–1,344
+iterations, ~3 s each), **both audits PASS** (restored arrays == saved; weights normalise to
+9.4e-15; ESS reproduces; log Z re-derived by this file's own quadrature to 1.8e-15; cube inverse
+0; every hash), `status_toy.json` written at every stage (`driver_running` per chunk →
+`driver_finished`), `driver.pid` removed at exit.
+
+**Kill-and-relaunch — nlive 3000, one process, checkpoint every 2 s (the nlive-100/800 toys finish
+in 3–11 s, before any kill):** run 1 (seed 17305) was killed with SIGTERM at **iteration 1810** (a
+checkpoint existed; `run_status.json` said `complete: false`; the stale `driver.pid` was left, as
+after a reboot). The relaunch found the pid dead, **RESUMED from the checkpoint at iteration
+1810, ncall 5245**, ran to completion (44,189 iterations, 677,023 calls), audit PASS. An
+uninterrupted control with the same seed and settings gives **bit-identical** log Z
+(−13.578464251949018), `samples`, `samples_u`, `logl` and `logwt` (sha256 equal) — dynesty's
+restore replays its own random state (P15 D3's finding, used constructively). No stray workers
+after the kill (`spawn_main` count 0). Outputs retained under `dryrun/{A,B,C,D,E}` (B and C were an
+earlier attempt where the run finished before the kill; retained, not counted).
+
+**The driver is therefore fit to be left unattended.** `launch_status.md` carries the check,
+relaunch and do-not-do lists and the resumption route. `status.json` → `task3_done`.

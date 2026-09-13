@@ -1,10 +1,10 @@
 {
- "stage": "task2_done",
- "timestamp": "2026-09-13T22:15:46",
+ "stage": "task3_done",
+ "timestamp": "2026-09-13T22:42:12",
  "branch": "t2/validated-posterior",
- "head": "387436d",
+ "head": "05845a4",
  "runs_complete": 0,
  "runs_audited": 0,
  "driver_pid": null,
- "last_note": "invariant 13 unchanged (9.6e-08) / 863 -inf; datum 7 -inf, 6 <=1.85e-9; short-circuit 50/50; rejection 16.45% [14.9,18.1]"
+ "last_note": "diagnostics inert by exact Perturbation equality 100/100; driver dry run: audits PASS, kill-and-resume bit-identical"
 }

@@ -56,6 +56,14 @@ before the first solve. Keep the machine awake.
 - **No reading a posterior** before TASK 5's independent audit has re-verified every run.
 - **No deleting `.git/index.lock` in the primary tree**; work in the worktree.
 
+## Dry run (TASK 3) — what was proven before leaving it unattended
+
+Toy target (P17 `controls.Target('smooth')`, 15-D): two seeds complete with passing audits and
+`status_toy.json` written at every stage; a run killed by SIGTERM at iteration 1810 (stale
+`driver.pid` left) resumed from its checkpoint on relaunch and finished **bit-identical** to an
+uninterrupted run of the same seed (log Z, samples, logl, logwt). Details: DECISIONS D7;
+outputs `dryrun/`.
+
 ## Stage log
 
 | when | stage | note |
@@ -63,3 +71,4 @@ before the first solve. Keep the machine awake.
 | 2026-09-13 21:44 | task0_done | gates OFF 79/79, 60/60; protocol frozen 9b91420 |
 | 2026-09-13 21:56 | task1_done | options ON for eciML1515; gates OFF pass; P3 gate byte-identical |
 | 2026-09-13 22:16 | task2_done | invariant 876/876 as predicted; rejection 16.45 % [14.9, 18.1] |
+| 2026-09-13 22:42 | task3_done | diagnostics inert (exact); driver dry run + kill-and-resume proven |
