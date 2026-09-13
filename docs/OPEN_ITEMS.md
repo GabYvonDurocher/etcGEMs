@@ -151,6 +151,8 @@ Cooper2007 resolves to a 2001 paper.
 
 ### 0c. Reconciliation rule — read before absorbing any new result
 
+**13 September 2026:** This reconciliation rule and [RIGOUR.md](RIGOUR.md) together govern every subsequent run. P17 is closed negatively by PI stopping-rule change; see the dated closure below.
+
 Every run in this series has produced a result that looked like the answer and was one layer of a
 stack. **A new result does not replace this section; it is reconciled against it.** Each report
 must state, explicitly:
@@ -249,6 +251,8 @@ temperatures, LP kinks), the T_opt/CT_max asymmetry, the predictor validation, a
 | 3.12 | **Organelle-resolved mitochondrial lipidomics for any *Candida*.** Whole-cell lipidomics for *C. auris* is rich (Shahi 2020; Zamith-Miranda 2021; Singh 2020/2024); **fractionated mitochondrial lipidomics for any *Candida* does not exist**. The only comparative isolated-mitochondria phospholipid dataset across yeasts, which includes *C. parapsilosis*, is Arthur & Watson (1976) — and it shows **>10×** interspecific variation in mitochondrial cardiolipin, the largest measured fungal membrane difference on record. | Note this feeds A8 (fluidity, phase behaviour, proton leak), **not** the area budget, which has no lipid term. K4 TASK 5 §5 separates the two; they should not be commissioned as one study. |
 
 ## 4. Standing hazards — not tasks, but re-read before trusting a result
+
+**Standing protocol:** [RIGOUR.md](RIGOUR.md), with decision references and recorded historical exceptions, governs subsequent runs.
 
 - **THE REPOSITORY HOLDS MORE THAN ONE MEASURED VALUE FOR SOME QUANTITIES, AND THEY DISAGREE.**
   This has now cost the project twice: Parsa's NLDM CSV predating its own medium change, and
@@ -554,3 +558,20 @@ See reports/P16_reduced/audit_report.md and DECISIONS D7 for all addendum checks
 weighted correlations, full eigenvectors and the outstanding original TASK 5 deliverables.
 All results condition on dTm=0: the measured meltome mean is assumed exact and uniform
 mean error must be absorbed by tm_scale/catalytic parameters. No full-model posterior claim.
+
+
+## P17 PI closure and reconciliation — 13 September 2026
+
+P17 closes as a negative diagnostic result by explicit PI stopping-rule change, not by passing its original gate. No validated posterior exists for this family; R1 remains open, R3 provisional, R4 untouched. D/E/F/M9 fits remain blocked behind the separately approved target revision. No further biological parameter is fixed. dTm=0 assumes an exact meltome mean and excludes uniform melting-temperature uncertainty, which would otherwise be absorbed by tm_scale and catalytic parameters.
+
+This dated correction supersedes §0d's running-P16 status, reliance on its evidence as validated model comparison, recommendation to commission more sampler-only development, and the claim that E5 has not run. The original text remains visible as history. The inspected e2/deck branch contains E5 and subsequent E6 work; its old E6 prompt must be marked superseded during integration. P17's final report and INTEGRATION_STATE.md govern the current state.
+
+D44/D45 concern reproducible scale-dependent curvature at ONE non-optimal point, not proof all samplers fail or that the likelihood is the sole cause. The 80–87% living fractions are analytical toy outcomes from their specified priors and likelihoods, NOT biological targets or acceptance thresholds.
+
+| # | Current decision or dependency | Owner | Disposition |
+|---|---|---|---|
+| 1.25 | Consistent treatment of missing/infeasible respiration predictions | PI | Open; formalises §0d's existing number. Derive from observation model, distinguish structural zero from numerical failure; TARGET_REVISION_SPEC item 2 awaits approval. |
+| 1.26 | D/E/F evidence-based model comparison | PI | Blocked programme decision; formalises §0d's existing number. P16 evidence agreement does not validate those estimates. No new fits. |
+| 1.27 | Approve separately scoped scientific target revision | PI | Open: configuration-D f_metab removal versus a distinct allocation hypothesis; observation-model treatment under 1.25; seven-axis mechanism investigation and the complete preregistered validation plan. TARGET_REVISION_SPEC.md is preparation only. |
+
+Existing decisions reconciled: 1.14 (Candida predictor calibration) and 1.16 (Candida respiratory vertex) remain open. 1.15's remaining respiration-model issue is linked to 1.25/1.27; the old support choice 1.21 remains historically closed, not silently undone. 1.17 and 1.19 remain blocked, now by target revision and full validation. 1.20's meltome-tail interpretation remains open. 1.24 was acted on by P16 fixing dTm=0, but this did not validate inference and grants no authority to fix another parameter; further action now follows 1.27. 1.23's PI criterion decision remains closed. 1.22's lexicographic tie-break is deferred and needs a separate justified decision before adoption. External provenance requests 1.5–1.9 and the formal 1.4 confirmation are unaffected.

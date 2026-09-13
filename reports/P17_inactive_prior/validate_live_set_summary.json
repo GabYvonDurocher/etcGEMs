@@ -1,0 +1,8 @@
+{
+  "n": 800,
+  "max_abs_difference": 1.3409138688302846e-08,
+  "threshold": 1e-06,
+  "ordering_validation_passed": true,
+  "wall_s": 146.363680666,
+  "source": "red2 live active population at6800; independent f_metab prior redraw seed17501; NOT a posterior fit"
+}

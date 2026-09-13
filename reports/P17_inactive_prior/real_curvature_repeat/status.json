@@ -1,0 +1,16 @@
+{
+  "status": "completed",
+  "repeatability_passed": true,
+  "max_likelihood_difference": 4.0818193269842595e-10,
+  "unstable_axes": [
+    "dTopt",
+    "topt_scale",
+    "dCp_scale",
+    "tm_scale",
+    "kcat_scale",
+    "sigma",
+    "clearance_mult"
+  ],
+  "calls": 58,
+  "wall_s": 121.504576084
+}

@@ -1,0 +1,17 @@
+{
+  "evaluations": 58,
+  "unstable_axes": [
+    "dTopt",
+    "topt_scale",
+    "dCp_scale",
+    "tm_scale",
+    "kcat_scale",
+    "sigma",
+    "clearance_mult"
+  ],
+  "solver_status_changes": [],
+  "respiration_mask_changes": [],
+  "baseline_repeat_error": 7.425171588693047e-13,
+  "evaluations_sha256": "fc4a8a5dc6dc1947f84a41ca95604f9bb6408fc3cb9b452adee7f04c5c077041",
+  "scope": "One saved parent, two stencil sizes; no universal nonsmoothness or global mask claim."
+}

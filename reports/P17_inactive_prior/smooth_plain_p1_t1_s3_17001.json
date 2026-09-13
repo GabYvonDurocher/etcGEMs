@@ -1,0 +1,21 @@
+{
+  "label": "smooth_plain_p1_t1_s3_17001",
+  "seed": 17001,
+  "kind": "smooth",
+  "path": "plain",
+  "nproc": 1,
+  "transformed": true,
+  "slices": 3,
+  "wall_s": 9.722535042,
+  "ncall": 169851,
+  "niter": 11630,
+  "logz": -13.353880576339778,
+  "logzerr": 0.11739796601404515,
+  "truth_logz": -13.706559170414721,
+  "nuisance_mean": 0.5095612248705408,
+  "nuisance_ks": 0.02252561499706318,
+  "active_ks": 0.03977543382693355,
+  "region_mass": 0.46868213370031525,
+  "truth_region_mass": 0.5,
+  "initial_nuisance_mean": 0.4892888238579063
+}

@@ -1,0 +1,15 @@
+{
+  "seed": 17604,
+  "ndim": 15,
+  "wall_s": 3.083577333000001,
+  "logz": -14.628103964168716,
+  "logzerr": 0.11810493870336701,
+  "truth_logz": -14.80517145908283,
+  "informed_mean": 0.7528061578739575,
+  "truth_informed_mean": 0.75,
+  "informed_correct_cdf_ks": 0.017742149228225257,
+  "informed_wrong_uniform_ks": 0.38736851832690244,
+  "active_ks": 0.011550781787106335,
+  "ncall": 187855,
+  "correct_cdf_closer": true
+}

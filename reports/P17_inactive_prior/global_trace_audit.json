@@ -1,0 +1,272 @@
+[
+  {
+    "variant": "pilot",
+    "bit_identical": true,
+    "kernels": 9722,
+    "groups": [
+      {
+        "stage": 1,
+        "parent_core": false,
+        "n": 1908,
+        "cut_range": [
+          -20.6602477348411,
+          -13.162179807647234
+        ],
+        "stalled_fraction": 0.6871069182389937,
+        "nuisance_rms_step": 0.21927746048636138,
+        "region_exchanges": 9,
+        "mean_accepted": 0.4863731656184486,
+        "mean_density_rejections": 21.28721174004193
+      },
+      {
+        "stage": 1,
+        "parent_core": true,
+        "n": 37,
+        "cut_range": [
+          -20.6602477348411,
+          -13.162179807647234
+        ],
+        "stalled_fraction": 0.8108108108108109,
+        "nuisance_rms_step": 0.18855848755486915,
+        "region_exchanges": 7,
+        "mean_accepted": 0.2702702702702703,
+        "mean_density_rejections": 20.864864864864863
+      },
+      {
+        "stage": 2,
+        "parent_core": false,
+        "n": 1790,
+        "cut_range": [
+          -13.145307661884967,
+          -9.022016431589336
+        ],
+        "stalled_fraction": 0.4620111731843575,
+        "nuisance_rms_step": 0.2872847201554845,
+        "region_exchanges": 0,
+        "mean_accepted": 1.3201117318435753,
+        "mean_density_rejections": 19.812290502793296
+      },
+      {
+        "stage": 2,
+        "parent_core": true,
+        "n": 155,
+        "cut_range": [
+          -13.145307661884967,
+          -9.022016431589336
+        ],
+        "stalled_fraction": 0.9870967741935484,
+        "nuisance_rms_step": 0.004124247587560898,
+        "region_exchanges": 1,
+        "mean_accepted": 0.01935483870967742,
+        "mean_density_rejections": 21.677419354838708
+      },
+      {
+        "stage": 3,
+        "parent_core": false,
+        "n": 1694,
+        "cut_range": [
+          -9.016753152257776,
+          -5.719280599993072
+        ],
+        "stalled_fraction": 0.17355371900826447,
+        "nuisance_rms_step": 0.3511381853453567,
+        "region_exchanges": 0,
+        "mean_accepted": 2.7898465171192446,
+        "mean_density_rejections": 15.975206611570249
+      },
+      {
+        "stage": 3,
+        "parent_core": true,
+        "n": 250,
+        "cut_range": [
+          -9.016753152257776,
+          -5.719280599993072
+        ],
+        "stalled_fraction": 1.0,
+        "nuisance_rms_step": 0.0,
+        "region_exchanges": 0,
+        "mean_accepted": 0.0,
+        "mean_density_rejections": 21.648
+      },
+      {
+        "stage": 4,
+        "parent_core": false,
+        "n": 1517,
+        "cut_range": [
+          -5.7118750497288495,
+          -3.2887903971566654
+        ],
+        "stalled_fraction": 0.2188529993408042,
+        "nuisance_rms_step": 0.3326584899479242,
+        "region_exchanges": 0,
+        "mean_accepted": 1.8233355306526038,
+        "mean_density_rejections": 10.470665787738959
+      },
+      {
+        "stage": 4,
+        "parent_core": true,
+        "n": 427,
+        "cut_range": [
+          -5.7118750497288495,
+          -3.2887903971566654
+        ],
+        "stalled_fraction": 1.0,
+        "nuisance_rms_step": 0.0,
+        "region_exchanges": 0,
+        "mean_accepted": 0.0,
+        "mean_density_rejections": 21.407494145199063
+      },
+      {
+        "stage": 5,
+        "parent_core": false,
+        "n": 1944,
+        "cut_range": [
+          -3.288368181695982,
+          -1.9676703708263765
+        ],
+        "stalled_fraction": 0.4794238683127572,
+        "nuisance_rms_step": 0.25416960765089375,
+        "region_exchanges": 0,
+        "mean_accepted": 0.808641975308642,
+        "mean_density_rejections": 9.061728395061728
+      }
+    ],
+    "trace_sha256": "131ea4f68a636f0f0cb0982d41382f0078cccdee54bba16090cbe499b061c3e3",
+    "baseline_sha256": "f0e28f64b2464ddec615dc83da1b0b89672d2332697f5f23f8b0a195f46c9155"
+  },
+  {
+    "variant": "oracle",
+    "bit_identical": true,
+    "kernels": 13924,
+    "groups": [
+      {
+        "stage": 1,
+        "parent_core": false,
+        "n": 2722,
+        "cut_range": [
+          -20.6602477348411,
+          -11.20209918113187
+        ],
+        "stalled_fraction": 0.5694342395297576,
+        "nuisance_rms_step": 0.25566273200769785,
+        "region_exchanges": 39,
+        "mean_accepted": 0.9151359294636296,
+        "mean_density_rejections": 25.204628949301984
+      },
+      {
+        "stage": 1,
+        "parent_core": true,
+        "n": 63,
+        "cut_range": [
+          -20.6602477348411,
+          -11.20209918113187
+        ],
+        "stalled_fraction": 0.1746031746031746,
+        "nuisance_rms_step": 0.36444352514174355,
+        "region_exchanges": 50,
+        "mean_accepted": 2.6666666666666665,
+        "mean_density_rejections": 23.476190476190474
+      },
+      {
+        "stage": 2,
+        "parent_core": false,
+        "n": 2610,
+        "cut_range": [
+          -11.20209918113187,
+          -6.167159347055416
+        ],
+        "stalled_fraction": 0.13026819923371646,
+        "nuisance_rms_step": 0.36537067536109086,
+        "region_exchanges": 178,
+        "mean_accepted": 3.532567049808429,
+        "mean_density_rejections": 20.032567049808428
+      },
+      {
+        "stage": 2,
+        "parent_core": true,
+        "n": 175,
+        "cut_range": [
+          -11.20209918113187,
+          -6.167159347055416
+        ],
+        "stalled_fraction": 0.022857142857142857,
+        "nuisance_rms_step": 0.41694281710751063,
+        "region_exchanges": 152,
+        "mean_accepted": 4.622857142857143,
+        "mean_density_rejections": 18.274285714285714
+      },
+      {
+        "stage": 3,
+        "parent_core": false,
+        "n": 2052,
+        "cut_range": [
+          -6.166690943808407,
+          -2.9913016966790718
+        ],
+        "stalled_fraction": 0.06773879142300195,
+        "nuisance_rms_step": 0.3776432482691137,
+        "region_exchanges": 509,
+        "mean_accepted": 3.931286549707602,
+        "mean_density_rejections": 11.938109161793372
+      },
+      {
+        "stage": 3,
+        "parent_core": true,
+        "n": 733,
+        "cut_range": [
+          -6.166690943808407,
+          -2.9913016966790718
+        ],
+        "stalled_fraction": 0.01637107776261937,
+        "nuisance_rms_step": 0.3844712471446215,
+        "region_exchanges": 496,
+        "mean_accepted": 4.582537517053206,
+        "mean_density_rejections": 10.151432469304229
+      },
+      {
+        "stage": 4,
+        "parent_core": false,
+        "n": 580,
+        "cut_range": [
+          -2.9911503788712146,
+          -0.22420208604536818
+        ],
+        "stalled_fraction": 0.23448275862068965,
+        "nuisance_rms_step": 0.3333009078481193,
+        "region_exchanges": 302,
+        "mean_accepted": 2.372413793103448,
+        "mean_density_rejections": 7.36551724137931
+      },
+      {
+        "stage": 4,
+        "parent_core": true,
+        "n": 2205,
+        "cut_range": [
+          -2.9911503788712146,
+          -0.22420208604536818
+        ],
+        "stalled_fraction": 0.06984126984126984,
+        "nuisance_rms_step": 0.38394367573954147,
+        "region_exchanges": 314,
+        "mean_accepted": 3.28390022675737,
+        "mean_density_rejections": 4.262585034013606
+      },
+      {
+        "stage": 5,
+        "parent_core": true,
+        "n": 2784,
+        "cut_range": [
+          -0.22407211475402367,
+          2.0006573907621443
+        ],
+        "stalled_fraction": 0.31070402298850575,
+        "nuisance_rms_step": 0.32184970255233836,
+        "region_exchanges": 0,
+        "mean_accepted": 1.3936781609195403,
+        "mean_density_rejections": 1.0233477011494252
+      }
+    ],
+    "trace_sha256": "6bb5da4c71d6350f06887cc18b8cb92194aae6a1ea45b9a7fe2198c8118f6773",
+    "baseline_sha256": "bddf76992e25d7618612a6c7239a1127e68f778d09dc7cef0b272616c2cab8ca"
+  }
+]

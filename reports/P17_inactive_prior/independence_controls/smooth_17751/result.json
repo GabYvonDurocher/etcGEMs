@@ -1,0 +1,18 @@
+{
+  "kind": "smooth",
+  "seed": 17751,
+  "wall_s": 10.784303957999999,
+  "steps": 32,
+  "ncall": 189534,
+  "logz": -13.771798408299333,
+  "logzerr": 0.11915085691610842,
+  "truth_logz": -13.706559170414721,
+  "nuisance_ks": 0.009911010908174367,
+  "nuisance_mean": 0.5034150504839546,
+  "active_ks": 0.010801811316965004,
+  "region_mass": 0.4927113990849198,
+  "truth_region_mass": 0.5,
+  "stalled_fraction": 0.21178053233400596,
+  "mean_accepted_per_kernel": 3.4054963005669263,
+  "duplicate_vectors": 2204
+}

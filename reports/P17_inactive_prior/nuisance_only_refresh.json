@@ -1,0 +1,331 @@
+{
+  "results": {
+    "red1": {
+      "source_sha256": {
+        "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/samples_red1.npy": "fb134be7f90066e7129bdc0acba3b1f89227a49fc398921912b7b88bce7e1cbf",
+        "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/logwt_red1.npy": "35b32f1b9ba6d21d156101e437cec155f99c8ac6f350229548a6259856af4ac2"
+      },
+      "original_mean": 0.31911961333209315,
+      "original_ks": 0.29087814163600484,
+      "refresh": [
+        {
+          "seed": 17651,
+          "mean": 0.4956835867386544,
+          "ks": 0.012260863182647741,
+          "active_coordinates_and_weights_unchanged": true
+        },
+        {
+          "seed": 17652,
+          "mean": 0.49946477777326725,
+          "ks": 0.009103332634037842,
+          "active_coordinates_and_weights_unchanged": true
+        },
+        {
+          "seed": 17653,
+          "mean": 0.5028027991923291,
+          "ks": 0.011673303832412052,
+          "active_coordinates_and_weights_unchanged": true
+        },
+        {
+          "seed": 17654,
+          "mean": 0.5036155706670331,
+          "ks": 0.012446967472062809,
+          "active_coordinates_and_weights_unchanged": true
+        },
+        {
+          "seed": 17655,
+          "mean": 0.4962103071194567,
+          "ks": 0.010175409430366433,
+          "active_coordinates_and_weights_unchanged": true
+        }
+      ]
+    },
+    "red2": {
+      "source_sha256": {
+        "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/samples_red2.npy": "868541d450e0cca1517e0df880af10ccbe5fb62e7ecc4240c3db1ee73b66ee16",
+        "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/logwt_red2.npy": "e59e07175138fb759dafbe6345832d9a0ec7db2df7980af7344a941faca7f99f"
+      },
+      "original_mean": 0.39371489772257307,
+      "original_ks": 0.21614604552442174,
+      "refresh": [
+        {
+          "seed": 17651,
+          "mean": 0.4940657391169658,
+          "ks": 0.017090007374515714,
+          "active_coordinates_and_weights_unchanged": true
+        },
+        {
+          "seed": 17652,
+          "mean": 0.4985344300642586,
+          "ks": 0.01427264318651078,
+          "active_coordinates_and_weights_unchanged": true
+        },
+        {
+          "seed": 17653,
+          "mean": 0.5076941624207452,
+          "ks": 0.021392481731145607,
+          "active_coordinates_and_weights_unchanged": true
+        },
+        {
+          "seed": 17654,
+          "mean": 0.5046883241950724,
+          "ks": 0.015785595831393162,
+          "active_coordinates_and_weights_unchanged": true
+        },
+        {
+          "seed": 17655,
+          "mean": 0.4916197920407847,
+          "ks": 0.019964990130032167,
+          "active_coordinates_and_weights_unchanged": true
+        }
+      ]
+    },
+    "spike_17001": {
+      "source_sha256": {
+        "reports/P17_inactive_prior/spike_plain_p1_t0_s3_17001.npz": "683b1c7ce2807c4330c5d4c2029145fc17fab9c27f77c6bfd287a5651aaa343d"
+      },
+      "original_mean": 0.4713190614078633,
+      "original_ks": 0.046749910827461494,
+      "refresh": [
+        {
+          "seed": 17651,
+          "mean": 0.49606088694513384,
+          "ks": 0.010992226161662705,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.007200787645875154,
+          "truth_region_mass": 0.3043739263467943
+        },
+        {
+          "seed": 17652,
+          "mean": 0.49802387392330477,
+          "ks": 0.011400769535320987,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.007200787645875154,
+          "truth_region_mass": 0.3043739263467943
+        },
+        {
+          "seed": 17653,
+          "mean": 0.49922163257311836,
+          "ks": 0.008430664048358849,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.007200787645875154,
+          "truth_region_mass": 0.3043739263467943
+        },
+        {
+          "seed": 17654,
+          "mean": 0.504484599010355,
+          "ks": 0.012511630064110157,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.007200787645875154,
+          "truth_region_mass": 0.3043739263467943
+        },
+        {
+          "seed": 17655,
+          "mean": 0.4969238408784656,
+          "ks": 0.00864052770055923,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.007200787645875154,
+          "truth_region_mass": 0.3043739263467943
+        }
+      ]
+    },
+    "spike_17002": {
+      "source_sha256": {
+        "reports/P17_inactive_prior/spike_plain_p1_t0_s3_17002.npz": "05f5198be1599b090229fdf02c58407e59dd88cbf7e132b8ab010c88efa1404d"
+      },
+      "original_mean": 0.4670867441519583,
+      "original_ks": 0.06521293400945477,
+      "refresh": [
+        {
+          "seed": 17651,
+          "mean": 0.496107254113018,
+          "ks": 0.010711720306912476,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.11691721221563772,
+          "truth_region_mass": 0.3043739263467943
+        },
+        {
+          "seed": 17652,
+          "mean": 0.49806133370227557,
+          "ks": 0.011245406034089966,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.11691721221563772,
+          "truth_region_mass": 0.3043739263467943
+        },
+        {
+          "seed": 17653,
+          "mean": 0.49999279060454616,
+          "ks": 0.009315365696179023,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.11691721221563772,
+          "truth_region_mass": 0.3043739263467943
+        },
+        {
+          "seed": 17654,
+          "mean": 0.5048211414311625,
+          "ks": 0.013528814506698128,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.11691721221563772,
+          "truth_region_mass": 0.3043739263467943
+        },
+        {
+          "seed": 17655,
+          "mean": 0.4963786898142986,
+          "ks": 0.009719096591094267,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.11691721221563772,
+          "truth_region_mass": 0.3043739263467943
+        }
+      ]
+    },
+    "spike_17003": {
+      "source_sha256": {
+        "reports/P17_inactive_prior/spike_plain_p1_t0_s3_17003.npz": "f5da8b5ab105e0b86b727b9411b67ecdda450341ce11bb4a762615b76f0a67f4"
+      },
+      "original_mean": 0.528539057961378,
+      "original_ks": 0.05704313555095003,
+      "refresh": [
+        {
+          "seed": 17651,
+          "mean": 0.4957702513355693,
+          "ks": 0.010653392339196488,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.011210685447884979,
+          "truth_region_mass": 0.3043739263467943
+        },
+        {
+          "seed": 17652,
+          "mean": 0.49779237034369384,
+          "ks": 0.011713629662965186,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.011210685447884979,
+          "truth_region_mass": 0.3043739263467943
+        },
+        {
+          "seed": 17653,
+          "mean": 0.49887759855133806,
+          "ks": 0.008052418073443146,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.011210685447884979,
+          "truth_region_mass": 0.3043739263467943
+        },
+        {
+          "seed": 17654,
+          "mean": 0.5044594185171797,
+          "ks": 0.012776531234417021,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.011210685447884979,
+          "truth_region_mass": 0.3043739263467943
+        },
+        {
+          "seed": 17655,
+          "mean": 0.49760035849354145,
+          "ks": 0.007624011592589741,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.011210685447884979,
+          "truth_region_mass": 0.3043739263467943
+        }
+      ]
+    },
+    "spike_17004": {
+      "source_sha256": {
+        "reports/P17_inactive_prior/spike_plain_p1_t0_s3_17004.npz": "272f1e3ea11e9dafb2f35a8cbaf5d6659bdc1f13793d980cb0a33de94b0f6943"
+      },
+      "original_mean": 0.5035893287098199,
+      "original_ks": 0.014149301997710695,
+      "refresh": [
+        {
+          "seed": 17651,
+          "mean": 0.4961556309760968,
+          "ks": 0.01076814815439689,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.008596901494351694,
+          "truth_region_mass": 0.3043739263467943
+        },
+        {
+          "seed": 17652,
+          "mean": 0.49803922586441507,
+          "ks": 0.011486011969610854,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.008596901494351694,
+          "truth_region_mass": 0.3043739263467943
+        },
+        {
+          "seed": 17653,
+          "mean": 0.4992513036287277,
+          "ks": 0.008397716850112036,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.008596901494351694,
+          "truth_region_mass": 0.3043739263467943
+        },
+        {
+          "seed": 17654,
+          "mean": 0.504668971229747,
+          "ks": 0.013016314319649946,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.008596901494351694,
+          "truth_region_mass": 0.3043739263467943
+        },
+        {
+          "seed": 17655,
+          "mean": 0.4971936850910283,
+          "ks": 0.008323456491723058,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.008596901494351694,
+          "truth_region_mass": 0.3043739263467943
+        }
+      ]
+    },
+    "spike_17005": {
+      "source_sha256": {
+        "reports/P17_inactive_prior/spike_plain_p1_t0_s3_17005.npz": "da786a9516055e99c385c7e1a80b4c703157dcf96205f01a23e79fe8228b42bc"
+      },
+      "original_mean": 0.5069871055889946,
+      "original_ks": 0.019424111469794503,
+      "refresh": [
+        {
+          "seed": 17651,
+          "mean": 0.4960274973016777,
+          "ks": 0.0111435443000093,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.006276628342206695,
+          "truth_region_mass": 0.3043739263467943
+        },
+        {
+          "seed": 17652,
+          "mean": 0.49796058533786586,
+          "ks": 0.011683922719054052,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.006276628342206695,
+          "truth_region_mass": 0.3043739263467943
+        },
+        {
+          "seed": 17653,
+          "mean": 0.4992690196264801,
+          "ks": 0.008443841066700819,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.006276628342206695,
+          "truth_region_mass": 0.3043739263467943
+        },
+        {
+          "seed": 17654,
+          "mean": 0.504443343855501,
+          "ks": 0.01252495213514454,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.006276628342206695,
+          "truth_region_mass": 0.3043739263467943
+        },
+        {
+          "seed": 17655,
+          "mean": 0.4969042958056955,
+          "ks": 0.008785901745731461,
+          "active_coordinates_and_weights_unchanged": true,
+          "region_mass": 0.006276628342206695,
+          "truth_region_mass": 0.3043739263467943
+        }
+      ]
+    }
+  },
+  "wall_s": 0.3534554999999999,
+  "scope": "Diagnostic copies only; no changed P16 posterior saved. Conditional nuisance recovery cannot validate active inference."
+}

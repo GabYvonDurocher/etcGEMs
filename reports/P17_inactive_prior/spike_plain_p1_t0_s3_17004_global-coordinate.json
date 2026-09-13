@@ -1,0 +1,23 @@
+{
+  "label": "spike_plain_p1_t0_s3_17004_global-coordinate",
+  "kernel": "global-coordinate",
+  "bound": "multi",
+  "seed": 17004,
+  "kind": "spike",
+  "path": "plain",
+  "nproc": 1,
+  "transformed": false,
+  "slices": 3,
+  "wall_s": 99.57405933300001,
+  "ncall": 5106011,
+  "niter": 15322,
+  "logz": -12.843136299742948,
+  "logzerr": 0.12733620529957823,
+  "truth_logz": -12.727519229670813,
+  "nuisance_mean": 0.5004891711104741,
+  "nuisance_ks": 0.00839125772638244,
+  "active_ks": 0.08776839420917118,
+  "region_mass": 0.21774037676567443,
+  "truth_region_mass": 0.3043739263467943,
+  "initial_nuisance_mean": 0.5057274643279183
+}

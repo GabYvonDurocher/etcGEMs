@@ -1,0 +1,114 @@
+[
+  {
+    "parameter": "dTopt",
+    "curvatures": [
+      4.527962324551993,
+      3.6011426744209096
+    ],
+    "relative_difference": 0.20468802160865704
+  },
+  {
+    "parameter": "topt_scale",
+    "curvatures": [
+      3.618771424918066,
+      58.595621412367294
+    ],
+    "relative_difference": 0.9382416068352458
+  },
+  {
+    "parameter": "dCp_scale",
+    "curvatures": [
+      81.42746259788503,
+      57.00208912259752
+    ],
+    "relative_difference": 0.29996481157601396
+  },
+  {
+    "parameter": "tm_scale",
+    "curvatures": [
+      3.321007300440826,
+      1.4137272616876473
+    ],
+    "relative_difference": 0.5743076922775836
+  },
+  {
+    "parameter": "kcat_scale",
+    "curvatures": [
+      16.436815081961598,
+      22.806854236390173
+    ],
+    "relative_difference": 0.27930371669866966
+  },
+  {
+    "parameter": "kappa_scale",
+    "curvatures": [
+      2.850164548817702e-08,
+      1.0014211682118912e-09
+    ],
+    "relative_difference": 2.7500224319965128e-08
+  },
+  {
+    "parameter": "sigma",
+    "curvatures": [
+      -2.418023103647471,
+      -19.304356878573348
+    ],
+    "relative_difference": 0.8747421051705002
+  },
+  {
+    "parameter": "f_maint",
+    "curvatures": [
+      -0.0049595237427979555,
+      -0.004965559814440468
+    ],
+    "relative_difference": 6.036071642512297e-06
+  },
+  {
+    "parameter": "ngam_scale",
+    "curvatures": [
+      0.03777819437722485,
+      0.03778097934947766
+    ],
+    "relative_difference": 2.7849722528117127e-06
+  },
+  {
+    "parameter": "ngam_steepness",
+    "curvatures": [
+      -0.009634839761574199,
+      -0.009639727434063161
+    ],
+    "relative_difference": 4.88767248896238e-06
+  },
+  {
+    "parameter": "clearance_mult",
+    "curvatures": [
+      2.454127737214762,
+      2.7332431764959253
+    ],
+    "relative_difference": 0.10211877292198905
+  },
+  {
+    "parameter": "resp_scale",
+    "curvatures": [
+      0.25654898282212457,
+      0.25658583420851144
+    ],
+    "relative_difference": 3.6851386386871354e-05
+  },
+  {
+    "parameter": "disc_resp",
+    "curvatures": [
+      0.018020373273586188,
+      0.018020512966288038
+    ],
+    "relative_difference": 1.396927018504357e-07
+  },
+  {
+    "parameter": "disc_growth",
+    "curvatures": [
+      0.46065373349613026,
+      0.4606593706402151
+    ],
+    "relative_difference": 5.637144084857937e-06
+  }
+]
