@@ -6,7 +6,7 @@
 
 *Evidence:* git_commands.log records each git invocation with its exit code; task1_hashes.txt and task1_diff_pairs.txt the SHA-256 comparison of every dirty file against P17's copy; task2_curation.json and task2_curation.txt the included/excluded file counts, sizes and the manifest verification; task5_gates_main.log the gate battery on merged main. The fresh-clone verification is reproducible by cloning origin/main and re-running the two gate scripts.
 
-**This report is not yet committed.**
+**This report was last written at** `98476c3` (2026-09-13) — R3: record -- the integration report, OPEN_ITEMS, the handover appendix, and stamps
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 
