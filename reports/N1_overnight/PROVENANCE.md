@@ -14,7 +14,7 @@
 |---|---|---|---|
 | `strains/eciML1515/outputs/n1_task4_sectors_no_alloc` | `20e0c99` | 2026-09-07 | N1 TASK 4: sector translation cap - diagnose and guard, no behaviour c |
 | `strains/eciML1515/outputs/tpc` | `f7b572e` | 2026-09-07 | N2 TASK 1 (part 1): regenerate the stale eciML1515 nominal TPC, cause  |
-| `strains/mmaripaludis/outputs/tpc` | `20e0c99` | 2026-09-07 | N1 TASK 4: sector translation cap - diagnose and guard, no behaviour c |
+| `strains/mmaripaludis/outputs/tpc` | `b8b181b` | 2026-09-13 | R3: P16 post-run evidence and the 0d sequencing note, committed from t |
 
 ---
 

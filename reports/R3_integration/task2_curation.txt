@@ -1,0 +1,73 @@
+INCLUDE 580 files, 15.74 MB
+EXCLUDE 1365 files, 2634.2 MB
+
+excluded by extension:
+   .save      486 files    1510.9 MB
+   .npz       775 files     856.6 MB
+   .log        72 files     264.9 MB
+   .npy         3 files       1.7 MB
+   .pyc        26 files       0.1 MB
+   .claim       3 files       0.0 MB
+
+excluded files over 5 MB (named individually as required):
+      104.7 MB  reports/P17_inactive_prior/unif_benchmark.log
+       82.3 MB  reports/P17_inactive_prior/global_coordinate_replicates.log
+       18.9 MB  reports/P17_inactive_prior/global_coordinate_benchmark.log
+        8.9 MB  reports/P17_inactive_prior/positive_control.log
+        8.5 MB  reports/P17_inactive_prior/independence_trace_oracle/spike_17752/checkpoint.save
+        7.7 MB  reports/P17_inactive_prior/controls_s15_spike.log
+        7.4 MB  reports/P17_inactive_prior/hybrid_controls/spike_17754/checkpoint.save
+        7.4 MB  reports/P17_inactive_prior/hybrid_controls/spike_17752/checkpoint.save
+        7.3 MB  reports/P17_inactive_prior/hybrid_controls/spike_17753/checkpoint.save
+        7.3 MB  reports/P17_inactive_prior/hybrid_controls/spike_17751/checkpoint.save
+        7.3 MB  reports/P17_inactive_prior/independence_laplace/spike_17754/checkpoint.save
+        7.2 MB  reports/P17_inactive_prior/independence_oracle/spike_17754/checkpoint.save
+        7.2 MB  reports/P17_inactive_prior/independence_oracle/spike_17752/checkpoint.save
+        7.2 MB  reports/P17_inactive_prior/independence_laplace/spike_17752/checkpoint.save
+        7.2 MB  reports/P17_inactive_prior/hybrid_controls/spike_17755/checkpoint.save
+        7.2 MB  reports/P17_inactive_prior/independence_laplace/spike_17755/checkpoint.save
+        7.2 MB  reports/P17_inactive_prior/independence_oracle/spike_17755/checkpoint.save
+        7.2 MB  reports/P17_inactive_prior/independence_laplace/spike_17751/checkpoint.save
+        7.2 MB  reports/P17_inactive_prior/independence_oracle/spike_17751/checkpoint.save
+        7.0 MB  reports/P17_inactive_prior/independence_diagonal/spike_17754/checkpoint.save
+        7.0 MB  reports/P17_inactive_prior/independence_laplace/spike_17753/checkpoint.save
+        7.0 MB  reports/P17_inactive_prior/independence_oracle/spike_17753/checkpoint.save
+        6.9 MB  reports/P17_inactive_prior/independence_diagonal/spike_17753/checkpoint.save
+        6.5 MB  reports/P17_inactive_prior/independence_diagonal/spike_17755/checkpoint.save
+        6.3 MB  reports/P17_inactive_prior/independence_trace_pilot/spike_17752/checkpoint.save
+        6.3 MB  reports/P17_inactive_prior/independence_controls/spike_17751/checkpoint.save
+        6.2 MB  reports/P17_inactive_prior/occupancy_smooth_0_17705/checkpoint.save
+        6.1 MB  reports/P17_inactive_prior/occupancy_smooth_0_17703/checkpoint.save
+        6.1 MB  reports/P17_inactive_prior/occupancy_smooth_0_17702/checkpoint.save
+        6.1 MB  reports/P17_inactive_prior/occupancy_smooth_-13.5_17702/checkpoint.save
+        6.0 MB  reports/P17_inactive_prior/occupancy_smooth_-13.5_17704/checkpoint.save
+        6.0 MB  reports/P17_inactive_prior/occupancy_smooth_0_17701/checkpoint.save
+        6.0 MB  reports/P17_inactive_prior/occupancy_smooth_-13.5_17703/checkpoint.save
+        6.0 MB  reports/P17_inactive_prior/occupancy_smooth_-13.5_17705/checkpoint.save
+        6.0 MB  reports/P17_inactive_prior/occupancy_smooth_-13.5_17701/checkpoint.save
+        6.0 MB  reports/P17_inactive_prior/occupancy_smooth_0_17704/checkpoint.save
+        6.0 MB  reports/P17_inactive_prior/independence_diagonal/spike_17751/checkpoint.save
+        5.8 MB  reports/P17_inactive_prior/independence_diagonal/spike_17752/checkpoint.save
+        5.8 MB  reports/P17_inactive_prior/independence_controls/spike_17754/checkpoint.save
+        5.8 MB  reports/P17_inactive_prior/independence_controls/spike_17755/checkpoint.save
+        5.8 MB  reports/P17_inactive_prior/independence_controls/smooth_17755/checkpoint.save
+        5.8 MB  reports/P17_inactive_prior/independence_controls/spike_17753/checkpoint.save
+        5.8 MB  reports/P17_inactive_prior/independence_controls/smooth_17752/checkpoint.save
+        5.8 MB  reports/P17_inactive_prior/spike_plain_p1_t0_s3_17001_unif.save
+        5.7 MB  reports/P17_inactive_prior/independence_controls/smooth_17753/checkpoint.save
+        5.7 MB  reports/P17_inactive_prior/independence_controls/smooth_17751/checkpoint.save
+        5.7 MB  strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/dynesty_red2.save
+        5.7 MB  reports/P17_inactive_prior/independence_controls/smooth_17754/checkpoint.save
+        5.4 MB  reports/P17_inactive_prior/independence_controls/spike_17752/checkpoint.save
+        5.3 MB  reports/P17_inactive_prior/occupancy_flat_-13.5_17705/checkpoint.save
+        5.3 MB  reports/P17_inactive_prior/occupancy_flat_-13.5_17702/checkpoint.save
+        5.2 MB  reports/P17_inactive_prior/occupancy_flat_-13.5_17703/checkpoint.save
+        5.2 MB  reports/P17_inactive_prior/occupancy_flat_0_17701/checkpoint.save
+        5.2 MB  reports/P17_inactive_prior/occupancy_flat_0_17702/checkpoint.save
+        5.1 MB  reports/P17_inactive_prior/occupancy_flat_-13.5_17704/checkpoint.save
+        5.1 MB  reports/P17_inactive_prior/occupancy_flat_-13.5_17701/checkpoint.save
+        5.1 MB  reports/P17_inactive_prior/occupancy_flat_0_17703/checkpoint.save
+
+copied 580 files
+
+manifest check: 549 matched, 0 MISMATCHED, 31 not covered by the manifest (docs/, prompts/, P16, the manifest itself)

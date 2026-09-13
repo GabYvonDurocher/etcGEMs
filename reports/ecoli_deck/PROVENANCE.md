@@ -6,7 +6,7 @@
 
 *Evidence:* reports/ecoli_deck/E6_VERIFICATION.md records source checks, render checks and the before/after page counts. P16 sources read at 191b4b0, Q1 at b163bad. No E6 solves. Quarto renders deck.qmd to _output/deck.pdf; check_frames.py checks clipping and measure_figures.py preserves the eight known legibility failures.
 
-**This report was last written at** `b163bad` (2026-09-11) — Q1: record -- report, the consequence drawn in 1.9, evidence row, deck caveat, stamps
+**This report was last written at** `31bfc94` (2026-09-13) — Merge branch 'main' into q1/n0-check
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 
