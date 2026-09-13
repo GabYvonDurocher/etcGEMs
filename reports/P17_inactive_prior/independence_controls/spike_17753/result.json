@@ -1,0 +1,18 @@
+{
+  "kind": "spike",
+  "seed": 17753,
+  "wall_s": 11.582159583000006,
+  "steps": 32,
+  "ncall": 118756,
+  "logz": -13.056481151050743,
+  "logzerr": 0.12324995930624875,
+  "truth_logz": -12.727519229670813,
+  "nuisance_ks": 0.012907751423189173,
+  "nuisance_mean": 0.4972036711487021,
+  "active_ks": 0.29749778549201217,
+  "region_mass": 0.0076302625013062175,
+  "truth_region_mass": 0.3043739263467943,
+  "stalled_fraction": 0.3810379052840533,
+  "mean_accepted_per_kernel": 1.6095094054258436,
+  "duplicate_vectors": 4031
+}

@@ -1,0 +1,23 @@
+{
+  "label": "stratum_plain_p1_t0_s3_17004",
+  "kernel": "rslice",
+  "bound": "multi",
+  "seed": 17004,
+  "kind": "stratum",
+  "path": "plain",
+  "nproc": 1,
+  "transformed": false,
+  "slices": 3,
+  "wall_s": 3.1415520840000006,
+  "ncall": 177151,
+  "niter": 11686,
+  "logz": 0.13262147150579365,
+  "logzerr": 0.1002903345724387,
+  "truth_logz": 0.0,
+  "nuisance_mean": 0.500222534530584,
+  "nuisance_ks": 0.009796299805989672,
+  "active_ks": 0.04638684859771347,
+  "region_mass": 0.45539719266929324,
+  "truth_region_mass": 0.5,
+  "initial_nuisance_mean": 0.5057274643279183
+}

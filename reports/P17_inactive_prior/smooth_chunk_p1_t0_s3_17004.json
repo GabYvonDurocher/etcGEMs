@@ -1,0 +1,21 @@
+{
+  "label": "smooth_chunk_p1_t0_s3_17004",
+  "seed": 17004,
+  "kind": "smooth",
+  "path": "chunk",
+  "nproc": 1,
+  "transformed": false,
+  "slices": 3,
+  "wall_s": 4.822532958,
+  "ncall": 177998,
+  "niter": 12047,
+  "logz": -13.589770398746532,
+  "logzerr": 0.10072513069286589,
+  "truth_logz": -13.706559170414721,
+  "nuisance_mean": 0.46254782883187207,
+  "nuisance_ks": 0.0650051561388112,
+  "active_ks": 0.024646201505090115,
+  "region_mass": 0.5186661926380735,
+  "truth_region_mass": 0.5,
+  "initial_nuisance_mean": 0.5057274643279183
+}

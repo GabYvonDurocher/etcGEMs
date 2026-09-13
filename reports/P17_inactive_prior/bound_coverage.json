@@ -1,0 +1,122 @@
+[
+  {
+    "tag": "red1",
+    "iteration": 4800,
+    "f_cdf": [
+      0,
+      0.25,
+      0.5,
+      0.75,
+      1
+    ],
+    "fraction_in_bound": [
+      0.0025,
+      0.0025,
+      0.0025,
+      0.00125,
+      0.0
+    ],
+    "fraction_all_five_in_bound": 0.0,
+    "actual_live_containment": 0.0025
+  },
+  {
+    "tag": "red1",
+    "iteration": 8000,
+    "f_cdf": [
+      0,
+      0.25,
+      0.5,
+      0.75,
+      1
+    ],
+    "fraction_in_bound": [
+      0.0925,
+      0.0875,
+      0.06,
+      0.015,
+      0.00125
+    ],
+    "fraction_all_five_in_bound": 0.00125,
+    "actual_live_containment": 0.09375
+  },
+  {
+    "tag": "red1",
+    "iteration": 9600,
+    "f_cdf": [
+      0,
+      0.25,
+      0.5,
+      0.75,
+      1
+    ],
+    "fraction_in_bound": [
+      0.53,
+      0.5175,
+      0.365,
+      0.14125,
+      0.01875
+    ],
+    "fraction_all_five_in_bound": 0.01875,
+    "actual_live_containment": 0.53875
+  },
+  {
+    "tag": "red2",
+    "iteration": 4800,
+    "f_cdf": [
+      0,
+      0.25,
+      0.5,
+      0.75,
+      1
+    ],
+    "fraction_in_bound": [
+      0.0,
+      0.0,
+      0.00375,
+      0.00375,
+      0.00375
+    ],
+    "fraction_all_five_in_bound": 0.0,
+    "actual_live_containment": 0.00375
+  },
+  {
+    "tag": "red2",
+    "iteration": 8000,
+    "f_cdf": [
+      0,
+      0.25,
+      0.5,
+      0.75,
+      1
+    ],
+    "fraction_in_bound": [
+      0.0,
+      0.03125,
+      0.1525,
+      0.1525,
+      0.14875
+    ],
+    "fraction_all_five_in_bound": 0.0,
+    "actual_live_containment": 0.155
+  },
+  {
+    "tag": "red2",
+    "iteration": 9600,
+    "f_cdf": [
+      0,
+      0.25,
+      0.5,
+      0.75,
+      1
+    ],
+    "fraction_in_bound": [
+      0.0,
+      0.22375,
+      0.90875,
+      0.9125,
+      0.88125
+    ],
+    "fraction_all_five_in_bound": 0.0,
+    "actual_live_containment": 0.9225
+  }
+]

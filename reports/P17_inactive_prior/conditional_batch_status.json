@@ -1,0 +1,5 @@
+{
+  "state": "stopped for diagnostic review; no subsequent seed launched",
+  "pid": 4599,
+  "error": "RuntimeError('Seed 17511 needs review: timed out; last safe checkpoint preserved')"
+}

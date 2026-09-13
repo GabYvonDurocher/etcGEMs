@@ -1,0 +1,35 @@
+{
+  "seed": 17822,
+  "kind": "local",
+  "steps": 32,
+  "calls": 737,
+  "wall_s": 1333.920929541,
+  "beta_cdf_mean": 0.7362597884388653,
+  "beta_cdf_ks": 0.3969375947352936,
+  "beta_cdf_range": [
+    0.33136641756021346,
+    0.9908964905731082
+  ],
+  "original_inactive_mean": 0.31999502669989865,
+  "original_inactive_ks": 0.44596766917271724,
+  "beta_lag1": 0.8231393519813354,
+  "coordinate_rms_step": {
+    "dTopt": 0.02215787000168303,
+    "topt_scale": 0.07222146707092356,
+    "dCp_scale": 0.006561143077495613,
+    "tm_scale": 0.09338338127797431,
+    "kcat_scale": 0.10827683667104127,
+    "kappa_scale": 0.13020797040846305,
+    "sigma": 0.029641209322802033,
+    "f_metab": 0.12917646002950114,
+    "f_maint": 0.1297347119890099,
+    "ngam_scale": 0.055624765228020456,
+    "ngam_steepness": 0.11653901961538682,
+    "clearance_mult": 0.03873503132895425,
+    "resp_scale": 0.04296487796911977,
+    "disc_resp": 0.05430560287243689,
+    "disc_growth": 0.030900135089542095,
+    "beta_cdf": 0.11194096681219896
+  },
+  "scope": "32 correlated transitions from biased active parent; no burn-in removal, IID significance, or posterior certification."
+}

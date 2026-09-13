@@ -1,0 +1,10 @@
+{
+  "status": "interrupted over budget",
+  "exit_code": 130,
+  "approx_elapsed_hours": 3.6,
+  "niter": 12255,
+  "ncall": 100770078,
+  "checkpoint_sha256": "18bfd2d48fb17c80dced2fdf33c5bf878828fc7413a917615805f15b16008323",
+  "scope": "Incomplete checkpoint, not a posterior result",
+  "restore_note": "Checkpoint callable was __main__.Target; alias controls.Target and identity in __main__ for inspection."
+}

@@ -1,0 +1,55 @@
+{
+  "original_output_hash_checks": {
+    "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/dynesty_red1.save": {
+      "exists": true,
+      "unchanged": true
+    },
+    "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/summary_red1.json": {
+      "exists": true,
+      "unchanged": true
+    },
+    "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/logl_red1.npy": {
+      "exists": true,
+      "unchanged": true
+    },
+    "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/logwt_red1.npy": {
+      "exists": true,
+      "unchanged": true
+    },
+    "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/samples_red1.npy": {
+      "exists": true,
+      "unchanged": true
+    },
+    "reports/P16_reduced/trace_red1.json": {
+      "exists": true,
+      "unchanged": true
+    },
+    "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/summary_red2.json": {
+      "exists": true,
+      "unchanged": true
+    },
+    "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/dynesty_red2.save": {
+      "exists": true,
+      "unchanged": true
+    },
+    "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/logl_red2.npy": {
+      "exists": true,
+      "unchanged": true
+    },
+    "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/logwt_red2.npy": {
+      "exists": true,
+      "unchanged": true
+    },
+    "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/samples_red2.npy": {
+      "exists": true,
+      "unchanged": true
+    },
+    "reports/P16_reduced/trace_red2.json": {
+      "exists": true,
+      "unchanged": true
+    }
+  },
+  "tracked_source_changes_between_pre_run_and_base": [],
+  "limitation": "No complete per-file hash snapshot was captured while both P16 workers loaded their modules. Git and startup logs support reconstruction; they cannot rule out a transient uncommitted edit reverted during a run. Current installed library hashes do not establish historical environment identity.",
+  "local_reporting_patch": "run_reduced.py now stores actual pre-final-live dlogz; historical summaries and checkpoints are unchanged."
+}

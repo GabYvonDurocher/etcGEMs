@@ -1,0 +1,105 @@
+{
+  "checkpoint_sha256": "743a120d26b9b385e1c5f4e2c9b109dd1702dc2b91ad18078b14bc50d5e0a0ec",
+  "iterations": 2000,
+  "accepted_traced": 2000,
+  "all_parents_and_children_accounted_for": true,
+  "all_live": {
+    "count": 800,
+    "fmean": 0.47725836983262354,
+    "ks": 0.057021137730124294,
+    "ancestor_mean": 0.4887295073860013,
+    "movement_mean": -0.011471137553377753,
+    "root_count": 143,
+    "max_root_fraction": 0.05375
+  },
+  "strata": {
+    "1e-08": {
+      "compatible_live": {
+        "count": 471,
+        "fmean": 0.44798018543835233,
+        "ks": 0.0921011568449076,
+        "ancestor_mean": 0.4694058324731847,
+        "movement_mean": -0.02142564703483235,
+        "root_count": 113,
+        "max_root_fraction": 0.05732484076433121
+      },
+      "complementary_live": {
+        "count": 329,
+        "fmean": 0.5191733389806533,
+        "ks": 0.12943123219621183,
+        "ancestor_mean": 0.5163934918356575,
+        "movement_mean": 0.002779847144995795,
+        "root_count": 30,
+        "max_root_fraction": 0.13069908814589665
+      },
+      "transitions": {
+        "0_to_0": {
+          "count": 303,
+          "nuisance_rms": 0.030996937110564074,
+          "active_rms": 0.014677633963342285,
+          "nuisance_mean_step": 0.0007184878465500498,
+          "nuisance_parent_child_correlation": 0.9951654334348266
+        },
+        "0_to_1": {
+          "count": 0
+        },
+        "1_to_0": {
+          "count": 1,
+          "nuisance_rms": 0.01377247812803184,
+          "active_rms": 0.006348577772809078,
+          "nuisance_mean_step": 0.01377247812803184
+        },
+        "1_to_1": {
+          "count": 1696,
+          "nuisance_rms": 0.15604674547375266,
+          "active_rms": 0.09044741798704643,
+          "nuisance_mean_step": 0.0005949370618019049,
+          "nuisance_parent_child_correlation": 0.8565685475811897
+        }
+      }
+    },
+    "1e-06": {
+      "compatible_live": {
+        "count": 471,
+        "fmean": 0.44798018543835233,
+        "ks": 0.0921011568449076,
+        "ancestor_mean": 0.4694058324731847,
+        "movement_mean": -0.02142564703483235,
+        "root_count": 113,
+        "max_root_fraction": 0.05732484076433121
+      },
+      "complementary_live": {
+        "count": 329,
+        "fmean": 0.5191733389806533,
+        "ks": 0.12943123219621183,
+        "ancestor_mean": 0.5163934918356575,
+        "movement_mean": 0.002779847144995795,
+        "root_count": 30,
+        "max_root_fraction": 0.13069908814589665
+      },
+      "transitions": {
+        "0_to_0": {
+          "count": 303,
+          "nuisance_rms": 0.030996937110564074,
+          "active_rms": 0.014677633963342285,
+          "nuisance_mean_step": 0.0007184878465500498,
+          "nuisance_parent_child_correlation": 0.9951654334348266
+        },
+        "0_to_1": {
+          "count": 0
+        },
+        "1_to_0": {
+          "count": 0
+        },
+        "1_to_1": {
+          "count": 1697,
+          "nuisance_rms": 0.15600111970964906,
+          "active_rms": 0.09042089618278663,
+          "nuisance_mean_step": 0.0006027022598373968,
+          "nuisance_parent_child_correlation": 0.8566136008023498
+        }
+      }
+    }
+  },
+  "scope": "Conditional diagnostic from biased archived active set; algebraic curve compatibility is not a solver-status classification; ancestry counts are descriptive, not statistical ESS; no evidence or posterior estimate."
+}

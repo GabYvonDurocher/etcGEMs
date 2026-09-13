@@ -1,0 +1,8 @@
+{
+  "status": "completed",
+  "local_diagonal_readiness": false,
+  "calls": 58,
+  "wall_s": 120.99722308300001,
+  "baseline_difference": 7.425171588693047e-13,
+  "scope": "Necessary local stencil check only; not full Hessian or posterior confirmation."
+}

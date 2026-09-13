@@ -1,0 +1,6 @@
+{
+  "completed_steps": 32,
+  "all_four_repeatability_checks_passed": true,
+  "trace_sha256": "536c84c698fd076fb7bcf623a1d6cca65dbdfaeb56c3f60996bb458d011feadd",
+  "scope": "First completed arm only; paired and cross-parent outcomes still pending."
+}

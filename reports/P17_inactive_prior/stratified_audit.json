@@ -1,0 +1,116 @@
+{
+  "exact_core_posterior_mass": 0.3000000039796029,
+  "rows": [
+    {
+      "seed": 17751,
+      "conditional_evidence": [
+        {
+          "core": true,
+          "truth_logz": -8.815496210977324,
+          "error": 0.32392625602386893,
+          "reported_error": 0.16975731431105837
+        },
+        {
+          "core": false,
+          "truth_logz": -13.07817610696913,
+          "error": 0.42997582599027595,
+          "reported_error": 0.16439262557754525
+        }
+      ],
+      "logz_error": 0.3993248671523286,
+      "region_mass": 0.2792818598115985,
+      "inactive_ks": 0.018883412712424552,
+      "max_active_ks": 0.062371592859807534,
+      "combined_sha256": "a4fdafbf042ac02733e0c3d315290d5d8c5ed4f3f12b4dd167958dbb1510769f"
+    },
+    {
+      "seed": 17752,
+      "conditional_evidence": [
+        {
+          "core": true,
+          "truth_logz": -8.815496210977324,
+          "error": 0.6127482414201761,
+          "reported_error": 0.16447532249294253
+        },
+        {
+          "core": false,
+          "truth_logz": -13.07817610696913,
+          "error": 0.49064745257308573,
+          "reported_error": 0.16447220750815356
+        }
+      ],
+      "logz_error": 0.528868043421209,
+      "region_mass": 0.3305044559493828,
+      "inactive_ks": 0.014581476570916269,
+      "max_active_ks": 0.09352431217308887,
+      "combined_sha256": "b59d546cf0e58aad09cb1ce6ce9a24b44cdc423f137ef89d536d5eb7d4502357"
+    },
+    {
+      "seed": 17753,
+      "conditional_evidence": [
+        {
+          "core": true,
+          "truth_logz": -8.815496210977324,
+          "error": 0.20338618123671992,
+          "reported_error": 0.16429847031312397
+        },
+        {
+          "core": false,
+          "truth_logz": -13.07817610696913,
+          "error": 0.15640029956761836,
+          "reported_error": 0.1700300759413708
+        }
+      ],
+      "logz_error": 0.17072931081100684,
+      "region_mass": 0.3129258233740449,
+      "inactive_ks": 0.008667721978113496,
+      "max_active_ks": 0.0627560843710836,
+      "combined_sha256": "619363b852f087b796225925c37870e1a5adee07e7aa9f46ad9047cab233ccb2"
+    },
+    {
+      "seed": 17754,
+      "conditional_evidence": [
+        {
+          "core": true,
+          "truth_logz": -8.815496210977324,
+          "error": 0.24259343699911362,
+          "reported_error": 0.17162274830299812
+        },
+        {
+          "core": false,
+          "truth_logz": -13.07817610696913,
+          "error": 0.5237390777976731,
+          "reported_error": 0.16609598566838193
+        }
+      ],
+      "logz_error": 0.4473714148252217,
+      "region_mass": 0.24632681267302792,
+      "inactive_ks": 0.06007151120857457,
+      "max_active_ks": 0.09373025877766572,
+      "combined_sha256": "77d97b6632ed69c944f79ac638d6645102f27955150e02ceb32119d5e52cef32"
+    },
+    {
+      "seed": 17755,
+      "conditional_evidence": [
+        {
+          "core": true,
+          "truth_logz": -8.815496210977324,
+          "error": 0.482323771952883,
+          "reported_error": 0.16779991451439338
+        },
+        {
+          "core": false,
+          "truth_logz": -13.07817610696913,
+          "error": 0.3769232516329257,
+          "reported_error": 0.16859687011082572
+        }
+      ],
+      "logz_error": 0.4097259797885595,
+      "region_mass": 0.3247651242289472,
+      "inactive_ks": 0.019378635943071654,
+      "max_active_ks": 0.06042662687213346,
+      "combined_sha256": "302f21a849cd7725a3d90a1597bcad915a46ca83a198aac42d61c2b62f866b8b"
+    }
+  ],
+  "scope": "Independent partition recombination and truth audit; no posterior certificate."
+}

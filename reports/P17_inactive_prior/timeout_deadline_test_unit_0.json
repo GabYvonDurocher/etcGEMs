@@ -1,0 +1,9 @@
+{
+  "seed": 0,
+  "kind": "deadline_test",
+  "kernel": "unit",
+  "status": "timed out",
+  "seconds": 1,
+  "error": "P17 enforced per-run wall-clock budget reached",
+  "checkpoint": "Last safely written periodic checkpoint only; interrupted proposal not saved"
+}

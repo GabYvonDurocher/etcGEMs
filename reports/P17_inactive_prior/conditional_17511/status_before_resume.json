@@ -1,0 +1,6 @@
+{
+  "status": "timed out; last safe checkpoint preserved",
+  "wall_s": 7200.043370208,
+  "seed": 17511,
+  "scope": "Conditional diagnostic from biased archived active set, not a posterior or evidence estimate"
+}

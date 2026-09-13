@@ -1,0 +1,35 @@
+{
+  "seed": 17821,
+  "kind": "original",
+  "steps": 32,
+  "calls": 357,
+  "wall_s": 666.6103655830001,
+  "beta_cdf_mean": 0.3095351453271939,
+  "beta_cdf_ks": 0.6314905600913179,
+  "beta_cdf_range": [
+    0.25987803506657253,
+    0.3685094399086822
+  ],
+  "original_inactive_mean": 0.7569237099548053,
+  "original_inactive_ks": 0.7106689235971407,
+  "beta_lag1": 0.8410897498561741,
+  "coordinate_rms_step": {
+    "dTopt": 0.0017497535110172148,
+    "topt_scale": 0.006509125180386624,
+    "dCp_scale": 0.004047644227335083,
+    "tm_scale": 0.01513093164657916,
+    "kcat_scale": 0.007361911678797049,
+    "kappa_scale": 0.013630815163226428,
+    "sigma": 0.0044978271183918825,
+    "f_metab": 0.020633320724806677,
+    "f_maint": 0.00985065750626043,
+    "ngam_scale": 0.014060401594348938,
+    "ngam_steepness": 0.01274052169980056,
+    "clearance_mult": 0.01778013952480793,
+    "resp_scale": 0.011818663086479192,
+    "disc_resp": 0.009720551707616749,
+    "disc_growth": 2.7999417244703168e-05,
+    "beta_cdf": 0.015941120294831607
+  },
+  "scope": "32 correlated transitions from biased active parent; no burn-in removal, IID significance, or posterior certification."
+}

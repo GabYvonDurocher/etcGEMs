@@ -1,0 +1,18 @@
+{
+  "disjoint": {
+    "n": 10000,
+    "ks": 0.007052912005690609,
+    "dkw_bound": 0.019494746035204052,
+    "alpha": 0.001,
+    "passes": true,
+    "first_interval_mass": 0.2477
+  },
+  "positive_gaussian": {
+    "n": 10000,
+    "ks": 0.004813567245489536,
+    "dkw_bound": 0.019494746035204052,
+    "alpha": 0.001,
+    "passes": true,
+    "first_interval_mass": 0.0
+  }
+}

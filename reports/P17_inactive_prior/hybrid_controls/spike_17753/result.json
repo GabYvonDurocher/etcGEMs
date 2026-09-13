@@ -1,0 +1,21 @@
+{
+  "kind": "spike",
+  "seed": 17753,
+  "wall_s": 33.434716959,
+  "steps": 32,
+  "ncall": 1184187,
+  "logz": -12.590007533078017,
+  "logzerr": 0.1328711232488732,
+  "truth_logz": -12.727519229670813,
+  "nuisance_ks": 0.009454640762120492,
+  "nuisance_mean": 0.49904012827167826,
+  "active_ks": 0.05707024877640737,
+  "region_mass": 0.36009071428857353,
+  "truth_region_mass": 0.3043739263467943,
+  "stalled_fraction": 0.6647080159593761,
+  "mean_accepted_per_kernel": 0.8986579615524121,
+  "duplicate_vectors": 0,
+  "kernel": "32 global MH attempts plus one random-order coordinate slice sweep",
+  "stalled_fraction_scope": "Global stage only; local sweep follows even when global stage stalls.",
+  "ncall_scope": "Library evaluation accounting includes out-of-cube slice proposals."
+}

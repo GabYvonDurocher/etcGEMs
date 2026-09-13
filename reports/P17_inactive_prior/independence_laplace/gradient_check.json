@@ -1,0 +1,7 @@
+{
+  "step": 0.0001,
+  "forward_at_minimum": 4.9999999999999996e-05,
+  "central_at_minimum": 0.0,
+  "initial_check_failure": "Exact float equality differed by floating-point rounding; corrected to 1e-14 relative comparison.",
+  "scope": "quadratic bias check only; no proof of the optimiser failure cause"
+}
