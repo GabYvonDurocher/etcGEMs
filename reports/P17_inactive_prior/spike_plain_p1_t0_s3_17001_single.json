@@ -1,0 +1,22 @@
+{
+  "label": "spike_plain_p1_t0_s3_17001_single",
+  "bound": "single",
+  "seed": 17001,
+  "kind": "spike",
+  "path": "plain",
+  "nproc": 1,
+  "transformed": false,
+  "slices": 3,
+  "wall_s": 4.0057230420000005,
+  "ncall": 189235,
+  "niter": 12246,
+  "logz": -12.843672034995167,
+  "logzerr": 0.12182851630541502,
+  "truth_logz": -12.727519229670813,
+  "nuisance_mean": 0.5170251186428345,
+  "nuisance_ks": 0.04236130224563828,
+  "active_ks": 0.24282006697156638,
+  "region_mass": 0.06382671220017233,
+  "truth_region_mass": 0.3043739263467943,
+  "initial_nuisance_mean": 0.4892888238579063
+}

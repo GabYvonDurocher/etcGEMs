@@ -1,0 +1,1102 @@
+[
+  {
+    "seed_index": 0,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.3322676295501878e-15,
+    "axes_residual": 1.5265566588595902e-16,
+    "condition": 1.575543966834542
+  },
+  {
+    "seed_index": 1,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.3257056136060686e-15,
+    "axes_residual": 1.1839487723541708e-16,
+    "condition": 1.694154668333489
+  },
+  {
+    "seed_index": 2,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.4793325814694819e-15,
+    "axes_residual": 1.3877787807814457e-16,
+    "condition": 1.6258742024364503
+  },
+  {
+    "seed_index": 3,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.5543122344752192e-15,
+    "axes_residual": 1.3877787807814457e-16,
+    "condition": 1.5524042184696225
+  },
+  {
+    "seed_index": 4,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.6653345369377348e-15,
+    "axes_residual": 1.3964523981613297e-16,
+    "condition": 1.6939670177686632
+  },
+  {
+    "seed_index": 5,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 3.9968028886505635e-15,
+    "axes_residual": 2.785315381115261e-16,
+    "condition": 1.6130623180134027
+  },
+  {
+    "seed_index": 6,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.2148684819493562e-15,
+    "axes_residual": 8.673617379884035e-17,
+    "condition": 1.6161995831222098
+  },
+  {
+    "seed_index": 7,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.4799031896653751e-15,
+    "axes_residual": 2.7755575615628914e-16,
+    "condition": 1.5000373587319378
+  },
+  {
+    "seed_index": 8,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.4432899320127035e-15,
+    "axes_residual": 1.3877787807814457e-16,
+    "condition": 1.625234287385671
+  },
+  {
+    "seed_index": 9,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 4.090248894899895e-15,
+    "axes_residual": 3.4119842368118825e-16,
+    "condition": 1.7043175082427493
+  },
+  {
+    "seed_index": 10,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.5123023503969125e-15,
+    "axes_residual": 1.1362438767648086e-16,
+    "condition": 1.6500461502174737
+  },
+  {
+    "seed_index": 11,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 3.774758283725532e-15,
+    "axes_residual": 3.3306690738754696e-16,
+    "condition": 1.638120476372781
+  },
+  {
+    "seed_index": 12,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.4440505431922676e-15,
+    "axes_residual": 3.885780586188048e-16,
+    "condition": 1.5965502890225265
+  },
+  {
+    "seed_index": 13,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.219832521430968e-15,
+    "axes_residual": 1.6653345369377348e-16,
+    "condition": 1.7444907450864884
+  },
+  {
+    "seed_index": 14,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.2212453270876722e-15,
+    "axes_residual": 2.220446049250313e-16,
+    "condition": 1.6548028687691227
+  },
+  {
+    "seed_index": 15,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 3.586009208482442e-15,
+    "axes_residual": 2.389581588158052e-16,
+    "condition": 1.6596427691437294
+  },
+  {
+    "seed_index": 16,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.3322676295501878e-15,
+    "axes_residual": 1.249000902703301e-16,
+    "condition": 1.645473683245398
+  },
+  {
+    "seed_index": 17,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 4.884981308350689e-15,
+    "axes_residual": 3.3306690738754696e-16,
+    "condition": 1.6004978019598968
+  },
+  {
+    "seed_index": 18,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 7.771561172376096e-16,
+    "axes_residual": 1.3877787807814457e-16,
+    "condition": 1.4668720004979146
+  },
+  {
+    "seed_index": 19,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.5543122344752192e-15,
+    "axes_residual": 1.1774435593192578e-16,
+    "condition": 1.6292481306278264
+  },
+  {
+    "seed_index": 20,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 4.9960036108132044e-15,
+    "axes_residual": 5.689893001203927e-16,
+    "condition": 1.5467892153190121
+  },
+  {
+    "seed_index": 21,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.7763568394002505e-15,
+    "axes_residual": 1.3877787807814457e-16,
+    "condition": 1.5739666057330886
+  },
+  {
+    "seed_index": 22,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.3322676295501878e-15,
+    "axes_residual": 1.249000902703301e-16,
+    "condition": 1.6221686404582198
+  },
+  {
+    "seed_index": 23,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 4.218847493575595e-15,
+    "axes_residual": 4.0245584642661925e-16,
+    "condition": 1.6100241924879406
+  },
+  {
+    "seed_index": 24,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.6653345369377348e-15,
+    "axes_residual": 1.6653345369377348e-16,
+    "condition": 1.5671035651598098
+  },
+  {
+    "seed_index": 25,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.5543122344752192e-15,
+    "axes_residual": 1.1102230246251565e-16,
+    "condition": 1.633741190042396
+  },
+  {
+    "seed_index": 26,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.4852868062994339e-15,
+    "axes_residual": 1.8041124150158794e-16,
+    "condition": 1.5558487382107449
+  },
+  {
+    "seed_index": 27,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.6048191732340257e-15,
+    "axes_residual": 1.5048726154098802e-16,
+    "condition": 1.675523261206303
+  },
+  {
+    "seed_index": 28,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 3.2222205828348376e-15,
+    "axes_residual": 2.914335439641036e-16,
+    "condition": 1.6350598540069157
+  },
+  {
+    "seed_index": 29,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 3.552713678800501e-15,
+    "axes_residual": 3.191891195797325e-16,
+    "condition": 1.6420092756603213
+  },
+  {
+    "seed_index": 30,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.1102230246251565e-15,
+    "axes_residual": 9.71445146547012e-17,
+    "condition": 1.6107389770795602
+  },
+  {
+    "seed_index": 31,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.3511248272408029e-15,
+    "axes_residual": 1.3097162243624894e-16,
+    "condition": 1.6054374845681587
+  },
+  {
+    "seed_index": 32,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 3.3306690738754696e-15,
+    "axes_residual": 1.8041124150158794e-16,
+    "condition": 1.6742673818643115
+  },
+  {
+    "seed_index": 33,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.9984014443252818e-15,
+    "axes_residual": 1.5265566588595902e-16,
+    "condition": 1.6803323613603507
+  },
+  {
+    "seed_index": 34,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.1102230246251565e-15,
+    "axes_residual": 9.71445146547012e-17,
+    "condition": 1.6773227952765977
+  },
+  {
+    "seed_index": 35,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 2.886579864025407e-15,
+    "axes_residual": 2.0816681711721685e-16,
+    "condition": 1.5750547680613158
+  },
+  {
+    "seed_index": 36,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 7.216449660063518e-15,
+    "axes_residual": 6.106226635438361e-16,
+    "condition": 1.5628656447591602
+  },
+  {
+    "seed_index": 37,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 9.547918011776346e-15,
+    "axes_residual": 6.158268339717665e-16,
+    "condition": 1.560606881106954
+  },
+  {
+    "seed_index": 38,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 3.1086244689504383e-15,
+    "axes_residual": 3.608224830031759e-16,
+    "condition": 1.5150581101930103
+  },
+  {
+    "seed_index": 39,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 8.617439011138743e-16,
+    "axes_residual": 1.8041124150158794e-16,
+    "condition": 1.6634310687117146
+  },
+  {
+    "seed_index": 40,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.9984014443252818e-15,
+    "axes_residual": 1.1102230246251565e-16,
+    "condition": 1.7620632498072504
+  },
+  {
+    "seed_index": 41,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.7763568394002505e-15,
+    "axes_residual": 1.8041124150158794e-16,
+    "condition": 1.4441401281620054
+  },
+  {
+    "seed_index": 42,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 2.108694684748587e-15,
+    "axes_residual": 1.8821749714348357e-16,
+    "condition": 1.6163299274276686
+  },
+  {
+    "seed_index": 43,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 2.3314683517128287e-15,
+    "axes_residual": 1.3097162243624894e-16,
+    "condition": 1.5629462754667174
+  },
+  {
+    "seed_index": 44,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.2212453270876722e-15,
+    "axes_residual": 1.5265566588595902e-16,
+    "condition": 1.5591126111255131
+  },
+  {
+    "seed_index": 45,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.3322676295501878e-15,
+    "axes_residual": 1.249000902703301e-16,
+    "condition": 1.5802593681463233
+  },
+  {
+    "seed_index": 46,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.3322676295501878e-15,
+    "axes_residual": 1.0061396160665481e-16,
+    "condition": 1.5799318102126547
+  },
+  {
+    "seed_index": 47,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 3.4416913763379853e-15,
+    "axes_residual": 2.914335439641036e-16,
+    "condition": 1.5954078414924118
+  },
+  {
+    "seed_index": 48,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.3322676295501878e-15,
+    "axes_residual": 1.6653345369377348e-16,
+    "condition": 1.5810291331880562
+  },
+  {
+    "seed_index": 49,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.3322676295501878e-15,
+    "axes_residual": 9.71445146547012e-17,
+    "condition": 1.600688383634927
+  },
+  {
+    "seed_index": 50,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.3322676295501878e-15,
+    "axes_residual": 9.904186845655083e-17,
+    "condition": 1.5754379252886457
+  },
+  {
+    "seed_index": 51,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 4.432290362014986e-15,
+    "axes_residual": 3.885780586188048e-16,
+    "condition": 1.593804302117351
+  },
+  {
+    "seed_index": 52,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.4568403618846427e-15,
+    "axes_residual": 1.2544219135657286e-16,
+    "condition": 1.59196520869658
+  },
+  {
+    "seed_index": 53,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 2.6645352591003757e-15,
+    "axes_residual": 2.498001805406602e-16,
+    "condition": 1.6741561155707487
+  },
+  {
+    "seed_index": 54,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.5543122344752192e-15,
+    "axes_residual": 1.2793585635328952e-16,
+    "condition": 1.5620739600784563
+  },
+  {
+    "seed_index": 55,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.1537247330989362e-15,
+    "axes_residual": 1.205632815803881e-16,
+    "condition": 1.6840764537270676
+  },
+  {
+    "seed_index": 56,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.264413707664162e-15,
+    "axes_residual": 1.5265566588595902e-16,
+    "condition": 1.5784885795433083
+  },
+  {
+    "seed_index": 57,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.4432899320127035e-15,
+    "axes_residual": 1.1102230246251565e-16,
+    "condition": 1.7862507936814076
+  },
+  {
+    "seed_index": 58,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.1102230246251565e-15,
+    "axes_residual": 9.71445146547012e-17,
+    "condition": 1.56791808802699
+  },
+  {
+    "seed_index": 59,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.6653345369377348e-15,
+    "axes_residual": 1.4094628242311558e-16,
+    "condition": 1.4808204764115853
+  },
+  {
+    "seed_index": 60,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.6316030324521824e-15,
+    "axes_residual": 1.5265566588595902e-16,
+    "condition": 1.646269760420559
+  },
+  {
+    "seed_index": 61,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 3.528513607848605e-15,
+    "axes_residual": 2.760107680604973e-16,
+    "condition": 1.5091055767842114
+  },
+  {
+    "seed_index": 62,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 2.220446049250313e-15,
+    "axes_residual": 1.8041124150158794e-16,
+    "condition": 1.6607069497763691
+  },
+  {
+    "seed_index": 63,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.9984014443252818e-15,
+    "axes_residual": 2.636779683484747e-16,
+    "condition": 1.5086435713966149
+  },
+  {
+    "seed_index": 64,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.5543122344752192e-15,
+    "axes_residual": 1.8041124150158794e-16,
+    "condition": 1.6524566267321164
+  },
+  {
+    "seed_index": 65,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.9984014443252818e-15,
+    "axes_residual": 1.3877787807814457e-16,
+    "condition": 1.5951688058352904
+  },
+  {
+    "seed_index": 66,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 2.886579864025407e-15,
+    "axes_residual": 2.914335439641036e-16,
+    "condition": 1.5707705113255603
+  },
+  {
+    "seed_index": 67,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.3322676295501878e-15,
+    "axes_residual": 6.938893903907228e-17,
+    "condition": 1.6903882856811985
+  },
+  {
+    "seed_index": 68,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.1921385521665755e-15,
+    "axes_residual": 1.249000902703301e-16,
+    "condition": 1.7053890657645396
+  },
+  {
+    "seed_index": 69,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 2.2351141539577643e-15,
+    "axes_residual": 2.0816681711721685e-16,
+    "condition": 1.6710895856707157
+  },
+  {
+    "seed_index": 70,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.239924699760521e-15,
+    "axes_residual": 1.6653345369377348e-16,
+    "condition": 1.8079504448038601
+  },
+  {
+    "seed_index": 71,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 2.7755575615628914e-15,
+    "axes_residual": 1.6653345369377348e-16,
+    "condition": 1.51796852229696
+  },
+  {
+    "seed_index": 72,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 4.107825191113079e-15,
+    "axes_residual": 3.608224830031759e-16,
+    "condition": 1.5704862754051963
+  },
+  {
+    "seed_index": 73,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 6.41077528465185e-15,
+    "axes_residual": 5.101171221544298e-16,
+    "condition": 1.552184789101432
+  },
+  {
+    "seed_index": 74,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.5543122344752192e-15,
+    "axes_residual": 1.8041124150158794e-16,
+    "condition": 1.6007274742710345
+  },
+  {
+    "seed_index": 75,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 2.1829589800968532e-15,
+    "axes_residual": 1.4354836763708079e-16,
+    "condition": 1.5634059058215974
+  },
+  {
+    "seed_index": 76,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.3322676295501878e-15,
+    "axes_residual": 1.1102230246251565e-16,
+    "condition": 1.6436128583527723
+  },
+  {
+    "seed_index": 77,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 2.2625016293500106e-15,
+    "axes_residual": 2.229119666630197e-16,
+    "condition": 1.6103244089605002
+  },
+  {
+    "seed_index": 78,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 2.220446049250313e-15,
+    "axes_residual": 1.616545439175887e-16,
+    "condition": 1.5106584733853037
+  },
+  {
+    "seed_index": 79,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 2.4646951146678475e-14,
+    "axes_residual": 1.9845236565174673e-15,
+    "condition": 1.7308728308706005
+  },
+  {
+    "seed_index": 80,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 3.1086244689504383e-15,
+    "axes_residual": 2.914335439641036e-16,
+    "condition": 1.629910717818653
+  },
+  {
+    "seed_index": 81,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.6138382327852858e-15,
+    "axes_residual": 1.3053794156725473e-16,
+    "condition": 1.6379008246421374
+  },
+  {
+    "seed_index": 82,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.7763568394002505e-15,
+    "axes_residual": 1.5265566588595902e-16,
+    "condition": 1.6547091129952987
+  },
+  {
+    "seed_index": 83,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.76300710734493e-15,
+    "axes_residual": 1.5265566588595902e-16,
+    "condition": 1.5595739007933138
+  },
+  {
+    "seed_index": 84,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.1102230246251565e-15,
+    "axes_residual": 1.942890293094024e-16,
+    "condition": 1.5229892293842513
+  },
+  {
+    "seed_index": 85,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.5543122344752192e-15,
+    "axes_residual": 1.3877787807814457e-16,
+    "condition": 1.5798284423650832
+  },
+  {
+    "seed_index": 86,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 3.552713678800501e-15,
+    "axes_residual": 3.191891195797325e-16,
+    "condition": 1.5542983474782373
+  },
+  {
+    "seed_index": 87,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.9128526666675196e-15,
+    "axes_residual": 1.5265566588595902e-16,
+    "condition": 1.6732173934277164
+  },
+  {
+    "seed_index": 88,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.3322676295501878e-15,
+    "axes_residual": 1.6653345369377348e-16,
+    "condition": 1.740527288141456
+  },
+  {
+    "seed_index": 89,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 2.4424906541753444e-15,
+    "axes_residual": 1.8041124150158794e-16,
+    "condition": 1.6734362663484166
+  },
+  {
+    "seed_index": 90,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.2008862528611371e-15,
+    "axes_residual": 1.1102230246251565e-16,
+    "condition": 1.501480352572772
+  },
+  {
+    "seed_index": 91,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 9.992007221626409e-16,
+    "axes_residual": 1.240327285323417e-16,
+    "condition": 1.6355937427780527
+  },
+  {
+    "seed_index": 92,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 3.987562399769358e-15,
+    "axes_residual": 2.727852665973529e-16,
+    "condition": 1.6345898770213807
+  },
+  {
+    "seed_index": 93,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 2.5042743313854606e-15,
+    "axes_residual": 2.393918396847994e-16,
+    "condition": 1.6791686826648133
+  },
+  {
+    "seed_index": 94,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.3322676295501878e-15,
+    "axes_residual": 8.630249292984615e-17,
+    "condition": 1.5922657753969036
+  },
+  {
+    "seed_index": 95,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.9984014443252818e-15,
+    "axes_residual": 1.9255430583342559e-16,
+    "condition": 1.6741719968516713
+  },
+  {
+    "seed_index": 96,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.3322676295501878e-15,
+    "axes_residual": 1.3877787807814457e-16,
+    "condition": 1.7436696747678635
+  },
+  {
+    "seed_index": 97,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 9.992007221626409e-16,
+    "axes_residual": 8.109832250191573e-17,
+    "condition": 1.5305589310428651
+  },
+  {
+    "seed_index": 98,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 9.992007221626409e-16,
+    "axes_residual": 1.1102230246251565e-16,
+    "condition": 1.6329017437862232
+  },
+  {
+    "seed_index": 99,
+    "warnings": [
+      "divide by zero encountered in matmul",
+      "overflow encountered in matmul",
+      "invalid value encountered in matmul"
+    ],
+    "inverse_residual": 1.3322676295501878e-15,
+    "axes_residual": 1.1102230246251565e-16,
+    "condition": 1.5453049170711948
+  }
+]

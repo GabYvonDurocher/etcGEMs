@@ -1,0 +1,24 @@
+{
+  "seed": 17004,
+  "baseline_identical": true,
+  "wall_s": 4.530377916000001,
+  "nproposal": 10739,
+  "initial_core": 8,
+  "core_entry": 0,
+  "core_exit": 0,
+  "core_to_core": {
+    "n": 73,
+    "nuisance_rms": 0.04968767016636417,
+    "nuisance_parent_child_corr": 0.970611362361023
+  },
+  "outside_to_outside": {
+    "n": 10666,
+    "nuisance_rms": 0.16698917518293477,
+    "nuisance_parent_child_corr": 0.8359515595390034
+  },
+  "unknown_start_roots": 329,
+  "largest_root_weight": 0.07726811507252096,
+  "root_mass_ess": 38.46930418523474,
+  "nuisance_ks": 0.014149301997710695,
+  "region_mass": 0.008596901494351694
+}

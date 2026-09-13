@@ -1,0 +1,14 @@
+# P17 closure verification — 13 September 2026
+
+Artifact commit: `45616c2a0429de121b5a9a371b0ebfca6e4493c6`. This verification document is committed immediately afterwards; the final tip is supplied in the delivered response and resolves with `git rev-parse codex/p17-inactive-prior`.
+
+1. **TASK 1 complete:** final report, unchanged gate requirements plus dated PI closure, final DECISIONS D51. D50 finished 200/200 target-seed cases (400 conditional runs), 1,439.57 s; independent analytical/raw-array/hash audit passed. No reserved confirmation followed. Negative result, not validated sampler.
+2. **TASK 2 complete:** RIGOUR.md has ten rules with D references and explicit D15/D43 and commit-order exceptions. OPEN_ITEMS §4 and §0c point to it.
+3. **TASK 3 complete:** TARGET_REVISION_SPEC.md contains all three items, saved old/new likelihood invariants and observation-model arithmetic, checks and the joint validation prerequisites. It explicitly awaits PI approval and has not been executed.
+4. **TASK 4 complete:** all 1906 P17 files tracked; 1905 artifact hashes independently verified against closure_manifest.json (manifest excludes itself). Ordinary Git status and ignored-untracked enumeration both empty at artifact-commit verification. All inherited P16 audits and logs committed. INTEGRATION_STATE.md plus exhaustive JSON/Markdown inventories give every ahead branch and external dirty file, merge order, conflict/stamp rules, tracked/ignored split, worktree preservation and stale-E6-prompt disposition. Final artifact split: closure_artifact_inventory.json. No evidence pruned.
+5. **TASK 5 complete:** HANDOVER_2026-09-13.md covers integration first, P16/P17 findings and limits, unresolved R1/R3/R4/programme status, governing rigour, approval proposal, numbered PI decisions and exact standing null commands. The standing null reproduces both historical results to 1e−12.
+6. **Constraints checked:** P17 branch retained; no merge/push/branch switch. External branch heads and all 32 inventoried uncommitted file hashes unchanged. No other worktree content written; Git operations use the shared metadata necessary to commit this worktree. Original scientific source/evidence hashes and gate requirements checked in closure_preservation_checks.json. No new experiment after PI closure; recurring sampler automation paused.
+
+The actual 109,809,818-byte log is committed without pruning; a later host with a 100 MiB blob limit needs an approved lossless transfer/history strategy before push. This is documented, not resolved here.
+
+D44/D45 concern one non-optimal point and do not prove all samplers fail or the likelihood is the sole cause. Toy living fractions of 80–87% are not biological targets. dTm=0 excludes uniform meltome-mean uncertainty otherwise absorbed by tm_scale and catalytic parameters. Original correction gate NOT PASSED.

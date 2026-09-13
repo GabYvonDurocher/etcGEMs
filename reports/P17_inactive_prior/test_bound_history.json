@@ -1,0 +1,9 @@
+{
+  "version": "3.1.0",
+  "source_sha256": "e824aa58646eafe58873c57ca274ce4dafe6c8afdcfb0124dc2a9e5a2cfc4413",
+  "recorded_bounds": 25,
+  "baseline_distinct_non_cube": 1,
+  "patched_distinct_non_cube": 24,
+  "trajectory_and_weights_identical": true,
+  "scope": "Recording defect only; does not explain biased posterior or recover P16 historical geometry"
+}

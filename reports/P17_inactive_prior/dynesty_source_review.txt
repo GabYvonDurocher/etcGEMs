@@ -1,0 +1,570 @@
+    def run_nested(self,
+                   maxiter=None,
+                   maxcall=None,
+                   dlogz=None,
+                   logl_max=np.inf,
+                   add_live=True,
+                   print_progress=True,
+                   print_func=None,
+                   save_bounds=True,
+                   checkpoint_file=None,
+                   checkpoint_every=60,
+                   resume=False):
+        """
+        **A wrapper that executes the main nested sampling loop.**
+        Iteratively replace the worst live point with a sample drawn
+        uniformly from the prior until the provided stopping criteria
+        are reached.
+
+        Parameters
+        ----------
+        maxiter : int, optional
+            Maximum number of iterations. Iteration may stop earlier if the
+            termination condition is reached. Default is `sys.maxsize`
+            (no limit).
+
+        maxcall : int, optional
+            Maximum number of likelihood evaluations. Iteration may stop
+            earlier if termination condition is reached. Default is
+            `sys.maxsize` (no limit).
+
+        dlogz : float, optional
+            Iteration will stop when the estimated contribution of the
+            remaining prior volume to the total evidence falls below
+            this threshold. Explicitly, the stopping criterion is
+            `ln(z + z_est) - ln(z) < dlogz`, where `z` is the current
+            evidence from all saved samples and `z_est` is the estimated
+            contribution from the remaining volume. If `add_live` is `True`,
+            the default is `1e-3 * (nlive - 1) + 0.01`. Otherwise, the
+            default is `0.01`.
+
+        logl_max : float, optional
+            Iteration will stop when the sampled ln(likelihood) exceeds the
+            threshold set by `logl_max`. Default is no bound (`np.inf`).
+
+        add_live : bool, optional
+            Whether or not to add the remaining set of live points to
+            the list of samples at the end of each run. Default is `True`.
+
+        print_progress : bool, optional
+            Whether or not to output a simple summary of the current run that
+            updates with each iteration. Default is `True`.
+
+        print_func : function, optional
+            A function that prints out the current state of the sampler.
+            If not provided, the default :meth:`results.print_fn` is used.
+
+        save_bounds : bool, optional
+            Whether or not to save past bounding distributions used to bound
+            the live points internally. Default is *True*.
+
+        checkpoint_file: string, optional
+            if not None The state of the sampler will be saved into this
+            file every checkpoint_every seconds
+
+        checkpoint_every: float, optional
+            The number of seconds between checkpoints that will save
+            the internal state of the sampler. The sampler will also be
+            saved in the end of the run irrespective of checkpoint_every.
+        """
+
+        # Define our stopping criteria.
+        if dlogz is None:
+            if add_live:
+                dlogz = 1e-3 * (self.nlive - 1.) + 0.01
+            else:
+                dlogz = 0.01
+        if resume and self.added_live:
+            warnings.warn('You are resuming a finished static run. '
+                          'This will not do anything')
+            # TODO I should create a separate STATE Enum
+            # here like to rely on that rather than added_live
+            return
+
+        # Run the main nested sampling loop.
+        pbar, print_func = get_print_func(print_func,
+                                          print_progress,
+                                          initial=self.it - 1)
+        if checkpoint_file is not None:
+            timer = DelayTimer(checkpoint_every)
+        try:
+            ncall = self.ncall
+            for it, results in enumerate(
+                    self.sample(maxiter=maxiter,
+                                maxcall=maxcall,
+                                dlogz=dlogz,
+                                logl_max=logl_max,
+                                save_bounds=save_bounds,
+                                resume=resume,
+                                add_live=add_live)):
+                ncall += results.nc
+
+                # Print progress.
+                if print_progress:
+                    i = self.it - 1
+                    print_func(results,
+                               i,
+                               ncall,
+                               dlogz=dlogz,
+                               logl_max=logl_max)
+
+                if checkpoint_file is not None and timer.is_time():
+                    self.save(checkpoint_file)
+
+            # Add remaining live points to samples.
+            if add_live:
+                it = self.it - 1
+                for i, results in enumerate(self.add_live_points()):
+                    ncall += results.nc
+
+                    # Print progress.
+                    if print_progress:
+                        print_func(results,
+                                   it,
+                                   ncall,
+                                   add_live_it=i + 1,
+                                   dlogz=dlogz,
+                                   logl_max=logl_max)
+
+            # Here we recompute the integrals using the full run
+            new_logwt, new_logz, new_logzvar, new_h = compute_integrals(
+                logl=self.saved_run['logl'], logvol=self.saved_run['logvol'])
+            self.saved_run['logwt'] = new_logwt.tolist()
+            self.saved_run['logz'] = new_logz.tolist()
+            self.saved_run['logzvar'] = new_logzvar.tolist()
+            self.saved_run['h'] = new_h.tolist()
+            if checkpoint_file is not None:
+                # I don't check the time timer here
+                self.save(checkpoint_file)
+
+        finally:
+            if pbar is not None:
+                pbar.close()
+            self.loglikelihood.finalize_history()
+
+    def sample(self,
+               maxiter=None,
+               maxcall=None,
+               dlogz=0.01,
+               logl_max=np.inf,
+               add_live=True,
+               save_bounds=True,
+               resume=False):
+        """
+        **The main nested sampling loop.** Iteratively replace the worst live
+        point with a sample drawn uniformly from the prior until the
+        provided stopping criteria are reached. Instantiates a generator
+        that will be called by the user.
+
+        Parameters
+        ----------
+        maxiter : int, optional
+            Maximum number of iterations. Iteration may stop earlier if the
+            termination condition is reached. Default is `sys.maxsize`
+            (no limit).
+
+        maxcall : int, optional
+            Maximum number of likelihood evaluations. Iteration may stop
+            earlier if termination condition is reached. Default is
+            `sys.maxsize` (no limit).
+
+        dlogz : float, optional
+            Iteration will stop when the estimated contribution of the
+            remaining prior volume to the total evidence falls below
+            this threshold. Explicitly, the stopping criterion is
+            `ln(z + z_est) - ln(z) < dlogz`, where `z` is the current
+            evidence from all saved samples and `z_est` is the estimated
+            contribution from the remaining volume. Default is `0.01`.
+
+        logl_max : float, optional
+            Iteration will stop when the sampled ln(likelihood) exceeds the
+            threshold set by `logl_max`. Default is no bound (`np.inf`).
+
+        add_live : bool, optional
+            Whether or not to add the remaining set of live points to
+            the list of samples when calculating `n_effective`.
+            Default is `True`.
+
+        save_bounds : bool, optional
+            Whether or not to save past distributions used to bound
+            the live points internally. Default is `True`.
+
+        Returns
+        -------
+        worst : int
+            Index of the live point with the worst likelihood. This is our
+            new dead point sample.
+
+        ustar : `~numpy.ndarray` with shape (ndim,)
+            Position of the sample.
+
+        vstar : `~numpy.ndarray` with shape (ndim,)
+            Transformed position of the sample.
+
+        loglstar : float
+            Ln(likelihood) of the sample.
+
+        logvol : float
+            Ln(prior volume) within the sample.
+
+        logwt : float
+            Ln(weight) of the sample.
+
+        logz : float
+            Cumulative ln(evidence) up to the sample (inclusive).
+
+        logzvar : float
+            Estimated cumulative variance on `logz` (inclusive).
+
+        h : float
+            Cumulative information up to the sample (inclusive).
+
+        nc : int
+            Number of likelihood calls performed before the new
+            live point was accepted.
+
+        worst_it : int
+            Iteration when the live (now dead) point was originally proposed.
+
+        boundidx : int
+            Index of the bound the dead point was originally drawn from.
+
+        bounditer : int
+            Index of the bound being used at the current iteration.
+
+        eff : float
+            The cumulative sampling efficiency (in percent).
+
+        delta_logz : float
+            The estimated remaining evidence expressed as the ln(ratio) of the
+            current evidence.
+
+        """
+
+        # Initialize quantities.
+        if maxcall is None:
+            maxcall = sys.maxsize
+        if maxiter is None:
+            maxiter = sys.maxsize
+        self.save_bounds = save_bounds
+        ncall = 0
+        # Check whether we're starting fresh or continuing a previous run.
+        if self.it == 1 or len(self.saved_run['logl']) == 0:
+            # Initialize values for nested sampling loop.
+            h = 0.  # information, initially *0.*
+            logz = -1.e300  # ln(evidence), initially *0.*
+            logzvar = 0.  # var[ln(evidence)], initially *0.*
+            logvol = self.logvol_init
+            # initially contains the whole prior (volume=1.)
+            loglstar = -1.e300  # initial ln(likelihood)
+            delta_logz = 1.e300  # ln(ratio) of total/current evidence
+
+        else:
+            # Remove live points (if added) from previous run.
+            if self.added_live and not resume:
+                warnings.warn(
+                    'Repeatedly running sample() or run_nested() '
+                    '(when not just resuming an existing run is considered '
+                    'deprecated and will be removed in the future',
+                    DeprecationWarning)
+                self._remove_live_points()
+
+            # Get final state from previous run.
+            h, logz, logzvar, logvol, loglstar = [
+                self.saved_run[_][-1]
+                for _ in ['h', 'logz', 'logzvar', 'logvol', 'logl']
+            ]
+            delta_logz = np.logaddexp(0,
+                                      np.max(self.live_logl) + logvol - logz)
+
+        nplateau = 0
+        stop_iterations = False
+        # The main nested sampling loop.
+        for it in range(sys.maxsize):
+            delta_logz = np.logaddexp(0,
+                                      np.max(self.live_logl) + logvol - logz)
+
+            # Stopping criterion 1: current number of iterations
+            # exceeds `maxiter`.
+            # Stopping criterion 2: current number of `loglikelihood`
+            # calls exceeds `maxcall`.
+            if it > maxiter or ncall > maxcall:
+                stop_iterations = True
+                if dlogz is not None and delta_logz > 10 * dlogz:
+                    warnings.warn('The sampling was stopped short due to'
+                                  ' maxiter/maxcall limit the delta(log(z))'
+                                  ' criterion is not achieved; posterior may'
+                                  ' be poorly sampled')
+
+            # Stopping criterion 3: estimated (fractional) remaining evidence
+            # lies below some threshold set by `dlogz`.
+            if dlogz is not None and delta_logz < dlogz:
+                stop_iterations = True
+
+            # Stopping criterion 4: last dead point exceeded the upper
+            # `logl_max` bound.
+            if loglstar > logl_max:
+                stop_iterations = True
+
+            if np.ptp(self.live_logl) == 0:
+                warnings.warn(
+                    'We have reached the plateau in the likelihood we are'
+                    ' stopping sampling')
+                stop_iterations = True
+
+            if stop_iterations:
+                break
+
+            worst = np.argmin(self.live_logl)  # index
+            # Locate the "live" point with the lowest `logl`.
+            worst_it = self.live_it[worst]  # when point was proposed
+            boundidx = self.live_bound[worst]  # associated bound index
+
+            if not self.plateau_mode:
+                nplateau = (self.live_logl == self.live_logl[worst]).sum()
+                if nplateau > 1:
+                    self.plateau_mode = True
+                    self.plateau_counter = nplateau
+                    self.plateau_logdvol = np.log(1. /
+                                                  (self.nlive + 1)) + logvol
+                    # this is log (delta vol)
+
+            if not self.plateau_mode:
+                # Expected ln(volume) shrinkage.
+                cur_dlv = self.dlv
+            else:
+                cur_dlv = -np.log1p(-np.exp(self.plateau_logdvol - logvol))
+            assert cur_dlv > 0
+            logvol -= cur_dlv
+
+            # Set our new worst likelihood constraint.
+            # Notice we are doing copies here because live_u and live_v
+            # are updated in-place
+            ustar = self.live_u[worst].copy()  # unit cube position
+            vstar = self.live_v[worst].copy()  # transformed position
+            loglstar_new = self.live_logl[worst]  # new likelihood
+            if self.blob:
+                old_blob = self.live_blobs[worst].copy()
+            else:
+                old_blob = None
+
+            # Sample a new live point from within the likelihood constraint
+            # `logl > loglstar` using the bounding distribution and sampling
+            # method from our sampler.
+            u, v, logl, nc, proposal_stats = self._new_point(loglstar_new)
+            ncall += nc
+            self.ncall += nc
+            if self.blob:
+                new_blob = logl.blob
+            else:
+                new_blob = None
+            (logwt, logz, logzvar,
+             h) = progress_integration(loglstar, loglstar_new, logz, logzvar,
+                                       logvol, cur_dlv, h)
+            loglstar = loglstar_new
+
+            # Compute bound index at the current iteration.
+            if not self.unit_cube_sampling:
+                bounditer = self.nbound - 1
+            else:
+                bounditer = 0
+
+            # Save the worst live point. It is now a "dead" point.
+            self.saved_run.append(
+                dict(id=worst,
+                     u=ustar,
+                     v=vstar,
+                     logl=loglstar,
+                     logvol=logvol,
+                     logwt=logwt,
+                     logz=logz,
+                     logzvar=logzvar,
+                     h=h,
+                     nc=nc,
+                     it=worst_it,
+                     bounditer=bounditer,
+                     scale=self.internal_sampler.scale,
+                     blob=old_blob,
+                     proposal_stats=proposal_stats))
+
+            # Update the live point (previously our "worst" point).
+            self.live_u[worst] = u
+            self.live_v[worst] = v
+            self.live_logl[worst] = logl
+            self.live_bound[worst] = bounditer
+            self.live_it[worst] = self.it
+            if self.blob:
+                self.live_blobs[worst] = new_blob
+            # Compute our sampling efficiency.
+            self.eff = 100. * self.it / self.ncall
+
+            # Increment total number of iterations.
+            self.it += 1
+
+            if self.plateau_mode:
+                self.plateau_counter -= 1
+                if self.plateau_counter == 0:
+                    self.plateau_mode = False
+            # Return dead point and ancillary quantities.
+            yield IteratorResult(worst=worst,
+                                 ustar=ustar,
+                                 vstar=vstar,
+                                 loglstar=loglstar,
+                                 logvol=logvol,
+                                 logwt=logwt,
+                                 logz=logz,
+                                 logzvar=logzvar,
+                                 h=h,
+                                 nc=nc,
+                                 blob=old_blob,
+                                 worst_it=worst_it,
+                                 boundidx=boundidx,
+                                 bounditer=bounditer,
+                                 eff=self.eff,
+                                 delta_logz=delta_logz,
+                                 proposal_stats=proposal_stats)
+
+class RSliceSampler(InternalSampler):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        # Initialize slice parameters.
+        slices = kwargs.get('slices', 5)
+        self.slice_history = {'n_contract': 0, 'n_expand': 0}
+
+        self.sampler_kwargs['slices'] = slices
+        # Since the sample is a static method, it's crucial
+        # to put relevant information into kwargs which is then passed to
+        # the samplers
+
+    def tune(self, sampler_info, update=True):
+        tune_slice(self, sampler_info, update=update)
+
+    @property
+    def update_bound_interval_ratio(self):
+        """ How often to force updating the bounds
+        The value is in units of ncall per nlive.
+        I.e. the value of 10 means for N live points,
+        the bound will be updated every 10 * N calls
+        """
+        return self.sampler_kwargs['slices']
+
+    @staticmethod
+    def sample(args):
+        """
+        Return a new live point proposed by a series of random slices
+        away from an existing live point. Standard "random" implementation
+        where
+        each slice is along a random direction based on the provided axes.
+
+        Parameters
+        ----------
+        u : `~numpy.ndarray` with shape (ndim,)
+            Position of the initial sample. **This is a copy of an existing
+            live point.**
+
+        loglstar : float
+            Ln(likelihood) bound.
+
+        axes : `~numpy.ndarray` with shape (ndim, ndim)
+            Axes used to propose new slice directions.
+
+        scale : float
+            Value used to scale the provided axes.
+
+        prior_transform : function
+            Function transforming a sample from the a unit cube to the
+            parameter space of interest according to the prior.
+
+        loglikelihood : function
+            Function returning ln(likelihood) given parameters as a 1-d
+            `~numpy` array of length `ndim`.
+
+        kwargs : dict
+            A dictionary of additional method-specific parameters.
+
+        Returns
+        -------
+        u : `~numpy.ndarray` with shape (ndim,)
+            Position of the final proposed point within the unit cube.
+
+        v : `~numpy.ndarray` with shape (ndim,)
+            Position of the final proposed point in the target parameter space.
+
+        logl : float
+            Ln(likelihood) of the final proposed point.
+
+        nc : int
+            Number of function calls used to generate the sample.
+
+        tuning_info : dict
+            Collection of ancillary quantities used to tune :data:`scale`.
+
+        """
+
+        # Unzipping.
+        (u, loglstar, axes, scale, prior_transform, loglikelihood,
+         kwargs) = (args.u, args.loglstar, args.axes, args.scale,
+                    args.prior_transform, args.loglikelihood, args.kwargs)
+        rstate = get_random_generator(args.rseed)
+        # Periodicity.
+        nonperiodic = kwargs.get('nonperiodic', None)
+        doubling = kwargs.get('slice_doubling', False)
+        evaluation_history = []
+        # Setup.
+        n = len(u)
+        assert axes.shape[0] == n
+        slices = kwargs['slices']  # number of slices
+        nc = 0
+        n_expand = 0
+        n_contract = 0
+        expansion_warning_set = False
+
+        # Slice sampling loop.
+        for _ in range(slices):
+
+            # Propose a direction on the unit n-sphere.
+            drhat = rstate.standard_normal(size=n)
+            drhat /= linalg.norm(drhat)
+
+            # Transform and scale based on past tuning.
+            direction = np.dot(axes, drhat) * scale
+
+            (u_prop, v_prop, logl_prop, nc1, n_expand1, n_contract1,
+             expansion_warning) = generic_slice_step(u, direction, nonperiodic,
+                                                     loglstar, loglikelihood,
+                                                     prior_transform, doubling,
+                                                     evaluation_history,
+                                                     rstate)
+            u = u_prop
+            nc += nc1
+            n_expand += n_expand1
+            n_contract += n_contract1
+            if expansion_warning and not doubling:
+                doubling = True
+                expansion_warning_set = True
+                warnings.warn('Enabling doubling strategy of slice '
+                              'sampling from Neal(2003)')
+
+        tuning_info = {
+            'n_expand': n_expand,
+            'n_contract': n_contract,
+            'expansion_warning_set': expansion_warning_set
+        }
+
+        return SamplerReturn(u=u_prop,
+                             v=v_prop,
+                             logl=logl_prop,
+                             ncalls=nc,
+                             tuning_info=tuning_info,
+                             evaluation_history=evaluation_history,
+                             proposal_stats=dict(n_expand=n_expand,
+                                                 n_contract=n_contract))
+
+    @property
+    def citations(self):
+        return [("Neal (2003)", "projecteuclid.org/euclid.aos/1056562461"),
+                ("Handley, Hobson & Lasenby (2015a)",
+                 "ui.adsabs.harvard.edu/abs/2015MNRAS.450L..61H"),
+                ("Handley, Hobson & Lasenby (2015b)",
+                 "ui.adsabs.harvard.edu/abs/2015MNRAS.453.4384H")]

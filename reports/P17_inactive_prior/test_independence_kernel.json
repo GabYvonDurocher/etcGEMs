@@ -1,0 +1,10 @@
+{
+  "seed": 17740,
+  "independent_exact_starts": 2000,
+  "corrected_ks": 0.024243038732046196,
+  "uncorrected_ks": 0.7319384221483117,
+  "dkw_alpha": 0.001,
+  "dkw_limit": 0.04359157733881077,
+  "density_and_balance_passed": true,
+  "scope": "Independent exact-start endpoint test only; not IID testing of nested output."
+}

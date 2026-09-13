@@ -1,0 +1,32 @@
+{
+  "shape": "smooth",
+  "offset": 0.0,
+  "seed": 17702,
+  "wall_s": 4.304428332999997,
+  "initial_high": 39,
+  "high_entry": 25,
+  "high_exit": 20,
+  "high_to_high": 7103,
+  "high_nuisance_rms": 0.14885772272335976,
+  "nuisance_mean": 0.4937001602531241,
+  "nuisance_ks": 0.014185686089451144,
+  "region_mass": 0.877253976991782,
+  "truth": {
+    "logz": 1.464152750606218,
+    "high_mass": 0.8685816831757046
+  },
+  "region_coordinate_ks": 0.0297439322332258,
+  "active_coordinate_ks": 0.01950501059154608,
+  "logz": 1.5337529427354493,
+  "logzerr": 0.07870355726471633,
+  "ncall": 130949,
+  "final_live_diagnostic": {
+    "iteration": 8987,
+    "cut": 8.810247370336658,
+    "high_live": 800,
+    "high_roots": 51,
+    "max_high_root_fraction": 0.1,
+    "live_nuisance_mean": 0.47150705970485296
+  },
+  "scope": "Toy intervention changes only low score; roots are descriptive, not statistical ESS. Independent cube-phase proposals are not counted as traced crossings."
+}

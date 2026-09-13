@@ -1,0 +1,11 @@
+{
+  "python": "/Users/g.yvon-durocher/Library/CloudStorage/OneDrive-UniversityofExeter/Documents/work/MICROADAPT/etcGEMs-venv/bin/python",
+  "platform": "macOS-26.2-arm64-arm-64bit",
+  "versions": {
+    "dynesty": "3.1.0",
+    "numpy": "2.0.2",
+    "scipy": "1.13.1",
+    "cobra": "0.31.1",
+    "gurobipy": "12.0.3"
+  }
+}

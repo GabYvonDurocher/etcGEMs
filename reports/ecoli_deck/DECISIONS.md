@@ -691,6 +691,124 @@ correlation continuum arrived during TASK 5 and the user then said it was meant 
 **Not acted on, and not recorded as E5 content.** It concerns a posterior run that does not exist in
 this branch, and E5 has no posterior to analyse.
 
+
+## D24. E6 premise and E5 carry-forward
+
+Run in `etcGEMs-work`, on `e2/deck`, starting at bc356e3. The worktree was clean on
+`q1/n0-check`; switched back without merging or changing Q1. Git worktree bookkeeping resides
+in the shared primary `.git` directory; no primary working files are changed. Interpreter:
+`../etcGEMs-venv/bin/python` 3.9.6. Quarto baseline rendered successfully: 49 source frames,
+52 PDF pages, frame check 0 missing. Rendering required sandbox approval for Quarto's sysctl.
+
+E5 errors 1 and 3 and jobs 4, 5, 6 are carried forward; ERROR 2 is superseded by P16.
+Contrary to E6's premise, E5 had already run (D23): R4 already distinguishes emergent validation
+from calibrated holdout, the line scan already has its own 82%-height slide, and retraction
+framing is absent. E1's register is absent in both worktrees and all available Git history.
+
+Source wins: P12 report TASK 2 stage 3 and D7 set the FINAL basin threshold at 5.0, not the
+earlier 0.02 evaluation jitter. There were 100 screened starts (96 random plus four anchors),
+12 continuations, 11 converged. Updated definitions before the result, finite statistical
+score distinguished from a feasible metabolic solution. The line-scan explanation now correctly
+says 41 points (40 increments) per line, step 0.05 prior SD; 22 x 41 = 902, 12/22 cliffs,
+median largest jump 39%, worst 99%, as in P9.
+
+The joint-pair slide no longer mistakes failed-run live-point spread for full-posterior
+identifiability. This follows P16 D5's correction, without using its unweighted correlation
+values (the review found those calculations omit importance weights).
+
+The -4 K slide is untouched. The adjacent two-number slide retains 0.079 (rounded 0.08),
+7.600 and growth 1.659 (rounded 1.66), verified in Y3 task2b_meta.json/task2c_bound.json.
+Synthesis prose contains neither dTm nor basins; its later evidence rows carry corrections,
+so no public retraction framing is needed. Holdout source: report.qmd lines 563, 570, 580,
+a priori 1.04 versus 2.40 h^-1, about 2.3-fold.
+
+Q1 read at b163bad without merging: carbon-per-cell conversion changes CUE shape and level.
+Added that caveat to the measured-CUE slide. The local Cooper bibliography entry already
+gives year 2001, so corrected its misleading key from Cooper2007 to Cooper2001.
+
+## D25. E6 posterior: source-verified seed 1 only
+
+Replaced the three obsolete P15 posterior slides with the converged P16 result, stopping and
+agreement rules, and the cost of the reduction. Sources read-only from primary at 191b4b0:
+P16 D2/D3/D4, summary_red1.json, trace_red1.json, task5_summary.json/task5_marginals.csv.
+14,088 iterations, 221,781 evaluations, 9.585 h, logZ -26.0298936831 +/- 0.1093582543,
+ESS 5987.5599. The source summary MISLABELS logzerr as dlogz_final; the true final trace
+value is 0.09999335448 and the slide uses it. No inference from the mislabel is made.
+
+tm_scale upper quantile is 1.515456, so rounded to 1.515 rather than the prompt's 1.516.
+Median 1.068839, lower quantile 0.793060, zero mass near upper bound 2.2. Non-railing is
+reported as an observation, not proof that all degeneracies are removed. No unweighted
+P16 pair correlations quoted. The full meltome-mean assumption is on the slide.
+
+Primary run.log records seed-2 progress, with no summary_red2.json present. This deck is
+a dated snapshot of that pending state, as required; no seed-2 numeric results are quoted.
+Process inspection initially hit the sandbox; an approved read-only retry confirmed PID 57126
+running run_reduced.py --tag red2 --seed 2. No process was interrupted. No solver or sampler was run.
+
+## D26. E6 low-growth result and diagnosis
+
+Four slides separate the observed predictions, the median-vector problem, the known masking
+mechanism, and the prior-volume illustration. P16 D6 is the source for MAP (-10.704, 1.7255),
+median vector (-30.558, 0.0043), and 300 importance-weighted draws (peak median 0.0016,
+5/95 [0,1.7106], 50.7% below half measurement). task5_r2.csv independently confirms
+0.0043073, measured peak 2.0760669 and median-vector R2 -2.01113.
+
+The supplied saved record does not include all 300 per-draw solver statuses; this text-only
+run verifies D6's account, not the unrecorded predictive solves. No fresh model evaluation.
+50.7% is labelled a finite-draw estimate below HALF the measured peak, not an exact
+infeasible fraction or a count of strictly non-growing models. The MAP is presented as a
+reference fit, never as representative of all posterior weight.
+
+P12 report TASK 2 provides the historical decomposition +6.363/-13.549 vs -18.860/-0.017
+and 11/12 infeasible temperatures. P13 confirms the mask persists under clamp. Q1 concerns
+cell-carbon/N0 conversion, not infeasibility; E6's attribution of that diagnosis to Q1 is
+incorrect. Read Q1 at b163bad: the respiration observable is invariant to cell-carbon
+conversion; CUE is not. No claim that Q1 diagnosed the dead basin.
+
+exp(-11.7) = 8.29e-6, exp(-11.7/15) = 0.4584. The volume calculation is explicitly an
+illustration, not a measured posterior-volume ratio or proof of the cause. The earlier
+P12 scores are labelled historical and not substituted for P16 likelihoods.
+
+## D27. E6 next steps and closing questions
+
+Read primary OPEN_ITEMS section 0d directly (uncommitted evening plan). Added its sequence
+to this branch's OPEN_ITEMS and deck. The next-steps slide has 33 words by whitespace count,
+five bullets in the requested order, immediately before the three closing questions.
+Two preceding slides explain the M9 comparison and D/E/F mechanisms so the short list can
+remain intelligible. Model evidence must compare the same data under compatible likelihoods
+and declared priors; changing infeasibility treatment invalidates using old D evidence as
+a matched baseline. M9 recurrence implicates effects beyond NLDM, not definitive proof
+that the thermal layer alone is responsible.
+
+All three closing questions rewritten to ask about discriminating mechanisms, defensible
+infeasibility scoring, and an external predictive test. Cooper's existing local citation
+is 2001. Exactly three questions retained. No sampling, data changes or experimental
+claims added.
+
+## D28. E6 final rendering and verification
+
+Final render: 56 source frames, 59 pages (baseline 49/52), Quarto exit 0. The frame
+checker finds zero missing tails. All images resolve, no overfull boxes or unresolved
+citations. Contact sheets inspected across all 59 pages and new evidence slides inspected
+individually. Visual review caught missing superscript-minus and subscript-two glyphs
+in inherited and new text; LaTeX math now renders those units correctly. Final PDF text
+extraction has no replacement characters. The original -4 K slide remains unchanged.
+
+The line scan retains its E5 enlargement (82% height, 234.3 pt calculated width). Five
+local figures pass the old tick-size rule; eight borrowed figures still fail, so the
+figure checker honestly exits 1. This is disclosed rather than called fully legible.
+The shared source figures were not edited. All verification requested by E6, including
+exact slide text and source ledger, is in E6_VERIFICATION.md.
+
+README and report_status now describe the actual artifact and its limitations. The E6
+change set touches only the deck, OPEN_ITEMS and report metadata/provenance. `git diff
+main --stat` also includes older E4 attribution edits to strain text and P2_settle,
+which predate E6. No model code, strain data or primary working files changed in E6.
+Commits stay on e2/deck; no push or merge. The primary seed-2 run continues independently.
+
+<!-- R3 2026-09-13: both sides of this merge appended here. E6's D24 block (from e2/deck, now on
+     main) is kept above; Q1's note is kept below, unchanged. Neither is dropped. -->
+
 ## Noted from Q1 (2026-09-11) — the CUE slide needs a caveat, and the deck is NOT edited here
 
 Q1 (`reports/Q1_n0_check/`) recomputed the respirometry chain under Parsa's `config.R` conversion

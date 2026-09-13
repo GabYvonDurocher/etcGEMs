@@ -459,20 +459,16 @@ P14_posterior:
 ecoli_deck:
   status: CURRENT
   note: >-
-    a slide deck, not an analysis: it assembles committed figures and draws three from committed
-    tables. No fit, no solve, no prior change. Seven candidate figures are excluded because the
-    unsupported interval from the older E. coli posterior is drawn inside the image; no interval
-    from that family appears on any slide, and gas-flux slides are labelled mechanism. Nothing
-    from P15 appears.
+    E6 deck snapshot, with provisional P16 seed-1 results and seed-2 confirmation pending.
+    Text and PDF are checked against pinned source records, not a new model analysis.
+    Historical overlays are labelled; no old-chain intervals are endorsed. Eight borrowed
+    figures retain known small tick labels, disclosed in the verification record.
   evidence: >-
-    `python3 reports/ecoli_deck/make_figures.py` rebuilds the three local figures from
-    `strains/eciML1515/respirometry/derived_*_current.csv` and
-    `reports/Y2_regime_posterior/task3_posterior_draws.csv`; `cd reports/ecoli_deck && quarto
-    render deck.qmd` produces the committed `_output/deck.pdf` (20 slides, no overfull box, no
-    unresolved citation). Every other figure is pointed at by relative path in its producing
-    report. figure_inventory.csv carries the three-way marking and the deciding fact for each of
-    54 candidates.
-  inputs: []
+    reports/ecoli_deck/E6_VERIFICATION.md records source checks, render checks and the
+    before/after page counts. P16 sources read at 191b4b0, Q1 at b163bad. No E6 solves.
+    Quarto renders deck.qmd to _output/deck.pdf; check_frames.py checks clipping and
+    measure_figures.py preserves the eight known legibility failures.
+
 P15_posterior:
   status: CURRENT
   note: >-

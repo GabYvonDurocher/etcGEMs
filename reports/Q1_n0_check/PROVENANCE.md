@@ -6,7 +6,7 @@
 
 *Evidence:* `python3 reports/Q1_n0_check/task1_residuals.py` (72 residuals, the marginal regressions and the paired-media test, seconds); `task1_figure.py`; `task2_sensitivity.py` -- which first reproduces all seven derived columns from the table's own constants to <=8.5e-14 and asserts it, so the TASK 0 chain is re-checked on every run, then recomputes under config.R's constants; `task3_size_growth.py` (power against the Schaechter band). The biomass-integral identity N0*(exp(r*T_end)-1)/r holds to 6.9e-14 on R2A/LB (n=117) and 7.1e-14 on M9 (n=66).
 
-**This report was last written at** `7d85064` (2026-09-11) — Q1: size-growth magnitude -- the paired test was powered, and the artefact is the wrong shape
+**This report was last written at** `b163bad` (2026-09-11) — Q1: record -- report, the consequence drawn in 1.9, evidence row, deck caveat, stamps
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 
