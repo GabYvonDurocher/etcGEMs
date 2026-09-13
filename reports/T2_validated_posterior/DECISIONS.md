@@ -195,3 +195,36 @@ fact — every non-optimal temperature was `infeasible` on all three rungs as ex
 UNRESOLVED — but T1 D8's and the T1 package's phrase "at tolerances 1e-12" is wrong and is
 corrected here; OPEN_ITEMS 1.25/1.30 get the dated note in TASK 6. The P10 `except` is not changed
 by T2 (it is the default path's behaviour and the gates depend on it); the ladder reads the floor.
+
+## D4 — TASK 2: the instruments re-verified under the revised target; the prior rejection rate measured (item 1.33's number)
+
+**The invariant at all 876 audit points** (`task2_invariant.csv`, sha `309d87cf…`; 2.7 min, one
+warm ctx, 120 s alarm per evaluation): exactly as predicted in D0 — the **13** points T1 classified
+feasible everywhere reproduce their old log L with **maximum difference 9.59e-08** (tolerance 1e-6;
+2 red2 + 11 P12), and all **863** points with a STRUCTURAL_ZERO at any temperature return
+**−∞** (798 red2/6800, 58 D44, 6 stratum, 1 P12). **0 STOP, 0 UNRESOLVED.**
+
+**The datum table's 13 points under zero_lik** (`task2_datum.csv`): the seven stratum/D44 rows are
+**−∞** — the parameter set has zero likelihood, so all 12 (or 1) positive measurements that escaped
+scoring under the omission (73 in total) are accounted for by the verdict, none by silence; the six
+feasible P12 rows are unchanged to **≤ 1.85e-9**. Stated against the prompt's bar: **2 of the 6 are
+within 1e-9 and 4 miss it by ≤ 0.85e-9** (A 1.85e-9, B* 1.29e-9, worst 1.65e-9, p50 1.07e-9) —
+the same solve-to-solve reproducibility T1's own table showed at three of these points (≤ 0.65e-9),
+and the same points pass the registered 1e-6 invariant above at ≤ 9.6e-8. The 1e-9 is not moved
+(RIGOUR 2); the miss is reported.
+
+**Short-circuit** (`task2_shortcircuit.csv`, 50 draws, seed 17301): **50/50 identical verdicts**,
+7 infeasible, every first failure at 15 °C on both paths; **77 of 600 solves saved** (the seven dead
+draws cost one solve each instead of twelve); 1.66 s vs 1.88 s per draw.
+
+**Prior rejection rate — 1.33's number** (`task2_rejection.json`, 2,000 draws, seed 17302, 16
+processes, 5.3 min, 20,413 solves): **16.45 % rejected, Wilson 95 % [14.89 %, 18.14 %]**; the
+rejection fires at **15 °C in 326 of 329** cases, at 47 °C once and at 50 °C twice; **0 UNRESOLVED**
+(the ladder, when it fired, resolved). Of the 1,671 feasible draws, **636 are living** (peak growth
+≥ 50 % of 2.0761 /h) — i.e. about 32 % of the prior. **The prompt's "~96 % of the prior at −∞" is
+not what the prior does**: that figure described P16's *live points at iteration 6800* (765 of 800),
+which is where the sampler had concentrated, not the prior volume. The dead stratum's advantage
+was 81.5 % of posterior *weight* from 16 % of prior *volume*, because its ceiling −18.68 out-scored
+most living points under the omission. Reported as a finding; the (d) reference is this measurement.
+
+`status.json` → `task2_done`.

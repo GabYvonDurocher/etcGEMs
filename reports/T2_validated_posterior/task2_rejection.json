@@ -1,0 +1,22 @@
+{
+ "seed": 17302,
+ "n": 2000,
+ "n_unresolved": 0,
+ "n_rejected": 329,
+ "n_evaluated": 2000,
+ "fraction": 0.1645,
+ "wilson95": [
+  0.14889841113949762,
+  0.18138792760647712
+ ],
+ "first_infeasible_T_counts": {
+  "15.0": 326,
+  "47.0": 1,
+  "50.0": 2
+ },
+ "n_feasible": 1671,
+ "n_living_of_feasible": 636,
+ "solves_total": 20413,
+ "wall_s": 315.6,
+ "unresolved": []
+}

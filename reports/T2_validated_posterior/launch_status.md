@@ -62,3 +62,4 @@ before the first solve. Keep the machine awake.
 |---|---|---|
 | 2026-09-13 21:44 | task0_done | gates OFF 79/79, 60/60; protocol frozen 9b91420 |
 | 2026-09-13 21:56 | task1_done | options ON for eciML1515; gates OFF pass; P3 gate byte-identical |
+| 2026-09-13 22:16 | task2_done | invariant 876/876 as predicted; rejection 16.45 % [14.9, 18.1] |

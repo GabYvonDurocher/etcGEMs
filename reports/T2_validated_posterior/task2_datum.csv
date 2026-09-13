@@ -1,0 +1,14 @@
+point,logl_old,n_missing_old,unscored_positive_old,logl_new,diff,accounted,verdict
+D44:baseline_start,-17.972547016144528,1,1,-inf,inf,all 12 measurements: zero likelihood (1 were unscored under omission),OK
+stratum:red1:8285,-18.68447848623289,12,12,-inf,inf,all 12 measurements: zero likelihood (12 were unscored under omission),OK
+stratum:red1:8285,-18.68447848623289,12,12,-inf,inf,all 12 measurements: zero likelihood (12 were unscored under omission),OK
+stratum:red1:8285,-18.68447848623289,12,12,-inf,inf,all 12 measurements: zero likelihood (12 were unscored under omission),OK
+stratum:red2:9051,-18.682550309717172,12,12,-inf,inf,all 12 measurements: zero likelihood (12 were unscored under omission),OK
+stratum:red2:9051,-18.682550309717172,12,12,-inf,inf,all 12 measurements: zero likelihood (12 were unscored under omission),OK
+stratum:red2:9051,-18.682550309717172,12,12,-inf,inf,all 12 measurements: zero likelihood (12 were unscored under omission),OK
+P12:A(b20),-10.002884962363623,0,0,-10.002884964218424,1.8548007574281655e-09,12 scored (unchanged),STOP:changed by 1.85e-09
+P12:Bstar(b8),-11.728539626571068,0,0,-11.728539625281183,1.2898855317189373e-09,12 scored (unchanged),STOP:changed by 1.29e-09
+P12:p81(b7),-10.738061853307176,0,0,-10.738061853496045,1.8886936459239223e-10,12 scored (unchanged),OK
+P12:worst(b5),-36.442651506662926,0,0,-36.44265150501325,1.6496741750415822e-09,12 scored (unchanged),STOP:changed by 1.65e-09
+P12:p38(b22),-9.98938979544245,0,0,-9.98938979510243,3.4002134441379894e-10,12 scored (unchanged),OK
+P12:p50(b19),-9.338188203269445,0,0,-9.338188204340934,1.071489563742034e-09,12 scored (unchanged),STOP:changed by 1.07e-09

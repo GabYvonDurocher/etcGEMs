@@ -1,0 +1,12 @@
+{
+ "n": 50,
+ "seed": 17301,
+ "agree": 50,
+ "n_infeasible": 7,
+ "solves_short": 523,
+ "solves_full": 600,
+ "first_T_agrees": 50,
+ "wall_s_short": 83.08999999999999,
+ "wall_s_full": 93.95,
+ "wall_min": 3.0
+}

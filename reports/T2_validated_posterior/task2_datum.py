@@ -35,7 +35,7 @@ def main():
         print(f"[datum] {label:22s} old {r.logl_code:10.4f} new {ll!s:>12} {verdict} | {accounted}", flush=True)
     df = pd.DataFrame(rows); df.to_csv(os.path.join(HERE, "task2_datum.csv"), index=False)
     n_inf = int((df.logl_new == -np.inf).sum()); fin = df[np.isfinite(df.logl_new)]
-    summ = dict(rows=len(df), neg_inf_rows=n_inf, finite_rows=len(fin), finite_within_1e-9=int((fin["diff"] <= 1e-9).sum()), finite_within_1e-6=int((fin["diff"] <= 1e-6).sum()),
+    summ = dict(rows=len(df), neg_inf_rows=n_inf, finite_rows=len(fin), finite_within_1e_9=int((fin["diff"] <= 1e-9).sum()), finite_within_1e_6=int((fin["diff"] <= 1e-6).sum()),
                 max_finite_diff=float(fin["diff"].max()), positive_measurements_unscored_under_omission=int(df.unscored_positive_old.sum()), unscored_now=0)
     json.dump(summ, open(os.path.join(HERE, "task2_datum.json"), "w"), indent=1); print("[datum] SUMMARY", json.dumps(summ))
 
