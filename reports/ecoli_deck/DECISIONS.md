@@ -805,3 +805,24 @@ change set touches only the deck, OPEN_ITEMS and report metadata/provenance. `gi
 main --stat` also includes older E4 attribution edits to strain text and P2_settle,
 which predate E6. No model code, strain data or primary working files changed in E6.
 Commits stay on e2/deck; no push or merge. The primary seed-2 run continues independently.
+
+<!-- R3 2026-09-13: both sides of this merge appended here. E6's D24 block (from e2/deck, now on
+     main) is kept above; Q1's note is kept below, unchanged. Neither is dropped. -->
+
+## Noted from Q1 (2026-09-11) — the CUE slide needs a caveat, and the deck is NOT edited here
+
+Q1 (`reports/Q1_n0_check/`) recomputed the respirometry chain under Parsa's `config.R` conversion
+(2120.58 fg C per cell) against the derived tables' typed constant (350 fg) and **CUE moves
+materially, and its shape moves** — it is `growthC/(growthC + respC)` and so not linear in the
+constant. R2A/LB CUE goes from **0.072–0.664 to 0.241–0.922**; `d log CUE/dT` from −0.0587 to
+−0.0436 (NLDM), −0.0476 to −0.0362 (LB), −0.1646 to −0.1461 (M9). At 15 °C LB CUE goes 0.40 → 0.80.
+
+So **`fig_cue.png` and its slide carry an unstated dependence on an unresolved constant**
+(OPEN_ITEMS 1.9), and the right caveat is roughly: *the CUE level depends on an unresolved
+carbon-per-cell constant and could be ~2× higher; the shape of its temperature dependence shifts by
+~25 %.* The measured **O₂** panels are safe — `R_O2_mg_cell_min` has factor exactly 1.0000 under
+the alternative conversion, so the deck's existing per-cell caveat is, if anything, stronger than it
+needed to be on that quantity.
+
+**Recorded here and not acted on.** Editing `deck.qmd` is E5's branch and it may be mid-flight; Q1's
+remit was diagnosis only. Whoever next touches the deck should add the caveat.
