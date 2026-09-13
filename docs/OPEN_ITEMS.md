@@ -58,6 +58,97 @@ is what the last week bought.
 6. **Cooper 2007 as holdout** (R4). Only meaningful after 5.
 7. **Then, and only then, port the recipe to Candida** against Ilgaz's measured TPCs.
 
+### 0d. Next steps — written 2026-09-11 20:30, while P16 seed 2 is running
+
+_Seed 2 launched 19:50, tracking run 1 within ~8 % on wall-clock at matched iterations,
+**expected to converge 05:15–05:45 on 12 Sep**. Run 1: 14,088 iterations, 9.585 h,
+log Z = −26.030 ± 0.109, n_eff 5,988, no crash. Pick up here._
+
+**First, on return — read P16's TASK 5 against these three, in order.**
+
+1. **Do the two seeds agree?** The pre-registered rule (D3): log Z within combined reported error
+   AND no posterior median differing by more than two Monte-Carlo errors. **If they disagree, stop
+   and diagnose** — that is P11's failure recurring at nlive 800 and it changes everything below.
+2. **Does D6 reproduce in seed 2?** The half-dead posterior — MAP log L −10.704 with peak growth
+   1.7255 /h against a componentwise median of log L −30.558 and peak growth 0.0043 /h, with 50.7 %
+   of posterior mass growing less than half the measurement. If both seeds show it identically it
+   is a property of the model-plus-likelihood, not a sampling artefact, and that is a *stronger*
+   result than one run.
+3. **Never quote the componentwise median.** With correlated parameters the vector of marginal
+   medians need not lie in the posterior's support at all; here it is a dead model and its growth
+   R² of −2.01 measures its own unrepresentativeness. Report the **MAP**, and predictive quantities
+   from the **full weighted sample set**. This is P12's θ_B recurring in a converged posterior.
+
+**Then, the decision that gates everything else — 1.25, the infeasibility exemption.**
+
+P12's decomposition: the live basin pays growth **+6.363** and respiration **−13.549**; the dead
+basin pays growth **−18.860** and respiration **−0.017**. The dead basin wins 13.5 units *by not
+being scored on respiration at all* — because Q1 established its temperatures are **infeasible**,
+and clamp's mask is `isfinite(o2) & (o2 > 0)`. P13 fixed the feasible-but-not-growing case; the
+**infeasible case was never addressed**, and a model with no feasible flux distribution is
+currently exempted from the respiration likelihood rather than charged for it.
+
+Arithmetic: the live–dead gap is ~11.7 units, and e^−11.7 ≈ 8×10⁻⁶ loses to prior volume in 15
+dimensions — the live region need only be ~46 % of prior width per axis for volume to win. Charge
+the dead basin a respiration penalty comparable to the live basin's −13.5 and the gap goes to ~25,
+which needs the live region under ~18 % per axis. Far less plausible.
+
+**Cheap test, no solves, from the existing posterior:** compare `disc_growth`, `disc_resp` and σ
+between living and dead samples, and report what fraction of the dead mass sits on infeasible
+parameter sets. If the dead mass is overwhelmingly infeasible, the diagnosis is confirmed and the
+fix is a large finite penalty for infeasibility — the same question P13 answered one level up.
+**Settle this before any further fit**, because a likelihood that exempts infeasible models will
+hurt E and F far worse than D: they are the configurations that constrain respiration.
+
+**Then the next fit: configuration D on M9 — one variable changed.**
+
+Decided 2026-09-11. Not F, and not F-on-M9. **Change the medium, hold the configuration**, because
+every verified component — pFBA tie-break, 1.42 floor, clamp support, sampleability scans, the whole
+P10–P16 chain — was established on configuration D. D NLDM → D M9 is then a controlled experiment:
+if the dTm/`tm_scale` degeneracy and the half-dead posterior reproduce, they are structural
+properties of the thermal layer; if they do not, the medium is implicated.
+
+**Why M9 and not NLDM.** M9 + glucose is fully defined. **NLDM is a defined recipe used as a
+stand-in for R2A**, which is what the experiments were actually run in and which is itself
+undefined — so every NLDM fit carries an approximation between the model's medium and the real one,
+and any mismatch is absorbed into the parameters we are trying to interpret. M9 has no such gap.
+`report.qmd` independently calls a defined-minimal TPC "the gold-standard future test", and P4 found
+M9 gave the best growth fits in the exercise (R² 0.959 / 0.987 / 0.982 for D/E/F).
+
+**Three checks before committing ten hours:**
+  * **The tie-break has never been tested on M9.** P10's D3a instrument covered six fits — D/E/F ×
+    NLDM and LB only. D M9's LP-face status is unknown and decides whether the run is well-posed.
+  * **Does the carbon cap bind on M9 at `c_max` = 120?** If not, configuration D on M9 is the base
+    model without the overflow mechanism — not a problem, but it changes which experiment you are
+    running, and it should be stated going in.
+  * **P4 excluded OTU 2 on M9** (seven non-monotonic rows) as a control rather than a series. Fine,
+    but explicit.
+
+**One caution running against the choice:** M9 is the more demanding medium, so the fraction of
+parameter space producing a non-growing model may be *larger* there. If D6 is a volume effect, M9
+could make it worse — which is another reason 1.25 is settled first.
+
+**Before any programme of runs: benchmark `slices`.** Run 1 used `slices: 3` at 15.7 calls per
+iteration, and that product is where its 221,781 evaluations went. `slices` is the one sampler
+parameter worth tuning, under the same discipline as every other sampler change in this series —
+**demonstrate the posterior and the evidence are unchanged, not merely that it is faster.** An hour
+there could remove a day from the E/F/M9 set.
+
+**And the prize that reframes the programme (1.26).** Nested sampling's second output is the
+**evidence**. D, E and F on the same medium under the same likelihood give three values of log Z —
+a **model comparison** answering which mechanism the data supports: overflow from a carbon cap,
+a respiratory membrane-area limit, or that limit with bd-II non-electrogenic. That is the
+biological question, it is nearly free once the machinery works, and emcee could never have
+produced it. P16 has already delivered the first number, −26.030 ± 0.109 for D NLDM. **These are
+competing hypotheses, not versions** — "the latest configuration" is a misreading.
+
+**Deck and paper, while the runs go:** E5 is written and unrun (`prompts/E5_deck_posterior_and_holdout_prompt.md`);
+E1's register never ran, so §0a R4's holdout claim is still wrong in both the deck and this file —
+the *emergent* model was tested a priori against Van Derlinden (shape held, peak 2.3× low) and the
+*calibrated* model has no holdout. Q1 also found the deck's CUE slide needs a caveat (CUE changes
+*shape* under the alternative conversion, not just level), and 2.12 records a citation error where
+Cooper2007 resolves to a 2001 paper.
+
 ### 0c. Reconciliation rule — read before absorbing any new result
 
 Every run in this series has produced a result that looked like the answer and was one layer of a
@@ -443,3 +534,23 @@ _Written before P2 finished, so the reaction is not shaped by the result._
 - **K4** — the membrane-area constraint on Candida (2.2). Highest value when it has not, and it does
   not depend on anything outstanding.
 - A short corrective run, if P2 raised a stop condition.
+
+## P16 completed-run audit — 12 September 2026
+
+**This dated update supersedes the expectation in 0d that an agreeing posterior is about
+to arrive.** Both seeds stopped successfully and log Z agrees (difference 0.0225 versus
+combined error 0.1478), but **14/15 medians fail the pre-registered agreement rule**.
+A supplementary dynesty strand bootstrap gives the same failure set. R1 remains open.
+No further parameter fixed, sampler changed or D/E/F fit launched.
+
+Neither tm_scale distribution rails, but eigen-width classifications and tail positions
+differ between seeds. The inactive f_metab coordinate does not recover its prior, providing
+an independent computational diagnostic. The next investigation is constrained-prior
+exploration and sampling quality; fixing the biological likelihood's infeasibility exemption
+remains necessary, but does not explain or excuse sampling a truly inactive coordinate
+incorrectly. Do not treat seed 1's low-growth fraction as a reproduced property yet.
+
+See reports/P16_reduced/audit_report.md and DECISIONS D7 for all addendum checks, corrected
+weighted correlations, full eigenvectors and the outstanding original TASK 5 deliverables.
+All results condition on dTm=0: the measured meltome mean is assumed exact and uniform
+mean error must be absorbed by tm_scale/catalytic parameters. No full-model posterior claim.

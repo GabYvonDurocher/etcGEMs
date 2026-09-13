@@ -1,0 +1,19 @@
+{
+ "tags": [
+  "red1"
+ ],
+ "agreed": null,
+ "n_constrained": 4,
+ "n_prior_dominated": 5,
+ "growth_R2": -2.0111315744525915,
+ "resp_R2_log": -3.1715250507459416,
+ "tm_scale_median": 1.0688390625076576,
+ "tm_scale_5_95": [
+  0.7930596494009055,
+  1.515456155511665
+ ],
+ "tm_mass_near_bound": 0.0,
+ "railing": false,
+ "fixed": "dTm",
+ "hidden_uncertainty": "this posterior assumes the meltome's MEAN is exactly right; any uniform error in the measured melting temperatures is absorbed by tm_scale and the catalytic parameters"
+}

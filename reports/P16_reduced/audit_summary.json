@@ -1,0 +1,143 @@
+{
+  "hidden_uncertainty": "this posterior assumes the meltome's MEAN is exactly right; any uniform error in the measured melting temperatures is absorbed by tm_scale and the catalytic parameters",
+  "runs": {
+    "red1": {
+      "summary": {
+        "tag": "red1",
+        "fixed_parameter": "dTm",
+        "fixed_value": 0.0,
+        "n_free": 15,
+        "converged_on_dlogz": true,
+        "hours_cap": 16.0,
+        "nlive": 800,
+        "sample": "rslice",
+        "slices": 3,
+        "bound": "multi",
+        "seed": 1,
+        "nproc": 16,
+        "dlogz_target": 0.1,
+        "iters": 14088,
+        "ncall": 221781,
+        "wall_s": 34506.9,
+        "wall_h": 9.585,
+        "evals_per_s": 6.43,
+        "calls_per_iter": 15.7,
+        "logz": -26.02989368311906,
+        "logzerr": 0.10935825428411179,
+        "dlogz_final": 0.10935825428411179,
+        "n_eff": 5987.55988872953,
+        "eff_percent": 6.712928519575617,
+        "respiration": {
+          "tiebreak": "pfba",
+          "tiebreak_tol": 1e-09,
+          "growth_tol": 1e-06,
+          "log_o2_floor": 1.42,
+          "support": "clamp",
+          "weight_floor": 1.0,
+          "alive_soft_growth": 0.01
+        }
+      },
+      "actual_final_dlogz": 0.0999933544811924,
+      "weight_sum": 1.0000000000001406,
+      "n_eff_check": 5987.559888729527,
+      "inverse_transform_max_error": 5.551115123125783e-16,
+      "best_logl": -10.70411101313765,
+      "tm_q": [
+        0.7930596494009055,
+        1.0688390625076576,
+        1.515456155511665
+      ],
+      "tm_prior": [
+        0.4,
+        2.2
+      ],
+      "tm_mass_near_upper": 0.0,
+      "counts": {
+        "INTERMEDIATE": 6,
+        "PRIOR-DOMINATED": 5,
+        "CONSTRAINED": 4
+      }
+    },
+    "red2": {
+      "summary": {
+        "tag": "red2",
+        "fixed_parameter": "dTm",
+        "fixed_value": 0.0,
+        "n_free": 15,
+        "converged_on_dlogz": true,
+        "hours_cap": 16.0,
+        "nlive": 800,
+        "sample": "rslice",
+        "slices": 3,
+        "bound": "multi",
+        "seed": 2,
+        "nproc": 16,
+        "dlogz_target": 0.1,
+        "iters": 12495,
+        "ncall": 197844,
+        "wall_s": 28678.4,
+        "wall_h": 7.966,
+        "evals_per_s": 6.9,
+        "calls_per_iter": 15.8,
+        "logz": -26.05237960391988,
+        "logzerr": 0.0993921877458489,
+        "dlogz_final": 0.0993921877458489,
+        "n_eff": 3252.2479246061566,
+        "eff_percent": 6.719940963587473,
+        "respiration": {
+          "tiebreak": "pfba",
+          "tiebreak_tol": 1e-09,
+          "growth_tol": 1e-06,
+          "log_o2_floor": 1.42,
+          "support": "clamp",
+          "weight_floor": 1.0,
+          "alive_soft_growth": 0.01
+        }
+      },
+      "actual_final_dlogz": 0.09995761559563476,
+      "weight_sum": 0.9999999999998662,
+      "n_eff_check": 3252.247924606159,
+      "inverse_transform_max_error": 5.551115123125783e-16,
+      "best_logl": -12.704332366836422,
+      "tm_q": [
+        0.7828547811693041,
+        0.9562160531828209,
+        1.2281157981185573
+      ],
+      "tm_prior": [
+        0.4,
+        2.2
+      ],
+      "tm_mass_near_upper": 0.0,
+      "counts": {
+        "CONSTRAINED": 6,
+        "INTERMEDIATE": 6,
+        "PRIOR-DOMINATED": 3
+      }
+    }
+  },
+  "agreement": {
+    "logz_difference": 0.0224859208008219,
+    "combined_logz_error": 0.1477769764373819,
+    "logz_sigma": 0.15216119143126428,
+    "evidence_pass": true,
+    "median_failures": [
+      "topt_scale",
+      "dCp_scale",
+      "tm_scale",
+      "kcat_scale",
+      "kappa_scale",
+      "sigma",
+      "f_metab",
+      "f_maint",
+      "ngam_scale",
+      "ngam_steepness",
+      "clearance_mult",
+      "resp_scale",
+      "disc_resp",
+      "disc_growth"
+    ],
+    "agreed": false
+  },
+  "mc_method": "Existing P16 recipe: 200 iid weighted resamples, each of length equal to stored nested sample count, seed 0. This is resampling error conditional on saved weights, not full nested-sampling uncertainty."
+}
