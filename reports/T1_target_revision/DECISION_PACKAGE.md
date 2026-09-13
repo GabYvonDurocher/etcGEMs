@@ -5,6 +5,17 @@ acted on: no option is on, no candidate is implemented, no correction is applied
 Sections 2 and 3 are filled from the audited CSVs and the trace JSON (D8, D10), never from
 memory._
 
+**The four decisions, in one place.**
+1. **`f_metab` (1.29)** — approve removal of a coordinate proven not to enter configuration D (§1).
+2. **Infeasibility (1.30)** — which observation model for a missing respiration prediction, or
+   none. Every missing prediction in the audit set is a structural infeasibility; 765 of the 800
+   live points are infeasible everywhere; the arithmetic of each candidate is tabulated and their
+   totals are on incomparable scales. **Nothing chosen** (§2).
+3. **Curvature (1.31)** — no implementation defect on any of the seven axes; retain as is; an
+   untraced LP vertex change at 27 °C is the open question on two axes, with the instrument named
+   and not run (§3).
+4. **The validation protocol (1.32)** — sign or amend the draft (§4). Then §5 launches.
+
 ---
 
 ## 1. `f_metab` — ONE decision: approve removal / approve wiring as a new hypothesis / neither
@@ -229,7 +240,7 @@ reserved seeds 17901–17905; what is deliberately not a threshold. Unsigned, it
 
 ## 5. What launches after approval, and what it costs
 
-Once 1, 2 and any curvature correction are decided and the protocol signed: (i) the revised
+Once 1 and 2 are decided and the protocol signed (3 proposes no correction): (i) the revised
 target as core options, default OFF, gated 79/79 and 60/60; (ii) the invariant and the datum table
 re-verified under the approved options; (iii) the protocol's **five** runs on seeds 17901–17905.
 
@@ -237,5 +248,5 @@ Cost from P16's measured rates — nlive 800, `rslice`, 15 free coordinates: **9
 per run (221,781 and 197,844 evaluations at 6.4–6.9 evaluations s⁻¹ on 16 processes). Five
 sequential runs: **≈ 40–48 h wall**, plus the audit scripts (minutes). If the approved observation
 model scores every temperature, the per-evaluation cost is unchanged (the solves already happen);
-if a correction alters the enzyme cost, the per-evaluation cost must be re-measured before the
-runs are costed.
+no curvature correction is proposed, so nothing alters the enzyme cost and the per-evaluation
+cost stands as measured.

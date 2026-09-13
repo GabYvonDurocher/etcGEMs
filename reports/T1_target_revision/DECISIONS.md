@@ -529,3 +529,24 @@ reading on topt_scale's minus side, and every NOT_RUN row.
 **Confirmation:** no value was changed anywhere; the new log L equals the old at every one of
 58 + 28 + 28 + 2 + 5 × 29 = 261 evaluations by construction (the trace calls the unchanged
 likelihood), and the 58 saved values are reproduced to ≤ 8.9e-10.
+
+## D11 — close: the package stands; what the diff contains beyond VERIFY 7, and what is left to the user
+
+The prompt ends at the decision package and this run does likewise: no fit, no option on, no
+candidate implemented, no correction applied, no parameter fixed, no prior changed, no treatment
+chosen by outcome. Four decisions are offered (package head), each traceable to an audited file.
+
+**Beyond VERIFY 7's expected diff:** `docs/RIGOUR.md` (rule 11), `reports/P17_inactive_prior/
+ARCHIVE.md` (archive path), `reports/report_status.yaml` (required by the stamp script) — all
+from TASK 0a/5 and each explained in the report. The classification and trace logs are
+git-ignored and stay on disk beside their CSV/JSON.
+
+**Left to the user, recorded as blockers not removed (RIGOUR 10):** the primary tree is on
+`t1/housekeeping` at `3222b9d` with uncommitted edits identical to what #39 merged and a stale
+`.git/index.lock` held by `com.apple.Virtualization` pid 62662; the local `main` ref is two
+commits behind `origin/main` (`e80ffd2`) for the same reason and is fast-forwarded here by
+`git fetch origin main:main` only if that fast-forward needs no working tree (it does not — `main`
+is checked out nowhere). The old venv, `../etcGEMs-work` detached at `3222b9d`, and the archive
+worktree are untouched.
+
+**The PR** is opened against `main` and left unmerged, as required.

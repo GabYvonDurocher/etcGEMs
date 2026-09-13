@@ -580,15 +580,21 @@ T1_target_revision:
     a 1e-6 tolerance registered in advance. f_maint is a different case and stays. TASK 2 lays the
     observation model bare from the measurement record (replicate SDs at every temperature, no
     documented detection limit, non-growing series that respire) and classifies missing predictions
-    by solver status through a three-rung retry ladder; it chooses nothing. TASK 3 traces the seven
-    curvature axes without smoothing. Two batches exceeded their registered 2 h caps and were NOT
-    extended; pre-registered follow-on batches covered the remainder, and any residue is reported
-    UNEVALUATED. All writes went through a worktree because the primary tree's index.lock is held
+    by solver status through a three-rung retry ladder -- 876 points, 10,512 solves, 9,355
+    STRUCTURAL_ZERO, 0 UNRESOLVED; 765 of the 800 validated live points infeasible at every
+    temperature (P17's 765 compatible, 81.5 % of red2's weight, as a solver fact) -- and chooses
+    nothing. TASK 3 traces the seven curvature axes without smoothing: at D44 five SUPPORTED, two
+    UNDETERMINED (an untraced O2 vertex change at 27 C), zero IMPLEMENTATION DEFECT; the registered
+    clip moved twice and carried no curvature; two trace-script defects were corrected to the
+    registration with the original outcomes retained. Two batches exceeded their registered 2 h
+    caps and were NOT extended; pre-registered follow-on batches covered the remainder (nothing
+    UNEVALUATED). All writes went through a worktree because the primary tree's index.lock is held
     stale by the sandbox VM and the task forbids deleting lock files.
   evidence: >-
     alarm.py self-tests the deadline; task1_invariant.py (+ --only-missing) regenerates the proof
     from the registered audit set (~92 min); task2_classify.py (+ --only-missing) the solver-status
     classification (~2-4 h in two batches); task2_datum_table.py the reconciled datum tables
-    (minutes); task3_trace.py the seven-axis trace (<= 4 h); gates_worktree.sh the seven-strain
+    (minutes); task3_trace.py (+ task3_fixbase.py, task3_refine_minus.py) the seven-axis trace (~35 min) and
+    task3_analyse.py its D7 classification; gates_worktree.sh the seven-strain
     battery in the worktree. Input hashes are recorded in task1_invariant.json and the trace's
     JSON; the red2/6800 set lives only in the archive worktree.

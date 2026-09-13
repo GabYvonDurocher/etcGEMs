@@ -3,8 +3,8 @@
 _2026-09-13, branch `t1/target-revision` from main `e80ffd2`, in the `../etcGEMs-t1` worktree.
 **Three decisions and a protocol for signature; no revised fit was run, no option turned on, no
 candidate implemented, no correction applied, no parameter fixed, no prior changed.** The decision
-package is `DECISION_PACKAGE.md`; this report is the evidence behind it. Sections marked ⏳ are
-filled from audited outputs of batches still running when the settled sections were written._
+package is `DECISION_PACKAGE.md`; this report is the evidence behind it. Every number comes from
+an audited output file named beside it; nothing is quoted from memory._
 
 ## TASK 0a — housekeeping R3 left
 
@@ -132,9 +132,38 @@ vertex event again at the top-weight living sample, and one melting-point crossi
 by DECISIONS entry, and its limit; reserved seeds; what is deliberately not a threshold. Decision
 1.32.
 
-## TASK 5 — the package, and the reconciliation ⏳
+## TASK 5 — the package, and the reconciliation
 
-`DECISION_PACKAGE.md`; OPEN_ITEMS 1.20/1.25/1.27 restated, 1.29–1.32 added, §0b restated;
-evidence rows T1a ⏳. Reconciliation against §0c and RIGOUR: **none of R1–R4 moved; R2 clarified**
-(one sampled coordinate shown inert by design and by proof); the old §0b sequence is qualified by
-dated addition; **nothing here is a fit, no revised posterior exists, and no option is on.**
+`DECISION_PACKAGE.md` — four decisions offered and the costed next step: **1.29** approve the
+removal of `f_metab` (proven inert); **1.30** choose the observation model for a missing
+respiration prediction, or none — arithmetic supplied, nothing chosen, and the candidates' totals
+shown to be on incomparable scales; **1.31** retain as is on all seven curvature axes (no defect
+identified; the O₂-vertex instrument proposed for two); **1.32** sign the protocol draft. Cost of
+what launches after approval: five runs, ≈ 40–48 h wall, per-evaluation cost unchanged because no
+enzyme-cost correction is proposed.
+
+OPEN_ITEMS: 1.20 / 1.25 / 1.27 restated with the facts; 1.29–1.32 added; §0b restated by dated
+addition; §4 archive rule (from #39). Evidence rows **T1a** (f_metab), **T1b** (classification
+and datum tables), **T1c** (curvature). `report_status.yaml` entry present. Stamps regenerated.
+
+**Reconciliation against §0c and RIGOUR.** None of R1–R4 moved. **R2 clarified**: one sampled
+coordinate shown inert by design and by proof, and the "half dead" posterior given its solver
+statement (765 of 800 live points infeasible at every temperature — a plateau in `disc_growth`
+alone whose ceiling out-competes most living points). RIGOUR by number: 1 — every tolerance,
+set, seed, budget and classification rule registered before its data (D0, D1, D5, D6, D7, D9);
+2 — the 1e-9 datum-table reconciliation miss at three P12 points is reported, not moved;
+3 — every outcome retained, including the as-stored 16-D bases and the plus-only refinement;
+4 — corrections by dated addition (D9); 5 — SMOOTH is reported as necessary, not sufficient
+(sigma's slope kink); 6 — 17901–17905 unconsumed; 7 — both classification batches and the trace
+audited by hash and recomputation before interpretation; 8 — every job under a tested SIGALRM,
+one at a time, no cap extended (batch 2 and the minus-side refinement were registered follow-ons,
+not extensions); 9 — the scientific target unchanged; 10 — the index.lock blocker recorded, not
+removed; 11 — #39's base read before merging.
+
+**Deviations from VERIFY 7's expected diff, each with its reason:** `docs/RIGOUR.md` (+rule 11,
+TASK 0a), `reports/P17_inactive_prior/ARCHIVE.md` (the relocated archive path, TASK 0a),
+`reports/report_status.yaml` (the stamp script requires an entry for a new report directory),
+`reports/synthesis/evidence.csv` line endings preserved (one commit had converted CRLF → LF and
+was corrected by a second). No strain config, no prior, no fit output. The four tracked
+`nominal_tpc.png` files that went missing from the worktree during the run were restored from
+HEAD, byte-identical (D6).
