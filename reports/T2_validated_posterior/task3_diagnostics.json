@@ -1,9 +1,13 @@
 {
  "n": 100,
- "n_inert": 20,
+ "n_perturbation_identical": 100,
+ "n_inert_1e12": 17,
+ "n_within_repeat_floor": 50,
  "n_finite": 85,
  "n_neg_inf": 15,
- "max_diff": 2.984655412774373e-05,
+ "max_diff_same_instance": 0.02760808416590521,
+ "max_repeat_floor": 8.824523268913254e-05,
+ "median_repeat_floor": 1.9699797348948778e-11,
  "tolerance": 1e-12,
  "config_hash_production": "85da50e92a6923af51c63b9019a0c8cb42e75ea1355883fbdbb74c778a01bd90",
  "config_hash_validation": "fe2238701d235dc39831b737896194dfaaf58727e60cc74a94b9701fcd2fa387",
@@ -42,5 +46,5 @@
   "beta31_diag"
  ],
  "seed": 17303,
- "wall_min": 8.3
+ "wall_min": 10.7
 }

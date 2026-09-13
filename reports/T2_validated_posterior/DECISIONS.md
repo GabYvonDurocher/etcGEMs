@@ -250,3 +250,23 @@ if |val − prod| ≤ 1e-12, and otherwise the residual is reported against that
 production-repeat difference (the same-instance solve-to-solve floor, ~1e-9 at p38 in D2). The
 1e-12 column is kept and reported as registered; the exact-Perturbation column is the structural
 proof; the repeat-floor column says what any residual is. Same 100 points, same seed 17303.
+
+## D6 — TASK 3 (i): the diagnostic coordinates are inert by the exact test; what the log L residuals are
+
+`task3_diagnostics.csv/json` (corrected instrument, D5; 100 points = 13 feasible audit points + 87
+prior draws with seed 17303; 10.8 min; configuration hashes production `85da50e9…`, validation
+`fe223870…`). **The `Perturbation` the model receives is identical under the validation specs and
+the production specs at 100 of 100 points, for both diagnostic draws** — the diagnostics enter
+neither the model nor feasibility, exactly. The 15 points at −∞ are −∞ in all four evaluations.
+
+**The log L column, reported as registered and then explained.** Within 1e-12: **17 of 85**
+finite points; within the point's own production-repeat difference: 50. Median same-instance
+difference **3.9e-11**, 90th percentile 1.4e-8; two points exceed 1e-6: `prior17303:15`
+(log L −404.4; validation 2 and the production *repeat* both moved by 8.8e-5 from the first
+production value) and `prior17303:72` (log L −148.1; one of four evaluations moved by **0.0276**,
+the other three agree to 5e-8; on the other instance in attempt 1 all three agreed). With the
+Perturbation provably identical, these are the LP's **warm-state path dependence** at deep-prior
+draws — the "solver tolerances and warm-state effects" the spec's item 3 names — not the
+coordinates. Recorded as a hazard for interpretation: the runs' pool workers are warm (as P16's
+were), and check (e)'s predictive draws are evaluated fresh under the ladder. The 1e-12 bar is
+reported failed as written (RIGOUR 2); the exact-Perturbation criterion of D5 is the proof.
