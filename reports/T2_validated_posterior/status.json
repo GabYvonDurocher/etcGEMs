@@ -1,10 +1,10 @@
 {
- "stage": "task0_done",
- "timestamp": "2026-09-13T21:44:32",
+ "stage": "task1_done",
+ "timestamp": "2026-09-13T21:56:07",
  "branch": "t2/validated-posterior",
- "head": "9b91420",
+ "head": "8e6d863",
  "runs_complete": 0,
  "runs_audited": 0,
  "driver_pid": null,
- "last_note": "gates OFF 79/79 60/60 at b9c79c2; protocol frozen 9b91420"
+ "last_note": "options ON for eciML1515; gates OFF 79/79 60/60; P3 gate byte-identical; Parsa theta feasible"
 }

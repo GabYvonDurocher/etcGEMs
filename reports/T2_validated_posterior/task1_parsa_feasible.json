@@ -1,0 +1,183 @@
+{
+ "MAP:NLDM": {
+  "status": [
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal"
+  ],
+  "growth": [
+   0.04134,
+   0.23926,
+   0.60291,
+   0.76481,
+   0.99047,
+   1.26587,
+   1.33654,
+   1.39255,
+   1.34349,
+   1.23742,
+   0.67519,
+   0.00092
+  ],
+  "o2": [
+   2.3055,
+   6.9011,
+   14.5189,
+   16.4996,
+   21.7275,
+   25.851,
+   26.9929,
+   28.2896,
+   27.7209,
+   32.1457,
+   27.8609,
+   8.0522
+  ],
+  "dense_infeasible": 3
+ },
+ "MAP:NLDM_blanket": {
+  "status": [
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal"
+  ],
+  "growth": [
+   0.09973,
+   0.35105,
+   0.68794,
+   0.83391,
+   1.04741,
+   1.31765,
+   1.38584,
+   1.44373,
+   1.40498,
+   1.32259,
+   0.69512,
+   0.00092
+  ],
+  "o2": [
+   1.1712,
+   13.7497,
+   13.6147,
+   18.0656,
+   25.5721,
+   31.9077,
+   33.7809,
+   35.4626,
+   34.6013,
+   41.8921,
+   23.6774,
+   4.8075
+  ],
+  "dense_infeasible": 0
+ },
+ "posterior_median:NLDM": {
+  "status": [
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal"
+  ],
+  "growth": [
+   0.11728,
+   0.38316,
+   0.74358,
+   0.8835,
+   1.07385,
+   1.29836,
+   1.35538,
+   1.39995,
+   1.3663,
+   1.26087,
+   1.00113,
+   0.0032
+  ],
+  "o2": [
+   5.6585,
+   9.2619,
+   16.2297,
+   20.2764,
+   23.7985,
+   27.6976,
+   28.707,
+   29.9259,
+   28.7905,
+   27.5529,
+   34.532,
+   8.2206
+  ],
+  "dense_infeasible": 1
+ },
+ "posterior_median:NLDM_blanket": {
+  "status": [
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal",
+   "optimal"
+  ],
+  "growth": [
+   0.23123,
+   0.50124,
+   0.83574,
+   0.96749,
+   1.146,
+   1.36545,
+   1.42093,
+   1.46682,
+   1.43979,
+   1.35076,
+   1.08902,
+   0.00319
+  ],
+  "o2": [
+   7.5778,
+   16.0329,
+   15.7297,
+   19.4514,
+   24.8872,
+   31.5865,
+   33.3233,
+   34.8591,
+   34.3499,
+   45.8234,
+   36.7551,
+   4.8918
+  ],
+  "dense_infeasible": 0
+ },
+ "all_measured_optimal": true
+}

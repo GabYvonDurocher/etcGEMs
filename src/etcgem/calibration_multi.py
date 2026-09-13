@@ -284,18 +284,42 @@ def gasflux_log_likelihood(theta, ctx, specs) -> float:
         _ea.add_etc_area_constraint(
             pm, ctx["etc_table"],
             _ea.budget_from_fraction(ctx["a_mem"], ctx["f_etc_nom"] * float(nat["F_ETC_mult"])))
-    from .gasflux import flux_tpc
+    from .gasflux import flux_tpc, UnresolvedSolve
     resp = ctx.get("respiration") or {}          # P10: strain-config options, default inert
+    # T2 (2026-09-13), TARGET_REVISION_SPEC item 2 as APPROVED by the PI (OPEN_ITEMS 1.30):
+    #   respiration.infeasible: exempt | zero_lik      default "exempt" = the code as it was.
+    #   "zero_lik": the temperatures are solved in the registered order (ctx["T"], ascending =
+    #   coldest first); the FIRST Gurobi `infeasible` returns -inf for the parameter set at once
+    #   (the limit of the existing log-scale term, log 0; a dead draw costs one solve). A
+    #   non-optimal, non-infeasible status goes through the registered retry ladder inside
+    #   flux_tpc (1e-12 tolerances, then dual simplex); a solve that fails every rung raises
+    #   UnresolvedSolve, which is NEVER converted to a number here -- the caller records it.
+    #   Feasible states, growing or not, are scored exactly as before (clamp). A solver
+    #   exception under zero_lik is likewise an UnresolvedSolve, not a silent -inf.
+    #   See reports/T2_validated_posterior/DECISIONS.md D0.
+    zero_lik = str(resp.get("infeasible", "exempt")) == "zero_lik"
     try:
         df = flux_tpc(pm, ctx["T"], pert, metabolites=("o2",),
                       tiebreak=str(resp.get("tiebreak", "none")),
                       growth_tol=float(resp.get("growth_tol", 1e-6)),
-                      tiebreak_tol=float(resp.get("tiebreak_tol", 1e-9)))
-    except Exception:
+                      tiebreak_tol=float(resp.get("tiebreak_tol", 1e-9)),
+                      stop_on_infeasible=zero_lik, retry_ladder=zero_lik)
+    except UnresolvedSolve:
+        raise
+    except Exception as e:
+        if zero_lik:
+            raise UnresolvedSolve(None, [f"exception {type(e).__name__}: {e}"])
         return -np.inf
+    if zero_lik:
+        if df.attrs.get("infeasible_at") is not None or any(str(x) == "infeasible" for x in df["status"]):
+            return -np.inf
+        if len(df) != len(ctx["T"]):
+            raise UnresolvedSolve(None, [f"flux_tpc returned {len(df)} of {len(ctx['T'])} temperatures"])
     g = df["growth"].to_numpy(float)
     o2 = df["o2_uptake"].to_numpy(float)
     if not np.all(np.isfinite(g)):
+        if zero_lik:
+            raise UnresolvedSolve(None, ["non-finite growth at a feasible solve"])
         return -np.inf
     dg = float(nat["disc_growth"])
     var = ctx["growth_sd"] ** 2 + dg ** 2
@@ -410,9 +434,14 @@ def _build_gasflux_ctx(strain, medium, experiment, table, otu, c_max, etc_table,
         ctx["recipe"] = {"recipe_csv": _strain_path(cfg, rec["recipe_csv"]),
                          "clearance": float(rec["clearance_L_per_gDW_h"]),
                          "uptake_ub": float(rec.get("uptake_ub", 1000.0))}
+    # T2: the strain config may carry sampled-set options under gas_exchange.calibration
+    # (remove_inactive, diagnostic_coords -- T1's mechanism, approved ON for eciML1515 by 1.29);
+    # absent -> unchanged. Explicit spec_options (a validation configuration) override.
+    cal = dict(gx.get("calibration") or {})
+    ctx["calibration"] = cal
     return ctx, build_gasflux_specs({"use_etc": etc_table is not None,
                                      "fit_clearance": fit_clearance,
-                                     **(spec_options or {})})   # T1: default None -> unchanged
+                                     **cal, **(spec_options or {})})   # T1: default None -> unchanged
 
 
 def run_zeus_blocks(logprob, p0, n_steps_max, check_every, pool, out_dir=None, label="",

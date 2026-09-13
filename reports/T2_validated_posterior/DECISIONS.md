@@ -131,3 +131,40 @@ worktree's absolute path only (26 lines, none a value — §4's 3.15 artefact, a
 with `git checkout -- strains/`. `docs/VALIDATION_PROTOCOL.md` committed at `9b91420`, (d) restated,
 signature dated, no DRAFT threshold left; the draft retained beside it. `status.json` → `task0_done`.
 The redirect `status.json` is in the primary tree (untracked there; D0).
+
+## D2 — TASK 1: the two approved options implemented (default OFF), gated OFF byte-identical, switched ON for eciML1515, and the P3 gate unchanged
+
+**The code.** `src/etcgem/gasflux.py`: `UnresolvedSolve`, `_ladder` (rung 2 tolerances 1e-12, rung 3
+dual simplex, parameters restored), and `flux_tpc(..., stop_on_infeasible=False, retry_ladder=False)`
+— the loop returns at the first `infeasible` with `df.attrs["infeasible_at"]` set when the first is
+on, and runs the ladder for the growth solve and the tie-break solve when the second is on, raising
+`UnresolvedSolve` if every rung fails. `src/etcgem/calibration_multi.py`:
+`respiration.infeasible: exempt | zero_lik` (default `exempt` = the code as it was) in
+`gasflux_log_likelihood` — under `zero_lik`, −∞ on the first infeasibility, `UnresolvedSolve`
+re-raised (a solver exception is likewise an `UnresolvedSolve`, not a silent −∞), feasible states
+scored exactly as before; and `_build_gasflux_ctx` reads `gas_exchange.calibration`
+(`remove_inactive`, `diagnostic_coords`) into the spec options. Smoke test before any gate: D44's
+baseline reproduces its saved log L to **0.0** on the default path and returns **−∞ in 0.2 s** (one
+solve) under `zero_lik`; p38 (feasible everywhere) differs between the two paths by 2.6e-10 (a
+second solve on the same warm model).
+
+**Gates with both options OFF, on the patched code:** K1 **79/79**, P1 **60/60**, every `rc=0`;
+the thirteen `resolved_config.yaml` diffs are the worktree path only (26 lines, 0 values), restored.
+
+**ON for eciML1515 only** (`gas_exchange.yaml`, with the reasons in the file): production sampled set
+**14** (`dTopt, topt_scale, dCp_scale, tm_scale, kcat_scale, kappa_scale, sigma, f_maint, ngam_scale,
+ngam_steepness, clearance_mult, resp_scale, disc_resp, disc_growth`; dTm pinned, f_metab removed);
+validation set **16** (+ `f_metab_diag`, `beta31_diag`). Configuration hashes `85da50e9…`
+(production) and `fe223870…` (validation), recorded again by TASK 3.
+
+**P3 gate with both ON:** `gate_def_table.csv` **byte-identical** to the committed table (all ten
+comparisons, growth and respiration R² unchanged) — structural, as the P10/P13 notes said, and now
+verified for these two options too. **Parsa's D NLDM θ is feasible at every measured temperature**
+(MAP and median; recipe and blanket media; `task1_parsa_feasible.json`), so the −∞ rule does not
+touch the gate's point. Dated note appended to `reports/P3_gate/README.md`.
+
+**One thing noticed and NOT changed (RIGOUR 9), flagged for the PI:** under `clamp` a feasible
+temperature whose model O₂ uptake is exactly ≤ 0 is still unscored (the `o2 > 0` mask). The
+approval covers infeasibility only; T2 leaves that case as it was and **counts it** (every TASK 2
+and TASK 5 script reports unscored positive measurements). If it ever occurs it is reported, not
+silently absorbed.
