@@ -4,7 +4,7 @@ Fields (prompt): stage, timestamp, branch, head, runs_complete, runs_audited, dr
 plus whatever the driver adds (current_run, iteration, dlogz, wall_h, ncall)."""
 import os, json, subprocess, datetime
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
-PATH = os.path.join(HERE, "status.json")
+PATH = os.environ.get("T2_STATUS_PATH") or os.path.join(HERE, "status.json")   # the driver's toy mode redirects this
 STAGES = ["task0_done", "task1_done", "task2_done", "task3_done", "driver_running", "driver_finished",
           "driver_stopped", "task5_done", "task6_done"]
 

@@ -147,7 +147,7 @@ def one_run(k, seed, a, run_dir, loglike, ptform, D, pool_kwargs, toy):
                 if unit_cube_ncall is None and not getattr(s, "unit_cube_sampling", True): unit_cube_ncall = int(s.ncall)
                 trace.append(dict(t=ts(), it=int(s.it), ncall=int(s.ncall), logz=lz, dlogz=dlz, eff=float(s.eff), wall_h=round(wall / 3600, 3)))
                 _atomic_json(os.path.join(run_dir, "run_status.json"), dict(run=k, seed=seed, complete=False, it=int(s.it), ncall=int(s.ncall), dlogz=dlz, logz=lz, wall_s=wall, trace=trace[-400:], unit_cube_ncall=unit_cube_ncall))
-                S.write("driver_running", f"run {k}/5 seed {seed} it {s.it} dlogz {dlz:.3f}", current_run=k, iteration=int(s.it), dlogz=dlz, wall_h=round(wall / 3600, 3), ncall=int(s.ncall), unit_cube_ncall=unit_cube_ncall, driver_pid=os.getpid())
+                S.write("driver_running", f"run {k} seed {seed} it {s.it} dlogz {dlz:.3f}", current_run=k, iteration=int(s.it), dlogz=dlz, wall_h=round(wall / 3600, 3), ncall=int(s.ncall), unit_cube_ncall=unit_cube_ncall, driver_pid=os.getpid())
                 if s.it % 250 == 0 or s.it == prev_it: log(f"run {k}  it {s.it:7d}  ncall {s.ncall:9d}  eff {s.eff:6.3f}%  logZ {lz:10.3f}  dlogz {dlz:8.3f}  wall {wall/3600:6.2f} h  unit-cube ncall {unit_cube_ncall}")
                 if s.it == prev_it: converged = True; break
                 prev_it = s.it
@@ -180,6 +180,8 @@ def main():
     ap.add_argument("--rejection-n", type=int, default=2000)
     a = ap.parse_args()
     LOG = os.path.join(HERE, "dryrun_driver.log" if a.toy else "driver.log")
+    if a.toy:
+        os.makedirs(a.out, exist_ok=True); os.environ["T2_STATUS_PATH"] = os.path.join(a.out, "status_toy.json"); S.PATH = os.environ["T2_STATUS_PATH"]
     if os.path.exists(PID):
         old = open(PID).read().strip()
         if old and subprocess.run(["ps", "-p", old], capture_output=True).returncode == 0:
@@ -207,7 +209,7 @@ def main():
         log(f"target: D={D} sampled {tg.names}; config hash {tg.config_hash()}")
     os.makedirs(a.out, exist_ok=True)
     stage = (S.read() or {}).get("stage")
-    if not a.toy and stage in ("driver_finished", "task5_done", "task6_done"):
+    if stage in ("driver_finished", "task5_done", "task6_done"):
         log(f"status stage {stage}: nothing to run"); return 0
     try:
         for k, seed in enumerate(a.seeds, start=1):
@@ -222,7 +224,7 @@ def main():
                     os.makedirs(run_dir, exist_ok=True); _atomic_json(os.path.join(run_dir, "rejection.json"), rej)
                     rs = run_status(run_dir); rs.update(rejection_done=True, run=k, seed=seed); _atomic_json(os.path.join(run_dir, "run_status.json"), rs)
                     log(f"run {k}: rejection fraction {rej['fraction']:.4f} wilson {rej['wilson95']} first-T {rej['first_infeasible_T_counts']} unresolved {rej['n_unresolved']}")
-                if not a.toy: S.write("driver_running", f"run {k}/5 seed {seed} starting", current_run=k, driver_pid=os.getpid())
+                S.write("driver_running", f"run {k}/{len(a.seeds)} seed {seed} starting", current_run=k, driver_pid=os.getpid())
                 res = one_run(k, seed, a, run_dir, loglike, ptform, D, pool_kwargs, a.toy)
                 if isinstance(res, tuple):
                     S.write("driver_stopped", f"{res[0]} on run {k}: {res[1]}", stopped_reason=res[0], stopped_run=k, driver_pid=None); return 2
@@ -236,8 +238,8 @@ def main():
                 if rep["unresolved_count"] > 0:
                     S.write("driver_stopped", f"UNRESOLVED_SOLVE recorded in run {k}", stopped_reason="UNRESOLVED_SOLVE", stopped_run=k, driver_pid=None); return 2
             cur = S.read() or {}
+            S.write("driver_running", f"run {k} complete and audited", runs_complete=k, runs_audited=k, driver_pid=os.getpid())
             if not a.toy:
-                S.write("driver_running", f"run {k} complete and audited", runs_complete=k, runs_audited=k, driver_pid=os.getpid())
                 if k == 1:
                     summ = json.load(open(os.path.join(run_dir, "summary.json")))
                     proj = f"""
@@ -250,14 +252,14 @@ n_eff {summ['n_eff']:.0f}, converged on dlogz: {summ['converged_on_dlogz']}. **P
 finishing about {(datetime.datetime.now()+datetime.timedelta(hours=4*summ['wall_h'])).strftime('%Y-%m-%d %H:%M')}. Each run's own 16 h alarm stands.
 """
                     with open(os.path.join(HERE, "DECISIONS.md"), "a") as fh: fh.write(proj)
-        if not a.toy: S.write("driver_finished", "all five runs complete and audited", runs_complete=len(a.seeds), runs_audited=len(a.seeds), driver_pid=None)
+        S.write("driver_finished", f"all {len(a.seeds)} runs complete and audited", runs_complete=len(a.seeds), runs_audited=len(a.seeds), driver_pid=None)
         log("driver FINISHED: all runs complete and audited"); return 0
     except DriverCeiling as e:
         log(f"CEILING: {e}"); S.write("driver_stopped", str(e), stopped_reason="CEILING", driver_pid=None); return 2
     except Exception as e:
         tb = traceback.format_exc(); log(f"CRASH: {e}\n{tb}")
         reason = "UNRESOLVED_SOLVE" if "UnresolvedSolve" in tb or "unresolved solve" in str(e) else "CRASH"
-        if not a.toy: S.write("driver_stopped", f"{reason}: {e}", stopped_reason=reason, driver_pid=None)
+        S.write("driver_stopped", f"{reason}: {e}", stopped_reason=reason, driver_pid=None)
         return 2
 
 

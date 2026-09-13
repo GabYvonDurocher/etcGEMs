@@ -228,3 +228,25 @@ was 81.5 % of posterior *weight* from 16 % of prior *volume*, because its ceilin
 most living points under the omission. Reported as a finding; the (d) reference is this measurement.
 
 `status.json` → `task2_done`.
+
+## D5 — the diagnostic-inertness instrument corrected before it is read: same model instance, exact Perturbation equality, bracketing repeats
+
+**What the first run showed** (`task3_diagnostics.log`, 22:16–22:24, retained): 100 points, 85
+finite, 15 at −∞ on all three evaluations; **20 of 100 within 1e-12, maximum difference 2.98e-05**.
+The script evaluated the production configuration on one `_build_gasflux_ctx` model instance and
+the validation configuration on a second, so the comparison contained the **cross-instance
+reproducibility of the LP** (P7 D5: 1e-4; P10 D3a: 0.0000 at four decimals under pfba) — a property
+of two solver histories, not of the diagnostic coordinates. The 1e-12 bar was registered for the
+coordinates' effect; the instrument measured something else. Argument independent of the data:
+the two instances would differ by ~1e-5 with no diagnostic coordinates at all.
+
+**The corrected instrument, registered now:** (1) **exact** equality of the `Perturbation` object
+`to_pert` hands the model under the validation specs and under the production specs, at every one
+of the 100 points and both diagnostic draws — the model can only see θ through that object, so
+equality is the proof that the diagnostics "do not enter the model or feasibility"; (2) on **one**
+model instance, in the order production → validation(d1) → validation(d2) → production(repeat),
+the validation log L compared with both bracketing production values; the point is INERT at 1e-12
+if |val − prod| ≤ 1e-12, and otherwise the residual is reported against that point's own
+production-repeat difference (the same-instance solve-to-solve floor, ~1e-9 at p38 in D2). The
+1e-12 column is kept and reported as registered; the exact-Perturbation column is the structural
+proof; the repeat-floor column says what any residual is. Same 100 points, same seed 17303.
