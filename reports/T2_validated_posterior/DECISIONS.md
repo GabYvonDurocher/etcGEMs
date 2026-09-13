@@ -297,3 +297,35 @@ earlier attempt where the run finished before the kill; retained, not counted).
 
 **The driver is therefore fit to be left unattended.** `launch_status.md` carries the check,
 relaunch and do-not-do lists and the resumption route. `status.json` → `task3_done`.
+
+## D8 — TASK 4: the driver launched, detached, and checked at ten minutes; this session's work ends here
+
+**Launched 2026-09-13 22:42:33**, from the worktree root, `nohup ../etcGEMs-venv/bin/python -u
+reports/T2_validated_posterior/run_protocol.py > reports/T2_validated_posterior/driver_stdout.log
+2>&1 &` with `GRB_LICENSE_FILE=~/gurobi.lic` exported; **pid 83007**; the driver's own log is
+`driver.log` (git-ignored; the stdout copy carries the solver banners). No prior `driver.pid`, no
+other driver process.
+
+**The ten-minute check (22:52:53), all three true:** (1) `driver.pid` = 83007 and the process is
+alive, with 16 pool workers; (2) `driver.log` shows run 1 (seed 17901) started **fresh** at 22:50:32
+after its check-(d) sample — **rejection 16.10 % [14.55 %, 17.78 %]**, 320 of 322 at 15 °C, 0
+unresolved, consistent with TASK 2's 16.45 % — and its first chunk logged at iteration 252 with
+1,098 draws accumulating in the unit-cube phase (dlogz 146.5, log Z −170.0 so far); (3) `status.json`
+reads `stage: driver_running`, `driver_pid: 83007`, `current_run: 1`, `iteration: 252`.
+
+**Expected completion, from P16's measured rates** (6.4–6.9 evaluations s⁻¹ on 16 processes,
+198k–222k evaluations per 15-D run, 8.0–9.6 h each): five sequential 16-D runs ≈ **40–50 h**, i.e.
+**2026-09-15 evening to 2026-09-16 morning**, plus ~5 min of rejection sampling per run. The −∞
+short-circuit cuts a dead draw to one solve, and only ~16 % of prior draws are dead, so the
+per-evaluation cost is P16's; run 1 measures it, and the driver appends the run-1 projection to
+this file before starting run 2. Each run has its 16 h alarm; the driver its 72 h ceiling.
+
+**Resumption instruction, exactly:** start a new session with the same prompt; its resumption
+block reads `status.json` — **in the worktree `../etcGEMs-t2`** (the primary tree's file is a
+REDIRECT saying so) — and `launch_status.md`, then the last five D-entries here. If
+`driver_running` and the pid is alive: write the one-paragraph D-entry and stop. If
+`driver_finished` or `driver_stopped`: TASK 5. If the pid is dead with `runs_complete < 5` and no
+STOP verdict in `driver.log`: relaunch with the command in `launch_status.md` (idempotent; resumes
+from checkpoints, as the dry run proved).
+
+This session does not wait for the driver and does not poll it further.

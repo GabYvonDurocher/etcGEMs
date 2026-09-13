@@ -1,10 +1,16 @@
 {
- "stage": "task3_done",
- "timestamp": "2026-09-13T22:42:12",
+ "stage": "driver_running",
+ "timestamp": "2026-09-13T22:53:24",
  "branch": "t2/validated-posterior",
- "head": "05845a4",
+ "head": "dad7e4f",
  "runs_complete": 0,
  "runs_audited": 0,
- "driver_pid": null,
- "last_note": "diagnostics inert by exact Perturbation equality 100/100; driver dry run: audits PASS, kill-and-resume bit-identical"
+ "driver_pid": 83007,
+ "last_note": "run 1 seed 17901 it 503 dlogz 51.098",
+ "current_run": 1,
+ "iteration": 503,
+ "dlogz": 51.0981262009704,
+ "wall_h": 0.088,
+ "ncall": 1498,
+ "unit_cube_ncall": null
 }

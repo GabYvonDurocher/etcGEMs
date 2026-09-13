@@ -72,3 +72,4 @@ outputs `dryrun/`.
 | 2026-09-13 21:56 | task1_done | options ON for eciML1515; gates OFF pass; P3 gate byte-identical |
 | 2026-09-13 22:16 | task2_done | invariant 876/876 as predicted; rejection 16.45 % [14.9, 18.1] |
 | 2026-09-13 22:42 | task3_done | diagnostics inert (exact); driver dry run + kill-and-resume proven |
+| 2026-09-13 22:42 | driver_running | launched pid 83007; 10-min check passed 22:52 (run 1 it 252, draws accumulating); expected finish 2026-09-15 evening to 09-16 morning |
