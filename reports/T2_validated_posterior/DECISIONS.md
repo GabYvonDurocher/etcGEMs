@@ -122,3 +122,12 @@ Any single failed check on any run: NOT PASSED for the programme, R1 open, block
 **Not done by this prompt, whatever the outcome:** no sampler change in response to a result; no
 threshold revisited; no second use of a reserved seed; no componentwise median quoted; no claim
 beyond D NLDM.
+
+## D1 — TASK 0 complete: baseline gates with every option OFF; the protocol frozen
+
+Battery run in the worktree at `b9c79c2` (`gates_worktree.sh`, log `task0_gates_off.log`, git-ignored):
+**K1 79/79, P1 60/60**, every `rc=0`. The thirteen `resolved_config.yaml` dumps differed by the
+worktree's absolute path only (26 lines, none a value — §4's 3.15 artefact, as in T1 D1); restored
+with `git checkout -- strains/`. `docs/VALIDATION_PROTOCOL.md` committed at `9b91420`, (d) restated,
+signature dated, no DRAFT threshold left; the draft retained beside it. `status.json` → `task0_done`.
+The redirect `status.json` is in the primary tree (untracked there; D0).
