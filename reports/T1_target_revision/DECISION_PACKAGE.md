@@ -36,13 +36,16 @@ coordinates with a declared prior and `pert=None`, which `to_pert` provably neve
 model — the mechanism for the protocol's (a) and (b)). Gate with it OFF: **K1 79/79, P1 60/60**,
 byte-identical modulo the worktree path.
 
-### The invariant proof ⏳
+### The invariant proof — PROVEN
 
-Old target versus removal-only target at every registered audit point, plus the old target with
-`f_metab` swapped to 0.15 / 0.28 / 0.45 at the same active point. Registered tolerance 1e-6.
-First point (D44's parent): old **−17.9725**, removal **−17.9725**, max difference **1.28e-11**,
-reproducing the saved −17.972547016139384. *Full counts and the maximum difference: from
-`task1_invariant.csv` + `task1_invariant_batch2.csv` once audited.*
+Old target versus removal-only target at **every one of the 870 registered audit points** (58 D44
+stencils, 800 red2/6800 live points, 12 P12 endpoints), plus the old target with `f_metab` swapped
+to 0.15 / 0.28 / 0.45 at the same active point. Registered tolerance 1e-6. **Maximum difference
+across the five evaluations, over all 870 points: 2.02e-08. 0 violations, 0 unresolved.**
+Recomputed from the CSV independently of the script's summary (sha256 `1377ab9a…`). D44 and
+red2/6800 reproduce their saved log L to 3.6e-10 and 7.4e-09; P12's twelve differ from their saved
+values by exactly P13's clamp-versus-current change (DECISIONS D4) and satisfy the invariant
+regardless.
 
 ### Recommendation
 
@@ -52,8 +55,8 @@ into allocation is a *different* biological hypothesis — the static-partition 
 built and `922e13d` superseded — and would need its own identifier, justification and approval; it
 is not prepared here and nothing here prejudges it.
 
-**What turning it on would change:** log L and evidence unchanged at every audited point (⏳ the
-proof's maximum difference); fifteen sampled coordinates instead of sixteen; a diagnostic
+**What turning it on would change:** log L and evidence unchanged at every audited point (maximum
+difference 2.02e-08); fifteen sampled coordinates instead of sixteen; a diagnostic
 coordinate available. Nothing else.
 
 ---

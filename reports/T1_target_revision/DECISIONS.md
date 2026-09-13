@@ -241,3 +241,38 @@ its bound `[0.2, 0.5]` "cannot activate a sum-to-one constraint" — true of the
   something the code implies — it would be a new modelling choice, which the spec forbids inventing.
 - **What informed nothing here:** no living fraction, no evidence value, no posterior. TASK 2's
   inputs are the tables, the README, the code, and the saved solver statuses.
+
+## D4 — the invariant is PROVEN at every registered point. Batch 2 was a no-op. One discrepancy explained, not refreshed.
+
+Batch 1 finished **all 870 points in 92 min**, inside its 2 h cap — the red2/6800 set's many dead
+points solve fast, so the ~17 s/point projection from D44's living stencils was pessimistic. Batch 2
+(`--only-missing`) started per D1, found **0 labels not reached**, and exited; it consumed nothing.
+
+**Audited independently of the script's own summary (RIGOUR 7):** `task1_invariant.csv`, sha256
+`1377ab9a12507622fc66df523531a6189daac4759b0767d7367684ea018bbe40`, 870 rows, status `OK` × 870.
+Recomputed from the five columns (old at the saved `f_metab`; old at `f_metab` = 0.15 / 0.28 /
+0.45; the removal-only target):
+
+| set | points | max spread across the five | max |old − saved| |
+|---|---:|---:|---:|
+| D44 baseline + stencils | 58 | | **3.6e-10** |
+| red2/6800 live set | 800 | | **7.4e-09** |
+| P12 converged endpoints | 12 | | 10.48 — *see below* |
+| **all** | **870** | **2.02e-08** (tolerance 1e-6) | |
+
+**0 violations, 0 unresolved.** Moving `f_metab` across its whole prior, or removing it, changes
+log L by at most 2.0e-08 anywhere — solver-repeat noise, not a dependence. **The sampled `f_metab`
+does not enter configuration D. Proven, not assumed.**
+
+**The 10.48 is not a reproducibility failure and is not refreshed away.** All twelve rows with
+|old − saved| > 1e-4 are P12 endpoints, and each difference is **P13's measured clamp-versus-current
+change to the digit**: p38 **2.8034** (P13: −7.186 → −9.989), B(b3) **1.7060** (P13 D4's credit
+1.706), worst(b5) **10.478** and big(b6) **8.10** (P13 D5's discount credits 9.15 and 8.10 plus the
+mask). P12 scored its endpoints under the `current` support ramp; the strain config has been
+`clamp` since P13 (item 1.21). The saved values are correct *for the likelihood that produced
+them*; the fresh values are correct for the one in force; and **the invariant holds in both**,
+since old = removal at every one of the twelve.
+
+**What this licenses:** approving removal changes **no** likelihood value and **no** evidence.
+**What it does not:** anything about whether the model is right — this is a statement about one
+coordinate's absence from the target, nothing more.
