@@ -276,3 +276,19 @@ since old = removal at every one of the twelve.
 **What this licenses:** approving removal changes **no** likelihood value and **no** evidence.
 **What it does not:** anything about whether the model is right — this is a statement about one
 coordinate's absence from the target, nothing more.
+
+## D5 — the classification will exceed its 2 h cap; a second bounded batch registered BEFORE it fires
+
+Measured, not guessed: one fresh `_build_gasflux_ctx` costs **6.7 s**, and the registered ladder
+rebuilds fresh on every rung, so a point with a non-optimal temperature costs three builds plus
+36 solves (~1 min), a fully optimal point one build plus 12 solves (~20 s). With ~half of the 800
+red2/6800 points dead, the 876-point set needs **≈ 3.5–4.5 h** against the **2 h** cap in D0. The
+cap fires around **17:34** with D44 (58), the six stratum states and roughly the first 250–300
+red2 points done; P12's twelve — last in the order — are not reached.
+
+**Batch 1 is not extended.** As for the proof: a **second batch** over **exactly the labels batch 1
+did not reach**, same three-rung ladder, same 60 s per-rung alarm, its **own 2 h cap**, its own CSV,
+merged only after both are audited. If batch 2 also hits its cap, the remainder is reported
+**UNEVALUATED with the count** and every downstream table says so on the affected rows. The
+ladder itself is not changed to make it finish faster — a cheaper "fresh" would be a different
+procedure from the one registered in D0.

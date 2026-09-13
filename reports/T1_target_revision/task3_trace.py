@@ -162,15 +162,24 @@ def main():
     dp, (th800, ll800), (s, lw, lg) = diverse_points(); cache = {}
     w = np.exp(lw - lw.max()); w /= w.sum()
     rng = np.random.default_rng(17201)
-    liv800 = np.array([living(t, cache) for t in th800]) if time.time() - t0 < BATCH_S else np.zeros(len(th800), bool)
+    # living status of the 800 from the classification batches' own recorded growth (no re-solving):
+    liv800 = np.zeros(len(th800), bool)
+    for f in ("task2_classify.csv", "task2_classify_batch2.csv"):
+        fp = os.path.join(HERE, f)
+        if os.path.exists(fp):
+            c = pd.read_csv(fp); c = c[c.label.str.startswith("red2_6800:") & c.growth.notna()]
+            for _, r in c.iterrows():
+                k = int(r.label.split(":")[1]); pk = max(float(x) for x in str(r.growth).split(";"))
+                liv800[k] = pk >= LIVING_FRAC * PEAK_OBS
+    print(f"[t3] living among the 800 (from the classification's recorded growth): {int(liv800.sum())}", flush=True)
     if liv800.any():
         i = np.argsort(ll800[liv800]); k = int(np.where(liv800)[0][i][len(i) // 2]); dp[2] = ("red2_6800_living_median", th800[k], f"index {k} of 800; {int(liv800.sum())} living")
-    order = np.argsort(-w); cand = [int(i) for i in order[:400]]
+    order = np.argsort(-w); cand = [int(i) for i in order[:100]]     # top-100 by weight: ~100 fresh solves, bounded
     livs = [i for i in cand if time.time() - t0 < BATCH_S and living(expand(np.asarray(s[i], float)), cache)]
     if livs:
         dp[3] = ("red2_top_weight_living", expand(np.asarray(s[livs[0]], float)), f"sample {livs[0]}, weight rank {cand.index(livs[0])}")
         ws = w[livs]; ls = lg[livs]; o = np.argsort(ls); c = np.cumsum(ws[o]) / ws.sum(); m = livs[o[int(np.searchsorted(c, 0.5))]]
-        dp[4] = ("red2_wmedian_logl_living", expand(np.asarray(s[m], float)), f"sample {m} among {len(livs)} living of the top-400-weight")
+        dp[4] = ("red2_wmedian_logl_living", expand(np.asarray(s[m], float)), f"sample {m} among {len(livs)} living of the top-100-weight")
     for name, th, prov in dp:
         if th is None or time.time() - t0 > BATCH_S: rec["diverse"].append(dict(point=name, provenance=prov, status="NOT_EVALUATED")); continue
         try:

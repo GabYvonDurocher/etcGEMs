@@ -35,6 +35,8 @@ PAY = dict(strain="eciML1515", medium=MEDIUM, experiment=f"gasflux_config{CFG}",
            c_max=C_MAX, etc_table=ETC, apply_protons=PROTONS, fit_clearance=FIT_K)
 NAMES = [s.name for s in FULL_SPECS]
 OUT = os.path.join(HERE, "task2_classify.csv")
+ONLY_MISSING = "--only-missing" in sys.argv
+if ONLY_MISSING: OUT = os.path.join(HERE, "task2_classify_batch2.csv")
 
 
 def points():
@@ -72,7 +74,12 @@ def solve_statuses(th, rung):
 
 
 def main():
-    self_test(); pts = points(); print(f"[cls] {len(pts)} points", flush=True)
+    self_test(); pts = points()
+    if ONLY_MISSING:
+        done = set(pd.read_csv(os.path.join(HERE, "task2_classify.csv")).label)
+        pts = [p for p in pts if p[0] not in done]
+        print(f"[cls] BATCH 2: {len(pts)} labels not reached by batch 1 ({len(done)} done)", flush=True)
+    print(f"[cls] {len(pts)} points", flush=True)
     rows = []; t0 = time.time()
     for k, (label, th, saved_status) in enumerate(pts):
         if time.time() - t0 > BATCH_S:
@@ -118,7 +125,7 @@ def main():
                 stratum_temps_unresolved=int(strat.n_unresolved.sum()) if len(strat) else 0,
                 saved_status_agreement=int((df.agrees_with_saved == True).sum()), saved_status_compared=int(df.agrees_with_saved.notna().sum()),
                 wall_min=round((time.time() - t0) / 60, 1))
-    json.dump(summ, open(os.path.join(HERE, "task2_classify.json"), "w"), indent=1)
+    json.dump(summ, open(os.path.join(HERE, "task2_classify_batch2.json" if ONLY_MISSING else "task2_classify.json"), "w"), indent=1)
     print(f"[cls] SUMMARY {summ}", flush=True)
 
 
