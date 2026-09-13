@@ -2,7 +2,8 @@
 
 **The complete P17 artefact set is NOT here. It is preserved, in full and unmodified, on the local
 branch `codex/p17-inactive-prior` at `ef1961bfc4e26a9e69eb51fe8d0b8dbad109e997`, checked out at
-`/private/tmp/etcGEMs-p17`, which is deliberately never pushed.**
+`../etcGEMs-p17-archive` (relocated from `/private/tmp/etcGEMs-p17` by T1 on 2026-09-13, because
+`/private/tmp` is cleared on reboot), which is deliberately never pushed.**
 
 ## What is here, and what is not
 
