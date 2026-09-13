@@ -1,0 +1,486 @@
+---
+title: "Temperature, enzymes and metabolism in *E. coli*"
+subtitle: "What this model adds to what is published"
+author: "Living Systems Institute, University of Exeter"
+date: last-modified
+format:
+  beamer:
+    pdf-engine: lualatex
+    aspectratio: 169
+    theme: default
+    colortheme: seahorse
+    fonttheme: professionalfonts
+    navigation: horizontal
+    slide-level: 2
+    incremental: false
+bibliography: references.bib
+csl: nature-communications.csl
+---
+
+## The question
+
+- Metabolism is temperature-dependent; **thermal performance curves are the phenotype**
+- An **etcGEM** predicts a whole TPC from *per-enzyme* thermodynamics — no curve fitting to the shape
+- Three reference points, and every claim here says which one it is relative to:
+  - **Li et al. 2021** [@Li2021] — the only published etcGEM (yeast)
+  - **Pettersen & Almaas 2023** [@Pettersen2023] — re-ran it and found the inference unstable
+  - **Madkaikar 2023** [@Madkaikar2023] — the MRes baseline this group inherited
+- **What is new here: the data that makes the inference identifiable, and the audits that say what a fitted etcGEM does and does not know**
+
+## What an etcGEM is
+
+- A genome-scale metabolic model of ~2 500 reactions, plus three things:
+  - **an enzyme budget** — carrying flux costs protein, and protein is finite
+  - **per-enzyme $k_{cat}(T)$** — each enzyme's turnover peaks at its own $T_{opt}$ and falls away either side (macromolecular rate theory, curvature $\Delta C_p^\ddagger$) [@Hobbs2013]
+  - **per-enzyme unfolding** — the folded fraction collapses at each enzyme's melting temperature $T_m$
+- Warm the cell and every enzyme moves on its own curve; the LP re-allocates the budget
+- **The organism's TPC is then emergent** — it is an output, not a fitted function
+
+## The two temperature responses, per enzyme
+
+**Left:** turnover $\widehat{k}(T)$, each enzyme peaking at its own $T_{opt}$. **Right:** folded fraction $f_N(T)$, each collapsing at its own $T_m$.
+
+![~12 *E. coli* enzymes. `reports/ecoli_tpc`](../ecoli_tpc/assets/figures/example_enzyme_kcatT.png){height=66%}
+
+## The state of the art: Li et al. 2021
+
+- Yeast `ecYeast7`; **764 enzymes, 2 292 parameters** ($T_m$, $T_{opt}$, $\Delta C_p^\ddagger$ each)
+- $T_m$ **measured** (266 of 764); $T_{opt}$ **predicted** from sequence, carried as a wide prior
+- Fitted to **growth and chemostat fluxes**
+- **No gas exchange** — no O$_2$, no acetate
+- Headline: ERG1 controls flux at 40 °C, confirmed in the wet lab [@Li2021]
+
+## What one of these curves looks like
+
+Every descriptor a thermal biologist wants is read off **one predicted curve** — and each is a different question of the model.
+
+![Our *E. coli* model at its reference point. `reports/ecoli_tpc`](../ecoli_tpc/assets/figures/reference_tpc.png){height=66%}
+
+## The problem the field found: Pettersen & Almaas 2023
+
+- *"the Bayesian calculation method … is **unstable and unable to estimate the posterior distribution**"* — it assumes one peak; the problem has many
+- Of six signature reactions, the one that varies most between **equally-fit** solutions is
+  **ferrocytochrome-c:oxygen oxidoreductase** — *"for some particles used extensively, in other cases not at all, still giving rise to approximately the same growth rates"*
+- Their diagnosis and their ask:
+  - *"the external measurements [are] insufficient to account for the inner workings of the … cell"*
+  - *"measurements of proteomics and **fluxomics** will help narrow down the solution space"* [@Pettersen2023]
+
+::: {.block}
+### The most under-determined reaction is the O$_2$-consuming step of respiration, and what they ask for is a measured flux. Hold that thought.
+:::
+
+## Where we started: the MRes baseline
+
+- **`iJO1366`**, enzyme-constrained with GECKO 3 in MATLAB; **1 366 enzymes**
+- **4 101 thermal parameters** — *more* per-enzyme freedom than Li et al. [@Li2021] — with $T_m$ measured for 841 and $T_{opt}$ from a database for 894
+- Same thermal physics as now: two-state unfolding, transition-state $k_{cat}$ with $\Delta C_p^\ddagger$, temperature-dependent maintenance
+- **Not Bayesian**: repeated FBA scored by $R^2$ against **one** growth curve, the other 25 held out
+- **$R^2 = 0.94$**; growth TPCs only [@Madkaikar2023]
+
+::: {.block}
+### Two things to be clear about: the GEM was later **replaced** (`iJO1366` $\to$ `eciML1515`), and the baseline already had per-enzyme parameters — what it had no way to do was **constrain** them.
+:::
+
+## What the model is now
+
+::: {.columns}
+::: {.column width="42%"}
+- One shared core in Python; **seven organisms** on it (*E. coli* best-constrained)
+- **16 global levers**, deliberately — a manageable set whose identifiability we can test
+- Everything is under a regression suite — **79 structural checks and 60 numerical ones**, re-run on every change, so a fix to one organism cannot silently move another
+- The figure is **a priori**: nothing was fitted to that curve
+:::
+::: {.column width="58%"}
+![Van Derlinden et al. [@VanDerlinden2012], K-12 MG1655 in BHI. `reports/ecoli_tpc`](../ecoli_tpc/assets/figures/validation_trusted_curves.png){width=100%}
+:::
+:::
+
+## The 16 levers — 1: the thermal envelope (6)
+
+Each acts on **every** enzyme at once, on top of the per-enzyme data.
+
+| lever | what it does | what it is for |
+|:--|:--|:--|
+| $dT_{opt}$ | shifts every enzyme's $T_{opt}$ by a constant | the database's optima are systematically off |
+| `topt_scale` | stretches the *spread* of optima about 30 °C | how synchronised the enzymes are |
+| $\Delta C_p$ `_scale` | scales the curvature of $k_{cat}(T)$ | how broad each enzyme's response is |
+| $dT_m$ | shifts every melting temperature | *in vitro* $T_m$ $\neq$ *in vivo* inactivation |
+| `tm_scale` | stretches the *spread* of melting points | sharp collapse vs gradual shoulder |
+| `kcat_scale` | scales the *level* of all turnover | the *in vitro* $\to$ *in vivo* $k_{cat}$ gap [@Davidi2016] |
+
+## The 16 levers — 2: budget, maintenance, medium, observation (10)
+
+| lever | what it does |
+|:--|:--|
+| $\sigma$ | average *in vivo* enzyme saturation — how much of the protein is working |
+| `kappa_scale` | effective translation efficiency in the biosynthesis cap |
+| $f_{metab}$, $f_{maint}$ | the proteome split between flux-carrying and housekeeping sectors |
+| `ngam_scale`, `ngam_steepness` | size of the maintenance cost, and how fast it rises with $T$ |
+| `clearance_mult` | how fast the medium is actually drawn down (a *medium* lever) |
+| `resp_scale` | mmol O$_2$ $\to$ measured units: an **observation** scale, not biology |
+| `disc_resp`, `disc_growth` | model discrepancy — how much the model is allowed to be wrong |
+
+## Which of the sixteen the data can actually move
+
+Three kinds, and the difference matters — not two.
+
+- **Eight the data move.** $dT_{opt}$, `topt_scale`, $\Delta C_p$`_scale`, $dT_m$, `tm_scale`,
+  `kcat_scale`, $\sigma$, `ngam_scale`
+- **Two are FIXED BY MEASUREMENT — $f_{metab}$, $f_{maint}$.** They enter from the measured
+  proteome, matched to medium *and* temperature, and carry **tight priors: measurement wiggle
+  only**. The likelihood not moving them within that width is **the design working**, not a
+  deficiency — growth and respiration are not asked to re-derive a proteomics measurement
+- **Two are genuinely unidentified.** `kappa_scale` (effective translation demand, derived once at
+  build time — nothing measures it independently) and `ngam_steepness` (maintenance steepness,
+  *borrowed* from the MRes model). **These** are the ones a measurement would fix
+- **Four are not model levers at all.** `clearance_mult` is a property of the experiment;
+  `resp_scale`, `disc_resp`, `disc_growth` are the observation model
+
+## …and a fourth kind the categories above miss
+
+- **Two stability levers can compensate for each other.** Likelihood profiles find similarly good growing fits with different combinations of $dT_m$ and `tm_scale`
+- **That differs from an unmeasured lever.** The fit constrains an effective low-temperature tail of the meltome more strongly than it distinguishes these two ways of moving it
+- The failed 16-parameter run also had a thin direction involving this pair among its remaining sampling points
+- **Those points describe the run's remaining high-likelihood region, not the full posterior.** Their spread cannot establish which parameters the posterior determines individually
+
+## Development 1: proteome allocation, from measured proteomes
+
+- The enzyme budget is split into three **sectors** [@Basan2015; @Scott2010]:
+  **metabolic** (carries flux) · **biosynthesis** (ribosomes) · **maintenance** (chaperones, housekeeping)
+- The split is **not fitted and not hand-set**. It is read from a study that *measured the E. coli proteome at a series of temperatures*, in separate LB / glucose / glycerol series [@Wang2026]
+- So the model is condition-specific for free: measured ribosome fraction at 37 °C is **0.36 on rich LB** but **0.19 on glucose-minimal** — a rich-medium run automatically gets a higher biosynthesis cap and grows faster
+- The **maintenance** sector carries a measured **2.7-fold heat-stress chaperone rise**
+- New relative to Li et al. [@Li2021] and to the MRes [@Madkaikar2023]: **neither has an allocation layer at all**
+
+## The measured sectors
+
+**The chaperone sector (red) ramps sharply above 37 °C** — the measured heat-stress response entering as an allocation change, not a fitted parameter.
+
+![Wang et al. [@Wang2026]; figure `reports/ecoli_tpc`](../ecoli_tpc/assets/figures/proteome_sector_fractions.png){height=66%}
+
+## …and this is where we need more data
+
+- **The measurement is thin where it matters most.** The glucose series was measured at **25, 30 and 37 °C only**; the LB series adds 16 and 43 °C
+- Outside a series' range the allocation is **held at its endpoint** — so above 37 °C on glucose the sector split, and with it the translation cap, **stops varying with temperature**
+- The consequence is visible in the curve: the glucose-minimal prediction is **bit-identical from 37 to 44 °C** (growth exactly 0.524757 h$^{-1}$ at all eight grid points)
+- **That shoulder is the proteomics table running out, not a property of the cell** — and it is why "$T_{opt}$" from such a run is the argmax of a tie
+
+::: {.block}
+### This is the concrete version of "we need more data": extend the measured glucose series above 37 °C. It is a proteomics experiment, not a modelling problem.
+:::
+
+## Which lever owns which feature of the curve
+
+- The heatmap shows **12 rows, not 16**: `clearance_mult` is a property of the experiment, and `resp_scale`/`disc_resp`/`disc_growth` are the observation model — none of the four touches the predicted curve
+- Read the rows in four groups:
+  - **catalysis** = $\sigma$ + `kcat_scale` — how much working enzyme there is
+  - **kinetic envelope** = $dT_{opt}$ + `topt_scale` + $\Delta C_p$`_scale` — where the optima sit and how spread
+  - **stability** = $dT_m$ + `tm_scale` — where unfolding takes over
+  - **allocation / maintenance** = $f_{metab}$, $f_{maint}$, `kappa_scale`, `ngam_*`
+- In lever terms: $dT_{opt}$/`topt_scale` move the **cold** limb and $E_a$; $dT_m$/`tm_scale` move the **hot** collapse; $\sigma$/`kcat_scale` move the **height** and nothing else
+- **The result:** $r_{max}$ is owned by catalysis ($\sigma$ alone has elasticity $\approx 1$); $T_{opt}$ and $CT_{max}$ by stability; $E_a$ and niche width by the spread of optima
+- **So a TPC descriptor is not a parameter.** Each one asks the model a different question — which is why fitting to peak height tells you nothing about the hot edge
+
+## Elasticity: the numbers
+
+Fractional change in each descriptor per fractional change in each lever, at the operating point. **Deterministic — no intervals.** Bold is |E| > 0.3.
+
+| lever | $T_{opt}$ | $r_{max}$ | $CT_{max}$ | niche width | $E_a$ |
+|:--|--:|--:|--:|--:|--:|
+| $dT_{opt}$ | 0.00 | −0.09 | 0.00 | **−0.34** | **0.26** |
+| `topt_scale` | 0.00 | −0.23 | 0.00 | **−1.05** | **1.41** |
+| $\Delta C_p$`_scale` | 0.00 | −0.02 | 0.00 | 0.29 | 0.22 |
+| $dT_m$ | 0.13 | 0.09 | 0.13 | 0.18 | −0.24 |
+| `tm_scale` | **−0.26** | −0.14 | −0.16 | −0.21 | 0.24 |
+| `kcat_scale` | 0.00 | **0.40** | 0.00 | 0.07 | **−0.37** |
+| $\sigma$ | 0.00 | **1.00** | 0.00 | −0.11 | **0.36** |
+| $f_{maint}$ | 0.00 | **−0.56** | 0.00 | 0.06 | **−0.37** |
+| `ngam_scale` | 0.00 | −0.00 | 0.00 | −0.01 | 0.01 |
+| the three zero rows | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
+
+## …and the same numbers as a pattern
+
+The three zero rows are zero for **different reasons**: `kappa_scale` and `ngam_steepness` unidentified, $f_{metab}$ fixed by measurement.
+
+![Elasticity heatmap, $h=0.10$. `reports/ecoli_tpc`](../ecoli_tpc/assets/figures/elasticity_heatmap.png){height=66%}
+
+## Development 2: overflow metabolism — what it is
+
+- Grow *E. coli* fast enough and it **excretes acetate while oxygen is still available** — it ferments and respires at once, wasting carbon. The bacterial analogue of the Crabtree effect
+- Measured law: excretion is zero below a growth-rate threshold, then linear. **Threshold $\approx 0.76$ h$^{-1}$, slope $\approx 21$ mmol gDW$^{-1}$ h$^{-1}$** [@Basan2015]
+- **Why any of this matters for a temperature model:** an enzyme-constrained TPC fixes the growth rate but *not* the internal flux distribution, so **O$_2$ and CO$_2$ exchange are under-determined** — the model can hit the right growth rate by respiring or by fermenting
+- That is the *same* degeneracy Pettersen & Almaas found by FVA on the oxidase reaction [@Pettersen2023], seen from the other side
+- **Until it is pinned, an etcGEM cannot predict a gas flux at all**
+
+## The total-carbon cap: what it is
+
+- **From the code:** $\sum_i n_{C,i}\,v_{i} \le c_{max}$ over **every open carbon uptake**, with $n_{C,i}$ the carbon count read from the model's own metabolite formula. Units **mmol C gDW$^{-1}$ h$^{-1}$**; inorganic carbon is not charged to it
+- **What it produces:** a finite carbon budget *and* a finite protein budget make the LP excrete acetate on its own. **Overflow emerges; it is not written in.** That is the difference between configuration D and configuration C
+- **A second role, honestly stated:** an enzyme-constrained curve fixes growth but not the internal fluxes, so O$_2$ and CO$_2$ are under-determined. The cap is **one of three ways offered to pin them** — and it does **not** fully succeed: the O$_2$ flux at the optimum still jumps between equally-optimal solutions, which is the cliff problem later in this deck
+
+## The total-carbon cap: why the value matters
+
+- **At $c_{max} = 60$ acetate overflow is exactly zero on both media** — the cap suppresses the very mechanism it exists to create. On NLDM, $T_{opt}$ also drops **39.0 → 32.5 °C** between 80 and 60
+- **120 is the lowest value in his sweep at which overflow is non-zero on both** (23.5 on glucose, 3.9 on NLDM mmol gDW$^{-1}$ h$^{-1}$) — which is why it was adopted
+- **It is medium-dependent, and 60 / 120 / 450 is one quantity, not three guesses.** Applying the glucose/NLDM value of 120 to LB holds $r_{max}$ at **1.1–1.8 h$^{-1}$** against a measured **2.945**, and growth $R^2$ falls to **0.64 / 0.05 / −0.10** across three configurations; at the LB-appropriate cap they are **0.90 / 0.83 / 0.88**
+- **LB is settled at 450.** That was the resolution of a real disagreement, not a compromise
+
+## …and how it is made to emerge
+
+Four ways to pin it — Parsa's configurations A–F, ported here and reproduced against his numbers.
+
+| | mechanism | imposed or emergent |
+|:--|:--|:--|
+| **A** | cost the membrane carriers: transporters get the same thermal envelope as every other enzyme | emergent ceiling |
+| **B** | a **total-carbon cap**, $\sum_i n_{C,i} v_i \le c_{max}$ | emergent |
+| **C** | the measured acetate line written in as a constraint [@Basan2015] | **imposed** |
+| **D** | the carbon cap, **oxidase split left free** — the LP picks *bd* vs *bo3* per temperature | **emergent, T-dependent** |
+| **E/F** | an **ETC membrane-area budget**: complexes compete for inner-membrane area | emergent |
+
+## Why configuration D is the interesting one
+
+- **Nothing is imposed on the acetate branch.** Overflow falls out of the protein budget plus a carbon budget — the model is not told that acetate appears above 0.76 h$^{-1}$, it produces it
+- The **terminal-oxidase choice becomes a prediction**: *bd* and *bo3* have different melting temperatures, so which one the cell uses shifts with temperature on its own
+- $c_{max}$ is **not our number**: Parsa's own sweep (60 / 100 / 120 / 180 mmol C gDW$^{-1}$ h$^{-1}$) concludes 100–120 is the sweet spot — *"a tight cap gives respiratory gas but a flat growth plateau; a loose cap gives a peaked TPC but fermentative gas"*. 120 adopted; 450 on LB
+- Data behind the layer: the **acetate law** [@Basan2015], the **membrane geometry** (Szenk et al., surface-to-volume 4.5 µm$^{-1}$), and Parsa's own **respirometry** for the fits
+- **The advance over Li et al. [@Li2021] and the MRes [@Madkaikar2023]: both stop at growth.** This turns O$_2$, CO$_2$ and acetate into predictions that a measurement can check — and Parsa's respirometry is that measurement
+
+## Configuration D: the growth curve it predicts
+
+The medium ladder is the measured sector split at work: $r_{max}$ **1.19** (glucose) to **2.02 h$^{-1}$** (BHI/LB), $T_{opt}$ 38–40 °C. **Model output; no measurement plotted.**
+
+![`reports/ecoli_gasflux`](../ecoli_gasflux/assets/figures/configD_growth.png){height=66%}
+
+## …and the gas exchange it predicts
+
+**Right-hand panel: RQ $\approx 1$ around the optimum** — respiratory, not fermentative. **Model output; no measurement plotted; mechanism, not interval.**
+
+![`reports/ecoli_gasflux`](../ecoli_gasflux/assets/figures/configD_gasflux.png){width=100%}
+
+## The data nobody else has
+
+- Parsa's respirometry: **O$_2$ flux and growth per cell, 15–50 °C, three media** (R2A, LB, M9), ~60 replicate runs each
+- This is exactly the **fluxomics on the O$_2$-consuming reaction** that Pettersen & Almaas [@Pettersen2023] name as the missing data
+- And it is a **measurement**, not a model output — which is what makes it able to break the degeneracy
+- Ported and **checked against his own results**: all sixty of his configuration numbers and all ten of his respirometry fits reproduce here, the worst to within 0.009
+- Look at the shape: **respiration peaks 3–5 °C above growth** (43–45 °C vs ~40 °C) and is still climbing where growth has begun to fail
+
+## Measured growth and respiration, three media
+
+**Respiration peaks 3–5 °C above growth** and is still climbing where growth has begun to fail. Faint points are replicate runs; bars s.e.m.
+
+![`strains/eciML1515/respirometry/`](assets/figures/fig_respirometry.png){height=66%}
+
+## How well does it fit? Growth
+
+Lines are the model, points the measurement; two media, three configurations. **At Parsa's gated parameters — not a converged posterior, and no intervals.**
+
+![$R^2$ from `reports/P3_gate/gate_def_headline.csv`. `make_fit_figures.py`](assets/figures/fig_fit_growth.png){height=66%}
+
+## How well does it fit? Oxygen
+
+**Gated parameters, no posterior.** A **fitted** scale converts model to measurement: this tests **shape**, not level. **The jagged cold limb is the vertex-jumping from the cliff slides.**
+
+![`make_fit_figures.py`](assets/figures/fig_fit_o2.png){height=60%}
+
+## …and what it costs the cell
+
+- **Carbon-use efficiency** — the share of assimilated carbon kept as biomass rather than respired
+- Flat at **~0.6** (R2A, LB) and **~0.4** (M9) from 25 to 40 °C
+- Then a **cliff**: 0.29 / 0.52 / 0.05 at 45 °C
+- Medium sets the *level*; temperature sets the *cliff*
+- **The model does not yet predict it.** CUE needs the carbon budget closed — biomass carbon against total carbon consumed — and that is the next thing the gas-exchange layer can be asked for
+
+## Measured carbon-use efficiency
+
+The plotted conversion gives a warm-end decline. An unresolved carbon-per-cell constant changes both CUE levels and temperature dependence.
+
+![`strains/eciML1515/respirometry/`](assets/figures/fig_cue.png){height=66%}
+
+## …and carbon-use efficiency, which we cannot yet overlay
+
+- The model would need **biomass carbon over total carbon consumed**
+- The second term is a sum over the **64 open carbon sources** of the NLDM recipe, which the prediction path does not return; the first needs a **biomass carbon fraction** that is not in the strain data
+- Both would have to be invented, so **CUE stays measurement-only** — the measured curve is the previous slide
+- **This is the next thing to close**, and it is a small piece of plumbing rather than a new experiment
+
+## The statistical problem, in plain terms
+
+**What everyone is trying to do:** the per-enzyme parameters are uncertain, so treat them as unknowns and ask the data which values are consistent with it — a *distribution* over parameters, not one best guess.
+
+- **Li et al.** used **SMC-ABC**: draw parameter sets from the prior, simulate, keep the ones whose predictions land close to the data, narrow the tolerance, repeat. Reported a posterior over 2 292 parameters [@Li2021]
+- **Pettersen & Almaas** re-ran it **from different random seeds and got different answers**. The method assumes the good parameter sets form a single hill; in this problem there are many. They swapped in an **evolutionary algorithm** to collect a *diversity* of good solutions instead — then showed those solutions disagree wildly on internal fluxes [@Pettersen2023]
+- **Our inference problem:** 16 global parameters and a likelihood combining growth with **measured respiration**. We started with ensemble MCMC and moved to nested sampling after diagnosing the fitting surface
+
+## …and the three things that went wrong
+
+1. **The chains were too short.** In the earlier MCMC-based family — ours and Parsa's — no chain reached the adopted target (effective sample size $\geq 600$), and running longer did not help. **Intervals from those older chains are unsupported.** That is why the method changed to nested sampling
+2. **The surface itself is not smooth.** We stopped blaming the sampler and looked at the likelihood: 22 line scans, 902 model builds, **12 of 22 lines jump by >20 % of their range on a small step**. Not the solver — unchanged at $10^{-9}$ tolerances and on a different algorithm
+3. **The cause is the respiration term, and it is the degeneracy again.** At cold temperatures the O$_2$ flux at the growth optimum **jumps between equally-optimal solutions** — so the prediction moves discontinuously while the growth rate does not. *Exactly* what Pettersen & Almaas saw by FVA [@Pettersen2023], here as cliffs in a likelihood
+
+- **Three fixes, each for a named mechanism:** a **tie-break** to choose one point on the degenerate face; a **variance floor** so the likelihood is not shocked by a jump the model cannot avoid; a **continuous support** clamp at the growth threshold. Cliffs cut ~10×. **Still not smooth, and we say so**
+
+## What a line scan is, and what it found
+
+- **A transect through parameter space.** Start at the best fit, choose a parameter or combination, and step along it. Rebuild and solve the whole model at each point, recording fit quality
+- **22 directions, 41 points each: 902 model builds.** Each step is 0.05 prior standard deviations. Each line spans $-1$ to $+1$ standard deviation
+- **12 of 22 directions have a cliff.** One small step changes fit quality by more than one fifth of its total change along the whole line. Median largest jump: 39 % of that line's range, worst: 99 %
+- Small parameter changes can therefore give abruptly worse fits and impede local searches. Two directions are flat. The next slide shows all 22 transects
+
+## The surface, scanned
+
+![The log-likelihood along 22 parameter lines. `reports/P9_surface`](../P9_surface/task1_scan.png){height=82%}
+
+## How many answers are there? First, what a basin is
+
+- **A basin is a valley of the fitting problem.** Nearby starting parameters lead an optimiser towards the same good fit
+- **A live basin predicts growth. A dead basin predicts essentially none**, although its parameters still receive a finite statistical score
+- We screened **100 starts**, then continued 12 representative endpoints. **11 converged**. We scanned paths between endpoints to look for barriers in fit quality
+- **The final rule was fixed before those results:** separate basins require a barrier above **5 log-likelihood units** and locally optimal endpoints. Barriers of 1--5 are substructure, below 1 is noise
+
+## How many answers are there? The result
+
+- **The map found one live and one dead region.** The result holds at barrier thresholds of 3, 5 and 8 units. Straight-line paths give an upper bound on the number of basins
+- The dead region predicts peak growth **0.000 h$^{-1}$**, against a measured **2.076 h$^{-1}$**
+- **Eleven of its twelve temperatures are infeasible:** the metabolic constraints admit no flux solution. Those temperatures receive no respiration score
+- **The dead region survives the current support rule.** The live--dead likelihood gap changed only from 11.69 to 11.25 units. Infeasibility remains exempted from respiration scoring
+
+## The reduced posterior: run 1 converged
+
+- We fixed the uniform melting-temperature shift **$dT_m=0$**, leaving **15 free parameters**. Configuration D on the NLDM recipe, with the current respiration likelihood
+- **The first clean nested run in this family:** 14,088 iterations, 221,781 likelihood evaluations, **9.585 hours**, no crash
+- **Log evidence $\log Z=-26.030\pm0.109$**, effective sample size **5,988**. The recorded stopping statistic reached **0.09999**, below 0.1
+- At the previous run's failure point, **iteration 11,547**, dlogz was **0.666 versus 2.168**, at a comparable evaluation count
+- **Seed 2 is in flight. Independent confirmation is pending.** All posterior numbers shown here come from seed 1 alone
+
+## The stopping and reproducibility rules
+
+- **Pre-registered sampler:** `dynesty`, 800 live points, random-direction slice sampling (`rslice`, 3 slices), multiple ellipsoidal bounds
+- **Stopping rule:** estimated remaining change in log evidence, **dlogz $<0.1$**. Evidence uncertainty is a separate quantity
+- **Agreement requires both:** the two log evidences agree within their combined reported errors **and** no parameter median differs by more than two Monte-Carlo errors
+- Seed 1 meets its stopping rule. **The two-seed agreement test has no result yet.** Sampler convergence alone does not establish useful biological predictions
+
+## What the reduction assumes
+
+- **`tm_scale` does not pile up at its upper bound:** median **1.069**, 5th--95th percentiles **[0.793, 1.515]**, prior bounds **[0.4, 2.2]**
+- **0.00% of seed 1's posterior weight** lies within 5% of that upper bound. There is no observed boundary pile-up in this run
+- The failed 16-parameter run identified a numerical difficulty in its remaining sampling points. **That geometry cannot be treated as the full posterior**
+- **Fixing $dT_m$ assumes the meltome's mean is right.** Any uniform error in measured melting temperatures must now be absorbed by `tm_scale` and the catalytic parameters
+
+## Run 1 assigns about half its weight to very low growth
+
+Measured peak: **2.0761 h$^{-1}$**. Results below are provisional, from seed 1.
+
+| summary | log likelihood | peak growth, h$^{-1}$ |
+|:--|--:|--:|
+| Best posterior sample (MAP) | **−10.704** | **1.7255** |
+| Separate median of each parameter | −30.558 | 0.0043 |
+
+- The MAP reaches **83% of the measured peak**
+- **300 draws sampled using posterior weights:** median peak **0.0016 h$^{-1}$**, 5th--95th percentiles **[0.0000, 1.7106]**
+- **50.7% of these draws grow below half the measured peak.** This estimates low-growth posterior mass, not the fraction proven infeasible
+
+## Why separate parameter medians give a misleading model
+
+- Correlated parameters work in combinations. Taking each parameter's median separately can put the resulting vector far from combinations that jointly fit well
+- Here that vector predicts peak growth **0.0043 h$^{-1}$**, against **1.7255 h$^{-1}$** at the best posterior sample
+- Its growth $R^2=-2.01$ describes this unrepresentative vector. It cannot summarise the predictive performance of the full posterior
+- **Report the MAP alongside predictions drawn from the weighted joint posterior.** The median vector appears here only to show why it is unusable
+
+## The infeasibility exemption: a diagnosis under test
+
+Earlier basin-map scores, before the current support rule:
+
+| log-likelihood contribution | live region | dead region |
+|:--|--:|--:|
+| Growth | +6.363 | −18.860 |
+| Respiration | −13.549 | −0.017 |
+
+- **The dead region gains about 13.5 units on respiration** because 11 of 12 temperatures have no feasible flux solution and receive no respiration score
+- The current clamp still skips missing or non-positive oxygen uptake. It addresses feasible low growth, but leaves this exemption
+- **Test now:** quantify infeasibility among low-growth posterior predictions and its contribution to their statistical weight. The basin example identifies a mechanism, not its share of the full posterior
+
+## Why a converged posterior can favour poor predictions
+
+- The earlier live--dead gap is about **11.7 log-likelihood units**, a **dead-to-live likelihood ratio of roughly $8\times10^{-6}$**
+- Posterior mass also depends on **how much prior volume each region occupies**. A sufficiently larger dead region can outweigh that fit disadvantage
+- Illustration only: in 15 dimensions, a live region occupying **46% of prior width per axis** has volume about $8\times10^{-6}$ of the full box. The actual regions need not be rectangular
+- **The cause remains under test.** Seed 1 converged, but convergence does not validate the likelihood. This finding concerns this model and scoring rule, not enzyme-constrained models in general
+
+## Auditing the published model
+
+- We built an audit for a defect class we had found in our **own** models — a free ion path that lets ATP synthase run without the respiratory chain paying for it — and ran it on Li et al.'s deposited model [@Li2021]
+- **The defect is absent.** Their respiratory chain supplies **93 %** of ATP synthase's protons; all twelve uncosted proton-movers run the dissipative way; **no free path exists at any length**
+- Then we repeated one of our own structural findings at **their published posterior** — 100 models, their code, their parameters: changing which constraint binds widens the top of the TPC from **1.5 to 7.3 °C in 93 %** of their models
+- **But $CT_{max}$ also moves (4.6 °C).** In *our* model it did not. **The asymmetry is not the clean thing we thought it was**
+- Register: an audit applied to the reference implementation — not a critique of a paper
+
+## The asymmetry at Li et al.'s own posterior
+
+**Left:** the top of the curve widens from ~1.5 to ~7.3 °C. **Right:** $T_{opt}$ moves further than $CT_{max}$ in 92 % of their models — but $CT_{max}$ is **not** immune.
+
+![`reports/Y2_regime_posterior`](assets/figures/fig_y2_asymmetry.png){height=66%}
+
+## The awkward one: our model needs a −4 K stability shift
+
+- Every fit of the *E. coli* model wants melting temperatures **3–4.5 K below a measured meltome** [@Leuenberger2017]
+- Two readings, and we screened them: **biology** (*in vitro* $T_m$ is not *in vivo* inactivation) or **our parameterisation** (16 global levers where Li et al. [@Li2021] had 2 292)
+- **The shift is not uniquely required** — an equally good, living fit exists at zero shift, for 0.08 log-likelihood units
+- **But catalysis is not what pays for it.** The compensator is `tm_scale`, the *spread* of melting temperatures. Both solutions put the least-stable few per cent of enzymes **4–6 °C below measurement**
+
+- So the **number** is a parameterisation artefact; the **contradiction with the meltome's low tail** is not. Per-enzyme $k_{cat}(T)$ would not fix it — and the predictor we would have used has no usable optimum for 97 % of these enzymes
+
+## …and the same degeneracy in two numbers
+
+- **Pin one melting-temperature lever and the other compensates: 0.08 log-likelihood units.** Effectively free
+- **Pin both to the measurement and it costs 7.6 units.** The organism still grows — 1.66 h$^{-1}$ — but the fit is pressed against two prior bounds
+- **So the two levers are constrained together and neither alone.** That is the same $dT_m$/`tm_scale` pair the posterior run's own geometry found, in units anyone can read
+- One method was an optimiser profiling the likelihood; the other was a sampler's live points collapsing onto a correlation. **They share no machinery**
+
+## Established results and pending confirmation
+
+- **Settled.** One shared codebase with seven organism models on it, under the regression suite. The mechanisms: measured proteome sectors, overflow emerging from a carbon cap, the ETC area budget. The audits — including the reference implementation passing ours
+- **Settled, and uncomfortable.** No interval from the older *E. coli* fits is available. The likelihood surface is structurally rough. The meltome's low tail is contradicted by every fit
+- **Converged, awaiting confirmation.** The reduced 15-parameter run reached its stopping rule. Seed 2 is in flight. Seed 1 gives substantial weight to very-low-growth predictions
+- **Needs measurement — not more modelling.** Proteome allocation **above 37 °C on glucose** — the measurement exists, its *range* does not, and that is where $CT_{max}$ is set; maintenance vs temperature from a low-dilution chemostat (`ngam_*` are borrowed); *in vivo* stability for the enzymes that set the thermal limit
+
+## Has it ever predicted anything it was not fitted to?
+
+- **Once, and it half-worked.** The *uncalibrated* model was asked to predict the exact-strain Van Derlinden curve with **nothing fitted to growth**: it tracked the **shape** ($T_{opt}$, $E_a$) and under-predicted the **peak ~2.3-fold** (1.04 against 2.40 h$^{-1}$). Shape held; magnitude did not
+- **And then that curve was consumed by the calibration**, so the *calibrated* model has no holdout left. Cooper et al.'s evolved *E. coli* lines [@Cooper2001] are the obvious next one
+
+## The next controlled comparison: configuration D on M9
+
+- **Change the medium, keep the configuration.** M9 plus glucose is fully defined. NLDM is a defined model recipe standing in for the experiments' undefined R2A medium
+- If the degeneracy and low-growth mass recur on M9, the explanation extends beyond NLDM. If they change, the medium is implicated
+- **Before fitting:** resolve infeasibility scoring, check oxygen-flux tie-breaking on M9 and whether D's carbon cap binds. Keep the excluded M9 control series explicit
+- A more restrictive medium could increase infeasibility. This comparison follows the likelihood diagnosis
+
+## Model evidence asks which mechanism the data support
+
+- **D: a total-carbon cap** produces overflow
+- **E: a respiratory membrane-area budget** limits respiratory capacity
+- **F: that area budget with non-electrogenic bd-II** changes respiratory coupling
+- These are **competing mechanisms**. Compare their log evidences on the **same medium and observations**, with a common scoring rule and declared comparable priors
+- Nested sampling returns evidence with the posterior. D on NLDM currently gives **$-26.030\pm0.109$ from seed 1**. It is a provisional starting value, not a D/E/F comparison; changing the likelihood requires a new D result too
+
+## What happens next
+
+- Confirm seed reproducibility against the pre-registered rule.
+- Resolve the infeasibility exemption before further fits.
+- Test D on fully defined M9.
+- Compare D/E/F evidences on one medium.
+- Measure glucose proteome allocation above 37 °C.
+
+## Three questions for the group
+
+1. **Which respiratory mechanism should the data distinguish?** A carbon cap, a membrane-area limit, or altered respiratory coupling? What independent measurement would make the evidence comparison convincing?
+
+2. **How should infeasible predictions be scored?** We can identify the exemption. What observation model would make a model with no feasible flux solution appropriately unlikely?
+
+3. **What would count as a strong external test?** Predicting thermal-curve shifts after 20,000 generations [@Cooper2001], or another held-out experiment? Glucose proteome measurements above 37 °C would constrain the uncertain allocation layer
+
+## References {.allowframebreaks}
+
+::: {#refs}
+:::

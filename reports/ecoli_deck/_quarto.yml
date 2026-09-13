@@ -1,0 +1,8 @@
+project:
+  type: default
+  output-dir: _output
+  render:
+    - deck.qmd
+
+bibliography: references.bib
+csl: nature-communications.csl

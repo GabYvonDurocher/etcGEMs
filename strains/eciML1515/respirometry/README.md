@@ -4,7 +4,7 @@ The measured half of configurations D, E and F. Ingested in P3 TASK 1.
 
 ## Provenance
 
-Parsa Amirmoeini, two complete runs of the **Candida respirometry pipeline**
+Parsa, two complete runs of the **Candida respirometry pipeline**
 (`01_convert_xlsx.R` … `08_outlier_trends.R`, `config.R`, `run_all.R`) at a slightly different
 revision. Everything established about that method applies to these numbers.
 

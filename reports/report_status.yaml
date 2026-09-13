@@ -456,6 +456,19 @@ P14_posterior:
     committed clamp scan; task1_jump_diag.py bisects and decomposes the four residual jumps in
     ~7 min. The seven-strain gate (79/79, 60/60) comes from the standard battery.
 
+ecoli_deck:
+  status: CURRENT
+  note: >-
+    E6 deck snapshot, with provisional P16 seed-1 results and seed-2 confirmation pending.
+    Text and PDF are checked against pinned source records, not a new model analysis.
+    Historical overlays are labelled; no old-chain intervals are endorsed. Eight borrowed
+    figures retain known small tick labels, disclosed in the verification record.
+  evidence: >-
+    reports/ecoli_deck/E6_VERIFICATION.md records source checks, render checks and the
+    before/after page counts. P16 sources read at 191b4b0, Q1 at b163bad. No E6 solves.
+    Quarto renders deck.qmd to _output/deck.pdf; check_frames.py checks clipping and
+    measure_figures.py preserves the eight known legibility failures.
+
 P15_posterior:
   status: CURRENT
   note: >-
