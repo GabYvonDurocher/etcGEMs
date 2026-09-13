@@ -367,3 +367,47 @@ a JUMP."* Ratios are undefined and reported as such if |Δ(h)| < 1e-6 (evaluatio
 At the five diverse points the same rule applies to each point's own stencils; the D44 verdict
 and the diverse-point verdicts are reported per axis side by side, and an axis's package
 classification is the D44 verdict, with disagreement across points reported as such.
+
+## D8 — TASK 2's classification: every missing prediction in the audit set is STRUCTURAL_ZERO; not one UNRESOLVED; and 765 of the 800 validated live points are infeasible at all twelve temperatures
+
+Batch 2 finished inside its cap (322/322, 66.9 min, no timeout). Audit (`task2_merge_audit.py`,
+RIGOUR 7): batch 1 `d16e9bfd…3484d8`, batch 2 `ca86af08…e638ca`, merged `d1309afb…f600c8`;
+no label in both batches; the union covers the registered 876 exactly — **0 UNEVALUATED**; every
+count below recomputed from the rung columns, **0 disagreements** with the script's tallies; saved
+solver status agrees with the fresh first solve at all **64 of 64** points that carry one (D44 + the
+six stratum states).
+
+**The counts.** 10,512 temperature-solves across 876 points: **9,355 STRUCTURAL_ZERO** (infeasible
+on the fresh model, at tolerances 1e-12, and under dual simplex — all three rungs), **0 UNRESOLVED,
+0 RESOLVED_ON_RETRY**. There is no numerical-failure class in this audit set; "unresolved" appears
+in the package only as the category the ladder was built to detect and did not find. Per set:
+
+| set | points | temps | STRUCTURAL_ZERO | where |
+|---|---|---|---|---|
+| D44 (parent + 56 stencils + repeat) | 58 | 696 | 58 | 15 °C at every one of the 58 |
+| stratum states (2 stored × 3 seeds) | 6 | 72 | **72** | all twelve temperatures, every state |
+| red2/6800 validated live | 800 | 9,600 | 9,214 | **765 points at all 12 T**; 32 at 15 °C only; 1 at two T; 2 at none |
+| P12 endpoints | 12 | 144 | 11 | `B(b3)` at 15–65 °C; the other eleven feasible everywhere |
+
+**What that says about the stratum.** P17's `stratum.json` labelled itself *"algebraic
+compatibility only; not solver-status classification"* and counted **765 compatible** live points
+at red2's iteration 6800 (`live_history`), carrying **81.5 %** of red2's posterior weight (53.2 % of
+red1's). T1's solver-status classification now gives the same **765**, point for point, and says
+what they are: parameter vectors at which the LP is **infeasible at every temperature**, so
+growth is 0 everywhere, the respiration term is skipped everywhere (12 positive measurements
+escape scoring at each), and log L is the growth term alone — a function of `disc_growth` only,
+whose ceiling is P17's `curve_max` **−18.6825** at `disc_growth` 1.1407. Their stored log L runs
+−18.7807 to −18.6825; the 35 living points (peak growth 1.40–1.53 /h) run −18.7738 to −16.4412,
+so the plateau's ceiling sits *above* most living points. That is the mechanism of "the posterior
+is half dead", stated as a solver fact rather than an algebraic one. **It is reported, not acted
+on** — the decision it bears on is 1.30's, and §0a forbids T1 from making it.
+
+**The six stratum rows carry two labels.** `stratum_probe.json` holds two stored states
+(`red1:8285`, `red2:9051`), each perturbed under three seeds (17201–17203) to a distinct `start`;
+the classify script labelled rows by `tag:stored_index`, so three rows share each label. Rows are
+in seed order in every T1 file and are distinct evaluations; all six are 12/12 STRUCTURAL_ZERO, so
+the collision loses nothing, and it is recorded here rather than re-run.
+
+**Living count for TASK 3.** By D1's criterion (peak growth ≥ 50 % of 2.0761 /h) from the
+classification's own recorded growth: **35 of 800**. The living median of D1's rule is drawn from
+those 35; the number is stated in the trace log.

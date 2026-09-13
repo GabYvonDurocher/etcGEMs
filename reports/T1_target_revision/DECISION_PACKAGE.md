@@ -2,8 +2,8 @@
 
 _Prepared 2026-09-13 by T1. Three decisions and a protocol for signature. **Nothing below has been
 acted on: no option is on, no candidate is implemented, no correction is applied, no fit has run.**
-Sections marked ⏳ carry numbers from batches that were still running when this skeleton was
-written; they are filled from the audited CSVs, never from memory._
+Section 2 is filled from the audited classification and datum CSVs (D8). Section 3, marked ⏳,
+is filled from `task3_trace.json` when the trace completes — never from memory._
 
 ---
 
@@ -75,13 +75,35 @@ coordinate available. Nothing else.
 | any `y ≤ 0` or NaN | **no**; min 1.61e-12 | same |
 | can O₂ be zero when growth is? | **the data say no**: three 50 °C series with `r = 1e-6` (deliberate "no measurable growth, KEPT") respire at 2.36e-12, 2.36e-12, 1.97e-12 | README boundary fix; table |
 
-### The classification, by solver status ⏳
+### The classification, by solver status
 
-At D44's 58 evaluations: **696 solves — 638 `optimal`, 58 `infeasible`, every one at 15 °C; no
-timeouts, no numeric failures**. *The retry-ladder confirmation (three rungs) and the counts for the
-stratum states, the 800 red2/6800 points and P12's endpoints: from `task2_classify.csv`.* A point
-whose solve fails all three rungs for a non-infeasible reason is **UNRESOLVED**, and every
-candidate's contribution there is **undefined pending resolution** — not a number.
+Two audited batches (`task2_classify.csv`, `task2_classify_batch2.csv`; merged
+`task2_classify_all.csv`, sha256 `d1309afb…f600c8`; D6/D8): all **876** registered points
+evaluated, **0 UNEVALUATED**, counts recomputed from the rung columns with **0 disagreements**,
+saved solver status reproduced at **64 of 64** points that carry one.
+
+| set | points | solves | STRUCTURAL_ZERO | UNRESOLVED | RESOLVED_ON_RETRY | where |
+|---|---|---|---|---|---|---|
+| D44 parent + stencils | 58 | 696 | 58 | 0 | 0 | 15 °C at every one |
+| stratum states (2 stored × 3 seeds) | 6 | 72 | **72** | 0 | 0 | every temperature |
+| red2/6800 validated live | 800 | 9,600 | 9,214 | 0 | 0 | **765 points at all 12 T**; 32 at 15 °C only; 1 at two; 2 at none |
+| P12 endpoints | 12 | 144 | 11 | 0 | 0 | `B(b3)` 15–65 °C; eleven feasible everywhere |
+| **all** | **876** | **10,512** | **9,355** | **0** | **0** | |
+
+Every missing prediction in the audit set is Gurobi `infeasible` on the fresh model, at
+tolerances 1e-12 and under dual simplex alike — **STRUCTURAL_ZERO on growth**. The UNRESOLVED
+class, for which every candidate's contribution would be *undefined pending resolution*, is
+**empty** here; it is retained in the tables as the category the ladder detects.
+
+**What the 765 are.** P17's `stratum.json` counted 765 "algebraically compatible" live points at
+red2's iteration 6800 and gave the stratum **81.5 %** of red2's posterior weight (53.2 % of
+red1's), labelling itself *not* a solver-status classification. This is that classification: the
+same **765**, each infeasible at all twelve temperatures, so growth is 0 everywhere, all twelve
+positive respiration measurements escape scoring, and log L is the growth term alone — a function
+of `disc_growth` only, ceiling **−18.6825** (P17's `curve_max`). The 35 living points
+(peak growth 1.40–1.53 /h) have stored log L −18.77 to −16.44; the plateau's ceiling lies above
+most of them. This is the solver-side statement of "the posterior is half dead". It is reported
+for decision 1.30, not acted on.
 
 ### The candidates, each with its exact per-observation contribution
 
@@ -92,13 +114,47 @@ candidate's contribution there is **undefined pending resolution** — not a num
 | **LOG-SCALE (the existing term's own scale)** | `log 0 = −∞` | the existing term | **undefined**: the current term cannot score a zero prediction on its own scale, and a lognormal ε is a new choice the spec forbids inventing |
 | **CENSORED** | needs a detection limit | none exists in the record | **not derivable** |
 
-### The datum-by-datum table ⏳
+### The datum-by-datum table
 
-`task2_datum_table.csv` / `task2_datum_totals.csv`: at D44's baseline, the six saved stratum states,
-the four feasible-non-growing endpoints and two growing ones — measured value, `s`, detection
-status, solver classification, prediction, old contribution, each candidate's contribution —
-**reconciled to the code's total log L at every point**, and the count of positive measurements
-that escape scoring under the omission versus each candidate.
+`task2_datum_table.csv` (156 rows, sha256 `67170142…`) / `task2_datum_totals.csv` (`de757021…`):
+13 points × 12 temperatures — D44's baseline, the six stratum states, P12's four
+feasible-non-growing and two growing endpoints — with, per datum, `y`, the replicate `s`, `y/s`,
+detection status, solver classification, growth, model O₂, whether scored today, the growth term,
+the old respiration contribution, and each candidate's. **Reconciliation:** the per-datum sum
+equals the code's own `gasflux_log_likelihood` to **≤ 5e-12** at D44 and the stratum states and to
+**≤ 1.65e-9** at the six P12 endpoints; three of those (A, B*, worst) exceed the 1e-9 the script
+registered by at most 0.65e-9, which is reported as a miss of that tolerance, not re-registered
+(the table calls `flux_tpc` once and the likelihood solves again internally; a 1e-9 difference
+between two solves of the same model is within P7's measured reproducibility).
+
+| point | log L (code) | growth | resp (old) | missing T | +ve measurements unscored (OLD) | total under NORMAL r=0 |
+|---|---|---|---|---|---|---|
+| D44 baseline | −17.9725 | −2.3235 | −15.6490 | 1 (15 °C) | 1 | −0.4341 |
+| stratum red1:8285 (×3 seeds) | −18.6845 | −18.6845 | 0 | 12 | 12 | −304.2048 |
+| stratum red2:9051 (×3 seeds) | −18.6826 | −18.6826 | 0 | 12 | 12 | −304.2029 |
+| P12 A(b20) | −10.0029 | +6.2868 | −16.2896 | 0 | 0 | −10.0029 |
+| P12 B*(b8) | −11.7285 | +5.3262 | −17.0548 | 0 | 0 | −11.7285 |
+| P12 p81(b7) | −10.7381 | +5.4015 | −16.1396 | 0 | 0 | −10.7381 |
+| P12 worst(b5) | −36.4427 | −15.7987 | −20.6439 | 0 | 0 | −36.4427 |
+| P12 p38(b22) | −9.9894 | +6.3630 | −16.3524 | 0 | 0 | −9.9894 |
+| P12 p50(b19) | −9.3382 | +6.8042 | −16.1424 | 0 | 0 | −9.3382 |
+
+**Escapes.** Under the omission, **73** positive measurements escape scoring across the 13 points
+(one at D44, twelve at each stratum state, none at the P12 endpoints — all six are feasible at
+every temperature, including the four "feasible-non-growing" ones, which is what that name
+means). Under NORMAL r = 0 every one is scored (**0** escape, all defined, because no UNRESOLVED
+solve exists). The LOG-SCALE row is −∞ wherever a prediction is missing; CENSORED is not derivable.
+
+**What the NORMAL arithmetic exposes, stated so the PI is not misled by the totals.** At D44's
+15 °C the candidate contributes **+17.54**: `−½(y/s)² = −9.94` plus the normalising constant
+`−½ log(2π s²) = +27.48` at `s = 4.64e-13` mg cell⁻¹ min⁻¹. The candidate is a density in `y`
+on the original scale, whereas the existing term is a density in `log y`; their totals differ by
+the Jacobian `Σ log y` (−24.1 to −26.9 per datum at these units) and are **not comparable as they
+stand**. Within the candidate, the stratum states fall from −18.68 to **−304.20** because the
+twelve `−½(y/s)²` terms (y/s from 2.6 to 17.6) sum to **−602.22** against **+316.70** of
+normalising constants, plus the growth term −18.68 (from `task2_datum_table.csv`). The table
+gives the arithmetic; it does not make the choice, and the choice is not to be made from these
+totals without first putting both densities on one scale.
 
 ### What is put to the PI
 

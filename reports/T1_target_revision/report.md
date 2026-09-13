@@ -74,10 +74,14 @@ B(b3) 1.7060) and satisfy the invariant regardless (D4).
 
 ## TASK 2 — infeasibility: the observation model laid bare
 
-**Classification by solver status** ⏳ — D44: 696 solves, 638 `optimal`, 58 `infeasible` all at
-15 °C, no timeouts; the ladder confirms `infeasible` on every rung at the baseline
-(STRUCTURAL_ZERO on growth). *Counts for the stratum states, red2/6800 and P12, and the −18.68
-stratum's fraction: `task2_classify.csv` (+ batch 2).*
+**Classification by solver status (D8)** — two batches (2 h + 66.9 min), hash-audited and
+recomputed (`task2_merge_audit.py`): **876 points, 10,512 solves, 9,355 STRUCTURAL_ZERO, 0
+UNRESOLVED, 0 RESOLVED_ON_RETRY**; saved status reproduced 64/64. D44: `infeasible` at 15 °C on
+all three rungs at every one of the 58. The six stratum states: infeasible at **all twelve
+temperatures**. red2/6800: **765 of the 800** validated live points infeasible at all twelve —
+P17's "765 compatible" (81.5 % of red2's weight) now given as a solver fact: log L on that set is
+the growth term alone, ceiling −18.6825, above most of the **35** living points. P12: eleven
+endpoints feasible everywhere, `B(b3)` infeasible 15–65 °C.
 
 **Measurement facts (D3):** observable `R_O2_mg_cell_min`, mg O₂ cell⁻¹ min⁻¹, reached via
 `o2_conv = 2.8e-13 · 32 / 60` × `resp_scale`; `s` = the **replicate SD** at every one of 12
@@ -88,8 +92,12 @@ detection limit documented**; every value positive; **three no-growth series at 
 **Candidates** (package §2): NORMAL on the original scale with the measured `s` and `r = 0` only
 where STRUCTURAL_ZERO on growth — derivable, but `r = 0` is contradicted for O₂ by the data; the
 existing log-scale term — **undefined** at a zero prediction, and a lognormal ε is not derivable
-from it; CENSORED — **not derivable**. Datum-by-datum tables reconciled to totals ⏳
-(`task2_datum_table.csv`, `task2_datum_totals.csv`). **Nothing chosen. No posterior read.**
+from it; CENSORED — **not derivable**. Datum-by-datum tables (`task2_datum_table.csv`, 156 rows; `task2_datum_totals.csv`)
+reconciled to the code's total at all 13 points (≤ 5e-12 at D44 and the stratum, ≤ 1.65e-9 at
+P12's six — three miss the registered 1e-9 by ≤ 0.65e-9, reported not re-registered). 73 positive
+measurements escape scoring under the omission, 0 under NORMAL r = 0; that candidate's totals are
+densities on the original scale (D44's 15 °C term is +17.54, dominated by −½ log 2π s² at
+s ≈ 5e-13) and are not comparable with the log-scale term without the Jacobian — said in §2. **Nothing chosen. No posterior read.**
 Decision 1.30.
 
 ## TASK 3 — the seven axes, traced ⏳
