@@ -1,0 +1,13 @@
+{
+  "n": 13295,
+  "prior": "p16-f-metab",
+  "column": 7,
+  "hashes": {
+    "samples": "868541d450e0cca1517e0df880af10ccbe5fb62e7ecc4240c3db1ee73b66ee16",
+    "logwt": "e59e07175138fb759dafbe6345832d9a0ec7db2df7980af7344a941faca7f99f"
+  },
+  "cdf_mean": 0.39371489772257284,
+  "cdf_ks": 0.21614604552442174,
+  "weight_ess": 3252.2479246061484,
+  "scope": "Target CDF is Uniform(0,1) only after independent prior and inactivity are proved. Descriptive weighted discrepancy; weight ESS is not independent N. No automatic pass or IID p-value."
+}

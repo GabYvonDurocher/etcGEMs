@@ -1,0 +1,15 @@
+[
+  {
+    "iterations": 0,
+    "live_fmean": 0.5041941633910669,
+    "live_ks": 0.02261086065535417,
+    "ancestor_contribution": 0.5041941633910668,
+    "movement_contribution": 1.1102230246251565e-16,
+    "distinct_ancestors": 800,
+    "largest_ancestor_fraction": 0.00125,
+    "unknown_independent_phase_roots": 0,
+    "min_logl": -18.780704815152458,
+    "wall_s": 0.050105333000000085,
+    "ncall": 0
+  }
+]

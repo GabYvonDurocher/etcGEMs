@@ -101,7 +101,7 @@ def main():
             out = dict(iters=int(r.niter), ncall=int(sum(r.ncall)), wall_s=round(wall, 1),
                        calls_per_iter=round(sum(r.ncall) / max(1, r.niter), 1),
                        s_per_call_wall=round(wall / max(1, sum(r.ncall)), 4),
-                       evals_per_s=round(sum(r.ncall) / wall, 2), dlogz_now=float(r.logzerr[-1]),
+                       evals_per_s=round(sum(r.ncall) / wall, 2), logzerr=float(r.logzerr[-1]),
                        nlive=a.nlive, sample=a.sample, slices=a.slices, nproc=a.nproc)
             json.dump(out, open(os.path.join(HERE, f"calibrate_{a.tag}.json"), "w"), indent=1)
             print(f"[nested] CALIBRATION {out}", flush=True); return
@@ -151,7 +151,7 @@ def main():
                 dlogz_target=a.dlogz, iters=int(r.niter), ncall=int(sum(r.ncall)), wall_s=round(wall, 1),
                 wall_h=round(wall / 3600, 3), evals_per_s=round(sum(r.ncall) / wall, 2),
                 calls_per_iter=round(sum(r.ncall) / max(1, r.niter), 1), logz=float(r.logz[-1]),
-                logzerr=float(r.logzerr[-1]), dlogz_final=float(r.logzerr[-1]), n_eff=n_eff,
+                logzerr=float(r.logzerr[-1]), dlogz_final=dlz, n_eff=n_eff,
                 eff_percent=float(r.eff), respiration=ctx["respiration"])
     json.dump(summ, open(os.path.join(OUT, f"summary_{a.tag}.json"), "w"), indent=1, default=float)
     print(f"[nested] {summ}", flush=True); print("[nested] done", flush=True)

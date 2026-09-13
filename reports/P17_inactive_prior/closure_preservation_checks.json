@@ -1,0 +1,201 @@
+{
+  "original_source_and_evidence_hashes": [
+    {
+      "path": "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/dynesty_red1.save",
+      "expected": "3f9697079ad4040d50c7dda5a9dc9bac2b77a4e60f94ac7646b09c1e815a3dfe",
+      "actual": "3f9697079ad4040d50c7dda5a9dc9bac2b77a4e60f94ac7646b09c1e815a3dfe"
+    },
+    {
+      "path": "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/summary_red1.json",
+      "expected": "52166fb9ceedd0da4a6dcb0f11b1043eaf4791ae07ad429a776f2e4e56df31fa",
+      "actual": "52166fb9ceedd0da4a6dcb0f11b1043eaf4791ae07ad429a776f2e4e56df31fa"
+    },
+    {
+      "path": "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/logl_red1.npy",
+      "expected": "1c9d61692d7db02111f26a5bcb0c411e69bee2af269688f72c3239cbc4bd46ce",
+      "actual": "1c9d61692d7db02111f26a5bcb0c411e69bee2af269688f72c3239cbc4bd46ce"
+    },
+    {
+      "path": "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/logwt_red1.npy",
+      "expected": "35b32f1b9ba6d21d156101e437cec155f99c8ac6f350229548a6259856af4ac2",
+      "actual": "35b32f1b9ba6d21d156101e437cec155f99c8ac6f350229548a6259856af4ac2"
+    },
+    {
+      "path": "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/samples_red1.npy",
+      "expected": "fb134be7f90066e7129bdc0acba3b1f89227a49fc398921912b7b88bce7e1cbf",
+      "actual": "fb134be7f90066e7129bdc0acba3b1f89227a49fc398921912b7b88bce7e1cbf"
+    },
+    {
+      "path": "reports/P16_reduced/trace_red1.json",
+      "expected": "047075275d9d4bb9cf833135e144048cfb37a23437aeaf68420e83f7881d9e12",
+      "actual": "047075275d9d4bb9cf833135e144048cfb37a23437aeaf68420e83f7881d9e12"
+    },
+    {
+      "path": "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/summary_red2.json",
+      "expected": "85c20a4c64e988c945771bf9521b6a6b79a6b5629d70e767d4fedf56d9660fe9",
+      "actual": "85c20a4c64e988c945771bf9521b6a6b79a6b5629d70e767d4fedf56d9660fe9"
+    },
+    {
+      "path": "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/dynesty_red2.save",
+      "expected": "7b2429e9edde960a0ed4b39aad06decddeeaeea0f70800e64c4eb72b1c99ee11",
+      "actual": "7b2429e9edde960a0ed4b39aad06decddeeaeea0f70800e64c4eb72b1c99ee11"
+    },
+    {
+      "path": "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/logl_red2.npy",
+      "expected": "500a757bc915e4aabd67930088d0e4588bfd8f8495500bb0b1aba8d09fbec65f",
+      "actual": "500a757bc915e4aabd67930088d0e4588bfd8f8495500bb0b1aba8d09fbec65f"
+    },
+    {
+      "path": "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/logwt_red2.npy",
+      "expected": "e59e07175138fb759dafbe6345832d9a0ec7db2df7980af7344a941faca7f99f",
+      "actual": "e59e07175138fb759dafbe6345832d9a0ec7db2df7980af7344a941faca7f99f"
+    },
+    {
+      "path": "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/samples_red2.npy",
+      "expected": "868541d450e0cca1517e0df880af10ccbe5fb62e7ecc4240c3db1ee73b66ee16",
+      "actual": "868541d450e0cca1517e0df880af10ccbe5fb62e7ecc4240c3db1ee73b66ee16"
+    },
+    {
+      "path": "reports/P16_reduced/trace_red2.json",
+      "expected": "9d5b798ec3455e3fb9cfdec34a1e13852ac51276d0e87be661784811b9e2f36e",
+      "actual": "9d5b798ec3455e3fb9cfdec34a1e13852ac51276d0e87be661784811b9e2f36e"
+    },
+    {
+      "path": "src/etcgem/dltkcat.py",
+      "expected": "effeec8b5e99c275bdd283db56f072e3283be0daaf6710bce47175a1d4ed5ef4",
+      "actual": "effeec8b5e99c275bdd283db56f072e3283be0daaf6710bce47175a1d4ed5ef4"
+    },
+    {
+      "path": "src/etcgem/thermal_sampling.py",
+      "expected": "0ca7be284bec5140f833450c44cde0db3284a3da55468e29f208f6e31460150b",
+      "actual": "0ca7be284bec5140f833450c44cde0db3284a3da55468e29f208f6e31460150b"
+    },
+    {
+      "path": "src/etcgem/sink_audit.py",
+      "expected": "2c1b26b618b4fa3948eba19352be8cf12aec1fd81761df76529d732eb950c69b",
+      "actual": "2c1b26b618b4fa3948eba19352be8cf12aec1fd81761df76529d732eb950c69b"
+    },
+    {
+      "path": "src/etcgem/config.py",
+      "expected": "3354ff84ae62274e611e252fa70f841da72ba2c0740fc245905a34c21f051fb0",
+      "actual": "3354ff84ae62274e611e252fa70f841da72ba2c0740fc245905a34c21f051fb0"
+    },
+    {
+      "path": "src/etcgem/calibration_multi.py",
+      "expected": "c429d01ca7cd612725fce5d6afdb91846920c6be0ea59ed70d086db7584be6f2",
+      "actual": "c429d01ca7cd612725fce5d6afdb91846920c6be0ea59ed70d086db7584be6f2"
+    },
+    {
+      "path": "src/etcgem/dissect.py",
+      "expected": "567a1957ab98ef2b5672d7f48b3d3a7f05b1a7745a600ea866c87f08dfd75527",
+      "actual": "567a1957ab98ef2b5672d7f48b3d3a7f05b1a7745a600ea866c87f08dfd75527"
+    },
+    {
+      "path": "src/etcgem/plotting.py",
+      "expected": "59c535a5a31b5ad0a001a5652f33870adda022818c89dcf8aedf778203e8a45a",
+      "actual": "59c535a5a31b5ad0a001a5652f33870adda022818c89dcf8aedf778203e8a45a"
+    },
+    {
+      "path": "src/etcgem/control.py",
+      "expected": "9d2f5233b41921728865fda8476075c1548b207c1237cd7e842061e93f2a2864",
+      "actual": "9d2f5233b41921728865fda8476075c1548b207c1237cd7e842061e93f2a2864"
+    },
+    {
+      "path": "src/etcgem/enzyme_cost.py",
+      "expected": "2eb82f3b2febf1786058584226a86b12029b19435eaccd4d6149f64fe8f70d19",
+      "actual": "2eb82f3b2febf1786058584226a86b12029b19435eaccd4d6149f64fe8f70d19"
+    },
+    {
+      "path": "src/etcgem/gasflux.py",
+      "expected": "e6079318972180fce8ac73ed15613b3ab9f1c0dc4aa65329e4ee1b969132acf4",
+      "actual": "e6079318972180fce8ac73ed15613b3ab9f1c0dc4aa65329e4ee1b969132acf4"
+    },
+    {
+      "path": "src/etcgem/__init__.py",
+      "expected": "6f51ec53ebe40dcfb6f109f25281e756c617407f303eef4ea9974d4e994e0e2d",
+      "actual": "6f51ec53ebe40dcfb6f109f25281e756c617407f303eef4ea9974d4e994e0e2d"
+    },
+    {
+      "path": "src/etcgem/etc_area.py",
+      "expected": "15348b06ba39096755476179c6126836df1ed18ff0bd696dcb7cf89824bc44ee",
+      "actual": "15348b06ba39096755476179c6126836df1ed18ff0bd696dcb7cf89824bc44ee"
+    },
+    {
+      "path": "src/etcgem/sensitivity.py",
+      "expected": "55f51f93fa8d72cb4606c667393d500ff3d5d38766303d5740ab732858b8ab9f",
+      "actual": "55f51f93fa8d72cb4606c667393d500ff3d5d38766303d5740ab732858b8ab9f"
+    },
+    {
+      "path": "src/etcgem/providers.py",
+      "expected": "cd263c59bafc6decbe29968c25d04183429d536adc4675adc495520df6c7c7e1",
+      "actual": "cd263c59bafc6decbe29968c25d04183429d536adc4675adc495520df6c7c7e1"
+    },
+    {
+      "path": "src/etcgem/transfer.py",
+      "expected": "7622baf459d761ca7b19a7ebffe34162668346ea4ea18573fb12ee31ebf59e54",
+      "actual": "7622baf459d761ca7b19a7ebffe34162668346ea4ea18573fb12ee31ebf59e54"
+    },
+    {
+      "path": "src/etcgem/cli.py",
+      "expected": "02226d9f4bf76943c66bdc1f4264ee1237f380d58371fc356b0025809b70276a",
+      "actual": "02226d9f4bf76943c66bdc1f4264ee1237f380d58371fc356b0025809b70276a"
+    },
+    {
+      "path": "src/etcgem/sharpe_schoolfield.py",
+      "expected": "5106d414b915b7c217b4d78376ad2e349cd58c8a31dc841fcd0e1ad019e29cdc",
+      "actual": "5106d414b915b7c217b4d78376ad2e349cd58c8a31dc841fcd0e1ad019e29cdc"
+    },
+    {
+      "path": "src/etcgem/proteome_alloc.py",
+      "expected": "844e37eb26828f7aa930524b72c3e11df562c58a908866f0ef0f36f45344cfe6",
+      "actual": "844e37eb26828f7aa930524b72c3e11df562c58a908866f0ef0f36f45344cfe6"
+    },
+    {
+      "path": "src/etcgem/decomposition.py",
+      "expected": "c462a08dcf9a7e002ba6bc9681444ffbcf7abacdf957877505e9a238b56c3f13",
+      "actual": "c462a08dcf9a7e002ba6bc9681444ffbcf7abacdf957877505e9a238b56c3f13"
+    },
+    {
+      "path": "src/etcgem/tpc.py",
+      "expected": "9684428afbec764736e358780d4a12f020e9797791b8caf635e2d220e34caaec",
+      "actual": "9684428afbec764736e358780d4a12f020e9797791b8caf635e2d220e34caaec"
+    },
+    {
+      "path": "src/etcgem/sectors.py",
+      "expected": "e9ca5322a23baf904839af4ecfeccdb1872b71314909d68b0831813eb50d40b9",
+      "actual": "e9ca5322a23baf904839af4ecfeccdb1872b71314909d68b0831813eb50d40b9"
+    },
+    {
+      "path": "src/etcgem/ea_dissection.py",
+      "expected": "903589bfc235360dde319e6f5d02c6b29517491f66d6fb69fa57520b4f8a9e32",
+      "actual": "903589bfc235360dde319e6f5d02c6b29517491f66d6fb69fa57520b4f8a9e32"
+    },
+    {
+      "path": "src/etcgem/__main__.py",
+      "expected": "347c36ea3b41eeea87b0bdd6c4767f5060d51e0d5b09b19f9096a010b51d8132",
+      "actual": "347c36ea3b41eeea87b0bdd6c4767f5060d51e0d5b09b19f9096a010b51d8132"
+    },
+    {
+      "path": "src/etcgem/mmrt.py",
+      "expected": "66fe4fda18b3400e509fb34456f737dc890b30a2a6c3a9456c4253a03928e03a",
+      "actual": "66fe4fda18b3400e509fb34456f737dc890b30a2a6c3a9456c4253a03928e03a"
+    },
+    {
+      "path": "src/etcgem/calibration.py",
+      "expected": "4b4b087fb8916be9ade6f2b7ad0cbc3959ec1c985f77ace7b472443d8ce656e4",
+      "actual": "4b4b087fb8916be9ade6f2b7ad0cbc3959ec1c985f77ace7b472443d8ce656e4"
+    },
+    {
+      "path": "src/etcgem/unfolding.py",
+      "expected": "e9999e1553ef756b7665ad785aad297ea26512738e9722ba84eb014d07cf56d1",
+      "actual": "e9999e1553ef756b7665ad785aad297ea26512738e9722ba84eb014d07cf56d1"
+    },
+    {
+      "path": "src/etcgem/validation.py",
+      "expected": "e89195945b18972957e02889982560a028f9d5a8c573e0d77d78228cb2d2e0b3",
+      "actual": "e89195945b18972957e02889982560a028f9d5a8c573e0d77d78228cb2d2e0b3"
+    }
+  ],
+  "gate_requirement_cells_unchanged": true,
+  "note": "Checks are read-only; original report retained verbatim in report_before_PI_closure_2026-09-13.md."
+}

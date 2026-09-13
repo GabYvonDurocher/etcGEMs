@@ -1,0 +1,82 @@
+[
+  {
+    "seed": 17001,
+    "region": "core",
+    "n": 84,
+    "active_x0_rms": 0.0011783196391858435,
+    "nuisance_rms": 0.011429507696093133,
+    "other_active_rms": 0.013789689807435751
+  },
+  {
+    "seed": 17001,
+    "region": "outside",
+    "n": 10708,
+    "active_x0_rms": 0.06489978131514913,
+    "nuisance_rms": 0.15268215968804408,
+    "other_active_rms": 0.09047503661209401
+  },
+  {
+    "seed": 17002,
+    "region": "core",
+    "n": 1204,
+    "active_x0_rms": 0.0006854288129625417,
+    "nuisance_rms": 0.027111334119865944,
+    "other_active_rms": 0.01275885362422457
+  },
+  {
+    "seed": 17002,
+    "region": "outside",
+    "n": 9339,
+    "active_x0_rms": 0.07519102208834064,
+    "nuisance_rms": 0.156773766135929,
+    "other_active_rms": 0.09087192045378284
+  },
+  {
+    "seed": 17003,
+    "region": "core",
+    "n": 129,
+    "active_x0_rms": 0.0008572051645243693,
+    "nuisance_rms": 0.01667553901502658,
+    "other_active_rms": 0.01434892354240337
+  },
+  {
+    "seed": 17003,
+    "region": "outside",
+    "n": 10894,
+    "active_x0_rms": 0.06750201698956539,
+    "nuisance_rms": 0.16052242563922742,
+    "other_active_rms": 0.09046252029743777
+  },
+  {
+    "seed": 17004,
+    "region": "core",
+    "n": 73,
+    "active_x0_rms": 0.0009046982162292048,
+    "nuisance_rms": 0.04968767016636417,
+    "other_active_rms": 0.020057357570472622
+  },
+  {
+    "seed": 17004,
+    "region": "outside",
+    "n": 10666,
+    "active_x0_rms": 0.06290738564888944,
+    "nuisance_rms": 0.16698917518293477,
+    "other_active_rms": 0.0917967547387807
+  },
+  {
+    "seed": 17005,
+    "region": "core",
+    "n": 37,
+    "active_x0_rms": 0.0012866275118828246,
+    "nuisance_rms": 0.010660959980496897,
+    "other_active_rms": 0.005294443276130198
+  },
+  {
+    "seed": 17005,
+    "region": "outside",
+    "n": 10812,
+    "active_x0_rms": 0.06188678125915128,
+    "nuisance_rms": 0.1495114272261582,
+    "other_active_rms": 0.09098670334519246
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "seed": 17841,
+  "n": 2000,
+  "marginal_ks": [
+    0.017447806506936447,
+    0.013883891667346049
+  ],
+  "region_mass_error": 0.009000000000000008,
+  "simultaneous_bound": 0.04663559463599181,
+  "total_alpha": 0.001,
+  "scope": "Independent exact-start endpoints only; not nested-sampling certification."
+}

@@ -1,0 +1,145 @@
+Addendum — P17 closes as a negative diagnostic result. Consolidate, prepare integration,
+hand over. This session cannot push; merging and pushing are a later session's job.
+
+DECISION: Option A. Close P17 as a negative diagnostic result and open a separately scoped
+revision of the scientific target, to be run in a different session.
+
+This explicitly changes P17's stopping rule. Do not claim its original decisive-conclusion gate
+passed or that a corrected sampler has been validated on the real model. Its defensible
+conclusion is that the audited inference is unreliable, several mechanisms have been
+characterised, and no tested computational correction has met the full confirmation
+requirements. Stop launching sampler-only candidates under P17 now; let any running batch
+finish, audit it, retain it, and start nothing new.
+
+Two limits stay prominent in everything below:
+  - D44/D45 establish reproducible, scale-dependent curvature at ONE non-optimal point. They
+    undermine direct transfer of the tested quadratic approximation; they do not prove all
+    samplers must fail or that the likelihood is the sole cause.
+  - The 80-87 % living fractions belong to the analytical toys and follow from their specified
+    likelihoods and prior volumes. They are NOT a target or acceptance threshold for the revised
+    biological model.
+
+TASK 1 - finish P17 as a reviewable negative result
+- report.md loses "investigation in progress" and becomes the final P17 report. It carries: the
+  null-test instrument and its exact target; the independent reproduction; every characterised
+  mechanism with its evidence (ancestry collapse, stratum-dependent trapping, the 60-80x width
+  mismatch, D44's seven axes); every failed intervention retained with its numbers (slices,
+  single bound, nuisance refresh, local axes, diagonalisation, pilot/oracle/curvature global
+  proposals, the combined kernel, live-point allocation); the controls that DID work on toys and
+  why they do not transfer; the two limits above; and what remains uncertain.
+- current_gate.md becomes the final gate table with a dated closing note stating the stopping
+  rule was changed by the PI and why. Do not edit the gate's requirements retrospectively.
+- DECISIONS.md gets a final entry recording the closure, the decision's source, and the
+  disposition of any batch that was running when it arrived.
+- Every script, result, checkpoint hash and audit is preserved in place. Nothing is pruned.
+- Preserve all original P16/P17 evidence unchanged. Fix no additional biological parameter.
+  State that dTm=0 assumes the meltome mean is exact, excluding uniform melting-temperature
+  uncertainty that would otherwise be absorbed by tm_scale and catalytic parameters.
+
+TASK 2 - write the rigour protocol down, so it survives the handover
+P17 enforced a discipline that has not been written as a standing rule anywhere. Put it in
+docs/RIGOUR.md, one entry each, with the D-number where it was applied, covering at least:
+  - rules and thresholds pre-registered and committed BEFORE the data they judge are computed;
+  - never moving a threshold after seeing its data; when a criterion is wrong, correct it by
+    argument that predates the data and record the correction;
+  - every outcome retained, including failures and adverse arms; no selection of flattering
+    results, seeds or parents;
+  - interpretations withdrawn by dated correction when their basis falls, never by editing;
+  - "necessary, not sufficient": nuisance recovery, evidence agreement, and toy passes are each
+    explicitly insufficient as certification (D26, D38, D40);
+  - reserved confirmation seeds never consumed during development;
+  - independent audit of every completed batch against saved hashes before interpretation;
+  - enforced deadlines (SIGALRM), bounded batches, one expensive job at a time;
+  - scope preserved inside a diagnostic: no change to the target it diagnoses;
+  - an exact blocker recorded rather than a manufactured decisive answer.
+Then add one line to docs/OPEN_ITEMS.md section 4 pointing at it, and to section 0c stating
+that the reconciliation rule and RIGOUR.md together govern every subsequent run.
+
+TASK 3 - prepare the target-revision specification (PREPARE; do not run)
+Write docs/TARGET_REVISION_SPEC.md as a pre-registered specification for a separate
+investigation, to be run in Claude Code. It is a proposal for PI approval, not an authorisation.
+Three items, each concrete and reviewable, each with old-versus-new likelihood examples at
+saved points and the checks that would show the change did what it claims:
+  1. Resolve f_metab consistently with configuration D's intended biology. If it is
+     intentionally unused, remove it from production calibration while retaining a dedicated
+     independent diagnostic coordinate. Wiring it into allocation is a biological hypothesis
+     change and must be identified explicitly as one.
+  2. Resolve infeasibility consistently across observations. Failed predictions must not escape
+     the respiration contribution merely because they are missing. Distinguish a biologically
+     predicted zero from an unresolved numerical solve. Derive and document the treatment from
+     the observation model BEFORE inspecting any revised posterior; do not choose a penalty to
+     obtain a preferred living fraction.
+  3. Investigate the seven curvature-sensitive axes (dTopt, topt_scale, dCp_scale, tm_scale,
+     kcat_scale, sigma, clearance_mult). Trace physiological switches, changes in the binding
+     constraint set, and numerical behaviour. Preserve scientifically justified sharp
+     transitions rather than smoothing them merely to help inference.
+Pre-register the validation for the revised target: the inactive null AND the Beta control AND
+independent-run consistency of active distributions, region occupancy and feasibility-aware
+predictive checks. Neither nuisance recovery nor evidence agreement alone is sufficient.
+State explicitly that revised posterior fits launch only after PI approval of this document.
+
+TASK 4 - prepare for integration; DO NOT merge and DO NOT push
+This session has no push access. Its job is to leave the branch in a state a later session can
+merge without guesswork.
+- Commit everything on codex/p17-inactive-prior. Nothing uncommitted may remain in
+  /private/tmp/etcGEMs-p17 - reports, scripts, results, docs from TASKs 1-3, all of it.
+  Commit in parts with the usual prefix. Report the final commit hash.
+- Do not switch branches, do not merge anything, do not touch main, do not touch
+  ../etcGEMs-work or the primary etcGEMs tree. Read-only inspection of them is fine.
+- Write docs/INTEGRATION_STATE.md, committed on this branch, describing exactly what a later
+  session will find and must do - verified by inspection, not assumed:
+    * every branch that is ahead of origin/main, its head commit, what it contains, and which
+      tree holds it (expected: p16/reduced local in the primary tree; codex/p17-inactive-prior
+      here, branched from p16/reduced; e2/deck and q1/n0-check on origin in ../etcGEMs-work,
+      q1 stacked on e2);
+    * anything UNCOMMITTED in any tree, by file, and which branch it belongs to (check the
+      primary tree for an uncommitted OPEN_ITEMS 0d edit and for P16 audit files under
+      reports/P16_reduced/ that may postdate its last commit);
+    * the merge order you recommend and why: p16/reduced -> main, then this branch, then
+      e2/deck, then q1/n0-check;
+    * the files that will conflict (OPEN_ITEMS.md, evidence.csv, report_status.yaml, stamps)
+      and the rule for each: keep both sides, regenerate stamps, never hand-merge a stamp;
+    * which large artefacts are tracked and which are gitignored (P16/P17 checkpoints, run
+      outputs under strains/eciML1515/outputs/), so the later session knows what a clone will
+      and will not contain;
+    * that /private/tmp/etcGEMs-p17 is a worktree to be removed only after its branch is
+      merged and pushed and a fresh clone contains reports/P17_inactive_prior/ in full;
+    * that prompts/E6_deck_bring_current_prompt.md is stale (it assumed E5 had not run) and
+      should be marked superseded, not deleted.
+- Do not resolve any of this. Describe it.
+
+TASK 5 - the handover document
+docs/HANDOVER_2026-09-13.md, committed on this branch, for a Claude Code session with no memory
+of any of this:
+- The state of the repository as of this commit, pointing at INTEGRATION_STATE.md for the
+  merge work that must happen FIRST.
+- What P16 established and what P17 established, one paragraph each, with the two limits.
+- What is NOT established: no validated posterior for this family; R1 open; R3 provisional;
+  R4 untouched; the D/E/F/M9 programme blocked behind the target revision.
+- The rigour protocol (link RIGOUR.md) as the governing discipline for every subsequent run.
+- The target-revision specification (link) as the next scientific step, pending PI approval.
+- Every open PI decision in one list, each with its OPEN_ITEMS number.
+- The exact commands to reproduce the P17 null test on any future run, so it is a standing
+  check and not a one-off.
+
+VERIFY (report all)
+1. TASK 1: report.md final; current_gate.md closed with the dated note; the final DECISIONS
+   entry; the disposition of any running batch.
+2. TASK 2: RIGOUR.md exists with one entry per rule and its D-number; the OPEN_ITEMS pointers.
+3. TASK 3: TARGET_REVISION_SPEC.md with the three items, their old/new examples and checks, and
+   the pre-registered validation; the statement that it awaits approval.
+4. TASK 4: `git status` clean in /private/tmp/etcGEMs-p17; the final commit hash;
+   INTEGRATION_STATE.md with every branch, every uncommitted file in every tree, the merge
+   order, the conflict rules, the tracked/ignored split, and the two dispositions.
+5. TASK 5: HANDOVER file present with every section above.
+6. Confirmation that nothing was merged, nothing was pushed, no branch was switched, and no
+   tree other than /private/tmp/etcGEMs-p17 was written to.
+
+CONSTRAINTS
+- No new sampler candidate under P17. No biological likelihood, prior, parameter or target
+  change. The specification in TASK 3 is prepared, not executed.
+- No merge, no push, no branch switch, no write outside this worktree. Describe the integration;
+  do not perform it.
+- Nothing pruned. Every P17 artefact is committed.
+- The gate is closed by a dated note recording a changed stopping rule, not by editing the
+  requirements to fit what was achieved.

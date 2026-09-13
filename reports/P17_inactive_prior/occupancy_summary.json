@@ -1,0 +1,767 @@
+{
+  "rows": [
+    {
+      "shape": "flat",
+      "offset": -13.5,
+      "seed": 17702,
+      "wall_s": 3.2327108749999987,
+      "initial_high": 39,
+      "high_entry": 0,
+      "high_exit": 0,
+      "high_to_high": 7176,
+      "high_nuisance_rms": 0.14784810484144426,
+      "nuisance_mean": 0.5094302629427766,
+      "nuisance_ks": 0.027359814563066326,
+      "region_mass": 0.9999997408864869,
+      "truth": {
+        "logz": 1.3232594505349737,
+        "high_mass": 0.9999996532121909
+      },
+      "region_coordinate_ks": 0.017359990991475033,
+      "active_coordinate_ks": 0.02237251850478783,
+      "logz": 1.6141147602252333,
+      "logzerr": 0.08318129142932744,
+      "ncall": 120856,
+      "final_live_diagnostic": {
+        "iteration": 7222,
+        "cut": 8.893236255632303,
+        "high_live": 800,
+        "high_roots": 25,
+        "max_high_root_fraction": 0.23125,
+        "live_nuisance_mean": 0.4569570911518821
+      },
+      "scope": "Toy intervention changes only low score; roots are descriptive, not statistical ESS. Independent cube-phase proposals are not counted as traced crossings."
+    },
+    {
+      "shape": "flat",
+      "offset": -13.5,
+      "seed": 17705,
+      "wall_s": 3.5408585000000024,
+      "initial_high": 37,
+      "high_entry": 0,
+      "high_exit": 0,
+      "high_to_high": 7257,
+      "high_nuisance_rms": 0.1495292725350553,
+      "nuisance_mean": 0.48598130369718917,
+      "nuisance_ks": 0.04238625198973622,
+      "region_mass": 0.9999997091694341,
+      "truth": {
+        "logz": 1.3232594505349737,
+        "high_mass": 0.9999996532121909
+      },
+      "region_coordinate_ks": 0.046058925205979484,
+      "active_coordinate_ks": 0.058956434048313744,
+      "logz": 1.5012665498048399,
+      "logzerr": 0.08412363214901869,
+      "ncall": 121597,
+      "final_live_diagnostic": {
+        "iteration": 7297,
+        "cut": 8.853686494132734,
+        "high_live": 800,
+        "high_roots": 30,
+        "max_high_root_fraction": 0.18375,
+        "live_nuisance_mean": 0.49239088579383916
+      },
+      "scope": "Toy intervention changes only low score; roots are descriptive, not statistical ESS. Independent cube-phase proposals are not counted as traced crossings."
+    },
+    {
+      "shape": "flat",
+      "offset": 0.0,
+      "seed": 17701,
+      "wall_s": 3.2616411250000006,
+      "initial_high": 45,
+      "high_entry": 0,
+      "high_exit": 0,
+      "high_to_high": 7045,
+      "high_nuisance_rms": 0.1503553120212697,
+      "nuisance_mean": 0.4897158125364574,
+      "nuisance_ks": 0.037148225055716244,
+      "region_mass": 0.850831777324386,
+      "truth": {
+        "logz": 1.5487621034613706,
+        "high_mass": 0.7981146663283496
+      },
+      "region_coordinate_ks": 0.053873591562977274,
+      "active_coordinate_ks": 0.025505006319382795,
+      "logz": 1.8436261999765327,
+      "logzerr": 0.07252639356449953,
+      "ncall": 118132,
+      "final_live_diagnostic": {
+        "iteration": 7083,
+        "cut": 8.88401521335793,
+        "high_live": 800,
+        "high_roots": 27,
+        "max_high_root_fraction": 0.22,
+        "live_nuisance_mean": 0.4838683415715589
+      },
+      "scope": "Toy intervention changes only low score; roots are descriptive, not statistical ESS. Independent cube-phase proposals are not counted as traced crossings."
+    },
+    {
+      "shape": "flat",
+      "offset": -13.5,
+      "seed": 17704,
+      "wall_s": 3.2778589579999995,
+      "initial_high": 37,
+      "high_entry": 0,
+      "high_exit": 0,
+      "high_to_high": 6929,
+      "high_nuisance_rms": 0.15023001501671202,
+      "nuisance_mean": 0.5298567229563864,
+      "nuisance_ks": 0.061784268011324195,
+      "region_mass": 0.9999997601950373,
+      "truth": {
+        "logz": 1.3232594505349737,
+        "high_mass": 0.9999996532121909
+      },
+      "region_coordinate_ks": 0.022324815790745967,
+      "active_coordinate_ks": 0.0548298127803456,
+      "logz": 1.6941814608374717,
+      "logzerr": 0.08387630331378182,
+      "ncall": 116368,
+      "final_live_diagnostic": {
+        "iteration": 6977,
+        "cut": 8.850220818066493,
+        "high_live": 800,
+        "high_roots": 29,
+        "max_high_root_fraction": 0.12,
+        "live_nuisance_mean": 0.5620312142193122
+      },
+      "scope": "Toy intervention changes only low score; roots are descriptive, not statistical ESS. Independent cube-phase proposals are not counted as traced crossings."
+    },
+    {
+      "shape": "flat",
+      "offset": -13.5,
+      "seed": 17703,
+      "wall_s": 3.1283413750000015,
+      "initial_high": 30,
+      "high_entry": 0,
+      "high_exit": 0,
+      "high_to_high": 7079,
+      "high_nuisance_rms": 0.1547139674810875,
+      "nuisance_mean": 0.4570361560354025,
+      "nuisance_ks": 0.07637487176740043,
+      "region_mass": 0.9999996783731759,
+      "truth": {
+        "logz": 1.3232594505349737,
+        "high_mass": 0.9999996532121909
+      },
+      "region_coordinate_ks": 0.04479204123754443,
+      "active_coordinate_ks": 0.06089429851121392,
+      "logz": 1.409753901064402,
+      "logzerr": 0.08611310146053805,
+      "ncall": 119169,
+      "final_live_diagnostic": {
+        "iteration": 7129,
+        "cut": 8.970577122981183,
+        "high_live": 800,
+        "high_roots": 26,
+        "max_high_root_fraction": 0.115,
+        "live_nuisance_mean": 0.48802719882759027
+      },
+      "scope": "Toy intervention changes only low score; roots are descriptive, not statistical ESS. Independent cube-phase proposals are not counted as traced crossings."
+    },
+    {
+      "shape": "smooth",
+      "offset": -13.5,
+      "seed": 17701,
+      "wall_s": 3.8528038340000066,
+      "initial_high": 45,
+      "high_entry": 12,
+      "high_exit": 12,
+      "high_to_high": 7015,
+      "high_nuisance_rms": 0.1539141355377638,
+      "nuisance_mean": 0.4898150008621686,
+      "nuisance_ks": 0.024875347714628293,
+      "region_mass": 0.9999998298990118,
+      "truth": {
+        "logz": 1.3232593111762045,
+        "high_mass": 0.9999997925709214
+      },
+      "region_coordinate_ks": 0.01951762212130398,
+      "active_coordinate_ks": 0.038287917034037444,
+      "logz": 1.502463350839214,
+      "logzerr": 0.083492410385015,
+      "ncall": 127874,
+      "final_live_diagnostic": {
+        "iteration": 8847,
+        "cut": 8.732052085797392,
+        "high_live": 800,
+        "high_roots": 39,
+        "max_high_root_fraction": 0.15,
+        "live_nuisance_mean": 0.5253402311393963
+      },
+      "scope": "Toy intervention changes only low score; roots are descriptive, not statistical ESS. Independent cube-phase proposals are not counted as traced crossings."
+    },
+    {
+      "shape": "smooth",
+      "offset": 0.0,
+      "seed": 17701,
+      "wall_s": 4.215179416999998,
+      "initial_high": 45,
+      "high_entry": 12,
+      "high_exit": 19,
+      "high_to_high": 6903,
+      "high_nuisance_rms": 0.15021687098235442,
+      "nuisance_mean": 0.49044182709323114,
+      "nuisance_ks": 0.02916511206195649,
+      "region_mass": 0.8780691902631086,
+      "truth": {
+        "logz": 1.464152750606218,
+        "high_mass": 0.8685816831757046
+      },
+      "region_coordinate_ks": 0.011357138257241745,
+      "active_coordinate_ks": 0.03755365874226446,
+      "logz": 1.5261360620032811,
+      "logzerr": 0.07930845519984624,
+      "ncall": 128547,
+      "final_live_diagnostic": {
+        "iteration": 8875,
+        "cut": 8.802439202480972,
+        "high_live": 800,
+        "high_roots": 35,
+        "max_high_root_fraction": 0.17375,
+        "live_nuisance_mean": 0.48824536805025376
+      },
+      "scope": "Toy intervention changes only low score; roots are descriptive, not statistical ESS. Independent cube-phase proposals are not counted as traced crossings."
+    },
+    {
+      "shape": "flat",
+      "offset": -13.5,
+      "seed": 17701,
+      "wall_s": 3.045380666,
+      "initial_high": 45,
+      "high_entry": 0,
+      "high_exit": 0,
+      "high_to_high": 6894,
+      "high_nuisance_rms": 0.14238484707871804,
+      "nuisance_mean": 0.529316319792883,
+      "nuisance_ks": 0.08162252833573774,
+      "region_mass": 0.9999997638114669,
+      "truth": {
+        "logz": 1.3232594505349737,
+        "high_mass": 0.9999996532121909
+      },
+      "region_coordinate_ks": 0.029084975764824883,
+      "active_coordinate_ks": 0.01822232414080452,
+      "logz": 1.6988298158667252,
+      "logzerr": 0.08277155227499446,
+      "ncall": 115571,
+      "final_live_diagnostic": {
+        "iteration": 6942,
+        "cut": 8.71905295854612,
+        "high_live": 800,
+        "high_roots": 29,
+        "max_high_root_fraction": 0.15875,
+        "live_nuisance_mean": 0.5034072404323215
+      },
+      "scope": "Toy intervention changes only low score; roots are descriptive, not statistical ESS. Independent cube-phase proposals are not counted as traced crossings."
+    },
+    {
+      "shape": "flat",
+      "offset": 0.0,
+      "seed": 17702,
+      "wall_s": 3.270092916,
+      "initial_high": 39,
+      "high_entry": 0,
+      "high_exit": 0,
+      "high_to_high": 7029,
+      "high_nuisance_rms": 0.14627083045168573,
+      "nuisance_mean": 0.5321017809539776,
+      "nuisance_ks": 0.05370823271869485,
+      "region_mass": 0.831618486093144,
+      "truth": {
+        "logz": 1.5487621034613706,
+        "high_mass": 0.7981146663283496
+      },
+      "region_coordinate_ks": 0.03588091689817843,
+      "active_coordinate_ks": 0.04184819229301273,
+      "logz": 1.7305796986356694,
+      "logzerr": 0.07178913786383175,
+      "ncall": 118466,
+      "final_live_diagnostic": {
+        "iteration": 7063,
+        "cut": 8.900034836143353,
+        "high_live": 800,
+        "high_roots": 24,
+        "max_high_root_fraction": 0.22125,
+        "live_nuisance_mean": 0.5119524237983123
+      },
+      "scope": "Toy intervention changes only low score; roots are descriptive, not statistical ESS. Independent cube-phase proposals are not counted as traced crossings."
+    },
+    {
+      "shape": "flat",
+      "offset": 0.0,
+      "seed": 17705,
+      "wall_s": 2.878743792,
+      "initial_high": 37,
+      "high_entry": 0,
+      "high_exit": 0,
+      "high_to_high": 6498,
+      "high_nuisance_rms": 0.14319149143326276,
+      "nuisance_mean": 0.44026830988952426,
+      "nuisance_ks": 0.11020876858842821,
+      "region_mass": 0.8495516241210685,
+      "truth": {
+        "logz": 1.5487621034613706,
+        "high_mass": 0.7981146663283496
+      },
+      "region_coordinate_ks": 0.06404221638979352,
+      "active_coordinate_ks": 0.07466733713727858,
+      "logz": 1.845758497975404,
+      "logzerr": 0.07292457395765134,
+      "ncall": 108893,
+      "final_live_diagnostic": {
+        "iteration": 6549,
+        "cut": 8.66303115150936,
+        "high_live": 800,
+        "high_roots": 25,
+        "max_high_root_fraction": 0.23625,
+        "live_nuisance_mean": 0.44462301532866094
+      },
+      "scope": "Toy intervention changes only low score; roots are descriptive, not statistical ESS. Independent cube-phase proposals are not counted as traced crossings."
+    },
+    {
+      "shape": "flat",
+      "offset": 0.0,
+      "seed": 17704,
+      "wall_s": 2.9711272089999996,
+      "initial_high": 37,
+      "high_entry": 0,
+      "high_exit": 0,
+      "high_to_high": 6589,
+      "high_nuisance_rms": 0.15736296955654983,
+      "nuisance_mean": 0.5185803201169029,
+      "nuisance_ks": 0.04097119128259452,
+      "region_mass": 0.8185120813827248,
+      "truth": {
+        "logz": 1.5487621034613706,
+        "high_mass": 0.7981146663283496
+      },
+      "region_coordinate_ks": 0.02522759542392447,
+      "active_coordinate_ks": 0.07793181529456594,
+      "logz": 1.6582554464039334,
+      "logzerr": 0.0729845199465223,
+      "ncall": 110602,
+      "final_live_diagnostic": {
+        "iteration": 6630,
+        "cut": 8.61277121187817,
+        "high_live": 800,
+        "high_roots": 27,
+        "max_high_root_fraction": 0.12375,
+        "live_nuisance_mean": 0.49678625838007007
+      },
+      "scope": "Toy intervention changes only low score; roots are descriptive, not statistical ESS. Independent cube-phase proposals are not counted as traced crossings."
+    },
+    {
+      "shape": "flat",
+      "offset": 0.0,
+      "seed": 17703,
+      "wall_s": 3.25535275,
+      "initial_high": 30,
+      "high_entry": 0,
+      "high_exit": 0,
+      "high_to_high": 6872,
+      "high_nuisance_rms": 0.15024307189085484,
+      "nuisance_mean": 0.5038591401557228,
+      "nuisance_ks": 0.025329793743639667,
+      "region_mass": 0.7824886906004895,
+      "truth": {
+        "logz": 1.5487621034613706,
+        "high_mass": 0.7981146663283496
+      },
+      "region_coordinate_ks": 0.016773800691525675,
+      "active_coordinate_ks": 0.0701237717522577,
+      "logz": 1.4862167560763428,
+      "logzerr": 0.07106235094441947,
+      "ncall": 115261,
+      "final_live_diagnostic": {
+        "iteration": 6914,
+        "cut": 8.74277207202729,
+        "high_live": 800,
+        "high_roots": 28,
+        "max_high_root_fraction": 0.1175,
+        "live_nuisance_mean": 0.5223844135494212
+      },
+      "scope": "Toy intervention changes only low score; roots are descriptive, not statistical ESS. Independent cube-phase proposals are not counted as traced crossings."
+    },
+    {
+      "shape": "smooth",
+      "offset": -13.5,
+      "seed": 17705,
+      "wall_s": 4.265201375000004,
+      "initial_high": 37,
+      "high_entry": 13,
+      "high_exit": 13,
+      "high_to_high": 7028,
+      "high_nuisance_rms": 0.14943795229531265,
+      "nuisance_mean": 0.5348433375003696,
+      "nuisance_ks": 0.06177818346467562,
+      "region_mass": 0.9999998144126354,
+      "truth": {
+        "logz": 1.3232593111762045,
+        "high_mass": 0.9999997925709214
+      },
+      "region_coordinate_ks": 0.032174746345332794,
+      "active_coordinate_ks": 0.019278611941328683,
+      "logz": 1.4285889017239493,
+      "logzerr": 0.08451665355457556,
+      "ncall": 127885,
+      "final_live_diagnostic": {
+        "iteration": 8863,
+        "cut": 8.8172878192197,
+        "high_live": 800,
+        "high_roots": 45,
+        "max_high_root_fraction": 0.08625,
+        "live_nuisance_mean": 0.5508313265446193
+      },
+      "scope": "Toy intervention changes only low score; roots are descriptive, not statistical ESS. Independent cube-phase proposals are not counted as traced crossings."
+    },
+    {
+      "shape": "smooth",
+      "offset": -13.5,
+      "seed": 17702,
+      "wall_s": 3.860776207999997,
+      "initial_high": 39,
+      "high_entry": 16,
+      "high_exit": 18,
+      "high_to_high": 7111,
+      "high_nuisance_rms": 0.14789269907409477,
+      "nuisance_mean": 0.5118662682066859,
+      "nuisance_ks": 0.03517190872001272,
+      "region_mass": 0.9999998051642042,
+      "truth": {
+        "logz": 1.3232593111762045,
+        "high_mass": 0.9999997925709214
+      },
+      "region_coordinate_ks": 0.040075883599038686,
+      "active_coordinate_ks": 0.011577360130714809,
+      "logz": 1.383901255955991,
+      "logzerr": 0.08512710469651913,
+      "ncall": 129951,
+      "final_live_diagnostic": {
+        "iteration": 8931,
+        "cut": 8.795939675624227,
+        "high_live": 800,
+        "high_roots": 39,
+        "max_high_root_fraction": 0.18875,
+        "live_nuisance_mean": 0.4927025503725305
+      },
+      "scope": "Toy intervention changes only low score; roots are descriptive, not statistical ESS. Independent cube-phase proposals are not counted as traced crossings."
+    },
+    {
+      "shape": "smooth",
+      "offset": -13.5,
+      "seed": 17703,
+      "wall_s": 3.965348624999997,
+      "initial_high": 30,
+      "high_entry": 11,
+      "high_exit": 14,
+      "high_to_high": 7019,
+      "high_nuisance_rms": 0.16333063400474712,
+      "nuisance_mean": 0.5158645754752702,
+      "nuisance_ks": 0.037776265207640325,
+      "region_mass": 0.999999823479815,
+      "truth": {
+        "logz": 1.3232593111762045,
+        "high_mass": 0.9999997925709214
+      },
+      "region_coordinate_ks": 0.0363954573140054,
+      "active_coordinate_ks": 0.03254613966663622,
+      "logz": 1.480744437677906,
+      "logzerr": 0.08509018390229124,
+      "ncall": 127468,
+      "final_live_diagnostic": {
+        "iteration": 8885,
+        "cut": 8.918962620768891,
+        "high_live": 800,
+        "high_roots": 35,
+        "max_high_root_fraction": 0.145,
+        "live_nuisance_mean": 0.5244054931108622
+      },
+      "scope": "Toy intervention changes only low score; roots are descriptive, not statistical ESS. Independent cube-phase proposals are not counted as traced crossings."
+    },
+    {
+      "shape": "smooth",
+      "offset": -13.5,
+      "seed": 17704,
+      "wall_s": 4.156115083000003,
+      "initial_high": 37,
+      "high_entry": 16,
+      "high_exit": 7,
+      "high_to_high": 7000,
+      "high_nuisance_rms": 0.15551825068444425,
+      "nuisance_mean": 0.5007704114511482,
+      "nuisance_ks": 0.018277690880505404,
+      "region_mass": 0.9999998197962392,
+      "truth": {
+        "logz": 1.3232593111762045,
+        "high_mass": 0.9999997925709214
+      },
+      "region_coordinate_ks": 0.032589688246290494,
+      "active_coordinate_ks": 0.017978075621803702,
+      "logz": 1.480541472591492,
+      "logzerr": 0.08477316452185556,
+      "ncall": 129208,
+      "final_live_diagnostic": {
+        "iteration": 8872,
+        "cut": 8.882538114083859,
+        "high_live": 800,
+        "high_roots": 35,
+        "max_high_root_fraction": 0.2375,
+        "live_nuisance_mean": 0.5122078372607543
+      },
+      "scope": "Toy intervention changes only low score; roots are descriptive, not statistical ESS. Independent cube-phase proposals are not counted as traced crossings."
+    },
+    {
+      "shape": "smooth",
+      "offset": 0.0,
+      "seed": 17704,
+      "wall_s": 3.9773714999999967,
+      "initial_high": 37,
+      "high_entry": 7,
+      "high_exit": 16,
+      "high_to_high": 6916,
+      "high_nuisance_rms": 0.155633525373803,
+      "nuisance_mean": 0.495451650004083,
+      "nuisance_ks": 0.011519623337788526,
+      "region_mass": 0.8941217453746297,
+      "truth": {
+        "logz": 1.464152750606218,
+        "high_mass": 0.8685816831757046
+      },
+      "region_coordinate_ks": 0.03589748664610021,
+      "active_coordinate_ks": 0.02970537136186957,
+      "logz": 1.685425568923582,
+      "logzerr": 0.07872210085421265,
+      "ncall": 128335,
+      "final_live_diagnostic": {
+        "iteration": 8785,
+        "cut": 8.839720929494014,
+        "high_live": 800,
+        "high_roots": 42,
+        "max_high_root_fraction": 0.105,
+        "live_nuisance_mean": 0.47956966596802986
+      },
+      "scope": "Toy intervention changes only low score; roots are descriptive, not statistical ESS. Independent cube-phase proposals are not counted as traced crossings."
+    },
+    {
+      "shape": "smooth",
+      "offset": 0.0,
+      "seed": 17703,
+      "wall_s": 4.335633334000001,
+      "initial_high": 30,
+      "high_entry": 16,
+      "high_exit": 15,
+      "high_to_high": 7095,
+      "high_nuisance_rms": 0.15270236120179137,
+      "nuisance_mean": 0.5090125823202191,
+      "nuisance_ks": 0.020461922640781727,
+      "region_mass": 0.8563069851030994,
+      "truth": {
+        "logz": 1.464152750606218,
+        "high_mass": 0.8685816831757046
+      },
+      "region_coordinate_ks": 0.0715547917011291,
+      "active_coordinate_ks": 0.01515496349888533,
+      "logz": 1.3761190973754331,
+      "logzerr": 0.07964815729114913,
+      "ncall": 130994,
+      "final_live_diagnostic": {
+        "iteration": 9065,
+        "cut": 8.804702114595786,
+        "high_live": 800,
+        "high_roots": 48,
+        "max_high_root_fraction": 0.07875,
+        "live_nuisance_mean": 0.5150890667723994
+      },
+      "scope": "Toy intervention changes only low score; roots are descriptive, not statistical ESS. Independent cube-phase proposals are not counted as traced crossings."
+    },
+    {
+      "shape": "smooth",
+      "offset": 0.0,
+      "seed": 17702,
+      "wall_s": 4.304428332999997,
+      "initial_high": 39,
+      "high_entry": 25,
+      "high_exit": 20,
+      "high_to_high": 7103,
+      "high_nuisance_rms": 0.14885772272335976,
+      "nuisance_mean": 0.4937001602531241,
+      "nuisance_ks": 0.014185686089451144,
+      "region_mass": 0.877253976991782,
+      "truth": {
+        "logz": 1.464152750606218,
+        "high_mass": 0.8685816831757046
+      },
+      "region_coordinate_ks": 0.0297439322332258,
+      "active_coordinate_ks": 0.01950501059154608,
+      "logz": 1.5337529427354493,
+      "logzerr": 0.07870355726471633,
+      "ncall": 130949,
+      "final_live_diagnostic": {
+        "iteration": 8987,
+        "cut": 8.810247370336658,
+        "high_live": 800,
+        "high_roots": 51,
+        "max_high_root_fraction": 0.1,
+        "live_nuisance_mean": 0.47150705970485296
+      },
+      "scope": "Toy intervention changes only low score; roots are descriptive, not statistical ESS. Independent cube-phase proposals are not counted as traced crossings."
+    },
+    {
+      "shape": "smooth",
+      "offset": 0.0,
+      "seed": 17705,
+      "wall_s": 4.078538832999996,
+      "initial_high": 37,
+      "high_entry": 5,
+      "high_exit": 6,
+      "high_to_high": 7168,
+      "high_nuisance_rms": 0.1556240350315945,
+      "nuisance_mean": 0.46865966484385374,
+      "nuisance_ks": 0.05747004134532829,
+      "region_mass": 0.892963702335829,
+      "truth": {
+        "logz": 1.464152750606218,
+        "high_mass": 0.8685816831757046
+      },
+      "region_coordinate_ks": 0.02899216475498473,
+      "active_coordinate_ks": 0.027616985998539123,
+      "logz": 1.664286171100591,
+      "logzerr": 0.07803768787075219,
+      "ncall": 130674,
+      "final_live_diagnostic": {
+        "iteration": 9108,
+        "cut": 8.94391477594572,
+        "high_live": 800,
+        "high_roots": 36,
+        "max_high_root_fraction": 0.18625,
+        "live_nuisance_mean": 0.48194150839830757
+      },
+      "scope": "Toy intervention changes only low score; roots are descriptive, not statistical ESS. Independent cube-phase proposals are not counted as traced crossings."
+    }
+  ],
+  "groups": [
+    {
+      "shape": "flat",
+      "offset": 0.0,
+      "mean_ks": 0.05347324227781469,
+      "mean_high_roots": 26.2,
+      "high_nuisance_rms_range": [
+        0.14319149143326276,
+        0.15736296955654983
+      ],
+      "max_active_ks": 0.07793181529456594,
+      "max_region_error": 0.052717110996036376
+    },
+    {
+      "shape": "flat",
+      "offset": -13.5,
+      "mean_ks": 0.05790554693345298,
+      "mean_high_roots": 27.8,
+      "high_nuisance_rms_range": [
+        0.14238484707871804,
+        0.1547139674810875
+      ],
+      "max_active_ks": 0.06089429851121392,
+      "max_region_error": 1.1059927607082187e-07
+    },
+    {
+      "shape": "smooth",
+      "offset": 0.0,
+      "mean_ks": 0.026560477095061236,
+      "mean_high_roots": 42.4,
+      "high_nuisance_rms_range": [
+        0.14885772272335976,
+        0.155633525373803
+      ],
+      "max_active_ks": 0.03755365874226446,
+      "max_region_error": 0.02554006219892513
+    },
+    {
+      "shape": "smooth",
+      "offset": -13.5,
+      "mean_ks": 0.03557587919749247,
+      "mean_high_roots": 38.6,
+      "high_nuisance_rms_range": [
+        0.14789269907409477,
+        0.16333063400474712
+      ],
+      "max_active_ks": 0.038287917034037444,
+      "max_region_error": 3.7328090396471225e-08
+    }
+  ],
+  "paired": [
+    {
+      "shape": "flat",
+      "seed": 17701,
+      "initial_high": 45,
+      "delta_ks": 0.0444743032800215,
+      "delta_roots": 2
+    },
+    {
+      "shape": "flat",
+      "seed": 17702,
+      "initial_high": 39,
+      "delta_ks": -0.026348418155628522,
+      "delta_roots": 1
+    },
+    {
+      "shape": "flat",
+      "seed": 17703,
+      "initial_high": 30,
+      "delta_ks": 0.051045078023760765,
+      "delta_roots": -2
+    },
+    {
+      "shape": "flat",
+      "seed": 17704,
+      "initial_high": 37,
+      "delta_ks": 0.020813076728729674,
+      "delta_roots": 2
+    },
+    {
+      "shape": "flat",
+      "seed": 17705,
+      "initial_high": 37,
+      "delta_ks": -0.06782251659869198,
+      "delta_roots": 5
+    },
+    {
+      "shape": "smooth",
+      "seed": 17701,
+      "initial_high": 45,
+      "delta_ks": -0.0042897643473281954,
+      "delta_roots": 4
+    },
+    {
+      "shape": "smooth",
+      "seed": 17702,
+      "initial_high": 39,
+      "delta_ks": 0.020986222630561574,
+      "delta_roots": -12
+    },
+    {
+      "shape": "smooth",
+      "seed": 17703,
+      "initial_high": 30,
+      "delta_ks": 0.017314342566858598,
+      "delta_roots": -13
+    },
+    {
+      "shape": "smooth",
+      "seed": 17704,
+      "initial_high": 37,
+      "delta_ks": 0.006758067542716878,
+      "delta_roots": -7
+    },
+    {
+      "shape": "smooth",
+      "seed": 17705,
+      "initial_high": 37,
+      "delta_ks": 0.004308142119347325,
+      "delta_roots": 9
+    }
+  ],
+  "total_wall_s": 72.873504708
+}

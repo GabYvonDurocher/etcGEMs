@@ -1,0 +1,21 @@
+{
+  "label": "mixture_plain_p1_t0_s15_17001",
+  "seed": 17001,
+  "kind": "mixture",
+  "path": "plain",
+  "nproc": 1,
+  "transformed": false,
+  "slices": 15,
+  "wall_s": 17.151124,
+  "ncall": 872582,
+  "niter": 12025,
+  "logz": -12.644174335946788,
+  "logzerr": 0.11635173508991588,
+  "truth_logz": -12.727519229670813,
+  "nuisance_mean": 0.4900838548664773,
+  "nuisance_ks": 0.01975276731997233,
+  "active_ks": 0.027140230442910862,
+  "region_mass": 0.33054137962203084,
+  "truth_region_mass": 0.3043739263467943,
+  "initial_nuisance_mean": 0.4892888238579063
+}

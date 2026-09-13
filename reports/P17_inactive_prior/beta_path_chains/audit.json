@@ -1,0 +1,60 @@
+{
+  "status": "six traces independently audited",
+  "chains": [
+    {
+      "seed": 17821,
+      "kind": "original",
+      "states": 33,
+      "beta_cdf_ks": 0.6314905600913179,
+      "inactive_ks": 0.7106689235971407,
+      "max_recheck_error": 2.645350605234853e-11,
+      "trace_sha256": "536c84c698fd076fb7bcf623a1d6cca65dbdfaeb56c3f60996bb458d011feadd"
+    },
+    {
+      "seed": 17821,
+      "kind": "local",
+      "states": 33,
+      "beta_cdf_ks": 0.565994765001236,
+      "inactive_ks": 0.3595074399317616,
+      "max_recheck_error": 7.766079335169707e-09,
+      "trace_sha256": "42a2a6aa4542b487fb6fe7c733aeea44223d338a693b3c7dc4eea83be6a36980"
+    },
+    {
+      "seed": 17822,
+      "kind": "original",
+      "states": 33,
+      "beta_cdf_ks": 0.42038836570018323,
+      "inactive_ks": 0.3349343558163914,
+      "max_recheck_error": 2.4344721794022917e-09,
+      "trace_sha256": "be0c18ec39ae6f7b2e598be2675dfcf0b73adde184ee7a5d0eb3b98625457aed"
+    },
+    {
+      "seed": 17822,
+      "kind": "local",
+      "states": 33,
+      "beta_cdf_ks": 0.3969375947352936,
+      "inactive_ks": 0.44596766917271724,
+      "max_recheck_error": 2.6430484467709903e-09,
+      "trace_sha256": "279cd8fe766cd809b47d969d38da29b19674ae91a2c1d298c7354a3ff73d26f3"
+    },
+    {
+      "seed": 17823,
+      "kind": "original",
+      "states": 33,
+      "beta_cdf_ks": 0.5753643705791546,
+      "inactive_ks": 0.4816032911386142,
+      "max_recheck_error": 9.915623877532198e-10,
+      "trace_sha256": "a22688e4ad4dbdc50de700fada24f9c70e641afdfd1505941a6dbbd9b7c6ee29"
+    },
+    {
+      "seed": 17823,
+      "kind": "local",
+      "states": 33,
+      "beta_cdf_ks": 0.5415790935749096,
+      "inactive_ks": 0.4549717683421015,
+      "max_recheck_error": 7.129266066385753e-10,
+      "trace_sha256": "2e5f88b8897632f1bb756f469fd1efb711d698a9fbbd6f61da659f9e93d8f860"
+    }
+  ],
+  "scope": "Descriptive correlated-chain coverage; no IID test or posterior certification."
+}

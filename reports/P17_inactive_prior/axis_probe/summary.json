@@ -1,0 +1,23 @@
+[
+  {
+    "seed": 17801,
+    "nuisance_absolute_step_ratio": 31.5299247160984,
+    "active_rms_ratio": 5.490058414504148,
+    "calls_original": 9,
+    "calls_local": 15
+  },
+  {
+    "seed": 17802,
+    "nuisance_absolute_step_ratio": 339.4200463457399,
+    "active_rms_ratio": 84.47011117194884,
+    "calls_original": 10,
+    "calls_local": 12
+  },
+  {
+    "seed": 17803,
+    "nuisance_absolute_step_ratio": 19.54259524269408,
+    "active_rms_ratio": 5.146705588458533,
+    "calls_original": 10,
+    "calls_local": 14
+  }
+]

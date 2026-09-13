@@ -1,0 +1,12 @@
+{
+  "smooth": {
+    "n": 400,
+    "datasets": 2000,
+    "cdf_only_score_99th": 4.109191484710016
+  },
+  "spike": {
+    "n": 400,
+    "datasets": 2000,
+    "cdf_only_score_99th": 4.0416927547266654
+  }
+}
