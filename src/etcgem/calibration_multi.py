@@ -169,6 +169,27 @@ def build_gasflux_specs(cfg) -> List[PSpec]:
     specs += [PSpec("resp_scale", "log", "lognormal", 1.00, 0.0, 0.02, 50.0, None, 1.0),
               PSpec("disc_resp", "log", "halfnormal", 0.50, 0.0, 1e-3, 3.0, None, None),
               PSpec("disc_growth", "log", "halfnormal", 0.50, 0.0, 1e-4, 5.0, None, None)]
+    # T1 (2026-09-13), TARGET_REVISION_SPEC item 1 -- PREPARED, default OFF, never turned on here.
+    #   remove_inactive   -- drop named coordinates from the SAMPLED set. Meant for f_metab in
+    #                        configuration D, where the coupled growth law computes f_metab(mu)
+    #                        from growth (enzyme_cost.set_allocation, growth_law branch) and the
+    #                        sampled value never enters. With the coordinate absent, to_pert
+    #                        passes no f_metab and set_allocation falls back to the nominal, which
+    #                        that branch equally ignores. The dropped prior is normalised, so it
+    #                        integrates out analytically to factor one: log L and the evidence
+    #                        are unchanged by construction. The invariant is PROVEN, not assumed,
+    #                        in reports/T1_target_revision/task1_invariant.py.
+    #   diagnostic_coords -- APPEND inactive coordinates with a declared prior that enter nothing:
+    #                        pert=None, so to_pert never forwards them to the model. For
+    #                        validation runs only (the spec's inactive-CDF and Beta(3,1) checks).
+    #                        Appended AFTER disc_growth so nothing indexed by position moves.
+    for name in (cfg.get("remove_inactive") or ()):
+        if name not in [s.name for s in specs]:
+            raise ValueError(f"remove_inactive: {name!r} is not a sampled coordinate")
+        specs = [s for s in specs if s.name != name]
+    for d in (cfg.get("diagnostic_coords") or ()):
+        specs.append(PSpec(d["name"], d.get("space", "add"), d["prior"], float(d["scale"]),
+                           float(d.get("loc", 0.0)), float(d["lo"]), float(d["hi"]), None, None))
     return specs
 
 
@@ -364,7 +385,7 @@ def _gwloglike(theta):
 
 
 def _build_gasflux_ctx(strain, medium, experiment, table, otu, c_max, etc_table,
-                       apply_protons, fit_clearance, timeout=30):
+                       apply_protons, fit_clearance, timeout=30, spec_options=None):
     import yaml
     from . import etc_area as _ea
     pm, cfg = build_gasflux_pm(strain, medium, experiment, c_max=c_max,
@@ -390,7 +411,8 @@ def _build_gasflux_ctx(strain, medium, experiment, table, otu, c_max, etc_table,
                          "clearance": float(rec["clearance_L_per_gDW_h"]),
                          "uptake_ub": float(rec.get("uptake_ub", 1000.0))}
     return ctx, build_gasflux_specs({"use_etc": etc_table is not None,
-                                     "fit_clearance": fit_clearance})
+                                     "fit_clearance": fit_clearance,
+                                     **(spec_options or {})})   # T1: default None -> unchanged
 
 
 def run_zeus_blocks(logprob, p0, n_steps_max, check_every, pool, out_dir=None, label="",

@@ -1,0 +1,16 @@
+{
+ "n_points": 870,
+ "n_evaluated": 870,
+ "n_ok": 870,
+ "n_violation": 0,
+ "n_unresolved": 0,
+ "max_abs_diff": 2.0203341222213567e-08,
+ "max_vs_saved": 10.478312548275571,
+ "tolerance": 1e-06,
+ "inputs": {
+  "d44": "fc4a8a5dc6dc1947f84a41ca95604f9bb6408fc3cb9b452adee7f04c5c077041",
+  "red2_6800": "ef1c50d10a99063a9843289d08078f9fea3781b1654c43a692ad3d1e36357c1e",
+  "p12": "37978012f7b4b78fb5b062502222be2bb6e9fcfc80fae0d0e16432b5dc90fbd3"
+ },
+ "wall_min": 90.6
+}

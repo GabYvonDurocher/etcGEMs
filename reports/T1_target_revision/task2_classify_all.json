@@ -1,0 +1,50 @@
+{
+ "n_registered": 876,
+ "n_evaluated_OK": 876,
+ "n_timeout": 0,
+ "n_unevaluated": 0,
+ "unevaluated_red2_indices": [],
+ "unevaluated_P12": [],
+ "temps_structural_zero": 9355,
+ "temps_unresolved": 0,
+ "temps_resolved_on_retry": 0,
+ "points_with_any_nonoptimal": 863,
+ "per_set": {
+  "D44": {
+   "points": 58,
+   "STRUCTURAL_ZERO": 58,
+   "UNRESOLVED": 0,
+   "RESOLVED_ON_RETRY": 0,
+   "temps": 696
+  },
+  "stratum": {
+   "points": 6,
+   "STRUCTURAL_ZERO": 72,
+   "UNRESOLVED": 0,
+   "RESOLVED_ON_RETRY": 0,
+   "temps": 72
+  },
+  "red2_6800": {
+   "points": 800,
+   "STRUCTURAL_ZERO": 9214,
+   "UNRESOLVED": 0,
+   "RESOLVED_ON_RETRY": 0,
+   "temps": 9600
+  },
+  "P12": {
+   "points": 12,
+   "STRUCTURAL_ZERO": 11,
+   "UNRESOLVED": 0,
+   "RESOLVED_ON_RETRY": 0,
+   "temps": 144
+  }
+ },
+ "saved_status_agreement": 64,
+ "saved_status_compared": 64,
+ "script_vs_recomputed_disagreements": 0,
+ "sha_batch1": "d16e9bfdf39f49eddd8bb2f9962c9a70b75e966aa1cc9ad0a4419f470f3484d8",
+ "sha_batch2": "ca86af0810583bc8d19ac792c579337657f626da6c5e56c2a148fcf076e638ca",
+ "sha_merged": "d1309afba8399a914f7d314a91325f6f74ea4492e1ff4dcbfb0964a572f600c8",
+ "batch1_wall_min": 120.0,
+ "batch2_wall_min": 66.9
+}

@@ -6,7 +6,7 @@
 
 *Evidence:* `python reports/synthesis/build_evidence.py` regenerates evidence.csv (74 rows); `python reports/synthesis/fig_requirement_arithmetic.py` regenerates the one figure; `quarto render reports/synthesis/synthesis.qmd` produces the 10-page PDF.
 
-**This report was last written at** `b163bad` (2026-09-11) — Q1: record -- report, the consequence drawn in 1.9, evidence row, deck caveat, stamps
+**This report was last written at** `6251605` (2026-09-13) — T1: curvature -- seven axes traced at D44 and five diverse points; 5 SUPPORTED, 2 UNDETERMINED (27 C O2 vertex change), 0 IMPLEMENTATION DEFECT; clip not implicated; two script corrections recorded, outcomes retained
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 

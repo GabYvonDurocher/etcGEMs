@@ -1,0 +1,169 @@
+# T1 — the target revision, prepared to its approval gates
+
+_2026-09-13, branch `t1/target-revision` from main `e80ffd2`, in the `../etcGEMs-t1` worktree.
+**Three decisions and a protocol for signature; no revised fit was run, no option turned on, no
+candidate implemented, no correction applied, no parameter fixed, no prior changed.** The decision
+package is `DECISION_PACKAGE.md`; this report is the evidence behind it. Every number comes from
+an audited output file named beside it; nothing is quoted from memory._
+
+## TASK 0a — housekeeping R3 left
+
+One tiny PR (#39, base `main` read before merging — RIGOUR 11), merged at `e80ffd2`:
+
+- **The archive rule** in OPEN_ITEMS §4: `codex/p17-inactive-prior` is the only ref keeping ~2.9 GB
+  of P17 objects reachable; never merged, pushed or deleted; the worktree is recreatable, the
+  branch is not. **RIGOUR.md rule 11**: read `baseRefName` before merging a PR you did not open.
+- **The archive worktree relocated** — `git worktree move /private/tmp/etcGEMs-p17
+  ../etcGEMs-p17-archive`, same APFS volume (`/dev/disk3s5`), so a rename. Verified: `git worktree
+  list` shows the new path at `ef1961b`, the branch resolves to `ef1961b`, the tree is clean, the
+  manifest parses to 1,905 files, the old path is gone. Item 1.28 closed.
+- **Leftovers deleted, non-force, after ancestry checks**: local and origin `y2/regime-posterior`
+  and `y3/tm-shift`. `r3/record` and `r3/restamp` were already absent from origin; their stale
+  tracking refs pruned.
+- **`../etcGEMs-work` detached at `3222b9d`**, then re-detached at current main; clean.
+
+**A blocker recorded rather than removed:** the primary tree's `.git/index.lock` is a stale
+zero-byte file held open only by the sandbox VM's file server (`com.apple.Virtualization`, pid
+62662, fd `952r`); no git process exists. T1 forbids deleting a lock file, so all writes went
+through the `../etcGEMs-t1` worktree, whose index is independent. The primary tree holds
+uncommitted edits identical to what #39 merged; they reconcile when the lock clears.
+
+## TASK 0b — premise, scope, registration
+
+R3 complete: main = origin = `3222b9d` → `e80ffd2`; gates 79/79 and 60/60; R3's report present.
+Archive branch local-only at `ef1961b`, worktree at the relocated path.
+
+**Scope (D0): this run moves none of R1–R4 directly; it may clarify R2** — TASK 1 establishes what
+the model *can* identify. RIGOUR rules 1–11 applied by number in D0.
+
+**Registered before any computation:** tolerance **1e-6**; the audit set with on-disk identity —
+D44's 58 evaluations (with saved per-temperature solver status), the six saved stratum states,
+the 800-point red2/6800 live set (archive-only `.npz`, sha256 `ef1c50d1…`), P12's twelve
+endpoints, P13's four feasible-non-growing examples; development seeds **17201–17205**, disjoint
+from P17's and from the **reserved 17901–17905, untouched**; SIGALRM budgets per step; the
+three-rung bounded retry ladder under which a solve failing every rung is UNRESOLVED, never zero.
+D0 was committed alone (`b462c6b`).
+
+## TASK 1 — `f_metab`: the fact, the removal, the proof
+
+**Finding: (i) intentional by design.** The growth-law branch of `enzyme_cost.set_allocation`
+(`:600–607`, written by `922e13d`, 2026-07-09 08:27) computes `f_metab,0 = 1 − f_maint − f_bio,0`
+and states in its own comment that the `f_metab` argument is ignored; the only other reader is a
+simplex guard that cannot fire (maximum prior sum 0.95). `gasflux_configD.yaml:17–18` selects that
+branch. `report.qmd:363` publishes the derived form. `f_metab` entered the sampled set the day
+before (`8c0914c`) under the static-partition design where it mattered; the law was switched on
+50 minutes after being written (`96e64c3`) with a docstring true of `f_maint` and false of
+`f_metab` — a documentation discrepancy, not a wiring omission. **`f_maint` is a different case
+and stays sampled**: it sets the pool bound and the maintenance-ATP bound.
+
+**The removal, prepared default OFF:** `build_gasflux_specs` accepts `remove_inactive` (drops a
+named coordinate; its normalised prior integrates out to factor one) and `diagnostic_coords`
+(appends inactive coordinates with a declared prior and `pert=None`, which `to_pert` provably never
+forwards to the model). Threaded through `_build_gasflux_ctx(spec_options=None)`. **Gate with it
+OFF, run in the worktree: K1 79/79, P1 60/60**; thirteen `resolved_config.yaml` dumps differed only
+by the worktree's absolute path (§4's known artefact), not one value.
+
+**The invariant, PROVEN.** At all **870** registered points, old target = removal-only target =
+old target with `f_metab` at 0.15 / 0.28 / 0.45: **maximum difference 2.02e-08** against 1e-6,
+**0 violations, 0 unresolved**, recomputed from the CSV (sha256 `1377ab9a…`) independently of the
+script's summary. D44 and red2/6800 reproduce their saved log L to 3.6e-10 and 7.4e-09; P12's
+twelve differ from their *saved* values by exactly P13's clamp-versus-current change (p38 2.8034,
+B(b3) 1.7060) and satisfy the invariant regardless (D4).
+
+**Nothing turned on. `f_metab` not wired. Recommendation: approve removal** — decision 1.29.
+
+## TASK 2 — infeasibility: the observation model laid bare
+
+**Classification by solver status (D8)** — two batches (2 h + 66.9 min), hash-audited and
+recomputed (`task2_merge_audit.py`): **876 points, 10,512 solves, 9,355 STRUCTURAL_ZERO, 0
+UNRESOLVED, 0 RESOLVED_ON_RETRY**; saved status reproduced 64/64. D44: `infeasible` at 15 °C on
+all three rungs at every one of the 58. The six stratum states: infeasible at **all twelve
+temperatures**. red2/6800: **765 of the 800** validated live points infeasible at all twelve —
+P17's "765 compatible" (81.5 % of red2's weight) now given as a solver fact: log L on that set is
+the growth term alone, ceiling −18.6825, above most of the **35** living points. P12: eleven
+endpoints feasible everywhere, `B(b3)` infeasible 15–65 °C.
+
+**Measurement facts (D3):** observable `R_O2_mg_cell_min`, mg O₂ cell⁻¹ min⁻¹, reached via
+`o2_conv = 2.8e-13 · 32 / 60` × `resp_scale`; `s` = the **replicate SD** at every one of 12
+temperatures (5 replicates each; the 30 % floor never fires); `y/s` from 2.6 to 17.6; **no
+detection limit documented**; every value positive; **three no-growth series at 50 °C respire at
+~2×10⁻¹²** — O₂ is not structurally zero when growth is.
+
+**Candidates** (package §2): NORMAL on the original scale with the measured `s` and `r = 0` only
+where STRUCTURAL_ZERO on growth — derivable, but `r = 0` is contradicted for O₂ by the data; the
+existing log-scale term — **undefined** at a zero prediction, and a lognormal ε is not derivable
+from it; CENSORED — **not derivable**. Datum-by-datum tables (`task2_datum_table.csv`, 156 rows; `task2_datum_totals.csv`)
+reconciled to the code's total at all 13 points (≤ 5e-12 at D44 and the stratum, ≤ 1.65e-9 at
+P12's six — three miss the registered 1e-9 by ≤ 0.65e-9, reported not re-registered). 73 positive
+measurements escape scoring under the omission, 0 under NORMAL r = 0; that candidate's totals are
+densities on the original scale (D44's 15 °C term is +17.54, dominated by −½ log 2π s² at
+s ≈ 5e-13) and are not comparable with the log-scale term without the Jacobian — said in §2. **Nothing chosen. No posterior read.**
+Decision 1.30.
+
+## TASK 3 — the seven axes, traced (D7, D9, D10)
+
+`task3_trace.py` (31.3 min) + `task3_fixbase.py` + `task3_refine_minus.py` (3.1 min), single
+process, fresh model and alarm per evaluation, 261 evaluations, none timed out. All 58 D44
+evaluations reproduce their saved log L to **≤ 8.9e-10**; per-datum terms reconcile to the code's
+total everywhere. D7's rule (registered before the run; P17's curvature convention reproduced to
+six figures; P14's refinement rule verbatim) applied by `task3_analyse.py` at the carrying
+temperature and interval, verdict from the carrying side, both sides recorded.
+
+**D44: 5 SUPPORTED, 2 UNDETERMINED, 0 IMPLEMENTATION DEFECT.** topt_scale and dCp_scale carry
+their curvature failure at **respiration 27 °C on [+0.02, +0.04]** (−0.074, −0.065) where nothing
+traced moves and the model's O₂ drops 15.7 → 11.1 with the LP `optimal` — an untraced vertex
+change (P9's kind, P10-floored); proposed next instrument, not run: P9's basis-status capture.
+sigma's 0.875 is a *slope* kink (growth at 30 °C reaching 1.16823), SMOOTH by P14's jump
+detector, the LP being an LP. **The registered clip moved on two axes (45 °C, 50 °C) and carried
+nothing.** Decision offered on 1.31: retain as is, all seven.
+
+**Two script defects found on reading the output, corrected to the registration (D9), both
+outcomes retained:** the p38 / P4-MAP bases had been evaluated at their stored dTm (−4.02 / −5.12)
+instead of the registered 0 (now −60.31 / −55.85 — at dTm = 0 neither is the point its name
+suggests); and the refinement had stepped only +h (minus side added: on three axes the carrying
+interval is on the minus side). Diverse points are UNDETERMINED by rule (refinement registered at
+the parent only); descriptively they show the 15 °C feasibility boundary, the cold-respiration
+vertex event again at the top-weight living sample, and one melting-point crossing.
+`task3_classification.csv` sha256 `0c8733bf…`. Nothing smoothed, no value changed.
+
+## TASK 4 — the protocol draft
+
+`docs/VALIDATION_PROTOCOL_DRAFT.md`: six checks, each with statistic, DRAFT threshold, P17 source
+by DECISIONS entry, and its limit; reserved seeds; what is deliberately not a threshold. Decision
+1.32.
+
+## TASK 5 — the package, and the reconciliation
+
+`DECISION_PACKAGE.md` — four decisions offered and the costed next step: **1.29** approve the
+removal of `f_metab` (proven inert); **1.30** choose the observation model for a missing
+respiration prediction, or none — arithmetic supplied, nothing chosen, and the candidates' totals
+shown to be on incomparable scales; **1.31** retain as is on all seven curvature axes (no defect
+identified; the O₂-vertex instrument proposed for two); **1.32** sign the protocol draft. Cost of
+what launches after approval: five runs, ≈ 40–48 h wall, per-evaluation cost unchanged because no
+enzyme-cost correction is proposed.
+
+OPEN_ITEMS: 1.20 / 1.25 / 1.27 restated with the facts; 1.29–1.32 added; §0b restated by dated
+addition; §4 archive rule (from #39). Evidence rows **T1a** (f_metab), **T1b** (classification
+and datum tables), **T1c** (curvature). `report_status.yaml` entry present. Stamps regenerated.
+
+**Reconciliation against §0c and RIGOUR.** None of R1–R4 moved. **R2 clarified**: one sampled
+coordinate shown inert by design and by proof, and the "half dead" posterior given its solver
+statement (765 of 800 live points infeasible at every temperature — a plateau in `disc_growth`
+alone whose ceiling out-competes most living points). RIGOUR by number: 1 — every tolerance,
+set, seed, budget and classification rule registered before its data (D0, D1, D5, D6, D7, D9);
+2 — the 1e-9 datum-table reconciliation miss at three P12 points is reported, not moved;
+3 — every outcome retained, including the as-stored 16-D bases and the plus-only refinement;
+4 — corrections by dated addition (D9); 5 — SMOOTH is reported as necessary, not sufficient
+(sigma's slope kink); 6 — 17901–17905 unconsumed; 7 — both classification batches and the trace
+audited by hash and recomputation before interpretation; 8 — every job under a tested SIGALRM,
+one at a time, no cap extended (batch 2 and the minus-side refinement were registered follow-ons,
+not extensions); 9 — the scientific target unchanged; 10 — the index.lock blocker recorded, not
+removed; 11 — #39's base read before merging.
+
+**Deviations from VERIFY 7's expected diff, each with its reason:** `docs/RIGOUR.md` (+rule 11,
+TASK 0a), `reports/P17_inactive_prior/ARCHIVE.md` (the relocated archive path, TASK 0a),
+`reports/report_status.yaml` (the stamp script requires an entry for a new report directory),
+`reports/synthesis/evidence.csv` line endings preserved (one commit had converted CRLF → LF and
+was corrected by a second). No strain config, no prior, no fit output. The four tracked
+`nominal_tpc.png` files that went missing from the worktree during the run were restored from
+HEAD, byte-identical (D6).
