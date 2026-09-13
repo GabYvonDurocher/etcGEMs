@@ -2,15 +2,17 @@
 
 # Provenance — `reports/P17_inactive_prior/`
 
-**STATUS: UNKNOWN** — no entry in reports/report_status.yaml; status has not been established
+**STATUS: CURRENT** — CLOSED NEGATIVELY BY PI DECISION, not by passing its original correction gate, and this directory on main is CURATED rather than complete. Independent reconstruction confirms the inactive-prior failure and rejects simple output-arithmetic and prior-wiring explanations. Three conditional traces characterise ancestry concentration, stratum-dependent trapping and a roughly 60-80-fold group/pooled width mismatch; the real-path Beta control has poor coverage; tested local/global/combined/partitioned interventions do not provide a validated correction. D44/D45 reproduce scale-dependent curvature at ONE non-optimal point, which does not prove all samplers fail nor that the likelihood is the sole cause. The 80-87 % living fractions are analytical toy outcomes from their specified priors and likelihoods, NOT biological targets or acceptance thresholds. Reserved confirmation seeds 17901-17905 are unconsumed. The complete 2,962 MB artefact set is on the local, never-pushed branch codex/p17-inactive-prior at ef1961b; ARCHIVE.md names what is excluded and closure_manifest.json carries every hash including the excluded files.
 
-**This report is not yet committed.**
+*Evidence:* closure_manifest.json is the SHA-256 inventory of all 1,905 P17 files and is committed unchanged; a fresh clone of origin/main was verified against it with 549 files matched and none mismatched. null_check.py consumes saved arrays only and never solves or fits; the exact reproduction commands and expected CDF means are in docs/HANDOVER_2026-09-13.md.
+
+**This report was last written at** `3a5de32` (2026-09-13) — P17: closure, curated for the repository - full artefacts on local branch codex/p17-inactive-prior at ef1961b; every hash in closure_manifest.json
 
 **Committed inputs it reads (found by scanning this report's own files), and the commit each was last written at:**
 
 | input directory | last written | date | commit subject |
 |---|---|---|---|
-| `strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced` | *(untracked)* | — | — |
+| `strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced` | `b8b181b` | 2026-09-13 | R3: P16 post-run evidence and the 0d sequencing note, committed from t |
 
 ---
 

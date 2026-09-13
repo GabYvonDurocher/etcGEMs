@@ -1,12 +1,53 @@
 # Open items — the running list
 
-_Started 2026-09-08 while P2 was running; last updated 2026-09-11 by P15._ This is the standing list of what is outstanding across
+_Started 2026-09-08 while P2 was running; last updated 2026-09-13 by R3._ This is the standing list of what is outstanding across
 the whole project, so nothing is lost between sessions. Update it when something lands; do not let
 it become a second decision log — decisions live in each prompt's `reports/*/DECISIONS.md`, this is
 only what is NOT yet done and who or what it waits on._
 
 Status: **BLOCKED** (waiting on something external) · **READY** (can start now) · **PENDING P2**
 (depends on the run in flight) · **DEFERRED** (deliberately not now, with a trigger)
+
+---
+
+## 0. Integration — completed 2026-09-13 (R3)
+
+**Everything since the P15 merge is on `origin/main` at `64393edede223feebbcebbf4554d548f38e03cf9`.**
+Four bodies of work merged as four PRs plus one correction:
+
+| PR | branch | merge | what |
+|---|---|---|---|
+| #34 | `p16/reduced` | `96d11d1` | the reduction, spectrum, both 15-D runs, the post-run audit, and the primary tree's 32 uncommitted evidence files |
+| #35 | `p17/curated` | `32160f2` | P17's closure, **curated**; RIGOUR, HANDOVER, INTEGRATION_STATE, TARGET_REVISION_SPEC, CLOSURE_VERIFICATION |
+| #31 | `e2/deck` | `99279a4` | the E2–E6 deck, 59 pages |
+| #33 → #36 | `q1/n0-check` → `e2/deck` → main | `64393ed` | Q1's conversion/CUE null result, reconciled onto E6 |
+
+**P17 on main is CURATED, and complete elsewhere.** 580 files and 15.7 MB of reports, scripts,
+DECISIONS, manifests and figures are on main; the full 2,962 MB artefact set — 486 `.save`
+checkpoints, 775 `.npz` archives, 72 logs — stays on the **local, never-pushed** branch
+`codex/p17-inactive-prior` at `ef1961b`. `closure_manifest.json` is on main **unchanged**, carrying
+the SHA-256 of all 1,905 files including every excluded one. A fresh clone of `origin/main` was
+verified: **549 P17 files matched the manifest, 0 mismatched**, both gates pass (79/79, 60/60), the
+deck is 59 pages. The full branch could not be pushed because `unif_benchmark.log` is 109,809,818
+bytes, above GitHub's 100 MiB limit, with no LFS configured. See `reports/R3_integration/`.
+
+**No duplication item arose from E6.** The concern that `E6: E5 carry-forward` had re-applied E5's
+edits was inspected slide by slide and is **unfounded**: E6 removed four P15-crash slides, added
+eleven P16 slides (49 → 56), edited deck.qmd lines in place, and left no duplicated slide title or
+bullet.
+
+**A §4 item closed as a side effect.** The two `strains/cauris_iRV973/.../resolved_config.yaml`
+dumps, one key stale since N2's hotfix and reappearing as modified after every gate battery, are
+now committed regenerated. Confirmed: after the battery ran on merged main,
+`git status --porcelain strains/` is empty.
+
+| # | Item | Waiting on | Why it matters |
+|---|---|---|---|
+| 1.28 | **Relocate the P17 archive worktree out of `/private/tmp`** | us | `/private/tmp/etcGEMs-p17` is the only checkout of `codex/p17-inactive-prior`, and this machine **does** run `com.apple.tmp_cleaner`; it has survived only because there has been no reboot in 58 days. **The evidence itself is not at risk** — the worktree's `.git` is a 141-byte pointer, every P17 blob lives in the primary repository's 1.9 GB object store in OneDrive, and the branch ref is in `.git/refs/heads/`; a reboot would cost a 2.9 GB checkout recreatable with one command. Recommended: `git worktree move /private/tmp/etcGEMs-p17 ../etcGEMs-p17-archive`. Not done by R3, which was asked to recommend rather than act. |
+
+**Next scientific step:** `docs/TARGET_REVISION_SPEC.md`, **awaiting PI approval** (item 1.27). No
+revised fit launches before that approval and the full validation protocol. See
+`docs/HANDOVER_2026-09-13.md`.
 
 ---
 

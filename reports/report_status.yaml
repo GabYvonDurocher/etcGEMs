@@ -509,3 +509,62 @@ Q1_n0_check:
     TASK 0 chain is re-checked on every run, then recomputes under config.R's constants;
     `task3_size_growth.py` (power against the Schaechter band). The biomass-integral identity
     N0*(exp(r*T_end)-1)/r holds to 6.9e-14 on R2A/LB (n=117) and 7.1e-14 on M9 (n=66).
+
+P16_reduced:
+  status: CURRENT
+  note: >-
+    The dTm reduction and the two fifteen-dimensional runs. Its numbers are current; its CONCLUSION
+    is negative and must be read from audit_report.md rather than from the run summaries. Fixing
+    dTm = 0 removed one sampled direction and let both runs meet their numerical stopping condition
+    at log Z -26.029894 and -26.052380, but those close values DO NOT establish reproducibility:
+    fourteen of fifteen marginal comparisons fail, and the truly inactive f_metab CDF has weighted
+    means 0.319120 and 0.393715 instead of 0.5, distances 0.290878 and 0.216146. The eigenspectrum,
+    marginals, tail checks and completed-run audit are preserved as evidence of unreliable
+    inference. dTm = 0 assumes the meltome mean is exact; uniform melting-temperature uncertainty is
+    excluded and would otherwise be absorbed by tm_scale and the catalytic parameters. Do not fix a
+    further biological parameter to obtain apparent convergence.
+  evidence: >-
+    audit_completed_runs.py and audit_sampling_uncertainty.py regenerate the audit tables from the
+    committed run arrays; task1_spectrum.py, task23_choose_and_check.py and task5_posterior.py
+    regenerate the spectrum, the reduction check and the posterior summaries. The red1 and red2
+    checkpoints, samples, weights and logl are committed under
+    strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/.
+
+P17_inactive_prior:
+  status: CURRENT
+  note: >-
+    CLOSED NEGATIVELY BY PI DECISION, not by passing its original correction gate, and this
+    directory on main is CURATED rather than complete. Independent reconstruction confirms the
+    inactive-prior failure and rejects simple output-arithmetic and prior-wiring explanations.
+    Three conditional traces characterise ancestry concentration, stratum-dependent trapping and a
+    roughly 60-80-fold group/pooled width mismatch; the real-path Beta control has poor coverage;
+    tested local/global/combined/partitioned interventions do not provide a validated correction.
+    D44/D45 reproduce scale-dependent curvature at ONE non-optimal point, which does not prove all
+    samplers fail nor that the likelihood is the sole cause. The 80-87 % living fractions are
+    analytical toy outcomes from their specified priors and likelihoods, NOT biological targets or
+    acceptance thresholds. Reserved confirmation seeds 17901-17905 are unconsumed. The complete
+    2,962 MB artefact set is on the local, never-pushed branch codex/p17-inactive-prior at ef1961b;
+    ARCHIVE.md names what is excluded and closure_manifest.json carries every hash including the
+    excluded files.
+  evidence: >-
+    closure_manifest.json is the SHA-256 inventory of all 1,905 P17 files and is committed
+    unchanged; a fresh clone of origin/main was verified against it with 549 files matched and none
+    mismatched. null_check.py consumes saved arrays only and never solves or fits; the exact
+    reproduction commands and expected CDF means are in docs/HANDOVER_2026-09-13.md.
+
+R3_integration:
+  status: CURRENT
+  note: >-
+    The integration of P16, P17, the deck and Q1 into origin/main at 64393ed. Every number is from
+    a command whose exit code is logged in git_commands.log. Two things are recorded against
+    interest: PR #33's base was e2/deck rather than main and was merged without that being checked,
+    so a fifth PR (#36) was needed to bring Q1 to main; and the curation deviates from the prompt's
+    literal file filter, which would have admitted 2,101 MB of checkpoint blobs, in favour of the
+    extension list that yields 15.7 MB. Neither is a scientific change: integration moved no
+    conclusion.
+  evidence: >-
+    git_commands.log records each git invocation with its exit code; task1_hashes.txt and
+    task1_diff_pairs.txt the SHA-256 comparison of every dirty file against P17's copy;
+    task2_curation.json and task2_curation.txt the included/excluded file counts, sizes and the
+    manifest verification; task5_gates_main.log the gate battery on merged main. The fresh-clone
+    verification is reproducible by cloning origin/main and re-running the two gate scripts.

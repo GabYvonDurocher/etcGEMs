@@ -2,15 +2,17 @@
 
 # Provenance — `reports/P16_reduced/`
 
-**STATUS: UNKNOWN** — no entry in reports/report_status.yaml; status has not been established
+**STATUS: CURRENT** — The dTm reduction and the two fifteen-dimensional runs. Its numbers are current; its CONCLUSION is negative and must be read from audit_report.md rather than from the run summaries. Fixing dTm = 0 removed one sampled direction and let both runs meet their numerical stopping condition at log Z -26.029894 and -26.052380, but those close values DO NOT establish reproducibility: fourteen of fifteen marginal comparisons fail, and the truly inactive f_metab CDF has weighted means 0.319120 and 0.393715 instead of 0.5, distances 0.290878 and 0.216146. The eigenspectrum, marginals, tail checks and completed-run audit are preserved as evidence of unreliable inference. dTm = 0 assumes the meltome mean is exact; uniform melting-temperature uncertainty is excluded and would otherwise be absorbed by tm_scale and the catalytic parameters. Do not fix a further biological parameter to obtain apparent convergence.
 
-**This report is not yet committed.**
+*Evidence:* audit_completed_runs.py and audit_sampling_uncertainty.py regenerate the audit tables from the committed run arrays; task1_spectrum.py, task23_choose_and_check.py and task5_posterior.py regenerate the spectrum, the reduction check and the posterior summaries. The red1 and red2 checkpoints, samples, weights and logl are committed under strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/.
+
+**This report was last written at** `3a5de32` (2026-09-13) — P17: closure, curated for the repository - full artefacts on local branch codex/p17-inactive-prior at ef1961b; every hash in closure_manifest.json
 
 **Committed inputs it reads (found by scanning this report's own files), and the commit each was last written at:**
 
 | input directory | last written | date | commit subject |
 |---|---|---|---|
-| `strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced` | *(untracked)* | — | — |
+| `strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced` | `b8b181b` | 2026-09-13 | R3: P16 post-run evidence and the 0d sequencing note, committed from t |
 
 ---
 

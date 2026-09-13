@@ -1,0 +1,34 @@
+ M docs/OPEN_ITEMS.md
+ M reports/P16_reduced/DECISIONS.md
+ M strains/cauris_iRV973/outputs/fba_candida_pool_binding/resolved_config.yaml
+ M strains/cauris_iRV973/outputs/fba_candida_pool_unconstrained/resolved_config.yaml
+?? prompts/E5_deck_posterior_and_holdout_prompt.md
+?? prompts/E6_deck_bring_current_prompt.md
+?? prompts/P16_eigenspectrum_then_the_reduced_posterior_prompt.md
+?? prompts/P17_inactive_prior_sampler_audit_prompt.md
+?? prompts/Q1_n0_bias_check_prompt.md
+?? prompts/R3_integrate_p16_p17_deck_and_push_prompt.md
+?? prompts/Y3_is_the_tm_shift_biology_or_parameterisation_prompt.md
+?? reports/P16_reduced/audit_agreement.csv
+?? reports/P16_reduced/audit_completed_runs.py
+?? reports/P16_reduced/audit_covariance_red1.csv
+?? reports/P16_reduced/audit_covariance_red2.csv
+?? reports/P16_reduced/audit_eigendecomposition.csv
+?? reports/P16_reduced/audit_inactive_parameter.csv
+?? reports/P16_reduced/audit_inputs.json
+?? reports/P16_reduced/audit_marginals.csv
+?? reports/P16_reduced/audit_pairs.csv
+?? reports/P16_reduced/audit_report.md
+?? reports/P16_reduced/audit_sampling_uncertainty.py
+?? reports/P16_reduced/audit_strand_agreement.csv
+?? reports/P16_reduced/audit_summary.json
+?? reports/P16_reduced/audit_tail.csv
+?? reports/P16_reduced/trace_red2.json
+?? reports/R3_integration/
+?? strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/dynesty_red2.save
+?? strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/logl_red2.npy
+?? strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/logwt_red2.npy
+?? strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/samples_red2.npy
+?? strains/eciML1515/outputs/calibration_configD_NLDM_recipe_P16_reduced/summary_red2.json
+?? strains/mmaripaludis/outputs/tpc/nominal_tpc.png
+?? strains/syn6803/outputs/tpc_syn6803_ecmodel/nominal_tpc.png
