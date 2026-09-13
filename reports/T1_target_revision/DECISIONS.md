@@ -292,3 +292,78 @@ merged only after both are audited. If batch 2 also hits its cap, the remainder 
 **UNEVALUATED with the count** and every downstream table says so on the affected rows. The
 ladder itself is not changed to make it finish faster — a cheaper "fresh" would be a different
 procedure from the one registered in D0.
+
+## D6 — batch 2 audit and merge registered before its result is read; four tracked PNGs found missing from the worktree and restored from HEAD
+
+Written at 18:18 with batch 2 at 201/322 and its CSV unread.
+
+**The audit (RIGOUR rule 7), `task2_merge_audit.py`.** Both batch CSVs are hashed; the label sets
+must be disjoint (a duplicate stops the merge); the registered set — 800 red2/6800 + 58 D44 + 6
+stratum + the 12 keys of `P12_modes/task2c_converged.csv`, read from that file and not from memory
+— is compared with the union, and every registered label reached by neither batch is listed
+**UNEVALUATED with its count**. Every STRUCTURAL_ZERO / UNRESOLVED / RESOLVED_ON_RETRY count is
+**recomputed from the three rung columns** by the rule `task2_classify.py:102–103` states, then
+compared with the script's own `n_*` tallies; a disagreement is printed per label, not silenced.
+The merged table is `task2_classify_all.csv`; `task2_datum_table.py` reads it when present (one
+line changed, before the table is run), because the P12 points it tabulates were in batch 2's
+order, not batch 1's.
+
+**Housekeeping, recorded because the T1 rules say nothing is deleted.** `git status` at 18:14
+showed four *tracked* files missing from the T1 worktree —
+`strains/{_toy,eciML1515,mmaripaludis}/outputs/tpc/nominal_tpc.png` and
+`strains/syn6803/outputs/tpc_syn6803_ecmodel/nominal_tpc.png`. They were present at the gate
+(`task1_gate_off.log`'s status at ~14:01 lists only the thirteen `resolved_config.yaml` dumps,
+D1), no git operation in the reflog touches them, no T1 script names a `.png`, and the primary
+tree still has all four. The cause is not established (the tree is under OneDrive). They were
+restored with `git checkout -- <four paths>` — a restore of tracked content, not a `clean` — and
+each restored blob hashes identically to HEAD and to `main` (`0a7c75e4…`, `3a5b6180…`,
+`22339820…`, `f1fdec55…`). The T1 branch therefore carries no deletion.
+
+## D7 — TASK 3's classification rule, registered before `task3_trace.py` runs
+
+Written at 18:21, batch 2 still running, no trace evaluation made.
+
+**The quantity.** P17's D44 curvature is `k(h) = −[L(u+h·s) − 2L(u) + L(u−h·s)] / h²` with `s` the
+saved per-axis scale (`plan.json`) and `h ∈ {0.02, 0.04}` in SD units; its readiness statistic is
+`rel = |k(0.02) − k(0.04)| / max(1, |k(0.02)|, |k(0.04)|)` with threshold 1e-3. Reproduced from
+`evaluations.json` before writing this (dTopt 4.5280/3.6011, topt_scale 3.6188/58.5956, sigma
+−2.4180/−19.3044 — P17's numbers to six figures). The trace re-evaluates all 58 saved `u` fresh
+and must reproduce each saved log L to **1e-6** (D44's own repeatability criterion) before anything
+is decomposed; a miss is reported, not smoothed.
+
+**Decomposition by observation.** Because `growth_term[i] + resp_term[i]` sums to the code's log L
+(reconciled to 1e-9 at every evaluation), `k(h)` splits exactly into 24 per-datum curvatures
+(12 temperatures × growth/respiration). The datum carrying the largest share of `k(0.02) − k(0.04)`
+is named, with its share.
+
+**Decomposition by mechanism.** Across the five stencils −0.04, −0.02, 0, +0.02, +0.04 on an axis,
+per temperature: (m1) LP status; (m2) the scored mask; (m3) the count of enzymes clipped at
+`rk·fN ≤ 1e-6` — the candidate D1 registered; (m4) the count above their effective Topt;
+(m5) the count past their shifted Tm. A mechanism *moves* on an interval if its count differs
+between adjacent stencils. D44 already established m1 and m2 do not move at the parent (audit.json:
+no status or mask changes), so at D44 the live candidates are m3, m4, m5 and the one thing this
+trace **cannot see**: an LP basis change with unchanged status (P9's "kink"). That blindness is
+stated in the classification, not papered over.
+
+**Refinement.** P14's instrument and rule, verbatim: one-sided steps h, h/2, h/4, h/8 with
+h = 0.04 SD; *"SMOOTH if the ratio |Δ(h/2)|/|Δ(h)| lies in [0.35, 0.65] at every one of the three
+halvings; JUMP if any ratio exceeds 0.80; AMBIGUOUS in between, and an ambiguous line is treated as
+a JUMP."* Ratios are undefined and reported as such if |Δ(h)| < 1e-6 (evaluation jitter).
+
+**The classes, decided by the rule and not by the outcome:**
+- **IMPLEMENTATION DEFECT** — the axis reads JUMP/AMBIGUOUS, **m3 moves** on the interval that
+  carries the curvature difference, and **neither m4 nor m5 moves at the same temperatures on the
+  same interval**. The clip is then the only traced mechanism coinciding with the kink; the defect
+  is the hard clamp, and the proposed (unapplied) correction is a smooth floor or the removal of
+  the clamp with the overflow handled where it arises.
+- **SUPPORTED BY PHYSIOLOGY** — (a) the axis reads SMOOTH: the curvature difference is genuine
+  higher-order curvature of a smooth function, and P17's 1e-3 is a Gaussian-adequacy test that a
+  smooth non-quadratic surface fails legitimately; or (b) JUMP/AMBIGUOUS with **m4 or m5 moving**
+  (an enzyme crossing its effective optimum or its melting point) or m1/m2 moving, and **m3 not
+  moving** on that interval.
+- **UNDETERMINED** — JUMP/AMBIGUOUS with (a) no traced mechanism moving (the untraced basis change
+  is then the candidate, and P9's basis-status instrument the next step), or (b) m3 and a
+  physiological mechanism moving on the same interval, inseparable at this resolution.
+At the five diverse points the same rule applies to each point's own stencils; the D44 verdict
+and the diverse-point verdicts are reported per axis side by side, and an axis's package
+classification is the D44 verdict, with disagreement across points reported as such.

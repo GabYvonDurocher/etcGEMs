@@ -61,7 +61,8 @@ def points():
 def main():
     self_test()
     cls = {}
-    cp = os.path.join(HERE, "task2_classify.csv")
+    cp = os.path.join(HERE, "task2_classify_all.csv")                      # the audited merge of both batches
+    if not os.path.exists(cp): cp = os.path.join(HERE, "task2_classify.csv")
     if os.path.exists(cp):
         for _, r in pd.read_csv(cp).iterrows():
             cls[r.label] = (str(r.get("rung1", "")).split(";"), str(r.get("classes", "")).split(";") if isinstance(r.get("classes"), str) else [],

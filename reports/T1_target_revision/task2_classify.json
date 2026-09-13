@@ -1,0 +1,14 @@
+{
+ "n_points": 876,
+ "n_evaluated": 554,
+ "temps_structural_zero": 5811,
+ "temps_unresolved": 0,
+ "temps_resolved_on_retry": 0,
+ "points_with_any_nonoptimal": 553,
+ "stratum_points": 6,
+ "stratum_temps_structural_zero": 72,
+ "stratum_temps_unresolved": 0,
+ "saved_status_agreement": 64,
+ "saved_status_compared": 64,
+ "wall_min": 120.0
+}

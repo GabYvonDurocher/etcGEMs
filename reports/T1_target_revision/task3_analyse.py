@@ -1,0 +1,111 @@
+#!/usr/bin/env python3
+"""T1 TASK 3 -- analysis of task3_trace.json under the rule registered in DECISIONS D7. Reads only;
+nothing is smoothed; every classification prints the evidence it rests on."""
+import os, sys, json
+import numpy as np, pandas as pd
+HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
+os.chdir(ROOT)
+AXES = ["dTopt", "topt_scale", "dCp_scale", "tm_scale", "kcat_scale", "sigma", "clearance_mult"]
+MECH = ["clipped_low", "above_Topt", "past_Tm"]
+
+def curv(Lp, L0, Lm, h): return -(Lp - 2 * L0 + Lm) / h ** 2
+
+def refine_verdict(series):
+    d = [s.get("delta") for s in series]
+    if any(x is None for x in d) or len(d) < 4: return "UNEVALUATED", []
+    ratios = []
+    for a, b in zip(d[:-1], d[1:]):
+        ratios.append(None if abs(a) < 1e-6 else abs(b) / abs(a))
+    if any(r is None for r in ratios): return "UNDEFINED(|delta|<1e-6)", ratios
+    if any(r > 0.80 for r in ratios): return "JUMP", ratios
+    if all(0.35 <= r <= 0.65 for r in ratios): return "SMOOTH", ratios
+    return "AMBIGUOUS", ratios
+
+def moves(evA, evB):
+    """which mechanisms move between two evaluations, per temperature index."""
+    out = {}
+    for m in MECH:
+        a = [x[m] for x in evA["enzyme_state"]]; b = [x[m] for x in evB["enzyme_state"]]
+        out[m] = [i for i in range(len(a)) if a[i] != b[i]]
+    out["status"] = [i for i in range(len(evA["status"])) if evA["status"][i] != evB["status"][i]]
+    out["scored"] = [i for i in range(len(evA["scored"])) if evA["scored"][i] != evB["scored"][i]]
+    return out
+
+def analyse_point(name, base, stencil_of, refine_by_axis, T):
+    """stencil_of(ax, off) -> evaluation dict or None; refine_by_axis: {axis: series} or {}. Returns per-axis rows."""
+    rows = []
+    for ax in AXES:
+        refine = (refine_by_axis or {}).get(ax)
+        st = {off: stencil_of(ax, off) for off in (-0.04, -0.02, 0.02, 0.04)}
+        if any(v is None or "logl" not in v for v in st.values()):
+            rows.append(dict(point=name, axis=ax, classification="UNEVALUATED")); continue
+        k1 = curv(st[0.02]["logl"], base["logl"], st[-0.02]["logl"], 0.02)
+        k2 = curv(st[0.04]["logl"], base["logl"], st[-0.04]["logl"], 0.04)
+        rel = abs(k1 - k2) / max(1.0, abs(k1), abs(k2))
+        # by observation: per-datum curvature differences
+        g0 = np.asarray(base["growth_term"]); r0 = np.asarray(base["resp_term"])
+        per = []
+        for term, key in (("growth", "growth_term"), ("resp", "resp_term")):
+            b0 = np.asarray(base[key])
+            c1 = -(np.asarray(st[0.02][key]) - 2 * b0 + np.asarray(st[-0.02][key])) / 0.02 ** 2
+            c2 = -(np.asarray(st[0.04][key]) - 2 * b0 + np.asarray(st[-0.04][key])) / 0.04 ** 2
+            for i in range(len(b0)): per.append((term, i, float(c1[i] - c2[i])))
+        tot = k1 - k2; per.sort(key=lambda x: -abs(x[2]))
+        top = per[0]; share = top[2] / tot if abs(tot) > 0 else float("nan")
+        recon = abs(sum(p[2] for p in per) - tot) < 1e-6
+        # by mechanism, on the four intervals of the five-point stencil
+        order = [-0.04, -0.02, 0.0, 0.02, 0.04]; ev = {0.0: base, **st}
+        mv = {}
+        for a, b in zip(order[:-1], order[1:]):
+            mv[f"{a:+.2f}->{b:+.2f}"] = moves(ev[a], ev[b])
+        any_mv = {m: sorted({i for iv in mv.values() for i in iv[m]}) for m in MECH + ["status", "scored"]}
+        verdict, ratios = refine_verdict(refine) if refine is not None else ("NOT_RUN", [])
+        # the rule (D7)
+        clip = bool(any_mv["clipped_low"]); phys = bool(any_mv["above_Topt"] or any_mv["past_Tm"] or any_mv["status"] or any_mv["scored"])
+        if verdict == "SMOOTH": cls = "SUPPORTED_BY_PHYSIOLOGY(smooth,non-quadratic)"
+        elif verdict in ("JUMP", "AMBIGUOUS"):
+            if clip and not phys: cls = "IMPLEMENTATION_DEFECT(clip)"
+            elif phys and not clip: cls = "SUPPORTED_BY_PHYSIOLOGY(mechanism moves)"
+            elif clip and phys: cls = "UNDETERMINED(clip and physiology move together)"
+            else: cls = "UNDETERMINED(no traced mechanism moves; untraced basis change is the candidate)"
+        else: cls = f"UNDETERMINED(refinement {verdict})"
+        rows.append(dict(point=name, axis=ax, k_0p02=k1, k_0p04=k2, rel_diff=rel, per_datum_reconciles=recon,
+                         top_datum=f"{top[0]}@{T[top[1]]:.0f}C", top_share=share,
+                         top3=";".join(f"{p[0]}@{T[p[1]]:.0f}C:{p[2]:+.3f}" for p in per[:3]),
+                         clip_moves_T=";".join(f"{T[i]:.0f}" for i in any_mv["clipped_low"]),
+                         topt_moves_T=";".join(f"{T[i]:.0f}" for i in any_mv["above_Topt"]),
+                         tm_moves_T=";".join(f"{T[i]:.0f}" for i in any_mv["past_Tm"]),
+                         status_moves_T=";".join(f"{T[i]:.0f}" for i in any_mv["status"]),
+                         scored_moves_T=";".join(f"{T[i]:.0f}" for i in any_mv["scored"]),
+                         refinement=verdict, ratios=";".join("-" if r is None else f"{r:.3f}" for r in ratios),
+                         refine_deltas=";".join(f"{s.get('delta', float('nan')):+.5f}" for s in (refine or [])),
+                         classification=cls))
+    return rows
+
+def main():
+    rec = json.load(open(os.path.join(HERE, "task3_trace.json")))
+    T = np.asarray(json.load(open("reports/P17_inactive_prior/real_curvature_probe/evaluations.json"))[0]["flux"]["temp_C"], float)
+    ev = {e.get("label"): e for e in rec["evaluations"] if e.get("point") == "D44"}
+    n = len(ev); ok = [e for e in ev.values() if "logl" in e]
+    repro = [(e["label"], e["vs_saved"]) for e in ok]; worst = max(repro, key=lambda x: x[1]) if repro else None
+    recon = all(e["reconciles"] for e in ok)
+    print(f"[a3] D44: {n} labels, {len(ok)} evaluated, {n - len(ok)} unresolved; worst |fresh - saved| = {worst}; per-datum reconciles at every evaluation: {recon}")
+    bad = [(l, v) for l, v in repro if v > 1e-6]; print(f"[a3] D44 reproductions failing 1e-6: {len(bad)} {bad[:5]}")
+    base = ev.get("baseline_start")
+    ref = {r["axis"]: r["series"] for r in rec.get("refinements", [])}
+    rows = analyse_point("D44", base, lambda ax, off: ev.get(f"{ax}_{'plus' if off > 0 else 'minus'}_{abs(off):.2f}"), ref, T)
+    for d in rec.get("diverse", []):
+        if "base" not in d:
+            rows += [dict(point=d["point"], axis=ax, classification=d.get("status", "NOT_EVALUATED"), provenance=d.get("provenance")) for ax in AXES]; continue
+        sts = {(s["axis"], s["off"]): s for s in d["stencils"]}
+        rows += analyse_point(d["point"], d["base"], lambda ax, off: sts.get((ax, off)), {}, T)
+        for r in rows:
+            if r["point"] == d["point"]: r["provenance"] = d.get("provenance")
+    df = pd.DataFrame(rows); df.to_csv(os.path.join(HERE, "task3_classification.csv"), index=False)
+    pd.set_option("display.width", 250); pd.set_option("display.max_columns", 30)
+    cols = [c for c in ["point", "axis", "k_0p02", "k_0p04", "rel_diff", "top_datum", "top_share", "refinement", "ratios", "clip_moves_T", "topt_moves_T", "tm_moves_T", "status_moves_T", "classification"] if c in df.columns]
+    print(df[cols].to_string(index=False))
+    print(f"[a3] wall {rec.get('wall_min')} min")
+
+if __name__ == "__main__":
+    main()
