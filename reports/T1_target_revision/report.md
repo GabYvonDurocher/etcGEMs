@@ -100,12 +100,31 @@ densities on the original scale (D44's 15 °C term is +17.54, dominated by −½
 s ≈ 5e-13) and are not comparable with the log-scale term without the Jacobian — said in §2. **Nothing chosen. No posterior read.**
 Decision 1.30.
 
-## TASK 3 — the seven axes, traced ⏳
+## TASK 3 — the seven axes, traced (D7, D9, D10)
 
-`task3_trace.json`: at D44's parent and 56 stencils, then at the five registered points; per
-observation, per enzyme (above `Topt_eff`, past `Tm`, clipped at the registered
-`np.clip(rk·fN, 1e-6, 1e6)`), per LP status; refinement h, h/2, h/4; classification per axis.
-Nothing smoothed, no value changed. Decisions 1.31.
+`task3_trace.py` (31.3 min) + `task3_fixbase.py` + `task3_refine_minus.py` (3.1 min), single
+process, fresh model and alarm per evaluation, 261 evaluations, none timed out. All 58 D44
+evaluations reproduce their saved log L to **≤ 8.9e-10**; per-datum terms reconcile to the code's
+total everywhere. D7's rule (registered before the run; P17's curvature convention reproduced to
+six figures; P14's refinement rule verbatim) applied by `task3_analyse.py` at the carrying
+temperature and interval, verdict from the carrying side, both sides recorded.
+
+**D44: 5 SUPPORTED, 2 UNDETERMINED, 0 IMPLEMENTATION DEFECT.** topt_scale and dCp_scale carry
+their curvature failure at **respiration 27 °C on [+0.02, +0.04]** (−0.074, −0.065) where nothing
+traced moves and the model's O₂ drops 15.7 → 11.1 with the LP `optimal` — an untraced vertex
+change (P9's kind, P10-floored); proposed next instrument, not run: P9's basis-status capture.
+sigma's 0.875 is a *slope* kink (growth at 30 °C reaching 1.16823), SMOOTH by P14's jump
+detector, the LP being an LP. **The registered clip moved on two axes (45 °C, 50 °C) and carried
+nothing.** Decision offered on 1.31: retain as is, all seven.
+
+**Two script defects found on reading the output, corrected to the registration (D9), both
+outcomes retained:** the p38 / P4-MAP bases had been evaluated at their stored dTm (−4.02 / −5.12)
+instead of the registered 0 (now −60.31 / −55.85 — at dTm = 0 neither is the point its name
+suggests); and the refinement had stepped only +h (minus side added: on three axes the carrying
+interval is on the minus side). Diverse points are UNDETERMINED by rule (refinement registered at
+the parent only); descriptively they show the 15 °C feasibility boundary, the cold-respiration
+vertex event again at the top-weight living sample, and one melting-point crossing.
+`task3_classification.csv` sha256 `0c8733bf…`. Nothing smoothed, no value changed.
 
 ## TASK 4 — the protocol draft
 

@@ -2,8 +2,8 @@
 
 _Prepared 2026-09-13 by T1. Three decisions and a protocol for signature. **Nothing below has been
 acted on: no option is on, no candidate is implemented, no correction is applied, no fit has run.**
-Section 2 is filled from the audited classification and datum CSVs (D8). Section 3, marked ⏳,
-is filled from `task3_trace.json` when the trace completes — never from memory._
+Sections 2 and 3 are filled from the audited CSVs and the trace JSON (D8, D10), never from
+memory._
 
 ---
 
@@ -169,16 +169,53 @@ any of it.
 
 ---
 
-## 3. Curvature — ONE decision per defect: approve correction / retain as is ⏳
+## 3. Curvature — ONE decision per defect: approve correction / retain as is
 
-Per axis (dTopt, topt_scale, dCp_scale, tm_scale, kcat_scale, sigma, clearance_mult): the
-decomposition of D44's curvature difference by observation and by mechanism; whether it coincides
-with a binding-set change, a physiological switch (an enzyme crossing its effective Topt or its
-shifted Tm), or the **registered candidate** — the hard clip `np.clip(rk·fN, 1e-6, 1e6)` in
-`_costs_unfolding` (D1); the same at the five registered diverse points; the refinement series.
-Classification SUPPORTED BY PHYSIOLOGY / IMPLEMENTATION DEFECT / UNDETERMINED, with evidence.
-*From `task3_trace.json`.* Any defect is described with its proposed correction and **not
-applied**.
+### The finding: **no implementation defect on any of the seven axes at D44.**
+
+Trace only (`task3_trace.py`, 31 min + two registered corrections, D9; `task3_trace.json`
+sha256 `3576b1e8…`): all 58 of P17's D44 evaluations re-evaluated fresh and reproduced to
+**≤ 8.9e-10**; the per-datum growth and respiration terms reconcile to the code's total at every
+evaluation; enzyme state (above effective Topt, past shifted Tm, clipped at 1e-6) and LP status
+captured per temperature at every stencil; P14's refinement (h, h/2, h/4, h/8) on **both** sides
+of the parent; the rule registered in D7 applied at the carrying temperature and interval
+(`task3_classification.csv`, sha256 `0c8733bf…`; D10).
+
+| axis | P17 rel. difference | carrying datum, interval | refinement (carrying side) | mechanism moving at that T | classification | decision offered |
+|---|---|---|---|---|---|---|
+| dTopt | 0.205 | resp@50 °C, [+0.02,+0.04], −0.0005 | SMOOTH | none | SUPPORTED (smooth, non-quadratic) | retain as is |
+| topt_scale | 0.938 | **resp@27 °C**, [+0.02,+0.04], **−0.074** | AMBIGUOUS | none — O₂ at 27 °C 15.71 → 11.09 | **UNDETERMINED** (untraced vertex change) | retain as is; instrument below |
+| dCp_scale | 0.300 | **resp@27 °C**, [+0.02,+0.04], **−0.065** | JUMP | none — O₂ at 27 °C 15.68 → 15.02 → 11.10 | **UNDETERMINED** (untraced vertex change) | retain as is; instrument below |
+| tm_scale | 0.574 | resp@50 °C, [0,+0.02], −0.0013 | SMOOTH | none (clip moves at 50 °C on the next interval, 39 → 42, no kink) | SUPPORTED | retain as is |
+| kcat_scale | 0.279 | resp@27 °C, [−0.04,−0.02], +0.0065 | SMOOTH | none | SUPPORTED | retain as is |
+| sigma | 0.875 | growth@30 °C, [−0.04,−0.02], −0.020 | SMOOTH | none — growth at 30 °C reaches a ceiling (1.16823) | SUPPORTED (slope kink: a constraint binding) | retain as is |
+| clearance_mult | 0.102 | resp@45 °C, [−0.04,−0.02], +0.0016 | SMOOTH | none | SUPPORTED | retain as is |
+
+**What the two UNDETERMINED axes are.** The same event: at 27 °C, with the LP `optimal`
+throughout and no traced enzyme-state change, the tie-broken O₂ drops ~30 % between +0.02 and
++0.04 SD while growth changes by 0.5 %. That is a change of the optimal vertex — the kind P9
+decomposed and P10's floor reduced from tens of units to 0.07. The trace captures no basis, so D7
+places it UNDETERMINED with the vertex change as the named candidate. **Proposed (not run):**
+P9's basis-status capture at 27 °C across [+0.02, +0.04] on these two axes. **No correction is
+proposed, because a vertex change is the model being an LP, not a defect.**
+
+**The registered candidate, the hard clip `np.clip(rk·fN, 1e-6, 1e6)`,** moved at D44 on two
+axes (topt_scale at 45 °C, tm_scale at 50 °C) and carried no curvature on either: not implicated.
+At the five diverse points it appears in one cell, coincident with a melting-point crossing and an
+excess of −0.0007. **Decision offered on 1.31: retain as is on all seven axes.** There is nothing
+to approve for application.
+
+**Diverse points (descriptive; refinement was registered at the parent only, so every row is
+UNDETERMINED by rule).** Two corrections were made to the trace script and are recorded in D9:
+the p38 and P4-MAP bases were first evaluated at their stored dTm (−4.02, −5.12) rather than the
+registered dTm = 0 — re-evaluated (−9.99 → −60.31; −10.98 → −55.85), as-stored values retained;
+and the refinement had stepped the plus side only — the minus side was added. At dTm = 0 neither
+p38 nor P4's MAP is the point its name suggests. The stencils show: the 15 °C feasibility
+boundary (status and scored mask moving, excess ±1.6) at p38 and red2_wmedian; the 27 °C-type
+cold-respiration event on topt_scale/dCp_scale again at the top-weight living sample (25 °C,
+−0.02); a melting-point crossing at P4-MAP's tm_scale; nothing above 0.033 at the living median.
+
+**No value changed:** the new log L equals the old at all 261 evaluations by construction.
 
 ---
 

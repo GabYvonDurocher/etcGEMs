@@ -411,3 +411,121 @@ the collision loses nothing, and it is recorded here rather than re-run.
 **Living count for TASK 3.** By D1's criterion (peak growth ≥ 50 % of 2.0761 /h) from the
 classification's own recorded growth: **35 of 800**. The living median of D1's rule is drawn from
 those 35; the number is stated in the trace log.
+
+## D9 — the trace ran (31.3 min); two script defects found on reading it, corrected to match the registration, registered here before the second correction's data are read
+
+**The run.** `task3_trace.py`, 18:46–19:18, single process, every evaluation fresh and under the
+300 s alarm; none timed out. All 58 D44 evaluations reproduce their saved log L — worst
+**8.9e-10** (`topt_scale_plus_0.04`) against D44's 1e-6 — and the per-datum terms reconcile to
+the code's total at every evaluation. Living among the 800 by D1's rule, from the classification's
+recorded growth: **35**; the living median is index 534; the top-weight living sample is 6260
+(weight rank 49 of the top 100); the weighted-median-log-L living sample is 6241 (5 living among
+the top-100-weight). `task3_trace.json` sha256 at exit `a759a1b9…`.
+
+**Defect 1 — the base of p38 and P4_MAP was evaluated at the stored 16-D θ, not at dTm = 0.**
+D1 registered *"dTm is 0 at all five"*; the stencils honour that (they pass through `expand`,
+which fixes dTm = 0) but `evaluate(th)` for the base took p38's stored dTm = **−4.0214** and P4's
+MAP dTm = **−5.1221**. Visible in the output: at both points every stencil on every axis sits
+~49.5 units below the base, and all seven "curvatures" are identical. Corrected by
+`task3_fixbase.py`: the two bases re-evaluated at dTm = 0 (p38 −9.9894 → **−60.3092**; P4_MAP
+−10.9788 → **−55.8534**, 15 °C infeasible), stored as `base`; the as-stored evaluations are
+**retained** under `base_as_stored_16D` (RIGOUR 3). Consequence, stated plainly: at dTm = 0
+neither p38 nor P4's MAP is the point its name suggests — both are ~50 units below their stored
+value — and the diverse-point table says so. The three red2 points are 15-D by construction and
+are unaffected.
+
+**Defect 2 — the refinement stepped only the plus side.** The docstring says "each axis's
+larger-step side"; the code steps `+h` unconditionally. The five-point stencils show that on
+**kcat_scale, sigma and clearance_mult** the interval that departs from linearity is
+**[−0.04, −0.02]** (sigma: a −0.025 kink at growth@30 °C; the plus-side series 0.374 → 0.185 →
+0.094 → 0.047 halves perfectly and never saw it). A SMOOTH verdict from the wrong side is not
+evidence about the carrying side. **Registered now, before running:** `task3_refine_minus.py`
+evaluates the same h, h/2, h/4, h/8 series on the **minus** side for all seven axes (28 fresh
+evaluations, same alarm, one job), appended as `refinements_minus`; the analysis then applies
+P14's rule to the series on each axis's **carrying side** (the interval of largest departure from
+the median step), reporting both sides. The plus-side series stay in the record.
+
+**Sharpening the mechanism test to what D7 says.** D7 asks whether a mechanism moves *at the same
+temperatures on the same interval* as the curvature difference. The first analysis used the union
+over all intervals and temperatures, which is looser than registered; `task3_analyse.py` now
+identifies the carrying interval (largest |step − median step|) and the carrying datum (largest
+per-datum departure on that interval) and tests m1–m5 **at that temperature on that interval**,
+printing the model O₂ and growth at that temperature across the five stencils beside it.
+
+**What the plus-side data already show at D44, recorded before the minus run so it cannot be
+adjusted by it:** on **topt_scale** and **dCp_scale** the carrying datum is **respiration at
+27 °C on [+0.02, +0.04]** (excess −0.074 and −0.065), where **no traced mechanism moves** — the
+clip moves at 45 °C (1 → 2 enzymes) on topt_scale, `above_Topt` at 35–40 °C — while the model's
+**O₂ at 27 °C drops 15.71 → 11.09** (topt_scale) and **15.68 → 15.02 → 11.10** (dCp_scale) with
+the LP status unchanged. Under D7 that is **UNDETERMINED (a)**: an untraced change of the optimal
+vertex at 27 °C is the candidate, and the O₂ path is the evidence for it.
+
+## D10 — TASK 3's classification under D7: five axes SUPPORTED, two UNDETERMINED, none an IMPLEMENTATION DEFECT; the clip moved twice without carrying any curvature; nothing is proposed for application
+
+Minus-side refinement: 28 evaluations, 3.1 min, none timed out; `task3_trace.json` sha256 at
+close `3576b1e8…`; `task3_classification.csv` `0c8733bf…` (D7's rule applied by
+`task3_analyse.py`, verdict from the carrying side, both sides recorded).
+
+### At D44's parent (the registered target of the classification)
+
+| axis | k(0.02) | k(0.04) | rel | carrying interval / datum | excess | refinement (carrying side; other side) | mechanism at the carrying T | class |
+|---|---|---|---|---|---|---|---|---|
+| dTopt | 4.528 | 3.601 | 0.205 | [+0.02,+0.04] resp@50 | −0.0005 | SMOOTH .483/.492/.497; SMOOTH | none | **SUPPORTED** (smooth, non-quadratic) |
+| topt_scale | 3.619 | 58.596 | 0.938 | [+0.02,+0.04] **resp@27** | **−0.074** | AMBIGUOUS .187/.491/.496; JUMP (minus) | none | **UNDETERMINED** (a) |
+| dCp_scale | 81.43 | 57.00 | 0.300 | [+0.02,+0.04] **resp@27** | **−0.065** | JUMP .078/1.281/.707; AMBIGUOUS (minus) | none | **UNDETERMINED** (a) |
+| tm_scale | 3.321 | 1.414 | 0.574 | [0,+0.02] resp@50 | −0.0013 | SMOOTH .493/.562/.483; SMOOTH | none | **SUPPORTED** |
+| kcat_scale | 16.44 | 22.81 | 0.279 | [−0.04,−0.02] resp@27 | +0.0065 | SMOOTH .430/.478/.484; SMOOTH | none | **SUPPORTED** |
+| sigma | −2.418 | −19.30 | 0.875 | [−0.04,−0.02] growth@30 | −0.020 | SMOOTH .536/.504/.499; SMOOTH | none | **SUPPORTED** |
+| clearance_mult | 2.454 | 2.733 | 0.102 | [−0.04,−0.02] resp@45 | +0.0016 | SMOOTH .477/.471/.509; SMOOTH | none | **SUPPORTED** |
+
+**The two UNDETERMINED axes are one phenomenon.** On both, the curvature difference is carried by
+the **respiration term at 27 °C on [+0.02, +0.04]**, where the LP status is `optimal` throughout,
+the scored mask is unchanged, no enzyme crosses its effective Topt or its shifted Tm at 27 °C,
+and no enzyme is newly clipped at 27 °C — while the model's O₂ at 27 °C moves
+**15.71 → 11.09** (topt_scale) and **15.68 → 15.02 → 11.10** (dCp_scale) as growth changes by
+0.5 %. A 30 % change in the tie-broken O₂ with growth continuous is a change of the optimal
+vertex — the kind P9 decomposed and P10 floored (the 1.42 log-O₂ floor is why the step is 0.07
+units and not 30). D7 names that mechanism untraced: this trace captures no basis. So the class
+is **UNDETERMINED (a)**, the candidate is the LP's vertex change at 27 °C, and the **proposed next
+instrument — not run — is P9's basis-status capture** (which reactions change basis across
+[+0.02, +0.04] on these two axes at 27 °C). No correction is proposed because no defect is
+identified; a vertex change is the model being an LP.
+
+**sigma, said precisely.** Its rel of 0.875 comes from growth at 30 °C reaching a ceiling:
+growth is 1.16063 at −0.04, 1.16806 at −0.02 and **1.16823 at −0.02, 0, +0.02, +0.04** (O₂
+22.7462 constant). That is a *slope* kink — a constraint becoming binding — not a value jump, and
+P14's instrument (a jump detector) correctly reads SMOOTH. It is the LP's piecewise-linear
+response, classified SUPPORTED by the rule; recorded so the reader does not mistake "smooth" for
+"quadratic".
+
+**The registered candidate did not carry anything.** `clipped_low` moved on **topt_scale at
+45 °C** (1 → 2 enzymes, [+0.02, +0.04]) and on **tm_scale at 50 °C** (39 → 42, [+0.02, +0.04]).
+On topt_scale the carrying datum is at 27 °C, where the clip did not move; on tm_scale the axis is
+SMOOTH on both sides with the 50 °C respiration excess at −0.0013. At D44 the hard clip
+`np.clip(rk·fN, 1e-6, 1e6)` is therefore **not implicated** in any of the seven curvature
+failures. **No IMPLEMENTATION DEFECT is identified; no correction is described for application;
+the decision 1.31 offers is "retain as is" on every axis, with the O₂-vertex instrument as the
+open follow-up on two.**
+
+### At the five diverse points
+
+D1 registered refinement at the parent only, so P14's verdict is NOT_RUN there and every row is
+**UNDETERMINED (refinement not run)** by D7 — the stencils are descriptive. What they describe,
+with the two script corrections of D9 in force:
+- **p38 at dTm = 0 (−60.31) and red2_wmedian (−19.09):** the carrying datum on 5 and 2 axes
+  respectively is **respiration at 15 °C with `status` and `scored` moving** (excess ±1.57 and
+  ±1.69) — the 15 °C solve crossing the feasibility boundary P13 characterised, category m1/m2.
+- **red2_top_weight_living (−19.07):** topt_scale and dCp_scale again carry at a cold respiration
+  datum (25 °C, −0.020 and −0.016) with nothing traced moving — the D44 pattern at a living
+  posterior sample; tm_scale has `clipped_low` and `past_Tm` moving together at 50 °C with an
+  excess of −0.0007, i.e. nothing to attribute.
+- **P4_MAP at dTm = 0 (−55.85):** tm_scale carries at resp@50 (+0.134) with `past_Tm` moving —
+  a melting-point crossing, physiological if the refinement were run.
+- **red2_6800_living_median (−18.02):** all excesses ≤ 0.033, nothing traced moving.
+The clip appears at exactly one diverse-point cell, coincident with a physiological move and with
+a negligible excess. Adverse examples are retained: the as-stored 16-D bases (D9), the JUMP
+reading on topt_scale's minus side, and every NOT_RUN row.
+
+**Confirmation:** no value was changed anywhere; the new log L equals the old at every one of
+58 + 28 + 28 + 2 + 5 × 29 = 261 evaluations by construction (the trace calls the unchanged
+likelihood), and the 58 saved values are reproduced to ≤ 8.9e-10.
