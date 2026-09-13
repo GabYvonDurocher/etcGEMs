@@ -359,3 +359,36 @@ which, in 15 dimensions, it plainly can. **Likelihood ratio loses to volume rati
    handling (1.21 chose `clamp` precisely to charge dead models more), the prior volumes, or a
    missing constraint is a modelling question, and it is now stated with a number rather than
    suspected.
+
+## D7 — completed-seed audit, 12 September: the agreement rule FAILS
+
+Both runs met dlogz<0.1 without crashing. Log evidences agree: difference 0.022486 against
+combined reported error 0.147777. But 14/15 marginal medians fail the existing two-MC-error
+check; only dTopt passes. The same 14 fail a supplementary dynesty strand bootstrap.
+**D3's verdict is DISAGREED. No further parameter is fixed and no new sampler is launched.**
+
+The full audit is `audit_report.md`. Separate audit_* tables preserve every original result.
+Both covariances are importance-weighted in the prior unit cube; eigen-width counts are
+4 constrained / 6 intermediate / 5 prior-dominated in red1, versus 6 / 6 / 3 in red2.
+These are diagnostics of disagreeing runs, not established biological identification.
+Neither run has tm_scale mass near 2.2; medians/5–95 are 1.069/[0.793,1.515] and
+0.956/[0.783,1.228]. Every statement conditions on dTm=0 and the measured meltome mean
+being exact; uniform mean error is excluded and must be absorbed elsewhere.
+
+**Corrections to D5:** its correlations were unweighted. The weighted three pairs are
++0.370/-0.639/+0.298 in red1 and +0.307/-0.393/-0.040 in red2. None shows the specified
+broad-pair/tight-orthogonal pattern at the registered width thresholds. This does NOT prove
+individual identification; broad marginals and seed disagreement prevent that conclusion.
+Live points occupy a likelihood-constrained region, not the posterior or literally one
+iso-likelihood shell. The dimensional reduction also changes the posterior being compared.
+
+**Qualification to D6:** its seed-1 predictive numbers remain a recorded diagnostic, but
+"this is not a sampling failure" is not established by a single stopping criterion and
+ESS. Seed 2 has not yet been tested for the same predictive fraction. The inactive f_metab
+parameter should reproduce its prior; its unit-cube mean is instead 0.319/0.394 versus
+0.5, a useful null test identifying a computational inference problem to investigate.
+Original arrays, weights and restored unit-cube coordinates cross-check, so this is not
+an obvious audit alignment error. The exact sampling failure mechanism remains unproven.
+
+P16's original MASK_G and 15 C predictions, line-scan classifications and D6 predictive
+R2 reporting remain unassessed. The posterior-dependent programme is not unblocked.
