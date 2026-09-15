@@ -1,0 +1,10 @@
+{
+ "rows": 13,
+ "neg_inf_rows": 7,
+ "finite_rows": 6,
+ "finite_within_1e_9": 2,
+ "finite_within_1e_6": 6,
+ "max_finite_diff": 1.8548007574281655e-09,
+ "positive_measurements_unscored_under_omission": 73,
+ "unscored_now": 0
+}

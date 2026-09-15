@@ -1,0 +1,23 @@
+{
+ "run": 1,
+ "seed": 17304,
+ "converged_on_dlogz": true,
+ "nlive": 100,
+ "sample": "rslice",
+ "slices": 3,
+ "bound": "multi",
+ "dlogz": 0.1,
+ "nproc": 4,
+ "D": 15,
+ "iters": 1370,
+ "ncall": 19888,
+ "unit_cube_ncall": 1265,
+ "wall_s": 3.1,
+ "wall_h": 0.001,
+ "evals_per_s": 6416.15,
+ "logz": -12.751660128977697,
+ "logzerr": 0.2773834238927142,
+ "n_eff": 824.9002322774643,
+ "eff_percent": 7.391391794046661,
+ "finished": "2026-09-13 22:37:28"
+}

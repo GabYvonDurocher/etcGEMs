@@ -136,6 +136,29 @@ gas_exchange:
                               # min(1, growth / 0.01), continuous, instead of switching in or out
                               # as growth crosses 1e-4 -- 13 of P9's 33 cliff steps were that
                               # switch, not O2 (P10 D2).
+    infeasible: zero_lik      # T2 (2026-09-13), APPROVED by the PI (OPEN_ITEMS 1.30; T1's package,
+                              # section 2). "exempt" is the code as it was: a temperature whose LP
+                              # is infeasible contributed nothing, so 765 of the 800 validated live
+                              # points of P16's run -- infeasible at every measured temperature --
+                              # scored the growth term alone and out-competed most living points.
+                              # "zero_lik": Gurobi `infeasible` at ANY measured temperature gives the
+                              # parameter set zero likelihood (-inf), the limit of the existing
+                              # log-scale term. Temperatures are solved coldest first and the first
+                              # infeasibility returns at once (one solve per dead draw). A
+                              # non-optimal, non-infeasible status goes through the registered retry
+                              # ladder (1e-12 tolerances, then dual simplex); a solve failing every
+                              # rung is UNRESOLVED -- an exception, never a number. Feasible states,
+                              # growing or not, are scored exactly as before (clamp).
+                              # Registered in reports/T2_validated_posterior/DECISIONS.md D0.
+
+  calibration:                # T2 (2026-09-13): the SAMPLED set of the gas-flux calibration.
+    remove_inactive: [f_metab]  # APPROVED by the PI (OPEN_ITEMS 1.29; T1's package, section 1):
+                              # configuration D's growth-law allocation computes f_metab,0 from
+                              # f_maint and f_bio,0 and ignores the sampled value (enzyme_cost.py,
+                              # set_allocation, growth_law branch; T1 D2), so the coordinate is
+                              # removed from the sampled set and its normalised prior integrates
+                              # out to factor one. PROVEN inert at 870 points (T1, max 2.02e-08).
+                              # f_maint stays sampled (pool and ATPM bounds).
 
   overflow_line:              # Basan et al. 2015, Nature 528:99 (doi:10.1038/nature15765),
     exchange_rxn: EX_ac_e     # Fig. 1: threshold lambda_ac ~ 0.76 /h (stated) and a red-line

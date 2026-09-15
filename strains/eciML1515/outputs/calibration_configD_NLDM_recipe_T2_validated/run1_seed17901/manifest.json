@@ -1,0 +1,38 @@
+{
+ "run": 1,
+ "seed": 17901,
+ "started": "2026-09-13 22:48:07",
+ "nlive": 800,
+ "sample": "rslice",
+ "slices": 3,
+ "bound": "multi",
+ "dlogz": 0.1,
+ "first_update": {
+  "min_eff": 30
+ },
+ "nproc": 16,
+ "toy": false,
+ "D": 16,
+ "hashes": {
+  "reports/T2_validated_posterior/run_protocol.py": "055ecf07172b0fa76fd833fae03ea75db30feefd27cb213645d3305a37d1e331",
+  "reports/T2_validated_posterior/t2_target.py": "93c8b153886c1c47f75502220f715bf17e9fc516d3fff42b437e4ef0a6f0b71d",
+  "reports/T2_validated_posterior/t2_prior.py": "256576abb254133c1e6cd236d80ba171c1273880f172081ea129f6df993954b8",
+  "src/etcgem/calibration_multi.py": "aa25cce1fb8029f4ea999cc8a702ca3a39b76b4efe083106d5929bd1f8c7aef0",
+  "src/etcgem/gasflux.py": "45640b5d71d17170d04cf90526fce47a2528039cd2f2761abc19f80e44d04308",
+  "src/etcgem/enzyme_cost.py": "2eb82f3b2febf1786058584226a86b12029b19435eaccd4d6149f64fe8f70d19",
+  "src/etcgem/tpc.py": "9684428afbec764736e358780d4a12f020e9797791b8caf635e2d220e34caaec",
+  "strains/eciML1515/gas_exchange.yaml": "0ab5ed69a7f896b58c8fbed67da441a029e7691c53c86fc5e86e973173e395b8",
+  "configs/experiments/gasflux_configD.yaml": "85fc8cb1461a97ed36f19c62dee8be9614ebdd4e9eabf83058074615f45d53a5",
+  "docs/VALIDATION_PROTOCOL.md": "5eab0f0dbf381a43da55dd2f156d09ac57828c6ffd5962d4de4410ce8ac2a70a"
+ },
+ "registration_commit": "dad7e4fea855ed1f65b6f098f8ca03000d7d21e1",
+ "output_hashes": {
+  "samples": "82d12b50903849fe500ad0e0a33c6e7d9f1f5194ec9bb5eac7f56ef21a57b236",
+  "samples_u": "9c8685fa0a3bed425d0716001835ba782c1821091d997cef09cfdc0d377e8653",
+  "logwt": "7597deb08cd9d3cb185b4c34d51b9673fbc4cdc1f73a9d15bb14489354ef2284",
+  "logl": "84d00a17f5f2587b4909f5c14f9bcd01f59569c4fa8c9aff745c1e38eca21e86",
+  "logvol": "fd8a305b98c75051c0bdd42fd498a5959211a9dad60b9f3315927d0368fb47e4",
+  "logz": "f76a8d027772b32ab1b78b019d4e4d76ebc9b22c44bf3be40b77e9ecaf1b2fc9"
+ },
+ "finished": "2026-09-14 10:01:35"
+}

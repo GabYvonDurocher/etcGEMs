@@ -44,6 +44,40 @@ def _flux(m, rid):
 TIEBREAKS = ("none", "pfba", "min_o2", "max_o2")
 
 
+class UnresolvedSolve(RuntimeError):
+    """(T2) A solve that is neither optimal nor infeasible after the registered retry ladder --
+    a FAILED EVALUATION, never a number. Carries the temperature and the rung statuses."""
+
+    def __init__(self, temperature, statuses):
+        self.temperature, self.statuses = temperature, list(statuses)
+        super().__init__(f"unresolved solve at T={temperature}: statuses {list(statuses)}")
+
+
+def _ladder(m, first_status):
+    """(T2) The registered retry ladder (reports/T2_validated_posterior/DECISIONS.md D0) for a
+    solve whose status is neither optimal nor infeasible: rung 2 re-solves at 1e-12
+    optimality/feasibility tolerances, rung 3 with dual simplex (Method=1). Parameters are
+    restored afterwards. Returns (status, statuses_seen); the caller raises UnresolvedSolve if
+    the final status is still neither optimal nor infeasible."""
+    statuses = [str(first_status)]
+    gp = m.solver.problem
+    saved = {name: gp.getParamInfo(name)[2] for name in ("OptimalityTol", "FeasibilityTol", "Method")}
+    # Rung 2 re-solves at the TIGHTEST tolerances Gurobi accepts: its documented minimum for both
+    # OptimalityTol and FeasibilityTol is 1e-9 (setParam refuses 1e-12 -- T2 D3). Read from the
+    # parameter info rather than hard-coded, so a solver with a different floor is honoured.
+    tol = max(float(gp.getParamInfo("OptimalityTol")[3]), float(gp.getParamInfo("FeasibilityTol")[3]))
+    try:
+        gp.setParam("OptimalityTol", tol); gp.setParam("FeasibilityTol", tol)
+        m.slim_optimize(); st = str(m.solver.status); statuses.append(f"{st}@tol{tol:g}")
+        if st not in ("optimal", "infeasible"):
+            gp.setParam("Method", 1)
+            m.slim_optimize(); st = str(m.solver.status); statuses.append(f"{st}@dual")
+    finally:
+        for name, val in saved.items():
+            gp.setParam(name, val)
+    return st, statuses
+
+
 def _tiebroken_solve(m, g, tiebreak, growth_tol, o2_fwd="EX_o2_e", o2_rev="EX_o2_e_REV"):
     """(P10) Re-solve with growth held at its optimum and a second objective, so the exchange
     fluxes read off the vertex are a FUNCTION of the model and not of the solver's path:
@@ -77,7 +111,8 @@ def flux_tpc(pm, temps_C: Sequence[float], pert: Optional[Perturbation] = None,
              metabolites: Sequence[str] = ("o2", "co2"),
              exchange_fmt: str = "EX_{met}_e",
              min_growth: float = 1e-6,
-             tiebreak: str = "none", growth_tol: float = 1e-6, tiebreak_tol: float = 1e-9) -> pd.DataFrame:
+             tiebreak: str = "none", growth_tol: float = 1e-6, tiebreak_tol: float = 1e-9,
+             stop_on_infeasible: bool = False, retry_ladder: bool = False) -> pd.DataFrame:
     """Growth **and exchange fluxes** vs temperature.
 
     Identical model states to :func:`etcgem.tpc.compute_tpc` -- both call
@@ -86,6 +121,13 @@ def flux_tpc(pm, temps_C: Sequence[float], pert: Optional[Perturbation] = None,
     forward/reverse exchange pair is found with ``exchange_fmt`` and its ``_REV`` partner, the
     GECKO convention. Returns one row per temperature with ``<met>_uptake`` and
     ``<met>_release`` (uptake positive), plus the solver status.
+
+    ``stop_on_infeasible`` / ``retry_ladder`` (T2, both default False = unchanged behaviour): with
+    the first, the loop returns at the first ``infeasible`` temperature with the rows solved so
+    far and ``df.attrs["infeasible_at"]`` set (the approved zero-likelihood short-circuit); with
+    the second, a status that is neither optimal nor infeasible -- for the growth solve or the
+    tie-break solve -- goes through :func:`_ladder`, and a solve failing every rung raises
+    :class:`UnresolvedSolve` instead of returning a row.
 
     ``tiebreak`` (P10, default ``"none"`` = the single growth-objective solve every earlier run
     used): ``"pfba"`` re-solves with growth held at its optimum (to ``growth_tol``, relative) and
@@ -112,7 +154,8 @@ def flux_tpc(pm, temps_C: Sequence[float], pert: Optional[Perturbation] = None,
         except Exception:
             _restored = {}
     try:
-        return _flux_tpc_body(pm, temps_C, pert, metabolites, exchange_fmt, min_growth, tiebreak, growth_tol)
+        return _flux_tpc_body(pm, temps_C, pert, metabolites, exchange_fmt, min_growth, tiebreak, growth_tol,
+                              stop_on_infeasible, retry_ladder)
     finally:
         try:
             for name, val in _restored.items():
@@ -121,22 +164,41 @@ def flux_tpc(pm, temps_C: Sequence[float], pert: Optional[Perturbation] = None,
             pass
 
 
-def _flux_tpc_body(pm, temps_C, pert, metabolites, exchange_fmt, min_growth, tiebreak, growth_tol):
+def _flux_tpc_body(pm, temps_C, pert, metabolites, exchange_fmt, min_growth, tiebreak, growth_tol,
+                   stop_on_infeasible=False, retry_ladder=False):
     pert = pert or Perturbation()
     ecm = pm.ec
     m = ecm.model
     temps_C = np.asarray(temps_C, dtype=float)
     rows = []
+    infeasible_at = None
     for Tc in temps_C:
         apply_state(ecm, float(Tc), pert)
         g = m.slim_optimize()
-        feasible = (str(m.solver.status) == "optimal") and (g is not None) and np.isfinite(g)
+        st = str(m.solver.status)
+        if retry_ladder and st not in ("optimal", "infeasible"):
+            st, seen = _ladder(m, st)
+            if st not in ("optimal", "infeasible"):
+                raise UnresolvedSolve(float(Tc), seen)
+            g = m.objective.value if st == "optimal" else g
+        feasible = (st == "optimal") and (g is not None) and np.isfinite(g)
         row = {"temp_C": float(Tc),
                "growth": float(g) if (feasible and g >= min_growth) else 0.0,
-               "status": str(m.solver.status)}
+               "status": st}
+        if stop_on_infeasible and st == "infeasible":
+            for met in metabolites:
+                row[f"{met}_uptake"] = np.nan
+                row[f"{met}_release"] = np.nan
+            rows.append(row)
+            infeasible_at = float(Tc)
+            break
         if feasible and tiebreak != "none" and g >= min_growth:
             with m:
                 st2 = _tiebroken_solve(m, g, tiebreak, growth_tol)
+                if retry_ladder and st2 not in ("optimal", "infeasible"):
+                    st2, seen2 = _ladder(m, st2)
+                    if st2 not in ("optimal", "infeasible"):
+                        raise UnresolvedSolve(float(Tc), ["tiebreak"] + seen2)
                 row["tiebreak_status"] = st2
                 ok = st2 == "optimal"
                 for met in metabolites:
@@ -156,7 +218,9 @@ def _flux_tpc_body(pm, temps_C, pert, metabolites, exchange_fmt, min_growth, tie
                 row[f"{met}_uptake"] = np.nan
                 row[f"{met}_release"] = np.nan
         rows.append(row)
-    return pd.DataFrame(rows)
+    df = pd.DataFrame(rows)
+    df.attrs["infeasible_at"] = infeasible_at
+    return df
 
 
 def respiratory_quotient(df, o2_col="o2_uptake", co2_col="co2_release"):

@@ -1,0 +1,31 @@
+{
+ "run": 1,
+ "seed": 17305,
+ "started": "2026-09-13 22:39:14",
+ "nlive": 3000,
+ "sample": "rslice",
+ "slices": 3,
+ "bound": "multi",
+ "dlogz": 0.1,
+ "first_update": {
+  "min_eff": 30
+ },
+ "nproc": 1,
+ "toy": true,
+ "D": 15,
+ "hashes": {
+  "reports/T2_validated_posterior/run_protocol.py": "055ecf07172b0fa76fd833fae03ea75db30feefd27cb213645d3305a37d1e331",
+  "reports/T2_validated_posterior/t2_target.py": "93c8b153886c1c47f75502220f715bf17e9fc516d3fff42b437e4ef0a6f0b71d",
+  "reports/T2_validated_posterior/t2_prior.py": "256576abb254133c1e6cd236d80ba171c1273880f172081ea129f6df993954b8"
+ },
+ "registration_commit": "05845a4178e5c8690d1f07f6a79530dc44d57f74",
+ "output_hashes": {
+  "samples": "3447ab933f074a1f5d27a5526253a76c3f0d97a012853f4e3bcb6b04df2ec1cb",
+  "samples_u": "3447ab933f074a1f5d27a5526253a76c3f0d97a012853f4e3bcb6b04df2ec1cb",
+  "logwt": "759375e45e6d5f530ab5b2c83a3c3ba5f7c109d63ef68a985fe296ece561cfcb",
+  "logl": "976ba4e575a21ca8259462b80412a0c02be16d5357914e1f52f7cd538d41c929",
+  "logvol": "77313cb68bd71e35b6f959ccda5f380b9e5352a5d38b6cca3659e28bf7a386d4",
+  "logz": "88cde01c7d9de66eb3088a2cce26a59c9e75424d827df6f7eff960f9ca9e26dd"
+ },
+ "finished": "2026-09-13 22:40:26"
+}

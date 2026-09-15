@@ -1,0 +1,17 @@
+{
+ "stage": "task6_done",
+ "timestamp": "2026-09-15T20:43:00",
+ "branch": "t2/validated-posterior",
+ "head": "a5c3bbe",
+ "runs_complete": 2,
+ "runs_audited": 2,
+ "driver_pid": null,
+ "last_note": "records written; R1 OPEN; PR opened unmerged",
+ "current_run": 3,
+ "iteration": 9288,
+ "dlogz": 2.6193445888150784,
+ "wall_h": 7.068,
+ "ncall": 136647,
+ "unit_cube_ncall": 7462,
+ "stopped_reason": "CRASH"
+}

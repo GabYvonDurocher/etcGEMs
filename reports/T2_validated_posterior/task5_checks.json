@@ -1,0 +1,169 @@
+{
+ "verdict": "R1 OPEN",
+ "all_pass": false,
+ "runs_judged": 2,
+ "runs_required": 5,
+ "runs_absent": [
+  3,
+  4,
+  5
+ ],
+ "thresholds": {
+  "a_dist": 0.05,
+  "a_mean": 0.05,
+  "b_correct": 0.05,
+  "b_wrong": 0.3,
+  "c_mc": 2.0,
+  "c_cos": 0.9,
+  "c_width": 0.1,
+  "d_se": 2.0,
+  "e_unres": 0.01,
+  "e_cover": 10,
+  "f_logz": 1e-09,
+  "f_w": 1e-12,
+  "f_cube": 1e-14
+ },
+ "checks": {
+  "f:run1:audit": {
+   "PASS": true,
+   "logz_err": 0.0,
+   "weights": 1.0080825063596421e-13,
+   "cube": 5.551115123125783e-16,
+   "failed": []
+  },
+  "f:run2:audit": {
+   "PASS": true,
+   "logz_err": 0.0,
+   "weights": 7.549516567451064e-15,
+   "cube": 5.551115123125783e-16,
+   "failed": []
+  },
+  "f:logz:1v2": {
+   "PASS": false,
+   "dz": 0.33999031509758737,
+   "combined_err": 0.14867183324660563
+  },
+  "a:run1": {
+   "PASS": true,
+   "cdf_distance": 0.043829379442072436,
+   "cdf_mean": 0.47688326533516123
+  },
+  "b:run1": {
+   "PASS": false,
+   "correct_b3_distance": 0.2589789265387853,
+   "wrong_uniform_distance": 0.29234199721158516
+  },
+  "a:run2": {
+   "PASS": false,
+   "cdf_distance": 0.08805349674250884,
+   "cdf_mean": 0.5084124214904061
+  },
+  "b:run2": {
+   "PASS": false,
+   "correct_b3_distance": 0.11856001425734486,
+   "wrong_uniform_distance": 0.3699278217848574
+  },
+  "c:medians": {
+   "PASS": false,
+   "n_fail": 14,
+   "worst": {
+    "pair": "1v2",
+    "parameter": "disc_growth",
+    "diff": 0.2958855922261743,
+    "err": 0.004576684847256762,
+    "mc": 64.6506373283549,
+    "ok": false
+   }
+  },
+  "c:eigenvectors": {
+   "PASS": false,
+   "n_fail": 3,
+   "min_abs_cos": 0.012609045369659483
+  },
+  "c:widths": {
+   "PASS": true,
+   "n_fail": 0,
+   "max_width_diff": 0.0896800061215205
+  },
+  "d:run1": {
+   "PASS": true,
+   "run_fraction": 0.161,
+   "reference_fraction": 0.1645,
+   "diff": -0.003500000000000003,
+   "se_diff": 0.011673150281736289,
+   "infeasible_with_weight": 0,
+   "first_T": {
+    "15.0": 320,
+    "47.0": 1,
+    "50.0": 1
+   }
+  },
+  "d:run2": {
+   "PASS": true,
+   "run_fraction": 0.145,
+   "reference_fraction": 0.1645,
+   "diff": -0.019500000000000017,
+   "se_diff": 0.011436889327959766,
+   "infeasible_with_weight": 0,
+   "first_T": {
+    "15.0": 287,
+    "50.0": 3
+   }
+  },
+  "e:run1": {
+   "PASS": false,
+   "unresolved_rate": 0.0,
+   "coverage_growth": 8,
+   "coverage_resp": 11,
+   "unscored_positive": 0,
+   "infeasible_temps_in_draws": 0,
+   "living_fraction": 0.986
+  },
+  "e:run2": {
+   "PASS": false,
+   "unresolved_rate": 0.0,
+   "coverage_growth": 8,
+   "coverage_resp": 11,
+   "unscored_positive": 0,
+   "infeasible_temps_in_draws": 0,
+   "living_fraction": 0.976
+  }
+ },
+ "failed": [
+  "f:logz:1v2",
+  "b:run1",
+  "a:run2",
+  "b:run2",
+  "c:medians",
+  "c:eigenvectors",
+  "e:run1",
+  "e:run2"
+ ],
+ "living_fraction": {
+  "1": 0.986,
+  "2": 0.976
+ },
+ "runs": {
+  "1": {
+   "seed": 17901,
+   "iters": 15277,
+   "ncall": 235542,
+   "unit_cube_ncall": 6229,
+   "wall_h": 11.224,
+   "logz": -27.706598632439185,
+   "logzerr": 0.1101538835861247,
+   "n_eff": 10400.270125662932
+  },
+  "2": {
+   "seed": 17902,
+   "iters": 13465,
+   "ncall": 206277,
+   "unit_cube_ncall": 6457,
+   "wall_h": 13.387,
+   "logz": -28.046588947536772,
+   "logzerr": 0.09984706270993154,
+   "n_eff": 7898.773042475394
+  }
+ },
+ "wall_min": 3.7
+}

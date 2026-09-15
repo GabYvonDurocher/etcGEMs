@@ -1,0 +1,16 @@
+{
+ "stage": "driver_finished",
+ "timestamp": "2026-09-13T22:40:26",
+ "branch": "t2/validated-posterior",
+ "head": "05845a4",
+ "runs_complete": 1,
+ "runs_audited": 1,
+ "driver_pid": null,
+ "last_note": "all 1 runs complete and audited",
+ "current_run": 1,
+ "iteration": 44190,
+ "dlogz": 0.09999564420567708,
+ "wall_h": 0.019,
+ "ncall": 677023,
+ "unit_cube_ncall": 11913
+}

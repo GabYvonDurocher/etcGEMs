@@ -166,3 +166,18 @@ applied at the next render. Evidence rows **P15a–P15d**.
 | anywhere `dTm` is discussed | two independent routes now agree | Y3 found `dTm`/`tm_scale` non-identified by **profiling the likelihood**; P15 found the same pair by watching a **sampler's live points collapse onto it**. The agreement of two unrelated methods is stronger than either [P15c]. |
 
 No re-render.
+
+## Correction note — 2026-09-15 (T2): the revised target is in, the first validated posterior is not, and the reason is the solver's memory
+
+Extends the notes above. Not edited into `synthesis.qmd`; to be applied at the next render. Evidence
+rows **T2a–T2e**; `reports/T2_validated_posterior/report.md`.
+
+| where in `synthesis.qmd` | what must change | what the evidence says |
+|---|---|---|
+| the likelihood's definition | add the approved revision | `f_metab` is no longer sampled (it never entered configuration D); a parameter set infeasible at any measured temperature has zero likelihood — the limit of the existing log-scale term, not a penalty [T2a]. The dead stratum that carried 81.5 % of P16's posterior weight is excluded, not occupied. |
+| anywhere "96 % of the prior is dead" might be written | do not write it | 16.45 % [14.9, 18.1] of a defensible prior is infeasible, firing at 15 °C; ~32 % is living [T2b]. |
+| anywhere a posterior is anticipated | still none, for a new reason | Three reserved-seed runs: one crashed on a live point whose stored likelihood a fresh evaluation cannot reproduce (+1.28); the two that finished disagree in evidence, in 14 of 14 medians and in direction, and fail the Beta(3,1) control on a coordinate proven inert [T2d, T2e]. The blocker is the warm solver's path dependence, item 1.34 — not the target, not the −∞ rule. |
+| the model-versus-data discussion | one calibrated finding, held loosely | Both finished runs under-predict the 35–43 °C growth peak: 2.076 /h measured against a predictive 97.5 % of ≈ 1.62 [T2e]. Unvalidated runs; the direction agrees with E5's uncalibrated 2.3× gap. |
+
+No re-render.
+

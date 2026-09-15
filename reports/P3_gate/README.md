@@ -56,3 +56,18 @@ maximises, not of the *prediction* this gate compares. A future change that move
 mask into `flux_tpc` itself would touch this gate, and would need this note revisited.
 
 The gate's history is not rewritten.
+
+## Dated note — 2026-09-13 (T2): two approved target-revision options switched ON for eciML1515; this gate is unaffected
+
+`strains/eciML1515/gas_exchange.yaml` now sets `respiration.infeasible: zero_lik` (a parameter set
+whose LP is infeasible at any measured temperature has zero likelihood, −∞; OPEN_ITEMS 1.30) and
+`calibration.remove_inactive: [f_metab]` (the coordinate the growth-law allocation ignores is no
+longer sampled; 1.29). Both are properties of the **calibration likelihood and its sampled set**;
+`gate_def.py` calls `flux_tpc` with its defaults and never reads either. **Verified, not asserted:**
+`gate_def_table.csv` re-run with both options ON is **byte-identical** to the committed table
+(`reports/T2_validated_posterior/task1_p3_gate.log`), so growth R² and configuration D's
+respiration R² at Parsa's θ are unchanged in every row. And the −∞ rule could only have touched a
+gate point that is infeasible somewhere: Parsa's D NLDM θ — MAP and posterior median, under the
+recipe and the blanket medium — is `optimal` at **all twelve measured temperatures**
+(`task1_parsa_feasible.json`; the dense 8–55 °C grid has 0–3 non-optimal points at its extremes,
+outside the measured range). The gate's history is not rewritten.
