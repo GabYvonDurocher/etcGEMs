@@ -6,7 +6,7 @@
 
 *Evidence:* `python reports/P3_gate/gate_def.py` regenerates gate_def_table.csv; the c_max change is reproduced by re-running gasflux_configB and gasflux_configB_cmax60.
 
-**This report was last written at** `dea5535` (2026-09-10) — P13: gate and surface -- clamp adopted for eciML1515; TASK 3 FAILS and TASK 4 does not run
+**This report was last written at** `22ffd2e` (2026-09-13) — T2: TASK 1 -- infeasible: zero_lik and remove_inactive: [f_metab] as core options default OFF; gates OFF 79/79 60/60 byte-identical; ON for eciML1515; P3 gate table byte-identical; Parsa's theta feasible at all 12 T; status task1_done
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 

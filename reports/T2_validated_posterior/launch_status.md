@@ -73,3 +73,6 @@ outputs `dryrun/`.
 | 2026-09-13 22:16 | task2_done | invariant 876/876 as predicted; rejection 16.45 % [14.9, 18.1] |
 | 2026-09-13 22:42 | task3_done | diagnostics inert (exact); driver dry run + kill-and-resume proven |
 | 2026-09-13 22:42 | driver_running | launched pid 83007; 10-min check passed 22:52 (run 1 it 252, draws accumulating); expected finish 2026-09-15 evening to 09-16 morning |
+| 2026-09-15 07:45 | driver_stopped | CRASH in run 3 (slice sampler; stored likelihood not reproducible); runs 1-2 complete and audited |
+| 2026-09-15 20:40 | task5_done | R1 OPEN; blocker named (1.34) |
+| 2026-09-15 20:50 | task6_done | records written; PR opened, unmerged |

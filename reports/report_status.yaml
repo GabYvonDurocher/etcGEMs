@@ -598,3 +598,25 @@ T1_target_revision:
     task3_analyse.py its D7 classification; gates_worktree.sh the seven-strain
     battery in the worktree. Input hashes are recorded in task1_invariant.json and the trace's
     JSON; the red2/6800 set lives only in the archive worktree.
+
+T2_validated_posterior:
+  status: CURRENT
+  note: >-
+    Implements the PI's four decisions on T1's package (f_metab removed; -inf for structural
+    infeasibility; no curvature correction; protocol signed with (d) amended to the prior-rejection
+    fraction), gates them (79/79, 60/60 byte-identical OFF; P3 gate byte-identical ON), re-verifies
+    T1's instruments under the revision (876-point invariant exactly as predicted; datum table;
+    short-circuit; prior rejection 16.45 % [14.9, 18.1] firing at 15 C -- item 1.33), proves the two
+    diagnostic coordinates inert by exact Perturbation equality, and runs the protocol's reserved-seed
+    runs in a detached idempotent self-auditing driver (kill-and-resume proven bit-identical). Verdict
+    R1 OPEN: run 3 crashed on a live point whose stored likelihood is 1.28 above its fresh value (four
+    of 800 such points); runs 1 and 2 disagree in log Z, in 14 of 14 medians and in direction, and fail
+    the Beta(3,1) control on a coordinate proven inert. The blocker is the warm pool worker's LP path
+    dependence (item 1.34), not the revision. No posterior quoted; seeds 17901-17903 consumed.
+  evidence: >-
+    run_protocol.py (driver; --toy for the dry run); task2_invariant.py, task2_datum.py,
+    task2_shortcircuit.py, task2_rejection.py (TASK 2; ~15 min); task3_diagnostics.py (~11 min);
+    task5_livepoints_all.py (all live points fresh, ~8 min in a pool), task5_judge.py (protocol checks on
+    the complete runs, ~4 min); run outputs and checkpoints under
+    strains/eciML1515/outputs/calibration_configD_NLDM_recipe_T2_validated/.
+

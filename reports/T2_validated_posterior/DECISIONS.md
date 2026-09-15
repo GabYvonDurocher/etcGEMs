@@ -475,3 +475,30 @@ the nested sampler's ordering is violated, one run crashed on it, and the two th
 not agree.* The approved target revision (f_metab removed; −∞ for infeasibility) is implemented,
 gated and verified and is **not** the cause. No posterior is quoted. No threshold is revisited, no
 sampler changed, no seed reused; runs 4–5 are not started. `status.json` → `task5_done`.
+
+## D12 — TASK 6: recorded and reconciled; the PR is opened and not merged
+
+`report.md`; OPEN_ITEMS — 1.29–1.32 closed by dated addition (executed, not merely decided),
+**1.33** opened with the rejection number and its firing temperature, **1.34** opened as the R1
+blocker, R1's row restated, §0b restated (the live sequence is now the reproducibility remedy,
+then five runs on new reserved seeds), 1.17 re-costed from the driver's measured 11.2–13.4 h per
+run, two §4 hazards added (the detached-driver rule; the warm-solver rule); evidence rows
+T2a–T2e; synthesis README correction note; `report_status.yaml` entry; stamps.
+
+**Reconciliation (§0c, RIGOUR).** R1 moves from "surface sampleable; mode structure unknown" to
+**OPEN with the blocker named**; R2 is clarified further (f_metab removed; tm_scale railing
+recorded); R3 and R4 untouched. Retracted or qualified by dated note: the "~96 % of the prior"
+premise (T2b), T1's "rung 2 at 1e-12" (D3), the driver's run-1 projection (D9). What this does not
+license: any posterior summary, any statement about E, F, M9 or another organism, any change to a
+threshold, sampler or seed. RIGOUR by number: 1 — D0 committed alone before anything ran, D5/D10
+registered before their data; 2 — the 1e-9 datum miss and the 1e-12 diagnostics bar reported as
+failed, not moved; 3 — the crashed run, its checkpoint, the first diagnostics attempt and the dry
+run's non-interrupted attempt all retained; 4 — every correction a dated addition; 5 — (a)
+passing on run 1 certified nothing; 6 — 17901–17903 used once each by the driver, 17904–17905
+unused; 7 — every batch and both finished runs audited by independent reconstruction before
+interpretation, and all 2,400 live points re-evaluated fresh; 8 — every job under an alarm, one
+at a time, the driver's caps untouched; 9 — the target unchanged beyond the approved revision;
+10 — the blocker recorded, no relaunch to "try again"; 11 — #40's base read before merging.
+
+`status.json` → `task6_done`. The primary tree still holds the untracked REDIRECT and its stale
+`index.lock`; `driver.pid` names the dead pid 83007 and stays as the record of the stop.
