@@ -1,16 +1,16 @@
 {
  "stage": "driver_running",
- "timestamp": "2026-09-13T22:53:24",
+ "timestamp": "2026-09-15T06:42:03",
  "branch": "t2/validated-posterior",
- "head": "dad7e4f",
- "runs_complete": 0,
- "runs_audited": 0,
+ "head": "02fd1a7",
+ "runs_complete": 2,
+ "runs_audited": 2,
  "driver_pid": 83007,
- "last_note": "run 1 seed 17901 it 503 dlogz 51.098",
- "current_run": 1,
- "iteration": 503,
- "dlogz": 51.0981262009704,
- "wall_h": 0.088,
- "ncall": 1498,
- "unit_cube_ncall": null
+ "last_note": "run 3 seed 17903 it 9288 dlogz 2.619",
+ "current_run": 3,
+ "iteration": 9288,
+ "dlogz": 2.6193445888150784,
+ "wall_h": 7.068,
+ "ncall": 136647,
+ "unit_cube_ncall": 7462
 }

@@ -329,3 +329,29 @@ STOP verdict in `driver.log`: relaunch with the command in `launch_status.md` (i
 from checkpoints, as the dry run proved).
 
 This session does not wait for the driver and does not poll it further.
+
+
+## D-driver — run 1 measured; projection for runs 2–5 (written by run_protocol.py, 2026-09-14 10:01:35)
+
+Run 1 (seed 17901): 15277 iterations, 235542 likelihood evaluations, unit-cube draws to the first bound
+6229, 11.224 h wall (5.83 evals/s on 16 processes), log Z -27.707 ± 0.110,
+n_eff 10400, converged on dlogz: True. **Projection, if runs 2–5 track run 1:** 44.9 h more,
+finishing about 2026-09-16 06:55. Each run's own 16 h alarm stands.
+
+## D9 — status check 2026-09-15 06:57 (session asked "is this still going"): driver alive, runs 1–2 complete and audited, run 3 in progress; nothing touched
+
+`status.json` reads `driver_running`, pid **83007** alive with 16 workers. **Run 1** (17901): 15,277
+iterations, 235,542 evaluations, 6,229 unit-cube draws, **11.22 h** (5.83 evals s⁻¹), log Z
+**−27.707 ± 0.110**, n_eff 10,400, converged, **audit PASS**, rejection 16.10 %. **Run 2** (17902):
+13,465 iterations, 206,277 evaluations, **13.39 h** (4.28 evals s⁻¹), log Z **−28.047 ± 0.100**,
+n_eff 7,899, converged, **audit PASS** (log Z re-derived to 0.0, cube 5.6e-16, weights 7.6e-15,
+0 unresolved), rejection 14.50 %. **Run 3** (17903) started fresh 23:40:59 after its rejection sample
+(13.70 %); at 06:42 iteration 9,288, dlogz 2.62, 7.07 h. The runs are **slower than P16's rate**
+(11–13 h against 8–9.6 h; the pool ran at 4.3–5.8 evals s⁻¹, not 6.4–6.9) and the driver's own
+run-1 projection (D-driver, 2026-09-16 06:55) is already behind: at 12–13.5 h per run the five
+finish about **2026-09-16 14:00–16:30**, against the 72 h ceiling at **2026-09-16 22:42** — a 6–8 h
+margin; the ceiling is checked between runs, so run 5 must *start* before it, which it should by
+~03:00 on the 16th. The two log Z so far agree within their combined error (|Δ| 0.34 vs 0.15 — **no:
+0.340 > 0.149**, they do NOT agree by P11's rule as they stand; TASK 5 judges this against the
+frozen (f) with all five runs, and it is noted now, not interpreted). No relaunch, no setting
+change, no run directory touched; this session stops here as the resumption block requires.
