@@ -355,3 +355,123 @@ margin; the ceiling is checked between runs, so run 5 must *start* before it, wh
 0.340 > 0.149**, they do NOT agree by P11's rule as they stand; TASK 5 judges this against the
 frozen (f) with all five runs, and it is noted now, not interpreted). No relaunch, no setting
 change, no run directory touched; this session stops here as the resumption block requires.
+
+## D10 — resumption 2026-09-15 20:21: `driver_stopped`, reason CRASH in run 3; the diagnostic registered before it is run
+
+`status.json`: `stage: driver_stopped`, `stopped_reason: CRASH`, `runs_complete: 2`, `runs_audited: 2`,
+written 07:45:47; pid 83007 dead, 0 workers; `git status` shows only the driver's own writes
+(`status.json`). Run 3 (seed 17903) last checkpointed at **iteration 9,288** (06:42:03, ncall
+136,647, dlogz 2.62, log Z −28.33 so far); the crash came ~64 min later, so the exact crash
+iteration is not on disk. The exception, verbatim in `driver_stdout.log` and `status.json`:
+`RuntimeError: Slice sampler has failed to find a valid point`, with `nstep_left −1e-323`,
+`nstep_right 3.5e-323` (the slice bracket collapsed to floating-point zero), `loglstar
+−19.163290012175775`, `u_prop == u` — the proposal never left the starting point — the starting
+live point `u` at (0.403, 0.971, 0.355, **0.991**, 0.501, 0.678, 0.855, 0.532, 0.585, 0.387, 0.479,
+0.969, 0.188, 0.571, 0.964, 0.206) in the sampled order (dTopt … disc_growth, f_metab_diag,
+beta31_diag) — **tm_scale at u = 0.991**, i.e. at the upper edge of its prior (2.2), where P16's
+addendum said to watch for railing — and a slice direction whose largest components are
+ngam_scale (+0.073) and ngam_steepness (−0.045). `unresolved.jsonl` does not exist: no solve was
+UNRESOLVED; the crash is the sampler's, not the ladder's. **No relaunch** (the prompt: a crash is
+diagnosed, the blocker named, R1 stays open). `driver.pid` was left behind (the atexit hook did not
+run on the exception path); it names a dead process and is harmless; not deleted here — it is
+the driver's file and the record of the stop.
+
+**The diagnostic, registered now (P15's live-point covariance treatment, plus one test that
+P15 could not make):**
+1. Restore run 3's checkpoint (no pool); take the 800 live points in the unit cube at iteration
+   9,288; eigendecomposition of their covariance; report the three smallest widths (√12λ) with
+   their dominant coordinates, the live-point range of tm_scale (fraction with u > 0.95) and of
+   the two diagnostics; the live log L range against loglstar −19.163; and the nearest live point
+   to the crash `u` (it should be one of them or its descendant).
+2. Same for runs 1 and 2 at their final checkpoints, for comparison.
+3. **Reproducibility test of the crash point:** map the printed `u` through the prior transform,
+   evaluate log L **fresh** (new model instance) three times and **warm** (one instance,
+   three consecutive calls); report each value against loglstar. If the fresh values sit below
+   loglstar while the sampler had stored a value above it, the live point's likelihood was a
+   warm-state artefact (D6's 0.028 event class) and the slice collapse is mechanical: no step
+   along any direction can beat a threshold the point itself no longer meets. If they sit above,
+   the collapse is geometric (a ridge, P15's reading) and (1) says along which direction.
+4. Runs 1 and 2 are re-audited independently and the protocol checks computed on them **as
+   information**; with 2 of 5 runs R1 cannot close whatever they show.
+
+## D11 — TASK 5 verdict: R1 OPEN. The blocker is named: the likelihood a warm pool worker returns is not always the likelihood of θ, and nested sampling cannot survive that
+
+### The crash, diagnosed (D10's plan, executed; `task5_crash_livepoints.json`, `task5_crash_point.json`, `task5_livepoints_all.json`)
+
+1. **The crash point is a live point.** The `u` in the exception is live point 654 of run 3's
+   iteration-9,288 checkpoint (distance 0.0000), **stored log L −18.4796**, above loglstar
+   −19.1633.
+2. **Its true likelihood is below loglstar.** Re-evaluated on three fresh model instances:
+   **−19.760854009581777, −19.760854009581777, −19.760854009581777**; on one warm instance three
+   times: −19.7608540096, −19.7608540506, −19.7608540042. The stored value is **1.281 units too
+   high**. So the sampler held a point above the threshold that, evaluated again, sits 0.6 below
+   it: every slice proposal from it evaluates below loglstar, the bracket contracts to the point
+   (`nstep_left −1e-323`), and dynesty raises. The crash was mechanical and deterministic — as
+   P15 D3 found for its crash, the checkpoint would replay it.
+3. **How many such points, exhaustively.** All 800 live points of each checkpoint re-evaluated
+   fresh in a pool (`task5_livepoints_all.py`, 7.7 min): **run 3: four live points (654, 791,
+   297, and one more) stored 1.279–1.281 above their true values** — the same offset, so one
+   warm-worker evaluation and its slice-descendants — and all four true values lie below the
+   current loglstar; a fifth differs at the 1e-6 level. **Run 1: one final live point stored
+   4.8e-3 above its true value** (and one at 1e-3); **run 2: none above 1e-3** (one true value
+   1.6e-3 below its loglstar). Runs 1 and 2 finished because dlogz reached 0.1 before loglstar
+   overtook their inflated points; run 3 did not.
+4. **What it is.** D6 measured the same phenomenon at a deep-prior draw (one of four same-instance
+   evaluations off by 0.028): the tie-broken LP solution in a warm worker depends on the solver's
+   path, so `gasflux_log_likelihood(θ)` is not a function of θ alone — P9's kink and P10's D1 (F
+   LB) in another guise, here on D NLDM inside the posterior at a magnitude of 1.28 units.
+   Nested sampling requires exact ordering of likelihood values; a stored value that a fresh
+   evaluation cannot reproduce violates it, and the violation is fatal precisely when the run
+   is closing in (dlogz 2.6 here; P15's crash at dlogz 2.17). No solve was UNRESOLVED; the ladder
+   is not implicated; **no −∞ point is involved** — the approved revision did not cause this.
+5. **The live-point covariance (P15's treatment), for the record.** Run 3's narrowest live
+   direction (width 0.080) is tm_scale (loading −0.96); runs 1 and 2 end with tm_scale widths
+   0.0069 and 0.0175 — **the posterior rails tm_scale against the upper edge of its prior mass**
+   (median u 0.994 → tm_scale ≈ 1.46 with the lognormal(0.15) prior; the 2.2 truncation is not
+   reached). The P16 addendum's warning realised; a finding for the PI (Y3's tail question), not
+   a T2 decision. The slice direction at the crash was not along it (ngam_scale/steepness).
+
+### The protocol checks on the two complete runs — as information only (2 of 5; R1 cannot close)
+
+(`task5_judge.py`, `task5_checks.json`; both audits re-derived here: PASS, log Z reconstructed to
+0.0, weights 1e-13 / 8e-15, cube 5.6e-16.)
+
+| check | run 1 (17901) | run 2 (17902) | frozen threshold |
+|---|---|---|---|
+| (f) log Z | −27.707 ± 0.110 | −28.047 ± 0.100 | agree within combined error: **FAIL** (Δ 0.340 vs 0.149) |
+| (a) f_metab_diag CDF | dist 0.044, mean 0.477 **PASS** | dist **0.088**, mean 0.508 **FAIL** | ≤ 0.05 / ≤ 0.05 |
+| (b) Beta(3,1) on b³ / wrong-Uniform | **0.259** / 0.292 **FAIL** | **0.119** / 0.370 **FAIL** | ≤ 0.05 / ≥ 0.30 |
+| (c) medians within 2 MC errors | — | **14 of 14 physical FAIL** (dTopt 0.33 vs −1.62, 38 MC errors; disc_growth 65) | all |
+| (c) leading eigenvectors | — | min \|cos\| **0.013 FAIL** | ≥ 0.9 |
+| (c) width ratios | — | max diff 0.090 PASS | ≤ 0.1 |
+| (d) prior rejection | 16.10 % PASS | 14.50 % PASS | within 2 SE of 16.45 %; 0 infeasible with weight (both) |
+| (e) unresolved rate | 0 PASS | 0 PASS | ≤ 1 % |
+| (e) coverage growth / resp | **8/12** / 11/12 **FAIL** | **8/12** / 11/12 **FAIL** | ≥ 10/12 |
+| (e) unscored positive | 0 | 0 | 0 |
+| living fraction (finding) | 0.986 | 0.976 | no threshold |
+
+**What the two runs say.** They are each internally consistent (audits pass, rejection fractions
+agree with the prior's, every posterior sample feasible everywhere, ~98 % living — the −∞ rule
+did what it was approved to do: **the dead stratum is excluded, not occupied**) and they
+**disagree with each other in almost every physical coordinate** (dTopt by 2 K), in evidence, and
+in direction. And a coordinate that provably enters nothing (D6) comes out **non-uniform in b³**
+in both — the P17 D38 pattern: an inert coordinate not recovered means the sampler is not drawing
+the prior correctly on the *coordinates that matter either*. With stored likelihoods that fresh
+evaluation cannot reproduce at the 5e-3–1.3 level, the runs are sampling a surface with noise
+on it, and noise on an ordering statistic is what neither run can recover from.
+
+**Growth coverage 8/12** fails at **35, 37, 40, 43 °C** in both runs: the measured peak (2.076 /h
+at 40 °C) lies above the predictive 97.5 % (1.62 /h). That is the *model* under-predicting the
+warm-side growth peak — the same 2.3-fold-low peak E5 records for the uncalibrated prediction,
+now ~25 % low calibrated — a scientific finding about configuration D, distinct from the
+sampling failure, and reported as such.
+
+### Verdict
+
+**R1 OPEN. NOT PASSED for the programme.** Blocker, precisely: *the gas-flux likelihood as
+evaluated in a persistent pool worker is not a deterministic function of θ — the tie-broken LP
+returns path-dependent vertices at the 1e-3 to 1.3 log-likelihood level at posterior points — so
+the nested sampler's ordering is violated, one run crashed on it, and the two that finished do
+not agree.* The approved target revision (f_metab removed; −∞ for infeasibility) is implemented,
+gated and verified and is **not** the cause. No posterior is quoted. No threshold is revisited, no
+sampler changed, no seed reused; runs 4–5 are not started. `status.json` → `task5_done`.

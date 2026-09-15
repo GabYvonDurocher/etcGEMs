@@ -18,7 +18,10 @@ from etcgem.calibration_multi import _gwinit, _set_default_solver, to_pert, to_n
 from etcgem.gasflux import flux_tpc, add_total_carbon_constraint, UnresolvedSolve   # noqa: E402
 from etcgem import providers as _prov                   # noqa: E402
 OUT = os.path.join(ROOT, "strains", "eciML1515", "outputs", "calibration_configD_NLDM_recipe_T2_validated")
-SEEDS = [17901, 17902, 17903, 17904, 17905]; PEAK_OBS = 2.0761
+SEEDS_ALL = [17901, 17902, 17903, 17904, 17905]; PEAK_OBS = 2.0761
+# only runs that are complete AND audited by the driver are judged; the rest are reported as absent (R1 cannot close)
+SEEDS = [s for k, s in enumerate(SEEDS_ALL, start=1) if os.path.exists(os.path.join(ROOT, "strains", "eciML1515", "outputs", "calibration_configD_NLDM_recipe_T2_validated", f"run{k}_seed{s}", "summary.json"))]
+N = len(SEEDS)
 TH = dict(a_dist=0.05, a_mean=0.05, b_correct=0.05, b_wrong=0.30, c_mc=2.0, c_cos=0.9, c_width=0.1, d_se=2.0, e_unres=0.01, e_cover=10, f_logz=1e-9, f_w=1e-12, f_cube=1e-14)
 
 
@@ -70,8 +73,8 @@ def main():
     for k, a in enumerate(runs, start=1):
         ok, rep = audit_run(a["dir"], pt, False); json.dump(rep, open(os.path.join(HERE, f"task5_audit_run{k}.json"), "w"), indent=1)
         checks[f"f:run{k}:audit"] = dict(PASS=bool(ok), logz_err=rep["logz_abs_err"], weights=rep["weight_sum_minus_1"], cube=rep["cube_inverse_max_err"], failed=[c for c, v in rep["checks"].items() if not v])
-    for i in range(5):
-        for j in range(i + 1, 5):
+    for i in range(N):
+        for j in range(i + 1, N):
             dz = abs(runs[i]["logz"][-1] - runs[j]["logz"][-1]); ce = float(np.hypot(runs[i]["logzerr"][-1], runs[j]["logzerr"][-1]))
             checks[f"f:logz:{i+1}v{j+1}"] = dict(PASS=bool(dz <= ce), dz=float(dz), combined_err=ce)
     # ---- (a), (b) ----
@@ -97,8 +100,8 @@ def main():
             sp = tg.sampled[j]; nat = s[:, j] if sp.space == "add" else np.exp(s[:, j]) * (sp.emergent if getattr(sp, "emergent", None) is not None else 1.0)
             marg.append(dict(run=k, parameter=sp.name, lo5=wq(nat, w, .05), median=wq(nat, w, .5), hi95=wq(nat, w, .95), median_sampled=float(med[k][j]), mc_sampled=float(mc[k][j])))
     c_med = []; c_cos = []; c_w = []
-    for i in range(1, 6):
-        for j in range(i + 1, 6):
+    for i in range(1, N + 1):
+        for j in range(i + 1, N + 1):
             for p in phys:
                 err = float(np.hypot(mc[i][p], mc[j][p])); diff = float(abs(med[i][p] - med[j][p])); c_med.append(dict(pair=f"{i}v{j}", parameter=tg.names[p], diff=diff, err=err, mc=(diff / err if err > 0 else float("inf")), ok=bool(diff <= TH["c_mc"] * err)))
             for c in range(3):
@@ -134,8 +137,8 @@ def main():
             checks[f"e:run{k}"] = dict(PASS=bool(rate <= TH["e_unres"] and cov_g >= TH["e_cover"] and cov_r >= TH["e_cover"] and unscored_pos == 0), unresolved_rate=rate, coverage_growth=cov_g, coverage_resp=cov_r, unscored_positive=unscored_pos, infeasible_temps_in_draws=n_infe, living_fraction=living[k])
             print(f"[e] run {k}: unresolved {unres} draws, coverage growth {cov_g}/12 resp {cov_r}/12, unscored {unscored_pos}, living {living[k]:.3f}", flush=True)
     pd.DataFrame(marg).to_csv(os.path.join(HERE, "task5_marginals.csv"), index=False); pd.DataFrame(eig).to_csv(os.path.join(HERE, "task5_eigen.csv"), index=False); pd.DataFrame(pred_rows).to_csv(os.path.join(HERE, "task5_predictive.csv"), index=False)
-    allpass = all(v["PASS"] for v in checks.values()); verdict = "R1 CLOSED" if allpass else "R1 OPEN"
-    summ = dict(verdict=verdict, all_pass=allpass, thresholds=TH, checks=checks, failed=[k for k, v in checks.items() if not v["PASS"]], living_fraction=living,
+    allpass = all(v["PASS"] for v in checks.values()) and N == 5; verdict = "R1 CLOSED" if allpass else "R1 OPEN"
+    summ = dict(verdict=verdict, all_pass=allpass, runs_judged=N, runs_required=5, runs_absent=[k for k in range(1, 6) if k > N], thresholds=TH, checks=checks, failed=[k for k, v in checks.items() if not v["PASS"]], living_fraction=living,
                 runs={k: dict(seed=a["summary"]["seed"], iters=a["summary"]["iters"], ncall=a["summary"]["ncall"], unit_cube_ncall=a["summary"]["unit_cube_ncall"], wall_h=a["summary"]["wall_h"], logz=a["summary"]["logz"], logzerr=a["summary"]["logzerr"], n_eff=a["summary"]["n_eff"]) for k, a in enumerate(runs, start=1)},
                 wall_min=round((time.time() - t0) / 60, 1))
     if allpass:

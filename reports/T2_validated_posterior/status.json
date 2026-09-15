@@ -1,16 +1,17 @@
 {
- "stage": "driver_running",
- "timestamp": "2026-09-15T06:42:03",
+ "stage": "task5_done",
+ "timestamp": "2026-09-15T20:40:16",
  "branch": "t2/validated-posterior",
- "head": "02fd1a7",
+ "head": "e5609b6",
  "runs_complete": 2,
  "runs_audited": 2,
- "driver_pid": 83007,
- "last_note": "run 3 seed 17903 it 9288 dlogz 2.619",
+ "driver_pid": null,
+ "last_note": "R1 OPEN: run 3 crashed on a non-reproducible stored likelihood (4/800 live points +1.28); runs 1-2 disagree; Beta(3,1) control not recovered",
  "current_run": 3,
  "iteration": 9288,
  "dlogz": 2.6193445888150784,
  "wall_h": 7.068,
  "ncall": 136647,
- "unit_cube_ncall": 7462
+ "unit_cube_ncall": 7462,
+ "stopped_reason": "CRASH"
 }
