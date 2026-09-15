@@ -6,7 +6,7 @@
 
 *Evidence:* run_protocol.py (driver; --toy for the dry run); task2_invariant.py, task2_datum.py, task2_shortcircuit.py, task2_rejection.py (TASK 2; ~15 min); task3_diagnostics.py (~11 min); task5_livepoints_all.py (all live points fresh, ~8 min in a pool), task5_judge.py (protocol checks on the complete runs, ~4 min); run outputs and checkpoints under strains/eciML1515/outputs/calibration_configD_NLDM_recipe_T2_validated/.
 
-**This report was last written at** `a5c3bbe` (2026-09-15) — T2: TASK 5 -- R1 OPEN: run 3 crashed on a stored likelihood 1.28 above its true value (4 of 800 live points; warm-worker LP path dependence), runs 1-2 disagree in log Z, 14 medians and directions, Beta(3,1) control not recovered; audits re-derived PASS; the three runs' outputs committed
+**This report was last written at** `bebd7da` (2026-09-15) — T2: TASK 6 -- report; OPEN_ITEMS 1.29-1.32 closed, 1.33 and 1.34 opened, R1 restated, 0b restated, 1.17 re-costed, two section-4 hazards; evidence T2a-T2e; synthesis README note; report_status; status task6_done; stamps
 
 **Committed inputs it reads (found by scanning this report's own files), and the commit each was last written at:**
 
