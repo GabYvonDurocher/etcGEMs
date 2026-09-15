@@ -107,3 +107,40 @@ evaluation): **FAILS** — max deviation **1.815**; 16 of 22 inputs exceed 1e-9,
 run-1/run-2 points with the largest T2 offsets sit at 1e-9 to 5e-6 here; the two −∞ draws are −∞
 in all 50 (the short-circuit is deterministic). Solver statuses never varied. **The defect is
 reproduced by the registered instrument at sets (ii) and (v); the task continues.**
+
+## D2 — TASK 3: the reach backwards, and its limit (written while B–D run; depends on no battery)
+
+**One signature.** P15's run 1 crashed deterministically at iteration 11,547 (dlogz 2.168) with
+dynesty's slice sampler unable to find a valid point, and its resume replayed the crash
+bit-identically (P15 D3). P17 measured *"likelihood variation ~0.088"* at a low-growth seed-1
+median across identical-vector repeats with *"zero canonical LP coefficient/bound/objective
+differences"* (P17 D1–D2), and T2 D6 saw a single evaluation of four move by 0.028 at a deep-prior
+draw. T2's run 3 crashed on a live point stored 1.28 above the value any fresh instance returns
+(T2 D11), and T3's control battery reproduces +1.28 at that point's siblings and +1.54 at Parsa's
+E LB θ in 12 of 50 evaluations (D1). P6 D3a had already measured the mechanism in 2026-09-09:
+*"which point of that face the solver returns is set by its basis history."* These are one
+phenomenon at different magnitudes: the tie-broken LP in a persistent worker returns a
+solver-history-dependent vertex, so the likelihood is not a function of θ, and nested sampling —
+which needs an exact ordering — either crashes when the threshold passes a point's true value or
+finishes carrying inflated points.
+
+**The limit, stated so the reach is not overstated.** P17's **analytical** controls failed with
+**no LP present at all**: on the narrow-mixture target the active-region probability came out
+0.084 / 0.785 / 0.231 against the exact 0.30437 (P17 D6, slices 15), so a genuine sampler weakness
+exists independently of this defect, and nothing here touches that finding. What may need
+revisiting is P17's attribution of its **real-path** observations — in particular the
+living-group ancestry collapse (complementary group 454 live / 30 ancestors, within-group nuisance
+RMS step 0.02994, correlation 0.99556; P17 D34-region entries) — which reads as sampler geometry
+but is also what one would get **mechanically** if points with inflated stored log L stay above
+threshold longer than they should: an inflated point is never replaced until loglstar passes its
+true value, so its slice-descendants accumulate and the live set's ancestry narrows onto it.
+
+**Stated as a hypothesis, with its test — not as a retraction of P17.** *Hypothesis:* the
+ancestry concentration P17 measured on the real path is partly or wholly produced by inflated
+stored likelihoods. *Test:* re-evaluate fresh (T3's reference protocol, a fresh process per
+evaluation) the ancestors P17 identified as dominant in its live groups, and the live points at
+the checkpoints where the collapse was measured; if the dominant ancestors carry stored values
+above their fresh values by more than the registered repeatability tolerance while the
+non-dominant ones do not, the hypothesis stands and P17's attribution needs a dated
+qualification; if they are clean to 1e-9, the collapse is the sampler's own and P17's reading
+stands unqualified. P17's numbers are not edited; a dated note in its report points here.
