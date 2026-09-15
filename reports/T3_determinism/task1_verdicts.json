@@ -1,0 +1,31 @@
+{
+ "A": {
+  "verdict": "FAILS",
+  "max_dev": 1.815273726127657,
+  "mean_s_per_eval": 1.7739539900693027,
+  "n_inputs_gt_1e9": 16,
+  "n_inputs_gt_1": 4
+ },
+ "B": {
+  "verdict": "NOT RUN",
+  "max_dev": null,
+  "mean_s_per_eval": null,
+  "n_inputs_gt_1e9": null,
+  "n_inputs_gt_1": null
+ },
+ "C": {
+  "verdict": "NOT RUN",
+  "max_dev": null,
+  "mean_s_per_eval": null,
+  "n_inputs_gt_1e9": null,
+  "n_inputs_gt_1": null
+ },
+ "D": {
+  "verdict": "NOT RUN",
+  "max_dev": null,
+  "mean_s_per_eval": null,
+  "n_inputs_gt_1e9": null,
+  "n_inputs_gt_1": null
+ },
+ "recommendation": "NONE: no scheme is deterministic by the registered rule"
+}

@@ -1,0 +1,1 @@
+{"scheme": "B", "n": 50, "results": [{"label": "run2:462", "value": -15.483895846232333, "wall": 3.5925869941711426, "statuses": ["optimal", "optimal", "optimal", "optimal", "optimal", "optimal", "optimal", "optimal", "optimal", "optimal", "optimal", "optimal"], "pid": 70215, "space": "D_NLDM_validation", "scheme": "B", "round": 0, "k": 0}], "elapsed_min": 0.15}

@@ -84,3 +84,26 @@ One battery at a time. Total ≈ 3 h.
 The 20 highest-importance-weight posterior samples of each of runs 1 and 2, re-evaluated **fresh**
 (new instance), deviation from the stored `logl`; and an order-of-magnitude accumulation argument
 stated with its assumptions. Candidacy only.
+
+## D1 — the reference is bit-reproducible; scheme A reproduces the defect, so the instrument is valid
+
+**Reference** (`battery_ref.json`, 4.7 min): every one of the 22 inputs evaluated twice, each time in
+a fresh process with a fresh model instance (`Pool(1, maxtasksperchild=1)`, the worker
+initialiser T2's driver used) — **fresh-vs-fresh 0.0 at all 22** (bit-identical). Two caveats,
+recorded not smoothed: (1) the crash point's fresh value on this path is **−19.760854155863385**,
+while T2's three in-process `build()` instances gave −19.760854009581777 — the two construction
+paths differ by **1.5e-7** (the reference for the rule is the worker path, the one the runs use);
+(2) T2's "exhaustive fresh audit" (`task5_livepoints_all.py`) evaluated 800 points per checkpoint
+in a **persistent 16-process pool**, so its ≤ 5e-3 offsets for runs 1–2 were themselves measured
+with the defect present — its four +1.28 points stand (this battery reproduces them), its small
+offsets are not a clean measurement. T3's reference is.
+
+**Scheme A — CURRENT, the control** (`battery_A.json`, 1,100 evaluations, 32.8 min, 1.77 s per
+evaluation): **FAILS** — max deviation **1.815**; 16 of 22 inputs exceed 1e-9, 4 exceed 1.0:
+`run3:791` +1.2802 in 2 of 50, `run3:297` +1.2800 in 1 of 50, `ELB:parsa_MAP` +1.5376 in **12 of
+50** (P6 D3a's 2.498-unit face case, still there under pFBA at 1e-9), `ELB:prior17402:draw1`
++1.8153 in 3 of 50. The crash point itself (`run3:654`) did not re-inflate in this order (max
+6.9e-8) — the event is history-dependent, and its siblings carried it instead. The three living
+run-1/run-2 points with the largest T2 offsets sit at 1e-9 to 5e-6 here; the two −∞ draws are −∞
+in all 50 (the short-circuit is deterministic). Solver statuses never varied. **The defect is
+reproduced by the registered instrument at sets (ii) and (v); the task continues.**
