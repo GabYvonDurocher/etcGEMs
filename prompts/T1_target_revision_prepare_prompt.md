@@ -43,10 +43,40 @@ codes explicitly, never `cmd && check`. Branch `t1/target-revision` from main; d
 main; end in a PR that is NOT merged. Every expensive step has an enforced alarm; every batch is
 one job at a time; every completed batch is hash-audited before interpretation.
 
-TASK 0 - premise, and the pre-registration that governs the whole prompt
+TASK 0 - housekeeping R3 left, then premise and the pre-registration that governs the prompt
+
+0a. Four pieces of housekeeping, done BEFORE branching, each as its own small commit on main
+    pushed directly (they are record and branch hygiene, not science; no PR needed) - or, if
+    the house convention forbids direct pushes to main, as one tiny PR merged first:
+  - The archive rule, written down. Add to docs/OPEN_ITEMS.md section 4 as a standing hazard:
+    "codex/p17-inactive-prior is the ONLY ref keeping ~2.9 GB of P17 objects reachable in the
+    primary repository. It is local-only by decision (R3). Deleting it, or any 'clean up merged
+    branches' pass that touches it, makes those objects prunable by git gc. It is never merged,
+    never pushed, never deleted. Its checkout lives in the archive worktree; that worktree is
+    recreatable from the branch with one command, the branch is not recreatable from anything."
+    Add to docs/RIGOUR.md, under integration: "Read baseRefName before merging a PR you did not
+    open (R3, PR #33)."
+  - Relocate the archive worktree out of /private/tmp. R3 found com.apple.tmp_cleaner.plist
+    present; the worktree has survived only on uptime. `git worktree move /private/tmp/etcGEMs-p17
+    ../etcGEMs-p17-archive` (a sibling of the repository, on the same OneDrive volume as the
+    object store). Verify afterwards: `git worktree list` shows the new path at ef1961b, the
+    branch still resolves to ef1961b, and reports/P17_inactive_prior/closure_manifest.json is
+    readable there. Record the new path in OPEN_ITEMS beside the archive rule and in
+    reports/P17_inactive_prior/ARCHIVE.md on main. If the move fails for any reason, STOP and
+    report; do not copy-and-delete by hand.
+  - Delete the merged leftovers, non-force: locally y2/regime-posterior and y3/tm-shift; on
+    origin r3/record, r3/restamp, y2/regime-posterior, y3/tm-shift. Confirm each is an ancestor
+    of main before deleting it. If git refuses any, leave it and report.
+  - Bring ../etcGEMs-work to the current main: it sits detached at 64393ed, four commits behind.
+    `git -C ../etcGEMs-work checkout --detach origin/main` after a fetch. Confirm it is at
+    3222b9d or later and clean.
+  Report all four. Then `git switch main && git pull` in the primary tree (two commands, two exit
+  checks) so the branch below starts from the housekept main.
+
+0b. Premise.
 - Confirm R3 complete: main's commit, both gates from the primary tree, the R3 report present.
-  Confirm the archive branch codex/p17-inactive-prior exists locally at ef1961b and is not on
-  origin; report where its worktree is.
+  Confirm the archive branch codex/p17-inactive-prior exists locally at ef1961b, is not on
+  origin, and its worktree is at the relocated path from 0a.
 - Read the five documents named above. In D0, state which of R1-R4 this prompt can move
   (expected: none directly - it prepares; it may clarify R2) and quote RIGOUR.md's rules you
   will apply by number.
@@ -206,8 +236,12 @@ TASK 5 - the decision package, and stop
   do not launch any fit, whatever the findings suggest.
 
 VERIFY (report all)
-1. TASK 0: R3 complete; archive branch present and local-only; D0 committed alone with the
-   registered tolerance, audit set, seeds and budgets.
+0. TASK 0a: the archive rule in OPEN_ITEMS section 4 and the baseRefName rule in RIGOUR.md;
+   the worktree's new path with `git worktree list` output and the branch still at ef1961b;
+   the six leftover branches deleted (or which git refused and why); etcGEMs-work detached at
+   current main; main pulled before branching.
+1. TASK 0b: R3 complete; archive branch present, local-only, at the relocated path; D0
+   committed alone with the registered tolerance, audit set, seeds and budgets.
 2. TASK 1: the finding (i)/(ii)/(iii) with file/line/commit; f_maint's status; the prepared
    option default OFF; the invariant proven at every audit point with the maximum difference;
    gate 79/79 OFF; confirmation nothing is ON and nothing is wired.
@@ -229,6 +263,8 @@ VERIFY (report all)
 
 CONSTRAINTS
 - TARGET_REVISION_SPEC.md and RIGOUR.md govern; this prompt yields to them.
+- codex/p17-inactive-prior is never merged, pushed or deleted. Its worktree is MOVED, never
+  removed. A failed move stops the task.
 - No revised posterior fit. No candidate implemented as production. No option turned ON. No
   parameter fixed. No prior changed. No penalty or treatment chosen by outcome.
 - Every comparison is against registered archived points with a registered tolerance.
