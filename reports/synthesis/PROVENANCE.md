@@ -6,7 +6,7 @@
 
 *Evidence:* `python reports/synthesis/build_evidence.py` regenerates evidence.csv (74 rows); `python reports/synthesis/fig_requirement_arithmetic.py` regenerates the one figure; `quarto render reports/synthesis/synthesis.qmd` produces the 10-page PDF.
 
-**This report was last written at** `bf6f0ef` (2026-09-16) — H1: correct the report PDF's path in five documents -- quarto writes it to _output/, and the handover pointed one directory too high; found by the fresh-clone check
+**This report was last written at** `9fc2f0f` (2026-09-16) — H1: correct evidence row H1b's source path; audit every evidence row's source_file (106 of 107 resolve) and record the one pre-existing gap without editing it
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 
