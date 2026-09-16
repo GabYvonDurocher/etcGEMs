@@ -81,3 +81,26 @@ limits verbatim; the report carries **three**, adding that fixing dTm at 0 assum
 mean is exact — because every run after P16 conditions on it and the handover's readers will not
 know that otherwise. RIGOUR.md and the P17 closure both state it; adding it is consistent with
 both.
+
+## D3 — TASK 3 and TASK 4: Parsa's constants assessed, the handover written
+
+**Parsa's 1.9 (TASK 3).** Both files copied unmodified with their SHA-256 into
+`reports/H1_handover/parsa_1_9/`. **His arithmetic reproduces his table exactly** (N₀ = 1.8e9/V
+and carbon = 180 V at all three media; the 1.8e9 constant checks). **His script is safe** — it
+reads the finished table and writes only to a new `figures/medium_constants/` directory.
+**His constants are not.** Q1 established the likelihood's observable contains N₀, and every
+committed derived table carries a single N₀ = 4.0e8; his are per-medium, so the observable would
+move by **−15.6 % (NLDM fits), −2.2 % (LB) and −51.1 % (M9)** — an exact multiplicative shift,
+absorbable by each fit's `resp_scale` (so R² is protected) but not by `resp_scale`'s absolute
+value or by any cross-medium comparison. **Conclusion: a likelihood change needing a new
+identifier and a re-gate.** Recommended, not decided; **nothing applied, no derived table
+altered**. Opened as **1.36**. Two minor discrepancies recorded rather than corrected: his two
+documents give different source values for the 180 (the script's three average to exactly 180, the
+METHODS's to 178.7, and 180 is their mean rather than the "midpoint" as stated), and two different
+routes to N₀ are proposed in one paragraph.
+
+**The handover (TASK 4).** `docs/HANDOVER.md`, eight sections in the prescribed order, written for
+a cold reader; `HANDOVER_2026-09-13.md` kept unedited with a dated superseded banner pointing here
+and naming the two things overtaken. The owner list in §4 is an **index to OPEN_ITEMS**, not a
+duplicate of it. Every command in §7 was run before being written down, and the two SHA-256 values
+in the null-check invocation were verified against the files on this branch.
