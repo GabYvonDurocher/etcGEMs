@@ -104,3 +104,15 @@ a cold reader; `HANDOVER_2026-09-13.md` kept unedited with a dated superseded ba
 and naming the two things overtaken. The owner list in §4 is an **index to OPEN_ITEMS**, not a
 duplicate of it. Every command in §7 was run before being written down, and the two SHA-256 values
 in the null-check invocation were verified against the files on this branch.
+
+## D4 — the fresh clone did its job: five documents pointed at a path that does not exist
+
+TASK 6's clone check was run **before** any branch deletion, as the constraints require, and it
+found that `reports/H1_handover/calibration_investigation.pdf` is not there. The PDF **is**
+committed and **is** in the clone — quarto's `output-dir` puts it at
+`reports/H1_handover/_output/calibration_investigation.pdf`, matching the synthesis and the deck —
+but `docs/HANDOVER.md`, `docs/HANDOVER_2026-09-13.md`, `docs/OPEN_ITEMS.md`,
+`reports/synthesis/README.md` and `reports/report_status.yaml` all gave the path **without**
+`_output/`. A collaborator opening the repository cold and following the handover's first pointer
+would have found nothing, which is the one failure mode this document exists to prevent. All five
+corrected on `h1/pdf-path`; no content changed.

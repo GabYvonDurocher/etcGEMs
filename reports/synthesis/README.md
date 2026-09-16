@@ -185,7 +185,7 @@ No re-render.
 
 `synthesis.qmd` is **not edited and not re-rendered**; this note says how to read it now. Its
 successor **for everything after 9 September 2026** is
-`reports/H1_handover/calibration_investigation.pdf`.
+`reports/H1_handover/_output/calibration_investigation.pdf`.
 
 **What stands, unqualified:** the framework and the two gates; the seven organism models; the
 mechanisms (proteome sectors, overflow from a carbon cap, the ETC area budget); the Candida

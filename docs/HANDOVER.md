@@ -80,7 +80,7 @@ The governing document is [RIGOUR.md](RIGOUR.md), and it is short. In summary:
 ## 3. What is established
 
 Full argument and every number in
-`reports/H1_handover/calibration_investigation.pdf`. In brief:
+`reports/H1_handover/_output/calibration_investigation.pdf`. In brief:
 
 - **The framework and its gates.** Seven organism models on one core; 79/79 and 60/60, byte-identical
   with the options off; the *E. coli* port reproduces the reference implementation's ten R² values
@@ -256,7 +256,7 @@ it is CURRENT, HISTORICAL or SUPERSEDED, and how to re-run it.
 | Any decision in §4's PI table; scope, priorities and whether a run is worth its hours | **Gabriel** (PI) |
 | The *E. coli* respirometry, the derived tables, the medium recipes, the per-cell constants, the configuration-F ETC table | **Parsa** |
 | The Candida reconstructions, `common_network.py`, Seq2Tm and the predictor pipeline, the published iRV973 stoichiometry | **Ilgaz** |
-| The core, the gates, the likelihood, the samplers, and anything in `reports/P*/`, `reports/T*/` or `reports/Y*/` | the record: each directory's `report.md` and `DECISIONS.md`, and `reports/H1_handover/calibration_investigation.pdf` |
+| The core, the gates, the likelihood, the samplers, and anything in `reports/P*/`, `reports/T*/` or `reports/Y*/` | the record: each directory's `report.md` and `DECISIONS.md`, and `reports/H1_handover/_output/calibration_investigation.pdf` |
 
 **If you read only one other thing, read `docs/OPEN_ITEMS.md` §4.** It is the list of ways this
 project has already lost time, and it is the most useful page in the repository.

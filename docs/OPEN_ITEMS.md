@@ -13,7 +13,7 @@ Status: **BLOCKED** (waiting on something external) · **READY** (can start now)
 ## 0. PAUSED AND HANDED OVER — 2026-09-16 (H1)
 
 **The calibration investigation is written up and the repository is closed for handover.** The
-report is `reports/H1_handover/calibration_investigation.pdf` (the successor to
+report is `reports/H1_handover/_output/calibration_investigation.pdf` (the successor to
 `reports/synthesis/` for everything after 9 September; the synthesis's §1–§6 stand). The handover
 a new collaborator should open first is [HANDOVER.md](HANDOVER.md), which supersedes
 `HANDOVER_2026-09-13.md`.
