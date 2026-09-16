@@ -6,7 +6,7 @@
 
 *Evidence:* t3_inputs.py builds and hashes the input set (inputs.json, sha256 8aef2dfd); t3_battery.py runs one battery per invocation (--scheme ref|A|B|C|D|Cverify, ~5-55 min each under its registered alarm); lexi_tiebreak.py is the SCRATCH lexicographic module, measurement only and not in the core; t3_table.py applies D0's decision rule to battery_*.json; t3_task2.py re-evaluates the high-weight posterior samples of T2's runs 1 and 2 in a fresh process each.
 
-**This report was last written at** `1a35fcb` (2026-09-16) — T3: the four schemes and runs 1-2 -- D deterministic (0.0 at every input, 3.2x cost), B worse than nothing (23.28), C a different model (O2 differs by up to 8.4) and disqualified; high-weight samples clean to 2e-8, so the defect does not explain the runs' disagreement
+**This report was last written at** `21f8176` (2026-09-16) — T3: record -- report with the four-scheme table and the recommendation; OPEN_ITEMS 1.34 measured, 1.35 opened, 1.22 restated as a correctness question, section-4 hazard in its general form; evidence T3a-T3d; dated note in P17's report; report_status; stamps
 
 **Committed inputs it reads (found by scanning this report's own files), and the commit each was last written at:**
 

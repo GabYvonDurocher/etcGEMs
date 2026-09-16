@@ -6,7 +6,7 @@
 
 *Evidence:* closure_manifest.json is the SHA-256 inventory of all 1,905 P17 files and is committed unchanged; a fresh clone of origin/main was verified against it with 549 files matched and none mismatched. null_check.py consumes saved arrays only and never solves or fits; the exact reproduction commands and expected CDF means are in docs/HANDOVER_2026-09-13.md.
 
-**This report was last written at** `86d182a` (2026-09-13) — T1 0a: housekeeping R3 left -- the archive rule, the baseRefName rule, the worktree relocated
+**This report was last written at** `21f8176` (2026-09-16) — T3: record -- report with the four-scheme table and the recommendation; OPEN_ITEMS 1.34 measured, 1.35 opened, 1.22 restated as a correctness question, section-4 hazard in its general form; evidence T3a-T3d; dated note in P17's report; report_status; stamps
 
 **Committed inputs it reads (found by scanning this report's own files), and the commit each was last written at:**
 
