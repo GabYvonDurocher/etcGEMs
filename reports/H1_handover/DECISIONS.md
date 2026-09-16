@@ -24,3 +24,34 @@ Not merged, not pushed, not deleted, not entered.
 tree's `.git/index.lock` is still a stale zero-byte file held open by `com.apple.Virtualization`
 (pid 62662), and T1–T3's rule against deleting lock files carries over, so all work is in the
 `../etcGEMs-h1` worktree, whose index is independent.
+
+## D1 — TASK 2: the deck brought current. Nine slides changed, three added, one clipped slide caught by the deck's own checker
+
+The deck was at its E6 state (13 September), which predates T2 and T3 entirely. It was **updated,
+not rebuilt**; its tone, its structure and its stated limits are unchanged. **59 → 62 pages**,
+59 frames, render clean (0 overfull boxes, 0 unresolved citations).
+
+| slide | what it said | what it says now |
+|---|---|---|
+| *The reduced posterior: run 1 converged* | *"Seed 2 is in flight. Independent confirmation is pending."* | **Seed 2 landed and the two seeds DISAGREED** — evidence agreed (Δlog Z 0.022 vs 0.148 combined) but **14 of 15 medians** failed the two-MC-error rule (`P16_reduced/audit_summary.json`); and the run is marked superseded by the revised target |
+| *The stopping and reproducibility rules* | *"The two-seed agreement test has no result yet"* | the test has a result, **DISAGREE**, and the same rule has since been applied twice more |
+| *What the reduction assumes* | `tm_scale` median **1.069** [0.793, 1.515], seed 1 only, "no boundary pile-up" | both P16 seeds (1.069 and **0.956**) plus the revised target's **1.319 / 1.232 at the 99.4th percentile of the prior**: the hard bound 2.2 is still never reached, and the distinction between the bound and the prior's mass is now stated |
+| *Run 1 assigns about half its weight to very low growth* | 50.7 % of draws below half the measured peak | unchanged as history, **plus** the revised likelihood's **1.4 % and 2.4 %** — the low-growth mass was the scoring rule |
+| *The infeasibility exemption: a diagnosis under test* | *"Test now: quantify infeasibility…"* | retitled **"diagnosed, then fixed"**; carries the measurement (**765 of 800** points infeasible at every temperature, **81.5 %** of posterior weight from ~**16 %** of prior volume) and the adopted zero-likelihood rule |
+| *Why a converged posterior can favour poor predictions* | *"The cause remains under test"* | the cause was confirmed and the rule changed |
+| *Model evidence asks which mechanism the data support* | D on NLDM **−26.030 ± 0.109 from seed 1** | the **revised** target's **−27.707 ± 0.110** and **−28.047 ± 0.100**, which **do not agree**; plus the caution that E and F's face degeneracy is an order of magnitude worse |
+| *Established results and pending confirmation* | *"Converged, awaiting confirmation… seed 2 is in flight"* | **"Diagnosed, not yet solved"** — five runs across two likelihoods, no two agreeing; the scoring defect fixed, the reproducibility obstacle measured with a costed remedy |
+| *What happens next* | confirm reproducibility; resolve infeasibility; M9; D/E/F; proteomics | the determinism remedy **first** because everything inherits it, then the cheap test of whether a second cause is real, then the rest unchanged |
+
+**Three slides added** (the prompt's maximum): *The revision worked — and the runs still disagree*;
+*The likelihood is not a function of its parameters* (the four-scheme table); *What is handed over*.
+
+**One thing worth recording because it is exactly the hazard the deck documents.** `check_frames.py`
+exists because *"Beamer CLIPS an overfull frame and LaTeX does not emit an Overfull warning for
+it, so a slide can quietly drop its last bullets and a clean render log proves nothing."* The
+render log was clean and the new T3 slide was **silently dropping its last bullet** — caught only
+by that checker, and fixed in three passes (a four-row table with a three-line lead and three
+bullets does not fit; a one-line lead and two bullets does). Final check: **0 frames with content
+missing.** The tone is unchanged: nothing is presented as a failure, and the three standing limits
+(D44/D45 at one point; the toy living fractions are not targets; dTm = 0 assumes the meltome mean
+is exact) are untouched.
