@@ -116,3 +116,18 @@ but `docs/HANDOVER.md`, `docs/HANDOVER_2026-09-13.md`, `docs/OPEN_ITEMS.md`,
 `_output/`. A collaborator opening the repository cold and following the handover's first pointer
 would have found nothing, which is the one failure mode this document exists to prevent. All five
 corrected on `h1/pdf-path`; no content changed.
+
+## D5 — the same check, applied to every evidence row: one more path corrected, one pre-existing gap recorded not edited
+
+Having found one bad path, the obvious next question is whether there are others. Every row of
+`reports/synthesis/evidence.csv` whose `source_exists` is `True` was checked against the working
+tree: **106 of 107 resolve**.
+
+- **Corrected (mine):** row **H1b**'s `source_file` carried the same missing `_output/`.
+- **Recorded, not edited (not mine):** row **P15b** points at `reports/P15_posterior/run1.log`,
+  which is not in the repository — `reports/**/*.log` is in `.gitignore`, so that run log was
+  never committed. The claim it supports (the nested run crashed rather than converging) is
+  independently evidenced by `reports/P15_posterior/task1_crash_diag.json` in row P15c, so nothing
+  rests on the missing file. **It is left as it stands**: changing another run's evidence row to
+  point somewhere else would edit a record rather than correct a path, and H1 does not do that.
+  Noted here so the next person does not have to rediscover it.
