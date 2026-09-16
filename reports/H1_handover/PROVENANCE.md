@@ -6,7 +6,7 @@
 
 *Evidence:* calibration_investigation.qmd renders to _output/calibration_investigation.pdf with quarto under the synthesis's house convention (header.tex, nature-communications.csl); parsa_1_9/ holds the two source files Parsa sent with their SHA-256; parsa_1_9_assessment.md verifies his arithmetic and quantifies the per-medium movement from the committed derived tables; gates_worktree.sh runs the seven-strain battery (79/79, 60/60 at main 897d78e, task0_gates.log).
 
-**This report was last written at** `6e3abda` (2026-09-16) — H1: the handover -- docs/HANDOVER.md in eight sections with the owner-by-name list; the 13 September handover kept and marked superseded
+**This report was last written at** `bf6f0ef` (2026-09-16) — H1: correct the report PDF's path in five documents -- quarto writes it to _output/, and the handover pointed one directory too high; found by the fresh-clone check
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 
