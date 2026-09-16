@@ -55,3 +55,29 @@ bullets does not fit; a one-line lead and two bullets does). Final check: **0 fr
 missing.** The tone is unchanged: nothing is presented as a failure, and the three standing limits
 (D44/D45 at one point; the toy living fractions are not targets; dTm = 0 assumes the meltome mean
 is exact) are untouched.
+
+## D2 — TASK 1: the investigation report, organised by what was learned
+
+`reports/H1_handover/calibration_investigation.{qmd,pdf}`, rendered in the house convention
+(the synthesis's `header.tex`, `nature-communications.csl` and `_quarto.yml`, copied not
+re-invented). **9 pages, 14 sections, 0 unresolved cross-references.** It is the successor to
+`reports/synthesis/` for everything after 9 September and explicitly **not** a replacement of it.
+
+**Every number is traced.** Where `evidence.csv` carries a row, it is cited by row id
+(P13a–P13g, P14a–P14d, P15a–P15d, Q1, T1a–T1c, T2a–T2e, T3a–T3d, Y2). P9–P12, P16 and P17 have
+**no evidence rows** — they postdate the synthesis's row set — so those numbers name their file
+and commit inline (`P9_surface/report.md` @ `dbb2e3d`, `P10_respiration_likelihood/report.md` @
+`409d70b`, `P11_nested/report.md` and `P12_modes/report.md` @ `4f4c56f`,
+`P16_reduced/audit_summary.json` @ `b8b181b`, `P17_inactive_prior/` @ `3a5de32`).
+
+**Self-corrections carry their own numbered sections at the same level as the findings**
+(§3.1 the criterion that tested the wrong failure mode; §6.1 the 765 points and the 96 % → 16.45 %
+correction) and appear in-line in four more places: the withdrawn multimodality reading, the
+unread parameter, the withdrawn impute form, and the solver reset measured worse than doing
+nothing. The document states in §1 why they are there.
+
+**One judgement call, recorded.** The prompt's outline asks for the P17 section to carry its two
+limits verbatim; the report carries **three**, adding that fixing dTm at 0 assumes the meltome's
+mean is exact — because every run after P16 conditions on it and the handover's readers will not
+know that otherwise. RIGOUR.md and the P17 closure both state it; adding it is consistent with
+both.

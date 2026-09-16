@@ -1,0 +1,439 @@
+---
+title: "Calibrating an enzyme- and temperature-constrained model: what was learned, what was corrected, and what is still open"
+subtitle: "The record from P16 to T3, assembled 2026-09-16"
+date: last-modified
+format:
+  pdf:
+    documentclass: article
+    colorlinks: true
+    geometry: margin=2.5cm
+    toc: true
+    number-sections: true
+    include-in-header: header.tex
+---
+
+# How to read this document {#sec-how}
+
+This is the successor to `reports/synthesis/` **for everything after 9 September 2026**. It does
+not replace that document: the synthesis remains the record of the framework, the seven organism
+models, the Candida results and the audits, and its §1–§6 stand. What it could not do was answer
+the question it ended on — whether a posterior was reachable for the *E. coli* gas-exchange
+calibration. That question has now been worked for a week, and this is what came of it.
+
+**Every number here is read from a committed file, and the file and the commit are given.** Where
+`reports/synthesis/evidence.csv` carries a row for a claim, it is cited by row id like [T2b].
+Where it does not — P9 through P17 predate or postdate that file's rows — the file and commit are
+named inline. Nothing is quoted from memory or from another summary.
+
+**The document is organised by what was learned, not by the order the prompts ran.** Seven things
+were established, in a sequence where each one was only visible once the previous had been fixed.
+That order is the argument.
+
+**Self-corrections appear with the same prominence as everything else**, and there are several. A
+multimodality reading was withdrawn; a sampleability criterion was found to contain a conjunct
+that tested the wrong failure mode; a parameter was discovered never to have been read by the
+model; a "96 %" was corrected to 16.5 %; a remedy was measured and found worse than doing nothing.
+Two of these changed a conclusion. The even-handedness is not modesty — it is the reason the
+remaining claims can be trusted.
+
+**One thing to hold throughout:** the framework works, is gated, and is not in question. What is
+unsolved is the *calibration* of one configuration of one organism, and its obstacle now has a
+name and a price.
+
+# Where it stood {#sec-start}
+
+The synthesis of 9 September left three things. A merged framework: one core, seven organism
+models, two regression gates — the Candida gate at **79 of 79 comparisons** and the *E. coli*
+gas-exchange port at **60 of 60** (`reports/candida_thermal_limit/`, `reports/P1_parsa_port/gate.md`
+@ `fa1fa42`). A set of parameter medians carrying an explicit *not-converged* label. And no
+intervals at all.
+
+The reason for the label was already established and is worth restating, because everything that
+follows is a consequence of it. **No chain in the family had converged — neither the nine refits
+nor the six inherited ones** — with autocorrelation times of 146–245 against chains of 1500–2000
+steps, i.e. chain/τ ≈ 6–12 against a criterion of ≥ 40 (`reports/P4_refit/` @ `f7abf1f`). Adding
+walkers did not fix it: at 128 walkers over 1500 steps τ grew **26 → 141** and the verdict was NOT
+MIXING (`reports/P7_walkers/`). There was no ridge to blame — the ensemble was isotropic and
+unimodal, the first principal component carrying only **16.5 %** of the variance with τ between
+110 and 121 on every one of the sixteen components (`reports/P8_ridge/`).
+
+So the sampler was not obviously weak, the geometry was not obviously hard, and the chains did not
+mix. The question was why.
+
+# The likelihood was cliffed, and the sampler was not weak {#sec-cliffs}
+
+The answer was that nobody had looked at the surface. When it was scanned — 22 line scans through
+the working point, each of 41 evaluations at 0.05 posterior standard deviations — **12 of the 22
+lines had a single step exceeding 20 % of the line's entire range**, with a median largest step of
+**39 %** and a maximum of **99 %** (`reports/P9_surface/report.md` @ `dbb2e3d`). The surface was
+not rough in the sense of noise. It was cliffed.
+
+**The mechanism was traced to one place.** At cold temperatures the linear program's optimal
+oxygen uptake jumps between vertices while growth barely moves, and the respiration term — a
+Normal in log O₂ with a small variance — turns a two- to four-fold jump in O₂ into tens of
+log-likelihood units. Tightening solver tolerances did not remove it, so it was not numerical
+noise: it was the model's own piecewise-linear structure being scored on a scale that could not
+absorb it.
+
+Two changes followed, each implemented as a core option, default off, and turned on only for
+*E. coli* (`strains/eciML1515/gas_exchange.yaml` @ `dea5535` [P13a]):
+
+- **A parsimonious tie-break.** Growth is held at its optimum and total absolute flux minimised,
+  so the oxygen flux read off is a function of the model rather than of the solver's path.
+- **A floor on the log-O₂ standard deviation**, set to the largest vertex jump measured anywhere
+  in the scan, **1.4216** — moved there from an earlier 0.76 which was the largest jump at the
+  *modal* cliff temperature only (`reports/P11_nested/report.md` @ `4f4c56f`).
+
+Together these cut the three decomposed cliffs by about an order of magnitude, from
+**−70 / −32 / +23** log-likelihood units to **−6 / −3 / +2**
+(`reports/P10_respiration_likelihood/report.md` @ `409d70b`). The cost is stated where the option
+is set: the respiration standard deviation is now at least 1.42 in log at every temperature — a
+factor-four band on O₂ — and the three cold points whose measured relative standard deviation is
+0.06–0.09 lose the most. That is the price of a sampleable surface, and it was paid deliberately.
+
+## A criterion that tested the wrong failure mode {#sec-own-1}
+
+The first self-correction belongs here. The rule used to decide whether the surface was sampleable
+was *relative* — a step above 20 % of a line's range — and the fixes above shrank the ranges along
+with the cliffs, so the rule became centre-dependent: the same surface read SMOOTH at one point and
+ROUGH at another. It was replaced by an **absolute** rule, in log-likelihood units, written before
+the re-scan; under it the largest step was **3.53** against a 5-unit bar
+(`reports/P11_nested/report.md` @ `4f4c56f`).
+
+That rule was then itself found to be wrong, in a more interesting way. It named **plateaus** as
+nested sampling's failure mode — correctly, since a plateau puts an atom in the distribution of
+the likelihood under the prior and voids the volume estimate — and then *also* required no jumps.
+Those are different objects and only one is fatal: a jump leaves a gap in the likelihood's
+support, carrying no prior mass, which nothing ever samples. The surplus conjunct cost one run
+slot and blocked a second, **on a surface that had no plateaus at all**: 0 of 480 adjacent
+evaluations were exactly equal (`reports/P14_posterior/` @ `030c4cf` [P14b]).
+
+The instrument that settled it is worth keeping. A step size confounds a steep smooth gradient
+with a genuine jump; refining the grid separates them in four evaluations, because for a bounded
+derivative |Δ| halves with the spacing and for a jump it converges to the jump height. The step
+that had stopped the work, 8.5517 units, refines **8.5517 → 4.3325 → 2.2295 → 1.1236** — ratios of
+about one half — and is pure steepness [P14a].
+
+# One live basin, not many {#sec-basins}
+
+Meanwhile two nested runs on the cliffed-then-floored surface disagreed by **6.8 sigma in log
+evidence** (−22.886 against −24.567; `reports/P11_nested/report.md` @ `4f4c56f`), and the natural
+reading was multimodality — the more so because the published precedent, Pettersen & Almaas's
+audit of Li et al.'s yeast etcGEM, reported seed-dependent posteriors and multimodality with 2,292
+per-enzyme parameters where we had 16 global ones.
+
+**That reading was tested directly and withdrawn.** With endpoints converged (11 of 12 on
+tolerance) and basins defined by bottleneck barriers rather than by clustering, there is **one
+live basin**. The barrier matrix is bimodal at **13.868 against 1.785** elsewhere, with the basin
+count stable over a factor-7.8 window of the threshold, and the two runs' best samples — the
+supposed two modes — are **0.266 apart**, which is noise (`reports/P12_modes/report.md` @
+`4f4c56f`).
+
+The only separated basin is a model with **zero predicted growth at every measured temperature**.
+Hold that; it becomes §[-@sec-infeas].
+
+Two things follow. The claim that the multimodality is intrinsic to the thermal formulation is
+**unsupported by our own evidence**, and is withdrawn by dated note in the synthesis with its
+numbers unedited. And PCA clustering is not a mode-finder: the isotropy §[-@sec-start] reported
+was real, and it was the *explanation* attached to it, not the geometry, that was wrong.
+
+# A parameter that was never read {#sec-fmetab}
+
+One of the sixteen sampled parameters, the metabolic proteome fraction `f_metab`, had been
+classified FLAT — the likelihood insensitive to it — and that classification had been used to
+argue about identifiability.
+
+It was not flat. **It was not connected.** Configuration D selects a coupled growth-law allocation
+in which the metabolic fraction is computed from the growth rate, and the branch that does so
+states in its own comment that the sampled argument is ignored; the only other reader is a simplex
+guard that cannot fire. The coordinate entered the sampled set the day before the superseding law
+was written, and was switched on 50 minutes after it, with a docstring true of a neighbouring
+parameter and false of this one. A documentation discrepancy, not a wiring omission
+(`reports/T1_target_revision/DECISIONS.md` D2 @ `b7ab6e3`).
+
+This was then **proven rather than argued**, which is the part worth keeping. The claim is an
+algebraic invariant: the target with the coordinate removed must equal the target with it present,
+at any value of it. Registered in advance with a tolerance of 1e-6 and checked at **870 archived
+points**, the maximum difference was **2.02 × 10⁻⁸**, with 0 violations and 0 unresolved solves
+[T1a]. Removing it is therefore free: no log-likelihood changes and no evidence changes.
+
+The neighbouring parameter `f_maint` is a different case and stays sampled — it sets both the
+enzyme-pool bound and the maintenance-ATP bound.
+
+# Infeasibility was being rewarded {#sec-infeas}
+
+Return to the dead basin. A model that predicts no growth anywhere should be scored badly, and it
+was — on growth. On respiration it was scored **−0.017** against the live basin's **−13.549**,
+because at its temperatures the linear program has no feasible solution, the oxygen prediction is
+missing, and the term simply skipped it. **The dead basin won about 13.5 log-likelihood units by
+not being scored at all.**
+
+Part of this had already been fixed. A *feasible-but-not-growing* cell still respires for
+maintenance, and the earlier support form discarded those temperatures via a growth mask; the
+`clamp` form scores them at full weight and masks only a genuinely missing oxygen value. The third
+candidate — imputing O₂ = 0 where growth stops — was **withdrawn on measurement**: it replaces a
+real oxygen uptake of 0.525–5.674 with an epsilon and fails the state test by **119.14
+log-likelihood units** [P13b, P13a].
+
+The *infeasible* case was untouched, and closing it needed facts rather than a penalty. Those were
+assembled from the measurement record and the solver, with nothing invented:
+
+- **The observable and its uncertainty.** The likelihood consumes a per-cell oxygen rate, with the
+  replicate standard deviation measured at every one of the twelve temperatures (five replicates
+  each, so the code's 30 % floor never fires); the measured signal-to-noise ranges from 2.6 to
+  17.6. **No detection limit is documented anywhere**, so a censored model is not derivable and
+  was not invented (`reports/T1_target_revision/DECISIONS.md` D3).
+- **A structural zero on growth does not imply one on oxygen.** At 50 °C three of five series carry
+  the pipeline's deliberate no-growth marker and **still respire**, at the same order as the
+  growing series. The data forbid the obvious substitution.
+- **What the missing predictions actually are.** Every missing prediction in the audit set was
+  classified by solver status through a registered three-rung retry ladder: **876 points, 10,512
+  solves, 9,355 STRUCTURAL_ZERO, 0 UNRESOLVED, 0 resolved on retry** [T1b]. They are genuine
+  infeasibilities, not numerical failures.
+- **The existing term cannot score a zero prediction at all.** It is Normal in log O₂, and log 0 is
+  −∞. A lognormal error substitution is not implied by the code's use of a log scale; it would be
+  a new modelling choice.
+
+The rule adopted was therefore the **limit of the existing term**, not a penalty and not a fitted
+constant: a parameter set whose linear program is infeasible at any measured temperature has
+**zero likelihood**. Unresolved solves remain a separate category that is reported, never scored.
+
+## The 765 points, and a number corrected {#sec-own-2}
+
+The same classification produced the sharpest result of the week. Of the **800** validated
+sampling points retained by the converged run, **765 are infeasible at every one of the twelve
+temperatures** [T1b]. Their log-likelihood is the growth term alone, a function of one nuisance
+parameter with a ceiling of **−18.6825**, and that ceiling sits *above* most of the living points.
+They carried **81.5 %** of that run's posterior weight.
+
+**And here the anticipated figure was wrong.** It had been expected that ~96 % of a defensible
+prior would be infeasible. Measured directly — 2,000 independent prior draws — the prior rejection
+rate is **16.45 %, Wilson 95 % interval [14.9 %, 18.1 %]**, and the rejection fires at the coldest
+temperature in **326 of 329** cases [T2b]. The 96 % was the *live-point* fraction of one run at one
+iteration, which is where the sampler had concentrated — not the prior. About 32 % of the prior is
+"living" by the usual criterion.
+
+The distinction matters: the dead stratum held four fifths of the posterior weight from a sixth of
+the prior's volume, because the scoring rule rewarded it. It was a likelihood defect, not a volume
+effect, and not biology.
+
+**The revision worked.** Implemented as core options (default off, gated **79/79** and **60/60**
+byte-identical, turned on for one strain), re-verified at all 876 audit points — 13 feasible points
+unchanged to 9.6 × 10⁻⁸ against a 1e-6 tolerance, 863 at −∞, 0 unresolved [T2a] — and confirmed on
+the runs themselves: **every posterior sample is feasible at every temperature**, and 97.6–98.6 %
+of predictive draws grow above half the measured peak [T2e]. The dead region is gone.
+
+# The null test, and what it did and did not show {#sec-p17}
+
+Before any of the target revision, a separate line of work asked a cleaner question: does the
+sampler recover a prior it is *known* not to be learning from? An inactive coordinate's posterior
+must equal its prior, and that is checkable without any biology.
+
+**It failed, and the failure reproduced.** Independent reconstruction of two converged
+fifteen-dimensional runs confirmed that both met their stopping condition — log evidence
+**−26.029894** and **−26.052380** — and that they did **not** reproduce each other: **14 of 15
+marginals fail** the agreement rule, and the provably inactive coordinate's weighted CDF mean is
+**0.319120** and **0.393715** against a target of 0.5 (`reports/P16_reduced/audit_summary.json` @
+`b8b181b`).
+
+The follow-up localised the mechanism without repairing it: a **60–80-fold mismatch** between
+group and pooled proposal widths, ancestry collapse in the live population, stratum-dependent
+trapping, and seven curvature-sensitive axes whose local curvature is scale-dependent at a saved
+point. Every within-sampler remedy tried was falsified, and the gate was closed **NEGATIVE** by
+decision (`reports/P17_inactive_prior/` @ `3a5de32`).
+
+**Its two limits are carried verbatim, because they bound everything above and below.** The
+curvature findings concern *one non-optimal point*, not proof that all samplers fail or that
+likelihood structure is the sole cause. The 80–87 % living fractions in its analytical controls
+are consequences of specified toy priors and likelihoods — **never a biological target or an
+acceptance threshold**. And fixing the uniform melting-temperature shift at zero, which both the
+converged runs and everything after them do, **assumes the meltome's mean is exact**; any uniform
+error in it is absorbed by the stability scale and the catalytic parameters.
+
+One result from that work has to be kept in view for §[-@sec-second]: **its analytical controls
+failed with no linear program present at all.** On a narrow-mixture target with an exactly known
+answer, the active-region probability came out **0.084 / 0.785 / 0.231** against the exact
+**0.30437**. Whatever else is wrong, a genuine sampler weakness exists independently of the model.
+
+# The likelihood is not a function of its parameters {#sec-determinism}
+
+With the target revised, gated and verified, the protocol's five independent runs were launched on
+reserved seeds. Two finished. The third crashed.
+
+**The crash was diagnosed rather than retried.** The sampler reported that its slice step could not
+find a valid point, with the bracket collapsed to the smallest representable number. The failing
+point was one of the run's own live points, stored at a log-likelihood of **−18.480**, above the
+current threshold of −19.163. Re-evaluated in a fresh process it is **−19.7608540096**, three times
+identically: the stored value was **1.28 too high**, and the true value is *below* the threshold,
+so no step from it could ever succeed. The crash was mechanical and deterministic. Re-evaluating
+**all 800** live points found **four** carrying that same offset — one worker evaluation and its
+descendants [T2d].
+
+The cause is not new, and that is the point. It had been measured a week earlier in a different
+configuration: at particular temperatures the oxygen uptake at optimal growth is a **face** of the
+linear program rather than a vertex, and which point of that face the solver returns is set by its
+**basis history**. The same signature appears in an earlier crash, in a 0.088-unit variation at
+identical parameter vectors with *zero* differences in the canonical linear program, and in a
+0.028-unit event at a deep-prior draw. **The likelihood evaluated in a persistent worker process is
+not a deterministic function of its parameters**, and nested sampling — which needs only the
+*ordering* of likelihood values, but needs that exactly — cannot tolerate it.
+
+**Four candidate remedies were then measured** on one fixed, hashed set of 22 inputs, 50
+evaluations each in one persistent worker, against a fresh-process reference that is bit-identical
+at all 22. The decision rule was committed before any battery ran and was not revised [T3a]:
+
+| scheme | max deviation from the clean value | cost per evaluation | verdict |
+|:--|--:|--:|:--|
+| current | 1.815 | 1.79 s | FAILS |
+| reset the solver before every call | **23.277** | 2.91 s | FAILS |
+| single-solve lexicographic objective | different vertex | 1.49 s | FAILS, and disqualified |
+| **a fresh model per evaluation** | **0.000** | **5.70 s** | **DETERMINISTIC** |
+
+Three findings beyond the table, each of which would have been easy to get wrong by intuition:
+
+- **A solver reset per call is worse than doing nothing** — 23.277 against 1.815, at 63 % more
+  cost — and it spreads order-one excursions from three evaluations to 13 of the 19 inputs. It
+  discards the basis but not the *degeneracy*, so each solve re-enters the flat face from a
+  different start. An earlier observation that a reset had restored one value exactly does not
+  generalise, and the matter is now settled.
+- **The lexicographic objective is a different model.** It was verified against the current
+  tie-break *before* any determinism verdict, as registered, and it does not return the same
+  vertex at any input: oxygen differs by up to **4.58** and **8.40** mmol gDW⁻¹ h⁻¹ on the two
+  configurations, growth by up to 2.27 h⁻¹ [T3b]. It is faster, and it is not the same target.
+- **The corruption attaches to the evaluation, not to the parameter vector.** The point that
+  crashed the run was *clean* over 50 evaluations, while two of its siblings carried the same
+  +1.28 offset. Which input is hit depends on what the worker evaluated before it, so **no
+  parameter vector can be certified clean by a spot check** [T3c]. One configuration is an order
+  of magnitude worse than the other, and it is exactly the one whose oxygen flux sits on a face.
+
+# A second cause, still open {#sec-second}
+
+It would be tidy if this explained everything. It does not, and the test that shows it was
+registered in advance and reported against interest.
+
+If the two finished runs disagree because their stored likelihoods are corrupted, then their
+highest-weight samples should carry offsets. **They do not.** The 20 highest-weight posterior
+samples of each run, re-evaluated in a fresh process, are clean to **2.02 × 10⁻⁸** and **5.16 ×
+10⁻⁹**, with nothing above 10⁻⁶ [T3d]. The defect explains the crash. **It does not explain the
+disagreement.**
+
+And the disagreement is substantial. Under the revised likelihood the two runs give log evidence
+**−27.707 ± 0.110** and **−28.047 ± 0.100** — a difference of 0.340 against a combined error of
+0.149 — **all 14 physical medians** differ by more than two Monte-Carlo errors, their leading
+posterior directions are unrelated, and the appended positive control on a coordinate *proven* to
+enter nothing is not recovered in either run [T2e]. The honest reading is that the sampler
+weakness §[-@sec-p17] found with no linear program present is still there, and now has to carry
+this.
+
+The stated limitation of the clean-sample test: those 20 samples cover only **0.3–0.4 %** of the
+posterior weight. It establishes that the dominant samples are clean, not that the bulk is.
+
+# What a validated posterior would need, and what it would cost {#sec-cost}
+
+The protocol was signed before any of these runs, with every threshold naming its calibration
+source and where that source stops applying (`docs/VALIDATION_PROTOCOL.md` @ `9b91420`). Six
+checks must all pass on five independent runs: an inactive coordinate recovering its exact prior;
+an appended Beta(3,1) control recovered on its cube with a wrong-prior contrast; consistency of
+every physical marginal and the leading covariance directions across runs; the prior-rejection
+fraction with its uncertainty; feasibility-aware predictive checks at every measured temperature
+including the unresolved-evaluation rate; and evidence reconstruction with independent hash audits.
+Any single failed check is a failure of the programme.
+
+Three of five reserved seeds are spent. Under the only deterministic scheme, at its measured
+3.2× cost, one run of this configuration goes from the **11.2 and 13.4 hours** actually measured to
+roughly **35–43 hours**, and five sequential runs to **seven to nine days**. The eight remaining
+configuration fits re-cost from about 100 hours to about 320.
+
+That is the price of the *exact* route. It is not the only route, and §[-@sec-next] treats the
+alternatives as a menu rather than a plan.
+
+# What is established {#sec-established}
+
+Everything in this section survives the whole of the above. None of it depends on a posterior.
+
+- **The framework and its gates.** One core with seven organism models on it; the Candida gate at
+  **79/79** and the *E. coli* port at **60/60**, run on every change and byte-identical with the
+  options off. The port reproduces the reference implementation's ten R² values to within **0.009**
+  (`reports/P3_gate/gate.md` @ `fa1fa42`).
+- **The mechanisms, implemented and separable.** Measured proteome sectors; overflow metabolism
+  emerging from a total-carbon cap rather than being imposed; the respiratory-chain membrane-area
+  budget; and, from the Candida series, that this budget is expressible in all four Candida models
+  but cannot bind there, because the respiratory chain supplies only **0.02–0.05 %** of the protons
+  ATP synthase consumes (`reports/K4_membrane/`).
+- **The audits of the published yeast model.** Our coupling-ion defect class does **not** fire on
+  it; and its temperature-optimum/ceiling asymmetry reproduces independently in their model with
+  their own code, and survives at their **calibrated posterior over 100 models**, where it is
+  stronger and more consistent — with the margin narrowing sharply, so the single-vector figure
+  must not be quoted of their calibrated model [Y2] (`reports/Y1_yeast_audit/`,
+  `reports/Y2_regime_posterior/report.md` @ `c45fe27`).
+- **The predictor validation.** The thermostability predictor resolves differences *between*
+  organisms (r = **+0.76**) and not at all *within* a proteome (r = **−0.05** on 1,947 measured
+  proteins), which cuts a headline fold-gap from ~79× to **5.4× [2.5, 10.3]**
+  (`reports/predictor_calibration/`).
+- **The likelihood's machinery**, each piece measured before adoption and each a core option,
+  default off: the parsimonious tie-break, the log-O₂ floor at 1.4216, the `clamp` support form,
+  the removal of the unread coordinate, and the zero-likelihood rule for structural infeasibility.
+- **One a-priori prediction, half-successful, correctly labelled.** The *uncalibrated* model
+  predicted an exact-strain growth curve with nothing fitted to growth: it tracked the **shape**
+  and under-predicted the peak **~2.3-fold** (1.04 against 2.40 h⁻¹;
+  `reports/ecoli_tpc/report.qmd` @ `c3f66be`). That curve was then consumed by the calibration, so
+  the *calibrated* model has no holdout.
+- **That the −4 K stability shift is parameterisation, not biology.** An equally good, equally
+  living fit exists with no shift at all, paid for by the stability scale — but both solutions put
+  the least stable few per cent of enzymes **4–6 °C below** the measured meltome, so the
+  undetermined quantity is the meltome's low tail, not catalysis (`reports/Y3_tm_shift/report.md`
+  @ `1571307`).
+
+# What is not {#sec-notestablished}
+
+- **There is no reproducible posterior for any configuration of any organism in this framework.**
+  Five runs across two versions of the likelihood have met their stopping rules, and no two of them
+  agree. R1 — a posterior two independent runs agree on — is **open**.
+- **No interval quoted anywhere in this project is a converged interval.** Every R² and every
+  median in the earlier documents carries a not-converged label, and it is real.
+- **The predictive check fails on the warm side.** Both finished runs put the measured peak growth
+  (2.076 h⁻¹ at 40 °C) above their predictive 97.5 % bound (≈ 1.62), at four of twelve temperatures
+  [T2e]. The model under-predicts the warm-side peak by about 25 % calibrated — in the same
+  direction as the 2.3-fold uncalibrated gap. Unvalidated runs, so this is a signal to explain, not
+  a result.
+- **The mechanism is not discriminated.** The evidence comparison that would distinguish the
+  carbon cap from the membrane-area budget needs one reproducible number per configuration on one
+  medium, and there is not yet one.
+- **A second cause of run disagreement is unidentified** (§[-@sec-second]).
+- **R3 is provisional and R4 is untouched:** the mechanism is not discriminated, and the calibrated
+  model has never been tested out of sample.
+- **Two measurements, not models, are missing**, and both are on the critical path: proteome
+  allocation **above 37 °C on glucose** — where the thermal ceiling is set and where the measured
+  series stops — and maintenance against temperature from a low-dilution chemostat, the constants
+  for which are currently borrowed.
+
+# What it would take {#sec-next}
+
+A menu, with costs, not a plan. The ordering below is a recommendation and the choice is the PI's.
+
+1. **Decide the determinism remedy.** Everything else inherits it. The exact route is a fresh model
+   per evaluation at 3.2× cost. Three alternatives have *not* been measured and may be better
+   value: parallelising across runs rather than within them (five single-process runs would fit
+   this machine and cost wall-clock rather than 3.2× the compute); making the tie-break itself
+   state-independent, which would fix the cause rather than the symptom and is the only route that
+   would also help the configurations whose oxygen sits on a face; or accepting the
+   non-reproducibility and abandoning nested sampling for this likelihood.
+2. **Then one run under the chosen remedy**, and ask whether the disagreement survives. This is the
+   cheap test of whether the second cause is real, and it is worth one run before committing to
+   five. New seeds must be registered; three of the five reserved ones are spent.
+3. **Then the medium comparison** — the same configuration on fully defined M9, changing one thing
+   — with the tie-break instrument run on that medium first, which has never been done.
+4. **Then the mechanism comparison**, three configurations on one medium under one likelihood,
+   which is the biological question and is nearly free once one reproducible run exists.
+5. **In parallel and independent of all of it:** the two measurements in §[-@sec-notestablished],
+   and the external holdout on evolved lines that would give the calibrated model its first real
+   test.
+
+# What this document does not license {#sec-license}
+
+A validated posterior for one configuration on one medium would license nothing about the others,
+and there is not one. Nothing here bears on the Candida manuscript's empirical results, which are
+not ours to assess. The published-model audits stand on their own evidence and are unaffected by
+any of the calibration work. And the negative results in §[-@sec-p17] and §[-@sec-determinism] are
+statements about **this model, this likelihood and this sampler configuration** — not about
+enzyme-constrained models, nested sampling, or calibration in general.
