@@ -6,7 +6,7 @@
 
 *Evidence:* calibration_investigation.qmd renders to _output/calibration_investigation.pdf with quarto under the synthesis's house convention (header.tex, nature-communications.csl); parsa_1_9/ holds the two source files Parsa sent with their SHA-256; parsa_1_9_assessment.md verifies his arithmetic and quantifies the per-medium movement from the committed derived tables; gates_worktree.sh runs the seven-strain battery (79/79, 60/60 at main 897d78e, task0_gates.log).
 
-**This report was last written at** `9fc2f0f` (2026-09-16) — H1: correct evidence row H1b's source path; audit every evidence row's source_file (106 of 107 resolve) and record the one pre-existing gap without editing it
+**This report was last written at** `53ec4ce` (2026-09-16) — H1: repository closed -- the branch cleanup (33 deleted, 9 held by worktrees, 1 protected) and the fresh-clone proof at ee7d183 (79/79, 60/60, stamps clean, 9-page report, 62-page deck)
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 
