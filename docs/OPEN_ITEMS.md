@@ -10,6 +10,50 @@ Status: **BLOCKED** (waiting on something external) · **READY** (can start now)
 
 ---
 
+## 0. WORKTREES CLEANED — 2026-09-16 (H2)
+
+Filesystem and git hygiene only; no science, no model or config change. **Ten disposable worktrees
+removed or pruned and seven merged branches deleted, recovering ~2.2 GiB**; `origin` carries only
+`origin/main`. **The second working tree is now `../etcGEMs-work`** (renamed from `../etcGEMs-h1`),
+on `main` and clean — use it for parallel runs.
+
+**`../etcGEMs-p17-archive` is protected and was re-verified by name at every step:** branch
+`codex/p17-inactive-prior` at **`ef1961b`**, clean, 2.9 GB, its manifest readable (1,905 files),
+**absent from origin**. It is the only ref keeping those artefacts reachable and is never merged,
+pushed or deleted.
+
+**Three things were deliberately left, because removing them would have needed `--force` or would
+have destroyed unsaved work:**
+
+- **The primary checkout `MICROADAPT/etcGEMs` is still on `t1/housekeeping` at `3222b9d`, not on
+  `main`.** Two blockers: its `.git/index.lock` is still a stale zero-byte file held open by the
+  sandbox VM's file server (`com.apple.Virtualization`, pid 62662) since 13 September, so git
+  cannot write its index at all; and it carries **real uncommitted work** —
+  `prompts/T1_target_revision_prepare_prompt.md` differs from every committed version by 43 lines,
+  and several prompt files (`H1`, `H2`, `T2`, `T3`) exist only there, untracked. Its
+  `docs/OPEN_ITEMS.md` is by contrast merely **stale** (it is byte-identical to the version
+  committed at `86d182a`, 653 lines against main's 749) and can be discarded safely. **To finish:
+  clear the lock (a reboot releases it), commit or copy out the prompt edits, then
+  `git switch main && git pull`.**
+- **`../etcGEMs-k6`** (2.9 MB stub): its content was deleted from disk, so git sees 1,172 deleted
+  files and refuses a non-force removal. There is **nothing unsaved** — 0 untracked files, every
+  entry a deletion of a file git still holds, and `k6/like-for-like` is merged into `main` — so
+  `git -C ../etcGEMs-k6 restore .` then `git worktree remove ../etcGEMs-k6` clears it in two safe
+  commands.
+- **`../etcGEMs-k7`** (64 MB): its `HEAD` points at `refs/heads/k7/envelope`, **a branch that no
+  longer exists**, so the head reads `0000000`, every file looks untracked and both `remove` and
+  `prune` decline. Its work is on `main` (`reports/K7_envelope/`). Delete the directory by hand and
+  run `git worktree prune`.
+
+Four local branches remain: `main`, the protected `codex/p17-inactive-prior`, and
+`k6/like-for-like` and `t1/housekeeping`, each held by one of the two worktrees above.
+`../etcGEMs-work-salvage/` (660 KB) holds four untracked LaTeX build artefacts moved out of the old
+`etcGEMs-work` before it was removed — a superseded 11 September deck render and its `.tex`,
+`.nav`, `.snm` intermediates, all regenerable by `quarto render`. Delete it when you are satisfied
+nothing is wanted from it.
+
+---
+
 ## 0. PAUSED AND HANDED OVER — 2026-09-16 (H1)
 
 **The calibration investigation is written up and the repository is closed for handover.** The
