@@ -41,13 +41,28 @@ linear-programming work (`~/gurobi.lic`).
 **Where main is.** `origin/main` at the commit this handover was merged in; `git log --oneline -5`
 tells you the rest. A fresh clone contains everything in this document **except** the P17 archive.
 
+**What you should find on disk: two folders.** `MICROADAPT/etcGEMs`, this repository, and
+`MICROADAPT/etcGEMs-venv`, the Python environment every prompt and script refers to as
+`../etcGEMs-venv/bin/python`. **Do not delete `../etcGEMs-venv`** — it is outside the checkout on
+purpose (P7 moved it there so two worktrees could not fight over one interpreter) and it is
+recreatable only by rebuilding from `requirements.lock.txt`. Anything else beside them is
+temporary and is created on demand:
+
+```sh
+git worktree add ../etcGEMs-p17-archive codex/p17-inactive-prior   # to read the P17 archive
+git worktree add --detach ../etcGEMs-work main                     # a second tree for parallel runs
+git worktree remove <path>                                         # when finished -- never rm -rf
+```
+
 **The P17 archive.** The full artefact set of the P17 investigation — 486 checkpoints, 775
 archives, 72 logs, about **2.9 GB** — is reachable only through the **local-only** branch
 `codex/p17-inactive-prior` at `ef1961b`, checked out at `../etcGEMs-p17-archive`. It is **never
 merged, never pushed, never deleted**; it could not be pushed because one log exceeds GitHub's
 file-size limit. `main` carries the curated 580 files (15.7 MB) plus a manifest with the SHA-256 of
 all 1,905 files including the excluded ones, so a fresh clone can verify what it does not have.
-**A "clean up merged branches" pass that deletes this branch destroys the artefacts.**
+**A "clean up merged branches" pass that deletes this branch destroys the artefacts.** Its checkout
+is **not** on disk by default — H5 removed it after proving the objects live in the primary store
+and that the checkout comes back identical; recreate it with the command above when you need it.
 
 ---
 

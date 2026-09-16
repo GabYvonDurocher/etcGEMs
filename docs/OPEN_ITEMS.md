@@ -587,14 +587,25 @@ temperatures, LP kinks), the T_opt/CT_max asymmetry, the predictor validation, a
   in its live set (T2 runs 1–2). **The rule: before any long run, re-evaluate a sample of
   accepted points fresh and compare to their stored values; a discrepancy above the registered
   repeatability tolerance is a stop, not a footnote.** Item 1.34.
-- **`codex/p17-inactive-prior` IS THE ONLY REF KEEPING ~2.9 GB OF P17 OBJECTS REACHABLE IN THE
-  PRIMARY REPOSITORY** (added 2026-09-13, T1). It is local-only by decision (R3). Deleting it, or
-  any "clean up merged branches" pass that touches it, makes those objects prunable by `git gc`.
-  **It is never merged, never pushed, never deleted.** Its checkout lives in the archive worktree
-  at `../etcGEMs-p17-archive` (a sibling of the repository, on the same OneDrive volume as the
-  object store; relocated from `/private/tmp` by T1 on 2026-09-13 because that path is cleared on
-  reboot). **The worktree is recreatable from the branch with one command; the branch is not
-  recreatable from anything.** `git worktree list` must always show it at `ef1961b`.
+- **`codex/p17-inactive-prior` AT `ef1961b` IS THE ONLY REF KEEPING ~2.9 GB OF P17 ARTEFACTS
+  REACHABLE** (added 2026-09-13 T1; rewritten 2026-09-16 H5 when the checkout was removed).
+  **The branch is the irreplaceable part. The checkout is not, and is deliberately absent.**
+  * **The branch.** Local-only by decision (R3): it is **not on origin** and could not be pushed,
+    because one log in it is 109,809,818 bytes, above GitHub's file-size limit. It is **not
+    recreatable from anything**. Deleting it — including in any routine "delete merged branches"
+    pass, and it *is* unmerged, so `git branch -d` will refuse but `-D` will not — makes ~2.9 GB of
+    objects prunable by `git gc`. **Never merge it, never push it, never delete it.**
+  * **The worktree.** The objects live in the **primary repository's own object store**, so a
+    checkout is one command and costs 2.9 GB of OneDrive sync to keep sitting there. There is
+    normally no archive folder on disk. To look at the archive:
+    `git worktree add ../etcGEMs-p17-archive codex/p17-inactive-prior`, and
+    `git worktree remove ../etcGEMs-p17-archive` when finished. Never `rm -rf` a worktree.
+  * **Verified 2026-09-16 (H5), and this is what makes the above safe rather than merely
+    plausible:** the manifest's sha256, its 1,905-file count and three files chosen by rule (the
+    largest, `unif_benchmark.log`; the smallest, a zero-byte log; and `report.md`) were hashed in
+    the worktree, re-derived **from the branch directly** with `git show`, and hashed again in a
+    **recreated** checkout. All four matched at every stage, and the 104.7 MiB log materialised in
+    full. `reports/H5_folders/`.
 - **A CRITERION MUST TEST THE FAILURE MODE IT NAMES** (added 2026-09-11, P15). The sampleability
   criterion specified for P14 **named plateaus** as nested sampling's failure mode — correctly — and
   then **also required no jumps**. Those are different objects, and only one is fatal: a plateau puts

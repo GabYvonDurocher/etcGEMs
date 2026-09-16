@@ -1,0 +1,14 @@
+{
+ "recorded": "2026-09-16 (H5 TASK 1)",
+ "branch": "codex/p17-inactive-prior",
+ "commit": "ef1961b",
+ "selection_rule": "largest tracked blob, smallest tracked blob, and reports/P17_inactive_prior/report.md",
+ "manifest_path": "reports/P17_inactive_prior/closure_manifest.json",
+ "manifest_sha256": "b9e80eab215bddd5140fe28fc9ed2ec6cb4a867f36bab298431e6a3ac2188d08",
+ "manifest_file_count": 1905,
+ "files": {
+  "reports/P17_inactive_prior/unif_benchmark.log": "aa91cc4846a2407c7e058ea44d928930f1bad8ab8125bf030aad52da96181a6a",
+  "reports/P17_inactive_prior/finish_third.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reports/P17_inactive_prior/report.md": "510b8f262744b1c1b6a5700a4c651fed0b3aff2795d2b9d02e89fe83fff16691"
+ }
+}
