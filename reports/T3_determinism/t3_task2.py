@@ -8,18 +8,21 @@ for p in (os.path.join(ROOT, "src"), os.path.join(ROOT, "reports", "P6_convergen
     if p not in sys.path: sys.path.insert(0, p)
 os.chdir(ROOT)
 from t3_battery import _init, _eval
-from t2_target import payload
+from t2_target import payload, build, Target
 OUT = "strains/eciML1515/outputs/calibration_configD_NLDM_recipe_T2_validated"
 
 
 def main():
     from multiprocessing import Pool
+    # samples.npy holds the 16-D SAMPLED vector; the likelihood takes the 17-D full vector (dTm re-inserted).
+    # This is what the first attempt got wrong (IndexError, retained in task2_highweight.log).
+    _, specs = build(validation=True); tg = Target(specs)
     out = {}; t0 = time.time()
     with Pool(processes=1, initializer=_init, initargs=(payload(True), "ref"), maxtasksperchild=1) as pool:
         for k, seed in ((1, 17901), (2, 17902)):
             d = f"{OUT}/run{k}_seed{seed}"; s = np.load(f"{d}/samples.npy"); lw = np.load(f"{d}/logwt.npy"); ll = np.load(f"{d}/logl.npy"); lz = np.load(f"{d}/logz.npy")
             w = np.exp(lw - lz[-1]); idx = np.argsort(-w)[:20]
-            res = pool.map(_eval, [(f"run{k}:sample{i}", s[i].tolist()) for i in idx], chunksize=1)
+            res = pool.map(_eval, [(f"run{k}:sample{i}", tg.expand(s[i]).tolist()) for i in idx], chunksize=1)
             rows = [dict(i=int(i), weight=float(w[i]), stored=float(ll[i]), fresh=float(r["value"]), dev=float(abs(r["value"] - ll[i])), stored_minus_fresh=float(ll[i] - r["value"])) for i, r in zip(idx, res)]
             dv = np.array([r["dev"] for r in rows])
             out[f"run{k}"] = dict(n=20, weight_covered=float(w[idx].sum()), max_dev=float(dv.max()), n_gt_1e9=int((dv > 1e-9).sum()), n_gt_1e6=int((dv > 1e-6).sum()), n_gt_1e3=int((dv > 1e-3).sum()), rows=rows)

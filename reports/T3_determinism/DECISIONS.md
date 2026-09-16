@@ -144,3 +144,129 @@ above their fresh values by more than the registered repeatability tolerance whi
 non-dominant ones do not, the hypothesis stands and P17's attribution needs a dated
 qualification; if they are clean to 1e-9, the collapse is the sampler's own and P17's reading
 stands unqualified. P17's numbers are not edited; a dated note in its report points here.
+
+## D3 — TASK 1's result: only scheme D is deterministic; B makes it worse; C is a different model and is disqualified before its verdict
+
+All four batteries completed inside their budgets (`battery_*.json`, all `complete: true`; A 1,100
+evaluations in 32.8 min, B 1,100 in 53.4 min, C 1,100 in 27.2 min, D 110 in 10.5 min, C-verify 22
+in 4.5 min). Every value is measured against the **fresh-process reference** of D1, which is
+bit-reproducible at all 22 inputs.
+
+### Cost, on the honest basis
+
+The in-worker timer excludes the process spawn and the model build, which **are** scheme D. The
+recommendation therefore uses each battery's own end-to-end elapsed time per evaluation:
+
+| scheme | end-to-end s/eval | in-worker s/eval | relative to A |
+|---|---:|---:|---:|
+| A current | **1.79** | 1.77 | 1.00× |
+| B reset per call | **2.91** | 2.90 | 1.63× |
+| C lexicographic | **1.49** | 1.47 | 0.83× |
+| D fresh model per evaluation | **5.70** | 1.75 | **3.19×** |
+
+D's cost is **3.2×**, not the 4–5× T2 estimated from the 6.7 s build in isolation: the build
+overlaps nothing else and the evaluation itself is unchanged.
+
+### The table, by space (D0's set (v) is a different model and is reported separately)
+
+| scheme | space | max deviation | inputs > 1e-9 | evaluations > 1e-9 | unresolved | verdict |
+|---|---|---:|---:|---:|---:|---|
+| **A** | D NLDM (19) | **1.280** | 14 | 466 / 950 | 0 | FAILS |
+| A | E LB (3) | **1.815** | 2 | — | 0 | FAILS |
+| **B** | D NLDM (19) | **1.578** | 15 | 448 / 950 | 0 | FAILS |
+| B | E LB (3) | **23.277** | 3 | — | 0 | FAILS |
+| **C** | D NLDM (19) | **0.223** | 17 | 850 / 950 | 0 | FAILS |
+| C | E LB (3) | **∞** | 3 | — | **111** | FAILS |
+| **D** | D NLDM (19) | **0.000** | 0 | 0 / 95 | 0 | **DETERMINISTIC** |
+| D | E LB (3) | **0.000** | 0 | 0 / 15 | 0 | **DETERMINISTIC** |
+
+**Scheme A — FAILS**, as D1 recorded; it is the control and it reproduced the defect.
+
+**Scheme B — FAILS, and it is worse than doing nothing.** Resetting the solver before every solve
+raises the maximum deviation from 1.815 to **23.277** and costs 63 % more. It also spreads the
+damage: under A, 3 of 950 D-NLDM evaluations exceeded 1 unit and they sat on run 3's siblings;
+under B, **13 of the 19 D-NLDM inputs** produce an order-1 deviation at least once, including the
+crash point itself (1.469) and points that were clean under A (`run1:286`, `run2:570`). The
+reading is mechanical and was foreseeable from P6 D3a's own wording: the reset does not remove
+the **degeneracy**, it only discards the basis, so each solve re-enters a flat face from a
+different starting point and returns a different vertex of it. P6 D3a saw a reset return E LB to
+its fresh value *once*; P17 D2 already reported that a reset *"does not remove"* the 0.088 event.
+T3 settles it: **a basis reset is not a remedy.**
+
+**Scheme C — disqualified on the vertex check, before any determinism verdict.** D0 required that
+the lexicographic objective return the same vertex as pFBA before it could be recommended. On the
+fresh reference it does **not**, at any input: O₂ differs by up to **4.58** mmol gDW⁻¹ h⁻¹ on
+D NLDM (`run2:149`; relative 47 %) and **8.40** on E LB (`ELB:parsa_MAP`; relative 96 %), and
+growth differs by up to **2.27** /h on E LB. Every one of the 20 evaluable inputs differs in O₂
+by more than 1e-9 and none matches growth to 1e-9 (the growth differences of 3e-6 to 3.7e-5 on
+D NLDM are the `ObjNRelTol` slack doing what pFBA's tolerance constraint does, and are expected;
+the O₂ differences are not). **Gurobi's hierarchical objective is a different tie-break, so it is
+a different model**, and it also produced `numeric` statuses in **111 of its 150 E LB
+evaluations** and its own max deviation of 0.223 on D NLDM. It fails twice over and is not
+recommended. Whether a *correct* single-solve tie-break could be built is a separate question
+this measurement does not answer.
+
+**Scheme D — DETERMINISTIC.** Every one of the 110 evaluations returned **exactly** the reference
+value: max deviation **0.0** at all 22 inputs, both spaces, including Parsa's E LB θ and the two
+−∞ draws. Statuses never varied.
+
+### The verdict by D0's registered rule, not revised
+
+**D is the only DETERMINISTIC scheme, so D is the recommendation**, at a measured **3.2× the
+current cost** (5.70 s against 1.79 s per evaluation end-to-end). A and B FAIL; C FAILS and is in
+any case a different model. `task1_verdicts.json`.
+
+### Two things the table separates, as the addendum asks
+
+1. **The corruption attaches to the evaluation, not to θ.** Under A the crash point `run3:654` was
+   *clean* (max 6.9e-8 over 50 evaluations) while its siblings `run3:791` and `run3:297` carried
+   +1.280 — the same offset that crashed run 3, now on different vectors. Which θ is hit depends
+   on what the worker evaluated before it, so no θ can be certified clean by a spot check.
+2. **The E LB inputs are a second, larger mechanism.** Their deviations (A: 1.538 at Parsa's MAP,
+   **12 of 50 evaluations above 1 unit**, and 1.815 at a prior draw; B: 23.28) sit an order of
+   magnitude above D NLDM's, and E LB is exactly the configuration whose O₂ at optimal growth is a
+   **face** rather than a vertex — P6 D3a measured its FVA range as [5.8, 114.5] at 37 °C and
+   [0, 190] at 45–50 °C, and P10 D1 held F LB for the same reason. D NLDM's O₂ is unique at most
+   temperatures, which is why its defect is mostly at 1e-8–1e-6 with rare order-1 excursions.
+   **Reported separately: two magnitudes, plausibly one cause (face degeneracy) at two widths.**
+   T2's runs were D NLDM; an E or F run would be far worse, which bears on 1.17.
+
+## D4 — TASK 2: the defect explains the crash but NOT runs 1 and 2's disagreement; something else is also wrong
+
+**The direct check** (`task2_highweight.json`, registered in D0; the first attempt failed with an
+IndexError — 16-D sampled vectors passed where the 17-D expanded vector is needed — and its log is
+retained as `task2_highweight_attempt1.log`). The **20 highest-importance-weight posterior samples
+of each run**, re-evaluated in a fresh process with a fresh model per evaluation:
+
+| run | max \|stored − fresh\| | > 1e-9 | > 1e-6 | > 1e-3 | weight covered by the 20 |
+|---|---:|---:|---:|---:|---:|
+| 1 (17901) | **2.02e-08** | 4 of 20 | 0 | 0 | 0.003 |
+| 2 (17902) | **5.16e-09** | 4 of 20 | 0 | 0 | 0.004 |
+
+**The highest-weight samples are clean.** Nothing exceeds 1e-6; the largest is 2e-8, at the
+scale of the fresh-versus-fresh construction difference D1 recorded. **So the defect is not a
+candidate explanation for runs 1 and 2 disagreeing** — not through their high-weight samples —
+and by the prompt's own wording, *"if they are clean to 1e-9, it is not, and something else is
+also wrong."* It is: they disagree in log Z by 0.34 against a combined error of 0.15, in all 14
+physical medians, and in direction, with clean top-weight samples. **P17's analytical controls
+already showed a sampler weakness with no LP present at all** (D2 below), and that now has to
+carry the explanation for the disagreement.
+
+**Limitation, stated rather than buried:** the top 20 samples cover only **0.3–0.4 %** of the
+posterior weight (n_eff ≈ 10,400 and 7,899, so the weight is spread over thousands of samples).
+The test is the one D0 registered and it is a weak one; it establishes that the *dominant* samples
+are clean, not that the bulk is.
+
+**The accumulation argument, with its assumptions.** Method: take scheme A's measured deviation
+rates on the D-NLDM inputs (49.1 % of 950 evaluations above 1e-9, 6.6 % above 1e-6, 0.32 % above
+1e-3 — and the 0.32 % are all above 1 unit, i.e. the distribution is bimodal: a dense 1e-8 haze
+and a rare order-1 excursion) and apply them to one run's measured **≈ 221,000** evaluations.
+Expected per run: **≈ 14,650** evaluations deviating above 1e-6 and **≈ 700 above one full log
+unit**. Assumptions, all questionable: that this 22-input set's rates transfer to the whole
+posterior path; that evaluations are independent (they are not — the corruption is history-driven,
+which is why 4 of run 3's 800 live points shared one offset); and that a deviation matters only if
+the point is accepted. That last one is the reason this is not a symmetric error: **42.9 % of the
+deviating evaluations are inflated** (stored above true), and an inflated value is precisely the
+one nested sampling keeps — an inflated live point is never replaced until the threshold passes
+its *true* value. Run 3 crashed carrying 4 such points in 800. This is an order-of-magnitude
+argument, **not a correction**: neither run is corrected, recomputed or re-run.
