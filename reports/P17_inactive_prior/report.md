@@ -96,3 +96,31 @@ The only batch running when the PI instruction arrived completed **200/200 targe
 | spike | 2.248029 | 1.003983 (0.975790, 1.032176) | 0.006052–0.021671 | 0.012897–0.103451 | 0.204959–0.406815 | -0.257381–0.337204 |
 
 Both approximate intervals contain one; this does not prove unbiasedness. The registered maximum-score envelopes correspond, in original units, to inactive distance / active distance / region error / absolute log Z error bounds of **0.054925 / 0.137312 / 0.137312 / 0.411935** (smooth) and **0.044961 / 0.112401 / 0.112401 / 0.337204** (spike). These are conservative joint-score component envelopes, not the observed range of each metric. The maximum of 100 exchangeable calibration scores gives 100/101 pointwise coverage for one further exchangeable case; it does not provide simultaneous five-run confirmation or real-model certification. The independent 400-point IID CDF reference is retained in `iid_reference.json`; it is a scale comparison, not an IID test of nested samples. Known prior partition volumes remain supplied information unavailable on the real surface. **D50 is a retained calibration control; the original P17 correction gate remains unpassed.**
+
+## Dated note — 2026-09-16 (T3): a hypothesis about this report's REAL-PATH attribution; no number here is edited
+
+P17's **analytical** controls failed with no LP present at all (narrow-mixture active probability
+0.084 / 0.785 / 0.231 against the exact 0.30437, D6), so a genuine sampler weakness exists
+independently of anything below, and that finding is untouched.
+
+What T2 and T3 raise is a question about the attribution of P17's **real-path** observations. T3
+measured that the gas-flux likelihood evaluated in a persistent worker is not a deterministic
+function of θ: 49 % of evaluations deviate from their fresh-process value above 1e-9 and 0.3 % by
+more than a full log unit, **42.9 % of them inflated**, and the offset attaches to the evaluation
+rather than to the parameter vector. P17's own 0.088 event with *"zero canonical LP
+coefficient/bound/objective differences"* (D1–D2) is the same phenomenon, as is P6 D3a's basis-history
+finding of 2026-09-09 and T2's run-3 crash.
+
+**The hypothesis, stated as a hypothesis:** the living-group ancestry concentration reported here
+(complementary group 454 live / 30 ancestors, within-group nuisance RMS step 0.02994, correlation
+0.99556) may be partly or wholly *mechanical* — an inflated stored likelihood keeps a live point
+above threshold longer than its true value warrants, so its slice-descendants accumulate and the
+live set's ancestry narrows onto it. **Its test:** re-evaluate the dominant ancestors, and the live
+points at the checkpoints where the collapse was measured, in a **fresh process per evaluation**
+(T3's reference protocol); if the dominant ancestors carry stored values above their fresh values
+beyond the registered repeatability tolerance while the non-dominant ones do not, this report's
+attribution needs a dated qualification; if they are clean to 1e-9, the collapse is the sampler's
+own and the reading here stands.
+
+Not run by T3, which was a measurement prompt. See `reports/T3_determinism/` DECISIONS D2 and the
+report; OPEN_ITEMS 1.34, 1.35. **Nothing in this report is edited or withdrawn by this note.**
