@@ -10,6 +10,52 @@ Status: **BLOCKED** (waiting on something external) · **READY** (can start now)
 
 ---
 
+## 0. CLEANUP FINISHED — 2026-09-16 (H3, H4)
+
+**H2's and H3's follow-ups are all closed.** The primary checkout `MICROADAPT/etcGEMs` is now on
+**`main`**, clean of tracked modifications, and is the tree a collaborator opens. Exactly **two
+local branches** remain — `main` and the protected `codex/p17-inactive-prior` — and **three
+worktrees**: the primary on `main`, `../etcGEMs-work` detached at main's tip for parallel runs, and
+`../etcGEMs-p17-archive` at `ef1961b`. Both gates pass from the primary tree: **79/79 and 60/60**.
+
+- **The stale `.git/index.lock` is gone** (H3), removed only after confirming no git process owned
+  it — no git process was running at all, and the only holder of the descriptor was a VM.
+- **An abandoned merge was cleared** (H4): `Merge branch 'main' into p13/support` from 10 September,
+  whose `MERGE_HEAD` and `HEAD` were both already ancestors of `main` with zero conflicted paths.
+  Cleared with `git merge --quit`, never `--abort`, which would have discarded the untracked
+  prompts.
+- **Three stale tracked files discarded** after re-verifying each: `docs/RIGOUR.md` and
+  `reports/P17_inactive_prior/ARCHIVE.md` were byte-identical to `main`, and `docs/OPEN_ITEMS.md`
+  was byte-identical to the version at `86d182a`, an ancestor of `main` — strictly older, never
+  divergent.
+- **The prompt series is complete on `main`** (PR #48): T2, T3, H1, H2, H3 and H4 were absent
+  entirely and T1's 278-line revision replaced its 242-line committed version. A reader of
+  `reports/T2_validated_posterior/`, `reports/T3_determinism/` or `reports/H1_handover/` can now see
+  what was asked as well as what was found.
+- **`../etcGEMs-k7` deleted** (H3) after verifying it held a 2026-09-08 checkout of main's own
+  history with zero unique files; **`../etcGEMs-k6` restored and removed** (H4) — its 1,172 missing
+  files were tracked-and-absent with zero untracked, so `checkout -- .` made it clean by git's own
+  definition and it removed non-force. Its branch is deleted.
+
+**Two things the cleanup prompts did not anticipate, resolved and recorded:**
+
+1. **A branch lives in exactly one worktree.** H2 left `../etcGEMs-work` holding `main`, so the
+   primary checkout could not take it. The primary is the checkout a collaborator opens, so it
+   holds the branch and `../etcGEMs-work` is **detached** at the same commit — which is the state
+   it was in before H2's rename.
+2. **An untracked file can block a switch** when the target branch tracks a file at that path. The
+   obsolete T2 redirect marker `reports/T2_validated_posterior/status.json` — which pointed at a
+   worktree that no longer exists — collided with main's real `status.json`. It was **moved**, not
+   deleted, to `../etcGEMs-work-salvage/T2_REDIRECT_status.json`.
+
+**Still on disk, reported and deliberately untouched:** twenty untracked artefacts in the primary
+tree (`brenda_sdh.html`, two config experiments, several `transfer_*` output directories, eight
+`.gitkeep` placeholders and a `dynesty_proof.save`) and `../etcGEMs-work-salvage/` (664 KB: a
+superseded 11 September deck render, its LaTeX intermediates, and the redirect marker above). All
+are safe to delete; none was deleted, because none of it is ours to discard.
+
+---
+
 ## 0. WORKTREES CLEANED — 2026-09-16 (H2)
 
 Filesystem and git hygiene only; no science, no model or config change. **Ten disposable worktrees
@@ -510,6 +556,17 @@ temperatures, LP kinks), the T_opt/CT_max asymmetry, the predictor validation, a
   it beyond a ten-minute launch check, never relaunches while its pid is alive, and never touches
   a run directory. The atexit hook did not remove `driver.pid` on the crash path; the pid file is
   a record, and a relaunch checks the pid is dead rather than trusting the file's absence.
+- **A COMMAND THAT FAILS CAN RETURN EMPTY OUTPUT; EMPTY IS NOT A RESULT. CHECK THE EXIT CODE AND
+  THE STDERR BEFORE READING SILENCE AS CLEANLINESS** (added 2026-09-16, H4). The general rule is
+  the heading, and it belongs beside the `cmd && check` hazard above. **What actually happened here
+  was subtler and is worth the extra line:** H2's `git status --porcelain` in the primary tree
+  did *not* fail — it exited 0 and reported 29 entries, which H2 printed. What was incomplete was
+  H2's **prose summary** in this file, which named the uncommitted prompt files as examples without
+  enumerating the other twenty-four artefacts; a later prompt read that summary as an exhaustive
+  list and asserted "five uncommitted files". H3's premise check caught it at thirty and stopped.
+  **So the operational rule is two-part:** check exit codes *and* never let a narrative summary of
+  a machine-readable result stand in for the result — if a later step depends on a list being
+  complete, re-derive the list, do not quote the prose.
 - **A LIKELIHOOD EVALUATED IN A PERSISTENT WORKER POOL IS NOT NECESSARILY A DETERMINISTIC FUNCTION
   OF ITS PARAMETERS; NESTED SAMPLING CANNOT TOLERATE THAT, AND THE FAILURE IS INTERMITTENT, SO A
   PASSING SPOT-CHECK DOES NOT ESTABLISH IT** (added 2026-09-16, T3; the general form of the entry
