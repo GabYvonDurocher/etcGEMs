@@ -7,25 +7,25 @@
   "n_inputs_gt_1": 4
  },
  "B": {
-  "verdict": "NOT RUN",
-  "max_dev": null,
-  "mean_s_per_eval": null,
-  "n_inputs_gt_1e9": null,
-  "n_inputs_gt_1": null
+  "verdict": "FAILS",
+  "max_dev": 23.27727270748062,
+  "mean_s_per_eval": 2.8967066658626908,
+  "n_inputs_gt_1e9": 18,
+  "n_inputs_gt_1": 16
  },
  "C": {
-  "verdict": "NOT RUN",
-  "max_dev": null,
-  "mean_s_per_eval": null,
-  "n_inputs_gt_1e9": null,
-  "n_inputs_gt_1": null
+  "verdict": "FAILS",
+  "max_dev": Infinity,
+  "mean_s_per_eval": 1.4735426993803544,
+  "n_inputs_gt_1e9": 20,
+  "n_inputs_gt_1": 3
  },
  "D": {
-  "verdict": "NOT RUN",
-  "max_dev": null,
-  "mean_s_per_eval": null,
-  "n_inputs_gt_1e9": null,
-  "n_inputs_gt_1": null
+  "verdict": "DETERMINISTIC",
+  "max_dev": 0.0,
+  "mean_s_per_eval": 1.7547331614927806,
+  "n_inputs_gt_1e9": 0,
+  "n_inputs_gt_1": 0
  },
- "recommendation": "NONE: no scheme is deterministic by the registered rule"
+ "recommendation": "D"
 }
