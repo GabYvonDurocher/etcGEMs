@@ -6,7 +6,7 @@
 
 *Evidence:* reports/ecoli_deck/E6_VERIFICATION.md records source checks, render checks and the before/after page counts. P16 sources read at 191b4b0, Q1 at b163bad. No E6 solves. Quarto renders deck.qmd to _output/deck.pdf; check_frames.py checks clipping and measure_figures.py preserves the eight known legibility failures.
 
-**This report was last written at** `31bfc94` (2026-09-13) — Merge branch 'main' into q1/n0-check
+**This report was last written at** `4ad7fba` (2026-09-16) — H1: the deck -- nine slides brought current from the record (P16's seed 2 landed and DISAGREED; the infeasibility exemption now fixed; the evidence numbers revised), three slides added, one silently clipped frame caught by check_frames.py and fixed; 59 -> 62 pages, render clean
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 

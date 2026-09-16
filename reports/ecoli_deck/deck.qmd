@@ -351,19 +351,21 @@ The plotted conversion gives a warm-end decline. An unresolved carbon-per-cell c
 - **The first clean nested run in this family:** 14,088 iterations, 221,781 likelihood evaluations, **9.585 hours**, no crash
 - **Log evidence $\log Z=-26.030\pm0.109$**, effective sample size **5,988**. The recorded stopping statistic reached **0.09999**, below 0.1
 - At the previous run's failure point, **iteration 11,547**, dlogz was **0.666 versus 2.168**, at a comparable evaluation count
-- **Seed 2 is in flight. Independent confirmation is pending.** All posterior numbers shown here come from seed 1 alone
+- **Seed 2 landed, and the two seeds did not agree.** Evidence agreed ($\Delta\log Z=0.022$ against a combined error of 0.148) but **14 of 15 parameter medians differed by more than two Monte-Carlo errors**, so the pre-registered rule reads DISAGREE
+- **This run has since been superseded.** Its likelihood exempted infeasible models from the respiration score; the revision that fixes that is two slides on
 
 ## The stopping and reproducibility rules
 
 - **Pre-registered sampler:** `dynesty`, 800 live points, random-direction slice sampling (`rslice`, 3 slices), multiple ellipsoidal bounds
 - **Stopping rule:** estimated remaining change in log evidence, **dlogz $<0.1$**. Evidence uncertainty is a separate quantity
 - **Agreement requires both:** the two log evidences agree within their combined reported errors **and** no parameter median differs by more than two Monte-Carlo errors
-- Seed 1 meets its stopping rule. **The two-seed agreement test has no result yet.** Sampler convergence alone does not establish useful biological predictions
+- **The test has a result: DISAGREE.** Both seeds met the stopping rule; the evidences agreed and the medians did not. Sampler convergence alone does not establish useful biological predictions — and here it did not even establish reproducibility
+- **The same rule has since been applied twice more**, to the revised target (three slides on) and with the same verdict
 
 ## What the reduction assumes
 
-- **`tm_scale` does not pile up at its upper bound:** median **1.069**, 5th--95th percentiles **[0.793, 1.515]**, prior bounds **[0.4, 2.2]**
-- **0.00% of seed 1's posterior weight** lies within 5% of that upper bound. There is no observed boundary pile-up in this run
+- **`tm_scale` does not reach its hard upper bound:** seed 1 median **1.069** [0.793, 1.515], seed 2 median **0.956** [0.783, 1.228], prior bounds **[0.4, 2.2]**; **0.00%** of either run's weight lies within 5% of 2.2
+- **But under the revised likelihood it presses against the prior's *mass*:** medians **1.319** and **1.232**, sitting at the **99.4th percentile of the prior** in every run. The hard bound is never reached and the prior is still doing the constraining — the distinction matters and both numbers are given
 - The failed 16-parameter run identified a numerical difficulty in its remaining sampling points. **That geometry cannot be treated as the full posterior**
 - **Fixing $dT_m$ assumes the meltome's mean is right.** Any uniform error in measured melting temperatures must now be absorbed by `tm_scale` and the catalytic parameters
 
@@ -379,6 +381,7 @@ Measured peak: **2.0761 h$^{-1}$**. Results below are provisional, from seed 1.
 - The MAP reaches **83% of the measured peak**
 - **300 draws sampled using posterior weights:** median peak **0.0016 h$^{-1}$**, 5th--95th percentiles **[0.0000, 1.7106]**
 - **50.7% of these draws grow below half the measured peak.** This estimates low-growth posterior mass, not the fraction proven infeasible
+- **This is the finding the target revision removed.** Under the revised likelihood the same quantity is **1.4% and 2.4%** in two independent runs: the low-growth mass was the scoring rule, not the biology
 
 ## Why separate parameter medians give a misleading model
 
@@ -387,7 +390,7 @@ Measured peak: **2.0761 h$^{-1}$**. Results below are provisional, from seed 1.
 - Its growth $R^2=-2.01$ describes this unrepresentative vector. It cannot summarise the predictive performance of the full posterior
 - **Report the MAP alongside predictions drawn from the weighted joint posterior.** The median vector appears here only to show why it is unusable
 
-## The infeasibility exemption: a diagnosis under test
+## The infeasibility exemption: diagnosed, then fixed
 
 Earlier basin-map scores, before the current support rule:
 
@@ -397,15 +400,39 @@ Earlier basin-map scores, before the current support rule:
 | Respiration | −13.549 | −0.017 |
 
 - **The dead region gains about 13.5 units on respiration** because 11 of 12 temperatures have no feasible flux solution and receive no respiration score
-- The current clamp still skips missing or non-positive oxygen uptake. It addresses feasible low growth, but leaves this exemption
-- **Test now:** quantify infeasibility among low-growth posterior predictions and its contribution to their statistical weight. The basin example identifies a mechanism, not its share of the full posterior
+- **The share was then measured, not guessed:** of the 800 sampling points retained by the run above, **765 are infeasible at every measured temperature** and carry **81.5% of its posterior weight** — from about **16%** of the prior's volume
+- **The rule adopted:** a parameter set with no feasible flux solution at any measured temperature has **zero likelihood**. This is the limit of the existing log-scale term, not a penalty and not a fitted constant
 
 ## Why a converged posterior can favour poor predictions
 
 - The earlier live--dead gap is about **11.7 log-likelihood units**, a **dead-to-live likelihood ratio of roughly $8\times10^{-6}$**
 - Posterior mass also depends on **how much prior volume each region occupies**. A sufficiently larger dead region can outweigh that fit disadvantage
 - Illustration only: in 15 dimensions, a live region occupying **46% of prior width per axis** has volume about $8\times10^{-6}$ of the full box. The actual regions need not be rectangular
-- **The cause remains under test.** Seed 1 converged, but convergence does not validate the likelihood. This finding concerns this model and scoring rule, not enzyme-constrained models in general
+- **The cause was confirmed and the rule changed.** Convergence did not validate the likelihood; the measurement did, and the scoring rule now excludes the dead region rather than rewarding it. This finding concerns this model and scoring rule, not enzyme-constrained models in general
+
+## The revision worked — and the runs still disagree
+
+Configuration D on NLDM, 15 sampled parameters (one was never read by the model), infeasible sets scored at zero likelihood. Three independent runs on reserved seeds.
+
+- **Every posterior sample is now feasible at every measured temperature**, and **97.6–98.6%** of predictive draws grow above half the measured peak. The dead region is gone, as designed
+- **The prior rejects 16.5%** of itself as infeasible [14.9, 18.1], almost always at the coldest temperature — a property of the model worth explaining, not a defect of the fit
+- **The two runs that finished still disagree:** $\log Z=-27.707\pm0.110$ against $-28.047\pm0.100$, and **all 14 physical medians** differ by more than two Monte-Carlo errors
+- **A positive control failed too.** A coordinate that provably enters nothing should recover its own prior; in both runs it does not
+- **The third run crashed.** Its cause is the next slide
+
+## The likelihood is not a function of its parameters
+
+The crash point was stored as **−18.480**; re-evaluated from a clean process it is **−19.761**, every time — **1.28 too high**, and below the threshold it was meant to clear.
+
+| scheme | max deviation from a clean evaluation | cost |
+|:--|--:|--:|
+| current | 1.815 | 1.79 s |
+| reset the solver each call | **23.277** | 2.91 s |
+| single-solve lexicographic | different vertex — **disqualified** | 1.49 s |
+| **a fresh model each call** | **0.000** | **5.70 s** |
+
+- The oxygen flux can sit on a *face* of the linear program, and which point the solver returns depends on what that worker solved before. **Only a fresh model per evaluation is exact**, at **3.2×** cost
+- **This does not explain the disagreement above** — those samples re-evaluate clean
 
 ## Auditing the published model
 
@@ -441,7 +468,7 @@ Earlier basin-map scores, before the current support rule:
 
 - **Settled.** One shared codebase with seven organism models on it, under the regression suite. The mechanisms: measured proteome sectors, overflow emerging from a carbon cap, the ETC area budget. The audits — including the reference implementation passing ours
 - **Settled, and uncomfortable.** No interval from the older *E. coli* fits is available. The likelihood surface is structurally rough. The meltome's low tail is contradicted by every fit
-- **Converged, awaiting confirmation.** The reduced 15-parameter run reached its stopping rule. Seed 2 is in flight. Seed 1 gives substantial weight to very-low-growth predictions
+- **Diagnosed, not yet solved.** Five independent runs have now met their stopping rules across two versions of the likelihood, and **no two of them agree**. The scoring defect that rewarded infeasible models is fixed and measured; the remaining obstacle is that the likelihood is not reproducible in a worker pool, which is now measured too, with a remedy costed
 - **Needs measurement — not more modelling.** Proteome allocation **above 37 °C on glucose** — the measurement exists, its *range* does not, and that is where $CT_{max}$ is set; maintenance vs temperature from a low-dilution chemostat (`ngam_*` are borrowed); *in vivo* stability for the enzymes that set the thermal limit
 
 ## Has it ever predicted anything it was not fitted to?
@@ -462,15 +489,25 @@ Earlier basin-map scores, before the current support rule:
 - **E: a respiratory membrane-area budget** limits respiratory capacity
 - **F: that area budget with non-electrogenic bd-II** changes respiratory coupling
 - These are **competing mechanisms**. Compare their log evidences on the **same medium and observations**, with a common scoring rule and declared comparable priors
-- Nested sampling returns evidence with the posterior. D on NLDM currently gives **$-26.030\pm0.109$ from seed 1**. It is a provisional starting value, not a D/E/F comparison; changing the likelihood requires a new D result too
+- Nested sampling returns evidence with the posterior. Under the **revised** likelihood, D on NLDM gives **$-27.707\pm0.110$** and **$-28.047\pm0.100$** on two independent seeds — which **do not agree** within their combined error
+- **So there is no D value to compare against yet.** The comparison needs a reproducible number first; that is one remedy away, not one run away
+- A further caution for E and F: their oxygen flux sits on a *face* far more often than D's, so the reproducibility obstacle is **an order of magnitude larger** there
 
 ## What happens next
 
-- Confirm seed reproducibility against the pre-registered rule.
-- Resolve the infeasibility exemption before further fits.
+- **Decide the determinism remedy** — a fresh model per evaluation is the only exact one, at 3.2× cost. Everything below inherits it.
+- **Then one run under that remedy**, to see whether the seeds still disagree. That is the cheap test of whether a second cause is real.
 - Test D on fully defined M9.
 - Compare D/E/F evidences on one medium.
 - Measure glucose proteome allocation above 37 °C.
+
+## What is handed over
+
+- **A working framework.** Seven organism models on one codebase, two regression gates passing at every commit (79/79 and 60/60), the mechanisms implemented as options that are off until a strain turns them on
+- **A likelihood that is right, and an inference that is not.** The scoring rule now treats infeasibility correctly and every instrument that established it is committed and re-runnable
+- **A named obstacle with a costed remedy**, rather than an unexplained failure — and a second cause still open, stated as open
+- **Every self-correction on the record**: the multimodality reading withdrawn, a parameter found never to be read, a "96%" corrected to 16.5%, a remedy measured and found worse than doing nothing
+- **The decisions that are the group's**, gathered in one list with owners, in `docs/HANDOVER.md`
 
 ## Three questions for the group
 

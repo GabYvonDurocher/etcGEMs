@@ -181,3 +181,30 @@ rows **T2a–T2e**; `reports/T2_validated_posterior/report.md`.
 
 No re-render.
 
+## Dated note — 2026-09-16 (H1): which sections of this synthesis are superseded, and which stand
+
+`synthesis.qmd` is **not edited and not re-rendered**; this note says how to read it now. Its
+successor **for everything after 9 September 2026** is
+`reports/H1_handover/calibration_investigation.pdf`.
+
+**What stands, unqualified:** the framework and the two gates; the seven organism models; the
+mechanisms (proteome sectors, overflow from a carbon cap, the ETC area budget); the Candida
+K-series results; the audits of the published yeast model; the predictor validation; and the
+evidence discipline itself — `evidence.csv` is still the live row set and has been appended to
+continuously since (74 rows then, 105 now).
+
+**What is superseded:**
+
+| section | why |
+|---|---|
+| the sampling and convergence discussion | already flagged "wrong twice over" by the P8 note below and overtaken four times since. The current account is §2–§8 of the H1 report: the surface was cliffed rather than the sampler weak; the cliffs were the LP's oxygen vertex-jumping; both were fixed; and the obstacle now is that the likelihood is not a deterministic function of its parameters in a worker pool |
+| the three **PROVISIONAL-ON-P6** claims | they will never fill. P6 was halted and its diagnosis, not its chains, is the result |
+| anything anticipating a posterior or an interval | there is still none, now for a diagnosed reason. R1 is open |
+| the multimodality framing carried over from the published precedent | withdrawn by the P12 note below, with its numbers unedited |
+
+**What this document should still be read for:** it is the only place the framework, the organism
+models and the non-calibration results are assembled in one narrative, and the H1 report
+deliberately does not repeat that.
+
+No re-render.
+

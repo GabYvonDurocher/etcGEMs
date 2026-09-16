@@ -6,7 +6,7 @@
 
 *Evidence:* `python reports/synthesis/build_evidence.py` regenerates evidence.csv (74 rows); `python reports/synthesis/fig_requirement_arithmetic.py` regenerates the one figure; `quarto render reports/synthesis/synthesis.qmd` produces the 10-page PDF.
 
-**This report was last written at** `21f8176` (2026-09-16) — T3: record -- report with the four-scheme table and the recommendation; OPEN_ITEMS 1.34 measured, 1.35 opened, 1.22 restated as a correctness question, section-4 hazard in its general form; evidence T3a-T3d; dated note in P17's report; report_status; stamps
+**This report was last written at** `22482ea` (2026-09-16) — H1: repository closed -- OPEN_ITEMS dated pause entry and the PI decision list in one place, 1.9 brought current, 1.36 opened; synthesis README note on what is superseded; report_status entry for H1_handover (all 42 directories now covered); evidence H1a-H1b; stamps
 
 **Reads no committed strain-output directory** (self-contained, or its inputs are its own files).
 

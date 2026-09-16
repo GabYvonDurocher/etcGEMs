@@ -642,3 +642,21 @@ T3_determinism:
     core; t3_table.py applies D0's decision rule to battery_*.json; t3_task2.py re-evaluates the
     high-weight posterior samples of T2's runs 1 and 2 in a fresh process each.
 
+H1_handover:
+  status: CURRENT
+  note: >-
+    The pause-and-hand-over run: no fit, no sampler, no model or likelihood change, no derived table
+    altered, no option enabled. Writes the calibration investigation from P16 to T3
+    (calibration_investigation.pdf, the successor to reports/synthesis/ for everything after
+    9 September), brings the deck current from the record (9 slides changed, 3 added, 59 -> 62
+    pages), assesses Parsa's per-medium N0 and carbon constants and finds them a LIKELIHOOD change
+    rather than the figures update his METHODS claims -- M9's respiration observable would halve --
+    recommending without applying, and writes docs/HANDOVER.md for a collaborator opening the
+    repository cold. Every number in the report is traced to a committed file and a commit.
+  evidence: >-
+    calibration_investigation.qmd renders to _output/calibration_investigation.pdf with quarto under
+    the synthesis's house convention (header.tex, nature-communications.csl); parsa_1_9/ holds the
+    two source files Parsa sent with their SHA-256; parsa_1_9_assessment.md verifies his arithmetic
+    and quantifies the per-medium movement from the committed derived tables; gates_worktree.sh runs
+    the seven-strain battery (79/79, 60/60 at main 897d78e, task0_gates.log).
+
