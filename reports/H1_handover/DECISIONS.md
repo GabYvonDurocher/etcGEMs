@@ -131,3 +131,55 @@ tree: **106 of 107 resolve**.
   rests on the missing file. **It is left as it stands**: changing another run's evidence row to
   point somewhere else would edit a record rather than correct a path, and H1 does not do that.
   Noted here so the next person does not have to rediscover it.
+
+## D6 — TASK 5's branch cleanup: 33 branches deleted, 9 retained because a worktree holds them, 1 protected
+
+Run **after** the fresh clone proved the work had landed, as the constraints require, never with
+`--force`.
+
+**Origin is now clean: `origin/main` and nothing else.** All seven remote branches were merged and
+all seven were deleted (`h1/evidence-path`, `h1/handover`, `h1/pdf-path`, `t1/housekeeping-wt`,
+`t1/target-revision`, `t2/validated-posterior`, `t3/determinism`).
+
+**Locally, 26 of 35 branches were deleted** with `git branch -d` (which refuses anything unmerged,
+so the merge state was checked twice over). What remains, and why:
+
+- **`codex/p17-inactive-prior` — PROTECTED and skipped by name.** It is the only ref keeping ~2.9 GB
+  of P17 artefacts reachable, it is not merged, and it is never merged, pushed or deleted. Its
+  worktree at `../etcGEMs-p17-archive` is untouched and still shows `ef1961b`.
+- **Nine merged branches git refused to delete because a worktree has them checked out**:
+  `t1/housekeeping` (the **primary tree**, which also holds the stale `index.lock` and must not be
+  disturbed), `t1/target-revision`, `t2/validated-posterior`, `t3/determinism`, and the five
+  K-series branches `k4/membrane-candida`, `k5/respire`, `k6/like-for-like`, `k8/tm-bias`,
+  `k9/criterion`.
+
+**These nine were left rather than forced.** Deleting them would mean removing eight worktrees
+first, which is a filesystem deletion of the user's checkouts that this prompt did not ask for and
+which could discard uncommitted work; and the ninth is the primary tree. Every one of their
+branches is fully merged into `main`, so the *content* is safe on origin either way. Clearing them
+is one command per worktree (`git worktree remove <path> && git branch -d <branch>`) whenever the
+user wants the disk back — deliberately left as the user's call. `git worktree list` also shows
+seven **prunable** entries under old session scratch directories; `git worktree prune` clears
+those, and was not run for the same reason.
+
+## D7 — TASK 6: proved from a fresh clone, twice
+
+The clone check was run **before** deletion (which is what caught the PDF path defect, D4) and
+again **after**, against `origin/main` at **`ee7d183`**, into a scratch directory outside every
+worktree.
+
+| check | result |
+|---|---|
+| commit | `ee7d183`, "Merge H1: evidence path correction (PR #45)" |
+| tracked files / size | **2,897 files, 180.59 MiB** |
+| Candida gate | **79 comparisons, 79 PASS, 0 FAIL** |
+| *E. coli* port gate | **60 comparisons, 60 PASS, 0 FAIL** |
+| `stamp_reports.py --check` | every report stamp is up to date |
+| the five governing documents | all present |
+| `reports/H1_handover/` | the **9-page** report PDF, the Parsa assessment and both of his source files present |
+| `reports/ecoli_deck/_output/deck.pdf` | **62 pages**, TASK 2's count |
+| every repository path `HANDOVER.md` names | **0 of 9 missing** |
+| `codex/p17-inactive-prior` on origin | **absent**, as required |
+
+The scratch clone was deleted afterwards. The archive worktree and branch were never entered,
+moved or modified at any point in this run.
